@@ -1,9 +1,10 @@
 from pathlib import Path
 import unittest
 
-from frontend.dependency import build_all_dependency_graphs
+from frontend.dependency import ModuleGraphProvider, build_all_dependency_graphs
 from frontend.design_graph import (
     backward_design_slice,
+    backward_instance_slice_lazy,
     discover_design_events,
     flatten_design_dependency_graph,
 )
@@ -72,6 +73,30 @@ class DesignGraphTests(unittest.TestCase):
         result = backward_design_slice(self.graph, event.seeds())
         self.assertIn("DCacheTop::io.tl_c.ready", result.frontier)
         self.assertIn("DCacheTop::io.tl_b.valid", result.frontier)
+
+    def test_instance_subtree_slice_stops_at_owned_module_inputs(self):
+        provider = ModuleGraphProvider.create(self.text, self.design)
+        event = self.events["DCacheTop.prober::io.req.fire"]
+
+        _, local = backward_instance_slice_lazy(
+            self.design,
+            provider,
+            event,
+            root_instance="DCacheTop.prober",
+        )
+        self.assertTrue(local.complete)
+        self.assertIn("DCacheTop.prober::io.req.valid", local.frontier)
+        self.assertNotIn("DCacheTop::io.tl_b.valid", local.signals)
+
+        _, dcache = backward_instance_slice_lazy(
+            self.design,
+            provider,
+            event,
+            root_instance="DCacheTop",
+        )
+        self.assertTrue(dcache.complete)
+        self.assertIn("DCacheTop::io.tl_b.valid", dcache.signals)
+
 
 
 if __name__ == "__main__":

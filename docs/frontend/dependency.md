@@ -2,9 +2,9 @@
 
 ## 文件职责
 
-该文件实现 v5 静态前端的核心 **signal dependency IR**。
+实现 LLM 之前的 signal dependency IR，并在 v6 中针对真实 Chipyard FIRRTL 做性能和语法 hardening。
 
-输入仍然是 textual CHIRRTL/classic FIRRTL，但分析目标从 v4 的结构信息扩展为：
+图包含：
 
 ```text
 signal / reg / node / memory / instance-port
@@ -14,45 +14,26 @@ control dependency
 state dependency
 address dependency
 memory dependency
+alias dependency
 ```
 
-后续 event-centered slice 只在这个图上做 fixed point，不直接让 LLM 阅读整个 RTL。
+后续 slice、route、partition 都只消费这个静态图。
 
-## 设计原则
+## Fail-closed 原则
 
-### 1. fail-closed
-
-遇到不认识、又可能影响电路行为的 FIRRTL statement 时，不静默忽略，而是记录为 `UNSUPPORTED`。
-
-因此：
+任何 parser 不认识、又可能影响功能的 statement 都记为 `UNSUPPORTED`：
 
 ```text
-parser 不认识某条可能驱动电路的语句
-    -> coverage incomplete
-    -> static handoff 不允许进入 LLM
+unknown potentially-driving statement
+→ coverage incomplete
+→ static handoff blocked
 ```
 
-### 2. control 和 data 分开
-
-例如：
-
-```text
-mux(sel, a, b)
-```
-
-其中 `sel` 进入 `CONTROL` dependency，`a/b` 进入 `DATA` dependency。
-
-这对后续提取 guarded case 很重要，因为 branch selector 往往正是 case guard。
-
-### 3. register update 单独标记
-
-当 destination 属于 register 时，connect 产生 `STATE` edge，而不是普通 `DATA` edge。
-
-这样后续可以从组合图中机械恢复 register-to-register state dependency，并构建 SCC。
+因此“不认识”不会被误解释为“不相关”。
 
 ## `SignalKind`
 
-区分：
+支持：
 
 - `PORT`
 - `WIRE`
@@ -62,8 +43,6 @@ mux(sel, a, b)
 - `MEMORY_PORT`
 - `INSTANCE_PORT`
 - `UNKNOWN`
-
-`UNKNOWN` 不表示一定错误，只表示当前 signal 没有被声明 parser 精确分类。
 
 ## `DependencyKind`
 
@@ -78,178 +57,143 @@ mux(sel, a, b)
 - `MEMORY`
 - `ALIAS`
 
-普通 slice 默认不跟 clock/reset，避免时钟树淹没语义 cone。
-
-## `StatementStatus`
-
-- `SUPPORTED`：当前 parser 理解其 dependency 语义；
-- `NONDRIVING`：例如 assert/printf/metadata，对当前功能 backward slice 不作为 driver；
-- `UNSUPPORTED`：可能影响功能，但 parser 尚未支持。
-
-## `SignalInfo`
-
-保存 signal 名、类型、kind、source locator，以及 aggregate root。
+普通 memory-model slice 默认不跟 clock/reset，避免时钟树淹没语义 cone。
 
 ## `StatementRecord`
 
-保存每条 module statement 的：
+记录 FIRRTL line、statement kind、source locator、drives/reads/control reads 和 coverage status。
 
-```text
-id
-FIRRTL line
-kind
-raw text
-source locator
-drives
-reads
-control_reads
-status
-```
-
-这就是 coverage ledger 和 provenance 的基本单位。
-
-## `DependencyEdge`
-
-一条有向 dependency：
-
-$$
-src \rightarrow dst
-$$
-
-同时保存 dependency kind、对应 statement ids 和 source locator。
+这是 Coverage Ledger 的基本单位。
 
 ## `ModuleDependencyGraph`
 
-一个 module 的完整静态 dependency graph。
-
-主要内容：
-
-- `signals`
-- `edges`
-- `statements`
-- `register_roots`
-- `memory_roots`
-- `instance_modules`
-- `input_ports/output_ports`
-- `aggregate_leaves`
-
-### `add_signal()`
-
-登记信号；如果已有更精确类型，不用 `UNKNOWN` 覆盖它。
-
-### `ensure_signal()`
-
-dependency 中引用到尚未显式声明的信号时保守登记。
-
-### `is_register()` / `is_memory()`
-
-判断 leaf/subfield 是否属于某个 register/memory root。
-
-### `predecessors()`
-
-按 dependency kind 查询某个 signal 的直接前驱。
-
-### `unsupported_statements` / `complete`
-
-用于 fail-closed coverage 判断。
-
-## `ExpressionDependencies`
-
-把表达式引用拆成：
+保存一个 module 的：
 
 ```text
-data
-control
-address
+signals
+edges
+statements
+register roots
+memory roots
+instance modules
+ports
+aggregate type/leaf index
 ```
 
-### `merge()`
+`complete` 当且仅当不存在 unsupported functional statement。
 
-组合两个表达式 dependency 集合。
+## Expression dependency
 
-### `all_refs`
+`extract_expression_dependencies()` 区分 data/control/address。
 
-取得三类引用的并集。
+例如：
 
-## `extract_expression_dependencies()`
+```text
+mux(sel, a, b)
+```
 
-解析 FIRRTL expression dependency。
+得到：
 
-当前对 `mux`、`validif` 专门处理 control selector，其余 primop 保守作为 data dependency。
+```text
+sel -> CONTROL
+a,b -> DATA
+```
 
-动态 vector subaccess：
+动态 subaccess：
 
 ```text
 vec[idx]
 ```
 
-会得到：
+保留：
 
 ```text
-data    = vec[*]
-address = idx
+vec[*] -> DATA
+idx    -> ADDRESS
 ```
 
-即保留“由 idx 选择 element”这一事实。
+## FIRRTL 3.x textual syntax
 
-## `build_module_dependency_graph()`
-
-v5 的核心 parser。
-
-当前支持：
+v6 除旧 spelling 外，还支持真实 Chipyard 使用的：
 
 ```text
-wire
-node
-reg
-regreset
-<= / <- connect
-when / else
-cmem / smem
-read/write/infer mport
-is invalid
+connect dst, src
+invalidate target
 ```
 
-同时：
-
-- 展开已知 aggregate connect；
-- 把 enclosing `when` condition 加入 CONTROL edge；
-- register destination 产生 STATE edge；
-- memory mport 保留 ADDRESS/MEMORY dependency；
-- 未知 executable syntax 记为 `UNSUPPORTED`。
-
-### Aggregate connect 与 flip
-
-FIRRTL aggregate connect 在 flipped field 上可能反向传递。v5 只对 passive aggregate 做 leaf expansion。
-
-如果 direct aggregate connect 的 relevant subtype 含 flip，当前 parser 记为 `UNSUPPORTED`，不使用错误的统一 $src ightarrow dst$ 近似。
-
-这意味着真实 BOOM elaboration 如果保留大量 bidirectional aggregate connect，coverage 会明确失败，并驱动我们下一步实现完整 FIRRTL flow adapter。
-
-## `build_all_dependency_graphs()`
-
-对 design 中所有非 external module 构图。
-
-## `_add_wildcard_alias_edges()`
-
-如果同时见到：
+并继续兼容：
 
 ```text
-vec[*]
-vec[0]
-vec[1]
+dst <= src
+dst <- src
+target is invalid
 ```
 
-会增加保守 `ALIAS` edge，避免动态 subaccess 因具体 lane 展开而断链。
+`parameter` / `defname` 被识别为 non-driving metadata，而不是未知 executable logic。
+
+## Aggregate connect 与 flip
+
+v5 对含 `flip` 的 aggregate connect 只能 fail-closed。
+
+v6 已实现 leaf-level orientation parity。对于：
+
+```text
+connect B, A
+```
+
+普通 leaf 保持：
+
+$$
+A.valid \rightarrow B.valid
+$$
+
+而 flipped `ready` leaf 反向：
+
+$$
+B.ready \rightarrow A.ready
+$$
+
+这对 TileLink/Diplomacy aggregate connect 是必要的。
+
+此外，真实 FIRRTL 经常连接 aggregate 子前缀，例如：
+
+```text
+connect widget.auto.anon_in, dcache.auto.out
+```
+
+v6 会按相同 relative leaf suffix 对齐，而不是把几十个 leaf 压成一个 synthetic aggregate signal。
+
+## `ModuleGraphProvider`
+
+完整 Chipyard FIRRTL 有上千个 module。预先构建所有 dependency graph 会浪费大量内存和时间。
+
+`ModuleGraphProvider` 保存：
+
+```text
+whole FIRRTL text
+module line/span index
+lazy graph cache
+```
+
+调用 `get()/require()` 时只构造当前真正需要的 module graph。
+
+## 性能 hardening
+
+v6 做了三项关键优化：
+
+1. **module span index**：不再为每个 module 重扫整个 69 MiB FIRRTL；
+2. **subaggregate index**：aggregate descendant 查询不再扫描全 module；
+3. **dynamic wildcard shape buckets**：`vec[*]` alias 不再做二次方 regex 比较。
+
+真实 BOOM `LSU`、`BoomCore` 等大 module 因此可以按秒级构图。
 
 ## 当前限制
 
-v5 主要针对 CHIRRTL 高层语法。尚未完整支持：
+仍未声称支持所有可能的 FIRRTL/CIRCT 语言：
 
-- CIRCT FIRRTL-dialect MLIR SSA 语法；
-- 所有 lowered memory attribute/block 形式；
-- layer/probe/property 等高级 FIRRTL 构造；
-- memory read-under-write 的精确值语义；
-- 参数化 blackbox 内部行为。
+- FIRRTL-dialect MLIR SSA 使用独立 adapter；
+- blackbox 内部行为不可从 textual boundary 推断；
+- memory read-under-write 仍是依赖级而非完整值语义；
+- advanced property/layer/probe construct 必须由真实 coverage 决定是否实现。
 
-这些缺口如果出现在真实 BOOM elaboration 中，会被 coverage ledger 暴露，而不会静默通过。
+只要这些构造进入相关 cone，Coverage Ledger 仍会 fail-closed。

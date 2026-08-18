@@ -406,7 +406,9 @@ _INST_RE = re.compile(
 _WIRE_RE = re.compile(r"^\s*wire\s+([A-Za-z_.$][A-Za-z0-9_.$]*)\s*:\s*(.+)$")
 _NODE_RE = re.compile(r"^\s*node\s+([A-Za-z_.$][A-Za-z0-9_.$]*)\s*=\s*(.+)$")
 _CONNECT_RE = re.compile(r"^\s*(.+?)\s*(<=|<-)\s*(.+)$")
+_CONNECT_KEYWORD_RE = re.compile(r"^\s*connect\s+([^,]+?)\s*,\s*(.+)$")
 _INVALID_RE = re.compile(r"^\s*(.+?)\s+is\s+invalid\s*$")
+_INVALID_KEYWORD_RE = re.compile(r"^\s*invalidate\s+(.+?)\s*$")
 _WHEN_RE = re.compile(r"^\s*when\s+(.+?)\s*:\s*$")
 _ELSE_RE = re.compile(r"^\s*else\s*:\s*$")
 _CMEM_RE = re.compile(r"^\s*(cmem|smem)\s+([A-Za-z_.$][A-Za-z0-9_.$]*)\s*:\s*(.+)$")
@@ -422,6 +424,8 @@ _NONDRIVING_PREFIXES = (
     "assert",
     "assume",
     "cover",
+    "parameter ",
+    "defname ",
 )
 
 _METADATA_PREFIXES = (
@@ -507,62 +511,55 @@ def _root_for_signal(name: str, aggregate_leaves: Mapping[str, tuple[str, ...]])
     return max(candidates, key=len)
 
 
+def _aggregate_descendants(
+    prefix: str,
+    graph: ModuleDependencyGraph,
+) -> list[str]:
+    """Return known aggregate leaves underneath an arbitrary sub-prefix."""
+    direct = graph.aggregate_leaves.get(prefix)
+    if direct is not None:
+        return list(direct)
+    # Known non-aggregate signals are scalar leaves; do not scan the module.
+    if prefix in graph.signals:
+        return []
+    # Rare fallback for a not-yet-registered unusual sub-prefix.
+    out = {
+        leaf
+        for leaves in graph.aggregate_leaves.values()
+        for leaf in leaves
+        if _is_prefix(prefix, leaf)
+    }
+    return sorted(out)
+
+
 def _expand_connect_pairs(
     dst: str,
     src: str,
-    aggregate_leaves: Mapping[str, tuple[str, ...]],
+    graph: ModuleDependencyGraph,
 ) -> list[tuple[str, str]]:
-    """Expand aggregate connects when leaf structure is known.
+    """Expand scalar, aggregate-root, and aggregate-subfield connects.
 
-    If both roots are known, equal relative suffixes are paired. If only the
-    destination is known, each destination leaf conservatively depends on the
-    source aggregate. If neither is known, a scalar/root edge is emitted.
+    Real Diplomacy FIRRTL frequently connects subaggregates such as
+    `widget.auto.anon_in` to `dcache.auto.out`.  v5 only stored leaf lists at
+    the enclosing instance-port root, so treating these subaggregates as
+    unknown collapsed dozens of physical leaves onto one synthetic root.  v6
+    instead discovers descendants by prefix and pairs equal relative suffixes.
     """
 
-    dst_root = _root_for_signal(dst, aggregate_leaves)
-    src_root = _root_for_signal(src, aggregate_leaves)
+    dst_desc = _aggregate_descendants(dst, graph)
+    src_desc = _aggregate_descendants(src, graph)
 
-    dst_is_root = dst in aggregate_leaves
-    src_is_root = src in aggregate_leaves
-
-    if dst_is_root and src_is_root:
-        dst_by_suffix = {
-            _relative_suffix(dst, leaf): leaf
-            for leaf in aggregate_leaves[dst]
-        }
-        src_by_suffix = {
-            _relative_suffix(src, leaf): leaf
-            for leaf in aggregate_leaves[src]
-        }
+    if dst_desc and src_desc:
+        dst_by_suffix = {leaf[len(dst):]: leaf for leaf in dst_desc}
+        src_by_suffix = {leaf[len(src):]: leaf for leaf in src_desc}
         common = sorted(set(dst_by_suffix) & set(src_by_suffix))
         if common:
-            return [(dst_by_suffix[suffix], src_by_suffix[suffix]) for suffix in common]
+            return [
+                (dst_by_suffix[suffix], src_by_suffix[suffix])
+                for suffix in common
+            ]
 
-    if dst_is_root:
-        return [(leaf, src) for leaf in aggregate_leaves[dst]]
-
-    # A connect to a known aggregate sub-prefix (for example io.bits) can be
-    # expanded by selecting descendants underneath that prefix.
-    dst_desc = [
-        leaf
-        for root, leaves in aggregate_leaves.items()
-        if _is_prefix(root, dst) or _is_prefix(dst, root)
-        for leaf in leaves
-        if _is_prefix(dst, leaf)
-    ]
-    dst_desc = sorted(set(dst_desc))
     if dst_desc:
-        if src_is_root:
-            src_by_suffix = {
-                _relative_suffix(src, leaf): leaf
-                for leaf in aggregate_leaves[src]
-            }
-            pairs: list[tuple[str, str]] = []
-            for leaf in dst_desc:
-                suffix = leaf[len(dst):]
-                matching = src_by_suffix.get(suffix)
-                pairs.append((leaf, matching or src))
-            return pairs
         return [(leaf, src) for leaf in dst_desc]
 
     return [(dst, src)]
@@ -580,28 +577,110 @@ def _type_contains_flip(type_: FirrtlType) -> bool:
     return False
 
 
+def _leaf_flip_map(
+    root: str,
+    type_: FirrtlType,
+    flipped: bool = False,
+) -> dict[str, bool]:
+    """Return relative FIRRTL orientation parity for every leaf.
+
+    Aggregate `connect` is bidirectional when bundles contain `flip` fields.
+    The textual FIRRTL emitted by current Chipyard relies heavily on these
+    connects (TileLink/Diplomacy).  A leaf whose orientation parity is flipped
+    flows in the opposite direction from the aggregate spelling.
+    """
+    from .model import BundleType, VectorType
+
+    if isinstance(type_, GroundType):
+        return {root: flipped}
+    if isinstance(type_, BundleType):
+        out: dict[str, bool] = {}
+        for field in type_.fields:
+            out.update(
+                _leaf_flip_map(
+                    f"{root}.{field.name}",
+                    field.type,
+                    flipped ^ field.flipped,
+                )
+            )
+        return out
+    if isinstance(type_, VectorType):
+        out: dict[str, bool] = {}
+        for index in range(type_.size):
+            out.update(
+                _leaf_flip_map(
+                    f"{root}[{index}]",
+                    type_.element,
+                    flipped,
+                )
+            )
+        return out
+    return {}
+
+
+def _parse_connect(body: str) -> tuple[str, str] | None:
+    """Accept legacy `<=`/`<-` and FIRRTL 3.x `connect dst, src`."""
+    keyword = _CONNECT_KEYWORD_RE.match(body)
+    if keyword:
+        return keyword.group(1), keyword.group(2)
+    legacy = _CONNECT_RE.match(body)
+    if legacy:
+        return legacy.group(1), legacy.group(3)
+    return None
+
+
+def _parse_invalidate(body: str) -> str | None:
+    """Accept legacy `x is invalid` and FIRRTL 3.x `invalidate x`."""
+    keyword = _INVALID_KEYWORD_RE.match(body)
+    if keyword:
+        return keyword.group(1)
+    legacy = _INVALID_RE.match(body)
+    if legacy:
+        return legacy.group(1)
+    return None
+
+
 def _register_subaggregate_types(
     graph: ModuleDependencyGraph,
     prefix: str,
     type_: FirrtlType,
-) -> None:
+) -> tuple[str, ...]:
+    """Index every aggregate prefix directly to its descendant leaves.
+
+    This turns subaggregate connect expansion from a scan over every leaf in
+    the module into an O(1) prefix lookup, which is essential for BoomCore and
+    large TileLink bundles.
+    """
     from .model import BundleType, VectorType
+
+    if isinstance(type_, GroundType):
+        return (prefix,)
+
+    graph.aggregate_types[prefix] = type_
+    leaves: list[str] = []
+
     if isinstance(type_, BundleType):
-        graph.aggregate_types[prefix] = type_
         for field in type_.fields:
-            _register_subaggregate_types(
-                graph,
-                f"{prefix}.{field.name}",
-                field.type,
+            leaves.extend(
+                _register_subaggregate_types(
+                    graph,
+                    f"{prefix}.{field.name}",
+                    field.type,
+                )
             )
     elif isinstance(type_, VectorType):
-        graph.aggregate_types[prefix] = type_
         for index in range(type_.size):
-            _register_subaggregate_types(
-                graph,
-                f"{prefix}[{index}]",
-                type_.element,
+            leaves.extend(
+                _register_subaggregate_types(
+                    graph,
+                    f"{prefix}[{index}]",
+                    type_.element,
+                )
             )
+
+    result = tuple(leaves)
+    graph.aggregate_leaves[prefix] = result
+    return result
 
 
 def _register_aggregate(
@@ -619,9 +698,9 @@ def _register_aggregate(
         )
         return
 
-    _register_subaggregate_types(graph, root, type_)
-    leaves = _leaf_names_for_type(root, type_)
-    graph.aggregate_leaves[root] = leaves
+    leaves = _register_subaggregate_types(graph, root, type_)
+    if root not in graph.aggregate_leaves:
+        graph.aggregate_leaves[root] = leaves
     graph.add_signal(
         SignalInfo(root, kind=kind, source=source, type_text=type_text)
     )
@@ -660,7 +739,12 @@ def _add_expr_edges(
         )
 
 
-def _module_body_lines(text: str, module_name: str) -> list[tuple[int, str]]:
+def _module_body_lines(
+    text: str,
+    module_name: str,
+    *,
+    line_offset: int = 0,
+) -> list[tuple[int, str]]:
     lines = text.splitlines()
     start: int | None = None
     module_indent: int | None = None
@@ -683,7 +767,7 @@ def _module_body_lines(text: str, module_name: str) -> list[tuple[int, str]]:
         match = _MODULE_START_RE.match(body)
         if match and _indent_of(line) <= module_indent:
             break
-        out.append((index + 1, line))
+        out.append((line_offset + index + 1, line))
     return out
 
 
@@ -691,6 +775,8 @@ def build_module_dependency_graph(
     text: str,
     design: Design,
     module_name: str,
+    *,
+    line_offset: int = 0,
 ) -> ModuleDependencyGraph:
     """Build a conservative signal-dependency graph from classic FIRRTL/CHIRRTL.
 
@@ -777,7 +863,9 @@ def build_module_dependency_graph(
         statement_id += 1
         return record
 
-    for line_number, raw_line in _module_body_lines(text, module_name):
+    for line_number, raw_line in _module_body_lines(
+        text, module_name, line_offset=line_offset
+    ):
         stripped = raw_line.strip()
         if not stripped or stripped.startswith(";"):
             continue
@@ -1016,9 +1104,9 @@ def build_module_dependency_graph(
                 graph.add_edge(DependencyEdge(ref, port_name, DependencyKind.CONTROL, (record.id,) + enclosing_statement_ids, source))
             continue
 
-        invalid_match = _INVALID_RE.match(body)
-        if invalid_match:
-            dst, _ = _canonicalize_reference(invalid_match.group(1).strip())
+        invalid_target = _parse_invalidate(body)
+        if invalid_target is not None:
+            dst, _ = _canonicalize_reference(invalid_target.strip())
             next_statement(
                 line_number=line_number,
                 indent=indent,
@@ -1031,9 +1119,9 @@ def build_module_dependency_graph(
             )
             continue
 
-        connect_match = _CONNECT_RE.match(body)
-        if connect_match:
-            raw_dst, connect_op, expr = connect_match.groups()
+        connect_parts = _parse_connect(body)
+        if connect_parts is not None:
+            raw_dst, expr = connect_parts
             dst, dst_index_refs = _canonicalize_reference(raw_dst.strip())
             deps = extract_expression_dependencies(expr)
             # Destination subaccess index controls which storage element is written.
@@ -1054,34 +1142,19 @@ def build_module_dependency_graph(
             if direct_src_match:
                 direct_src, _ = _canonicalize_reference(expr.strip())
 
-            # Aggregate connect flow can reverse through flipped fields. v5
-            # handles passive aggregates but refuses to guess bidirectional
-            # aggregate flow until a full FIRRTL flow adapter is implemented.
+            # FIRRTL aggregate connects reverse flow on fields with odd `flip`
+            # parity.  Current Chipyard textual FIRRTL uses these connects for
+            # Diplomacy/TileLink bundles, so model the leaf flow exactly instead
+            # of rejecting the whole statement.
             dst_type = graph.aggregate_types.get(dst)
-            src_type = graph.aggregate_types.get(direct_src) if direct_src is not None else None
-            if (
-                direct_src is not None
-                and (
-                    (dst_type is not None and _type_contains_flip(dst_type))
-                    or (src_type is not None and _type_contains_flip(src_type))
-                )
-            ):
-                next_statement(
-                    line_number=line_number,
-                    indent=indent,
-                    kind="aggregate_connect_with_flips",
-                    text_body=stripped_body,
-                    source=source,
-                    status=StatementStatus.UNSUPPORTED,
-                    note=(
-                        "aggregate connect contains flipped fields; v5 refuses "
-                        "to approximate FIRRTL bidirectional flow"
-                    ),
-                )
-                continue
+            dst_leaf_flips = (
+                _leaf_flip_map(dst, dst_type)
+                if dst_type is not None
+                else {}
+            )
 
             pairs = (
-                _expand_connect_pairs(dst, direct_src, graph.aggregate_leaves)
+                _expand_connect_pairs(dst, direct_src, graph)
                 if direct_src is not None
                 else [(dst, None)]
             )
@@ -1100,17 +1173,28 @@ def build_module_dependency_graph(
             )
 
             for leaf_dst, leaf_src in pairs:
+                reverse_flow = bool(dst_leaf_flips.get(leaf_dst, False))
+                actual_dst = (
+                    leaf_src
+                    if reverse_flow and leaf_src is not None
+                    else leaf_dst
+                )
+                actual_src = (
+                    leaf_dst
+                    if reverse_flow and leaf_src is not None
+                    else leaf_src
+                )
                 default_kind = (
                     DependencyKind.STATE
-                    if graph.is_register(leaf_dst)
+                    if graph.is_register(actual_dst)
                     else DependencyKind.DATA
                 )
 
-                if leaf_src is not None:
+                if actual_src is not None:
                     graph.add_edge(
                         DependencyEdge(
-                            leaf_src,
-                            leaf_dst,
+                            actual_src,
+                            actual_dst,
                             default_kind,
                             (record.id,) + enclosing_statement_ids,
                             source,
@@ -1121,7 +1205,7 @@ def build_module_dependency_graph(
                         graph.add_edge(
                             DependencyEdge(
                                 ref,
-                                leaf_dst,
+                                actual_dst,
                                 kind,
                                 (record.id,) + enclosing_statement_ids,
                                 source,
@@ -1130,7 +1214,7 @@ def build_module_dependency_graph(
                 else:
                     _add_expr_edges(
                         graph,
-                        leaf_dst,
+                        actual_dst,
                         deps,
                         default_kind,
                         (record.id,) + enclosing_statement_ids,
@@ -1139,13 +1223,13 @@ def build_module_dependency_graph(
                     )
 
                 # A write/infer mport assignment updates memory state.
-                port_root = leaf_dst.split(".", 1)[0].split("[", 1)[0]
+                port_root = actual_dst.split(".", 1)[0].split("[", 1)[0]
                 if port_root in memory_mports:
                     direction, memory_name = memory_mports[port_root]
                     if direction in {"write", "infer"}:
                         graph.add_edge(
                             DependencyEdge(
-                                leaf_dst,
+                                actual_dst,
                                 memory_name,
                                 DependencyKind.STATE,
                                 (record.id,) + enclosing_statement_ids,
@@ -1182,44 +1266,154 @@ def build_module_dependency_graph(
     return graph
 
 
+def _module_text_spans(
+    text: str,
+) -> dict[str, tuple[int, int, int]]:
+    """Index module text spans and global starting line in one linear pass.
+
+    The old v5 implementation rescanned the entire FIRRTL file once for every
+    module.  A real SmallBoomV4Config contains more than 1,800 module
+    definitions and ~500k lines, making that quadratic strategy unusable.
+    """
+    matches = list(re.finditer(_MODULE_START_RE.pattern, text, re.MULTILINE))
+    spans: dict[str, tuple[int, int, int]] = {}
+    line = 1
+    previous_pos = 0
+    for index, match in enumerate(matches):
+        line += text.count("\n", previous_pos, match.start())
+        end = matches[index + 1].start() if index + 1 < len(matches) else len(text)
+        spans[match.group(1)] = (match.start(), end, line)
+        previous_pos = match.start()
+    return spans
+
+
 def build_all_dependency_graphs(
     text: str,
     design: Design,
 ) -> dict[str, ModuleDependencyGraph]:
-    return {
-        name: build_module_dependency_graph(text, design, name)
-        for name, module in design.modules.items()
-        if not module.external
-    }
+    spans = _module_text_spans(text)
+    graphs: dict[str, ModuleDependencyGraph] = {}
+    for name, module in design.modules.items():
+        if module.external:
+            continue
+        try:
+            start, end, start_line = spans[name]
+        except KeyError as exc:
+            raise FirrtlParseError(f"Module {name!r} has no indexed text span") from exc
+        graphs[name] = build_module_dependency_graph(
+            text[start:end],
+            design,
+            name,
+            line_offset=start_line - 1,
+        )
+    return graphs
+
+
+
+
+@dataclass
+class ModuleGraphProvider:
+    """Lazy, cached module-local graph builder for large elaborated designs.
+
+    A real Chipyard SmallBoomV4Config has >1,800 module definitions.  Building
+    every dependency graph before answering one event-slice query is both slow
+    and memory-heavy.  This provider indexes module text once and materializes
+    graphs only for modules reached by the analysis.
+    """
+
+    text: str
+    design: Design
+    spans: dict[str, tuple[int, int, int]]
+    cache: dict[str, ModuleDependencyGraph] = field(default_factory=dict)
+
+    @staticmethod
+    def create(text: str, design: Design) -> "ModuleGraphProvider":
+        return ModuleGraphProvider(
+            text=text,
+            design=design,
+            spans=_module_text_spans(text),
+        )
+
+    def get(self, module_name: str) -> ModuleDependencyGraph | None:
+        module = self.design.modules.get(module_name)
+        if module is None or module.external:
+            return None
+        cached = self.cache.get(module_name)
+        if cached is not None:
+            return cached
+        try:
+            start, end, start_line = self.spans[module_name]
+        except KeyError as exc:
+            raise FirrtlParseError(
+                f"Module {module_name!r} has no indexed text span"
+            ) from exc
+        graph = build_module_dependency_graph(
+            self.text[start:end],
+            self.design,
+            module_name,
+            line_offset=start_line - 1,
+        )
+        self.cache[module_name] = graph
+        return graph
+
+    def require(self, module_name: str) -> ModuleDependencyGraph:
+        graph = self.get(module_name)
+        if graph is None:
+            raise FirrtlParseError(
+                f"Module {module_name!r} is external or unavailable"
+            )
+        return graph
+
+
+def _alias_shape(name: str) -> str:
+    """Normalize numeric and wildcard vector indices to one bucket key."""
+    return re.sub(r"\[(?:\*|[0-9]+)\]", "[*]", name)
 
 
 def _add_wildcard_alias_edges(graph: ModuleDependencyGraph) -> None:
-    """Conservatively connect wildcard dynamic subaccesses to seen static lanes."""
-    names = set(graph.signals)
-    wildcard_names = [name for name in names if "[*]" in name]
+    """Conservatively connect dynamic subaccesses to seen static lanes.
+
+    v5 matched every wildcard against every signal with a fresh regex, which is
+    quadratic and becomes pathological in the real BOOM core.  v6 indexes
+    static lanes by normalized vector shape, reducing this phase to linear
+    indexing plus the aliases actually emitted.
+    """
+
+    static_by_shape: dict[str, list[str]] = defaultdict(list)
+    wildcard_names: list[str] = []
+
+    for name in graph.signals:
+        if "[*]" in name:
+            wildcard_names.append(name)
+        else:
+            static_by_shape[_alias_shape(name)].append(name)
+
     for wildcard in wildcard_names:
-        pattern = re.escape(wildcard).replace(re.escape("[*]"), r"\[[0-9]+\]")
-        regex = re.compile(rf"^{pattern}$")
-        for candidate in names:
-            if regex.match(candidate):
-                graph.add_edge(
-                    DependencyEdge(
+        for candidate in static_by_shape.get(_alias_shape(wildcard), ()):
+            graph.add_edge(
+                DependencyEdge(
+                    candidate,
+                    wildcard,
+                    DependencyKind.ALIAS,
+                    (),
+                    graph.signals.get(
                         candidate,
-                        wildcard,
-                        DependencyKind.ALIAS,
-                        (),
-                        graph.signals.get(candidate, SignalInfo(candidate, SignalKind.UNKNOWN)).source,
-                    )
+                        SignalInfo(candidate, SignalKind.UNKNOWN),
+                    ).source,
                 )
-                graph.add_edge(
-                    DependencyEdge(
-                        wildcard,
+            )
+            graph.add_edge(
+                DependencyEdge(
+                    wildcard,
+                    candidate,
+                    DependencyKind.ALIAS,
+                    (),
+                    graph.signals.get(
                         candidate,
-                        DependencyKind.ALIAS,
-                        (),
-                        graph.signals.get(candidate, SignalInfo(candidate, SignalKind.UNKNOWN)).source,
-                    )
+                        SignalInfo(candidate, SignalKind.UNKNOWN),
+                    ).source,
                 )
+            )
 
 
 def _type_to_text(type_: FirrtlType) -> str:

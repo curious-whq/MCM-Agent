@@ -1,11 +1,11 @@
-# LLM 之前的静态前端完整规划
+# LLM 之前的静态前端：v6 完整规划与真实集成状态
 
 ## 总体原则
 
-当前系统把职责固定为：
+职责保持：
 
 $$
-\text{Static = completeness}
+\text{Static = completeness + physical grounding}
 $$
 
 $$
@@ -16,337 +16,347 @@ $$
 \text{Formal = correctness}
 $$
 
-因此在任何 LLM case extraction 之前，以下信息都应由静态工具固定，而不是让模型猜。
+LLM 不能负责决定物理层次、边界事件、真实连接、slice completeness，也不能因为“看起来不重要”而删除 RTL dependency。
 
-## S0：Input Contract 与 Provenance
+# S0：Input Contract 与 Provenance
 
-输入优先采用 Chisel elaboration 得到的 textual CHIRRTL/classic FIRRTL surface form，并保留 source locators。
-
-静态记录：
+输入是 Chisel/Chipyard elaboration 得到的 textual FIRRTL/CHIRRTL，并保留 source locators：
 
 ```text
-FIRRTL module/signal
-→ source file
+FIRRTL object
+→ Scala file
 → line/column
 ```
 
-v5 已实现。
+CIRCT FIRRTL-dialect MLIR 使用独立 adapter，不与 textual grammar 混解析。
 
-CIRCT FIRRTL-dialect MLIR 以后使用独立 adapter，不混用 grammar。
+# S1：Physical Hierarchy
 
-## S1：Physical Hierarchy Discovery
+从 module/instance 机械恢复 concrete hierarchy。
 
-从 module/instance 关系机械恢复 concrete hierarchy：
+完整 Chipyard 输入可以直接分析，不要求用户事先裁成 ProbeUnit、MSHR、L2 等小文件。
 
-```text
-DCache
-├── ProbeUnit
-├── WritebackUnit
-├── MSHRFile
-└── arrays/arbiters/...
-```
+# S2：Physical Boundary
 
-v4 已实现。
+真实 elaborated port leaf 就是第一层 physical boundary。
 
-## S2：Physical Boundary Discovery
+Bundle/Vec/flip 只做机械 orientation 展开。
 
-模块边界首先就是 elaborated design 的真实 port leaf。
+# S3：Physical Event Registry
 
-Bundle/Vec/flip 只做机械展开。
+自动发现：
 
-v4 已实现。
+- Decoupled：`valid && ready`；
+- Valid：`valid`。
 
-## S3：Global Physical Event Registry
+物理 event 固定 concrete endpoint、direction、payload 和 source locator。
 
-从 Decoupled `valid/ready` 和 Valid `valid+bits` 结构构造 physical event：
+静态阶段不产生 `ProbeRecv` 等语义名称。
 
-```text
-BoomProbeUnit.io.req.fire
-BoomProbeUnit.io.rep.fire
-```
+# S4：Dependency IR
 
-并固定：
-
-```text
-predicate
-payload leaves
-direction
-source locator
-```
-
-这一阶段不产生 `ProbeRecv` 等语义名称。
-
-v4 已实现。
-
-## S4：Dependency IR
-
-从 CHIRRTL statement 构建：
+构建：
 
 $$
-G=(V,E_D\cup E_C\cup E_S\cup E_A\cup E_M)
+G=(V,E_D\cup E_C\cup E_S\cup E_A\cup E_M\cup E_X)
 $$
 
-其中分别表示：
+分别表示：
 
 - data；
 - control；
-- next-state；
+- state；
 - address；
-- memory dependency。
+- memory；
+- conservative alias。
 
-v5 已实现核心语法。
+v6 已支持真实 Chipyard FIRRTL 3.x `connect`/`invalidate` spelling，以及 aggregate flip flow。
 
-## S5：Event-Centered Local Slice
+# S5：Event-Centered Local Semantic Cone
 
-从每个 physical event 的 `valid/ready/payload` 做 backward fixed point。
+从一个 physical event 的 occurrence/payload backward fixed point，恢复所有可能影响它的 local state/control/data。
 
-目标不是“尽量小”，而是：
+这个 cone 的目标是 completeness，不是强行小到某个 token 数。
 
-> 在 parser 支持的 dependency 语义下，不漏掉任何能够影响该 event 的 upstream state/control/data。
+# S6：大 Module 的静态 Work Unit
 
-v5 已实现。
-
-## S6：静态细粒度分层候选
-
-大 module 不直接送给 LLM。
-
-先做：
+先从：
 
 ```text
-register-to-register dependency
+register dependency
 → SCC
 +
-event cone incidence
+event-cone incidence
 ```
 
-得到 state regions。
+形成结构 work unit。
 
-这些 region 只是 candidate，不由静态工具强行命名成“RAR ordering engine”等语义模块。
+physical module hierarchy 始终是主树；state region 是大 module 内部的机械细分，不由 LLM 自由划模块。
 
-v5 已实现，并通过 `AbstractionTree` 把 physical hierarchy 和 state regions 合成一个静态 work-unit tree。
+# S7：Concrete Hierarchical Identity
 
-## S7：Hierarchical Flattening / Connector Grounding
+parent instance-port 和 child local port 映射到同一个 concrete signal identity。
 
-把 parent instance port 与 child local port 映射到同一个 concrete flat identity。
+这样 dependency 可以自然跨 module boundary。
 
-例如：
+# S7.5：Direct Connector
+
+只有当：
+
+$$
+A.valid \rightarrow B.valid
+$$
+
+与：
+
+$$
+B.ready \rightarrow A.ready
+$$
+
+都属于 direct DATA/ALIAS edge，才声明 `HandshakeConnector`。
+
+中间有 gate、buffer、arbiter 时不伪装成 direct。
+
+# S7.6：End-to-End Handshake Transport
+
+真实 L1↔L2 的 TileLink route 会穿过：
 
 ```text
-parent: prober.io.rep.valid
-child:  io.rep.valid
+buffer
+queue
+width widget
+xbar
+fifo fixer
+coupler
+crossing
 ```
 
-变成：
+因此 v6 新增 `HandshakeTransportPath`。
+
+完整 transport 同时要求：
+
+$$
+source.valid \rightarrow^* sink.valid
+$$
+
+以及：
+
+$$
+sink.ready \rightarrow^* source.ready
+$$
+
+它解决的问题是：
+
+> 两个远端 physical endpoint 是否真的通过当前 elaborated design 相连，路径是什么？
+
+它不解决：
+
+> 这个事件的所有 guard/state 是什么？
+
+后者仍由 semantic cone slice 负责。
+
+# S8：Coverage Ledger
+
+任何 potentially-driving unknown statement 都会使相关 module incomplete。
+
+路径/slice 如果触及 incomplete instance，同样不能标 `complete=true`。
+
+搜索预算耗尽也显式 `truncated=true`，不能把“没搜到”误当成“证明不存在”。
+
+# S9：Source Reconstruction
+
+source spans 可映射回真实 Scala context。
+
+未来 LLM 的输入应该是：
 
 ```text
-DCache.prober::io.rep.valid
-```
-
-从而可以从顶层 TL C event 一直反向切到 ProbeUnit 内部 state。
-
-v5 已实现。
-
-注意：有 gate/arbiter 时不把两端武断认成“同一个语义 event”；dependency graph 保留 gating condition。
-
-## S7.5：Direct Handshake Connector Discovery
-
-对两个 concrete physical events，如果能机械证明：
-
-```text
-A.valid -> B.valid
-B.ready -> A.ready
-```
-
-都是 direct DATA/ALIAS connection，则建立 physical connector。
-
-这可以固定 parent/child endpoint 的物理传递关系，而不依赖 LLM。
-
-如果中间有 gate/arbiter，则不建立 direct connector，仍由 dependency slice 保留真实条件。
-
-v5 已实现。
-
-## S8：Coverage Ledger
-
-这是防止静态 slice 产生虚假完整性的关键。
-
-每条 statement 都必须是：
-
-```text
-included
-supported outside slice
-nondriving
-unsupported
-```
-
-只要出现未知的 potentially-driving statement，分析 fail-closed。
-
-v5 已实现。
-
-## S9：Source Reconstruction
-
-把 slice 的 source spans 映射回真实 Scala snippets。
-
-LLM 不应该只看到被 lowering 后的临时 signal 名；它应该同时拿到：
-
-```text
-physical FIRRTL graph
+physical graph
 +
-exact Scala context
+exact Scala snippets
++
+coverage/provenance
 ```
 
-v5 已实现 `SourceMapper`。
+而不是只有 lowering 后的临时 signal 名。
 
-## S10：Deterministic Handoff Manifest
+# S10：Pre-LLM Handoff
 
-静态 frontend 输出：
+静态 output 应包含：
 
 ```text
-physical event
-signals
-edge kinds
-statements
-state SCC / cone
+physical events
+signals/edge kinds
+statements/state regions
 boundary frontier
+physical transport evidence
 source spans/snippets
-coverage
-unsupported list
-```
-
-同时保持：
-
-```text
+coverage/truncation
 semantic_labels = []
 ```
 
-`handoff.py` 只有在 coverage complete、slice 未截断、source provenance 存在且当前 slice 至少有 source-mapped span 时才允许 `ready=true`。
-
-v5 已实现。
-
-# LLM 从哪里开始
-
-LLM 应从 **S10 之后**才出现。
-
-它的第一项工作应该是：
+LLM 从这里之后才允许解释：
 
 ```text
-static slice + source context
-        ↓
-解释 state/control 的设计语义
-        ↓
-提出 guarded leaf cases / semantic aliases
+design intent
+semantic aliases
+guarded leaf cases
 ```
 
-但 LLM 不允许：
+但不能重新定义 physical EventKind，也不能把 incomplete 静态结果说成已经证明。
 
-- 删除 static slice 中的信号；
-- 发明新的 physical EventKind；
-- 修改 source grounding；
-- 把 coverage incomplete 的 slice 当作完整 case；
-- 自己决定一个 parent summary 已经被证明。
+# 真实 Chipyard integration
 
-之后的 case equivalence / projection / proof 仍回到机械/形式方法。
+v6 已第一次直接使用完整 `SmallBoomV4Config.fir`，而不是 toy-only fixture。
 
-# BOOM 可行性核对
-
-我们已经针对 BOOM v4 实际源码检查了这套静态设计是否匹配。
-
-## ProbeUnit
-
-`src/main/scala/v4/lsu/dcache.scala` 中 `BoomProbeUnit` 有：
+输入：
 
 ```text
-req
-rep
-meta_read
-meta_write
-wb_req
-lsu_release
+523,408 lines
+~69 MiB
+1,858 module definitions
+2,170 concrete events
+502,974 source locators
 ```
 
-等真实 Decoupled boundary，并有显式 FSM `state`。
-
-`rep.valid` 和 `lsu_release.valid` 都直接由 state 控制，因此 event-centered dependency slice 能自然进入 FSM。
-
-## DCache hierarchy
-
-`BoomNonBlockingDCacheModule` 真实实例化：
+以下关键 module 的当前 dependency coverage 均为 complete，unsupported 为 0：
 
 ```text
-BoomWritebackUnit
+LSU
+BoomCore
+BoomNonBlockingDCache
 BoomProbeUnit
+BoomMSHR
 BoomMSHRFile
+InclusiveCache
+InclusiveCacheBankScheduler
+InclusiveCacheControl
 ```
 
-并把 ProbeUnit 连到 TL B、TL C、MSHR、writeback 和 LSU release arbiter。
+更详细统计见 `docs/integration/real_chipyard_v6.md`。
 
-因此 cross-instance flattening 不是人为构造的需求，而是 BOOM 的真实结构。
+# 已验证的真实 L2↔L1 coherence transport
 
-## MSHR
+## L2 B → ProbeUnit
 
-`src/main/scala/v4/lsu/mshrs.scala` 的 `BoomMSHR` 包含：
+从：
 
 ```text
-18-state FSM
-BranchKillableQueue RPQ
-meta_hazard
-probe_rdy
-mem_acquire/mem_grant/mem_finish
-replay/resp
+InclusiveCache auto.in.b.fire
 ```
 
-这正好覆盖我们需要的：
-
-- state dependency；
-- queue/memory-like state；
-- timing-sensitive hazard register；
-- multiple boundary events。
-
-因此 state-SCC + event cone 是合理的第一版 static partition primitive。
-
-# v5 之后仍需完成的静态工程
-
-在真正打开 LLM Agent 前，建议下一阶段不是继续发明 IR，而是跑 **真实 BOOM elaboration** 并做 coverage-driven hardening：
-
-1. 用 BOOM/Chipyard 实际 build 生成 CHIRRTL；
-2. 对 `BoomProbeUnit`、`BoomMSHR`、DCache top 跑 `report`；
-3. 收集所有 `UNSUPPORTED` statement；
-4. 逐类补 parser，直到目标 cone/module `complete=true`；
-5. 检查 source locator 解析率；
-6. 检查 TL B/C → ProbeUnit、MSHR Grant/Ack 等 hierarchical slices；
-7. 统计原始 RTL/FIRRTL 行数与 slice 行数，验证 token reduction；
-8. 再开始 LLM leaf-case extraction。
-
-仍明确 deferred 的能力：
-
-- CIRCT FIRRTL-dialect MLIR adapter；
-- 所有 advanced memory/layer/probe/property semantics；
-- blackbox 内部 dependency；
-- protocol opcode 的最终语义命名；
-- formal proof/certificate。
-
-其中前三项应由真实 coverage 结果决定优先级，而不是现在提前实现全部 FIRRTL 语言。
-
-## LSU / BOOM B1 对 static frontend 的额外核对
-
-当前 BOOM v4 LSU 的 load-ordering search 仍然使用：
+机械找到到：
 
 ```text
-ldq_executed
-ldq_succeeded
-ldq_will_succeed
-ldq_observed
-nested when
-RegNext
-Vec/entry indexing
+BoomProbeUnit io.req.fire
 ```
 
-这说明后续真实 LSU slice 至少需要：
+的完整 valid + ready path。
 
-- register/state dependency；
-- nested control dependency；
-- next-cycle register chain；
-- vector/subaccess address dependency。
+路径穿过真实 system bus、TLJbar、TLFilter、TLXbar、TLFIFOFixer、多个 TLBuffer/Queue、BoomTile master xbar 和 DCache。
 
-v5 已分别用 `STATE`、`CONTROL`、register update 和动态 `[*] + ADDRESS` dependency 建立对应静态表示。
+## ProbeUnit C → L2
 
-但是当前结论仍需要通过**真实 BOOM emitted CHIRRTL coverage**确认，因为 Scala loop/elaboration 后的具体命名和 aggregate lowering 取决于编译输出。若出现新 FIRRTL statement，fail-closed ledger 会阻止它直接进入 LLM。
+从：
+
+```text
+BoomProbeUnit io.rep.fire
+```
+
+机械找到到：
+
+```text
+InclusiveCache auto.in.c.fire
+```
+
+的完整 valid + ready path。
+
+因此当前 frontend 已经不是“能看到 L2 module”，而是能够证明真实 Probe/ProbeAck physical transport 跨过完整 Chipyard hierarchy。
+
+# Scalability 结论
+
+第一次真实运行发现：直接把远端 event 的整个 occurrence cone 做成一个巨型 union slice，会被 ready/control 高 fan-in 放大。
+
+因此 v6 确立两个分开的静态 primitive：
+
+```text
+Transport Route
+  → hierarchy composition / physical connector grounding
+
+Semantic Cone
+  → guarded case extraction / state-control analysis
+```
+
+这也是后续递归 µMCM abstraction 应采用的边界：先机械固定“模块怎么连”，再在每个局部 cone 内提取/投影 cases，而不是让 LLM 从整颗 SoC 自由检索。
+
+# 进入 LLM 前剩余的工程
+
+静态架构已经成型，后续主要是 coverage-driven，而不是继续凭空扩 IR：
+
+1. 对更多真实 memory/coherence endpoints 跑 route/slice；
+2. 遇到目标 cone 内新的 unsupported FIRRTL syntax，再补 parser；
+3. 对 LSU、DCache、L2 scheduler 建立 source-grounded local work units；
+4. 统计 whole-module 与 slice 的 reduction；
+5. 固定未来 LLM handoff schema 中的 physical connector evidence；
+6. 然后开始 LLM leaf-case extraction。
+
+仍 deferred：
+
+- semantic transaction identity；
+- protocol opcode 的高层 alias；
+- parent µMCM summary synthesis；
+- formal certificate/composition proof。
+
+这些不能由当前 transport reachability 替代。
+
+# v6 真实集成后的 ownership-scoped semantic cone
+
+真实 whole-SoC 实验进一步说明，semantic cone 也需要区分“系统输入范围”和“当前抽象 ownership”。
+
+系统输入始终是完整 FIRRTL，但 parent work unit 可以指定一个 concrete hierarchy root：
+
+```text
+InclusiveCache instance
+DCache instance
+ProbeUnit instance
+MSHR instance
+...
+```
+
+`backward_instance_slice_lazy()` 允许进入该 root 拥有的所有 children，但在 root physical input boundary 停止。
+
+因此推荐组合变成：
+
+```text
+Route
+  证明 parent work units 之间怎么物理连接
+
+Instance-subtree Slice
+  恢复一个 parent work unit 拥有的 semantic cone
+
+Local Slice / SCC Partition
+  继续生成 child work units
+```
+
+真实 `SmallBoomV4Config.fir` 已验证：
+
+```text
+L2 B ownership cone:
+  5,252 signals / 11,852 edges / 36 instances / complete
+
+DCache-owned Probe cone:
+  4,716 signals / 25,529 edges / 29 instances / complete
+```
+
+前者进入 `SourceB`、`Directory`、`MSHR*` 等 L2 coherence engine；后者进入 `BoomProbeUnit`、`BoomMSHRFile/MSHR`、`BoomWritebackUnit`，但不进入 whole BoomCore。
+
+这把最初的研究目标具体化为：
+
+$$
+\text{Whole-System Input}
++
+\text{Static Ownership Boundary}
++
+\text{Recursive Case Abstraction}
+$$
+
+而不是人工裁剪 RTL，也不是让 LLM 决定层次。

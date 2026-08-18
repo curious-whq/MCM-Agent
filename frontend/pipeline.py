@@ -5,13 +5,24 @@ from dataclasses import dataclass, field
 from .abstraction_tree import AbstractionTree, build_abstraction_tree
 from .boundary import discover_boundary
 from .coverage import build_coverage_ledger
-from .connectors import HandshakeConnector, discover_direct_handshake_connectors
-from .dependency import ModuleDependencyGraph, build_all_dependency_graphs
+from .connectors import (
+    HandshakeConnector,
+    HandshakeTransportPath,
+    discover_direct_handshake_connectors,
+    discover_handshake_transport_path,
+)
+from .dependency import (
+    ModuleDependencyGraph,
+    ModuleGraphProvider,
+    build_all_dependency_graphs,
+)
 from .design_graph import (
     DesignDependencyGraph,
     DesignEventOccurrence,
     DesignSliceResult,
     backward_design_slice,
+    backward_design_slice_lazy,
+    backward_instance_slice_lazy,
     discover_design_events,
     flatten_design_dependency_graph,
 )
@@ -52,16 +63,28 @@ class StaticFrontend:
     graphs: dict[str, ModuleDependencyGraph]
     registries: dict[str, EventRegistry]
     input_report: InputValidationReport
+    graph_provider: ModuleGraphProvider | None = None
+    eager: bool = True
     _design_graph: DesignDependencyGraph | None = field(default=None, init=False)
+    _scoped_design_graph: DesignDependencyGraph | None = field(default=None, init=False)
     _design_events: tuple[DesignEventOccurrence, ...] | None = field(default=None, init=False)
     _design_connectors: tuple[HandshakeConnector, ...] | None = field(default=None, init=False)
     _abstraction_tree: AbstractionTree | None = field(default=None, init=False)
 
     @staticmethod
-    def from_firrtl(text: str) -> "StaticFrontend":
+    def from_firrtl(
+        text: str,
+        *,
+        eager: bool = True,
+    ) -> "StaticFrontend":
         input_report = require_supported_static_input(text)
         design = parse_firrtl(text)
-        graphs = build_all_dependency_graphs(text, design)
+        provider = ModuleGraphProvider.create(text, design)
+        graphs = (
+            build_all_dependency_graphs(text, design)
+            if eager
+            else provider.cache
+        )
         registries: dict[str, EventRegistry] = {}
 
         for module_name, module in design.modules.items():
@@ -78,12 +101,35 @@ class StaticFrontend:
             graphs=graphs,
             registries=registries,
             input_report=input_report,
+            graph_provider=provider,
+            eager=eager,
         )
 
-    def report(self) -> StaticFrontendReport:
+    def graph(self, module_name: str) -> ModuleDependencyGraph:
+        cached = self.graphs.get(module_name)
+        if cached is not None:
+            return cached
+        if self.graph_provider is None:
+            raise KeyError(f"No graph for module {module_name!r}")
+        graph = self.graph_provider.require(module_name)
+        self.graphs[module_name] = graph
+        return graph
+
+    def report(
+        self,
+        module_names: tuple[str, ...] | None = None,
+    ) -> StaticFrontendReport:
         modules: list[ModuleStaticStatus] = []
-        for module_name in sorted(self.graphs):
-            graph = self.graphs[module_name]
+        if module_names is None:
+            names = (
+                tuple(sorted(self.graphs))
+                if self.eager
+                else tuple(sorted(self.graphs))
+            )
+        else:
+            names = tuple(sorted(set(module_names)))
+        for module_name in names:
+            graph = self.graph(module_name)
             ledger = build_coverage_ledger(graph)
             registry = self.registries[module_name]
             modules.append(
@@ -104,7 +150,7 @@ class StaticFrontend:
         names = module_names or tuple(sorted(self.graphs))
         errors: list[str] = []
         for name in names:
-            graph = self.graphs[name]
+            graph = self.graph(name)
             unsupported = graph.unsupported_statements
             if unsupported:
                 preview = "; ".join(
@@ -134,7 +180,7 @@ class StaticFrontend:
         options: SliceOptions | None = None,
     ) -> SliceResult:
         return slice_event(
-            self.graphs[module_name],
+            self.graph(module_name),
             self.event(module_name, event_id),
             mode=mode,
             options=options,
@@ -149,26 +195,31 @@ class StaticFrontend:
         options: SliceOptions | None = None,
     ) -> dict:
         event = self.event(module_name, event_id)
+        graph = self.graph(module_name)
         result = slice_event(
-            self.graphs[module_name],
+            graph,
             event,
             mode=mode,
             options=options,
         )
         return slice_manifest_dict(
-            self.graphs[module_name],
+            graph,
             event,
             result,
         )
 
     def partition(self, module_name: str) -> PartitionPlan:
         return discover_partition_plan(
-            self.graphs[module_name],
+            self.graph(module_name),
             self.registries[module_name],
         )
 
     def abstraction_tree(self) -> AbstractionTree:
         if self._abstraction_tree is None:
+            if not self.eager:
+                for name, module in self.design.modules.items():
+                    if not module.external:
+                        self.graph(name)
             self._abstraction_tree = build_abstraction_tree(
                 self.design,
                 self.graphs,
@@ -178,6 +229,10 @@ class StaticFrontend:
 
     def design_graph(self) -> DesignDependencyGraph:
         if self._design_graph is None:
+            if not self.eager:
+                for name, module in self.design.modules.items():
+                    if not module.external:
+                        self.graph(name)
             self._design_graph = flatten_design_dependency_graph(
                 self.text,
                 self.design,
@@ -204,6 +259,156 @@ class StaticFrontend:
             )
         return self._design_connectors
 
+    def handshake_transport(
+        self,
+        from_event_id: str,
+        to_event_id: str,
+        *,
+        max_signals: int = 250_000,
+    ) -> HandshakeTransportPath:
+        """Recover an end-to-end physical Decoupled route lazily.
+
+        This operation intentionally avoids materializing the entire design
+        graph.  It is therefore the preferred primitive for answering a
+        connectivity question in full Chipyard FIRRTL before computing any
+        potentially huge semantic event cone.
+        """
+
+        if self.graph_provider is None:
+            raise RuntimeError("Static frontend has no module graph provider")
+        source = self.design_event(from_event_id)
+        sink = self.design_event(to_event_id)
+        return discover_handshake_transport_path(
+            self.design,
+            self.graph_provider,
+            source,
+            sink,
+            max_signals=max_signals,
+        )
+
+    def _slice_instance_event_with_graph(
+        self,
+        event_id: str,
+        *,
+        root_instance: str | None = None,
+        include_payload: bool = False,
+        include_clock: bool = False,
+        include_reset: bool = False,
+        max_signals: int | None = None,
+    ) -> tuple[DesignDependencyGraph, DesignSliceResult]:
+        """Slice one concrete ownership subtree without escaping to its parent."""
+
+        if self.graph_provider is None:
+            raise RuntimeError("Static frontend has no module graph provider")
+        event = self.design_event(event_id)
+        graph, result = backward_instance_slice_lazy(
+            self.design,
+            self.graph_provider,
+            event,
+            root_instance=root_instance,
+            include_payload=include_payload,
+            include_clock=include_clock,
+            include_reset=include_reset,
+            max_signals=max_signals,
+        )
+        self.graphs.update(self.graph_provider.cache)
+        return graph, result
+
+    def slice_instance_event(
+        self,
+        event_id: str,
+        *,
+        root_instance: str | None = None,
+        include_payload: bool = False,
+        include_clock: bool = False,
+        include_reset: bool = False,
+        max_signals: int | None = None,
+    ) -> DesignSliceResult:
+        _, result = self._slice_instance_event_with_graph(
+            event_id,
+            root_instance=root_instance,
+            include_payload=include_payload,
+            include_clock=include_clock,
+            include_reset=include_reset,
+            max_signals=max_signals,
+        )
+        return result
+
+    def instance_slice_manifest(
+        self,
+        event_id: str,
+        *,
+        root_instance: str | None = None,
+        include_payload: bool = False,
+        include_clock: bool = False,
+        include_reset: bool = False,
+        max_signals: int | None = None,
+    ) -> dict:
+        event = self.design_event(event_id)
+        graph, result = self._slice_instance_event_with_graph(
+            event_id,
+            root_instance=root_instance,
+            include_payload=include_payload,
+            include_clock=include_clock,
+            include_reset=include_reset,
+            max_signals=max_signals,
+        )
+        manifest = design_slice_manifest_dict(graph, event, result)
+        root = root_instance or event.instance_path
+        manifest["scope"] = "instance_subtree"
+        manifest["subtree_root"] = root
+        touched_events = tuple(
+            candidate
+            for candidate in self.design_events()
+            if candidate.instance_path in result.instances
+        )
+        manifest["direct_connectors"] = [
+            {
+                "from_event": connector.from_event,
+                "to_event": connector.to_event,
+                "valid_edge": list(connector.valid_edge),
+                "ready_edge": list(connector.ready_edge),
+            }
+            for connector in discover_direct_handshake_connectors(
+                graph, touched_events
+            )
+        ]
+        return manifest
+
+    def _slice_design_event_with_graph(
+        self,
+        event_id: str,
+        *,
+        include_payload: bool = False,
+        include_clock: bool = False,
+        include_reset: bool = False,
+        max_signals: int | None = None,
+    ) -> tuple[DesignDependencyGraph, DesignSliceResult]:
+        event = self.design_event(event_id)
+        if not self.eager and self.graph_provider is not None:
+            graph, result = backward_design_slice_lazy(
+                self.design,
+                self.graph_provider,
+                event,
+                include_payload=include_payload,
+                include_clock=include_clock,
+                include_reset=include_reset,
+                max_signals=max_signals,
+            )
+            self.graphs.update(self.graph_provider.cache)
+            self._scoped_design_graph = graph
+            return graph, result
+
+        graph = self.design_graph()
+        result = backward_design_slice(
+            graph,
+            event.seeds(include_payload=include_payload),
+            include_clock=include_clock,
+            include_reset=include_reset,
+            max_signals=max_signals,
+        )
+        return graph, result
+
     def slice_design_event(
         self,
         event_id: str,
@@ -211,14 +416,16 @@ class StaticFrontend:
         include_payload: bool = False,
         include_clock: bool = False,
         include_reset: bool = False,
+        max_signals: int | None = None,
     ) -> DesignSliceResult:
-        event = self.design_event(event_id)
-        return backward_design_slice(
-            self.design_graph(),
-            event.seeds(include_payload=include_payload),
+        _, result = self._slice_design_event_with_graph(
+            event_id,
+            include_payload=include_payload,
             include_clock=include_clock,
             include_reset=include_reset,
+            max_signals=max_signals,
         )
+        return result
 
     def design_slice_manifest(
         self,
@@ -227,24 +434,30 @@ class StaticFrontend:
         include_payload: bool = False,
         include_clock: bool = False,
         include_reset: bool = False,
+        max_signals: int | None = None,
     ) -> dict:
         event = self.design_event(event_id)
-        result = self.slice_design_event(
+        graph, result = self._slice_design_event_with_graph(
             event_id,
             include_payload=include_payload,
             include_clock=include_clock,
             include_reset=include_reset,
+            max_signals=max_signals,
         )
         manifest = design_slice_manifest_dict(
-            self.design_graph(),
+            graph,
             event,
             result,
         )
-        touched_event_ids = {
-            candidate.event_id
+        touched_events = tuple(
+            candidate
             for candidate in self.design_events()
             if candidate.instance_path in result.instances
-        }
+        )
+        touched_event_ids = {candidate.event_id for candidate in touched_events}
+        scoped_connectors = discover_direct_handshake_connectors(
+            graph, touched_events
+        )
         manifest["direct_connectors"] = [
             {
                 "from_event": connector.from_event,
@@ -252,7 +465,7 @@ class StaticFrontend:
                 "valid_edge": list(connector.valid_edge),
                 "ready_edge": list(connector.ready_edge),
             }
-            for connector in self.design_connectors()
+            for connector in scoped_connectors
             if (
                 connector.from_event in touched_event_ids
                 and connector.to_event in touched_event_ids

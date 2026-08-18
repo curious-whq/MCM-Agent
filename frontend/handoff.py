@@ -80,6 +80,71 @@ def build_local_static_handoff(
     return manifest
 
 
+def build_instance_static_handoff(
+    frontend: "StaticFrontend",
+    event_id: str,
+    *,
+    root_instance: str | None = None,
+    source_mapper: SourceMapper | None = None,
+    context_lines: int = 2,
+    include_payload: bool = True,
+    max_signals: int | None = 20_000,
+) -> dict:
+    """Build a concrete ownership-subtree package for future LLM analysis.
+
+    This is the preferred hierarchical handoff for large SoCs: it may cross
+    child modules owned by `root_instance`, but it never escapes into the
+    parent/environment merely because a Decoupled `ready` input is part of the
+    event predicate.
+    """
+
+    _require_provenance(frontend)
+    result = frontend.slice_instance_event(
+        event_id,
+        root_instance=root_instance,
+        include_payload=include_payload,
+        max_signals=max_signals,
+    )
+    if not result.complete:
+        details = ", ".join(result.incomplete_instances) or "truncated slice"
+        raise HandoffNotReadyError(
+            f"Instance-subtree static slice for {event_id} is incomplete: {details}"
+        )
+    if not result.source_spans:
+        raise HandoffNotReadyError(
+            f"Instance-subtree static slice for {event_id} has no source mapping."
+        )
+
+    manifest = frontend.instance_slice_manifest(
+        event_id,
+        root_instance=root_instance,
+        include_payload=include_payload,
+        max_signals=max_signals,
+    )
+    manifest["input"] = {
+        "format": frontend.input_report.format.value,
+        "has_source_locators": frontend.input_report.has_source_locators,
+        "source_locator_count": frontend.input_report.source_locator_count,
+    }
+    manifest["handoff"] = {
+        "ready": True,
+        "stage": "pre-llm-static",
+        "semantic_labels_locked": True,
+        "ownership_scoped": True,
+    }
+
+    if source_mapper is not None:
+        manifest["source_snippets"] = [
+            snippet_dict(snippet)
+            for snippet in source_mapper.snippets(
+                result.source_spans,
+                context_lines=context_lines,
+            )
+        ]
+
+    return manifest
+
+
 def build_design_static_handoff(
     frontend: "StaticFrontend",
     event_id: str,
@@ -87,6 +152,7 @@ def build_design_static_handoff(
     source_mapper: SourceMapper | None = None,
     context_lines: int = 2,
     include_payload: bool = True,
+    max_signals: int | None = 20_000,
 ) -> dict:
     """Build a cross-module deterministic package before future LLM analysis."""
 
@@ -94,6 +160,7 @@ def build_design_static_handoff(
     result = frontend.slice_design_event(
         event_id,
         include_payload=include_payload,
+        max_signals=max_signals,
     )
     if not result.complete:
         details = ", ".join(result.incomplete_instances) or "truncated slice"
@@ -108,6 +175,7 @@ def build_design_static_handoff(
     manifest = frontend.design_slice_manifest(
         event_id,
         include_payload=include_payload,
+        max_signals=max_signals,
     )
     manifest["input"] = {
         "format": frontend.input_report.format.value,

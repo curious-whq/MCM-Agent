@@ -1,8 +1,8 @@
-# MCM-Agent — Prototype v5
+# MCM-Agent — Prototype v6
 
 MCM-Agent studies bottom-up synthesis of hierarchical microarchitectural memory-model summaries.
 
-v0-v3 validated the abstraction language with hand-written real-world cases. v4 started structural FIRRTL discovery. **v5 completes the first deterministic frontend boundary before any LLM is introduced.**
+v0-v3 validated the abstraction language with hand-written real-world cases. v4-v5 built the deterministic pre-LLM frontend. **v6 is the first version hardened against a real complete Chipyard `SmallBoomV4Config.fir` containing BOOM, L1, TileLink interconnect and InclusiveCache L2.**
 
 ## Manual abstraction prototypes
 
@@ -11,12 +11,12 @@ v0-v3 validated the abstraction language with hand-written real-world cases. v4 
 - v2/v2.1: exceptional state-case preservation
 - v3: exact timing-case preservation
 
-## v4-v5: deterministic frontend
+## Deterministic frontend
 
 ```text
-Chisel
-  ↓ emit CHIRRTL with source locators
-Textual CHIRRTL
+Chisel / Chipyard
+  ↓ emit textual FIRRTL with source locators
+Whole-system FIRRTL
   ↓
 Input Contract
   ↓
@@ -26,128 +26,204 @@ Physical Boundary Leaves
   ↓
 Physical Decoupled / Valid Event Registry
   ↓
-Signal Dependency Graph
+Lazy Module Dependency Graphs
   ├─ data
   ├─ control
   ├─ state
   ├─ address
-  └─ memory
+  ├─ memory
+  └─ aggregate-flow aliases
   ↓
-Event-Centered Backward Slice
+Local Event-Centered Backward Slice
+  +
+Ownership-Scoped Instance-Subtree Slice
+  +
+Lazy Handshake Transport Route
   ↓
 Register SCC + Event-Cone Partition
-  ↓
-Cross-Module Flattened Slice
   ↓
 Coverage Ledger (fail closed)
   ↓
 Source Locator → Scala Snippet
   ↓
-Deterministic Static Handoff Manifest
+Deterministic Static Handoff
   ↓
 [future LLM starts here]
 ```
 
-The frontend never invents semantic event names. A physical event remains grounded as, for example:
+The frontend never invents semantic event names. A physical event remains grounded, for example:
 
 ```text
 BoomProbeUnit.io.rep.fire
 predicate = io.rep.valid && io.rep.ready
 ```
 
-and manifests deliberately contain:
+and static outputs deliberately keep:
 
 ```json
 "semantic_labels": []
 ```
 
-## Why fail closed
+## v6: real whole-Chipyard hardening
 
-If the parser sees an unknown statement that may affect functional behavior, it records it as `UNSUPPORTED`. The module and any hierarchical slice touching it are marked incomplete. `frontend.handoff` refuses to create a ready pre-LLM package from incomplete or truncated analysis.
+The real uploaded `SmallBoomV4Config.fir` used for v6 contains:
 
-This prevents a small slice from looking trustworthy merely because an unsupported RTL construct was silently ignored.
+```text
+523,408 FIRRTL lines
+1,858 module definitions
+2,170 concrete physical events
+502,974 source locators
+```
 
-## BOOM-shaped validation
+Selected memory-system modules now parse with fail-closed coverage complete and zero unsupported statements:
 
-The fixtures cover the structures seen in BOOM v4:
+```text
+LSU                           8,169 statements
+BoomCore                     10,539 statements
+BoomNonBlockingDCache         2,924 statements
+BoomProbeUnit                   209 statements
+BoomMSHR                       2,216 statements
+BoomMSHRFile                   1,507 statements
+InclusiveCache                   220 statements
+InclusiveCacheBankScheduler    2,499 statements
+InclusiveCacheControl            798 statements
+```
 
-- ProbeUnit: Decoupled `req/rep/meta_read/meta_write/wb_req/lsu_release` plus FSM state;
-- DCache hierarchy: top-level coherence channels connected through ProbeUnit;
-- MSHR: RPQ-like queue state, Grant/GrantAck-facing events, state/barrier dependencies.
+v6 also mechanically recovers two real coherence transport routes without semantic aliases:
 
-These are still unit-test fixtures, not a checked-in official BOOM elaboration. The next integration task is to run the frontend on CHIRRTL emitted from a real BOOM/Chipyard build and harden unsupported syntax from coverage reports.
+```text
+L2 InclusiveCache TL-B
+→ system interconnect / buffers / xbars
+→ BOOM DCache
+→ BoomProbeUnit.req
+```
+
+and:
+
+```text
+BoomProbeUnit.rep
+→ DCache TL-C / arbiters
+→ system interconnect / buffers / xbars
+→ L2 InclusiveCache TL-C
+```
+
+Both valid and ready/backpressure paths are required. The recovered paths cross real queue state, so this is stronger than just finding a combinational `valid` wire.
+
+v6 also runs complete ownership-scoped semantic cones on the same whole-system file:
+
+```text
+L2 B event, rooted at the real InclusiveCache instance
+  5,252 signals
+  11,852 dependency edges
+  36 concrete instances
+  complete = true
+  reaches SourceB + Directory + MSHR* + Sink/Source channel engines
+
+Probe request, rooted at the enclosing BOOM DCache
+  4,716 signals
+  25,529 dependency edges
+  29 concrete instances
+  complete = true
+  reaches ProbeUnit + MSHRFile/MSHR + Writeback
+  does not enter the whole BoomCore
+```
+
+This is the intended hierarchical work unit: analyze the complete design as input, but constrain semantic cones by statically recovered physical ownership rather than manually cutting RTL files.
+
+## Why route and slice are separate
+
+A whole-event backward cone can legitimately become very large because `ready`, arbiters and core state have high fan-in. That does not mean the design cannot be analyzed.
+
+v6 therefore distinguishes:
+
+```text
+transport route
+    = prove how one physical channel travels between two endpoints
+
+semantic event cone
+    = recover every state/control/data dependency that may influence one event
+```
+
+The first is used to ground hierarchy composition; the second is used later for case extraction. Neither is replaced by LLM inference.
 
 ## CLI
 
-Static coverage:
+Install the local command once:
 
 ```bash
-python -m frontend.cli report design.fir
+pip install -e .
 ```
 
-Physical events:
+Coverage on selected modules in a very large design:
 
 ```bash
-python -m frontend.cli events design.fir --module BoomProbeUnit
-python -m frontend.cli design-events design.fir
+mcm-static report design.fir \
+  --module BoomProbeUnit \
+  --module BoomMSHR \
+  --module InclusiveCache
+```
+
+List concrete events:
+
+```bash
+mcm-static design-events design.fir
+```
+
+Recover an end-to-end physical Decoupled route:
+
+```bash
+mcm-static route design.fir \
+  --from-event 'TestHarness....l2::auto.in.b.fire' \
+  --to-event 'TestHarness....dcache.prober::io.req.fire'
+```
+
+Ownership-scoped semantic cone, recommended for a full SoC:
+
+```bash
+mcm-static instance-slice design.fir \
+  --event 'FULL_CONCRETE_EVENT_ID' \
+  --root 'OWNING_INSTANCE_PATH' \
+  --payload
+```
+
+Whole-design semantic cone, only when the question truly crosses the ownership boundary:
+
+```bash
+mcm-static design-slice design.fir \
+  --event 'FULL_CONCRETE_EVENT_ID' \
+  --payload
 ```
 
 Local event slice:
 
 ```bash
-python -m frontend.cli slice design.fir \
+mcm-static slice design.fir \
   --module BoomProbeUnit \
   --event BoomProbeUnit.io.rep.fire \
   --mode full
 ```
 
-Direct physical endpoint connectors:
+## Tests
+
+Fast unit tests:
 
 ```bash
-python -m frontend.cli connectors design.fir
+python -m unittest discover -s tests -p 'test_frontend*.py' -v
 ```
 
-Cross-module slice:
+Real Chipyard integration regression, when a local `.fir` is available:
 
 ```bash
-python -m frontend.cli design-slice design.fir \
-  --event DCacheTop::io.tl_c.fire \
-  --payload
+MCM_REAL_FIRRTL=/path/to/SmallBoomV4Config.fir \
+python -m unittest tests.test_real_chipyard_firrtl -v
 ```
 
-Resolve FIRRTL source locators to Scala text:
-
-```bash
-python -m frontend.cli slice design.fir \
-  --module BoomProbeUnit \
-  --event BoomProbeUnit.io.rep.fire \
-  --source-root /path/to/riscv-boom
-```
-
-Static abstraction tree:
-
-```bash
-python -m frontend.cli tree design.fir
-```
-
-Candidate static partition:
-
-```bash
-python -m frontend.cli partition design.fir --module BoomMSHR
-```
-
-## Run tests
-
-```bash
-python -m unittest discover -s tests -v
-```
-
-## Static/LLM/formal responsibility split
+## Static / LLM / formal split
 
 ```text
-Static = completeness and grounding
-LLM    = semantic interpretation and candidate cases
-Formal = correctness of summaries/proofs
+Static = completeness, physical grounding and slicing
+LLM    = semantic interpretation and candidate guarded cases
+Formal = correctness of summaries and composition
 ```
 
-The next phase should **not** immediately implement an LLM Agent. First run v5 on real BOOM emitted CHIRRTL, use `UNSUPPORTED` coverage to harden the frontend, and verify that Probe/MSHR/TL slices remain small and source-grounded. See `docs/frontend/static_pipeline.md`.
+v6 still contains no LLM Agent. The next stage can now consume source-grounded static work units rather than raw whole-system RTL.

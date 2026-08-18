@@ -2,57 +2,98 @@
 
 ## 文件职责
 
-静态发现 concrete design 中两个 Decoupled endpoint 之间的**直接 handshake connector**。
+提供两种不同强度的物理连接证据：
 
-这一层用于解决后续全局事件一致性问题：如果 parent/child 之间只是 valid/ready 直接连线，我们不需要让 LLM 猜它们是否属于同一条物理传递链。
+```text
+Direct Handshake Connector
+Handshake Transport Path
+```
+
+它们都不做语义命名。
 
 ## `HandshakeConnector`
 
-记录：
+要求两个 endpoint 之间同时存在直接：
+
+$$
+A.valid \rightarrow B.valid
+$$
+
+以及：
+
+$$
+B.ready \rightarrow A.ready
+$$
+
+且中间不能跳过 gate、arbiter 或 register。
+
+适合 parent/child 的简单直连。
+
+## `discover_direct_handshake_connectors()`
+
+对 concrete design events 两两检查 direct `DATA/ALIAS` edge。
+
+“reachable”不会被误报成“direct”。
+
+## `HandshakeTransportPath`
+
+v6 新增，用于真实 Chipyard 中跨很多中间模块的 Decoupled channel。
+
+保存：
 
 ```text
 from_event
 to_event
-valid_edge
-ready_edge
+valid_path
+ready_path
+instances
+stateful_instances
 ```
 
-一个 connector 必须同时满足：
+完整 transport 必须同时证明：
 
-```text
-from.valid -> to.valid
-```
+$$
+source.valid \rightarrow^* sink.valid
+$$
 
-以及反向 ready flow：
+以及：
 
-```text
-to.ready -> from.ready
-```
+$$
+sink.ready \rightarrow^* source.ready
+$$
 
-## `_direct_edge()`
+只找到 valid 而找不到 ready/backpressure 不算完整 connector。
 
-只接受 `DATA` 或 `ALIAS` 的直接 dependency edge。
+## `discover_handshake_transport_path()`
 
-不会跳过：
+约束 source 必须是结构上的 `SEND` event，sink 必须是 `RECEIVE` event。
 
-- mux；
-- gate；
-- arbiter；
-- register；
-- 未知组合逻辑。
+内部使用 `LazyDesignExplorer`，而不是完整 flatten whole design。
 
-## `_link_orientation()`
+为了避免 BOOM core 的巨大 fanout/fanin，搜索从两个 endpoint 中 hierarchy 较浅的一侧开始：
 
-检查一对 endpoint 的 valid/ready 是否形成完整 Decoupled 传递方向。
+- 如果 physical source 更浅，forward search；
+- 如果 physical target 更浅，reverse search。
 
-## `discover_direct_handshake_connectors()`
+这不改变 edge 方向，只改变 BFS 的起点。
 
-对 concrete design events 两两检查 direct connector。
+## `stateful_instances`
 
-关键保守性：
+如果选中的 valid/ready path 经过 register 或 memory leaf，记录对应 concrete instance。
 
-> reachability 不等于 direct connector。
+真实 `SmallBoomV4Config` 的 B/C transport 会经过多个 TileLink Queue，因此 route 不是“同周期 wire alias”，而包含真实 buffering/backpressure state。
 
-如果 BOOM 的某条 channel 中间有 `lrsc_valid` gate 或 TL arbiter，v5 不会错误把两个 endpoint 声明成 direct connector；这些控制条件留在 hierarchical dependency slice 中。
+## 语义边界
 
-因此 connector discovery 负责“可以机械证明的直连”，复杂协议传递仍由静态 dependency graph 表达。
+即使 route 完整，也只证明：
+
+> 两个 physical endpoint 由这条硬件依赖链连接。
+
+它**不证明**：
+
+- 两端 occurrence 是同一个 cycle；
+- 两端是同一个 architectural transaction；
+- source/sink 的 opcode 语义相同；
+- 可以把它们直接 alias 成一个 µMCM event。
+
+这些更强语义必须在后续协议/形式层证明。

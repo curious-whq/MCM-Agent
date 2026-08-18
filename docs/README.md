@@ -12,16 +12,23 @@ v1  queue/token conservation
 v2  exceptional state cases
 v3  exact timing cases
 v4  structural FIRRTL frontend
-v5  complete pre-LLM static pipeline skeleton
+v5  deterministic pre-LLM static pipeline
+v6  real whole-Chipyard hardening + lazy physical transport routes
 ```
 
-v5 的完整架构说明见：
+完整静态架构见：
 
 ```text
 docs/frontend/static_pipeline.md
 ```
 
-## v5 新增/扩展源码对应关系
+真实 `SmallBoomV4Config.fir` integration 结果见：
+
+```text
+docs/integration/real_chipyard_v6.md
+```
+
+## Frontend 源码对应关系
 
 | 源文件 | 文档 |
 | --- | --- |
@@ -41,7 +48,7 @@ docs/frontend/static_pipeline.md
 | `frontend/cli.py` | `docs/frontend/cli.md` |
 | `frontend/firrtl.py` | `docs/frontend/firrtl.md` |
 
-## v5 测试对应关系
+## Frontend 测试对应关系
 
 | 测试/fixture | 文档 |
 | --- | --- |
@@ -53,6 +60,8 @@ docs/frontend/static_pipeline.md
 | `tests/test_frontend_pipeline.py` | `docs/tests/test_frontend_pipeline.md` |
 | `tests/test_frontend_mshr_static.py` | `docs/tests/test_frontend_mshr_static.md` |
 | `tests/test_frontend_static_contract.py` | `docs/tests/test_frontend_static_contract.md` |
+| `tests/test_frontend_transport.py` | `docs/tests/test_frontend_transport.md` |
+| `tests/test_real_chipyard_firrtl.py` | `docs/tests/test_real_chipyard_firrtl.md` |
 | `tests/fixtures/boom_probeunit_logic.fir` | `docs/tests/fixtures/boom_probeunit_logic_fir.md` |
 | `tests/fixtures/boom_dcache_hierarchy.fir` | `docs/tests/fixtures/boom_dcache_hierarchy_fir.md` |
 | `tests/fixtures/boom_mshr_logic.fir` | `docs/tests/fixtures/boom_mshr_logic_fir.md` |
@@ -61,16 +70,17 @@ v0-v4 已有文件的对应文档继续保留。
 
 ## LLM 边界
 
-v5 仍不调用 LLM。
+v6 仍不调用 LLM。
 
-只有 `frontend/handoff.py` 判断：
+静态阶段先固定：
 
 ```text
-coverage complete
-+ slice not truncated
-+ source provenance available
+physical hierarchy
+physical event registry
+signal/control/state dependencies
+local semantic cones
+end-to-end physical transport paths
+coverage/provenance
 ```
 
-后，才会输出 `handoff.ready=true` 的 deterministic package。
-
-这使后续 Agent 的输入成为被静态分析约束的 slice，而不是整仓库代码或未经验证的 LLM 自由检索结果。
+只有静态 package 达到完整性要求后，未来 LLM 才允许解释 guarded cases 和 semantic aliases。

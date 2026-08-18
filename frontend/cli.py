@@ -9,14 +9,19 @@ from .abstraction_tree import abstraction_tree_dict
 from .pipeline import StaticFrontend
 from .slice import EventSliceMode
 from .source import SourceMapper, snippet_dict
+from .design_graph import DependencyPath, build_instance_hierarchy_index
 
 
 def _load(path: str) -> str:
     return Path(path).read_text(encoding="utf-8")
 
 
-def _report(frontend: StaticFrontend) -> dict:
-    report = frontend.report()
+def _report(
+    frontend: StaticFrontend,
+    modules: Sequence[str] = (),
+) -> dict:
+    selected = tuple(modules) if modules else None
+    report = frontend.report(selected)
     return {
         "top": report.top,
         "input": {
@@ -26,7 +31,18 @@ def _report(frontend: StaticFrontend) -> dict:
             "source_locator_count": frontend.input_report.source_locator_count,
             "provenance_ready": frontend.input_report.provenance_ready,
         },
-        "complete": report.complete,
+        "complete": (
+            report.complete
+            if frontend.eager or modules
+            else None
+        ),
+        "analysis_mode": "eager" if frontend.eager else "lazy",
+        "module_definition_count": len(frontend.design.modules),
+        "coverage_scope": (
+            "all-modules"
+            if frontend.eager
+            else ("selected-modules" if modules else "loaded-modules")
+        ),
         "modules": [
             {
                 "module": module.module,
@@ -151,15 +167,18 @@ def _design_slice(
     include_payload: bool,
     source_roots: Sequence[str],
     context_lines: int,
+    max_signals: int | None,
 ) -> dict:
     manifest = frontend.design_slice_manifest(
         event_id,
         include_payload=include_payload,
+        max_signals=max_signals,
     )
     if source_roots:
         result = frontend.slice_design_event(
             event_id,
             include_payload=include_payload,
+            max_signals=max_signals,
         )
         mapper = SourceMapper.from_roots(source_roots)
         manifest["source_snippets"] = [
@@ -171,6 +190,129 @@ def _design_slice(
         ]
     return manifest
 
+
+
+def _instance_slice(
+    frontend: StaticFrontend,
+    event_id: str,
+    root_instance: str | None,
+    include_payload: bool,
+    source_roots: Sequence[str],
+    context_lines: int,
+    max_signals: int | None,
+) -> dict:
+    manifest = frontend.instance_slice_manifest(
+        event_id,
+        root_instance=root_instance,
+        include_payload=include_payload,
+        max_signals=max_signals,
+    )
+    if source_roots:
+        result = frontend.slice_instance_event(
+            event_id,
+            root_instance=root_instance,
+            include_payload=include_payload,
+            max_signals=max_signals,
+        )
+        mapper = SourceMapper.from_roots(source_roots)
+        manifest["source_snippets"] = [
+            snippet_dict(snippet)
+            for snippet in mapper.snippets(
+                result.source_spans,
+                context_lines=context_lines,
+            )
+        ]
+    return manifest
+
+
+def _source_loc_dict(source):
+    if source is None:
+        return None
+    return {
+        "file": source.file,
+        "line": source.line,
+        "column": source.column,
+    }
+
+
+def _dependency_path_dict(path: DependencyPath) -> dict:
+    return {
+        "source": path.source,
+        "target": path.target,
+        "found": path.found,
+        "complete": path.complete,
+        "visited_signals": path.visited_signals,
+        "truncated": path.truncated,
+        "edge_count": len(path.edges),
+        "incomplete_instances": list(path.incomplete_instances),
+        "edges": [
+            {
+                "src": edge.src,
+                "dst": edge.dst,
+                "kind": edge.kind.value,
+                "source": _source_loc_dict(edge.source),
+            }
+            for edge in path.edges
+        ],
+    }
+
+
+def _route(
+    frontend: StaticFrontend,
+    from_event: str,
+    to_event: str,
+    max_signals: int,
+    source_roots: Sequence[str],
+    context_lines: int,
+) -> dict:
+    route = frontend.handshake_transport(
+        from_event,
+        to_event,
+        max_signals=max_signals,
+    )
+    hierarchy = build_instance_hierarchy_index(frontend.design)
+    output = {
+        "from_event": route.from_event,
+        "to_event": route.to_event,
+        "found": route.found,
+        "complete": route.complete,
+        "valid_path": _dependency_path_dict(route.valid_path),
+        "ready_path": _dependency_path_dict(route.ready_path),
+        "instances": [
+            {
+                "path": instance,
+                "module": hierarchy.instances.get(instance),
+            }
+            for instance in route.instances
+        ],
+        "stateful_instances": [
+            {
+                "path": instance,
+                "module": hierarchy.instances.get(instance),
+            }
+            for instance in route.stateful_instances
+        ],
+        # No semantic transaction identity or protocol alias is introduced by
+        # this deterministic physical transport proof.
+        "semantic_labels": [],
+    }
+    if source_roots:
+        mapper = SourceMapper.from_roots(source_roots)
+        spans = tuple(
+            sorted(
+                set(route.valid_path.source_spans)
+                | set(route.ready_path.source_spans)
+            )
+        )
+        output["source_snippets"] = [
+            snippet_dict(snippet)
+            for snippet in mapper.snippets(
+                spans,
+                context_lines=context_lines,
+            )
+        ]
+    return output
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="python -m frontend.cli",
@@ -180,6 +322,12 @@ def build_parser() -> argparse.ArgumentParser:
 
     report = sub.add_parser("report", help="summarize static coverage")
     report.add_argument("firrtl")
+    report.add_argument(
+        "--module",
+        action="append",
+        default=[],
+        help="analyze coverage for a selected module; repeatable",
+    )
 
     events = sub.add_parser("events", help="list physical handshake events")
     events.add_argument("firrtl")
@@ -206,6 +354,38 @@ def build_parser() -> argparse.ArgumentParser:
     design_slice.add_argument("--payload", action="store_true")
     design_slice.add_argument("--source-root", action="append", default=[])
     design_slice.add_argument("--context-lines", type=int, default=2)
+    design_slice.add_argument(
+        "--max-signals",
+        type=int,
+        default=5_000,
+        help="fail-closed signal budget for whole-design semantic cones",
+    )
+
+    instance_slice = sub.add_parser(
+        "instance-slice",
+        help="slice one concrete module ownership subtree without escaping its parent",
+    )
+    instance_slice.add_argument("firrtl")
+    instance_slice.add_argument("--event", required=True)
+    instance_slice.add_argument(
+        "--root",
+        help="optional ancestor instance that owns the hierarchical work unit",
+    )
+    instance_slice.add_argument("--payload", action="store_true")
+    instance_slice.add_argument("--source-root", action="append", default=[])
+    instance_slice.add_argument("--context-lines", type=int, default=2)
+    instance_slice.add_argument("--max-signals", type=int, default=20_000)
+
+    route = sub.add_parser(
+        "route",
+        help="recover a lazy end-to-end Decoupled physical transport path",
+    )
+    route.add_argument("firrtl")
+    route.add_argument("--from-event", required=True)
+    route.add_argument("--to-event", required=True)
+    route.add_argument("--max-signals", type=int, default=250_000)
+    route.add_argument("--source-root", action="append", default=[])
+    route.add_argument("--context-lines", type=int, default=2)
 
     tree = sub.add_parser(
         "tree",
@@ -239,10 +419,16 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
-    frontend = StaticFrontend.from_firrtl(_load(args.firrtl))
+    text = _load(args.firrtl)
+    # Whole Chipyard FIRRTL can exceed 50 MiB and contain >1,800 module
+    # definitions.  Use event-cone lazy materialization for large designs.
+    frontend = StaticFrontend.from_firrtl(
+        text,
+        eager=len(text) < 8_000_000,
+    )
 
     if args.command == "report":
-        output = _report(frontend)
+        output = _report(frontend, args.module)
     elif args.command == "events":
         output = _events(frontend, args.module)
     elif args.command == "design-events":
@@ -254,6 +440,26 @@ def main(argv: Sequence[str] | None = None) -> int:
             frontend,
             args.event,
             args.payload,
+            args.source_root,
+            args.context_lines,
+            args.max_signals,
+        )
+    elif args.command == "instance-slice":
+        output = _instance_slice(
+            frontend,
+            args.event,
+            args.root,
+            args.payload,
+            args.source_root,
+            args.context_lines,
+            args.max_signals,
+        )
+    elif args.command == "route":
+        output = _route(
+            frontend,
+            args.from_event,
+            args.to_event,
+            args.max_signals,
             args.source_root,
             args.context_lines,
         )

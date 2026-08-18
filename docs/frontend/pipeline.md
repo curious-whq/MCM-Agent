@@ -2,96 +2,114 @@
 
 ## 文件职责
 
-提供 v5 静态前端的统一 orchestration API。
+统一编排 LLM 之前的 deterministic static frontend。
 
-用户不需要手工依次调用 parser、registry、dependency、slice、partition。
-
-## `ModuleStaticStatus`
-
-一个 module 的静态状态：
-
-```text
-complete
-statement_count
-unsupported_count
-event_count
-```
-
-## `StaticFrontendReport`
-
-整个 design 的 module 状态汇总。
-
-### `complete`
-
-只有所有被解析 module 都 complete 时为 true。
-
-## `StaticFrontend`
-
-从一个 CHIRRTL 文本开始管理全部 deterministic stage。
-
-### `from_firrtl()`
+## `StaticFrontend.from_firrtl()`
 
 执行：
 
 ```text
-input contract validation
+input contract
 → structural parse
-→ per-module dependency graphs
-→ per-module physical event registries（Decoupled + Valid）
+→ physical registries
+→ eager or lazy dependency provider
 ```
 
-虽然函数名沿用 `from_firrtl`，v5 实际输入契约是 textual CHIRRTL/classic FIRRTL surface syntax；CIRCT FIRRTL dialect 会被显式拒绝。
+对小 fixture 默认 eager；CLI 对大于阈值的 whole-system FIRRTL 自动用 lazy mode。
 
-### `report()`
+## `graph(module_name)`
 
-返回 static coverage summary。
+在 lazy mode 下按需 materialize 一个 module dependency graph，并缓存。
 
-### `assert_complete()`
+## `report()` / `assert_complete()`
 
-fail-closed gate。只要指定 module 有 unsupported functional statement，就拒绝继续当作完整分析。
+提供 fail-closed coverage gate。
 
-### `event()`
+完整设计时推荐 `report --module` 只先检查研究相关 module，避免无意义地把所有外设一次构图。
 
-按 module/event id 获取物理 event。
+## Local API
 
-### `slice_event()`
+- `event()`
+- `slice_event()`
+- `slice_manifest()`
+- `partition()`
 
-module-local event-centered slice。
+处理 module-type 级 work unit。
 
-### `slice_manifest()`
+## Whole-design API
 
-直接生成 local static manifest。
+- `design_events()` / `design_event()`
+- `design_graph()`
+- `design_connectors()`
+- `slice_design_event()`
+- `design_slice_manifest()`
 
-### `partition()`
+其中 `design_graph()` / 全量 `design_connectors()` 仍可能 materialize 整个设计，适合小设计或离线全量任务。
 
-生成 register-SCC/event-cone candidate partition。
+## `handshake_transport()`
 
-### `abstraction_tree()`
+v6 新增的 whole-design 大规模首选连接 API。
 
-组合真实 module instance hierarchy 与每个 module 的 state-SCC/event-cone work units。
+输入两个 concrete event id：
 
-### `design_graph()`
+```text
+SEND endpoint
+RECEIVE endpoint
+```
 
-懒构建 concrete flattened hierarchy graph。
+输出 `HandshakeTransportPath`。
 
-### `design_events()` / `design_event()`
+它不需要完整 flattened design，只对真实路径上的 module 做 lazy materialization，因此可以用于 69 MiB、1,800+ module definition 的 Chipyard FIRRTL。
 
-返回 instance-specific physical events。
+## 为什么不把 route 合并进 slice
 
-### `design_connectors()`
+`slice_design_event()` 支持 `max_signals` fail-closed budget；CLI 对 whole-system semantic cone 默认给出有限预算，避免大设计无界展开。
 
-机械发现 concrete endpoint 之间 valid/ready 的直接物理连接。复杂 gate/arbiter 不会被误判成 direct connector。
+`slice_design_event()` 回答：
 
-### `slice_design_event()`
+> 哪些状态/控制/数据可以影响这个 event？
 
-执行跨层 backward slice。
+`handshake_transport()` 回答：
 
-### `design_slice_manifest()`
+> 这个 physical channel 通过哪些模块从 A 到 B？
 
-把 hierarchical slice 导出为 static manifest。
+前者是 semantic cone，后者是 hierarchy connector evidence。真实 BOOM 中二者规模差异非常大，因此必须保持独立 primitive。
 
 ## LLM 边界
 
-`StaticFrontend` 本身不调用 LLM。
+本文件仍不调用 LLM。
 
-真正允许跨进未来 LLM 阶段的更严格 gate 位于 `frontend/handoff.py`。
+只有静态 coverage、source provenance、slice/route 完整性达到要求后，才允许构造未来的 semantic handoff。
+
+## Ownership-scoped API
+
+v6 真实 SoC 集成新增：
+
+- `slice_instance_event()`
+- `instance_slice_manifest()`
+
+它们调用 `backward_instance_slice_lazy()`，对一个 concrete ownership subtree 生成 semantic cone。
+
+推荐的大设计分析顺序是：
+
+```text
+handshake_transport()
+  固定远端 physical connector
+
+slice_instance_event()
+  恢复一个 ownership subtree 内的完整状态/控制语义
+
+slice_event()
+  继续细分到 module-type local work unit
+```
+
+只有确实需要跨越 ownership root 的 semantic question，才调用 whole-design `slice_design_event()`。
+
+这样静态阶段同时保证：
+
+```text
+不手工裁 RTL
+不让 LLM 自由选模块
+不把 entire SoC cone 当作默认工作单元
+不隐藏 parent boundary dependency
+```

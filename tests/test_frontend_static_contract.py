@@ -16,7 +16,11 @@ from frontend.dependency import (
 )
 from frontend.design_graph import backward_design_slice, flatten_design_dependency_graph
 from frontend.firrtl import parse_firrtl
-from frontend.handoff import HandoffNotReadyError, build_local_static_handoff
+from frontend.handoff import (
+    HandoffNotReadyError,
+    build_instance_static_handoff,
+    build_local_static_handoff,
+)
 from frontend.input_contract import (
     InputFormat,
     detect_input_format,
@@ -70,22 +74,37 @@ circuit Bad :
         with self.assertRaisesRegex(ValueError, "Static frontend is incomplete"):
             frontend.assert_complete("Bad")
 
-    def test_flipped_aggregate_connect_is_fail_closed(self):
+    def test_flipped_aggregate_connect_uses_leaf_flow_direction(self):
         text = """\
 circuit FlipAgg :
   module FlipAgg :
     wire a : { flip ready : UInt<1>, valid : UInt<1> }
     wire b : { flip ready : UInt<1>, valid : UInt<1> }
-    b <- a
+    connect b, a
 """
         design = parse_firrtl(text)
         graph = build_module_dependency_graph(text, design, "FlipAgg")
-        self.assertFalse(graph.complete)
+        self.assertTrue(graph.complete)
+        edges = {(edge.src, edge.dst, edge.kind) for edge in graph.edges}
+        self.assertIn(("a.valid", "b.valid", DependencyKind.DATA), edges)
+        self.assertIn(("b.ready", "a.ready", DependencyKind.DATA), edges)
+
+    def test_firrtl_3_keyword_invalidate_is_supported(self):
+        text = """\
+FIRRTL version 3.3.0
+circuit Modern :
+  module Modern :
+    input x : UInt<1>
+    output y : UInt<1>
+    connect y, x
+    invalidate y
+"""
+        design = parse_firrtl(text)
+        graph = build_module_dependency_graph(text, design, "Modern")
+        self.assertTrue(graph.complete)
+        self.assertTrue(any(s.kind == "invalidate" for s in graph.statements))
         self.assertTrue(
-            any(
-                statement.kind == "aggregate_connect_with_flips"
-                for statement in graph.unsupported_statements
-            )
+            any(edge.src == "x" and edge.dst == "y" for edge in graph.edges)
         )
 
     def test_hierarchical_slice_reports_touched_incomplete_child(self):
@@ -176,6 +195,11 @@ class StaticFrontendCLITests(unittest.TestCase):
         self.assertTrue(result["input"]["provenance_ready"])
         self.assertTrue(result["complete"])
 
+    def test_design_events_cli_accepts_one_firrtl_positional(self):
+        result = self._run("design-events", str(HIER))
+        ids = {item["id"] for item in result}
+        self.assertIn("DCacheTop.prober::io.req.fire", ids)
+
     def test_connectors_cli_exposes_direct_physical_links(self):
         result = self._run("connectors", str(HIER))
         pairs = {(item["from_event"], item["to_event"]) for item in result}
@@ -202,6 +226,22 @@ class StaticFrontendCLITests(unittest.TestCase):
         self.assertTrue(
             any(child["kind"] == "state_region" for child in probe["children"])
         )
+
+    def test_instance_slice_cli_respects_subtree_boundary(self):
+        result = self._run(
+            "instance-slice",
+            str(HIER),
+            "--event",
+            "DCacheTop.prober::io.req.fire",
+            "--root",
+            "DCacheTop.prober",
+        )
+        self.assertEqual(result["scope"], "instance_subtree")
+        self.assertEqual(result["subtree_root"], "DCacheTop.prober")
+        self.assertTrue(result["analysis"]["complete"])
+        ids = {signal["id"] for signal in result["signals"]}
+        self.assertNotIn("DCacheTop::io.tl_b.valid", ids)
+        self.assertEqual(result["semantic_labels"], [])
 
     def test_design_slice_cli_emits_no_semantic_labels(self):
         result = self._run(
@@ -252,6 +292,36 @@ circuit Bad : @[Bad.scala 1:1]
                 frontend,
                 "Bad",
                 "Bad.io.fire",
+            )
+
+    def test_instance_subtree_handoff_is_ownership_scoped_and_locked(self):
+        frontend = StaticFrontend.from_firrtl(
+            HIER.read_text(encoding="utf-8"),
+            eager=False,
+        )
+        handoff = build_instance_static_handoff(
+            frontend,
+            "DCacheTop.prober::io.req.fire",
+            root_instance="DCacheTop.prober",
+        )
+        self.assertTrue(handoff["handoff"]["ready"])
+        self.assertTrue(handoff["handoff"]["ownership_scoped"])
+        self.assertTrue(handoff["handoff"]["semantic_labels_locked"])
+        self.assertEqual(handoff["scope"], "instance_subtree")
+        self.assertEqual(handoff["subtree_root"], "DCacheTop.prober")
+        self.assertEqual(handoff["semantic_labels"], [])
+
+    def test_instance_subtree_handoff_budget_failure_is_blocked(self):
+        frontend = StaticFrontend.from_firrtl(
+            HIER.read_text(encoding="utf-8"),
+            eager=False,
+        )
+        with self.assertRaises(HandoffNotReadyError):
+            build_instance_static_handoff(
+                frontend,
+                "DCacheTop.prober::io.req.fire",
+                root_instance="DCacheTop.prober",
+                max_signals=1,
             )
 
 
