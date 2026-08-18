@@ -1,46 +1,55 @@
-# MCM-Agent — Prototype v3
+# MCM-Agent — Prototype v4
 
 MCM-Agent studies bottom-up synthesis of hierarchical microarchitectural memory-model summaries.
 
-The implementation is still deliberately manual: no RTL parser and no LLM Agent yet. The current goal is to validate the abstraction language and algorithms before automating the frontend.
+v0-v3 validated the abstraction language manually. v4 starts the automated frontend.
 
-## Implemented abstraction primitives
+## Manual abstraction prototypes
 
-### v0: ordering/FSM projection
+- v0: ordering/FSM projection
+- v1/v1.1: resource/token conservation and occurrence identity
+- v2/v2.1: exceptional state-case preservation
+- v3: exact timing-case preservation
 
-Internal event paths are closed transitively, internal events are hidden, and only boundary-equivalent cases may be merged.
+## v4: FIRRTL structural frontend
 
-### v1/v1.1: resource/token conservation and identity
+v4 does **not** generate µMCM axioms yet and does **not** use an LLM.
 
-Queue/token summaries preserve symbolic request and scope identity.
-
-### v2/v2.1: exceptional state-case preservation
-
-BOOM B1 is modeled with occurrence-bound state predicates and RTL-grounded blocking effects. The state-case minimizer is checked exhaustively over all 256 Boolean functions of three variables.
-
-### v3: exact timing-case preservation
-
-XiangShan MetaArray commits `479d62a...` and `6318236...` are used as the first timing-sensitive case.
-
-The timing IR supports:
+It statically extracts:
 
 ```text
-SameCycle(A, B)
-Next(A, B)
-CycleDelta(A, B, k)
+FIRRTL / CHIRRTL
+      ↓
+module / instance hierarchy
+      ↓
+physical boundary leaf ports
+      ↓
+Decoupled-style valid/ready handshake events
+      ↓
+source locator provenance
 ```
 
-Internally these become finite `DeltaDomain`s whose semantics are:
+A physical event uses a structural name such as:
 
 ```text
-cycle(B) - cycle(A) ∈ allowed_deltas
+BoomProbeUnit.io.req.fire
 ```
 
-The pre-final-fix model keeps the simultaneous write/read case separate because it returns old metadata, while a previous-cycle write is handled by the existing s1 bypass.
+with a grounded predicate:
 
-After the final s0-bypass fix both timing cases produce the same `io.resp` value, so they may be merged exactly into the finite timing domain `{0, 1}`.
+```text
+io.req.valid && io.req.ready
+```
 
-The merge never fills timing gaps: `{0}` and `{2}` becomes `{0, 2}`, not an interval containing cycle 1.
+The frontend deliberately does not rename this to a semantic event such as
+`ProbeRecv`. Semantic interpretation will be a later, provenance-constrained
+layer.
+
+### First BOOM target
+
+The v4 fixture mirrors the real BOOM v4 `BoomProbeUnit` interface and checks
+that the frontend recovers its `req`, `rep`, `meta_read`, `meta_write`,
+`wb_req`, and `lsu_release` Decoupled channels.
 
 ## Run
 
@@ -50,4 +59,7 @@ python -m unittest discover -s tests -v
 
 ## Next
 
-After v3, the prototype has exercised FSM paths, queue/token lifetime, exceptional state cases, and exact timing cases. The next phase should begin building the automated frontend: structural hierarchy discovery, boundary/event registry, and event-centered static slicing.
+The next frontend milestone is event-centered dependency slicing. That phase
+will extend the FIRRTL parser from structural declarations to connects,
+register next-state dependencies, mux/control dependencies, and source-covered
+slice output.
