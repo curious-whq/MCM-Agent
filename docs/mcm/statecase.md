@@ -2,58 +2,52 @@
 
 ## 文件职责
 
-实现 v2 的“状态 case 保留与安全合并”。
+负责状态 case 的保留和安全布尔化简。
 
-它解决的问题是：某个稀有中间状态是否会在层次抽象时被错误吞掉。
+一个 `StateCase` 表示：
+
+$$
+\frac{Guard}{TrackedEffects}
+$$
 
 ## `StateCase`
 
-表示：
+包含：
 
-$$
-\frac{Guard}{Outcomes}
-$$
+- `guard`：状态条件；
+- `outcomes`：当前追踪的 effect 集合；
+- `provenance`：来源。
 
-与普通 `Case` 不同，它的 consequence 不是 ordering graph，而是一组 `OutcomeRef`。
-
-例如：
-
-$$
-\frac{Executed(O) \land \neg Succeeded(O)}{Allow(Y)}
-$$
+`outcomes=()` 是合法 consequence，含义是这个分支没有产生当前跟踪的 effect。
 
 ## `_combine_adjacent_guards`
 
-只合并两个**仅有一个 predicate polarity 不同**的布尔 cube。
+只对 consequence 完全相同、且仅差一个互补 predicate 的两个 cube 做精确合并。
 
 例如：
 
 $$
-\neg Executed(O) \land \neg Succeeded(O)
+\neg Executed(O)\land\neg Succeeded(O)
 $$
 
-和：
+与：
 
 $$
-Executed(O) \land \neg Succeeded(O)
+Executed(O)\land\neg Succeeded(O)
 $$
 
-如果 consequence 完全相同，可精确化简成：
+如果 effect 完全相同，则可化简为：
 
 $$
 \neg Succeeded(O)
 $$
 
-这是逻辑等价变换，不是启发式猜测。
-
-如果 predicate 绑定的是不同 load，例如 $Executed(O)$ 和 $Executed(P)$，则不会合并。
-
 ## `_minimize_guard_group`
 
-对拥有相同 outcomes 的一组 `StateCase` 反复做上述相邻 cube 合并。
+反复应用上述布尔 cube 合并。
 
 ## `merge_state_cases`
 
-先按 exact outcome set 分组，再对每组 guard 做安全最小化。
+先按 exact effect set 分组，再做 guard 最小化。
 
-不同 outcome 的 case 永远不会被合并。
+v2.1 的测试会穷举三个布尔变量的全部 $2^{2^3}=256$ 个布尔函数，确认最小化前后每个 assignment 的 consequence 完全一致。

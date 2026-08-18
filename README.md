@@ -1,56 +1,46 @@
-# MCM-Agent — Prototype v2
+# MCM-Agent — Prototype v3
 
 MCM-Agent studies bottom-up synthesis of hierarchical microarchitectural memory-model summaries.
 
-The current implementation is deliberately manual: no RTL parser and no LLM Agent yet. The goal is to validate the abstraction language and algorithms first.
+The implementation is still deliberately manual: no RTL parser and no LLM Agent yet. The current goal is to validate the abstraction language and algorithms before automating the frontend.
 
 ## Implemented abstraction primitives
 
 ### v0: ordering/FSM projection
 
-Internal paths are closed transitively, internal events are hidden, and boundary-equivalent guarded cases may be merged.
+Internal event paths are closed transitively, internal events are hidden, and only boundary-equivalent cases may be merged.
 
-### v1/v1.1: resource/token conservation
+### v1/v1.1: resource/token conservation and identity
 
-A manually supplied queue/token invariant can be projected into a boundary lifecycle summary. Symbolic event occurrences carry request/scope identity such as:
+Queue/token summaries preserve symbolic request and scope identity.
 
-```text
-ReqAccept(req=r,mshr=m)
-RespOut(req=r,mshr=m)
-GrantAck(mshr=m)
-```
+### v2/v2.1: exceptional state-case preservation
 
-This prevents an event for request `s` from satisfying an obligation for request `r`.
+BOOM B1 is modeled with occurrence-bound state predicates and RTL-grounded blocking effects. The state-case minimizer is checked exhaustively over all 256 Boolean functions of three variables.
 
-### v2: exceptional state-case preservation
+### v3: exact timing-case preservation
 
-BOOM B1 is hand-modeled with predicates bound to a concrete symbolic load:
+XiangShan MetaArray commits `479d62a...` and `6318236...` are used as the first timing-sensitive case.
+
+The timing IR supports:
 
 ```text
-Executed(load=O)
-Succeeded(load=O)
+SameCycle(A, B)
+Next(A, B)
+CycleDelta(A, B, k)
 ```
 
-and boundary/control outcomes:
+Internally these become finite `DeltaDomain`s whose semantics are:
 
 ```text
-Kill(load=Y)
-Allow(load=Y)
+cycle(B) - cycle(A) ∈ allowed_deltas
 ```
 
-For the buggy state partition, the executed-but-not-succeeded state has the same outcome as completed execution and therefore summarizes to:
+The pre-final-fix model keeps the simultaneous write/read case separate because it returns old metadata, while a previous-cycle write is handled by the existing s1 bypass.
 
-```text
-Executed(O) -> Allow(Y)
-```
+After the final s0-bypass fix both timing cases produce the same `io.resp` value, so they may be merged exactly into the finite timing domain `{0, 1}`.
 
-For the fixed partition, unresolved states safely merge to:
-
-```text
-!Succeeded(O) -> Kill(Y)
-```
-
-The merge is exact boolean cube combination and never combines predicates belonging to different symbolic loads.
+The merge never fills timing gaps: `{0}` and `{2}` becomes `{0, 2}`, not an interval containing cycle 1.
 
 ## Run
 
@@ -60,4 +50,4 @@ python -m unittest discover -s tests -v
 
 ## Next
 
-The next stress test is a timing-sensitive XiangShan case, which will require exact timing relations such as `SameCycle` and `Next`.
+After v3, the prototype has exercised FSM paths, queue/token lifetime, exceptional state cases, and exact timing cases. The next phase should begin building the automated frontend: structural hierarchy discovery, boundary/event registry, and event-centered static slicing.

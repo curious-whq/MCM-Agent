@@ -2,102 +2,45 @@
 
 ## 文件职责
 
-定义整个原型共用的基础 IR。
+定义公共符号 IR，包括 `EventRef`、`PredicateRef`、`OutcomeRef`、`Before`、`Literal`、`Guard` 和 `Case`。
 
-v1.1 开始区分“事件类型”和“带身份的符号事件 occurrence”；v2 又加入带 occurrence 参数的状态 predicate 和 outcome。
+v2.1 没有改变 IR 结构，但收紧了 `OutcomeRef` 的使用约定：
 
-## `EventRef`
+> 对真实 RTL case，`OutcomeRef` 应优先对应可追溯的 RTL effect，而不是自由创造诸如 `Allow` 这样的语义结果。
 
-表示一个符号事件 occurrence。
+例如 BOOM B1 现在使用：
 
-例如：
-
-```python
-EventRef.of("RespOut", req="r", mshr="m")
+```text
+s1_set_execute(load=Y,value=false)
+kill_forward(load=Y,value=true)
 ```
 
-表示 $RespOut(r,m)$，而不是任意一个 `RespOut`。
-
-主要方法：
-
-- `of()`：构造带 bindings 的事件；
-- `renamed()`：只替换事件 kind，保留 bindings；
-- `binding()`：读取某个参数；
-- `has_keys()`：检查是否拥有指定身份字段；
-- `agrees_on()`：检查两个事件在指定身份字段上是否一致。
+它们对应被分析分支中的真实 assignment。
 
 ## `PredicateRef`
 
-表示带参数的状态 predicate，例如：
+用于表示带 occurrence 身份的 predicate，例如：
 
-```python
-PredicateRef.of("Executed", load="O")
-```
+$$
+Executed(O)
+$$
 
-对应 $Executed(O)$。
+$$
+Succeeded(O)
+$$
 
-因此 $Executed(O)$ 与 $Executed(P)$ 是不同的 predicate 变量。
+$$
+WillSucceed(O)
+$$
+
+不同 load 的 predicate 不会混合。
 
 ## `OutcomeRef`
 
-表示 case 的边界/控制结果，例如：
+表示被当前 case 跟踪的 effect。
 
-```python
-OutcomeRef.of("Kill", load="Y")
-```
+`StateCase` 允许 `outcomes=()`。这只表示：
 
-对应 $Kill(Y)$。
+> 当前分支不产生我们正在跟踪的这些 effect。
 
-## `Before`
-
-表示严格顺序：
-
-$$
-src < dst
-$$
-
-构造时会把旧版字符串自动转换为无参数 `EventRef`，所以 v0 Probe 示例仍然兼容。
-
-## `Literal`
-
-表示 guard 中一个 predicate 的正/负文字。
-
-例如：
-
-```python
-Literal(PredicateRef.of("Succeeded", load="O"), False)
-```
-
-对应：
-
-$$
-\neg Succeeded(O)
-$$
-
-## `Guard`
-
-表示 Literal 的合取。
-
-例如：
-
-$$
-Executed(O) \land \neg Succeeded(O)
-$$
-
-空 Guard 表示 $true$。
-
-## `Case`
-
-表示普通 ordering case：
-
-$$
-\frac{Guard}{Before\ facts}
-$$
-
-目前仍专门服务于 v0 的 ordering/FSM projection。
-
-## `AliasMap`
-
-对事件 kind 做纯定义性归一化，同时保留 occurrence bindings。
-
-例如将 `ProbeAck` 和 `ProbeAckData` 都归一为 `ProbeResponse`，但不会丢失其请求/事务身份。
+它不自动创造一个“Allow”事件，也不意味着系统其它位置不会产生其它 effect。

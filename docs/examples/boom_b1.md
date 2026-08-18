@@ -2,52 +2,79 @@
 
 ## 文件职责
 
-手工构造 BOOM B1 load-load ordering bug 的最小状态 partition，用于测试 v2 state-case abstraction。
+手工建模 BOOM PR #706 所修复的 load-load ordering 状态 hole。
 
-定义 older load $O$ 与 younger load $Y$。
+older load 记为 $O$，younger load 记为 $Y$。
 
-状态 predicate：
+## 状态 predicate
 
-- $Executed(O)$；
-- $Succeeded(O)$。
-
-结果：
-
-- $Kill(Y)$；
-- $Allow(Y)$。
-
-## `buggy_cases`
-
-三个可达状态：
+v2.1 使用三个真实状态概念：
 
 $$
-\frac{\neg Executed(O) \land \neg Succeeded(O)}{Kill(Y)}
+Executed(O)
 $$
 
 $$
-\frac{Executed(O) \land \neg Succeeded(O)}{Allow(Y)}
+Succeeded(O)
 $$
 
 $$
-\frac{Executed(O) \land Succeeded(O)}{Allow(Y)}
+WillSucceed(O)
 $$
 
-其中第二条就是关键 hole。
+其中 `WillSucceed` 对应最终修复里新增的 `ldq_will_succeed` next-state wire。
 
-因为后两条 consequence 相同，它们可安全合并为：
+## tracked effects
+
+v2.1 删除了人为构造的 `Allow(Y)`。
+
+现在只跟踪 kill branch 中无条件执行的两个真实 effect：
+
+```text
+s1_set_execute(Y) := false
+kill_forward(Y) := true
+```
+
+`io.dmem.s1_kill` 还有额外运行时 guard，因此暂时不作为该分支每次都保证的 effect。
+
+## `buggy_cases()`
+
+旧条件是：
+
+```text
+!(l_executed || l_succeeded)
+```
+
+关键 hole：
 
 $$
-\frac{Executed(O)}{Allow(Y)}
+Executed(O)\land\neg Succeeded(O)
 $$
 
-## `fixed_cases`
+在旧逻辑中不会进入 tracked kill branch，因此该 case 的 `outcomes=()`。
 
-修复后，`Executed(O) && !Succeeded(O)` 也变成 $Kill(Y)$。
+## `fixed_cases()`
 
-于是前两条可安全合并为：
+最终 PR 条件是：
+
+```text
+!(l_executed && (l_succeeded || l_will_succeed))
+```
+
+因此：
 
 $$
-\frac{\neg Succeeded(O)}{Kill(Y)}
+Executed(O)\land\neg Succeeded(O)\land\neg WillSucceed(O)
 $$
 
-这正是 v2 要验证的：只有 boundary outcome 相同的状态 case 才能被抽象合并。
+现在会产生 blocking effects。
+
+而：
+
+$$
+Executed(O)\land WillSucceed(O)
+$$
+
+不会产生这两个 tracked blocking effect。
+
+该手工 reachable partition 还利用 `ldq_will_succeed` 默认取自 `ldq_succeeded` 的关系，因此把 succeeded 状态建模为 `WillSucceed=true`。
