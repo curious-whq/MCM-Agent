@@ -1,21 +1,51 @@
-# MCM-Agent — Prototype v0
+# MCM-Agent — Prototype v1.1
 
-This repository studies bottom-up synthesis of hierarchical microarchitectural memory-model axioms.
+MCM-Agent studies bottom-up synthesis of hierarchical microarchitectural memory-model summaries.
 
-The first prototype is deliberately manual. It does **not** parse RTL and does **not** use an LLM. It tests one core idea:
+The current prototype is deliberately manual: it does not parse RTL and does not use an LLM. The goal is to first determine whether the abstraction language and projection rules are sound enough on real microarchitectural patterns.
+
+## v0: ordering/FSM projection
+
+The BOOM L1 Probe example validates:
 
 > Preserve internal cases, project each case to the real module boundary, and merge cases only when their boundary consequences are equivalent.
 
-## First example: BOOM L1 Probe handling
+The clean and dirty Probe paths both reduce to:
 
-We manually encode two internal paths:
+```text
+ProbeRecv < ReleaseNotify < ProbeResponse
+```
 
-- non-dirty Probe path: `ReleaseNotify < ProbeAck`
-- dirty writeback path: `ReleaseNotify < ProbeAckData`
+while a synthetic exceptional ordering is kept separate.
 
-At the L1 boundary, `ProbeAck` and `ProbeAckData` are definitional variants of `ProbeResponse`. If the projected clean and dirty cases have the same boundary ordering, complementary guards `Dirty` / `!Dirty` may be merged into an unconditional parent case.
+## v1: MSHR/RPQ resource conservation
 
-A synthetic buggy dirty path is also included. Its boundary order differs, so the merge engine must keep it separate.
+The MSHR example adds a second abstraction primitive: queue/token lifetime projection.
+
+A request accepted into an RPQ creates an internal token. The token remains live until response, replay, or kill, while `GrantAck` is only allowed after that token is gone.
+
+## v1.1: symbolic event identity
+
+v1 originally represented events only by names such as `RespOut`. That was insufficient because a response for request `s` must not discharge the RPQ token of request `r`.
+
+v1.1 introduces `EventRef`, for example:
+
+```python
+EventRef.of("ReqAccept", req="r", mshr="m")
+EventRef.of("RespOut", req="r", mshr="m")
+EventRef.of("GrantAck", mshr="m")
+```
+
+The generated parent summary therefore refers to the same symbolic request and MSHR scope:
+
+$$
+ReqAccept(r,m) < GrantAck(m)
+\Rightarrow
+\exists e \in \{RespOut(r,m), ReplayOut(r,m), Kill(r,m)\}.
+ReqAccept(r,m) < e < GrantAck(m)
+$$
+
+A `RespOut(s,m)` cannot satisfy the summary for request `r`.
 
 ## Run
 
@@ -23,25 +53,14 @@ A synthetic buggy dirty path is also included. Its boundary order differs, so th
 python -m unittest discover -s tests -v
 ```
 
-## Current scope
+Current test count: 8.
 
-Implemented:
+## Current abstraction primitives
 
-- `Event`, `Before`, boolean `Guard`, and guarded `Case` IR
-- transitive boundary projection that removes internal events
-- definitional boundary aliases
-- conservative merge of complementary cases with identical consequences
-- BOOM Probe clean/dirty example
-- negative test: exceptional boundary behavior is not merged
+- strict-order/FSM projection through internal events;
+- boundary alias normalization;
+- conservative equivalent-case merge;
+- per-token resource-conservation projection;
+- symbolic event occurrence identity.
 
-Not implemented yet:
-
-- RTL extraction
-- LLM generation
-- SMT/formal proof
-- exact cycle relations (`Next`, `SameCycle`)
-- symbolic addresses / transactions
-- queue conservation rules
-- general guard minimization
-
-The next intended stress tests are MSHR/RPQ, BOOM B1 load-load ordering, and XiangShan timing-sensitive cases.
+Not implemented yet: RTL extraction, LLM generation, formal proof of leaf invariants, exact-cycle timing relations, symbolic address relations, automatic resource-invariant synthesis, general guard minimization, and the BOOM B1 timing case.

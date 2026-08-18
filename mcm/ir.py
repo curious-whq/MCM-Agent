@@ -1,16 +1,15 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Iterable, Mapping, FrozenSet, Tuple
+from typing import FrozenSet, Iterable, Mapping, Tuple
 
 
 @dataclass(frozen=True, order=True)
 class Event:
-    """A named event in one abstraction layer.
+    """A named event kind in one abstraction layer.
 
-    boundary=True means the event is externally visible at the current module
-    boundary. Internal events may be used in leaf cases but are eliminated by
-    projection.
+    Event describes the static event kind/owner. Dynamic or symbolic occurrences
+    are represented by EventRef below.
     """
 
     name: str
@@ -19,24 +18,71 @@ class Event:
 
 
 @dataclass(frozen=True, order=True)
-class Before:
-    """Strict temporal/order relation: src occurs before dst."""
+class EventRef:
+    """A symbolic occurrence of an event kind with identity bindings.
 
-    src: str
-    dst: str
+    Example:
+        EventRef.of("RespOut", req="r", mshr="m")
+
+    represents RespOut(r, m). The parameter values are symbolic names in the
+    hand-written prototype; later frontends may bind them to RTL transaction IDs
+    or proof variables.
+    """
+
+    kind: str
+    params: Tuple[Tuple[str, str], ...] = ()
+
+    @staticmethod
+    def of(kind: str, **params: str) -> "EventRef":
+        return EventRef(kind=kind, params=tuple(sorted(params.items())))
+
+    @staticmethod
+    def coerce(value: "EventRef | str") -> "EventRef":
+        if isinstance(value, EventRef):
+            return value
+        if isinstance(value, str):
+            return EventRef(value)
+        raise TypeError(f"Expected EventRef or str, got {type(value).__name__}")
+
+    def get(self, key: str) -> str | None:
+        for name, value in self.params:
+            if name == key:
+                return value
+        return None
+
+    def with_kind(self, kind: str) -> "EventRef":
+        return EventRef(kind=kind, params=self.params)
+
+    def __str__(self) -> str:
+        if not self.params:
+            return self.kind
+        args = ", ".join(f"{key}={value}" for key, value in self.params)
+        return f"{self.kind}({args})"
+
+
+@dataclass(frozen=True, order=True)
+class Before:
+    """Strict temporal/order relation: src occurs before dst.
+
+    String endpoints are accepted as shorthand for unparameterized EventRef
+    objects, preserving the v0 Probe example syntax.
+    """
+
+    src: EventRef | str
+    dst: EventRef | str
 
     def __post_init__(self) -> None:
-        if self.src == self.dst:
+        src = EventRef.coerce(self.src)
+        dst = EventRef.coerce(self.dst)
+        object.__setattr__(self, "src", src)
+        object.__setattr__(self, "dst", dst)
+        if src == dst:
             raise ValueError("Before relation must be irreflexive")
 
 
 @dataclass(frozen=True, order=True)
 class Literal:
-    """A boolean case condition such as Dirty or !Dirty.
-
-    This first prototype deliberately does not invent semantic predicates. A
-    Literal is only a symbolic condition already supplied by the leaf model.
-    """
+    """A boolean case condition such as Dirty or !Dirty."""
 
     name: str
     positive: bool = True
@@ -106,16 +152,15 @@ class Case:
 
 @dataclass(frozen=True)
 class AliasMap:
-    """Pure boundary renaming/grouping.
+    """Pure event-kind renaming/grouping that preserves identity parameters.
 
     Example:
-        ProbeAck -> ProbeResponse
-        ProbeAckData -> ProbeResponse
-
-    Aliases are definitional only; they do not add semantic constraints.
+        ProbeAck(req=r)     -> ProbeResponse(req=r)
+        ProbeAckData(req=r) -> ProbeResponse(req=r)
     """
 
     mapping: Mapping[str, str]
 
-    def normalize(self, event_name: str) -> str:
-        return self.mapping.get(event_name, event_name)
+    def normalize(self, event: EventRef | str) -> EventRef:
+        ref = EventRef.coerce(event)
+        return ref.with_kind(self.mapping.get(ref.kind, ref.kind))

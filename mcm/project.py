@@ -3,14 +3,14 @@ from __future__ import annotations
 from collections import defaultdict
 from typing import Iterable, Set
 
-from .ir import Before, Case
+from .ir import Before, Case, EventRef
 
 
 def _transitive_closure(edges: Iterable[Before]) -> set[Before]:
     """Compute strict transitive closure for a finite Before graph."""
 
-    succ: dict[str, set[str]] = defaultdict(set)
-    nodes: set[str] = set()
+    succ: dict[EventRef, set[EventRef]] = defaultdict(set)
+    nodes: set[EventRef] = set()
     for edge in edges:
         succ[edge.src].add(edge.dst)
         nodes.add(edge.src)
@@ -19,7 +19,7 @@ def _transitive_closure(edges: Iterable[Before]) -> set[Before]:
     out: set[Before] = set()
     for src in nodes:
         stack = list(succ[src])
-        seen: set[str] = set()
+        seen: set[EventRef] = set()
         while stack:
             dst = stack.pop()
             if dst in seen:
@@ -32,11 +32,7 @@ def _transitive_closure(edges: Iterable[Before]) -> set[Before]:
 
 
 def _transitive_reduction_dag(edges: set[Before]) -> set[Before]:
-    """Remove redundant edges from an acyclic strict-order graph.
-
-    The prototype expects per-case Before facts to be acyclic. If a cycle is
-    present, the case is rejected because it cannot represent a strict order.
-    """
+    """Remove redundant edges from an acyclic strict-order graph."""
 
     closure = _transitive_closure(edges)
     for edge in edges:
@@ -52,22 +48,23 @@ def _transitive_reduction_dag(edges: set[Before]) -> set[Before]:
     return reduced
 
 
+def _is_boundary(ref: EventRef, boundary_event_kinds: Set[str]) -> bool:
+    return ref.kind in boundary_event_kinds
+
+
 def project_case(case: Case, boundary_events: Set[str]) -> Case:
-    """Project a leaf case onto a module boundary.
+    """Project a leaf case onto a module boundary by event kind.
 
-    1. Close Before transitively so paths through internal events are preserved.
-    2. Drop facts whose endpoints are not both boundary-visible.
-    3. Reduce redundant boundary edges while preserving the same strict order.
-
-    The guard is deliberately preserved in v0; guard abstraction is a separate
-    future problem.
+    Identity parameters on EventRef endpoints are preserved exactly while
+    internal event kinds are hidden.
     """
 
     closure = _transitive_closure(case.facts)
     boundary_edges = {
         edge
         for edge in closure
-        if edge.src in boundary_events and edge.dst in boundary_events
+        if _is_boundary(edge.src, boundary_events)
+        and _is_boundary(edge.dst, boundary_events)
     }
     reduced = _transitive_reduction_dag(boundary_edges)
     return Case.build(

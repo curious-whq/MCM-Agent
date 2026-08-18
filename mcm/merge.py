@@ -1,15 +1,14 @@
 from __future__ import annotations
 
 from collections import defaultdict
-from dataclasses import replace
 from typing import Iterable
 
-from .ir import AliasMap, Before, Case, Guard, Literal
+from .ir import AliasMap, Before, Case, Guard
 from .project import _transitive_reduction_dag
 
 
 def normalize_case(case: Case, aliases: AliasMap) -> Case:
-    """Normalize boundary event names using definitional aliases."""
+    """Normalize boundary event kinds while preserving occurrence parameters."""
 
     normalized: set[Before] = set()
     for fact in case.facts:
@@ -29,16 +28,7 @@ def normalize_case(case: Case, aliases: AliasMap) -> Case:
 
 
 def _guards_cover_true(guards: list[Guard]) -> bool:
-    """Recognize the only exhaustive case split supported in v0.
-
-    v0 intentionally implements just one safe merge pattern:
-        P   / consequence
-        !P  / consequence
-      ---------------------
-        true / consequence
-
-    General boolean minimization comes later.
-    """
+    """Recognize the complementary one-literal exhaustive split used in v1.1."""
 
     if len(guards) != 2:
         return False
@@ -51,12 +41,7 @@ def _guards_cover_true(guards: list[Guard]) -> bool:
 
 
 def merge_equivalent_cases(cases: Iterable[Case]) -> list[Case]:
-    """Merge cases only when their projected consequences are identical.
-
-    v0 groups cases by the exact normalized boundary fact set. If exactly two
-    cases have complementary one-literal guards, they are merged into an
-    unconditional case. Otherwise cases remain separate.
-    """
+    """Merge only cases with exactly identical normalized boundary facts."""
 
     groups: dict[tuple[Before, ...], list[Case]] = defaultdict(list)
     for case in cases:
