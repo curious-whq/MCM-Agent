@@ -4,13 +4,120 @@ from dataclasses import dataclass, field
 from typing import FrozenSet, Iterable, Mapping, Tuple
 
 
+Bindings = Tuple[Tuple[str, str], ...]
+
+
+def _normalize_bindings(bindings: Mapping[str, object] | Iterable[tuple[str, object]] = ()) -> Bindings:
+    if isinstance(bindings, Mapping):
+        items = bindings.items()
+    else:
+        items = bindings
+    return tuple(sorted((str(key), str(value)) for key, value in items))
+
+
+@dataclass(frozen=True, order=True)
+class EventRef:
+    """A symbolic occurrence of an event kind.
+
+    Examples:
+        ProbeRecv
+        ReqAccept(req=r, mshr=m)
+        RespOut(req=r, mshr=m)
+
+    The bindings distinguish occurrences that belong to different logical
+    requests/transactions.
+    """
+
+    kind: str
+    bindings: Bindings = ()
+
+    @staticmethod
+    def of(kind: str, **bindings: object) -> "EventRef":
+        return EventRef(kind, _normalize_bindings(bindings))
+
+    def renamed(self, kind: str) -> "EventRef":
+        return EventRef(kind, self.bindings)
+
+    def binding(self, key: str) -> str | None:
+        for name, value in self.bindings:
+            if name == key:
+                return value
+        return None
+
+    def has_keys(self, keys: Iterable[str]) -> bool:
+        available = {key for key, _ in self.bindings}
+        return all(key in available for key in keys)
+
+    def agrees_on(self, other: "EventRef", keys: Iterable[str]) -> bool:
+        for key in keys:
+            left = self.binding(key)
+            right = other.binding(key)
+            if left is None or right is None or left != right:
+                return False
+        return True
+
+    def __str__(self) -> str:
+        if not self.bindings:
+            return self.kind
+        args = ", ".join(f"{key}={value}" for key, value in self.bindings)
+        return f"{self.kind}({args})"
+
+
+def as_event_ref(value: EventRef | str) -> EventRef:
+    if isinstance(value, EventRef):
+        return value
+    if isinstance(value, str):
+        return EventRef(value)
+    raise TypeError(f"Expected EventRef or str, got {type(value)!r}")
+
+
+@dataclass(frozen=True, order=True)
+class PredicateRef:
+    """A symbolic state/control predicate, optionally bound to an occurrence."""
+
+    name: str
+    bindings: Bindings = ()
+
+    @staticmethod
+    def of(name: str, **bindings: object) -> "PredicateRef":
+        return PredicateRef(name, _normalize_bindings(bindings))
+
+    def __str__(self) -> str:
+        if not self.bindings:
+            return self.name
+        args = ", ".join(f"{key}={value}" for key, value in self.bindings)
+        return f"{self.name}({args})"
+
+
+def as_predicate_ref(value: PredicateRef | str) -> PredicateRef:
+    if isinstance(value, PredicateRef):
+        return value
+    if isinstance(value, str):
+        return PredicateRef(value)
+    raise TypeError(f"Expected PredicateRef or str, got {type(value)!r}")
+
+
+@dataclass(frozen=True, order=True)
+class OutcomeRef:
+    """A symbolic boundary/control consequence such as Kill(load=Y)."""
+
+    name: str
+    bindings: Bindings = ()
+
+    @staticmethod
+    def of(name: str, **bindings: object) -> "OutcomeRef":
+        return OutcomeRef(name, _normalize_bindings(bindings))
+
+    def __str__(self) -> str:
+        if not self.bindings:
+            return self.name
+        args = ", ".join(f"{key}={value}" for key, value in self.bindings)
+        return f"{self.name}({args})"
+
+
 @dataclass(frozen=True, order=True)
 class Event:
-    """A named event kind in one abstraction layer.
-
-    Event describes the static event kind/owner. Dynamic or symbolic occurrences
-    are represented by EventRef below.
-    """
+    """Metadata for an event kind in one abstraction layer."""
 
     name: str
     owner: str
@@ -18,88 +125,44 @@ class Event:
 
 
 @dataclass(frozen=True, order=True)
-class EventRef:
-    """A symbolic occurrence of an event kind with identity bindings.
-
-    Example:
-        EventRef.of("RespOut", req="r", mshr="m")
-
-    represents RespOut(r, m). The parameter values are symbolic names in the
-    hand-written prototype; later frontends may bind them to RTL transaction IDs
-    or proof variables.
-    """
-
-    kind: str
-    params: Tuple[Tuple[str, str], ...] = ()
-
-    @staticmethod
-    def of(kind: str, **params: str) -> "EventRef":
-        return EventRef(kind=kind, params=tuple(sorted(params.items())))
-
-    @staticmethod
-    def coerce(value: "EventRef | str") -> "EventRef":
-        if isinstance(value, EventRef):
-            return value
-        if isinstance(value, str):
-            return EventRef(value)
-        raise TypeError(f"Expected EventRef or str, got {type(value).__name__}")
-
-    def get(self, key: str) -> str | None:
-        for name, value in self.params:
-            if name == key:
-                return value
-        return None
-
-    def with_kind(self, kind: str) -> "EventRef":
-        return EventRef(kind=kind, params=self.params)
-
-    def __str__(self) -> str:
-        if not self.params:
-            return self.kind
-        args = ", ".join(f"{key}={value}" for key, value in self.params)
-        return f"{self.kind}({args})"
-
-
-@dataclass(frozen=True, order=True)
 class Before:
-    """Strict temporal/order relation: src occurs before dst.
-
-    String endpoints are accepted as shorthand for unparameterized EventRef
-    objects, preserving the v0 Probe example syntax.
-    """
+    """Strict temporal/order relation: src occurs before dst."""
 
     src: EventRef | str
     dst: EventRef | str
 
     def __post_init__(self) -> None:
-        src = EventRef.coerce(self.src)
-        dst = EventRef.coerce(self.dst)
-        object.__setattr__(self, "src", src)
-        object.__setattr__(self, "dst", dst)
-        if src == dst:
+        object.__setattr__(self, "src", as_event_ref(self.src))
+        object.__setattr__(self, "dst", as_event_ref(self.dst))
+        if self.src == self.dst:
             raise ValueError("Before relation must be irreflexive")
 
 
 @dataclass(frozen=True, order=True)
 class Literal:
-    """A boolean case condition such as Dirty or !Dirty."""
+    """A boolean case condition such as Dirty or !Executed(load=O)."""
 
-    name: str
+    predicate: PredicateRef | str
     positive: bool = True
 
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "predicate", as_predicate_ref(self.predicate))
+
+    @property
+    def name(self) -> str:
+        """Compatibility accessor for unparameterized v0 code."""
+        return self.predicate.name
+
     def negate(self) -> "Literal":
-        return Literal(self.name, not self.positive)
+        return Literal(self.predicate, not self.positive)
 
     def __str__(self) -> str:
-        return self.name if self.positive else f"!{self.name}"
+        return str(self.predicate) if self.positive else f"!{self.predicate}"
 
 
 @dataclass(frozen=True)
 class Guard:
-    """Conjunction of boolean literals.
-
-    The empty conjunction denotes True. Contradictory conjunctions are rejected.
-    """
+    """Conjunction of boolean literals. The empty conjunction denotes True."""
 
     literals: FrozenSet[Literal] = field(default_factory=frozenset)
 
@@ -114,10 +177,10 @@ class Guard:
         return guard
 
     def _validate(self) -> None:
-        by_name: dict[str, set[bool]] = {}
+        by_predicate: dict[PredicateRef, set[bool]] = {}
         for lit in self.literals:
-            by_name.setdefault(lit.name, set()).add(lit.positive)
-        bad = [name for name, signs in by_name.items() if len(signs) > 1]
+            by_predicate.setdefault(lit.predicate, set()).add(lit.positive)
+        bad = [str(pred) for pred, signs in by_predicate.items() if len(signs) > 1]
         if bad:
             raise ValueError(f"Contradictory guard literals: {bad}")
 
@@ -152,15 +215,10 @@ class Case:
 
 @dataclass(frozen=True)
 class AliasMap:
-    """Pure event-kind renaming/grouping that preserves identity parameters.
-
-    Example:
-        ProbeAck(req=r)     -> ProbeResponse(req=r)
-        ProbeAckData(req=r) -> ProbeResponse(req=r)
-    """
+    """Pure event-kind renaming/grouping that preserves occurrence bindings."""
 
     mapping: Mapping[str, str]
 
     def normalize(self, event: EventRef | str) -> EventRef:
-        ref = EventRef.coerce(event)
-        return ref.with_kind(self.mapping.get(ref.kind, ref.kind))
+        ref = as_event_ref(event)
+        return ref.renamed(self.mapping.get(ref.kind, ref.kind))

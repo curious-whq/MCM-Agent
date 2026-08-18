@@ -4,14 +4,10 @@
 
 定义 `mcm` 包的公共 API。
 
-v1.1 新增导出 `EventRef`，使外部代码可以直接构造带 request/scope 身份的符号事件 occurrence。
+当前导出三类 abstraction primitive：
 
-## 当前导出
+- ordering/FSM：`project_case`、`merge_equivalent_cases`；
+- resource/token：`ResourceInvariant`、`derive_resource_summaries`；
+- state case：`StateCase`、`merge_state_cases`。
 
-IR：`Event`、`EventRef`、`Before`、`Literal`、`Guard`、`Case`、`AliasMap`。
-
-Ordering projection：`project_case`。
-
-Case merge：`normalize_case`、`merge_equivalent_cases`。
-
-Resource conservation：`OneOfBetween`、`ResourceInvariant`、`derive_resource_summaries`。
+同时导出基础 IR：`EventRef`、`PredicateRef`、`OutcomeRef`、`Before`、`Guard` 等。

@@ -1,51 +1,56 @@
-# MCM-Agent — Prototype v1.1
+# MCM-Agent — Prototype v2
 
 MCM-Agent studies bottom-up synthesis of hierarchical microarchitectural memory-model summaries.
 
-The current prototype is deliberately manual: it does not parse RTL and does not use an LLM. The goal is to first determine whether the abstraction language and projection rules are sound enough on real microarchitectural patterns.
+The current implementation is deliberately manual: no RTL parser and no LLM Agent yet. The goal is to validate the abstraction language and algorithms first.
 
-## v0: ordering/FSM projection
+## Implemented abstraction primitives
 
-The BOOM L1 Probe example validates:
+### v0: ordering/FSM projection
 
-> Preserve internal cases, project each case to the real module boundary, and merge cases only when their boundary consequences are equivalent.
+Internal paths are closed transitively, internal events are hidden, and boundary-equivalent guarded cases may be merged.
 
-The clean and dirty Probe paths both reduce to:
+### v1/v1.1: resource/token conservation
+
+A manually supplied queue/token invariant can be projected into a boundary lifecycle summary. Symbolic event occurrences carry request/scope identity such as:
 
 ```text
-ProbeRecv < ReleaseNotify < ProbeResponse
+ReqAccept(req=r,mshr=m)
+RespOut(req=r,mshr=m)
+GrantAck(mshr=m)
 ```
 
-while a synthetic exceptional ordering is kept separate.
+This prevents an event for request `s` from satisfying an obligation for request `r`.
 
-## v1: MSHR/RPQ resource conservation
+### v2: exceptional state-case preservation
 
-The MSHR example adds a second abstraction primitive: queue/token lifetime projection.
+BOOM B1 is hand-modeled with predicates bound to a concrete symbolic load:
 
-A request accepted into an RPQ creates an internal token. The token remains live until response, replay, or kill, while `GrantAck` is only allowed after that token is gone.
-
-## v1.1: symbolic event identity
-
-v1 originally represented events only by names such as `RespOut`. That was insufficient because a response for request `s` must not discharge the RPQ token of request `r`.
-
-v1.1 introduces `EventRef`, for example:
-
-```python
-EventRef.of("ReqAccept", req="r", mshr="m")
-EventRef.of("RespOut", req="r", mshr="m")
-EventRef.of("GrantAck", mshr="m")
+```text
+Executed(load=O)
+Succeeded(load=O)
 ```
 
-The generated parent summary therefore refers to the same symbolic request and MSHR scope:
+and boundary/control outcomes:
 
-$$
-ReqAccept(r,m) < GrantAck(m)
-\Rightarrow
-\exists e \in \{RespOut(r,m), ReplayOut(r,m), Kill(r,m)\}.
-ReqAccept(r,m) < e < GrantAck(m)
-$$
+```text
+Kill(load=Y)
+Allow(load=Y)
+```
 
-A `RespOut(s,m)` cannot satisfy the summary for request `r`.
+For the buggy state partition, the executed-but-not-succeeded state has the same outcome as completed execution and therefore summarizes to:
+
+```text
+Executed(O) -> Allow(Y)
+```
+
+For the fixed partition, unresolved states safely merge to:
+
+```text
+!Succeeded(O) -> Kill(Y)
+```
+
+The merge is exact boolean cube combination and never combines predicates belonging to different symbolic loads.
 
 ## Run
 
@@ -53,14 +58,6 @@ A `RespOut(s,m)` cannot satisfy the summary for request `r`.
 python -m unittest discover -s tests -v
 ```
 
-Current test count: 8.
+## Next
 
-## Current abstraction primitives
-
-- strict-order/FSM projection through internal events;
-- boundary alias normalization;
-- conservative equivalent-case merge;
-- per-token resource-conservation projection;
-- symbolic event occurrence identity.
-
-Not implemented yet: RTL extraction, LLM generation, formal proof of leaf invariants, exact-cycle timing relations, symbolic address relations, automatic resource-invariant synthesis, general guard minimization, and the BOOM B1 timing case.
+The next stress test is a timing-sensitive XiangShan case, which will require exact timing relations such as `SameCycle` and `Next`.

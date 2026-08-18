@@ -45,8 +45,6 @@ def dirty_case() -> Case:
 
 
 def buggy_dirty_case() -> Case:
-    """Synthetic bad case used to prove v0 refuses an unsafe merge."""
-
     return Case.build(
         name="dirty_probe_buggy",
         guard=Guard.of(Literal("Dirty", positive=True)),

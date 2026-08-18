@@ -2,24 +2,23 @@ import unittest
 
 from examples.boom_mshr import (
     BOUNDARY,
-    GRANT_ACK_M,
-    KILL_R,
+    GRANT_ACK,
+    KILL,
     M,
-    REPLAY_R,
-    REQ_ACCEPT_R,
-    RESP_R,
+    REPLAY_OUT,
+    REQ_ACCEPT,
+    RESP_OUT,
     RPQ_CONSERVATION,
-    RPQ_ENQ_R,
+    RPQ_ENQ,
     disconnected_mshr_case,
     mshr_rpq_case,
-    wrong_request_predecessor_case,
 )
 from mcm.conservation import OneOfBetween, ResourceInvariant, derive_resource_summaries
-from mcm.ir import EventRef
+from mcm.ir import Before, Case, EventRef, Guard
 
 
 class MSHRConservationTests(unittest.TestCase):
-    def test_rpq_conservation_keeps_same_request_identity(self):
+    def test_rpq_conservation_projects_same_request_lifecycle(self):
         summaries = derive_resource_summaries(
             mshr_rpq_case(),
             RPQ_CONSERVATION,
@@ -30,9 +29,9 @@ class MSHRConservationTests(unittest.TestCase):
             summaries,
             [
                 OneOfBetween(
-                    start=REQ_ACCEPT_R,
-                    choices=(KILL_R, REPLAY_R, RESP_R),
-                    end=GRANT_ACK_M,
+                    start=REQ_ACCEPT,
+                    choices=tuple(sorted((KILL, REPLAY_OUT, RESP_OUT))),
+                    end=GRANT_ACK,
                 )
             ],
         )
@@ -45,42 +44,48 @@ class MSHRConservationTests(unittest.TestCase):
         )
         self.assertEqual(summaries, [])
 
-    def test_other_request_cannot_ground_request_r(self):
+    def test_wrong_request_predecessor_is_not_used(self):
+        wrong_req = EventRef.of("ReqAccept", req="s", mshr=M)
+        case = Case.build(
+            name="wrong_request",
+            guard=Guard.true(),
+            facts=[Before(wrong_req, RPQ_ENQ)],
+        )
         summaries = derive_resource_summaries(
-            wrong_request_predecessor_case(),
+            case,
             RPQ_CONSERVATION,
-            BOUNDARY,
+            BOUNDARY | {wrong_req},
         )
         self.assertEqual(summaries, [])
 
-    def test_other_request_cannot_be_an_exit_for_request_r(self):
-        resp_s = EventRef.of("RespOut", req="s", mshr=M)
+    def test_wrong_request_exit_is_rejected(self):
+        wrong_exit = EventRef.of("RespOut", req="s", mshr=M)
         with self.assertRaises(ValueError):
             ResourceInvariant.build(
-                name="wrong_request_exit",
+                name="wrong_exit",
                 resource="RPQ",
-                enter=RPQ_ENQ_R,
-                exits=(resp_s,),
-                empty_at=(GRANT_ACK_M,),
-                token_keys=("req",),
+                enter=RPQ_ENQ,
+                exits=(wrong_exit,),
+                empty_at=(GRANT_ACK,),
+                token_keys=("req", "mshr"),
                 scope_keys=("mshr",),
             )
 
-    def test_v1_rejects_internal_exit_in_parent_summary(self):
+    def test_internal_exit_is_rejected_by_boundary_projection(self):
         internal_exit = EventRef.of("InternalDequeue", req="r", mshr=M)
-        bad = ResourceInvariant.build(
-            name="bad_internal_exit",
+        invariant = ResourceInvariant.build(
+            name="internal_exit",
             resource="RPQ",
-            enter=RPQ_ENQ_R,
+            enter=RPQ_ENQ,
             exits=(internal_exit,),
-            empty_at=(GRANT_ACK_M,),
-            token_keys=("req",),
+            empty_at=(GRANT_ACK,),
+            token_keys=("req", "mshr"),
             scope_keys=("mshr",),
         )
         with self.assertRaises(ValueError):
             derive_resource_summaries(
                 mshr_rpq_case(),
-                bad,
+                invariant,
                 BOUNDARY,
             )
 

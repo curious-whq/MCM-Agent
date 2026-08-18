@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 from collections import defaultdict
-from typing import Iterable, Set
+from typing import Iterable
 
-from .ir import Before, Case, EventRef
+from .ir import Before, Case, EventRef, as_event_ref
 
 
 def _transitive_closure(edges: Iterable[Before]) -> set[Before]:
@@ -48,23 +48,18 @@ def _transitive_reduction_dag(edges: set[Before]) -> set[Before]:
     return reduced
 
 
-def _is_boundary(ref: EventRef, boundary_event_kinds: Set[str]) -> bool:
-    return ref.kind in boundary_event_kinds
+def project_case(
+    case: Case,
+    boundary_events: set[EventRef | str],
+) -> Case:
+    """Project a leaf ordering case onto a module boundary."""
 
-
-def project_case(case: Case, boundary_events: Set[str]) -> Case:
-    """Project a leaf case onto a module boundary by event kind.
-
-    Identity parameters on EventRef endpoints are preserved exactly while
-    internal event kinds are hidden.
-    """
-
+    boundary = {as_event_ref(event) for event in boundary_events}
     closure = _transitive_closure(case.facts)
     boundary_edges = {
         edge
         for edge in closure
-        if _is_boundary(edge.src, boundary_events)
-        and _is_boundary(edge.dst, boundary_events)
+        if edge.src in boundary and edge.dst in boundary
     }
     reduced = _transitive_reduction_dag(boundary_edges)
     return Case.build(

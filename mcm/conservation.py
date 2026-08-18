@@ -1,44 +1,24 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Iterable, Set, Tuple
+from typing import Iterable
 
-from .ir import Before, Case, EventRef
+from .ir import Before, Case, EventRef, as_event_ref
 from .project import _transitive_closure
-
-
-def _same_bindings(
-    left: EventRef,
-    right: EventRef,
-    keys: Iterable[str],
-    *,
-    require_present: bool = True,
-) -> bool:
-    for key in keys:
-        left_value = left.get(key)
-        right_value = right.get(key)
-        if require_present and (left_value is None or right_value is None):
-            return False
-        if left_value != right_value:
-            return False
-    return True
 
 
 @dataclass(frozen=True, order=True)
 class OneOfBetween:
-    """Boundary lifecycle axiom over symbolic event occurrences.
+    """A resource-lifecycle boundary consequence.
 
     Semantics:
         start < end
           =>
-        exists c in choices . start < c < end
-
-    Because choices are EventRef objects, request/scope identity is part of the
-    axiom rather than an informal side condition.
+        at least one event in choices occurs strictly between them.
     """
 
     start: EventRef
-    choices: Tuple[EventRef, ...]
+    choices: tuple[EventRef, ...]
     end: EventRef
 
     def __post_init__(self) -> None:
@@ -54,22 +34,18 @@ class OneOfBetween:
 class ResourceInvariant:
     """Per-token conservation rule for an internal resource.
 
-    token_keys identify the logical token, e.g. ("req",).
-    scope_keys identify the containing resource instance, e.g. ("mshr",).
-
-    Every exit must carry the same token and scope bindings as enter. Barriers
-    need only carry the same scope binding because GrantAck(m) is per MSHR, not
-    per request r.
+    token_keys identify the logical token, for example (req, mshr).
+    scope_keys identify the context that a barrier belongs to, for example mshr.
     """
 
     name: str
     resource: str
     enter: EventRef
-    exits: Tuple[EventRef, ...]
-    empty_at: Tuple[EventRef, ...]
-    token_keys: Tuple[str, ...]
-    scope_keys: Tuple[str, ...]
-    provenance: Tuple[str, ...] = ()
+    exits: tuple[EventRef, ...]
+    empty_at: tuple[EventRef, ...]
+    token_keys: tuple[str, ...]
+    scope_keys: tuple[str, ...]
+    provenance: tuple[str, ...] = ()
 
     @staticmethod
     def build(
@@ -82,48 +58,43 @@ class ResourceInvariant:
         scope_keys: Iterable[str] = (),
         provenance: Iterable[str] = (),
     ) -> "ResourceInvariant":
-        enter_ref = EventRef.coerce(enter)
-        exits_tuple = tuple(sorted({EventRef.coerce(x) for x in exits}))
-        empty_tuple = tuple(sorted({EventRef.coerce(x) for x in empty_at}))
-        token_tuple = tuple(sorted(set(token_keys)))
-        scope_tuple = tuple(sorted(set(scope_keys)))
+        enter_ref = as_event_ref(enter)
+        exit_refs = tuple(sorted({as_event_ref(event) for event in exits}))
+        barrier_refs = tuple(sorted({as_event_ref(event) for event in empty_at}))
+        token_keys_tuple = tuple(token_keys)
+        scope_keys_tuple = tuple(scope_keys)
 
-        if not exits_tuple:
+        if not exit_refs:
             raise ValueError("ResourceInvariant requires at least one exit")
-        if not empty_tuple:
+        if not barrier_refs:
             raise ValueError("ResourceInvariant requires at least one empty barrier")
-        if set(token_tuple) & set(scope_tuple):
-            raise ValueError("token_keys and scope_keys must be disjoint")
-        if enter_ref in exits_tuple or enter_ref in empty_tuple:
-            raise ValueError("enter must be distinct from exits/barriers")
+        if enter_ref in exit_refs or enter_ref in barrier_refs:
+            raise ValueError("enter must differ from exits/barriers")
 
-        for key in token_tuple + scope_tuple:
-            if enter_ref.get(key) is None:
-                raise ValueError(f"enter is missing identity binding: {key}")
-
-        identity_keys = token_tuple + scope_tuple
-        for exit_ref in exits_tuple:
-            if not _same_bindings(exit_ref, enter_ref, identity_keys):
+        if token_keys_tuple and not enter_ref.has_keys(token_keys_tuple):
+            raise ValueError("enter is missing token identity bindings")
+        for event in exit_refs:
+            if token_keys_tuple and not event.agrees_on(enter_ref, token_keys_tuple):
                 raise ValueError(
-                    "resource exit does not match enter token/scope: "
-                    f"enter={enter_ref}, exit={exit_ref}"
+                    f"exit {event} does not belong to the same token as {enter_ref}"
                 )
 
-        for barrier in empty_tuple:
-            if not _same_bindings(barrier, enter_ref, scope_tuple):
+        if scope_keys_tuple and not enter_ref.has_keys(scope_keys_tuple):
+            raise ValueError("enter is missing scope bindings")
+        for event in barrier_refs:
+            if scope_keys_tuple and not event.agrees_on(enter_ref, scope_keys_tuple):
                 raise ValueError(
-                    "resource barrier does not match enter scope: "
-                    f"enter={enter_ref}, barrier={barrier}"
+                    f"barrier {event} does not belong to the same scope as {enter_ref}"
                 )
 
         return ResourceInvariant(
             name=name,
             resource=resource,
             enter=enter_ref,
-            exits=exits_tuple,
-            empty_at=empty_tuple,
-            token_keys=token_tuple,
-            scope_keys=scope_tuple,
+            exits=exit_refs,
+            empty_at=barrier_refs,
+            token_keys=token_keys_tuple,
+            scope_keys=scope_keys_tuple,
             provenance=tuple(provenance),
         )
 
@@ -131,22 +102,20 @@ class ResourceInvariant:
 def _closest_boundary_predecessors(
     enter: EventRef,
     closure: set[Before],
-    boundary_event_kinds: Set[str],
-    identity_keys: Tuple[str, ...],
+    boundary_events: set[EventRef],
+    token_keys: tuple[str, ...],
 ) -> set[EventRef]:
-    """Find the closest boundary predecessors that name the same token/scope."""
-
-    nodes: set[EventRef] = {enter}
-    for edge in closure:
-        nodes.add(edge.src)
-        nodes.add(edge.dst)
+    """Find the nearest token-compatible boundary frontier before enter."""
 
     candidates = {
-        node
-        for node in nodes
-        if node.kind in boundary_event_kinds
-        and (node == enter or Before(node, enter) in closure)
-        and _same_bindings(node, enter, identity_keys)
+        event
+        for event in boundary_events
+        if (
+            event == enter or Before(event, enter) in closure
+        )
+        and (
+            not token_keys or event.agrees_on(enter, token_keys)
+        )
     }
 
     closest: set[EventRef] = set()
@@ -155,8 +124,9 @@ def _closest_boundary_predecessors(
         for other in candidates:
             if candidate == other:
                 continue
-            if Before(candidate, other) in closure and (
-                other == enter or Before(other, enter) in closure
+            if (
+                Before(candidate, other) in closure
+                and (other == enter or Before(other, enter) in closure)
             ):
                 shadowed = True
                 break
@@ -168,39 +138,31 @@ def _closest_boundary_predecessors(
 def derive_resource_summaries(
     case: Case,
     invariant: ResourceInvariant,
-    boundary_events: Set[str],
+    boundary_events: set[EventRef | str],
 ) -> list[OneOfBetween]:
-    """Project a same-token resource invariant to the module boundary.
+    """Project a manually supplied token-conservation invariant to the boundary."""
 
-    v1.1 requires all exits and barriers to already be boundary-visible and
-    requires the boundary start to carry the same token/scope bindings as the
-    internal enter event.
-    """
+    boundary = {as_event_ref(event) for event in boundary_events}
 
-    missing_exits = {
-        ref.kind for ref in invariant.exits if ref.kind not in boundary_events
-    }
-    missing_barriers = {
-        ref.kind for ref in invariant.empty_at if ref.kind not in boundary_events
-    }
+    missing_exits = set(invariant.exits) - boundary
+    missing_barriers = set(invariant.empty_at) - boundary
     if missing_exits:
         raise ValueError(
-            "v1.1 requires boundary-visible resource exits; missing: "
-            f"{sorted(missing_exits)}"
+            f"v1.1 requires boundary-visible resource exits; missing: "
+            f"{sorted(map(str, missing_exits))}"
         )
     if missing_barriers:
         raise ValueError(
-            "v1.1 requires boundary-visible barriers; missing: "
-            f"{sorted(missing_barriers)}"
+            f"v1.1 requires boundary-visible barriers; missing: "
+            f"{sorted(map(str, missing_barriers))}"
         )
 
     closure = _transitive_closure(case.facts)
-    identity_keys = invariant.token_keys + invariant.scope_keys
     starts = _closest_boundary_predecessors(
         invariant.enter,
         closure,
-        boundary_events,
-        identity_keys,
+        boundary,
+        invariant.token_keys,
     )
 
     out: list[OneOfBetween] = []

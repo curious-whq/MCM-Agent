@@ -8,7 +8,7 @@ from .project import _transitive_reduction_dag
 
 
 def normalize_case(case: Case, aliases: AliasMap) -> Case:
-    """Normalize boundary event kinds while preserving occurrence parameters."""
+    """Normalize boundary event kinds while preserving occurrence bindings."""
 
     normalized: set[Before] = set()
     for fact in case.facts:
@@ -28,7 +28,7 @@ def normalize_case(case: Case, aliases: AliasMap) -> Case:
 
 
 def _guards_cover_true(guards: list[Guard]) -> bool:
-    """Recognize the complementary one-literal exhaustive split used in v1.1."""
+    """Recognize the conservative v0 pattern P / !P."""
 
     if len(guards) != 2:
         return False
@@ -37,11 +37,11 @@ def _guards_cover_true(guards: list[Guard]) -> bool:
         return False
     l1 = next(iter(g1.literals))
     l2 = next(iter(g2.literals))
-    return l1.name == l2.name and l1.positive != l2.positive
+    return l1.predicate == l2.predicate and l1.positive != l2.positive
 
 
 def merge_equivalent_cases(cases: Iterable[Case]) -> list[Case]:
-    """Merge only cases with exactly identical normalized boundary facts."""
+    """Merge ordering cases only when normalized consequences are identical."""
 
     groups: dict[tuple[Before, ...], list[Case]] = defaultdict(list)
     for case in cases:

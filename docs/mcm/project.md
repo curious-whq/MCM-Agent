@@ -2,84 +2,44 @@
 
 ## 文件职责
 
-`project.py` 负责普通 strict-order case 的 boundary projection。
+把普通 ordering case 从内部事件图投影到父模块 boundary。
 
-核心模式是：
+核心流程：
 
-$$
-A < x < y < B
-$$
+```text
+transitive closure
+→ remove internal endpoints
+→ transitive reduction
+```
 
-其中 $x,y$ 是内部事件。通过传递闭包恢复 $A<B$，然后隐藏内部端点。
+## `_transitive_closure`
 
-v1.1 中 projection 同时保留 `EventRef` 的身份参数。例如：
-
-$$
-Req(r) < Internal(r) < Resp(r)
-$$
-
-投影后得到：
+若有：
 
 $$
-Req(r) < Resp(r)
+A < B
 $$
 
-不会变成无参数的 `Req < Resp`。
-
-## `_transitive_closure(edges)`
-
-计算有限 `Before` 图的严格传递闭包。
-
-若：
+和：
 
 $$
-A<B,\quad B<C
+B < C
 $$
 
-则加入：
+则补出：
 
 $$
-A<C
+A < C
 $$
 
-图节点现在是 `EventRef`，所以不同 request occurrence 是不同节点。
+v1.1 后图节点是 `EventRef`，因此 occurrence identity 会随 ordering 一起保留。
 
-## `_transitive_reduction_dag(edges)`
+## `_transitive_reduction_dag`
 
-删除可由其它路径推出的冗余边，并检测 strict-order cycle。
+删除可由其它边推出的冗余 ordering，并拒绝严格顺序 cycle。
 
-若同时存在：
+## `project_case`
 
-$$
-A<B,\quad B<C,\quad A<C
-$$
+输入一个 `Case` 和 boundary event 集合，输出只含 boundary ordering 的新 `Case`。
 
-则显式的 $A<C$ 可被删除。
-
-如果形成：
-
-$$
-A<B<C<A
-$$
-
-则抛出 `ValueError`。
-
-## `_is_boundary(ref, boundary_event_kinds)`
-
-根据 `EventRef.kind` 判断一个 occurrence 是否属于当前父模块边界。
-
-例如 `RespOut(req=r,mshr=m)` 的 kind 是 `RespOut`，因此只要 `RespOut` 在 boundary kind 集合中，该 occurrence 就是边界可见的。
-
-## `project_case(case, boundary_events)`
-
-流程：
-
-1. 对 `case.facts` 求传递闭包；
-2. 只保留两个端点 kind 都属于 boundary 的 `Before`；
-3. 做传递约简；
-4. 保留原 guard；
-5. 更新 provenance。
-
-## 当前限制
-
-该文件仍然只处理 strict-order DAG。queue/token conservation 由 `mcm/conservation.py` 单独处理；精确 cycle、value flow、地址关系等尚未进入该 projector。
+guard 在当前版本中不会被这里抽象。
