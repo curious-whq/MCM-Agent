@@ -13,7 +13,7 @@ class ProbeProjectionTests(unittest.TestCase):
     def test_clean_projects_internal_states_away(self):
         case = self._project_normalize(clean_case())
         self.assertIn(Before("ReleaseNotify", "ProbeResponse"), case.facts)
-        self.assertNotIn("ProbeUnit.s_release", {x for f in case.facts for x in (f.src, f.dst)})
+        self.assertNotIn("ProbeUnit.s_release", {x.kind for f in case.facts for x in (f.src, f.dst)})
 
     def test_clean_and_dirty_merge_to_unconditional_boundary_case(self):
         clean = self._project_normalize(clean_case())
