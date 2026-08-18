@@ -2,14 +2,32 @@
 
 ## 文件职责
 
-定义 frontend 包的公共 API。
+统一导出当前 static frontend 的公共 API。
 
-Prototype v4 的 frontend 暂时只负责静态结构恢复，不生成 µMCM 公理，也不调用 LLM。
+v5 已覆盖：
 
-当前导出：
+```text
+input contract
+structural model/parser
+hierarchy
+boundary/event registry (Decoupled + Valid)
+dependency graph
+coverage ledger
+local slice
+hierarchical design graph
+direct handshake connectors
+state partition
+physical hierarchy + state-region abstraction tree
+manifest export
+source mapping
+pre-LLM handoff
+pipeline orchestration
+```
 
-- FIRRTL 结构模型；
-- `parse_firrtl()`；
-- hierarchy discovery；
-- boundary discovery；
-- Decoupled physical event registry。
+CLI 通过：
+
+```bash
+python -m frontend.cli
+```
+
+单独使用，不作为 `__init__` 的核心库接口导出。

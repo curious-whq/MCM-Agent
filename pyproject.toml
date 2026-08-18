@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mcm-agent"
-version = "0.0.6"
+version = "0.0.7"
 description = "Prototype for hierarchical case-preserving microarchitectural memory-model abstraction"
 requires-python = ">=3.11"
 dependencies = []
@@ -15,3 +15,6 @@ dev = ["pytest>=8"]
 [tool.pytest.ini_options]
 pythonpath = ["."]
 testpaths = ["tests"]
+
+[project.scripts]
+mcm-static = "frontend.cli:main"

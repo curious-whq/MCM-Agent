@@ -156,9 +156,12 @@ def _split_source(text: str) -> tuple[str, SourceLoc | None]:
     return text[:match.start()].rstrip(), source
 
 
-_CIRCUIT_RE = re.compile(r"^\s*circuit\s+([A-Za-z_.$][A-Za-z0-9_.$]*)\s*:\s*$")
+_CIRCUIT_RE = re.compile(
+    r"^\s*circuit\s+([A-Za-z_.$][A-Za-z0-9_.$]*)\s*:"
+)
 _MODULE_RE = re.compile(
-    r"^\s*(module|extmodule)\s+([A-Za-z_.$][A-Za-z0-9_.$]*)\s*:\s*$"
+    r"^\s*(?:(?:public|private)\s+)?(module|extmodule)\s+"
+    r"([A-Za-z_.$][A-Za-z0-9_.$]*)\s*:"
 )
 _PORT_RE = re.compile(
     r"^\s*(input|output)\s+([A-Za-z_.$][A-Za-z0-9_.$]*)\s*:\s*(.+)$"

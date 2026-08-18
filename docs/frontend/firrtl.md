@@ -2,60 +2,74 @@
 
 ## 文件职责
 
-解析 **classic textual FIRRTL/CHIRRTL 的结构子集**。
+解析 v5 使用的 **textual CHIRRTL/classic FIRRTL structural subset**。
 
-v4 不是完整 FIRRTL parser。当前只提取后续 frontend 第一阶段需要的：
+当前支持现代 Chisel CHIRRTL 中常见的：
 
 ```text
-circuit
-module / extmodule
-input / output
-aggregate type
+FIRRTL version ...
+circuit ...
+public module ...
+private module ...
+extmodule ...
+input/output
+Bundle/Vec/flip
 inst ... of ...
 source locator
 ```
 
-其它 statement 当前被保守忽略，等 event-centered slicing 阶段再扩展。
+v4 主要用于结构恢复，v5 的 statement dependency 解析放在 `frontend/dependency.py`。
 
 ## `FirrtlParseError`
 
-结构输入不合法时抛出的异常。
+结构输入无法被明确解析时抛出。
 
 ## `_TypeParser`
 
-一个轻量递归下降 parser，用于解析 FIRRTL type。
+轻量递归下降 type parser。
 
-当前支持：
+### `from_text()`
 
-```text
-UInt<32>
-SInt<64>
-Clock
-Reset
-{ a : UInt<1>, flip b : UInt<1> }
-UInt<8>[4]
-```
+tokenize FIRRTL type。
+
+### `parse()`
+
+解析 ground/bundle 后继续处理 vector suffix。
+
+### `parse_atom()`
+
+解析 ground type 或 bundle。
+
+### `parse_bundle()`
+
+解析 field 与 `flip` orientation。
 
 ## `parse_type()`
 
-把 textual FIRRTL type 转为 `GroundType / BundleType / VectorType`。
+把 textual type 转换成 `GroundType/BundleType/VectorType`。
 
 ## `_split_source()`
 
-把：
+从 statement 尾部抽取：
 
 ```text
-output io : ... @[Foo.scala 10:2]
+@[path/File.scala line:column]
 ```
-
-拆成声明正文和 `SourceLoc`。
 
 ## `parse_firrtl()`
 
-解析完整 textual FIRRTL，生成 `Design`。
+生成 `Design`，只负责：
 
-当前设计原则是：
+```text
+top
+modules
+ports
+instances
+source locators
+```
 
-> 第一阶段宁可只支持明确的结构语法，也不通过模糊正则猜测复杂 statement 的含义。
+其它功能 statement 在这里不解析，避免 structural parser 和 dependency parser 相互污染。
 
-依赖/赋值/FSM statement 会在 slicing 阶段单独扩展。
+## 输入边界
+
+CIRCT 的 `firrtl.circuit` / SSA FIRRTL-dialect MLIR 不是本文件当前 grammar；由 `input_contract.py` 明确区分并暂时拒绝。

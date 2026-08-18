@@ -2,9 +2,33 @@
 
 ## 文件职责
 
-从 physical boundary leaf ports 中机械发现 Decoupled-style handshake event，并建立第一版 Event Registry。
+从 physical boundary leaf ports 中机械发现第一版 **Global Physical Event Registry**。
 
-v4 不尝试理解 `req` 到底是不是 Probe，也不会直接创造 `ProbeRecv` 这样的语义名称。
+v5 支持两种结构化 occurrence convention：
+
+```text
+Decoupled: valid && ready
+Valid:     valid
+```
+
+这里仍然只生成物理名称，不生成 `ProbeRecv`、`Grant` 等语义名称。
+
+## `ChannelDirection`
+
+相对当前 module：
+
+- `RECEIVE`
+- `SEND`
+
+## `EventProtocol`
+
+### `DECOUPLED`
+
+有 valid/ready 双向 handshake。
+
+### `VALID`
+
+只有 valid + bits 的单向 occurrence。
 
 ## `PhysicalEvent`
 
@@ -15,82 +39,92 @@ event_id
 module
 channel
 direction
+protocol
 predicate
 valid
-ready
+ready(optional)
 payload
 sources
 ```
 
-例如：
+Decoupled 例子：
 
 ```text
-event_id:
-  BoomProbeUnit.io.req.fire
-
-predicate:
-  io.req.valid && io.req.ready
+BoomProbeUnit.io.req.fire
+predicate = io.req.valid && io.req.ready
 ```
 
-这是一个**物理事件**，能够直接回到真实接口信号。
+Valid 例子：
 
-## `ChannelDirection`
+```text
+Module.io.state.valid
+predicate = io.state.valid
+```
 
-根据 leaf port 方向机械确定：
+## `EventRegistry`
 
-### receive
+维护 event id 唯一性。
+
+### `empty()`
+
+构造空 registry。
+
+### `register()`
+
+重复 event id 直接拒绝。
+
+### `sorted_events()`
+
+稳定排序输出，保证 manifest/test 可复现。
+
+## `discover_decoupled_events()`
+
+要求同一 prefix 同时存在：
+
+```text
+.valid
+.ready
+```
+
+并且方向互补。
+
+receive：
 
 ```text
 valid = input
 ready = output
 ```
 
-### send
+send：
 
 ```text
 valid = output
 ready = input
 ```
 
-## `EventRegistry`
+payload 为同 prefix 下所有 `.bits...` leaf。
 
-保存全局唯一的 `PhysicalEvent`。
+## `discover_valid_events()`
 
-重复 `event_id` 会直接报错。
-
-## `discover_decoupled_events()`
-
-对于每个相同 prefix：
+识别：
 
 ```text
-<prefix>.valid
-<prefix>.ready
+.valid
+.bits...
 ```
 
-如果两者都存在且方向互补，则建立：
+但没有 sibling `.ready` 的 Valid-style channel。
 
-```text
-<Module>.<prefix>.fire
-```
+为降低 payload 内部字段误识别，v5 不从其它 channel 的 `.bits...` 内部再提升新的 top-level Valid event。
 
-predicate 固定为：
+## `discover_boundary_events()`
 
-```text
-<prefix>.valid && <prefix>.ready
-```
+组合当前支持的 Decoupled 和 Valid event convention。
 
-并把：
+`StaticFrontend` 使用这个函数建立 registry；旧的 `discover_decoupled_events()` 继续保留用于只关心 handshake 的测试/API。
 
-```text
-<prefix>.bits...
-```
+## 还没有自动 event 化的信号
 
-下面的 leaf 全部登记为 payload。
+普通 Bool input/output 不会仅因为是 Bool 就被当作 event，因为静态结构无法判断它是 pulse、level state 还是配置位。
 
-这一阶段完全静态。以后 LLM 若要把：
-
-```text
-BoomProbeUnit.io.req.fire
-```
-
-解释为 `ProbeRecv`，只能增加一个带 provenance 的语义 alias，不能修改这个 physical event 的 grounding。
+需要这类 event 时，后续可以增加新的**机械 occurrence convention**，或者由语义阶段提出候选后再做 grounding 验证。
