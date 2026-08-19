@@ -1,8 +1,8 @@
-# MCM-Agent — Prototype v6
+# MCM-Agent — Prototype v10
 
 MCM-Agent studies bottom-up synthesis of hierarchical microarchitectural memory-model summaries.
 
-v0-v3 validated the abstraction language with hand-written real-world cases. v4-v5 built the deterministic pre-LLM frontend. **v6 is the first version hardened against a real complete Chipyard `SmallBoomV4Config.fir` containing BOOM, L1, TileLink interconnect and InclusiveCache L2.**
+v0-v3 validated the abstraction language with hand-written real-world cases. v4-v6 built and hardened the deterministic pre-LLM frontend on a complete Chipyard design. **v7-v10 add the recursive hierarchical verification planner: immediate Event-State partitioning, state/dependency fallback, shared-parent ownership, true child replacement, and logical/effective complexity validated directly on real BOOM LSU/L1/L2 FIRRTL.**
 
 ## Manual abstraction prototypes
 
@@ -40,7 +40,17 @@ Ownership-Scoped Instance-Subtree Slice
   +
 Lazy Handshake Transport Route
   ↓
-Register SCC + Event-Cone Partition
+Immediate Event-State Interaction Graph
+  ↓
+Recursive Hierarchical WorkUnit Planner
+  ├─ physical child hierarchy first
+  ├─ event-coupled regions
+  ├─ register-SCC/state fallback
+  └─ shared parent glue promotion
+  ↓
+Child RTL → umcm://child summary replacement
+  ↓
+Logical + replacement complexity
   ↓
 Coverage Ledger (fail closed)
   ↓
@@ -62,6 +72,22 @@ and static outputs deliberately keep:
 
 ```json
 "semantic_labels": []
+```
+
+## v10: recursive hierarchical verification plan
+
+The static frontend no longer treats an event slice as the final abstraction unit. A large module is recursively decomposed until the RTL that remains after child-summary replacement is manageable. Event slices are internal partition evidence; state/dependency regions are used when event grouping cannot expose the remaining structure.
+
+Complexity reports keep both raw FIRRTL counts and a source-grounded logical quotient, so aggregate/lowering expansion cannot force artificial partitions. The complete uploaded SmallBoomV4Config validates the intended behavior: ProbeUnit and BoomMSHR remain manageable leaves at their own level, LSU and DCache partition recursively, and InclusiveCache primarily follows the real Source/Sink/Directory/MSHR physical hierarchy.
+
+The decisive LSU result is `1499` logical statements / `959` mapped source lines before partitioning and `890` logical statements / `579` mapped source lines after 21 child summaries are substituted, with `replacement_exceeded_limits=[]` and complete ownership conservation. See `docs/frontend/hierarchical_work_units.md` and `docs/integration/hierarchical_work_units_v10_real_boom.md`.
+
+Useful commands:
+
+```bash
+python3 -m frontend.module_cli module-stats design.fir --root-module LSU
+python3 -m frontend.module_cli module-tree  design.fir --root-module BoomNonBlockingDCache
+python3 -m frontend.module_cli module-plan  design.fir --root-module InclusiveCache
 ```
 
 ## v6: real whole-Chipyard hardening
