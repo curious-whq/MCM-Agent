@@ -10,6 +10,8 @@ from .axiom_ir import expression_schema, formal_axiom_schema
 # v0.3 makes the formal axiom AST the unique semantic source of truth.
 # Occurrences/predicates remain grounded as in v0.2, but prose formulas and
 # LLM-authored validation programs are no longer part of an axiom.
+# New formal variants may be added compatibly while this envelope remains v0.5;
+# leaf prompt versions make newly exported task/schema packages content-stable.
 UMCM_SCHEMA_VERSION = "umcm-formal-0.5"
 
 

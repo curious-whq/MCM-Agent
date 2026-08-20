@@ -20,6 +20,21 @@ Current experimental language uses:
 - candidate axioms;
 - environment assumptions and unresolved obligations.
 
+Same-cycle combinational routing/merging is expressed by a generic
+`occurrence_partition`: `whole <=> OR(parts)` plus pairwise exclusion of all
+parts. Ordering remains a separate historical relation, and payload/identity
+forwarding remains a separate equality/flow claim.
+
+The partition is defined for every non-empty `parts` set. A singleton is the
+degenerate but useful 1→1 routing case: pairwise exclusion is vacuous and the
+conservation relation becomes exact same-cycle occurrence equivalence.
+
+An occurrence-conditioned `signal_equality` retains its `on` guard through
+compilation. Exact proof reconstructs FIRRTL last-connect priority and checks
+all selected payload drivers reachable under that occurrence; aggregate event
+payload leaves remain valid grounding even when the logical ledger compacts the
+corresponding statement read to the aggregate bundle.
+
 The LLM may propose candidates, but candidate axioms are not trusted by default.
 
 ## Validation and trust
@@ -35,6 +50,8 @@ GROUNDED
 
 Only `FORMALLY_PROVED` or `SPEC_PROVED` axioms may enter `trusted_umcm.json`.
 
+Structural control/dataflow counterexamples are conservative diagnostic evidence, not automatically concrete RTL counterexamples. When an exact certified backend proves the concrete Boolean/control obligation, that proof takes precedence; otherwise the workflow remains fail-closed.
+
 Completeness is not assumed. Missing axioms are expected to make the µMCM an over-approximation. Later system-level counterexamples are checked against concrete RTL; spurious traces drive counterexample-guided µMCM refinement.
 
 ## Bottom-up synthesis
@@ -45,4 +62,4 @@ Parent synthesis must preserve provenance. A parent axiom can be:
 - lifted/generalized from one or more case-specific child axioms;
 - emergent from multiple child contracts plus parent-local RTL/glue.
 
-Any generalization must record `derived_from` information so the user can observe how several lower-level axioms became one higher-level axiom.
+Any generalization must preserve direct theorem provenance so the user can observe how lower-level axioms became a higher-level axiom. For a trusted parent axiom, `source_axioms` is derived from the composition prover certificate and checked against the LLM declaration before entering `trusted_umcm.json` or `frozen_umcm.json`; recursive descent through each frozen parent's direct provenance recovers the complete bottom-up chain.

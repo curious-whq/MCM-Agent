@@ -425,9 +425,57 @@
       "id": "TransferFlushKilled"
     }
   ],
+  "provenance": {
+    "A1": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "lifted",
+      "proof_method": "trusted-child-lift",
+      "source_axioms": [
+        "BoomMSHR.rpq.main::A1"
+      ]
+    },
+    "A2": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-combinational-exclusion",
+      "source_axioms": []
+    },
+    "A3": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-scalar-valid-token-provenance",
+      "source_axioms": []
+    },
+    "A4": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "occurrence-bridge-history-composition",
+      "source_axioms": []
+    },
+    "A5": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "emergent",
+      "proof_method": "trusted-history-transitivity",
+      "source_axioms": [
+        "BoomMSHR.rpq.main::A11"
+      ]
+    },
+    "A6": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-combinational-exclusion",
+      "source_axioms": []
+    },
+    "A7": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-combinational-exclusion",
+      "source_axioms": []
+    }
+  },
   "schema_version": "umcm-formal-0.5",
   "task_id": "parent_synthesis-BoomMSHR.rpq-38a6826dc8c3b9dc",
-  "trust_policy": "formal-ast-only-v0.2",
+  "trust_policy": "formal-ast-plus-certified-provenance-v0.3",
   "trusted_axiom_ids": [
     "A1",
     "A2",

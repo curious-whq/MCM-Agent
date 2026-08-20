@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from itertools import product
 import re
 from typing import Any
 
@@ -13,7 +12,7 @@ STRUCTURAL_UNKNOWN = "STRUCTURAL_UNKNOWN"
 _SIMPLE_REF_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_.$]*$")
 _ARRAY_RE = re.compile(r"^([A-Za-z_][A-Za-z0-9_.$]*)\[(.+)\]$")
 _REF_RE = re.compile(
-    r"^[A-Za-z_][A-Za-z0-9_.$]*(?:\[[^\]]+\])?(?:\.[A-Za-z_][A-Za-z0-9_$]*)*$"
+    r"^[A-Za-z_][A-Za-z0-9_$]*(?:(?:\.[A-Za-z_][A-Za-z0-9_$]*)|(?:\[[^\[\]]+\]))*$"
 )
 
 
@@ -58,10 +57,15 @@ def _value_key(
     call = _call(text)
     if call is None:
         return ("raw", text)
+    arguments = tuple(
+        _value_key(model, arg, opaque=opaque, seen=seen) for arg in call[1]
+    )
+    if call[0] in {"eq", "neq"} and len(arguments) == 2:
+        arguments = tuple(sorted(arguments, key=repr))
     return (
         "call",
         call[0],
-        tuple(_value_key(model, arg, opaque=opaque, seen=seen) for arg in call[1]),
+        arguments,
     )
 
 
@@ -213,6 +217,111 @@ def _or(left: tuple[Any, ...], right: tuple[Any, ...]) -> tuple[Any, ...]:
     return ("or", left, right)
 
 
+def _or_all(values: list[tuple[Any, ...]]) -> tuple[Any, ...]:
+    result = _const(False)
+    for value in values:
+        result = _or(result, value)
+    return result
+
+
+def _literal_bits(text: str) -> list[tuple[Any, ...]] | None:
+    value = _literal(text)
+    if value is None:
+        return None
+    width_match = re.match(r"^UInt<(\d+)>", text.strip())
+    width = int(width_match.group(1)) if width_match else max(1, int(value).bit_length())
+    return [_const(bool((int(value) >> bit) & 1)) for bit in range(width)]
+
+
+def _bit_vector_expr(
+    model: Any,
+    bool_refs: set[str],
+    expr: str,
+    *,
+    opaque: set[str],
+    seen: set[str],
+) -> list[tuple[Any, ...]] | None:
+    """Bit-blast the small FIRRTL integer fragment used by routing logic."""
+
+    text = expr.strip()
+    literal = _literal_bits(text)
+    if literal is not None:
+        return literal
+    if _REF_RE.fullmatch(text):
+        if text in bool_refs or _under_state(model, text):
+            value = _bool_expr(model, bool_refs, text, opaque=opaque, seen=seen)
+            return None if value is None else [value]
+        if text in seen:
+            return None
+        nested = _rhs(model, text)
+        if nested is None:
+            return None
+        return _bit_vector_expr(
+            model,
+            bool_refs,
+            nested,
+            opaque=opaque,
+            seen=seen | {text},
+        )
+    call = _call(text)
+    if call is None:
+        return None
+    name, args = call
+    if name == "cat" and len(args) == 2:
+        high = _bit_vector_expr(model, bool_refs, args[0], opaque=opaque, seen=seen)
+        low = _bit_vector_expr(model, bool_refs, args[1], opaque=opaque, seen=seen)
+        return None if high is None or low is None else [*low, *high]
+    if name == "bits" and len(args) == 3:
+        value = _bit_vector_expr(model, bool_refs, args[0], opaque=opaque, seen=seen)
+        high = _literal(args[1])
+        low = _literal(args[2])
+        if value is None or high is None or low is None or low < 0 or high < low or high >= len(value):
+            return None
+        return value[int(low):int(high) + 1]
+    if name == "shl" and len(args) == 2:
+        value = _bit_vector_expr(model, bool_refs, args[0], opaque=opaque, seen=seen)
+        amount = _literal(args[1])
+        return None if value is None or amount is None or amount < 0 else [*_const_bits(int(amount)), *value]
+    if name in {"and", "or", "xor"} and len(args) == 2:
+        left = _bit_vector_expr(model, bool_refs, args[0], opaque=opaque, seen=seen)
+        right = _bit_vector_expr(model, bool_refs, args[1], opaque=opaque, seen=seen)
+        if left is None or right is None:
+            return None
+        width = max(len(left), len(right))
+        left = [*left, *[_const(False)] * (width - len(left))]
+        right = [*right, *[_const(False)] * (width - len(right))]
+        if name == "and":
+            return [_and(a, b) for a, b in zip(left, right)]
+        if name == "or":
+            return [_or(a, b) for a, b in zip(left, right)]
+        return [_or(_and(a, _not(b)), _and(_not(a), b)) for a, b in zip(left, right)]
+    if name == "not" and len(args) == 1:
+        value = _bit_vector_expr(model, bool_refs, args[0], opaque=opaque, seen=seen)
+        return None if value is None else [_not(bit) for bit in value]
+    if name == "mux" and len(args) == 3:
+        select = _bool_expr(model, bool_refs, args[0], opaque=opaque, seen=seen)
+        high = _bit_vector_expr(model, bool_refs, args[1], opaque=opaque, seen=seen)
+        low = _bit_vector_expr(model, bool_refs, args[2], opaque=opaque, seen=seen)
+        if select is None or high is None or low is None or len(high) != len(low):
+            return None
+        return [_or(_and(select, a), _and(_not(select), b)) for a, b in zip(high, low)]
+    if name == "andr" and len(args) == 1:
+        value = _bit_vector_expr(model, bool_refs, args[0], opaque=opaque, seen=seen)
+        if value is None:
+            return None
+        result = _const(True)
+        for bit in value:
+            result = _and(result, bit)
+        return [result]
+    if name in {"asUInt", "asSInt"} and len(args) == 1:
+        return _bit_vector_expr(model, bool_refs, args[0], opaque=opaque, seen=seen)
+    return None
+
+
+def _const_bits(width: int) -> list[tuple[Any, ...]]:
+    return [_const(False) for _ in range(width)]
+
+
 def _bool_expr(
     model: Any,
     bool_refs: set[str],
@@ -236,6 +345,15 @@ def _bool_expr(
             return None
         nested = _rhs(model, text)
         if nested is not None and text in bool_refs:
+            bits = _bit_vector_expr(
+                model,
+                bool_refs,
+                nested,
+                opaque=opaque,
+                seen=seen | {text},
+            )
+            if bits is not None:
+                return _or_all(bits)
             return _bool_expr(model, bool_refs, nested, opaque=opaque, seen=seen | {text})
         return ("atom", ("nz", _value_key(model, text, opaque=opaque)))
     call = _call(text)
@@ -261,13 +379,25 @@ def _bool_expr(
     if name in {"eq", "neq"} and len(args) == 2:
         left = _literal(args[0])
         right = _literal(args[1])
+        if left is not None and right is not None:
+            equal = int(left) == int(right)
+            return _const(equal if name == "eq" else not equal)
         value_expr = args[1] if left is not None else args[0] if right is not None else None
         literal = left if left is not None else right
         if value_expr is not None and literal == 0:
             if value_expr.strip() in bool_refs:
                 value = _bool_expr(model, bool_refs, value_expr, opaque=opaque, seen=seen)
             else:
-                value = ("atom", ("nz", _value_key(model, value_expr, opaque=opaque)))
+                bits = _bit_vector_expr(
+                    model,
+                    bool_refs,
+                    value_expr,
+                    opaque=opaque,
+                    seen=seen,
+                )
+                value = _or_all(bits) if bits is not None else (
+                    "atom", ("nz", _value_key(model, value_expr, opaque=opaque))
+                )
             if value is None:
                 return None
             return _not(value) if name == "eq" else value
@@ -277,6 +407,9 @@ def _bool_expr(
                 return None
             return value if name == "eq" else _not(value)
         return ("atom", ("pred", _value_key(model, text, opaque=opaque)))
+    bits = _bit_vector_expr(model, bool_refs, text, opaque=opaque, seen=seen)
+    if bits is not None:
+        return _or_all(bits)
     return ("atom", ("nz", _value_key(model, text, opaque=opaque)))
 
 
@@ -307,14 +440,80 @@ def _eval(expr: tuple[Any, ...], env: dict[tuple[Any, ...], bool]) -> bool:
     raise ValueError(expr[0])
 
 
-def _unsat(expr: tuple[Any, ...], max_atoms: int = 16) -> tuple[bool | None, int]:
+def _restrict(
+    expr: tuple[Any, ...],
+    atom: tuple[Any, ...],
+    value: bool,
+) -> tuple[Any, ...]:
+    if expr[0] == "const":
+        return expr
+    if expr[0] == "atom":
+        return _const(value) if expr[1] == atom else expr
+    if expr[0] == "not":
+        return _not(_restrict(expr[1], atom, value))
+    if expr[0] == "and":
+        return _and(
+            _restrict(expr[1], atom, value),
+            _restrict(expr[2], atom, value),
+        )
+    if expr[0] == "or":
+        return _or(
+            _restrict(expr[1], atom, value),
+            _restrict(expr[2], atom, value),
+        )
+    raise ValueError(expr[0])
+
+
+def _unsat(
+    expr: tuple[Any, ...],
+    max_atoms: int = 64,
+    max_search_nodes: int = 20_000,
+) -> tuple[bool | None, int]:
     atoms = sorted(_atoms(expr), key=repr)
     if len(atoms) > max_atoms:
         return None, len(atoms)
-    for values in product((False, True), repeat=len(atoms)):
-        if _eval(expr, dict(zip(atoms, values))):
-            return False, len(atoms)
-    return True, len(atoms)
+
+    # Exact Shannon expansion with simplification and memoization.  Unlike the
+    # old flat truth-table loop, this closes large but highly structured mux and
+    # routing cones without changing the propositional proof domain.
+    memo: dict[tuple[Any, ...], bool] = {}
+    search_nodes = 0
+
+    class SearchBudgetExceeded(Exception):
+        pass
+
+    def frequencies(current: tuple[Any, ...], out: dict[tuple[Any, ...], int]) -> None:
+        if current[0] == "atom":
+            out[current[1]] = out.get(current[1], 0) + 1
+        elif current[0] == "not":
+            frequencies(current[1], out)
+        elif current[0] in {"and", "or"}:
+            frequencies(current[1], out)
+            frequencies(current[2], out)
+
+    def visit(current: tuple[Any, ...]) -> bool:
+        nonlocal search_nodes
+        search_nodes += 1
+        if search_nodes > max_search_nodes:
+            raise SearchBudgetExceeded
+        if current[0] == "const":
+            return not bool(current[1])
+        cached = memo.get(current)
+        if cached is not None:
+            return cached
+        counts: dict[tuple[Any, ...], int] = {}
+        frequencies(current, counts)
+        selected = min(counts, key=lambda item: (-counts[item], repr(item)))
+        result = visit(_restrict(current, selected, False)) and visit(
+            _restrict(current, selected, True)
+        )
+        memo[current] = result
+        return result
+
+    try:
+        return visit(expr), len(atoms)
+    except SearchBudgetExceeded:
+        return None, len(atoms)
 
 
 def _occurrence_condition(
@@ -400,6 +599,455 @@ def prove_combinational_forbid_when(
         "status": STRUCTURAL_UNKNOWN,
         "reason": "local Boolean reasoning does not prove exclusion",
         "atom_count": atoms,
+    }
+
+
+def _exact_boundary_or_derived_occurrence_condition(
+    model: Any,
+    candidate: dict[str, Any],
+    occurrence_id: str,
+    bool_refs: set[str],
+) -> tuple[Any, ...] | None:
+    """Use physical event gates for boundaries; candidate grounding for derived events."""
+
+    occurrence = next(
+        (item for item in candidate.get("occurrences", []) if item.get("id") == occurrence_id),
+        None,
+    )
+    if occurrence is None:
+        return None
+    if occurrence.get("kind") != "boundary":
+        return _occurrence_condition(model, candidate, occurrence_id, bool_refs)
+    physical = occurrence.get("physical_event_ids", [])
+    event_fn = getattr(model, "_event_info", None)
+    event = event_fn(physical[0]) if len(physical) == 1 and callable(event_fn) else None
+    if not isinstance(event, dict):
+        return None
+    signals = [event.get("valid"), event.get("ready")]
+    if not all(isinstance(signal, str) and signal for signal in signals):
+        return None
+    result = _const(True)
+    for signal in signals:
+        value = _bool_expr(model, bool_refs, signal)
+        if value is None:
+            return None
+        result = _and(result, value)
+    return result
+
+
+def prove_same_cycle_occurrence_partition(
+    model: Any,
+    candidate: dict[str, Any],
+    *,
+    whole: str,
+    parts: list[str],
+    relation: str,
+) -> dict[str, Any]:
+    """Prove one-hot same-cycle occurrence conservation from exact Boolean cones.
+
+    `same_cycle_exactly_one` is `whole <=> OR(parts)` plus pairwise exclusion
+    of the parts.  It is intentionally not n-ary parity/XOR semantics.
+    """
+
+    if relation != "same_cycle_exactly_one":
+        return {"status": STRUCTURAL_UNKNOWN, "reason": "unsupported partition relation"}
+    if not parts or len(set(parts)) != len(parts) or whole in parts:
+        return {"status": STRUCTURAL_UNKNOWN, "reason": "invalid occurrence partition shape"}
+
+    refs = _bool_refs(model, candidate)
+
+    whole_expr = _exact_boundary_or_derived_occurrence_condition(model, candidate, whole, refs)
+    part_exprs = {
+        part: _exact_boundary_or_derived_occurrence_condition(model, candidate, part, refs)
+        for part in parts
+    }
+    missing = [part for part, expr in part_exprs.items() if expr is None]
+    if whole_expr is None:
+        missing.insert(0, whole)
+    if missing:
+        return {
+            "status": STRUCTURAL_UNKNOWN,
+            "reason": "no exact combinational condition for every partition occurrence",
+            "missing_occurrences": missing,
+        }
+
+    any_part = _const(False)
+    for part in parts:
+        any_part = _or(any_part, part_exprs[part])
+
+    obligations: list[dict[str, Any]] = []
+    for name, expression in (
+        ("whole_without_part", _and(whole_expr, _not(any_part))),
+        ("part_without_whole", _and(any_part, _not(whole_expr))),
+    ):
+        unsat, atoms = _unsat(expression)
+        obligations.append({"kind": name, "unsat": unsat, "atom_count": atoms})
+        if unsat is not True:
+            reason = (
+                f"Boolean cone exceeds atom limit ({atoms})"
+                if unsat is None
+                else f"same-cycle partition obligation {name!r} is satisfiable"
+            )
+            return {
+                "status": STRUCTURAL_UNKNOWN,
+                "reason": reason,
+                "failed_obligation": name,
+                "obligations": obligations,
+            }
+
+    mutex_pairs: list[list[str]] = []
+    for index, left in enumerate(parts):
+        for right in parts[index + 1:]:
+            unsat, atoms = _unsat(_and(part_exprs[left], part_exprs[right]))
+            obligations.append({
+                "kind": "parts_mutually_exclusive",
+                "parts": [left, right],
+                "unsat": unsat,
+                "atom_count": atoms,
+            })
+            if unsat is not True:
+                reason = (
+                    f"Boolean cone exceeds atom limit ({atoms})"
+                    if unsat is None
+                    else f"partition parts {left!r} and {right!r} can occur together"
+                )
+                return {
+                    "status": STRUCTURAL_UNKNOWN,
+                    "reason": reason,
+                    "failed_obligation": "parts_mutually_exclusive",
+                    "failed_parts": [left, right],
+                    "obligations": obligations,
+                }
+            mutex_pairs.append([left, right])
+
+    return {
+        "status": STRUCTURALLY_SUPPORTED,
+        "proof": (
+            f"{whole} is equivalent to the same-cycle disjunction of its parts, "
+            "and every pair of parts has an unsatisfiable conjunction"
+        ),
+        "proof_domain": "exact-same-cycle-occurrence-partition",
+        "whole": whole,
+        "parts": list(parts),
+        "mutex_pairs": mutex_pairs,
+        "obligations": obligations,
+    }
+
+
+def _split_bundle_fields(text: str) -> list[str]:
+    body = text.strip()
+    if not (body.startswith("{") and body.endswith("}")):
+        return []
+    body = body[1:-1]
+    fields: list[str] = []
+    start = 0
+    depth = 0
+    for index, char in enumerate(body):
+        if char in "{[(":
+            depth += 1
+        elif char in "}])":
+            depth -= 1
+        elif char == "," and depth == 0:
+            fields.append(body[start:index].strip())
+            start = index + 1
+    fields.append(body[start:].strip())
+    return [field for field in fields if field]
+
+
+def _bundle_field_type(type_text: str, field_name: str) -> str | None:
+    for field in _split_bundle_fields(type_text):
+        depth = 0
+        for index, char in enumerate(field):
+            if char in "{[(":
+                depth += 1
+            elif char in "}])":
+                depth -= 1
+            elif char == ":" and depth == 0:
+                name = field[:index].strip()
+                if name == field_name:
+                    return field[index + 1:].strip()
+                break
+    return None
+
+
+def _declared_signal_width(model: Any, signal: str) -> int | None:
+    """Recover a leaf width from FIRRTL state/wire declarations when available."""
+
+    root_types: dict[str, str] = {
+        str(item.get("id")): str(item.get("type"))
+        for item in getattr(model, "handoff", {}).get("state", [])
+        if item.get("id") and item.get("type")
+    }
+    for statement in getattr(model, "statements", {}).values():
+        match = re.match(r"^wire\s+([^\s:]+)\s*:\s*(.+)$", str(statement.get("text", "")).strip())
+        if match:
+            root_types[match.group(1)] = match.group(2).strip()
+
+    root = next(
+        (
+            name for name in sorted(root_types, key=len, reverse=True)
+            if signal == name or signal.startswith(name + ".") or signal.startswith(name + "[")
+        ),
+        None,
+    )
+    if root is None:
+        return None
+    current = root_types[root]
+    suffix = signal[len(root):]
+    for component in [item for item in suffix.split(".") if item]:
+        name = component.split("[", 1)[0]
+        current = _bundle_field_type(current, name) or ""
+        if not current:
+            return None
+    match = re.match(r"^(?:U|S)Int<(\d+)>", current.strip())
+    return int(match.group(1)) if match else None
+
+
+def _slice_matches_sink_width(
+    actual: tuple[Any, ...] | None,
+    expected: tuple[Any, ...],
+    sink_width: int | None,
+) -> bool:
+    if actual is None or sink_width is None or len(expected) != 5:
+        return False
+    if expected[0:2] != ("call", "bits") or expected[2] != actual:
+        return False
+    high, low = expected[3], expected[4]
+    return high == ("lit", sink_width - 1) and low == ("lit", 0)
+
+
+def _value_equal_under_condition(
+    model: Any,
+    bool_refs: set[str],
+    *,
+    actual: str,
+    expected: tuple[Any, ...],
+    condition: tuple[Any, ...],
+    state_roots: set[str],
+    sink_width: int | None = None,
+    seen: set[str] | None = None,
+) -> tuple[bool, dict[str, Any]]:
+    """Prove muxed value equality by splitting only reachable Boolean branches."""
+
+    from .semantic import _canonical_expr
+
+    unsat, atoms = _unsat(condition)
+    if unsat is True:
+        return True, {"kind": "unreachable-branch", "atom_count": atoms}
+    if unsat is None:
+        return False, {"kind": "atom-limit", "atom_count": atoms}
+
+    text = actual.strip()
+    seen = seen or set()
+    normal = _canonical_expr(model, text, cut_roots=state_roots)
+    if normal == expected:
+        return True, {"kind": "symbolic-normal-form-equality"}
+    if _slice_matches_sink_width(normal, expected, sink_width):
+        return True, {
+            "kind": "firrtl-sink-width-truncation",
+            "sink_width": sink_width,
+        }
+
+    if _REF_RE.fullmatch(text) and text not in seen and not _under_state(model, text):
+        nested = _rhs(model, text)
+        if nested is not None:
+            return _value_equal_under_condition(
+                model,
+                bool_refs,
+                actual=nested,
+                expected=expected,
+                condition=condition,
+                state_roots=state_roots,
+                sink_width=_declared_signal_width(model, text) or sink_width,
+                seen=seen | {text},
+            )
+
+    call = _call(text)
+    if call is None or call[0] != "mux" or len(call[1]) != 3:
+        return False, {
+            "kind": "value-mismatch",
+            "actual_normal_form": repr(normal),
+            "expected_normal_form": repr(expected),
+            "sink_width": sink_width,
+        }
+
+    select, high, low = call[1]
+    local_bool_refs = set(bool_refs)
+    if _is_bool_expr(model, select, local_bool_refs):
+        _propagate_bool_refs(model, select, local_bool_refs)
+    select_expr = _bool_expr(model, local_bool_refs, select)
+    if select_expr is None:
+        return False, {"kind": "unresolved-mux-select", "select": select}
+
+    branch_proofs: list[dict[str, Any]] = []
+    for branch_name, branch_value, branch_condition in (
+        ("high", high, _and(condition, select_expr)),
+        ("low", low, _and(condition, _not(select_expr))),
+    ):
+        proved, proof = _value_equal_under_condition(
+            model,
+            local_bool_refs,
+            actual=branch_value,
+            expected=expected,
+            condition=branch_condition,
+            state_roots=state_roots,
+            sink_width=sink_width,
+            seen=seen,
+        )
+        branch_proofs.append({"branch": branch_name, "proof": proof})
+        if not proved:
+            return False, {
+                "kind": "conditional-mux-equality",
+                "select": select,
+                "branches": branch_proofs,
+            }
+    return True, {
+        "kind": "conditional-mux-equality",
+        "select": select,
+        "branches": branch_proofs,
+    }
+
+
+def prove_conditional_signal_equality(
+    model: Any,
+    candidate: dict[str, Any],
+    *,
+    target: str,
+    source: str,
+    on: str,
+) -> dict[str, Any]:
+    """Prove a payload equality under one exact occurrence condition.
+
+    FIRRTL last-connect semantics are reconstructed from every local driver of
+    `target`. Positive `when` guards become priority selections in statement
+    order. The proof checks every driver selection reachable while `on` holds;
+    no mux, arbiter, channel, or payload field name is special-cased.
+    """
+
+    from .semantic import _canonical_expr
+
+    refs = _bool_refs(model, candidate)
+    on_expr = _exact_boundary_or_derived_occurrence_condition(model, candidate, on, refs)
+    unconditional_strengthening = on_expr is None
+    if on_expr is None:
+        # If the occurrence guard is not representable as an exact Boolean
+        # condition (for example a state-only derived milestone), proving the
+        # equality for every combinational valuation is a sound strengthening.
+        on_expr = _const(True)
+
+    drivers: list[dict[str, Any]] = []
+    for statement in sorted(model.statements.values(), key=lambda item: int(item.get("id", -1))):
+        if target not in {str(item) for item in statement.get("drives", [])}:
+            continue
+        if statement.get("kind") == "infer_mport":
+            # FIRRTL memory-port inference declares the selected storage/index;
+            # the following connect is the actual payload writer.
+            continue
+        parsed = _statement_rhs(statement)
+        if parsed is None:
+            return {
+                "status": STRUCTURAL_UNKNOWN,
+                "reason": f"unparsed driver for {target!r}",
+                "statement_id": int(statement.get("id", -1)),
+            }
+        lhs, rhs = parsed
+        if target == lhs:
+            projected_rhs = rhs
+        elif target.startswith(lhs + ".") and _REF_RE.fullmatch(rhs):
+            projected_rhs = rhs + target[len(lhs):]
+        else:
+            return {
+                "status": STRUCTURAL_UNKNOWN,
+                "reason": f"could not project aggregate driver for {target!r}",
+                "statement_id": int(statement.get("id", -1)),
+            }
+        activation_info = _writer_activation(model, target, statement, refs)
+        if activation_info is None:
+            return {
+                "status": STRUCTURAL_UNKNOWN,
+                "reason": f"driver activation is not exact for {target!r}",
+                "statement_id": int(statement.get("id", -1)),
+            }
+        activation, activation_certificate = activation_info
+        drivers.append({
+            "statement_id": int(statement.get("id", -1)),
+            "rhs": projected_rhs,
+            "activation": activation,
+            "activation_certificate": activation_certificate,
+        })
+
+    if not drivers:
+        return {"status": STRUCTURAL_UNKNOWN, "reason": f"no drivers for {target!r}"}
+
+    state_roots = {str(root) for root in getattr(model, "state_roots", set())}
+    source_expr = _canonical_expr(model, source, cut_roots=state_roots)
+    selected: list[dict[str, Any]] = []
+    any_selected = _const(False)
+    for index, driver in enumerate(drivers):
+        effective = driver["activation"]
+        for later in drivers[index + 1:]:
+            effective = _and(effective, _not(later["activation"]))
+        any_selected = _or(any_selected, effective)
+        reachable, atoms = _unsat(_and(on_expr, effective))
+        if reachable is None:
+            return {
+                "status": STRUCTURAL_UNKNOWN,
+                "reason": f"conditional equality Boolean cone exceeds atom limit ({atoms})",
+            }
+        if reachable is True:
+            continue
+        rhs_expr = _canonical_expr(model, driver["rhs"], cut_roots=state_roots)
+        exact_value = driver["rhs"] == source or (
+            rhs_expr is not None and rhs_expr == source_expr
+        )
+        branch_certificate: dict[str, Any] | None = None
+        if not exact_value and source_expr is not None:
+            exact_value, branch_certificate = _value_equal_under_condition(
+                model,
+                refs,
+                actual=driver["rhs"],
+                expected=source_expr,
+                condition=_and(on_expr, effective),
+                state_roots=state_roots,
+            )
+        if not exact_value:
+            return {
+                "status": STRUCTURAL_UNKNOWN,
+                "reason": f"reachable driver of {target!r} is not equal to {source!r} on {on!r}",
+                "statement_id": driver["statement_id"],
+                "driver_rhs": driver["rhs"],
+                "branch_certificate": branch_certificate,
+            }
+        selected.append({
+            "statement_id": driver["statement_id"],
+            "rhs": driver["rhs"],
+            "activation": driver["activation_certificate"],
+            "atom_count": atoms,
+            "value_proof": branch_certificate or {"kind": "symbolic-normal-form-equality"},
+        })
+
+    uncovered, atoms = _unsat(_and(on_expr, _not(any_selected)))
+    if uncovered is not True:
+        return {
+            "status": STRUCTURAL_UNKNOWN,
+            "reason": f"{target!r} has no exact active driver for every {on!r} occurrence",
+            "atom_count": atoms,
+        }
+    if not selected:
+        return {
+            "status": STRUCTURAL_UNKNOWN,
+            "reason": f"no reachable driver of {target!r} while {on!r} holds",
+        }
+    return {
+        "status": STRUCTURALLY_SUPPORTED,
+        "proof": f"every last-connect driver of {target} reachable on {on} equals {source}",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "on": on,
+        "target": target,
+        "source": source,
+        "unconditional_strengthening": unconditional_strengthening,
+        "selected_drivers": selected,
+        "all_driver_statement_ids": [driver["statement_id"] for driver in drivers],
     }
 
 
@@ -638,7 +1286,11 @@ def _writer_activation(
         edge
         for edge in handoff.get("dependency_edges", [])
         if edge.get("kind") == "control"
-        and edge.get("dst") == storage
+        and (
+            edge.get("dst") == storage
+            or str(edge.get("dst", "")).startswith(storage + ".")
+            or str(edge.get("dst", "")).startswith(storage + "[")
+        )
         and statement_id in {int(x) for x in edge.get("statement_ids", [])}
     ]
     controls = sorted({str(edge.get("src")) for edge in edges if edge.get("src")})
@@ -660,7 +1312,10 @@ def _writer_activation(
 
     activation = _const(True)
     for control in controls:
-        expr = _bool_expr(model, bool_refs, control)
+        local_bool_refs = set(bool_refs)
+        if _is_bool_expr(model, control, local_bool_refs):
+            _propagate_bool_refs(model, control, local_bool_refs)
+        expr = _bool_expr(model, local_bool_refs, control)
         if expr is None:
             return None
         activation = _and(activation, expr)

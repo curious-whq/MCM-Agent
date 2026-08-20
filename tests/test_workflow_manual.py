@@ -11,6 +11,7 @@ from workflow.handoff import build_work_unit_static_handoff
 from workflow.manual import (
     GROUNDING_VALID,
     REFINEMENT_NEEDED,
+    _is_allowed_signal_reference,
     export_manual_task,
     import_manual_response,
 )
@@ -152,6 +153,8 @@ class ManualWorkflowTests(unittest.TestCase):
         self.assertIn("formal AST is the only semantic source", prompt)
         self.assertIn("FINAL MCM-AGENT RESULT", prompt)
         self.assertIn(UMCM_SCHEMA_VERSION, prompt)
+        self.assertIn('"relation":"same_cycle_exactly_one"', prompt)
+        self.assertIn("The `relation` field is required", prompt)
 
     def test_prompt_requires_autonomous_completion_or_language_gap(self):
         prompt = self.package.prompt
@@ -222,6 +225,19 @@ class ManualWorkflowTests(unittest.TestCase):
         )
         parsed = parse_candidate_response(response)
         self.assertEqual(parsed["task_id"], self.package.task.task_id)
+
+    def test_dynamic_array_signal_requires_grounded_wildcard_and_index(self):
+        allowed = {"valids[*]", "deq_ptr_value", "valids[0]"}
+
+        self.assertTrue(
+            _is_allowed_signal_reference("valids[deq_ptr_value]", allowed)
+        )
+        self.assertFalse(
+            _is_allowed_signal_reference("valids[unknown_ptr]", allowed)
+        )
+        self.assertFalse(
+            _is_allowed_signal_reference("other[deq_ptr_value]", allowed)
+        )
 
 
 if __name__ == "__main__":

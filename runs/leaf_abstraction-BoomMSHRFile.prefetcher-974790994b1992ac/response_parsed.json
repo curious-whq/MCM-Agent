@@ -1,0 +1,92 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        3
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.prefetch.valid",
+            "op": "signal"
+          }
+        },
+        "on": null,
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "id": "A1",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        3
+      ],
+      "formal": {
+        "occurrence": "PrefetchHandshake",
+        "predicate": "PrefetchDisabled",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A2",
+      "status": "candidate"
+    }
+  ],
+  "cases": [],
+  "extensions": {},
+  "identity_keys": [],
+  "occurrences": [
+    {
+      "definition": "io.prefetch.valid && io.prefetch.ready",
+      "evidence_statement_ids": [
+        3
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "PrefetchHandshake",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHRFile.prefetcher::io.prefetch.fire"
+      ]
+    }
+  ],
+  "predicates": [
+    {
+      "definition": "io.prefetch.valid == 0",
+      "evidence_statement_ids": [
+        3
+      ],
+      "grounding": {
+        "negated": true,
+        "source_signal": "io.prefetch.valid",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "PrefetchDisabled"
+    }
+  ],
+  "rationale": [
+    "NullPrefetcher has no concrete local state and unconditionally drives io.prefetch.valid to zero, so it cannot emit a valid prefetch transaction.",
+    "A1 is the substantive parent-facing guarantee: the prefetch valid signal is permanently zero. Because PrefetchHandshake is the physical Decoupled fire event, this makes the boundary occurrence unreachable for every value of io.prefetch.ready.",
+    "A2 retains the physical PrefetchHandshake occurrence and its explicit exclusion under PrefetchDisabled in the trusted semantic interface. It is redundant with the boundary handshake definition plus A1, but preserves the otherwise unreachable boundary occurrence for hierarchical composition.",
+    "All io.prefetch.bits fields are invalidated by DontCare. No payload equality, transaction identity, or ordering fact is claimed because valid is permanently zero and no payload can participate in a real transaction.",
+    "No liveness or environment readiness assumption is needed because the implementation disables prefetch generation independently of io.prefetch.ready, mshr_avail, req_val, req_addr, and req_coh."
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-BoomMSHRFile.prefetcher-974790994b1992ac",
+  "unresolved": [],
+  "work_unit_id": "BoomMSHRFile.prefetcher"
+}

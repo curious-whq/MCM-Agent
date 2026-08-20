@@ -1,0 +1,714 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        18,
+        19,
+        109,
+        110
+      ],
+      "formal": {
+        "occurrence": "EnqHandshake",
+        "predicate": "QueueFull",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A1",
+      "rendered_formula": "QueueFull => !EnqHandshake",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_Admitted",
+        "C2_BranchKilledOnArrival"
+      ],
+      "evidence_statement_ids": [
+        20,
+        21,
+        22,
+        23,
+        24,
+        27,
+        28,
+        29
+      ],
+      "formal": {
+        "occurrence": "QueueInsert",
+        "predicate": "IncomingBranchKilled",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A2",
+      "rendered_formula": "IncomingBranchKilled => !QueueInsert",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_Admitted",
+        "C3_FlushKilledOnArrival"
+      ],
+      "evidence_statement_ids": [
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "formal": {
+        "occurrence": "QueueInsert",
+        "predicate": "IncomingFlushKilled",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A3",
+      "rendered_formula": "IncomingFlushKilled => !QueueInsert",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C4_VisibleDequeue"
+      ],
+      "evidence_statement_ids": [
+        15,
+        16,
+        17,
+        115,
+        116,
+        117
+      ],
+      "formal": {
+        "occurrence": "DeqHandshake",
+        "predicate": "QueueEmpty",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A4",
+      "rendered_formula": "QueueEmpty => !DeqHandshake",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C4_VisibleDequeue"
+      ],
+      "evidence_statement_ids": [
+        30,
+        115,
+        116,
+        117
+      ],
+      "formal": {
+        "occurrence": "DeqHandshake",
+        "predicate": "HeadInvalid",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A5",
+      "rendered_formula": "HeadInvalid => !DeqHandshake",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C5_InvalidHeadSkip"
+      ],
+      "evidence_statement_ids": [
+        32,
+        33,
+        34,
+        35
+      ],
+      "formal": {
+        "occurrence": "InvalidHeadSkip",
+        "predicate": "QueueEmpty",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A6",
+      "rendered_formula": "QueueEmpty => !InvalidHeadSkip",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C5_InvalidHeadSkip"
+      ],
+      "evidence_statement_ids": [
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        115,
+        116,
+        117
+      ],
+      "formal": {
+        "occurrence": "InvalidHeadSkip",
+        "predicate": "HeadValid",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A7",
+      "rendered_formula": "HeadValid => !InvalidHeadSkip",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_Admitted"
+      ],
+      "evidence_statement_ids": [
+        88,
+        89,
+        90
+      ],
+      "formal": {
+        "on": "QueueInsert",
+        "scope_identity": null,
+        "source": {
+          "name": "io.enq.bits",
+          "op": "signal"
+        },
+        "target": "MPORT",
+        "type": "signal_equality"
+      },
+      "id": "A8",
+      "rendered_formula": "MPORT = io.enq.bits on QueueInsert",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_Admitted",
+        "C4_VisibleDequeue"
+      ],
+      "evidence_statement_ids": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        11,
+        12,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        88,
+        91,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        115,
+        116,
+        117
+      ],
+      "formal": {
+        "after": "DeqHandshake",
+        "before": "QueueInsert",
+        "required_prior": null,
+        "scope_identity": null,
+        "scope_index": {
+          "name": "slot",
+          "relation": "same"
+        },
+        "type": "ordered_before"
+      },
+      "id": "A9",
+      "rendered_formula": "QueueInsert <mu DeqHandshake [same index slot]",
+      "status": "candidate"
+    }
+  ],
+  "cases": [
+    {
+      "confidence": "high",
+      "emits": [
+        "QueueInsert"
+      ],
+      "evidence_statement_ids": [
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        88,
+        89,
+        90,
+        91,
+        92,
+        95,
+        99
+      ],
+      "guard_predicates": [
+        {
+          "id": "IncomingBranchKilled",
+          "positive": false
+        },
+        {
+          "id": "IncomingFlushKilled",
+          "positive": false
+        }
+      ],
+      "id": "C1_Admitted",
+      "relations": [
+        "An enqueue handshake is admitted only when it survives both incoming branch-kill and flush-kill filters; the admitted payload is stored at the current enqueue slot."
+      ],
+      "trigger_occurrences": [
+        "EnqHandshake"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        28,
+        29,
+        88,
+        99
+      ],
+      "guard_predicates": [
+        {
+          "id": "IncomingBranchKilled",
+          "positive": true
+        }
+      ],
+      "id": "C2_BranchKilledOnArrival",
+      "relations": [
+        "The external enqueue handshake may occur, but a branch-killed request is not inserted and does not advance the enqueue pointer."
+      ],
+      "trigger_occurrences": [
+        "EnqHandshake"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        19,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        88,
+        99
+      ],
+      "guard_predicates": [
+        {
+          "id": "IncomingFlushKilled",
+          "positive": true
+        }
+      ],
+      "id": "C3_FlushKilledOnArrival",
+      "relations": [
+        "An enqueue carrying uses_ldq is rejected from actual queue insertion when io.flush is asserted."
+      ],
+      "trigger_occurrences": [
+        "EnqHandshake"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        115,
+        116,
+        117
+      ],
+      "guard_predicates": [
+        {
+          "id": "QueueEmpty",
+          "positive": false
+        },
+        {
+          "id": "HeadValid",
+          "positive": true
+        }
+      ],
+      "id": "C4_VisibleDequeue",
+      "relations": [
+        "A visible dequeue handshake consumes the valid current head slot and advances the dequeue pointer."
+      ],
+      "trigger_occurrences": [
+        "DeqHandshake"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        115,
+        116,
+        117
+      ],
+      "guard_predicates": [
+        {
+          "id": "QueueEmpty",
+          "positive": false
+        },
+        {
+          "id": "HeadInvalid",
+          "positive": true
+        }
+      ],
+      "id": "C5_InvalidHeadSkip",
+      "relations": [
+        "A non-empty queue whose current head slot has been invalidated advances past that slot without producing a visible dequeue handshake."
+      ],
+      "trigger_occurrences": [
+        "InvalidHeadSkip"
+      ]
+    }
+  ],
+  "identity_keys": [],
+  "note": "Only axioms with FORMALLY_PROVED or SPEC_PROVED validation level are included. Grounded/structurally-supported candidate axioms remain outside the trusted abstraction.",
+  "occurrences": [
+    {
+      "definition": "io.enq.valid && io.enq.ready",
+      "evidence_statement_ids": [
+        19,
+        109,
+        110
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.enq.valid",
+          "io.enq.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "EnqHandshake",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHRFile.respq::io.enq.fire"
+      ]
+    },
+    {
+      "definition": "do_enq",
+      "evidence_statement_ids": [
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "do_enq"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "QueueInsert",
+      "index": {
+        "domain": {
+          "end_exclusive": 4,
+          "start": 0
+        },
+        "expr": {
+          "name": "enq_ptr_value",
+          "op": "signal"
+        },
+        "name": "slot"
+      },
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "io.deq.valid && io.deq.ready",
+      "evidence_statement_ids": [
+        12,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        115,
+        116,
+        117,
+        118
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.deq.valid",
+          "io.deq.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "DeqHandshake",
+      "index": {
+        "domain": {
+          "end_exclusive": 4,
+          "start": 0
+        },
+        "expr": {
+          "name": "deq_ptr_value",
+          "op": "signal"
+        },
+        "name": "slot"
+      },
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHRFile.respq::io.deq.fire"
+      ]
+    },
+    {
+      "definition": "do_deq && !io.deq.valid",
+      "evidence_statement_ids": [
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        115,
+        116,
+        117
+      ],
+      "grounding": {
+        "signals_false": [
+          "io.deq.valid"
+        ],
+        "signals_true": [
+          "do_deq"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "InvalidHeadSkip",
+      "index": {
+        "domain": {
+          "end_exclusive": 4,
+          "start": 0
+        },
+        "expr": {
+          "name": "deq_ptr_value",
+          "op": "signal"
+        },
+        "name": "slot"
+      },
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    }
+  ],
+  "predicates": [
+    {
+      "definition": "io.empty",
+      "evidence_statement_ids": [
+        14,
+        15,
+        16,
+        17
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "io.empty",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "QueueEmpty"
+    },
+    {
+      "definition": "full",
+      "evidence_statement_ids": [
+        14,
+        18,
+        109,
+        110
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "full",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "QueueFull"
+    },
+    {
+      "definition": "(io.brupdate.b1.mispredict_mask & io.enq.bits.uop.br_mask) != 0",
+      "evidence_statement_ids": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "_do_enq_T_3",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "IncomingBranchKilled"
+    },
+    {
+      "definition": "io.flush && io.enq.bits.uop.uses_ldq",
+      "evidence_statement_ids": [
+        25,
+        26,
+        27
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "_do_enq_T_6",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "IncomingFlushKilled"
+    },
+    {
+      "definition": "!valids[deq_ptr_value]",
+      "evidence_statement_ids": [
+        30,
+        115,
+        116
+      ],
+      "grounding": {
+        "negated": true,
+        "source_signal": "valids[deq_ptr_value]",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "HeadInvalid"
+    },
+    {
+      "definition": "valids[deq_ptr_value]",
+      "evidence_statement_ids": [
+        30,
+        115,
+        116
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "valids[deq_ptr_value]",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "HeadValid"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-BoomMSHRFile.respq-95e53b3103df506e",
+  "trust_policy": "formal-ast-plus-certified-provenance-v0.3",
+  "trusted_axiom_ids": [
+    "A1",
+    "A2",
+    "A3",
+    "A4",
+    "A5",
+    "A6",
+    "A7",
+    "A8",
+    "A9"
+  ],
+  "work_unit_id": "BoomMSHRFile.respq"
+}

@@ -11,12 +11,13 @@ from frontend.workunit import (
     WorkUnitConfig,
     build_hierarchical_work_unit,
     flatten_work_units,
+    module_structural_sha256,
 )
 
 from .handoff import build_work_unit_static_handoff
 from .manual import export_manual_task, import_manual_response
 from .tasks import build_leaf_abstraction_task, build_parent_synthesis_task
-from .composition import attach_frozen_child_summaries
+from .composition import attach_frozen_child_summaries, work_unit_implementation_sha256
 from .semantic import validate_task_dir
 from .research_memory import write_current_handoff, write_run_summary
 
@@ -119,6 +120,43 @@ def _parent_task(args: argparse.Namespace) -> dict:
         source_roots=args.source_root,
         context_lines=args.context_lines,
     )
+    slot_by_id = {
+        str(slot.get("child_id")): slot
+        for slot in handoff.get("children", [])
+        if isinstance(slot, dict) and slot.get("child_id")
+    }
+    implementation_cache: dict[tuple[str, str], str] = {}
+    structural_cache: dict[str, str] = {}
+    implementation_catalog: dict[str, dict[str, str]] = {}
+    for child in unit.children:
+        slot = slot_by_id.get(child.id)
+        if slot is None or child.module not in frontend.registries:
+            continue
+        cache_key = (child.module, child.kind.value)
+        fingerprint = implementation_cache.get(cache_key)
+        if fingerprint is None:
+            child_handoff = build_work_unit_static_handoff(
+                child,
+                frontend.graph(child.module),
+                frontend.registries[child.module],
+            )
+            fingerprint = work_unit_implementation_sha256(child_handoff)
+            implementation_cache[cache_key] = fingerprint
+        slot["child_module"] = child.module
+        slot["implementation_sha256"] = fingerprint
+        if child.kind.value == "module":
+            structural = module_structural_sha256(
+                frontend.design,
+                frontend.graph,
+                child.module,
+                _cache=structural_cache,
+            )
+            slot["structural_implementation_sha256"] = structural
+            implementation_catalog[child.module] = {
+                "proof_scope_sha256": fingerprint,
+                "structural_implementation_sha256": structural,
+            }
+    handoff["implementation_catalog"] = implementation_catalog
     child_run_roots = args.child_run_root or [args.run_root]
     handoff = attach_frozen_child_summaries(
         handoff,

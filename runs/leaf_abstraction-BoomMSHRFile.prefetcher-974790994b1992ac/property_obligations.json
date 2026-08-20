@@ -1,0 +1,73 @@
+{
+  "compiler": "formal-axiom-compiler-0.6",
+  "obligations": [
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 0,
+        "signal": "io.prefetch.valid"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        3
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.prefetch.valid",
+            "op": "signal"
+          }
+        },
+        "on": null,
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [],
+        "predicates": [],
+        "signals": [
+          "io.prefetch.valid"
+        ]
+      },
+      "rendered_formula": "bits(io.prefetch.valid, 0, 0) == 0"
+    },
+    {
+      "arguments": {
+        "occurrence": "PrefetchHandshake",
+        "predicate": "PrefetchDisabled"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        3
+      ],
+      "formal": {
+        "occurrence": "PrefetchHandshake",
+        "predicate": "PrefetchDisabled",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "PrefetchHandshake"
+        ],
+        "predicates": [
+          "PrefetchDisabled"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "PrefetchDisabled => !PrefetchHandshake"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "work_unit_id": "BoomMSHRFile.prefetcher"
+}

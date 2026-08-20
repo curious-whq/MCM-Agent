@@ -1,0 +1,426 @@
+{
+  "compiler": "formal-axiom-compiler-0.7",
+  "obligations": [
+    {
+      "arguments": {
+        "occurrence": "ReqAccept",
+        "predicate": "Busy"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        6,
+        7,
+        1601
+      ],
+      "formal": {
+        "occurrence": "ReqAccept",
+        "predicate": "Busy",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ReqAccept"
+        ],
+        "predicates": [
+          "Busy"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "Busy => !ReqAccept"
+    },
+    {
+      "arguments": {
+        "after": "MemAccess",
+        "before": "ReqAccept"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "ordering",
+      "checker": "history_order",
+      "evidence_statement_ids": [
+        1481,
+        1482,
+        1601,
+        1602,
+        1603,
+        1604,
+        1605,
+        1606,
+        1607
+      ],
+      "formal": {
+        "after": "MemAccess",
+        "before": "ReqAccept",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "MemAccess",
+          "ReqAccept"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "ReqAccept <mu MemAccess"
+    },
+    {
+      "arguments": {
+        "after": "AckConsumed",
+        "before": "MemAccess"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "ordering",
+      "checker": "history_order",
+      "evidence_statement_ids": [
+        1605,
+        1606,
+        1607,
+        1608,
+        1609,
+        1610,
+        1611
+      ],
+      "formal": {
+        "after": "AckConsumed",
+        "before": "MemAccess",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "AckConsumed",
+          "MemAccess"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "MemAccess <mu AckConsumed"
+    },
+    {
+      "arguments": {
+        "after": "RespHandshake",
+        "before": "AckConsumed"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "ordering",
+      "checker": "history_order",
+      "evidence_statement_ids": [
+        1552,
+        1553,
+        1554,
+        1555,
+        1611,
+        1642,
+        1643,
+        1645
+      ],
+      "formal": {
+        "after": "RespHandshake",
+        "before": "AckConsumed",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "AckConsumed",
+          "RespHandshake"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "AckConsumed <mu RespHandshake"
+    },
+    {
+      "arguments": {
+        "occurrence": "RespHandshake",
+        "predicate": "NoResponseRequired"
+      },
+      "axiom_id": "A5",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        1552,
+        1553,
+        1554,
+        1555
+      ],
+      "formal": {
+        "occurrence": "RespHandshake",
+        "predicate": "NoResponseRequired",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "RespHandshake"
+        ],
+        "predicates": [
+          "NoResponseRequired"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "NoResponseRequired => !RespHandshake"
+    },
+    {
+      "arguments": {
+        "accepted_by": "ReqAccept",
+        "capture_source": "io.req.bits",
+        "identity_key": "RequestIdentity",
+        "projections": [
+          {
+            "source": "req.uop.rob_idx",
+            "target": "io.resp.bits.uop.rob_idx"
+          },
+          {
+            "source": "req.uop.ldq_idx",
+            "target": "io.resp.bits.uop.ldq_idx"
+          },
+          {
+            "source": "req.uop.stq_idx",
+            "target": "io.resp.bits.uop.stq_idx"
+          },
+          {
+            "source": "req.uop.mem_cmd",
+            "target": "io.resp.bits.uop.mem_cmd"
+          },
+          {
+            "source": "req.uop.mem_size",
+            "target": "io.resp.bits.uop.mem_size"
+          }
+        ]
+      },
+      "axiom_id": "A6",
+      "axiom_kind": "identity_flow",
+      "checker": "identity_projection",
+      "evidence_statement_ids": [
+        1603,
+        1556
+      ],
+      "formal": {
+        "capture": {
+          "carrier": "req",
+          "on": "ReqAccept",
+          "source": "io.req.bits"
+        },
+        "identity": "RequestIdentity",
+        "projections": [
+          {
+            "expr": {
+              "name": "req.uop.rob_idx",
+              "op": "signal"
+            },
+            "on": "RespHandshake",
+            "target": "io.resp.bits.uop.rob_idx"
+          },
+          {
+            "expr": {
+              "name": "req.uop.ldq_idx",
+              "op": "signal"
+            },
+            "on": "RespHandshake",
+            "target": "io.resp.bits.uop.ldq_idx"
+          },
+          {
+            "expr": {
+              "name": "req.uop.stq_idx",
+              "op": "signal"
+            },
+            "on": "RespHandshake",
+            "target": "io.resp.bits.uop.stq_idx"
+          },
+          {
+            "expr": {
+              "name": "req.uop.mem_cmd",
+              "op": "signal"
+            },
+            "on": "RespHandshake",
+            "target": "io.resp.bits.uop.mem_cmd"
+          },
+          {
+            "expr": {
+              "name": "req.uop.mem_size",
+              "op": "signal"
+            },
+            "on": "RespHandshake",
+            "target": "io.resp.bits.uop.mem_size"
+          }
+        ],
+        "type": "identity_flow"
+      },
+      "references": {
+        "identities": [
+          "RequestIdentity"
+        ],
+        "occurrences": [
+          "ReqAccept",
+          "RespHandshake"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.req.bits",
+          "io.resp.bits.uop.ldq_idx",
+          "io.resp.bits.uop.mem_cmd",
+          "io.resp.bits.uop.mem_size",
+          "io.resp.bits.uop.rob_idx",
+          "io.resp.bits.uop.stq_idx",
+          "req",
+          "req.uop.ldq_idx",
+          "req.uop.mem_cmd",
+          "req.uop.mem_size",
+          "req.uop.rob_idx",
+          "req.uop.stq_idx"
+        ]
+      },
+      "rendered_formula": "capture RequestIdentity := io.req.bits on ReqAccept; preserve 5 exact identity projections"
+    },
+    {
+      "arguments": {
+        "on": "MemAccess",
+        "source": "bits(req.addr, 31, 0)",
+        "target": "io.mem_access.bits.address"
+      },
+      "axiom_id": "A7",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        79,
+        224,
+        361,
+        489,
+        617,
+        745,
+        873,
+        1001,
+        1129,
+        1257,
+        1385,
+        1525,
+        1526,
+        1527
+      ],
+      "formal": {
+        "on": "MemAccess",
+        "scope_identity": null,
+        "source": {
+          "hi": 31,
+          "lo": 0,
+          "op": "slice",
+          "value": {
+            "name": "req.addr",
+            "op": "signal"
+          }
+        },
+        "target": "io.mem_access.bits.address",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "MemAccess"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.mem_access.bits.address",
+          "req.addr"
+        ]
+      },
+      "rendered_formula": "io.mem_access.bits.address = bits(req.addr, 31, 0) on MemAccess"
+    },
+    {
+      "arguments": {
+        "on": "MemAccess",
+        "source": "req.uop.mem_size",
+        "target": "io.mem_access.bits.size"
+      },
+      "axiom_id": "A8",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        77,
+        222,
+        359,
+        487,
+        615,
+        743,
+        871,
+        999,
+        1127,
+        1255,
+        1383,
+        1525,
+        1526,
+        1527
+      ],
+      "formal": {
+        "on": "MemAccess",
+        "scope_identity": null,
+        "source": {
+          "name": "req.uop.mem_size",
+          "op": "signal"
+        },
+        "target": "io.mem_access.bits.size",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "MemAccess"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.mem_access.bits.size",
+          "req.uop.mem_size"
+        ]
+      },
+      "rendered_formula": "io.mem_access.bits.size = req.uop.mem_size on MemAccess"
+    },
+    {
+      "arguments": {
+        "on": "RespHandshake",
+        "source": "req.is_hella",
+        "target": "io.resp.bits.is_hella"
+      },
+      "axiom_id": "A9",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        1600
+      ],
+      "formal": {
+        "on": "RespHandshake",
+        "scope_identity": null,
+        "source": {
+          "name": "req.is_hella",
+          "op": "signal"
+        },
+        "target": "io.resp.bits.is_hella",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "RespHandshake"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.resp.bits.is_hella",
+          "req.is_hella"
+        ]
+      },
+      "rendered_formula": "io.resp.bits.is_hella = req.is_hella on RespHandshake"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "work_unit_id": "BoomMSHRFile.mmios_0"
+}

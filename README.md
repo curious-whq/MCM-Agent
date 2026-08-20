@@ -319,3 +319,13 @@ module-specific axiom type. Formal expressions also support `index_var` and
 `lookup`, e.g. `buffer[i]`. The bundled `explicit-control` backend deliberately
 returns `FORMAL_UNKNOWN` for same-index obligations until an index-aware backend
 is configured, preserving fail-closed trust semantics.
+
+### Same-cycle occurrence partitions
+
+Combinational routers and mergers can use the protocol-independent
+`occurrence_partition` axiom. Its `same_cycle_exactly_one` relation means
+`whole <=> OR(parts)` and pairwise mutual exclusion of all `parts`; this is
+one-hot conservation rather than n-ary parity. The bundled deterministic prover
+certifies the relation from exact local Boolean cones without recognizing
+arbiter names or priority policies. Payload and identity forwarding remain
+separate claims.

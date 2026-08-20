@@ -1,0 +1,3208 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [
+        "C1_GrantCompleted"
+      ],
+      "evidence_statement_ids": [
+        1102,
+        1104,
+        1106,
+        1107,
+        1119,
+        1346,
+        1348,
+        1350,
+        1351,
+        1352,
+        1353,
+        1840,
+        1842,
+        1974,
+        1975,
+        1988,
+        2215
+      ],
+      "formal": {
+        "after": "MemAcquire",
+        "before": "PrimaryAccept",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "id": "A1",
+      "rendered_formula": "PrimaryAccept <mu MemAcquire",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_GrantCompleted"
+      ],
+      "evidence_statement_ids": [
+        1348,
+        1350,
+        1351,
+        1352,
+        1353,
+        1355,
+        1357,
+        1363,
+        1364
+      ],
+      "formal": {
+        "after": "MemGrant",
+        "before": "MemAcquire",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "id": "A2",
+      "rendered_formula": "MemAcquire <mu MemGrant",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_GrantCompleted",
+        "C2_LoadResponse"
+      ],
+      "evidence_statement_ids": [
+        1367,
+        1377,
+        1444,
+        1455,
+        1456,
+        1459,
+        1460
+      ],
+      "formal": {
+        "after": "RespHandshake",
+        "before": "GrantComplete",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "id": "A3",
+      "rendered_formula": "GrantComplete <mu RespHandshake",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_GrantCompleted",
+        "C3_VictimWriteback",
+        "C4_CommitLineRefill"
+      ],
+      "evidence_statement_ids": [
+        1367,
+        1377,
+        1525,
+        1526,
+        1533,
+        1534,
+        1535,
+        1536
+      ],
+      "formal": {
+        "after": "MetaRead",
+        "before": "GrantComplete",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "id": "A4",
+      "rendered_formula": "GrantComplete <mu MetaRead",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_VictimWriteback"
+      ],
+      "evidence_statement_ids": [
+        1525,
+        1533,
+        1534,
+        1535,
+        1536,
+        1613,
+        1614,
+        1615,
+        1616,
+        1618,
+        1620,
+        1621,
+        1622,
+        1623,
+        1625,
+        1627,
+        1628,
+        1629,
+        1630,
+        1632,
+        1633,
+        1634,
+        1635
+      ],
+      "formal": {
+        "scope_identity": null,
+        "scope_index": null,
+        "sequence": [
+          "MetaRead",
+          "MetaClearWrite",
+          "WBReq",
+          "WBComplete"
+        ],
+        "type": "ordered_chain"
+      },
+      "id": "A5",
+      "rendered_formula": "MetaRead <mu MetaClearWrite <mu WBReq <mu WBComplete",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_VictimWriteback",
+        "C4_CommitLineRefill"
+      ],
+      "evidence_statement_ids": [
+        1525,
+        1533,
+        1534,
+        1535,
+        1536,
+        1613,
+        1614,
+        1615,
+        1616,
+        1637,
+        1640,
+        1641,
+        1642
+      ],
+      "formal": {
+        "after": "CommitRefillBeat",
+        "before": "MetaRead",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "id": "A6",
+      "rendered_formula": "MetaRead <mu CommitRefillBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C4_CommitLineRefill"
+      ],
+      "evidence_statement_ids": [
+        1111,
+        1640,
+        1641,
+        1642,
+        1643,
+        1644,
+        1645,
+        1646,
+        1647,
+        1648,
+        1980
+      ],
+      "formal": {
+        "cardinality": "exactly_once",
+        "completion": "CommitRefillDone",
+        "domain": {
+          "end_exclusive": 8,
+          "start": 0
+        },
+        "index": "beat",
+        "occurrence": "CommitRefillBeat",
+        "scope_identity": null,
+        "scope_index": null,
+        "type": "indexed_complete"
+      },
+      "id": "A7",
+      "rendered_formula": "CommitRefillDone => forall beat in [0, 8): count(CommitRefillBeat(beat)) = 1",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C6_FinalMetadataCommit"
+      ],
+      "evidence_statement_ids": [
+        1808,
+        1809,
+        1810,
+        1811,
+        1813,
+        1815,
+        1820,
+        1821,
+        1822
+      ],
+      "formal": {
+        "after": "FinalMetaWrite",
+        "before": "RPQDrained",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "id": "A8",
+      "rendered_formula": "RPQDrained <mu FinalMetaWrite",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_GrantCompleted",
+        "C7_GrantFinish"
+      ],
+      "evidence_statement_ids": [
+        1367,
+        1372,
+        1374,
+        1375,
+        1825,
+        1827,
+        1828,
+        1832
+      ],
+      "formal": {
+        "after": "MemFinish",
+        "before": "GrantComplete",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "id": "A9",
+      "rendered_formula": "GrantComplete <mu MemFinish",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C7_GrantFinish"
+      ],
+      "evidence_statement_ids": [
+        1825,
+        1827,
+        1828,
+        1829,
+        1830,
+        1831,
+        1832
+      ],
+      "formal": {
+        "occurrence": "MemFinish",
+        "predicate": "GrantAckAbsent",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A10",
+      "rendered_formula": "GrantAckAbsent => !MemFinish",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_GrantCompleted"
+      ],
+      "evidence_statement_ids": [
+        1093,
+        1358,
+        1359,
+        1360
+      ],
+      "formal": {
+        "on": "GrantDataWrite",
+        "scope_identity": null,
+        "source": {
+          "name": "io.mem_grant.bits.data",
+          "op": "signal"
+        },
+        "target": "io.lb_write.bits.data",
+        "type": "signal_equality"
+      },
+      "id": "A11",
+      "rendered_formula": "io.lb_write.bits.data = io.mem_grant.bits.data on GrantDataWrite",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C4_CommitLineRefill"
+      ],
+      "evidence_statement_ids": [
+        1067,
+        1637,
+        1640,
+        1641
+      ],
+      "formal": {
+        "on": "CommitRefillBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "io.lb_resp",
+          "op": "signal"
+        },
+        "target": "io.refill.bits.data",
+        "type": "signal_equality"
+      },
+      "id": "A12",
+      "rendered_formula": "io.refill.bits.data = io.lb_resp on CommitRefillBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C7_GrantFinish"
+      ],
+      "evidence_statement_ids": [
+        1089,
+        1374,
+        1375,
+        1827,
+        1828
+      ],
+      "formal": {
+        "on": "MemFinish",
+        "scope_identity": null,
+        "source": {
+          "name": "grantack.bits.sink",
+          "op": "signal"
+        },
+        "target": "io.mem_finish.bits.sink",
+        "type": "signal_equality"
+      },
+      "id": "A13",
+      "rendered_formula": "io.mem_finish.bits.sink = grantack.bits.sink on MemFinish",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_LoadResponse"
+      ],
+      "evidence_statement_ids": [
+        1444,
+        1455,
+        1456,
+        1459,
+        1460,
+        1505
+      ],
+      "formal": {
+        "after": "RespHandshake",
+        "before": "BoomMSHR.rpq.main::QueueInsert",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "id": "A14",
+      "rendered_formula": "BoomMSHR.rpq.main::QueueInsert <mu RespHandshake",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C5_ReplayDrain"
+      ],
+      "evidence_statement_ids": [
+        1650,
+        1652,
+        1653,
+        1654,
+        1660
+      ],
+      "formal": {
+        "after": "ReplayHandshake",
+        "before": "BoomMSHR.rpq.main::QueueInsert",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "id": "A15",
+      "rendered_formula": "BoomMSHR.rpq.main::QueueInsert <mu ReplayHandshake",
+      "status": "candidate"
+    }
+  ],
+  "cases": [
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        1350,
+        1351,
+        1352,
+        1353,
+        1355,
+        1357,
+        1363,
+        1364,
+        1367,
+        1372,
+        1375,
+        1377
+      ],
+      "guard_predicates": [],
+      "id": "C1_GrantCompleted",
+      "relations": [
+        "The memory response completes only after the MSHR has issued its current Acquire; the completed Grant may subsequently feed direct load responses, metadata processing, or replay drain."
+      ],
+      "trigger_occurrences": [
+        "GrantComplete"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        1444,
+        1455,
+        1456,
+        1459,
+        1460,
+        1505,
+        1506,
+        1507
+      ],
+      "guard_predicates": [],
+      "id": "C2_LoadResponse",
+      "relations": [
+        "A direct load response occurs only on the post-Grant load-drain path and consumes an entry from the frozen RPQ dequeue stream."
+      ],
+      "trigger_occurrences": [
+        "RespHandshake"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        1525,
+        1533,
+        1534,
+        1535,
+        1536,
+        1613,
+        1614,
+        1615,
+        1616,
+        1618,
+        1620,
+        1621,
+        1622,
+        1623,
+        1625,
+        1627,
+        1628,
+        1629,
+        1630,
+        1632,
+        1633,
+        1634,
+        1635
+      ],
+      "guard_predicates": [],
+      "id": "C3_VictimWriteback",
+      "relations": [
+        "The victim-writeback path performs a metadata read, clears the victim metadata, issues a writeback request, and waits for io.wb_resp before entering line commit."
+      ],
+      "trigger_occurrences": [
+        "WBComplete"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        1637,
+        1640,
+        1641,
+        1642,
+        1643,
+        1644,
+        1645,
+        1646,
+        1647,
+        1648
+      ],
+      "guard_predicates": [],
+      "id": "C4_CommitLineRefill",
+      "relations": [
+        "The commit-line phase emits exactly the eight refill indices 0 through 7 before entering replay drain."
+      ],
+      "trigger_occurrences": [
+        "CommitRefillDone"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        1650,
+        1652,
+        1653,
+        1654,
+        1660
+      ],
+      "guard_predicates": [],
+      "id": "C5_ReplayDrain",
+      "relations": [
+        "Replay handshakes are direct parent-local exposures of the frozen RPQ dequeue stream while state is s_drain_rpq."
+      ],
+      "trigger_occurrences": [
+        "ReplayHandshake"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        1808,
+        1809,
+        1810,
+        1811,
+        1813,
+        1815,
+        1820,
+        1821,
+        1822
+      ],
+      "guard_predicates": [],
+      "id": "C6_FinalMetadataCommit",
+      "relations": [
+        "The final metadata update is reached only after the replay queue is observed empty with no concurrent enqueue."
+      ],
+      "trigger_occurrences": [
+        "FinalMetaWrite"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        1089,
+        1372,
+        1374,
+        1375,
+        1825,
+        1827,
+        1828,
+        1832
+      ],
+      "guard_predicates": [
+        {
+          "id": "GrantAckAbsent",
+          "positive": false
+        }
+      ],
+      "id": "C7_GrantFinish",
+      "relations": [
+        "A visible TileLink GrantAck handshake requires a valid stored grant acknowledgement derived from an earlier completed Grant."
+      ],
+      "trigger_occurrences": [
+        "MemFinish"
+      ]
+    }
+  ],
+  "composition": {
+    "imports": [
+      {
+        "child_id": "BoomMSHR.rpq",
+        "child_kind": "module",
+        "frozen_umcm": {
+          "assumptions": [],
+          "axioms": [
+            {
+              "derived_from_case_ids": [
+                "C1_EnqueueForwarded"
+              ],
+              "evidence_statement_ids": [
+                9
+              ],
+              "formal": {
+                "occurrence": "ParentEnqHandshake",
+                "predicate": "BoomMSHR.rpq.main::QueueFull",
+                "scope_identity": null,
+                "type": "forbid_when"
+              },
+              "id": "A1",
+              "rendered_formula": "BoomMSHR.rpq.main::QueueFull => !ParentEnqHandshake",
+              "status": "candidate"
+            },
+            {
+              "derived_from_case_ids": [
+                "C5_VisibleParentDequeue"
+              ],
+              "evidence_statement_ids": [
+                7,
+                136,
+                155
+              ],
+              "formal": {
+                "occurrence": "ParentDeqHandshake",
+                "predicate": "OutputInvalid",
+                "scope_identity": null,
+                "type": "forbid_when"
+              },
+              "id": "A2",
+              "rendered_formula": "OutputInvalid => !ParentDeqHandshake",
+              "status": "candidate"
+            },
+            {
+              "derived_from_case_ids": [
+                "C2_ChildDequeueCaptured",
+                "C5_VisibleParentDequeue"
+              ],
+              "evidence_statement_ids": [
+                7,
+                136,
+                153,
+                157,
+                158,
+                167,
+                175
+              ],
+              "formal": {
+                "after": "ParentDeqHandshake",
+                "before": "BufferCapture",
+                "required_prior": null,
+                "scope_identity": null,
+                "type": "ordered_before"
+              },
+              "id": "A3",
+              "rendered_formula": "BufferCapture <mu ParentDeqHandshake",
+              "status": "candidate"
+            },
+            {
+              "derived_from_case_ids": [
+                "C2_ChildDequeueCaptured",
+                "C5_VisibleParentDequeue"
+              ],
+              "evidence_statement_ids": [
+                7,
+                136,
+                154,
+                155,
+                157,
+                158,
+                167,
+                175
+              ],
+              "formal": {
+                "after": "ParentDeqHandshake",
+                "before": "BoomMSHR.rpq.main::DeqHandshake",
+                "required_prior": null,
+                "scope_identity": null,
+                "type": "ordered_before"
+              },
+              "id": "A4",
+              "rendered_formula": "BoomMSHR.rpq.main::DeqHandshake <mu ParentDeqHandshake",
+              "status": "candidate"
+            },
+            {
+              "derived_from_case_ids": [
+                "C5_VisibleParentDequeue"
+              ],
+              "evidence_statement_ids": [
+                7,
+                136,
+                154,
+                155,
+                157,
+                158,
+                167,
+                175
+              ],
+              "formal": {
+                "after": "ParentDeqHandshake",
+                "before": "BoomMSHR.rpq.main::QueueInsert",
+                "required_prior": null,
+                "scope_identity": null,
+                "type": "ordered_before"
+              },
+              "id": "A5",
+              "rendered_formula": "BoomMSHR.rpq.main::QueueInsert <mu ParentDeqHandshake",
+              "status": "candidate"
+            },
+            {
+              "derived_from_case_ids": [
+                "C2_ChildDequeueCaptured",
+                "C3_ChildDequeueBranchKilled"
+              ],
+              "evidence_statement_ids": [
+                159,
+                160,
+                161,
+                162,
+                163,
+                166,
+                167
+              ],
+              "formal": {
+                "occurrence": "BufferCapture",
+                "predicate": "TransferBranchKilled",
+                "scope_identity": null,
+                "type": "forbid_when"
+              },
+              "id": "A6",
+              "rendered_formula": "TransferBranchKilled => !BufferCapture",
+              "status": "candidate"
+            },
+            {
+              "derived_from_case_ids": [
+                "C2_ChildDequeueCaptured",
+                "C4_ChildDequeueFlushKilled"
+              ],
+              "evidence_statement_ids": [
+                163,
+                164,
+                165,
+                166,
+                167
+              ],
+              "formal": {
+                "occurrence": "BufferCapture",
+                "predicate": "TransferFlushKilled",
+                "scope_identity": null,
+                "type": "forbid_when"
+              },
+              "id": "A7",
+              "rendered_formula": "TransferFlushKilled => !BufferCapture",
+              "status": "candidate"
+            }
+          ],
+          "cases": [
+            {
+              "confidence": "high",
+              "emits": [
+                "BoomMSHR.rpq.main::EnqHandshake"
+              ],
+              "evidence_statement_ids": [
+                9
+              ],
+              "guard_predicates": [],
+              "id": "C1_EnqueueForwarded",
+              "relations": [
+                "The parent enqueue interface is directly connected to the frozen child enqueue interface, so the parent handshake is the same forwarded enqueue transaction observed by the child."
+              ],
+              "trigger_occurrences": [
+                "ParentEnqHandshake"
+              ]
+            },
+            {
+              "confidence": "high",
+              "emits": [
+                "BufferCapture"
+              ],
+              "evidence_statement_ids": [
+                154,
+                157,
+                158,
+                159,
+                160,
+                161,
+                162,
+                163,
+                164,
+                165,
+                166,
+                167,
+                168,
+                170,
+                171,
+                172,
+                173,
+                174,
+                175
+              ],
+              "guard_predicates": [
+                {
+                  "id": "TransferBranchKilled",
+                  "positive": false
+                },
+                {
+                  "id": "TransferFlushKilled",
+                  "positive": false
+                }
+              ],
+              "id": "C2_ChildDequeueCaptured",
+              "relations": [
+                "A child dequeue accepted during the refill window becomes a valid buffered parent-visible item when it survives the parent-local branch and flush filters."
+              ],
+              "trigger_occurrences": [
+                "BoomMSHR.rpq.main::DeqHandshake"
+              ]
+            },
+            {
+              "confidence": "high",
+              "emits": [],
+              "evidence_statement_ids": [
+                158,
+                159,
+                160,
+                161,
+                162,
+                163,
+                167,
+                175
+              ],
+              "guard_predicates": [
+                {
+                  "id": "TransferBranchKilled",
+                  "positive": true
+                }
+              ],
+              "id": "C3_ChildDequeueBranchKilled",
+              "relations": [
+                "A child dequeue may be consumed by the wrapper without becoming a valid buffered output when its uop is killed by the current branch update."
+              ],
+              "trigger_occurrences": [
+                "BoomMSHR.rpq.main::DeqHandshake"
+              ]
+            },
+            {
+              "confidence": "high",
+              "emits": [],
+              "evidence_statement_ids": [
+                158,
+                163,
+                164,
+                165,
+                166,
+                167,
+                175
+              ],
+              "guard_predicates": [
+                {
+                  "id": "TransferFlushKilled",
+                  "positive": true
+                }
+              ],
+              "id": "C4_ChildDequeueFlushKilled",
+              "relations": [
+                "A child dequeue may be consumed by the wrapper without becoming a valid buffered output when flush kills the dequeued uses_ldq uop."
+              ],
+              "trigger_occurrences": [
+                "BoomMSHR.rpq.main::DeqHandshake"
+              ]
+            },
+            {
+              "confidence": "high",
+              "emits": [],
+              "evidence_statement_ids": [
+                7,
+                136,
+                155
+              ],
+              "guard_predicates": [
+                {
+                  "id": "OutputInvalid",
+                  "positive": false
+                }
+              ],
+              "id": "C5_VisibleParentDequeue",
+              "relations": [
+                "A parent-visible dequeue consumes a previously valid output-buffer entry; reset initializes the output buffer invalid."
+              ],
+              "trigger_occurrences": [
+                "ParentDeqHandshake"
+              ]
+            }
+          ],
+          "composition": {
+            "imports": [
+              {
+                "child_id": "BoomMSHR.rpq.main",
+                "child_kind": "module",
+                "frozen_umcm": {
+                  "assumptions": [],
+                  "axioms": [
+                    {
+                      "derived_from_case_ids": [],
+                      "evidence_statement_ids": [
+                        29,
+                        30,
+                        267,
+                        268
+                      ],
+                      "formal": {
+                        "occurrence": "EnqHandshake",
+                        "predicate": "QueueFull",
+                        "scope_identity": null,
+                        "type": "forbid_when"
+                      },
+                      "id": "A1",
+                      "rendered_formula": "QueueFull => !EnqHandshake",
+                      "status": "candidate"
+                    },
+                    {
+                      "derived_from_case_ids": [
+                        "C1_Admitted",
+                        "C2_BranchKilledOnArrival"
+                      ],
+                      "evidence_statement_ids": [
+                        30,
+                        31,
+                        32,
+                        34,
+                        35,
+                        39,
+                        40,
+                        242
+                      ],
+                      "formal": {
+                        "occurrence": "QueueInsert",
+                        "predicate": "IncomingBranchKilled",
+                        "scope_identity": null,
+                        "type": "forbid_when"
+                      },
+                      "id": "A2",
+                      "rendered_formula": "IncomingBranchKilled => !QueueInsert",
+                      "status": "candidate"
+                    },
+                    {
+                      "derived_from_case_ids": [
+                        "C1_Admitted",
+                        "C3_FlushKilledOnArrival"
+                      ],
+                      "evidence_statement_ids": [
+                        30,
+                        35,
+                        36,
+                        37,
+                        38,
+                        39,
+                        40,
+                        242
+                      ],
+                      "formal": {
+                        "occurrence": "QueueInsert",
+                        "predicate": "IncomingFlushKilled",
+                        "scope_identity": null,
+                        "type": "forbid_when"
+                      },
+                      "id": "A3",
+                      "rendered_formula": "IncomingFlushKilled => !QueueInsert",
+                      "status": "candidate"
+                    },
+                    {
+                      "derived_from_case_ids": [
+                        "C4_VisibleDequeue"
+                      ],
+                      "evidence_statement_ids": [
+                        28,
+                        43,
+                        44,
+                        273,
+                        274,
+                        275
+                      ],
+                      "formal": {
+                        "occurrence": "DeqHandshake",
+                        "predicate": "QueueEmpty",
+                        "scope_identity": null,
+                        "type": "forbid_when"
+                      },
+                      "id": "A4",
+                      "rendered_formula": "QueueEmpty => !DeqHandshake",
+                      "status": "candidate"
+                    },
+                    {
+                      "derived_from_case_ids": [
+                        "C4_VisibleDequeue"
+                      ],
+                      "evidence_statement_ids": [
+                        41,
+                        273,
+                        274,
+                        275
+                      ],
+                      "formal": {
+                        "occurrence": "DeqHandshake",
+                        "predicate": "HeadInvalid",
+                        "scope_identity": null,
+                        "type": "forbid_when"
+                      },
+                      "id": "A5",
+                      "rendered_formula": "HeadInvalid => !DeqHandshake",
+                      "status": "candidate"
+                    },
+                    {
+                      "derived_from_case_ids": [
+                        "C5_InvalidHeadSkip"
+                      ],
+                      "evidence_statement_ids": [
+                        28,
+                        41,
+                        42,
+                        43,
+                        44,
+                        45,
+                        46
+                      ],
+                      "formal": {
+                        "occurrence": "InvalidHeadSkip",
+                        "predicate": "QueueEmpty",
+                        "scope_identity": null,
+                        "type": "forbid_when"
+                      },
+                      "id": "A6",
+                      "rendered_formula": "QueueEmpty => !InvalidHeadSkip",
+                      "status": "candidate"
+                    },
+                    {
+                      "derived_from_case_ids": [
+                        "C5_InvalidHeadSkip"
+                      ],
+                      "evidence_statement_ids": [
+                        41,
+                        42,
+                        43,
+                        44,
+                        45,
+                        46,
+                        273,
+                        274,
+                        275
+                      ],
+                      "formal": {
+                        "occurrence": "InvalidHeadSkip",
+                        "predicate": "HeadValid",
+                        "scope_identity": null,
+                        "type": "forbid_when"
+                      },
+                      "id": "A7",
+                      "rendered_formula": "HeadValid => !InvalidHeadSkip",
+                      "status": "candidate"
+                    },
+                    {
+                      "derived_from_case_ids": [
+                        "C1_Admitted"
+                      ],
+                      "evidence_statement_ids": [
+                        242,
+                        243,
+                        244
+                      ],
+                      "formal": {
+                        "on": "QueueInsert",
+                        "scope_identity": null,
+                        "source": {
+                          "name": "io.enq.bits",
+                          "op": "signal"
+                        },
+                        "target": "MPORT",
+                        "type": "signal_equality"
+                      },
+                      "id": "A8",
+                      "rendered_formula": "MPORT = io.enq.bits on QueueInsert",
+                      "status": "candidate"
+                    },
+                    {
+                      "derived_from_case_ids": [
+                        "C1_Admitted",
+                        "C4_VisibleDequeue"
+                      ],
+                      "evidence_statement_ids": [
+                        20,
+                        22,
+                        23,
+                        242,
+                        245,
+                        250,
+                        251,
+                        252,
+                        253,
+                        254,
+                        255,
+                        257,
+                        258,
+                        259,
+                        260,
+                        261,
+                        262,
+                        263,
+                        273,
+                        274,
+                        275
+                      ],
+                      "formal": {
+                        "after": "DeqHandshake",
+                        "before": "QueueInsert",
+                        "required_prior": null,
+                        "scope_identity": null,
+                        "scope_index": {
+                          "name": "slot",
+                          "relation": "same"
+                        },
+                        "type": "ordered_before"
+                      },
+                      "id": "A11",
+                      "rendered_formula": "QueueInsert <mu DeqHandshake [same index slot]",
+                      "status": "candidate"
+                    }
+                  ],
+                  "cases": [
+                    {
+                      "confidence": "high",
+                      "emits": [
+                        "QueueInsert"
+                      ],
+                      "evidence_statement_ids": [
+                        30,
+                        31,
+                        32,
+                        34,
+                        35,
+                        36,
+                        37,
+                        38,
+                        40,
+                        242,
+                        243,
+                        244,
+                        245,
+                        246,
+                        249,
+                        250,
+                        251,
+                        252,
+                        253,
+                        254,
+                        255
+                      ],
+                      "guard_predicates": [
+                        {
+                          "id": "IncomingBranchKilled",
+                          "positive": false
+                        },
+                        {
+                          "id": "IncomingFlushKilled",
+                          "positive": false
+                        }
+                      ],
+                      "id": "C1_Admitted",
+                      "relations": [
+                        "A handshaken request that is not killed on arrival is written into the current enqueue slot and advances enq_ptr."
+                      ],
+                      "trigger_occurrences": [
+                        "EnqHandshake"
+                      ]
+                    },
+                    {
+                      "confidence": "high",
+                      "emits": [],
+                      "evidence_statement_ids": [
+                        30,
+                        31,
+                        32,
+                        34,
+                        35,
+                        39,
+                        40
+                      ],
+                      "guard_predicates": [
+                        {
+                          "id": "IncomingBranchKilled",
+                          "positive": true
+                        }
+                      ],
+                      "id": "C2_BranchKilledOnArrival",
+                      "relations": [
+                        "The boundary handshake does not become a QueueInsert when the incoming uop is killed by the current branch mispredict mask."
+                      ],
+                      "trigger_occurrences": [
+                        "EnqHandshake"
+                      ]
+                    },
+                    {
+                      "confidence": "high",
+                      "emits": [],
+                      "evidence_statement_ids": [
+                        30,
+                        35,
+                        36,
+                        37,
+                        38,
+                        39,
+                        40
+                      ],
+                      "guard_predicates": [
+                        {
+                          "id": "IncomingFlushKilled",
+                          "positive": true
+                        }
+                      ],
+                      "id": "C3_FlushKilledOnArrival",
+                      "relations": [
+                        "The boundary handshake does not become a QueueInsert when flush kills this uses_ldq request."
+                      ],
+                      "trigger_occurrences": [
+                        "EnqHandshake"
+                      ]
+                    },
+                    {
+                      "confidence": "high",
+                      "emits": [],
+                      "evidence_statement_ids": [
+                        41,
+                        43,
+                        44,
+                        273,
+                        274,
+                        275,
+                        276
+                      ],
+                      "guard_predicates": [
+                        {
+                          "id": "QueueEmpty",
+                          "positive": false
+                        },
+                        {
+                          "id": "HeadInvalid",
+                          "positive": false
+                        }
+                      ],
+                      "id": "C4_VisibleDequeue",
+                      "relations": [
+                        "A visible dequeue can occur only from a non-empty valid head slot."
+                      ],
+                      "trigger_occurrences": [
+                        "DeqHandshake"
+                      ]
+                    },
+                    {
+                      "confidence": "high",
+                      "emits": [],
+                      "evidence_statement_ids": [
+                        41,
+                        42,
+                        43,
+                        44,
+                        45,
+                        46,
+                        256,
+                        257,
+                        258,
+                        259,
+                        260,
+                        261,
+                        262,
+                        263,
+                        273,
+                        274,
+                        275
+                      ],
+                      "guard_predicates": [
+                        {
+                          "id": "QueueEmpty",
+                          "positive": false
+                        },
+                        {
+                          "id": "HeadInvalid",
+                          "positive": true
+                        }
+                      ],
+                      "id": "C5_InvalidHeadSkip",
+                      "relations": [
+                        "An invalid hole at the current non-empty head is consumed internally by advancing deq_ptr without io.deq.fire."
+                      ],
+                      "trigger_occurrences": [
+                        "InvalidHeadSkip"
+                      ]
+                    }
+                  ],
+                  "freeze": {
+                    "candidate_axiom_count": 9,
+                    "policy": "all-declared-axioms-trusted-and-no-unresolved-v0.1",
+                    "reopen_policy": "This summary may be reopened if later parent/system counterexample validation shows the abstraction is too weak and a missing concrete constraint must be synthesized.",
+                    "status": "FROZEN_FOR_COMPOSITION",
+                    "trusted_axiom_count": 9
+                  },
+                  "identity_keys": [],
+                  "note": "Only axioms with FORMALLY_PROVED or SPEC_PROVED validation level are included. Grounded/structurally-supported candidate axioms remain outside the trusted abstraction.",
+                  "occurrences": [
+                    {
+                      "definition": "io.enq.valid && io.enq.ready",
+                      "evidence_statement_ids": [
+                        30,
+                        267,
+                        268
+                      ],
+                      "grounding": {
+                        "signals_false": [],
+                        "signals_true": [
+                          "io.enq.valid",
+                          "io.enq.ready"
+                        ],
+                        "state_register": null,
+                        "state_values": []
+                      },
+                      "id": "EnqHandshake",
+                      "index": null,
+                      "kind": "boundary",
+                      "multiplicity": "repeatable",
+                      "physical_event_ids": [
+                        "BoomMSHR.rpq.main::io.enq.fire"
+                      ]
+                    },
+                    {
+                      "definition": "do_enq; equivalently io.enq.fire && !incoming_branch_killed && !incoming_flush_killed",
+                      "evidence_statement_ids": [
+                        30,
+                        31,
+                        32,
+                        34,
+                        35,
+                        36,
+                        37,
+                        38,
+                        39,
+                        40,
+                        242,
+                        243,
+                        244,
+                        245,
+                        246,
+                        247,
+                        248,
+                        249,
+                        250,
+                        251,
+                        252,
+                        253,
+                        254,
+                        255
+                      ],
+                      "grounding": {
+                        "signals_false": [],
+                        "signals_true": [
+                          "do_enq"
+                        ],
+                        "state_register": null,
+                        "state_values": []
+                      },
+                      "id": "QueueInsert",
+                      "index": {
+                        "domain": {
+                          "end_exclusive": 15,
+                          "start": 0
+                        },
+                        "expr": {
+                          "name": "enq_ptr_value",
+                          "op": "signal"
+                        },
+                        "name": "slot"
+                      },
+                      "kind": "derived",
+                      "multiplicity": "repeatable",
+                      "physical_event_ids": []
+                    },
+                    {
+                      "definition": "io.deq.valid && io.deq.ready",
+                      "evidence_statement_ids": [
+                        41,
+                        42,
+                        43,
+                        44,
+                        45,
+                        46,
+                        256,
+                        257,
+                        258,
+                        259,
+                        260,
+                        261,
+                        262,
+                        263,
+                        273,
+                        274,
+                        275,
+                        276
+                      ],
+                      "grounding": {
+                        "signals_false": [],
+                        "signals_true": [
+                          "io.deq.valid",
+                          "io.deq.ready"
+                        ],
+                        "state_register": null,
+                        "state_values": []
+                      },
+                      "id": "DeqHandshake",
+                      "index": {
+                        "domain": {
+                          "end_exclusive": 15,
+                          "start": 0
+                        },
+                        "expr": {
+                          "name": "deq_ptr_value",
+                          "op": "signal"
+                        },
+                        "name": "slot"
+                      },
+                      "kind": "boundary",
+                      "multiplicity": "repeatable",
+                      "physical_event_ids": [
+                        "BoomMSHR.rpq.main::io.deq.fire"
+                      ]
+                    },
+                    {
+                      "definition": "do_deq && !io.deq.valid; equivalently the queue is non-empty and valids[deq_ptr_value] is false, causing deq_ptr to advance without a dequeue handshake",
+                      "evidence_statement_ids": [
+                        41,
+                        42,
+                        43,
+                        44,
+                        45,
+                        46,
+                        256,
+                        257,
+                        258,
+                        259,
+                        260,
+                        261,
+                        262,
+                        263,
+                        273,
+                        274,
+                        275
+                      ],
+                      "grounding": {
+                        "signals_false": [
+                          "io.deq.valid"
+                        ],
+                        "signals_true": [
+                          "do_deq"
+                        ],
+                        "state_register": null,
+                        "state_values": []
+                      },
+                      "id": "InvalidHeadSkip",
+                      "index": {
+                        "domain": {
+                          "end_exclusive": 15,
+                          "start": 0
+                        },
+                        "expr": {
+                          "name": "deq_ptr_value",
+                          "op": "signal"
+                        },
+                        "name": "slot"
+                      },
+                      "kind": "derived",
+                      "multiplicity": "repeatable",
+                      "physical_event_ids": []
+                    }
+                  ],
+                  "predicates": [
+                    {
+                      "definition": "enq_ptr_value == deq_ptr_value && !maybe_full",
+                      "evidence_statement_ids": [
+                        25,
+                        26,
+                        27,
+                        28
+                      ],
+                      "grounding": {
+                        "negated": false,
+                        "source_signal": "io.empty",
+                        "state_register": null,
+                        "state_values": []
+                      },
+                      "id": "QueueEmpty"
+                    },
+                    {
+                      "definition": "enq_ptr_value == deq_ptr_value && maybe_full",
+                      "evidence_statement_ids": [
+                        25,
+                        29,
+                        267,
+                        268
+                      ],
+                      "grounding": {
+                        "negated": false,
+                        "source_signal": "full",
+                        "state_register": null,
+                        "state_values": []
+                      },
+                      "id": "QueueFull"
+                    },
+                    {
+                      "definition": "(io.brupdate.b1.mispredict_mask & io.enq.bits.uop.br_mask) != 0",
+                      "evidence_statement_ids": [
+                        31,
+                        32
+                      ],
+                      "grounding": {
+                        "negated": false,
+                        "source_signal": "_do_enq_T_2",
+                        "state_register": null,
+                        "state_values": []
+                      },
+                      "id": "IncomingBranchKilled"
+                    },
+                    {
+                      "definition": "io.flush && io.enq.bits.uop.uses_ldq",
+                      "evidence_statement_ids": [
+                        36
+                      ],
+                      "grounding": {
+                        "negated": false,
+                        "source_signal": "_do_enq_T_6",
+                        "state_register": null,
+                        "state_values": []
+                      },
+                      "id": "IncomingFlushKilled"
+                    },
+                    {
+                      "definition": "valids[deq_ptr_value] == 0",
+                      "evidence_statement_ids": [
+                        41
+                      ],
+                      "grounding": {
+                        "negated": false,
+                        "source_signal": "_do_deq_T",
+                        "state_register": null,
+                        "state_values": []
+                      },
+                      "id": "HeadInvalid"
+                    },
+                    {
+                      "definition": "valids[deq_ptr_value] != 0",
+                      "evidence_statement_ids": [
+                        41
+                      ],
+                      "grounding": {
+                        "negated": true,
+                        "source_signal": "_do_deq_T",
+                        "state_register": null,
+                        "state_values": []
+                      },
+                      "id": "HeadValid"
+                    }
+                  ],
+                  "schema_version": "umcm-formal-0.5",
+                  "task_id": "leaf_abstraction-BoomMSHR.rpq.main-30765c6beda665d8",
+                  "trust_policy": "formal-ast-only-v0.2",
+                  "trusted_axiom_ids": [
+                    "A1",
+                    "A11",
+                    "A2",
+                    "A3",
+                    "A4",
+                    "A5",
+                    "A6",
+                    "A7",
+                    "A8"
+                  ],
+                  "work_unit_id": "BoomMSHR.rpq.main"
+                },
+                "frozen_umcm_sha256": "d79c2389d52d6e60f76113d837d619dc94e00e7184c466434d6697cfad97dad8",
+                "semantic_catalog": {
+                  "axioms": {
+                    "BoomMSHR.rpq.main::A1": {
+                      "local_id": "A1",
+                      "work_unit_id": "BoomMSHR.rpq.main"
+                    },
+                    "BoomMSHR.rpq.main::A11": {
+                      "local_id": "A11",
+                      "work_unit_id": "BoomMSHR.rpq.main"
+                    },
+                    "BoomMSHR.rpq.main::A2": {
+                      "local_id": "A2",
+                      "work_unit_id": "BoomMSHR.rpq.main"
+                    },
+                    "BoomMSHR.rpq.main::A3": {
+                      "local_id": "A3",
+                      "work_unit_id": "BoomMSHR.rpq.main"
+                    },
+                    "BoomMSHR.rpq.main::A4": {
+                      "local_id": "A4",
+                      "work_unit_id": "BoomMSHR.rpq.main"
+                    },
+                    "BoomMSHR.rpq.main::A5": {
+                      "local_id": "A5",
+                      "work_unit_id": "BoomMSHR.rpq.main"
+                    },
+                    "BoomMSHR.rpq.main::A6": {
+                      "local_id": "A6",
+                      "work_unit_id": "BoomMSHR.rpq.main"
+                    },
+                    "BoomMSHR.rpq.main::A7": {
+                      "local_id": "A7",
+                      "work_unit_id": "BoomMSHR.rpq.main"
+                    },
+                    "BoomMSHR.rpq.main::A8": {
+                      "local_id": "A8",
+                      "work_unit_id": "BoomMSHR.rpq.main"
+                    }
+                  },
+                  "cases": {
+                    "BoomMSHR.rpq.main::C1_Admitted": {
+                      "local_id": "C1_Admitted",
+                      "work_unit_id": "BoomMSHR.rpq.main"
+                    },
+                    "BoomMSHR.rpq.main::C2_BranchKilledOnArrival": {
+                      "local_id": "C2_BranchKilledOnArrival",
+                      "work_unit_id": "BoomMSHR.rpq.main"
+                    },
+                    "BoomMSHR.rpq.main::C3_FlushKilledOnArrival": {
+                      "local_id": "C3_FlushKilledOnArrival",
+                      "work_unit_id": "BoomMSHR.rpq.main"
+                    },
+                    "BoomMSHR.rpq.main::C4_VisibleDequeue": {
+                      "local_id": "C4_VisibleDequeue",
+                      "work_unit_id": "BoomMSHR.rpq.main"
+                    },
+                    "BoomMSHR.rpq.main::C5_InvalidHeadSkip": {
+                      "local_id": "C5_InvalidHeadSkip",
+                      "work_unit_id": "BoomMSHR.rpq.main"
+                    }
+                  },
+                  "identity_keys": {},
+                  "occurrences": {
+                    "BoomMSHR.rpq.main::DeqHandshake": {
+                      "local_id": "DeqHandshake",
+                      "work_unit_id": "BoomMSHR.rpq.main"
+                    },
+                    "BoomMSHR.rpq.main::EnqHandshake": {
+                      "local_id": "EnqHandshake",
+                      "work_unit_id": "BoomMSHR.rpq.main"
+                    },
+                    "BoomMSHR.rpq.main::InvalidHeadSkip": {
+                      "local_id": "InvalidHeadSkip",
+                      "work_unit_id": "BoomMSHR.rpq.main"
+                    },
+                    "BoomMSHR.rpq.main::QueueInsert": {
+                      "local_id": "QueueInsert",
+                      "work_unit_id": "BoomMSHR.rpq.main"
+                    }
+                  },
+                  "predicates": {
+                    "BoomMSHR.rpq.main::HeadInvalid": {
+                      "local_id": "HeadInvalid",
+                      "work_unit_id": "BoomMSHR.rpq.main"
+                    },
+                    "BoomMSHR.rpq.main::HeadValid": {
+                      "local_id": "HeadValid",
+                      "work_unit_id": "BoomMSHR.rpq.main"
+                    },
+                    "BoomMSHR.rpq.main::IncomingBranchKilled": {
+                      "local_id": "IncomingBranchKilled",
+                      "work_unit_id": "BoomMSHR.rpq.main"
+                    },
+                    "BoomMSHR.rpq.main::IncomingFlushKilled": {
+                      "local_id": "IncomingFlushKilled",
+                      "work_unit_id": "BoomMSHR.rpq.main"
+                    },
+                    "BoomMSHR.rpq.main::QueueEmpty": {
+                      "local_id": "QueueEmpty",
+                      "work_unit_id": "BoomMSHR.rpq.main"
+                    },
+                    "BoomMSHR.rpq.main::QueueFull": {
+                      "local_id": "QueueFull",
+                      "work_unit_id": "BoomMSHR.rpq.main"
+                    }
+                  }
+                },
+                "summary_ref": "umcm://BoomMSHR.rpq.main",
+                "task_id": "leaf_abstraction-BoomMSHR.rpq.main-30765c6beda665d8"
+              }
+            ],
+            "mode": "parent_synthesis",
+            "note": "Child RTL is not part of this frozen parent. Imported child \u00b5MCMs remain frozen semantic components; descendant semantic names are transparently propagated in v0.1 for higher-level synthesis.",
+            "policy": "transparent-frozen-child-imports-v0.1",
+            "semantic_catalog": {
+              "axioms": {
+                "BoomMSHR.rpq.main::A1": {
+                  "local_id": "A1",
+                  "work_unit_id": "BoomMSHR.rpq.main"
+                },
+                "BoomMSHR.rpq.main::A11": {
+                  "local_id": "A11",
+                  "work_unit_id": "BoomMSHR.rpq.main"
+                },
+                "BoomMSHR.rpq.main::A2": {
+                  "local_id": "A2",
+                  "work_unit_id": "BoomMSHR.rpq.main"
+                },
+                "BoomMSHR.rpq.main::A3": {
+                  "local_id": "A3",
+                  "work_unit_id": "BoomMSHR.rpq.main"
+                },
+                "BoomMSHR.rpq.main::A4": {
+                  "local_id": "A4",
+                  "work_unit_id": "BoomMSHR.rpq.main"
+                },
+                "BoomMSHR.rpq.main::A5": {
+                  "local_id": "A5",
+                  "work_unit_id": "BoomMSHR.rpq.main"
+                },
+                "BoomMSHR.rpq.main::A6": {
+                  "local_id": "A6",
+                  "work_unit_id": "BoomMSHR.rpq.main"
+                },
+                "BoomMSHR.rpq.main::A7": {
+                  "local_id": "A7",
+                  "work_unit_id": "BoomMSHR.rpq.main"
+                },
+                "BoomMSHR.rpq.main::A8": {
+                  "local_id": "A8",
+                  "work_unit_id": "BoomMSHR.rpq.main"
+                },
+                "BoomMSHR.rpq::A1": {
+                  "local_id": "A1",
+                  "work_unit_id": "BoomMSHR.rpq"
+                },
+                "BoomMSHR.rpq::A2": {
+                  "local_id": "A2",
+                  "work_unit_id": "BoomMSHR.rpq"
+                },
+                "BoomMSHR.rpq::A3": {
+                  "local_id": "A3",
+                  "work_unit_id": "BoomMSHR.rpq"
+                },
+                "BoomMSHR.rpq::A4": {
+                  "local_id": "A4",
+                  "work_unit_id": "BoomMSHR.rpq"
+                },
+                "BoomMSHR.rpq::A5": {
+                  "local_id": "A5",
+                  "work_unit_id": "BoomMSHR.rpq"
+                },
+                "BoomMSHR.rpq::A6": {
+                  "local_id": "A6",
+                  "work_unit_id": "BoomMSHR.rpq"
+                },
+                "BoomMSHR.rpq::A7": {
+                  "local_id": "A7",
+                  "work_unit_id": "BoomMSHR.rpq"
+                }
+              },
+              "cases": {
+                "BoomMSHR.rpq.main::C1_Admitted": {
+                  "local_id": "C1_Admitted",
+                  "work_unit_id": "BoomMSHR.rpq.main"
+                },
+                "BoomMSHR.rpq.main::C2_BranchKilledOnArrival": {
+                  "local_id": "C2_BranchKilledOnArrival",
+                  "work_unit_id": "BoomMSHR.rpq.main"
+                },
+                "BoomMSHR.rpq.main::C3_FlushKilledOnArrival": {
+                  "local_id": "C3_FlushKilledOnArrival",
+                  "work_unit_id": "BoomMSHR.rpq.main"
+                },
+                "BoomMSHR.rpq.main::C4_VisibleDequeue": {
+                  "local_id": "C4_VisibleDequeue",
+                  "work_unit_id": "BoomMSHR.rpq.main"
+                },
+                "BoomMSHR.rpq.main::C5_InvalidHeadSkip": {
+                  "local_id": "C5_InvalidHeadSkip",
+                  "work_unit_id": "BoomMSHR.rpq.main"
+                },
+                "BoomMSHR.rpq::C1_EnqueueForwarded": {
+                  "local_id": "C1_EnqueueForwarded",
+                  "work_unit_id": "BoomMSHR.rpq"
+                },
+                "BoomMSHR.rpq::C2_ChildDequeueCaptured": {
+                  "local_id": "C2_ChildDequeueCaptured",
+                  "work_unit_id": "BoomMSHR.rpq"
+                },
+                "BoomMSHR.rpq::C3_ChildDequeueBranchKilled": {
+                  "local_id": "C3_ChildDequeueBranchKilled",
+                  "work_unit_id": "BoomMSHR.rpq"
+                },
+                "BoomMSHR.rpq::C4_ChildDequeueFlushKilled": {
+                  "local_id": "C4_ChildDequeueFlushKilled",
+                  "work_unit_id": "BoomMSHR.rpq"
+                },
+                "BoomMSHR.rpq::C5_VisibleParentDequeue": {
+                  "local_id": "C5_VisibleParentDequeue",
+                  "work_unit_id": "BoomMSHR.rpq"
+                }
+              },
+              "identity_keys": {},
+              "occurrences": {
+                "BoomMSHR.rpq.main::DeqHandshake": {
+                  "local_id": "DeqHandshake",
+                  "work_unit_id": "BoomMSHR.rpq.main"
+                },
+                "BoomMSHR.rpq.main::EnqHandshake": {
+                  "local_id": "EnqHandshake",
+                  "work_unit_id": "BoomMSHR.rpq.main"
+                },
+                "BoomMSHR.rpq.main::InvalidHeadSkip": {
+                  "local_id": "InvalidHeadSkip",
+                  "work_unit_id": "BoomMSHR.rpq.main"
+                },
+                "BoomMSHR.rpq.main::QueueInsert": {
+                  "local_id": "QueueInsert",
+                  "work_unit_id": "BoomMSHR.rpq.main"
+                },
+                "BoomMSHR.rpq::BufferCapture": {
+                  "local_id": "BufferCapture",
+                  "work_unit_id": "BoomMSHR.rpq"
+                },
+                "BoomMSHR.rpq::ParentDeqHandshake": {
+                  "local_id": "ParentDeqHandshake",
+                  "work_unit_id": "BoomMSHR.rpq"
+                },
+                "BoomMSHR.rpq::ParentEnqHandshake": {
+                  "local_id": "ParentEnqHandshake",
+                  "work_unit_id": "BoomMSHR.rpq"
+                }
+              },
+              "predicates": {
+                "BoomMSHR.rpq.main::HeadInvalid": {
+                  "local_id": "HeadInvalid",
+                  "work_unit_id": "BoomMSHR.rpq.main"
+                },
+                "BoomMSHR.rpq.main::HeadValid": {
+                  "local_id": "HeadValid",
+                  "work_unit_id": "BoomMSHR.rpq.main"
+                },
+                "BoomMSHR.rpq.main::IncomingBranchKilled": {
+                  "local_id": "IncomingBranchKilled",
+                  "work_unit_id": "BoomMSHR.rpq.main"
+                },
+                "BoomMSHR.rpq.main::IncomingFlushKilled": {
+                  "local_id": "IncomingFlushKilled",
+                  "work_unit_id": "BoomMSHR.rpq.main"
+                },
+                "BoomMSHR.rpq.main::QueueEmpty": {
+                  "local_id": "QueueEmpty",
+                  "work_unit_id": "BoomMSHR.rpq.main"
+                },
+                "BoomMSHR.rpq.main::QueueFull": {
+                  "local_id": "QueueFull",
+                  "work_unit_id": "BoomMSHR.rpq.main"
+                },
+                "BoomMSHR.rpq::OutputInvalid": {
+                  "local_id": "OutputInvalid",
+                  "work_unit_id": "BoomMSHR.rpq"
+                },
+                "BoomMSHR.rpq::TransferBranchKilled": {
+                  "local_id": "TransferBranchKilled",
+                  "work_unit_id": "BoomMSHR.rpq"
+                },
+                "BoomMSHR.rpq::TransferFlushKilled": {
+                  "local_id": "TransferFlushKilled",
+                  "work_unit_id": "BoomMSHR.rpq"
+                }
+              }
+            }
+          },
+          "freeze": {
+            "candidate_axiom_count": 7,
+            "policy": "all-declared-axioms-trusted-and-no-unresolved-v0.1",
+            "reopen_policy": "This summary may be reopened if later parent/system counterexample validation shows the abstraction is too weak and a missing concrete constraint must be synthesized.",
+            "status": "FROZEN_FOR_COMPOSITION",
+            "trusted_axiom_count": 7
+          },
+          "identity_keys": [],
+          "note": "Only axioms with FORMALLY_PROVED or SPEC_PROVED validation level are included. Grounded/structurally-supported candidate axioms remain outside the trusted abstraction.",
+          "occurrences": [
+            {
+              "definition": "io.enq.valid && io.enq.ready",
+              "evidence_statement_ids": [
+                9
+              ],
+              "grounding": {
+                "signals_false": [],
+                "signals_true": [],
+                "state_register": null,
+                "state_values": []
+              },
+              "id": "ParentEnqHandshake",
+              "index": null,
+              "kind": "boundary",
+              "multiplicity": "repeatable",
+              "physical_event_ids": [
+                "BoomMSHR.rpq::io.enq.fire"
+              ]
+            },
+            {
+              "definition": "io.deq.valid && io.deq.ready",
+              "evidence_statement_ids": [
+                136,
+                155
+              ],
+              "grounding": {
+                "signals_false": [],
+                "signals_true": [
+                  "io.deq.valid",
+                  "io.deq.ready"
+                ],
+                "state_register": null,
+                "state_values": []
+              },
+              "id": "ParentDeqHandshake",
+              "index": null,
+              "kind": "boundary",
+              "multiplicity": "repeatable",
+              "physical_event_ids": [
+                "BoomMSHR.rpq::io.deq.fire"
+              ]
+            },
+            {
+              "definition": "_T_2 && _out_valid_T_15; the wrapper refill window is active and the exposed child dequeue is valid and survives branch/flush filtering, so the child payload is captured into the output buffer and out_valid is set",
+              "evidence_statement_ids": [
+                157,
+                158,
+                159,
+                160,
+                161,
+                162,
+                163,
+                164,
+                165,
+                166,
+                167,
+                168,
+                170,
+                171,
+                172,
+                173,
+                174,
+                175
+              ],
+              "grounding": {
+                "signals_false": [],
+                "signals_true": [
+                  "_T_2",
+                  "_out_valid_T_15"
+                ],
+                "state_register": null,
+                "state_values": []
+              },
+              "id": "BufferCapture",
+              "index": null,
+              "kind": "derived",
+              "multiplicity": "repeatable",
+              "physical_event_ids": []
+            }
+          ],
+          "predicates": [
+            {
+              "definition": "out_valid == 0",
+              "evidence_statement_ids": [
+                7,
+                136,
+                156
+              ],
+              "grounding": {
+                "negated": true,
+                "source_signal": "out_valid",
+                "state_register": null,
+                "state_values": []
+              },
+              "id": "OutputInvalid"
+            },
+            {
+              "definition": "(io.brupdate.b1.mispredict_mask & main.io.deq.bits.uop.br_mask) != 0",
+              "evidence_statement_ids": [
+                159,
+                160
+              ],
+              "grounding": {
+                "negated": false,
+                "source_signal": "_out_valid_T_9",
+                "state_register": null,
+                "state_values": []
+              },
+              "id": "TransferBranchKilled"
+            },
+            {
+              "definition": "io.flush && main.io.deq.bits.uop.uses_ldq",
+              "evidence_statement_ids": [
+                164
+              ],
+              "grounding": {
+                "negated": false,
+                "source_signal": "_out_valid_T_13",
+                "state_register": null,
+                "state_values": []
+              },
+              "id": "TransferFlushKilled"
+            }
+          ],
+          "provenance": {
+            "A1": {
+              "derivation": "formal-certificate-v0.1",
+              "kind": "lifted",
+              "proof_method": "trusted-child-lift",
+              "source_axioms": [
+                "BoomMSHR.rpq.main::A1"
+              ]
+            },
+            "A2": {
+              "derivation": "formal-certificate-v0.1",
+              "kind": "parent_local",
+              "proof_method": "exact-combinational-exclusion",
+              "source_axioms": []
+            },
+            "A3": {
+              "derivation": "formal-certificate-v0.1",
+              "kind": "parent_local",
+              "proof_method": "exact-scalar-valid-token-provenance",
+              "source_axioms": []
+            },
+            "A4": {
+              "derivation": "formal-certificate-v0.1",
+              "kind": "parent_local",
+              "proof_method": "occurrence-bridge-history-composition",
+              "source_axioms": []
+            },
+            "A5": {
+              "derivation": "formal-certificate-v0.1",
+              "kind": "emergent",
+              "proof_method": "trusted-history-transitivity",
+              "source_axioms": [
+                "BoomMSHR.rpq.main::A11"
+              ]
+            },
+            "A6": {
+              "derivation": "formal-certificate-v0.1",
+              "kind": "parent_local",
+              "proof_method": "exact-combinational-exclusion",
+              "source_axioms": []
+            },
+            "A7": {
+              "derivation": "formal-certificate-v0.1",
+              "kind": "parent_local",
+              "proof_method": "exact-combinational-exclusion",
+              "source_axioms": []
+            }
+          },
+          "schema_version": "umcm-formal-0.5",
+          "task_id": "parent_synthesis-BoomMSHR.rpq-38a6826dc8c3b9dc",
+          "trust_policy": "formal-ast-plus-certified-provenance-v0.3",
+          "trusted_axiom_ids": [
+            "A1",
+            "A2",
+            "A3",
+            "A4",
+            "A5",
+            "A6",
+            "A7"
+          ],
+          "work_unit_id": "BoomMSHR.rpq"
+        },
+        "frozen_umcm_sha256": "aed0cfe9f29f2265257f685ad7af73abb30de23f47bc06a1ec35318e74370e9d",
+        "semantic_catalog": {
+          "axioms": {
+            "BoomMSHR.rpq.main::A1": {
+              "local_id": "A1",
+              "work_unit_id": "BoomMSHR.rpq.main"
+            },
+            "BoomMSHR.rpq.main::A11": {
+              "local_id": "A11",
+              "work_unit_id": "BoomMSHR.rpq.main"
+            },
+            "BoomMSHR.rpq.main::A2": {
+              "local_id": "A2",
+              "work_unit_id": "BoomMSHR.rpq.main"
+            },
+            "BoomMSHR.rpq.main::A3": {
+              "local_id": "A3",
+              "work_unit_id": "BoomMSHR.rpq.main"
+            },
+            "BoomMSHR.rpq.main::A4": {
+              "local_id": "A4",
+              "work_unit_id": "BoomMSHR.rpq.main"
+            },
+            "BoomMSHR.rpq.main::A5": {
+              "local_id": "A5",
+              "work_unit_id": "BoomMSHR.rpq.main"
+            },
+            "BoomMSHR.rpq.main::A6": {
+              "local_id": "A6",
+              "work_unit_id": "BoomMSHR.rpq.main"
+            },
+            "BoomMSHR.rpq.main::A7": {
+              "local_id": "A7",
+              "work_unit_id": "BoomMSHR.rpq.main"
+            },
+            "BoomMSHR.rpq.main::A8": {
+              "local_id": "A8",
+              "work_unit_id": "BoomMSHR.rpq.main"
+            },
+            "BoomMSHR.rpq::A1": {
+              "local_id": "A1",
+              "work_unit_id": "BoomMSHR.rpq"
+            },
+            "BoomMSHR.rpq::A2": {
+              "local_id": "A2",
+              "work_unit_id": "BoomMSHR.rpq"
+            },
+            "BoomMSHR.rpq::A3": {
+              "local_id": "A3",
+              "work_unit_id": "BoomMSHR.rpq"
+            },
+            "BoomMSHR.rpq::A4": {
+              "local_id": "A4",
+              "work_unit_id": "BoomMSHR.rpq"
+            },
+            "BoomMSHR.rpq::A5": {
+              "local_id": "A5",
+              "work_unit_id": "BoomMSHR.rpq"
+            },
+            "BoomMSHR.rpq::A6": {
+              "local_id": "A6",
+              "work_unit_id": "BoomMSHR.rpq"
+            },
+            "BoomMSHR.rpq::A7": {
+              "local_id": "A7",
+              "work_unit_id": "BoomMSHR.rpq"
+            }
+          },
+          "cases": {
+            "BoomMSHR.rpq.main::C1_Admitted": {
+              "local_id": "C1_Admitted",
+              "work_unit_id": "BoomMSHR.rpq.main"
+            },
+            "BoomMSHR.rpq.main::C2_BranchKilledOnArrival": {
+              "local_id": "C2_BranchKilledOnArrival",
+              "work_unit_id": "BoomMSHR.rpq.main"
+            },
+            "BoomMSHR.rpq.main::C3_FlushKilledOnArrival": {
+              "local_id": "C3_FlushKilledOnArrival",
+              "work_unit_id": "BoomMSHR.rpq.main"
+            },
+            "BoomMSHR.rpq.main::C4_VisibleDequeue": {
+              "local_id": "C4_VisibleDequeue",
+              "work_unit_id": "BoomMSHR.rpq.main"
+            },
+            "BoomMSHR.rpq.main::C5_InvalidHeadSkip": {
+              "local_id": "C5_InvalidHeadSkip",
+              "work_unit_id": "BoomMSHR.rpq.main"
+            },
+            "BoomMSHR.rpq::C1_EnqueueForwarded": {
+              "local_id": "C1_EnqueueForwarded",
+              "work_unit_id": "BoomMSHR.rpq"
+            },
+            "BoomMSHR.rpq::C2_ChildDequeueCaptured": {
+              "local_id": "C2_ChildDequeueCaptured",
+              "work_unit_id": "BoomMSHR.rpq"
+            },
+            "BoomMSHR.rpq::C3_ChildDequeueBranchKilled": {
+              "local_id": "C3_ChildDequeueBranchKilled",
+              "work_unit_id": "BoomMSHR.rpq"
+            },
+            "BoomMSHR.rpq::C4_ChildDequeueFlushKilled": {
+              "local_id": "C4_ChildDequeueFlushKilled",
+              "work_unit_id": "BoomMSHR.rpq"
+            },
+            "BoomMSHR.rpq::C5_VisibleParentDequeue": {
+              "local_id": "C5_VisibleParentDequeue",
+              "work_unit_id": "BoomMSHR.rpq"
+            }
+          },
+          "identity_keys": {},
+          "occurrences": {
+            "BoomMSHR.rpq.main::DeqHandshake": {
+              "local_id": "DeqHandshake",
+              "work_unit_id": "BoomMSHR.rpq.main"
+            },
+            "BoomMSHR.rpq.main::EnqHandshake": {
+              "local_id": "EnqHandshake",
+              "work_unit_id": "BoomMSHR.rpq.main"
+            },
+            "BoomMSHR.rpq.main::InvalidHeadSkip": {
+              "local_id": "InvalidHeadSkip",
+              "work_unit_id": "BoomMSHR.rpq.main"
+            },
+            "BoomMSHR.rpq.main::QueueInsert": {
+              "local_id": "QueueInsert",
+              "work_unit_id": "BoomMSHR.rpq.main"
+            },
+            "BoomMSHR.rpq::BufferCapture": {
+              "local_id": "BufferCapture",
+              "work_unit_id": "BoomMSHR.rpq"
+            },
+            "BoomMSHR.rpq::ParentDeqHandshake": {
+              "local_id": "ParentDeqHandshake",
+              "work_unit_id": "BoomMSHR.rpq"
+            },
+            "BoomMSHR.rpq::ParentEnqHandshake": {
+              "local_id": "ParentEnqHandshake",
+              "work_unit_id": "BoomMSHR.rpq"
+            }
+          },
+          "predicates": {
+            "BoomMSHR.rpq.main::HeadInvalid": {
+              "local_id": "HeadInvalid",
+              "work_unit_id": "BoomMSHR.rpq.main"
+            },
+            "BoomMSHR.rpq.main::HeadValid": {
+              "local_id": "HeadValid",
+              "work_unit_id": "BoomMSHR.rpq.main"
+            },
+            "BoomMSHR.rpq.main::IncomingBranchKilled": {
+              "local_id": "IncomingBranchKilled",
+              "work_unit_id": "BoomMSHR.rpq.main"
+            },
+            "BoomMSHR.rpq.main::IncomingFlushKilled": {
+              "local_id": "IncomingFlushKilled",
+              "work_unit_id": "BoomMSHR.rpq.main"
+            },
+            "BoomMSHR.rpq.main::QueueEmpty": {
+              "local_id": "QueueEmpty",
+              "work_unit_id": "BoomMSHR.rpq.main"
+            },
+            "BoomMSHR.rpq.main::QueueFull": {
+              "local_id": "QueueFull",
+              "work_unit_id": "BoomMSHR.rpq.main"
+            },
+            "BoomMSHR.rpq::OutputInvalid": {
+              "local_id": "OutputInvalid",
+              "work_unit_id": "BoomMSHR.rpq"
+            },
+            "BoomMSHR.rpq::TransferBranchKilled": {
+              "local_id": "TransferBranchKilled",
+              "work_unit_id": "BoomMSHR.rpq"
+            },
+            "BoomMSHR.rpq::TransferFlushKilled": {
+              "local_id": "TransferFlushKilled",
+              "work_unit_id": "BoomMSHR.rpq"
+            }
+          }
+        },
+        "summary_ref": "umcm://BoomMSHR.rpq",
+        "task_id": "parent_synthesis-BoomMSHR.rpq-38a6826dc8c3b9dc"
+      }
+    ],
+    "mode": "parent_synthesis",
+    "note": "Child RTL is not part of this frozen parent. Imported child \u00b5MCMs remain frozen semantic components; descendant semantic names are transparently propagated in v0.1 for higher-level synthesis.",
+    "policy": "transparent-frozen-child-imports-v0.1",
+    "semantic_catalog": {
+      "axioms": {
+        "BoomMSHR.rpq.main::A1": {
+          "local_id": "A1",
+          "work_unit_id": "BoomMSHR.rpq.main"
+        },
+        "BoomMSHR.rpq.main::A11": {
+          "local_id": "A11",
+          "work_unit_id": "BoomMSHR.rpq.main"
+        },
+        "BoomMSHR.rpq.main::A2": {
+          "local_id": "A2",
+          "work_unit_id": "BoomMSHR.rpq.main"
+        },
+        "BoomMSHR.rpq.main::A3": {
+          "local_id": "A3",
+          "work_unit_id": "BoomMSHR.rpq.main"
+        },
+        "BoomMSHR.rpq.main::A4": {
+          "local_id": "A4",
+          "work_unit_id": "BoomMSHR.rpq.main"
+        },
+        "BoomMSHR.rpq.main::A5": {
+          "local_id": "A5",
+          "work_unit_id": "BoomMSHR.rpq.main"
+        },
+        "BoomMSHR.rpq.main::A6": {
+          "local_id": "A6",
+          "work_unit_id": "BoomMSHR.rpq.main"
+        },
+        "BoomMSHR.rpq.main::A7": {
+          "local_id": "A7",
+          "work_unit_id": "BoomMSHR.rpq.main"
+        },
+        "BoomMSHR.rpq.main::A8": {
+          "local_id": "A8",
+          "work_unit_id": "BoomMSHR.rpq.main"
+        },
+        "BoomMSHR.rpq::A1": {
+          "local_id": "A1",
+          "work_unit_id": "BoomMSHR.rpq"
+        },
+        "BoomMSHR.rpq::A2": {
+          "local_id": "A2",
+          "work_unit_id": "BoomMSHR.rpq"
+        },
+        "BoomMSHR.rpq::A3": {
+          "local_id": "A3",
+          "work_unit_id": "BoomMSHR.rpq"
+        },
+        "BoomMSHR.rpq::A4": {
+          "local_id": "A4",
+          "work_unit_id": "BoomMSHR.rpq"
+        },
+        "BoomMSHR.rpq::A5": {
+          "local_id": "A5",
+          "work_unit_id": "BoomMSHR.rpq"
+        },
+        "BoomMSHR.rpq::A6": {
+          "local_id": "A6",
+          "work_unit_id": "BoomMSHR.rpq"
+        },
+        "BoomMSHR.rpq::A7": {
+          "local_id": "A7",
+          "work_unit_id": "BoomMSHR.rpq"
+        },
+        "BoomMSHR::A1": {
+          "local_id": "A1",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::A10": {
+          "local_id": "A10",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::A11": {
+          "local_id": "A11",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::A12": {
+          "local_id": "A12",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::A13": {
+          "local_id": "A13",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::A14": {
+          "local_id": "A14",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::A15": {
+          "local_id": "A15",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::A2": {
+          "local_id": "A2",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::A3": {
+          "local_id": "A3",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::A4": {
+          "local_id": "A4",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::A5": {
+          "local_id": "A5",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::A6": {
+          "local_id": "A6",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::A7": {
+          "local_id": "A7",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::A8": {
+          "local_id": "A8",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::A9": {
+          "local_id": "A9",
+          "work_unit_id": "BoomMSHR"
+        }
+      },
+      "cases": {
+        "BoomMSHR.rpq.main::C1_Admitted": {
+          "local_id": "C1_Admitted",
+          "work_unit_id": "BoomMSHR.rpq.main"
+        },
+        "BoomMSHR.rpq.main::C2_BranchKilledOnArrival": {
+          "local_id": "C2_BranchKilledOnArrival",
+          "work_unit_id": "BoomMSHR.rpq.main"
+        },
+        "BoomMSHR.rpq.main::C3_FlushKilledOnArrival": {
+          "local_id": "C3_FlushKilledOnArrival",
+          "work_unit_id": "BoomMSHR.rpq.main"
+        },
+        "BoomMSHR.rpq.main::C4_VisibleDequeue": {
+          "local_id": "C4_VisibleDequeue",
+          "work_unit_id": "BoomMSHR.rpq.main"
+        },
+        "BoomMSHR.rpq.main::C5_InvalidHeadSkip": {
+          "local_id": "C5_InvalidHeadSkip",
+          "work_unit_id": "BoomMSHR.rpq.main"
+        },
+        "BoomMSHR.rpq::C1_EnqueueForwarded": {
+          "local_id": "C1_EnqueueForwarded",
+          "work_unit_id": "BoomMSHR.rpq"
+        },
+        "BoomMSHR.rpq::C2_ChildDequeueCaptured": {
+          "local_id": "C2_ChildDequeueCaptured",
+          "work_unit_id": "BoomMSHR.rpq"
+        },
+        "BoomMSHR.rpq::C3_ChildDequeueBranchKilled": {
+          "local_id": "C3_ChildDequeueBranchKilled",
+          "work_unit_id": "BoomMSHR.rpq"
+        },
+        "BoomMSHR.rpq::C4_ChildDequeueFlushKilled": {
+          "local_id": "C4_ChildDequeueFlushKilled",
+          "work_unit_id": "BoomMSHR.rpq"
+        },
+        "BoomMSHR.rpq::C5_VisibleParentDequeue": {
+          "local_id": "C5_VisibleParentDequeue",
+          "work_unit_id": "BoomMSHR.rpq"
+        },
+        "BoomMSHR::C1_GrantCompleted": {
+          "local_id": "C1_GrantCompleted",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::C2_LoadResponse": {
+          "local_id": "C2_LoadResponse",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::C3_VictimWriteback": {
+          "local_id": "C3_VictimWriteback",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::C4_CommitLineRefill": {
+          "local_id": "C4_CommitLineRefill",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::C5_ReplayDrain": {
+          "local_id": "C5_ReplayDrain",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::C6_FinalMetadataCommit": {
+          "local_id": "C6_FinalMetadataCommit",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::C7_GrantFinish": {
+          "local_id": "C7_GrantFinish",
+          "work_unit_id": "BoomMSHR"
+        }
+      },
+      "identity_keys": {},
+      "occurrences": {
+        "BoomMSHR.rpq.main::DeqHandshake": {
+          "local_id": "DeqHandshake",
+          "work_unit_id": "BoomMSHR.rpq.main"
+        },
+        "BoomMSHR.rpq.main::EnqHandshake": {
+          "local_id": "EnqHandshake",
+          "work_unit_id": "BoomMSHR.rpq.main"
+        },
+        "BoomMSHR.rpq.main::InvalidHeadSkip": {
+          "local_id": "InvalidHeadSkip",
+          "work_unit_id": "BoomMSHR.rpq.main"
+        },
+        "BoomMSHR.rpq.main::QueueInsert": {
+          "local_id": "QueueInsert",
+          "work_unit_id": "BoomMSHR.rpq.main"
+        },
+        "BoomMSHR.rpq::BufferCapture": {
+          "local_id": "BufferCapture",
+          "work_unit_id": "BoomMSHR.rpq"
+        },
+        "BoomMSHR.rpq::ParentDeqHandshake": {
+          "local_id": "ParentDeqHandshake",
+          "work_unit_id": "BoomMSHR.rpq"
+        },
+        "BoomMSHR.rpq::ParentEnqHandshake": {
+          "local_id": "ParentEnqHandshake",
+          "work_unit_id": "BoomMSHR.rpq"
+        },
+        "BoomMSHR::CommitRefillBeat": {
+          "local_id": "CommitRefillBeat",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::CommitRefillDone": {
+          "local_id": "CommitRefillDone",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::FinalMetaWrite": {
+          "local_id": "FinalMetaWrite",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::GrantComplete": {
+          "local_id": "GrantComplete",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::GrantDataWrite": {
+          "local_id": "GrantDataWrite",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::MemAcquire": {
+          "local_id": "MemAcquire",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::MemFinish": {
+          "local_id": "MemFinish",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::MemGrant": {
+          "local_id": "MemGrant",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::MetaClearWrite": {
+          "local_id": "MetaClearWrite",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::MetaRead": {
+          "local_id": "MetaRead",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::PrimaryAccept": {
+          "local_id": "PrimaryAccept",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::RPQDrained": {
+          "local_id": "RPQDrained",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::ReplayHandshake": {
+          "local_id": "ReplayHandshake",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::RespHandshake": {
+          "local_id": "RespHandshake",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::WBComplete": {
+          "local_id": "WBComplete",
+          "work_unit_id": "BoomMSHR"
+        },
+        "BoomMSHR::WBReq": {
+          "local_id": "WBReq",
+          "work_unit_id": "BoomMSHR"
+        }
+      },
+      "predicates": {
+        "BoomMSHR.rpq.main::HeadInvalid": {
+          "local_id": "HeadInvalid",
+          "work_unit_id": "BoomMSHR.rpq.main"
+        },
+        "BoomMSHR.rpq.main::HeadValid": {
+          "local_id": "HeadValid",
+          "work_unit_id": "BoomMSHR.rpq.main"
+        },
+        "BoomMSHR.rpq.main::IncomingBranchKilled": {
+          "local_id": "IncomingBranchKilled",
+          "work_unit_id": "BoomMSHR.rpq.main"
+        },
+        "BoomMSHR.rpq.main::IncomingFlushKilled": {
+          "local_id": "IncomingFlushKilled",
+          "work_unit_id": "BoomMSHR.rpq.main"
+        },
+        "BoomMSHR.rpq.main::QueueEmpty": {
+          "local_id": "QueueEmpty",
+          "work_unit_id": "BoomMSHR.rpq.main"
+        },
+        "BoomMSHR.rpq.main::QueueFull": {
+          "local_id": "QueueFull",
+          "work_unit_id": "BoomMSHR.rpq.main"
+        },
+        "BoomMSHR.rpq::OutputInvalid": {
+          "local_id": "OutputInvalid",
+          "work_unit_id": "BoomMSHR.rpq"
+        },
+        "BoomMSHR.rpq::TransferBranchKilled": {
+          "local_id": "TransferBranchKilled",
+          "work_unit_id": "BoomMSHR.rpq"
+        },
+        "BoomMSHR.rpq::TransferFlushKilled": {
+          "local_id": "TransferFlushKilled",
+          "work_unit_id": "BoomMSHR.rpq"
+        },
+        "BoomMSHR::GrantAckAbsent": {
+          "local_id": "GrantAckAbsent",
+          "work_unit_id": "BoomMSHR"
+        }
+      }
+    }
+  },
+  "freeze": {
+    "candidate_axiom_count": 15,
+    "policy": "all-declared-axioms-trusted-and-no-unresolved-v0.1",
+    "reopen_policy": "This summary may be reopened if later parent/system counterexample validation shows the abstraction is too weak and a missing concrete constraint must be synthesized.",
+    "status": "FROZEN_FOR_COMPOSITION",
+    "trusted_axiom_count": 15
+  },
+  "identity_keys": [],
+  "note": "Only axioms with FORMALLY_PROVED or SPEC_PROVED validation level are included. Grounded/structurally-supported candidate axioms remain outside the trusted abstraction.",
+  "occurrences": [
+    {
+      "definition": "(state == s_invalid || state == s_prefetch) && io.req_pri_val && io.req_pri_rdy; a primary request is accepted and becomes the current MSHR request",
+      "evidence_statement_ids": [
+        1102,
+        1103,
+        1104,
+        1106,
+        1107,
+        1119,
+        1346,
+        1840,
+        1841,
+        1842,
+        1974,
+        1975,
+        1988,
+        2215
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.req_pri_val",
+          "io.req_pri_rdy"
+        ],
+        "state_register": "state",
+        "state_values": [
+          0,
+          17
+        ]
+      },
+      "id": "PrimaryAccept",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "state == s_refill_req && io.mem_acquire.valid && io.mem_acquire.ready",
+      "evidence_statement_ids": [
+        1348,
+        1349,
+        1350,
+        1351,
+        1352,
+        1353
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": "state",
+        "state_values": [
+          1
+        ]
+      },
+      "id": "MemAcquire",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHR::io.mem_acquire.fire"
+      ]
+    },
+    {
+      "definition": "state == s_refill_resp && io.mem_grant.valid && io.mem_grant.ready",
+      "evidence_statement_ids": [
+        1355,
+        1356,
+        1357,
+        1363,
+        1364
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": "state",
+        "state_values": [
+          2
+        ]
+      },
+      "id": "MemGrant",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHR::io.mem_grant.fire"
+      ]
+    },
+    {
+      "definition": "state == s_refill_resp && io.lb_write.valid; a data-bearing memory Grant is forwarded into the line buffer",
+      "evidence_statement_ids": [
+        1355,
+        1356,
+        1358,
+        1359,
+        1360
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.lb_write.valid"
+        ],
+        "state_register": "state",
+        "state_values": [
+          2
+        ]
+      },
+      "id": "GrantDataWrite",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHR::io.lb_write.valid"
+      ]
+    },
+    {
+      "definition": "state == s_refill_resp && refill_done; the final accepted TileLink Grant beat completes the memory response and captures GrantAck/coherence state",
+      "evidence_statement_ids": [
+        604,
+        614,
+        615,
+        616,
+        617,
+        618,
+        1367,
+        1372,
+        1375,
+        1377
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "refill_done"
+        ],
+        "state_register": "state",
+        "state_values": [
+          2
+        ]
+      },
+      "id": "GrantComplete",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "state == s_meta_read && io.meta_read.valid && io.meta_read.ready",
+      "evidence_statement_ids": [
+        1525,
+        1526,
+        1527,
+        1528,
+        1529,
+        1530,
+        1531,
+        1532,
+        1533,
+        1534,
+        1535,
+        1536
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": "state",
+        "state_values": [
+          4
+        ]
+      },
+      "id": "MetaRead",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHR::io.meta_read.fire"
+      ]
+    },
+    {
+      "definition": "state == s_meta_clear && io.meta_write.valid && io.meta_write.ready; the victim metadata is cleared before writeback",
+      "evidence_statement_ids": [
+        1618,
+        1619,
+        1620,
+        1621,
+        1622,
+        1623
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.meta_write.valid",
+          "io.meta_write.ready"
+        ],
+        "state_register": "state",
+        "state_values": [
+          7
+        ]
+      },
+      "id": "MetaClearWrite",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "state == s_wb_req && io.wb_req.valid && io.wb_req.ready",
+      "evidence_statement_ids": [
+        1625,
+        1626,
+        1627,
+        1628,
+        1629,
+        1630
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": "state",
+        "state_values": [
+          9
+        ]
+      },
+      "id": "WBReq",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHR::io.wb_req.fire"
+      ]
+    },
+    {
+      "definition": "state == s_wb_resp && io.wb_resp; the requested victim writeback has completed",
+      "evidence_statement_ids": [
+        1632,
+        1633,
+        1634,
+        1635
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.wb_resp"
+        ],
+        "state_register": "state",
+        "state_values": [
+          10
+        ]
+      },
+      "id": "WBComplete",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "state == s_commit_line && io.refill.valid && io.refill.ready; one cache-line commit beat is accepted",
+      "evidence_statement_ids": [
+        1637,
+        1638,
+        1640,
+        1641,
+        1642,
+        1643,
+        1644,
+        1645
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": "state",
+        "state_values": [
+          11
+        ]
+      },
+      "id": "CommitRefillBeat",
+      "index": {
+        "domain": {
+          "end_exclusive": 8,
+          "start": 0
+        },
+        "expr": {
+          "name": "refill_ctr",
+          "op": "signal"
+        },
+        "name": "beat"
+      },
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHR::io.refill.fire"
+      ]
+    },
+    {
+      "definition": "state == s_commit_line && io.refill.fire && refill_ctr == 7; the eighth and final commit refill beat is accepted and the MSHR enters replay drain",
+      "evidence_statement_ids": [
+        1641,
+        1642,
+        1643,
+        1644,
+        1645,
+        1646,
+        1647,
+        1648
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "_T_44",
+          "_T_45"
+        ],
+        "state_register": "state",
+        "state_values": [
+          11
+        ]
+      },
+      "id": "CommitRefillDone",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "state == s_drain_rpq_loads && io.resp.valid && io.resp.ready; a load replay-queue entry is returned directly as a load response",
+      "evidence_statement_ids": [
+        1444,
+        1455,
+        1456,
+        1459,
+        1460,
+        1505,
+        1506,
+        1507
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": "state",
+        "state_values": [
+          3
+        ]
+      },
+      "id": "RespHandshake",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHR::io.resp.fire"
+      ]
+    },
+    {
+      "definition": "state == s_drain_rpq && io.replay.valid && io.replay.ready; an RPQ entry is emitted through the replay interface",
+      "evidence_statement_ids": [
+        1650,
+        1651,
+        1652,
+        1653,
+        1654,
+        1660
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": "state",
+        "state_values": [
+          12
+        ]
+      },
+      "id": "ReplayHandshake",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHR::io.replay.fire"
+      ]
+    },
+    {
+      "definition": "state == s_drain_rpq && rpq.io.empty && !rpq.io.enq.valid; no queued or concurrently incoming replay remains, so the MSHR may proceed to final metadata commit",
+      "evidence_statement_ids": [
+        1808,
+        1809,
+        1810,
+        1811
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "_T_76"
+        ],
+        "state_register": "state",
+        "state_values": [
+          12
+        ]
+      },
+      "id": "RPQDrained",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "state == s_meta_write_req && io.meta_write.valid && io.meta_write.ready; the final acquired-line metadata is committed after RPQ drain",
+      "evidence_statement_ids": [
+        1813,
+        1814,
+        1815,
+        1816,
+        1817,
+        1818,
+        1819,
+        1820,
+        1821,
+        1822
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.meta_write.valid",
+          "io.meta_write.ready"
+        ],
+        "state_register": "state",
+        "state_values": [
+          13
+        ]
+      },
+      "id": "FinalMetaWrite",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "state == s_mem_finish_1 && io.mem_finish.valid && io.mem_finish.ready",
+      "evidence_statement_ids": [
+        1089,
+        1825,
+        1826,
+        1827,
+        1828
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": "state",
+        "state_values": [
+          14
+        ]
+      },
+      "id": "MemFinish",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHR::io.mem_finish.fire"
+      ]
+    }
+  ],
+  "predicates": [
+    {
+      "definition": "grantack.valid == 0",
+      "evidence_statement_ids": [
+        900,
+        1110,
+        1372,
+        1827,
+        1832
+      ],
+      "grounding": {
+        "negated": true,
+        "source_signal": "grantack.valid",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "GrantAckAbsent"
+    }
+  ],
+  "provenance": {
+    "A1": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exhaustive-state-reachability",
+      "source_axioms": []
+    },
+    "A10": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-combinational-exclusion",
+      "source_axioms": []
+    },
+    "A11": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-symbolic-driver-equality",
+      "source_axioms": []
+    },
+    "A12": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-symbolic-driver-equality",
+      "source_axioms": []
+    },
+    "A13": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-symbolic-driver-equality",
+      "source_axioms": []
+    },
+    "A14": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "emergent",
+      "proof_method": "trusted-history-after-restriction",
+      "source_axioms": [
+        "BoomMSHR.rpq::A5"
+      ]
+    },
+    "A15": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "emergent",
+      "proof_method": "trusted-history-after-restriction",
+      "source_axioms": [
+        "BoomMSHR.rpq::A5"
+      ]
+    },
+    "A2": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exhaustive-state-reachability",
+      "source_axioms": []
+    },
+    "A3": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exhaustive-state-reachability",
+      "source_axioms": []
+    },
+    "A4": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exhaustive-state-reachability",
+      "source_axioms": []
+    },
+    "A5": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exhaustive-state-reachability",
+      "source_axioms": []
+    },
+    "A6": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exhaustive-state-reachability",
+      "source_axioms": []
+    },
+    "A7": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-bounded-indexed-occurrence",
+      "source_axioms": []
+    },
+    "A8": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exhaustive-state-reachability",
+      "source_axioms": []
+    },
+    "A9": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exhaustive-state-reachability",
+      "source_axioms": []
+    }
+  },
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "parent_synthesis-BoomMSHR-6362a83e7f824669",
+  "trust_policy": "formal-ast-plus-certified-provenance-v0.3",
+  "trusted_axiom_ids": [
+    "A1",
+    "A10",
+    "A11",
+    "A12",
+    "A13",
+    "A14",
+    "A15",
+    "A2",
+    "A3",
+    "A4",
+    "A5",
+    "A6",
+    "A7",
+    "A8",
+    "A9"
+  ],
+  "work_unit_id": "BoomMSHR"
+}

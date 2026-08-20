@@ -23,12 +23,14 @@ from .semantic import (
 )
 from .formal_patterns import (
     prove_combinational_forbid_when,
+    prove_conditional_signal_equality,
+    prove_same_cycle_occurrence_partition,
     prove_scalar_valid_token_provenance,
     prove_same_index_valid_token_provenance,
 )
 
 
-FORMAL_BACKEND_API_VERSION = "formal-backend-api-0.8"
+FORMAL_BACKEND_API_VERSION = "formal-backend-api-0.13"
 FORMAL_UNKNOWN = "FORMAL_UNKNOWN"
 FORMAL_COUNTEREXAMPLE = "FORMAL_COUNTEREXAMPLE"
 
@@ -235,7 +237,7 @@ class ExplicitControlFormalBackend:
             "available": True,
             "trusted_proof_levels": [FORMALLY_PROVED, SPEC_PROVED],
             "proof_domain": (
-                "control + exact symbolic local + exact combinational exclusion + "
+                "control + exact symbolic local + exact combinational exclusion/conservation + "
                 "scalar/indexed token provenance + finite reference equivalence"
             ),
             "supported_checkers": [
@@ -244,6 +246,7 @@ class ExplicitControlFormalBackend:
                 "history_chain",
                 "history_join",
                 "indexed_coverage",
+                "occurrence_partition",
                 "transaction_exclusion",
                 "signal_alias",
                 "constant_bit",
@@ -252,7 +255,7 @@ class ExplicitControlFormalBackend:
             ],
             "note": (
                 "Exhaustive formal proof for certified finite-control/order properties, exact symbolic "
-                "local/identity facts, exact local Boolean exclusions, bounded indexed token provenance, "
+                "local/identity facts, exact local Boolean exclusion/conservation, bounded indexed token provenance, "
                 "and selected finite reference equivalence checks. It is not a general bit-level SMT backend."
             ),
         }
@@ -293,6 +296,28 @@ class ExplicitControlFormalBackend:
                     "proof": local.get("proof"),
                     "certificate": local,
                 }
+
+        if checker == "occurrence_partition":
+            partition = prove_same_cycle_occurrence_partition(
+                model,
+                candidate,
+                **args,
+            )
+            if partition.get("status") == STRUCTURALLY_SUPPORTED:
+                return {
+                    "status": FORMALLY_PROVED,
+                    "backend": self.name,
+                    "proof_method": partition.get("proof_domain"),
+                    "proof": partition.get("proof"),
+                    "certificate": partition,
+                }
+            return {
+                "status": FORMAL_UNKNOWN,
+                "backend": self.name,
+                "reason": partition.get("reason", "same-cycle occurrence partition unresolved"),
+                "certificate": partition,
+                "required_backend_capability": "exact-same-cycle-occurrence-partition",
+            }
 
         # A same-index order can also be proved without an FSM when a bounded
         # valid/token array establishes exact provenance: reset invalid, one
@@ -456,16 +481,19 @@ class ExplicitControlFormalBackend:
         # Exact local combinational facts can be proved without the control abstraction.
         if checker == "signal_alias":
             if args.get("scope_index"):
-                result = _same_index_signal_alias(model, candidate, on=obligation.get("formal", {}).get("on"), **args)
+                result = _same_index_signal_alias(model, candidate, **args)
+            elif args.get("on"):
+                result = prove_conditional_signal_equality(model, candidate, **args)
             else:
                 result = _signal_alias(model, **args)
             if result.get("status") == STRUCTURALLY_SUPPORTED:
                 return {
                     "status": FORMALLY_PROVED,
                     "backend": self.name,
-                    "proof_method": "exact-symbolic-driver-equality",
+                    "proof_method": result.get("proof_domain", "exact-symbolic-driver-equality"),
                     "proof": result.get("proof"),
                     "proof_domain": "local-combinational-equality",
+                    "certificate": result,
                 }
             return {
                 "status": FORMAL_UNKNOWN,

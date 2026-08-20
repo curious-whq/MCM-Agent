@@ -1,0 +1,584 @@
+{
+  "assumptions": [
+    {
+      "evidence_statement_ids": [
+        1471,
+        1472,
+        1473,
+        1474,
+        1475,
+        1476,
+        1477,
+        1478,
+        1480,
+        1603,
+        1604
+      ],
+      "id": "E1_NoAcceptedXSC",
+      "statement": "The environment must not supply an accepted request whose req.uop.mem_cmd is M_XSC (numeric value 7); after such a request leaves s_idle, the module-local assertion state === s_idle || req.uop.mem_cmd =/= M_XSC would fail."
+    }
+  ],
+  "axioms": [
+    {
+      "derived_from_case_ids": [
+        "C1_RequestCaptured"
+      ],
+      "evidence_statement_ids": [
+        6,
+        7,
+        1601
+      ],
+      "formal": {
+        "occurrence": "ReqAccept",
+        "predicate": "Busy",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A1",
+      "rendered_formula": "Busy => !ReqAccept",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_RequestCaptured"
+      ],
+      "evidence_statement_ids": [
+        1481,
+        1482,
+        1601,
+        1602,
+        1603,
+        1604,
+        1605,
+        1606,
+        1607
+      ],
+      "formal": {
+        "after": "MemAccess",
+        "before": "ReqAccept",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "id": "A2",
+      "rendered_formula": "ReqAccept <mu MemAccess",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_ResponseProducingAck",
+        "C3_NoResponseAck"
+      ],
+      "evidence_statement_ids": [
+        1605,
+        1606,
+        1607,
+        1608,
+        1609,
+        1610,
+        1611
+      ],
+      "formal": {
+        "after": "AckConsumed",
+        "before": "MemAccess",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "id": "A3",
+      "rendered_formula": "MemAccess <mu AckConsumed",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_ResponseProducingAck"
+      ],
+      "evidence_statement_ids": [
+        1552,
+        1553,
+        1554,
+        1555,
+        1611,
+        1642,
+        1643,
+        1645
+      ],
+      "formal": {
+        "after": "RespHandshake",
+        "before": "AckConsumed",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "id": "A4",
+      "rendered_formula": "AckConsumed <mu RespHandshake",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_NoResponseAck"
+      ],
+      "evidence_statement_ids": [
+        1552,
+        1553,
+        1554,
+        1555
+      ],
+      "formal": {
+        "occurrence": "RespHandshake",
+        "predicate": "NoResponseRequired",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A5",
+      "rendered_formula": "NoResponseRequired => !RespHandshake",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_RequestCaptured",
+        "C2_ResponseProducingAck"
+      ],
+      "evidence_statement_ids": [
+        1603,
+        1556
+      ],
+      "formal": {
+        "capture": {
+          "carrier": "req",
+          "on": "ReqAccept",
+          "source": "io.req.bits"
+        },
+        "identity": "RequestIdentity",
+        "projections": [
+          {
+            "expr": {
+              "name": "req.uop.rob_idx",
+              "op": "signal"
+            },
+            "on": "RespHandshake",
+            "target": "io.resp.bits.uop.rob_idx"
+          },
+          {
+            "expr": {
+              "name": "req.uop.ldq_idx",
+              "op": "signal"
+            },
+            "on": "RespHandshake",
+            "target": "io.resp.bits.uop.ldq_idx"
+          },
+          {
+            "expr": {
+              "name": "req.uop.stq_idx",
+              "op": "signal"
+            },
+            "on": "RespHandshake",
+            "target": "io.resp.bits.uop.stq_idx"
+          },
+          {
+            "expr": {
+              "name": "req.uop.mem_cmd",
+              "op": "signal"
+            },
+            "on": "RespHandshake",
+            "target": "io.resp.bits.uop.mem_cmd"
+          },
+          {
+            "expr": {
+              "name": "req.uop.mem_size",
+              "op": "signal"
+            },
+            "on": "RespHandshake",
+            "target": "io.resp.bits.uop.mem_size"
+          }
+        ],
+        "type": "identity_flow"
+      },
+      "id": "A6",
+      "rendered_formula": "capture RequestIdentity := io.req.bits on ReqAccept; preserve 5 exact identity projections",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_RequestCaptured"
+      ],
+      "evidence_statement_ids": [
+        79,
+        224,
+        361,
+        489,
+        617,
+        745,
+        873,
+        1001,
+        1129,
+        1257,
+        1385,
+        1525,
+        1526,
+        1527
+      ],
+      "formal": {
+        "on": "MemAccess",
+        "scope_identity": null,
+        "source": {
+          "hi": 31,
+          "lo": 0,
+          "op": "slice",
+          "value": {
+            "name": "req.addr",
+            "op": "signal"
+          }
+        },
+        "target": "io.mem_access.bits.address",
+        "type": "signal_equality"
+      },
+      "id": "A7",
+      "rendered_formula": "io.mem_access.bits.address = bits(req.addr, 31, 0) on MemAccess",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_RequestCaptured"
+      ],
+      "evidence_statement_ids": [
+        77,
+        222,
+        359,
+        487,
+        615,
+        743,
+        871,
+        999,
+        1127,
+        1255,
+        1383,
+        1525,
+        1526,
+        1527
+      ],
+      "formal": {
+        "on": "MemAccess",
+        "scope_identity": null,
+        "source": {
+          "name": "req.uop.mem_size",
+          "op": "signal"
+        },
+        "target": "io.mem_access.bits.size",
+        "type": "signal_equality"
+      },
+      "id": "A8",
+      "rendered_formula": "io.mem_access.bits.size = req.uop.mem_size on MemAccess",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_ResponseProducingAck"
+      ],
+      "evidence_statement_ids": [
+        1600
+      ],
+      "formal": {
+        "on": "RespHandshake",
+        "scope_identity": null,
+        "source": {
+          "name": "req.is_hella",
+          "op": "signal"
+        },
+        "target": "io.resp.bits.is_hella",
+        "type": "signal_equality"
+      },
+      "id": "A9",
+      "rendered_formula": "io.resp.bits.is_hella = req.is_hella on RespHandshake",
+      "status": "candidate"
+    }
+  ],
+  "cases": [
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        1601,
+        1602,
+        1603,
+        1604
+      ],
+      "guard_predicates": [],
+      "id": "C1_RequestCaptured",
+      "relations": [
+        "The accepted request is captured into req and the FSM enters the memory-access state."
+      ],
+      "trigger_occurrences": [
+        "ReqAccept"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        1552,
+        1553,
+        1554,
+        1555,
+        1608,
+        1609,
+        1610,
+        1611,
+        1637,
+        1638,
+        1639,
+        1640,
+        1641
+      ],
+      "guard_predicates": [
+        {
+          "id": "NoResponseRequired",
+          "positive": false
+        }
+      ],
+      "id": "C2_ResponseProducingAck",
+      "relations": [
+        "A consumed acknowledgement for a read-like request moves the FSM to the response state; read-return data is captured into grant_word and io.resp.valid is asserted from that state."
+      ],
+      "trigger_occurrences": [
+        "AckConsumed"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        1552,
+        1553,
+        1554,
+        1555,
+        1608,
+        1609,
+        1610,
+        1611,
+        1642,
+        1643,
+        1644,
+        1646,
+        1647,
+        1648
+      ],
+      "guard_predicates": [
+        {
+          "id": "NoResponseRequired",
+          "positive": true
+        }
+      ],
+      "id": "C3_NoResponseAck",
+      "relations": [
+        "A consumed acknowledgement for a request with send_resp false reaches the response state but cannot produce RespHandshake and returns to idle without waiting for io.resp.ready."
+      ],
+      "trigger_occurrences": [
+        "AckConsumed"
+      ]
+    }
+  ],
+  "freeze": {
+    "candidate_axiom_count": 9,
+    "policy": "all-declared-axioms-trusted-and-no-unresolved-v0.1",
+    "reopen_policy": "This summary may be reopened if later parent/system counterexample validation shows the abstraction is too weak and a missing concrete constraint must be synthesized.",
+    "status": "FROZEN_FOR_COMPOSITION",
+    "trusted_axiom_count": 9
+  },
+  "identity_keys": [
+    {
+      "carrier_state": "req",
+      "description": "The accepted MMIO request is stored in req and remains the single outstanding transaction context until the MSHR returns to idle.",
+      "evidence_statement_ids": [
+        3,
+        1603
+      ],
+      "fields": [
+        "addr",
+        "uop.rob_idx",
+        "uop.ldq_idx",
+        "uop.stq_idx",
+        "uop.mem_cmd",
+        "uop.mem_size"
+      ],
+      "id": "RequestIdentity"
+    }
+  ],
+  "note": "Only axioms with FORMALLY_PROVED or SPEC_PROVED validation level are included. Grounded/structurally-supported candidate axioms remain outside the trusted abstraction.",
+  "occurrences": [
+    {
+      "definition": "io.req.valid && io.req.ready",
+      "evidence_statement_ids": [
+        6,
+        7,
+        1601,
+        1602
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": "state",
+        "state_values": [
+          0
+        ]
+      },
+      "id": "ReqAccept",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHRFile.mmios_0::io.req.fire"
+      ]
+    },
+    {
+      "definition": "io.mem_access.valid && io.mem_access.ready",
+      "evidence_statement_ids": [
+        1481,
+        1482,
+        1605,
+        1606
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": "state",
+        "state_values": [
+          1
+        ]
+      },
+      "id": "MemAccess",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHRFile.mmios_0::io.mem_access.fire"
+      ]
+    },
+    {
+      "definition": "state == 2 && io.mem_ack.valid",
+      "evidence_statement_ids": [
+        1608,
+        1609,
+        1610,
+        1611
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.mem_ack.valid"
+        ],
+        "state_register": "state",
+        "state_values": [
+          2
+        ]
+      },
+      "id": "AckConsumed",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "io.resp.valid && io.resp.ready",
+      "evidence_statement_ids": [
+        1552,
+        1553,
+        1554,
+        1555,
+        1645
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "send_resp"
+        ],
+        "state_register": "state",
+        "state_values": [
+          3
+        ]
+      },
+      "id": "RespHandshake",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHRFile.mmios_0::io.resp.fire"
+      ]
+    }
+  ],
+  "predicates": [
+    {
+      "definition": "state != 0",
+      "evidence_statement_ids": [
+        5,
+        1604,
+        1607,
+        1611,
+        1648
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": null,
+        "state_register": "state",
+        "state_values": [
+          1,
+          2,
+          3
+        ]
+      },
+      "id": "Busy"
+    },
+    {
+      "definition": "!send_resp",
+      "evidence_statement_ids": [
+        1528,
+        1529,
+        1530,
+        1531,
+        1532,
+        1533,
+        1534,
+        1535,
+        1536,
+        1537,
+        1538,
+        1539,
+        1540,
+        1541,
+        1542,
+        1543,
+        1544,
+        1545,
+        1546,
+        1547,
+        1548,
+        1549,
+        1550,
+        1551,
+        1552
+      ],
+      "grounding": {
+        "negated": true,
+        "source_signal": "send_resp",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "NoResponseRequired"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-BoomMSHRFile.mmios_0-b0066721dd609259",
+  "trust_policy": "formal-ast-plus-certified-provenance-v0.3",
+  "trusted_axiom_ids": [
+    "A1",
+    "A2",
+    "A3",
+    "A4",
+    "A5",
+    "A6",
+    "A7",
+    "A8",
+    "A9"
+  ],
+  "work_unit_id": "BoomMSHRFile.mmios_0"
+}

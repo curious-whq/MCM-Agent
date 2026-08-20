@@ -1,0 +1,3439 @@
+{
+  "all_axioms_formally_proved": false,
+  "all_axioms_structurally_supported": false,
+  "candidate_axiom_count": 25,
+  "control_model": {
+    "known_states": [],
+    "reset_state": null,
+    "state_register": "state",
+    "transitions": []
+  },
+  "counts": {
+    "FORMALLY_PROVED": 23,
+    "GROUNDED": 2,
+    "PARTIALLY_SUPPORTED": 0,
+    "REFUTED": 0,
+    "SPEC_PROVED": 0,
+    "STRUCTURALLY_SUPPORTED": 0
+  },
+  "formal_backend": {
+    "api_version": "formal-backend-api-0.13",
+    "available": true,
+    "name": "explicit-control",
+    "note": "Exhaustive formal proof for certified finite-control/order properties, exact symbolic local/identity facts, exact local Boolean exclusion/conservation, bounded indexed token provenance, and selected finite reference equivalence checks. It is not a general bit-level SMT backend.",
+    "proof_domain": "control + exact symbolic local + exact combinational exclusion/conservation + scalar/indexed token provenance + finite reference equivalence",
+    "supported_checkers": [
+      "forbid_when",
+      "history_order",
+      "history_chain",
+      "history_join",
+      "indexed_coverage",
+      "occurrence_partition",
+      "transaction_exclusion",
+      "signal_alias",
+      "constant_bit",
+      "identity_projection",
+      "tilelink_on_probe_spec"
+    ],
+    "trusted_proof_levels": [
+      "FORMALLY_PROVED",
+      "SPEC_PROVED"
+    ]
+  },
+  "has_counterexample": false,
+  "property_compiler": "formal-axiom-compiler-0.7",
+  "results": [
+    {
+      "arguments": {
+        "parts": [
+          "PrimaryMSHRAccept",
+          "SecondaryMSHRAccept",
+          "MMIOAccept"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "RequestAccept"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        4,
+        5,
+        6,
+        48,
+        128,
+        130,
+        1388,
+        1389,
+        1390,
+        1391,
+        1392,
+        1393,
+        1395
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "mutex_pairs": [
+            [
+              "PrimaryMSHRAccept",
+              "SecondaryMSHRAccept"
+            ],
+            [
+              "PrimaryMSHRAccept",
+              "MMIOAccept"
+            ],
+            [
+              "SecondaryMSHRAccept",
+              "MMIOAccept"
+            ]
+          ],
+          "obligations": [
+            {
+              "atom_count": 16,
+              "kind": "whole_without_part",
+              "unsat": true
+            },
+            {
+              "atom_count": 16,
+              "kind": "part_without_whole",
+              "unsat": true
+            },
+            {
+              "atom_count": 16,
+              "kind": "parts_mutually_exclusive",
+              "parts": [
+                "PrimaryMSHRAccept",
+                "SecondaryMSHRAccept"
+              ],
+              "unsat": true
+            },
+            {
+              "atom_count": 16,
+              "kind": "parts_mutually_exclusive",
+              "parts": [
+                "PrimaryMSHRAccept",
+                "MMIOAccept"
+              ],
+              "unsat": true
+            },
+            {
+              "atom_count": 16,
+              "kind": "parts_mutually_exclusive",
+              "parts": [
+                "SecondaryMSHRAccept",
+                "MMIOAccept"
+              ],
+              "unsat": true
+            }
+          ],
+          "parts": [
+            "PrimaryMSHRAccept",
+            "SecondaryMSHRAccept",
+            "MMIOAccept"
+          ],
+          "proof": "RequestAccept is equivalent to the same-cycle disjunction of its parts, and every pair of parts has an unsatisfiable conjunction",
+          "proof_domain": "exact-same-cycle-occurrence-partition",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "whole": "RequestAccept"
+        },
+        "proof": "RequestAccept is equivalent to the same-cycle disjunction of its parts, and every pair of parts has an unsatisfiable conjunction",
+        "proof_method": "exact-same-cycle-occurrence-partition",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "MMIOAccept",
+          "PrimaryMSHRAccept",
+          "RequestAccept",
+          "SecondaryMSHRAccept"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "RequestAccept <=> exactly_one_same_cycle({PrimaryMSHRAccept, SecondaryMSHRAccept, MMIOAccept})",
+      "structural": {
+        "mutex_pairs": [
+          [
+            "PrimaryMSHRAccept",
+            "SecondaryMSHRAccept"
+          ],
+          [
+            "PrimaryMSHRAccept",
+            "MMIOAccept"
+          ],
+          [
+            "SecondaryMSHRAccept",
+            "MMIOAccept"
+          ]
+        ],
+        "obligations": [
+          {
+            "atom_count": 16,
+            "kind": "whole_without_part",
+            "unsat": true
+          },
+          {
+            "atom_count": 16,
+            "kind": "part_without_whole",
+            "unsat": true
+          },
+          {
+            "atom_count": 16,
+            "kind": "parts_mutually_exclusive",
+            "parts": [
+              "PrimaryMSHRAccept",
+              "SecondaryMSHRAccept"
+            ],
+            "unsat": true
+          },
+          {
+            "atom_count": 16,
+            "kind": "parts_mutually_exclusive",
+            "parts": [
+              "PrimaryMSHRAccept",
+              "MMIOAccept"
+            ],
+            "unsat": true
+          },
+          {
+            "atom_count": 16,
+            "kind": "parts_mutually_exclusive",
+            "parts": [
+              "SecondaryMSHRAccept",
+              "MMIOAccept"
+            ],
+            "unsat": true
+          }
+        ],
+        "parts": [
+          "PrimaryMSHRAccept",
+          "SecondaryMSHRAccept",
+          "MMIOAccept"
+        ],
+        "proof": "RequestAccept is equivalent to the same-cycle disjunction of its parts, and every pair of parts has an unsatisfiable conjunction",
+        "proof_domain": "exact-same-cycle-occurrence-partition",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "whole": "RequestAccept"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mmios_0::ReqAccept"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "MMIOAccept"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        5,
+        6,
+        843,
+        845,
+        960,
+        979,
+        981,
+        1389,
+        1393,
+        1395
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "reason": "current formal backend has no certified composition rule for axioms spanning imported child \u00b5MCM objects",
+        "status": "NOT_RUN"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.mmios_0::ReqAccept",
+          "MMIOAccept"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "MMIOAccept <=> exactly_one_same_cycle({BoomMSHRFile.mmios_0::ReqAccept})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": false,
+      "validation_level": "GROUNDED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::MemAcquire",
+          "BoomMSHRFile.mshrs_1::MemAcquire",
+          "BoomMSHRFile.mmios_0::MemAccess"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "MemAcquire"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        1003,
+        1004,
+        1006,
+        1007,
+        1025,
+        1026,
+        1027,
+        1029,
+        1030,
+        1031,
+        1083,
+        1084,
+        1085,
+        1086,
+        1087,
+        1088,
+        1089,
+        1090,
+        1091,
+        1099,
+        1100
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "inductive_invariants": [
+              {
+                "indices": [
+                  0,
+                  1,
+                  2
+                ],
+                "induction": "reset is onehot0; common mux selects pairwise-exclusive winners or holds prior onehot0 state",
+                "kind": "exact-inductive-onehot0-register-invariant",
+                "register": "state",
+                "reset_proofs": [
+                  {
+                    "atom_count": 0,
+                    "index": 0,
+                    "reset_to_zero": true
+                  },
+                  {
+                    "atom_count": 0,
+                    "index": 1,
+                    "reset_to_zero": true
+                  },
+                  {
+                    "atom_count": 0,
+                    "index": 2,
+                    "reset_to_zero": true
+                  }
+                ],
+                "reset_statement_id": 1080,
+                "update_proofs": [
+                  {
+                    "hold": "state[0]",
+                    "index": 0,
+                    "next": "mux(idle, winner[0], state[0])",
+                    "select": "idle",
+                    "winner": "winner[0]"
+                  },
+                  {
+                    "hold": "state[1]",
+                    "index": 1,
+                    "next": "mux(idle, winner[1], state[1])",
+                    "select": "idle",
+                    "winner": "winner[1]"
+                  },
+                  {
+                    "hold": "state[2]",
+                    "index": 2,
+                    "next": "mux(idle, winner[2], state[2])",
+                    "select": "idle",
+                    "winner": "winner[2]"
+                  }
+                ],
+                "update_select": "idle",
+                "winner_mutual_exclusion": [
+                  {
+                    "atom_count": 2,
+                    "indices": [
+                      0,
+                      1
+                    ]
+                  },
+                  {
+                    "atom_count": 3,
+                    "indices": [
+                      0,
+                      2
+                    ]
+                  },
+                  {
+                    "atom_count": 3,
+                    "indices": [
+                      1,
+                      2
+                    ]
+                  }
+                ]
+              }
+            ],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 8,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 8,
+                "kind": "part_without_whole",
+                "unsat": true
+              },
+              {
+                "atom_count": 7,
+                "kind": "parts_mutually_exclusive",
+                "parts": [
+                  "BoomMSHRFile.mshrs_0::MemAcquire",
+                  "BoomMSHRFile.mshrs_1::MemAcquire"
+                ],
+                "unsat": true
+              },
+              {
+                "atom_count": 8,
+                "kind": "parts_mutually_exclusive",
+                "parts": [
+                  "BoomMSHRFile.mshrs_0::MemAcquire",
+                  "BoomMSHRFile.mmios_0::MemAccess"
+                ],
+                "unsat": true
+              },
+              {
+                "atom_count": 8,
+                "kind": "parts_mutually_exclusive",
+                "parts": [
+                  "BoomMSHRFile.mshrs_1::MemAcquire",
+                  "BoomMSHRFile.mmios_0::MemAccess"
+                ],
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomMSHRFile.mmios_0::MemAccess": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "mmios_0.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      841
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.mmios_0::io.mem_access.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.mmios_0::MemAccess",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      1006,
+                      1027,
+                      1054,
+                      1091,
+                      1094
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "mmios_0.io.mem_access.valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "mmios_0.io.mem_access.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "_mmios_0_io_mem_access_ready_T",
+                        "statement_id": 1089
+                      }
+                    ]
+                  }
+                ]
+              },
+              "BoomMSHRFile.mshrs_0::MemAcquire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "mshrs_0.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      171
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.mshrs_0::io.mem_acquire.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.mshrs_0::MemAcquire",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      1007,
+                      1025,
+                      1053,
+                      1090,
+                      1092
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "mshrs_0.io.mem_acquire.valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "mshrs_0.io.mem_acquire.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "_mshrs_0_io_mem_acquire_ready_T",
+                        "statement_id": 1085
+                      }
+                    ]
+                  }
+                ]
+              },
+              "BoomMSHRFile.mshrs_1::MemAcquire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "mshrs_1.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      491
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.mshrs_1::io.mem_acquire.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.mshrs_1::MemAcquire",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      1006,
+                      1026,
+                      1053,
+                      1090,
+                      1093
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "mshrs_1.io.mem_acquire.valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "mshrs_1.io.mem_acquire.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "_mshrs_1_io_mem_acquire_ready_T",
+                        "statement_id": 1087
+                      }
+                    ]
+                  }
+                ]
+              },
+              "MemAcquire": {
+                "kind": "exact-parent-local-occurrence-condition",
+                "occurrence": "MemAcquire"
+              }
+            },
+            "parts": [
+              "BoomMSHRFile.mshrs_0::MemAcquire",
+              "BoomMSHRFile.mshrs_1::MemAcquire",
+              "BoomMSHRFile.mmios_0::MemAccess"
+            ],
+            "whole": "MemAcquire"
+          },
+          "prover": "composition-prover-0.4"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.mmios_0::MemAccess",
+          "BoomMSHRFile.mshrs_0::MemAcquire",
+          "BoomMSHRFile.mshrs_1::MemAcquire",
+          "MemAcquire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "MemAcquire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::MemAcquire, BoomMSHRFile.mshrs_1::MemAcquire, BoomMSHRFile.mmios_0::MemAccess})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::MemGrant",
+          "BoomMSHRFile.mshrs_1::MemGrant",
+          "MMIOGrantDelivery"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "MemGrant"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        162,
+        467,
+        476,
+        478,
+        787,
+        796,
+        798,
+        969,
+        970,
+        971,
+        972,
+        974
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "reason": "current formal backend has no certified composition rule for axioms spanning imported child \u00b5MCM objects",
+        "status": "NOT_RUN"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.mshrs_0::MemGrant",
+          "BoomMSHRFile.mshrs_1::MemGrant",
+          "MMIOGrantDelivery",
+          "MemGrant"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "MemGrant <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::MemGrant, BoomMSHRFile.mshrs_1::MemGrant, MMIOGrantDelivery})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": false,
+      "validation_level": "GROUNDED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::MemFinish",
+          "BoomMSHRFile.mshrs_1::MemFinish"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "MemFinish"
+      },
+      "axiom_id": "A5",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        1178,
+        1179,
+        1181,
+        1194,
+        1195,
+        1197,
+        1198,
+        1240,
+        1241,
+        1242,
+        1243,
+        1244,
+        1245,
+        1251,
+        1252
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "inductive_invariants": [
+              {
+                "indices": [
+                  0,
+                  1
+                ],
+                "induction": "reset is onehot0; common mux selects pairwise-exclusive winners or holds prior onehot0 state",
+                "kind": "exact-inductive-onehot0-register-invariant",
+                "register": "state_1",
+                "reset_proofs": [
+                  {
+                    "atom_count": 0,
+                    "index": 0,
+                    "reset_to_zero": true
+                  },
+                  {
+                    "atom_count": 0,
+                    "index": 1,
+                    "reset_to_zero": true
+                  }
+                ],
+                "reset_statement_id": 1237,
+                "update_proofs": [
+                  {
+                    "hold": "state_1[0]",
+                    "index": 0,
+                    "next": "mux(idle_1, winner_1[0], state_1[0])",
+                    "select": "idle_1",
+                    "winner": "winner_1[0]"
+                  },
+                  {
+                    "hold": "state_1[1]",
+                    "index": 1,
+                    "next": "mux(idle_1, winner_1[1], state_1[1])",
+                    "select": "idle_1",
+                    "winner": "winner_1[1]"
+                  }
+                ],
+                "update_select": "idle_1",
+                "winner_mutual_exclusion": [
+                  {
+                    "atom_count": 2,
+                    "indices": [
+                      0,
+                      1
+                    ]
+                  }
+                ]
+              }
+            ],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 6,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 6,
+                "kind": "part_without_whole",
+                "unsat": true
+              },
+              {
+                "atom_count": 6,
+                "kind": "parts_mutually_exclusive",
+                "parts": [
+                  "BoomMSHRFile.mshrs_0::MemFinish",
+                  "BoomMSHRFile.mshrs_1::MemFinish"
+                ],
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomMSHRFile.mshrs_0::MemFinish": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "mshrs_0.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      171
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.mshrs_0::io.mem_finish.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.mshrs_0::MemFinish",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      1181,
+                      1194,
+                      1215,
+                      1245,
+                      1246
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "mshrs_0.io.mem_finish.valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "mshrs_0.io.mem_finish.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "_mshrs_0_io_mem_finish_ready_T",
+                        "statement_id": 1242
+                      }
+                    ]
+                  }
+                ]
+              },
+              "BoomMSHRFile.mshrs_1::MemFinish": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "mshrs_1.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      491
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.mshrs_1::io.mem_finish.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.mshrs_1::MemFinish",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      1181,
+                      1195,
+                      1215,
+                      1245,
+                      1247
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "mshrs_1.io.mem_finish.valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "mshrs_1.io.mem_finish.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "_mshrs_1_io_mem_finish_ready_T",
+                        "statement_id": 1244
+                      }
+                    ]
+                  }
+                ]
+              },
+              "MemFinish": {
+                "kind": "exact-parent-local-occurrence-condition",
+                "occurrence": "MemFinish"
+              }
+            },
+            "parts": [
+              "BoomMSHRFile.mshrs_0::MemFinish",
+              "BoomMSHRFile.mshrs_1::MemFinish"
+            ],
+            "whole": "MemFinish"
+          },
+          "prover": "composition-prover-0.4"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.mshrs_0::MemFinish",
+          "BoomMSHRFile.mshrs_1::MemFinish",
+          "MemFinish"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "MemFinish <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::MemFinish, BoomMSHRFile.mshrs_1::MemFinish})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.meta_read_arb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "MetaRead"
+      },
+      "axiom_id": "A6",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        831,
+        832,
+        833
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomMSHRFile.meta_read_arb::OutputFire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "meta_read_arb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      143
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.meta_read_arb::io.out.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.meta_read_arb::OutputFire",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      832
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "meta_read_arb.io.out.valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "meta_read_arb.io.out.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "io.meta_read.ready",
+                        "statement_id": 833
+                      }
+                    ]
+                  }
+                ]
+              },
+              "MetaRead": {
+                "kind": "exact-parent-local-occurrence-condition",
+                "occurrence": "MetaRead"
+              }
+            },
+            "parts": [
+              "BoomMSHRFile.meta_read_arb::OutputFire"
+            ],
+            "whole": "MetaRead"
+          },
+          "prover": "composition-prover-0.4"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.meta_read_arb::OutputFire",
+          "MetaRead"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "MetaRead <=> exactly_one_same_cycle({BoomMSHRFile.meta_read_arb::OutputFire})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::MetaRead"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomMSHRFile.meta_read_arb::Input0Fire"
+      },
+      "axiom_id": "A7",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        454
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomMSHRFile.meta_read_arb::Input0Fire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "meta_read_arb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      143
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.meta_read_arb::io.in[0].fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.meta_read_arb::Input0Fire",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "meta_read_arb.io.in[0].valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "mshrs_0.io.meta_read.valid",
+                        "statement_id": 454
+                      }
+                    ]
+                  },
+                  {
+                    "dependency_statement_ids": [
+                      454
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "meta_read_arb.io.in[0].ready"
+                  }
+                ]
+              },
+              "BoomMSHRFile.mshrs_0::MetaRead": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "mshrs_0.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      171
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.mshrs_0::io.meta_read.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.mshrs_0::MetaRead",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      454
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "mshrs_0.io.meta_read.valid"
+                  },
+                  {
+                    "kind": "exact-directed-dependency-alias",
+                    "signal": "mshrs_0.io.meta_read.ready",
+                    "source": "meta_read_arb.io.in[0].ready",
+                    "statement_ids": [
+                      454
+                    ]
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomMSHRFile.mshrs_0::MetaRead"
+            ],
+            "whole": "BoomMSHRFile.meta_read_arb::Input0Fire"
+          },
+          "prover": "composition-prover-0.4"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.meta_read_arb::Input0Fire",
+          "BoomMSHRFile.mshrs_0::MetaRead"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHRFile.meta_read_arb::Input0Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::MetaRead})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mshrs_1::MetaRead"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomMSHRFile.meta_read_arb::Input1Fire"
+      },
+      "axiom_id": "A8",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        774
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomMSHRFile.meta_read_arb::Input1Fire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "meta_read_arb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      143
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.meta_read_arb::io.in[1].fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.meta_read_arb::Input1Fire",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "meta_read_arb.io.in[1].valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "mshrs_1.io.meta_read.valid",
+                        "statement_id": 774
+                      }
+                    ]
+                  },
+                  {
+                    "dependency_statement_ids": [
+                      774
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "meta_read_arb.io.in[1].ready"
+                  }
+                ]
+              },
+              "BoomMSHRFile.mshrs_1::MetaRead": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "mshrs_1.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      491
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.mshrs_1::io.meta_read.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.mshrs_1::MetaRead",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      774
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "mshrs_1.io.meta_read.valid"
+                  },
+                  {
+                    "kind": "exact-directed-dependency-alias",
+                    "signal": "mshrs_1.io.meta_read.ready",
+                    "source": "meta_read_arb.io.in[1].ready",
+                    "statement_ids": [
+                      774
+                    ]
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomMSHRFile.mshrs_1::MetaRead"
+            ],
+            "whole": "BoomMSHRFile.meta_read_arb::Input1Fire"
+          },
+          "prover": "composition-prover-0.4"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.meta_read_arb::Input1Fire",
+          "BoomMSHRFile.mshrs_1::MetaRead"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHRFile.meta_read_arb::Input1Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_1::MetaRead})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.meta_write_arb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "MetaWrite"
+      },
+      "axiom_id": "A9",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        828,
+        829,
+        830
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomMSHRFile.meta_write_arb::OutputFire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "meta_write_arb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      140
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.meta_write_arb::io.out.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.meta_write_arb::OutputFire",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      829
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "meta_write_arb.io.out.valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "meta_write_arb.io.out.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "io.meta_write.ready",
+                        "statement_id": 830
+                      }
+                    ]
+                  }
+                ]
+              },
+              "MetaWrite": {
+                "kind": "exact-parent-local-occurrence-condition",
+                "occurrence": "MetaWrite"
+              }
+            },
+            "parts": [
+              "BoomMSHRFile.meta_write_arb::OutputFire"
+            ],
+            "whole": "MetaWrite"
+          },
+          "prover": "composition-prover-0.4"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.meta_write_arb::OutputFire",
+          "MetaWrite"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "MetaWrite <=> exactly_one_same_cycle({BoomMSHRFile.meta_write_arb::OutputFire})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.wb_req_arb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "WBReq"
+      },
+      "axiom_id": "A10",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        834,
+        835,
+        836
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomMSHRFile.wb_req_arb::OutputFire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "wb_req_arb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      146
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.wb_req_arb::io.out.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.wb_req_arb::OutputFire",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      835
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "wb_req_arb.io.out.valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "wb_req_arb.io.out.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "io.wb_req.ready",
+                        "statement_id": 836
+                      }
+                    ]
+                  }
+                ]
+              },
+              "WBReq": {
+                "kind": "exact-parent-local-occurrence-condition",
+                "occurrence": "WBReq"
+              }
+            },
+            "parts": [
+              "BoomMSHRFile.wb_req_arb::OutputFire"
+            ],
+            "whole": "WBReq"
+          },
+          "prover": "composition-prover-0.4"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.wb_req_arb::OutputFire",
+          "WBReq"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "WBReq <=> exactly_one_same_cycle({BoomMSHRFile.wb_req_arb::OutputFire})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::WBReq"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomMSHRFile.wb_req_arb::Input0Fire"
+      },
+      "axiom_id": "A11",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        458
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomMSHRFile.mshrs_0::WBReq": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "mshrs_0.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      171
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.mshrs_0::io.wb_req.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.mshrs_0::WBReq",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      458
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "mshrs_0.io.wb_req.valid"
+                  },
+                  {
+                    "kind": "exact-directed-dependency-alias",
+                    "signal": "mshrs_0.io.wb_req.ready",
+                    "source": "wb_req_arb.io.in[0].ready",
+                    "statement_ids": [
+                      458
+                    ]
+                  }
+                ]
+              },
+              "BoomMSHRFile.wb_req_arb::Input0Fire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "wb_req_arb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      146
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.wb_req_arb::io.in[0].fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.wb_req_arb::Input0Fire",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "wb_req_arb.io.in[0].valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "mshrs_0.io.wb_req.valid",
+                        "statement_id": 458
+                      }
+                    ]
+                  },
+                  {
+                    "dependency_statement_ids": [
+                      458
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "wb_req_arb.io.in[0].ready"
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomMSHRFile.mshrs_0::WBReq"
+            ],
+            "whole": "BoomMSHRFile.wb_req_arb::Input0Fire"
+          },
+          "prover": "composition-prover-0.4"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.mshrs_0::WBReq",
+          "BoomMSHRFile.wb_req_arb::Input0Fire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHRFile.wb_req_arb::Input0Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::WBReq})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mshrs_1::WBReq"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomMSHRFile.wb_req_arb::Input1Fire"
+      },
+      "axiom_id": "A12",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        778
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomMSHRFile.mshrs_1::WBReq": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "mshrs_1.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      491
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.mshrs_1::io.wb_req.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.mshrs_1::WBReq",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      778
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "mshrs_1.io.wb_req.valid"
+                  },
+                  {
+                    "kind": "exact-directed-dependency-alias",
+                    "signal": "mshrs_1.io.wb_req.ready",
+                    "source": "wb_req_arb.io.in[1].ready",
+                    "statement_ids": [
+                      778
+                    ]
+                  }
+                ]
+              },
+              "BoomMSHRFile.wb_req_arb::Input1Fire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "wb_req_arb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      146
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.wb_req_arb::io.in[1].fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.wb_req_arb::Input1Fire",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "wb_req_arb.io.in[1].valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "mshrs_1.io.wb_req.valid",
+                        "statement_id": 778
+                      }
+                    ]
+                  },
+                  {
+                    "dependency_statement_ids": [
+                      778
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "wb_req_arb.io.in[1].ready"
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomMSHRFile.mshrs_1::WBReq"
+            ],
+            "whole": "BoomMSHRFile.wb_req_arb::Input1Fire"
+          },
+          "prover": "composition-prover-0.4"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.mshrs_1::WBReq",
+          "BoomMSHRFile.wb_req_arb::Input1Fire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHRFile.wb_req_arb::Input1Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_1::WBReq})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.refill_arb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "Refill"
+      },
+      "axiom_id": "A13",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        1402,
+        1403,
+        1404
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomMSHRFile.refill_arb::OutputFire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "refill_arb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      155
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.refill_arb::io.out.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.refill_arb::OutputFire",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      1403
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "refill_arb.io.out.valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "refill_arb.io.out.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "io.refill.ready",
+                        "statement_id": 1404
+                      }
+                    ]
+                  }
+                ]
+              },
+              "Refill": {
+                "kind": "exact-parent-local-occurrence-condition",
+                "occurrence": "Refill"
+              }
+            },
+            "parts": [
+              "BoomMSHRFile.refill_arb::OutputFire"
+            ],
+            "whole": "Refill"
+          },
+          "prover": "composition-prover-0.4"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.refill_arb::OutputFire",
+          "Refill"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "Refill <=> exactly_one_same_cycle({BoomMSHRFile.refill_arb::OutputFire})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::CommitRefillBeat"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomMSHRFile.refill_arb::Input0Fire"
+      },
+      "axiom_id": "A14",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        460
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomMSHRFile.mshrs_0::CommitRefillBeat": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "mshrs_0.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      171
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.mshrs_0::io.refill.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.mshrs_0::CommitRefillBeat",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      460
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "mshrs_0.io.refill.valid"
+                  },
+                  {
+                    "kind": "exact-directed-dependency-alias",
+                    "signal": "mshrs_0.io.refill.ready",
+                    "source": "refill_arb.io.in[0].ready",
+                    "statement_ids": [
+                      460
+                    ]
+                  }
+                ]
+              },
+              "BoomMSHRFile.refill_arb::Input0Fire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "refill_arb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      155
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.refill_arb::io.in[0].fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.refill_arb::Input0Fire",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "refill_arb.io.in[0].valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "mshrs_0.io.refill.valid",
+                        "statement_id": 460
+                      }
+                    ]
+                  },
+                  {
+                    "dependency_statement_ids": [
+                      460
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "refill_arb.io.in[0].ready"
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomMSHRFile.mshrs_0::CommitRefillBeat"
+            ],
+            "whole": "BoomMSHRFile.refill_arb::Input0Fire"
+          },
+          "prover": "composition-prover-0.4"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.mshrs_0::CommitRefillBeat",
+          "BoomMSHRFile.refill_arb::Input0Fire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHRFile.refill_arb::Input0Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::CommitRefillBeat})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mshrs_1::CommitRefillBeat"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomMSHRFile.refill_arb::Input1Fire"
+      },
+      "axiom_id": "A15",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        780
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomMSHRFile.mshrs_1::CommitRefillBeat": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "mshrs_1.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      491
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.mshrs_1::io.refill.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.mshrs_1::CommitRefillBeat",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      780
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "mshrs_1.io.refill.valid"
+                  },
+                  {
+                    "kind": "exact-directed-dependency-alias",
+                    "signal": "mshrs_1.io.refill.ready",
+                    "source": "refill_arb.io.in[1].ready",
+                    "statement_ids": [
+                      780
+                    ]
+                  }
+                ]
+              },
+              "BoomMSHRFile.refill_arb::Input1Fire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "refill_arb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      155
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.refill_arb::io.in[1].fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.refill_arb::Input1Fire",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "refill_arb.io.in[1].valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "mshrs_1.io.refill.valid",
+                        "statement_id": 780
+                      }
+                    ]
+                  },
+                  {
+                    "dependency_statement_ids": [
+                      780
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "refill_arb.io.in[1].ready"
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomMSHRFile.mshrs_1::CommitRefillBeat"
+            ],
+            "whole": "BoomMSHRFile.refill_arb::Input1Fire"
+          },
+          "prover": "composition-prover-0.4"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.mshrs_1::CommitRefillBeat",
+          "BoomMSHRFile.refill_arb::Input1Fire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHRFile.refill_arb::Input1Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_1::CommitRefillBeat})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.replay_arb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "Replay"
+      },
+      "axiom_id": "A16",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        1430,
+        1431,
+        1432
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomMSHRFile.replay_arb::OutputFire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "replay_arb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      149
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.replay_arb::io.out.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.replay_arb::OutputFire",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      1431
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "replay_arb.io.out.valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "replay_arb.io.out.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "io.replay.ready",
+                        "statement_id": 1432
+                      }
+                    ]
+                  }
+                ]
+              },
+              "Replay": {
+                "kind": "exact-parent-local-occurrence-condition",
+                "occurrence": "Replay"
+              }
+            },
+            "parts": [
+              "BoomMSHRFile.replay_arb::OutputFire"
+            ],
+            "whole": "Replay"
+          },
+          "prover": "composition-prover-0.4"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.replay_arb::OutputFire",
+          "Replay"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "Replay <=> exactly_one_same_cycle({BoomMSHRFile.replay_arb::OutputFire})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::ReplayHandshake"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomMSHRFile.replay_arb::Input0Fire"
+      },
+      "axiom_id": "A17",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        459
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomMSHRFile.mshrs_0::ReplayHandshake": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "mshrs_0.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      171
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.mshrs_0::io.replay.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.mshrs_0::ReplayHandshake",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      459
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "mshrs_0.io.replay.valid"
+                  },
+                  {
+                    "kind": "exact-directed-dependency-alias",
+                    "signal": "mshrs_0.io.replay.ready",
+                    "source": "replay_arb.io.in[0].ready",
+                    "statement_ids": [
+                      459
+                    ]
+                  }
+                ]
+              },
+              "BoomMSHRFile.replay_arb::Input0Fire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "replay_arb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      149
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.replay_arb::io.in[0].fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.replay_arb::Input0Fire",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "replay_arb.io.in[0].valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "mshrs_0.io.replay.valid",
+                        "statement_id": 459
+                      }
+                    ]
+                  },
+                  {
+                    "dependency_statement_ids": [
+                      459
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "replay_arb.io.in[0].ready"
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomMSHRFile.mshrs_0::ReplayHandshake"
+            ],
+            "whole": "BoomMSHRFile.replay_arb::Input0Fire"
+          },
+          "prover": "composition-prover-0.4"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.mshrs_0::ReplayHandshake",
+          "BoomMSHRFile.replay_arb::Input0Fire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHRFile.replay_arb::Input0Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::ReplayHandshake})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mshrs_1::ReplayHandshake"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomMSHRFile.replay_arb::Input1Fire"
+      },
+      "axiom_id": "A18",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        779
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomMSHRFile.mshrs_1::ReplayHandshake": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "mshrs_1.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      491
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.mshrs_1::io.replay.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.mshrs_1::ReplayHandshake",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      779
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "mshrs_1.io.replay.valid"
+                  },
+                  {
+                    "kind": "exact-directed-dependency-alias",
+                    "signal": "mshrs_1.io.replay.ready",
+                    "source": "replay_arb.io.in[1].ready",
+                    "statement_ids": [
+                      779
+                    ]
+                  }
+                ]
+              },
+              "BoomMSHRFile.replay_arb::Input1Fire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "replay_arb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      149
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.replay_arb::io.in[1].fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.replay_arb::Input1Fire",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "replay_arb.io.in[1].valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "mshrs_1.io.replay.valid",
+                        "statement_id": 779
+                      }
+                    ]
+                  },
+                  {
+                    "dependency_statement_ids": [
+                      779
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "replay_arb.io.in[1].ready"
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomMSHRFile.mshrs_1::ReplayHandshake"
+            ],
+            "whole": "BoomMSHRFile.replay_arb::Input1Fire"
+          },
+          "prover": "composition-prover-0.4"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.mshrs_1::ReplayHandshake",
+          "BoomMSHRFile.replay_arb::Input1Fire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHRFile.replay_arb::Input1Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_1::ReplayHandshake})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::RespHandshake"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomMSHRFile.resp_arb::Input0Fire"
+      },
+      "axiom_id": "A19",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        481
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomMSHRFile.mshrs_0::RespHandshake": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "mshrs_0.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      171
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.mshrs_0::io.resp.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.mshrs_0::RespHandshake",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      481
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "mshrs_0.io.resp.valid"
+                  },
+                  {
+                    "kind": "exact-directed-dependency-alias",
+                    "signal": "mshrs_0.io.resp.ready",
+                    "source": "resp_arb.io.in[0].ready",
+                    "statement_ids": [
+                      481
+                    ]
+                  }
+                ]
+              },
+              "BoomMSHRFile.resp_arb::Input0Fire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "resp_arb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      152
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.resp_arb::io.in[0].fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.resp_arb::Input0Fire",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "resp_arb.io.in[0].valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "mshrs_0.io.resp.valid",
+                        "statement_id": 481
+                      }
+                    ]
+                  },
+                  {
+                    "dependency_statement_ids": [
+                      481
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "resp_arb.io.in[0].ready"
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomMSHRFile.mshrs_0::RespHandshake"
+            ],
+            "whole": "BoomMSHRFile.resp_arb::Input0Fire"
+          },
+          "prover": "composition-prover-0.4"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.mshrs_0::RespHandshake",
+          "BoomMSHRFile.resp_arb::Input0Fire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHRFile.resp_arb::Input0Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::RespHandshake})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mshrs_1::RespHandshake"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomMSHRFile.resp_arb::Input1Fire"
+      },
+      "axiom_id": "A20",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        801
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomMSHRFile.mshrs_1::RespHandshake": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "mshrs_1.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      491
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.mshrs_1::io.resp.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.mshrs_1::RespHandshake",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      801
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "mshrs_1.io.resp.valid"
+                  },
+                  {
+                    "kind": "exact-directed-dependency-alias",
+                    "signal": "mshrs_1.io.resp.ready",
+                    "source": "resp_arb.io.in[1].ready",
+                    "statement_ids": [
+                      801
+                    ]
+                  }
+                ]
+              },
+              "BoomMSHRFile.resp_arb::Input1Fire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "resp_arb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      152
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.resp_arb::io.in[1].fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.resp_arb::Input1Fire",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "resp_arb.io.in[1].valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "mshrs_1.io.resp.valid",
+                        "statement_id": 801
+                      }
+                    ]
+                  },
+                  {
+                    "dependency_statement_ids": [
+                      801
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "resp_arb.io.in[1].ready"
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomMSHRFile.mshrs_1::RespHandshake"
+            ],
+            "whole": "BoomMSHRFile.resp_arb::Input1Fire"
+          },
+          "prover": "composition-prover-0.4"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.mshrs_1::RespHandshake",
+          "BoomMSHRFile.resp_arb::Input1Fire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHRFile.resp_arb::Input1Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_1::RespHandshake})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mmios_0::RespHandshake"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomMSHRFile.resp_arb::Input2Fire"
+      },
+      "axiom_id": "A21",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        975
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomMSHRFile.mmios_0::RespHandshake": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "mmios_0.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      841
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.mmios_0::io.resp.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.mmios_0::RespHandshake",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      975
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "mmios_0.io.resp.valid"
+                  },
+                  {
+                    "kind": "exact-directed-dependency-alias",
+                    "signal": "mmios_0.io.resp.ready",
+                    "source": "resp_arb.io.in[2].ready",
+                    "statement_ids": [
+                      975
+                    ]
+                  }
+                ]
+              },
+              "BoomMSHRFile.resp_arb::Input2Fire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "resp_arb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      152
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.resp_arb::io.in[2].fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.resp_arb::Input2Fire",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "resp_arb.io.in[2].valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "mmios_0.io.resp.valid",
+                        "statement_id": 975
+                      }
+                    ]
+                  },
+                  {
+                    "dependency_statement_ids": [
+                      975
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "resp_arb.io.in[2].ready"
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomMSHRFile.mmios_0::RespHandshake"
+            ],
+            "whole": "BoomMSHRFile.resp_arb::Input2Fire"
+          },
+          "prover": "composition-prover-0.4"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.mmios_0::RespHandshake",
+          "BoomMSHRFile.resp_arb::Input2Fire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHRFile.resp_arb::Input2Fire <=> exactly_one_same_cycle({BoomMSHRFile.mmios_0::RespHandshake})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.resp_arb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomMSHRFile.respq::EnqHandshake"
+      },
+      "axiom_id": "A22",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        1384
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomMSHRFile.resp_arb::OutputFire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "resp_arb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      152
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.resp_arb::io.out.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.resp_arb::OutputFire",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      1384
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "resp_arb.io.out.valid"
+                  },
+                  {
+                    "kind": "exact-directed-dependency-alias",
+                    "signal": "resp_arb.io.out.ready",
+                    "source": "respq.io.enq.ready",
+                    "statement_ids": [
+                      1384
+                    ]
+                  }
+                ]
+              },
+              "BoomMSHRFile.respq::EnqHandshake": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "respq.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      1262
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.respq::io.enq.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.respq::EnqHandshake",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "respq.io.enq.valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "resp_arb.io.out.valid",
+                        "statement_id": 1384
+                      }
+                    ]
+                  },
+                  {
+                    "dependency_statement_ids": [
+                      1384
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "respq.io.enq.ready"
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomMSHRFile.resp_arb::OutputFire"
+            ],
+            "whole": "BoomMSHRFile.respq::EnqHandshake"
+          },
+          "prover": "composition-prover-0.4"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.resp_arb::OutputFire",
+          "BoomMSHRFile.respq::EnqHandshake"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHRFile.respq::EnqHandshake <=> exactly_one_same_cycle({BoomMSHRFile.resp_arb::OutputFire})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.respq::DeqHandshake"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "RespHandshake"
+      },
+      "axiom_id": "A23",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        1385,
+        1386,
+        1387
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomMSHRFile.respq::DeqHandshake": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "respq.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      1262
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHRFile.respq::io.deq.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomMSHRFile.respq::DeqHandshake",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      1386
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "respq.io.deq.valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "respq.io.deq.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "io.resp.ready",
+                        "statement_id": 1387
+                      }
+                    ]
+                  }
+                ]
+              },
+              "RespHandshake": {
+                "kind": "exact-parent-local-occurrence-condition",
+                "occurrence": "RespHandshake"
+              }
+            },
+            "parts": [
+              "BoomMSHRFile.respq::DeqHandshake"
+            ],
+            "whole": "RespHandshake"
+          },
+          "prover": "composition-prover-0.4"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.respq::DeqHandshake",
+          "RespHandshake"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "RespHandshake <=> exactly_one_same_cycle({BoomMSHRFile.respq::DeqHandshake})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "after": "RespHandshake",
+        "before": "BoomMSHRFile.respq::QueueInsert"
+      },
+      "axiom_id": "A24",
+      "axiom_kind": "ordering",
+      "checker": "history_order",
+      "evidence_statement_ids": [
+        1385,
+        1386,
+        1387
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "history_theorem": {
+            "axiom_id": "A9",
+            "frozen_umcm_sha256": "6f01d0616ea8992148f6cb0621a7612f3fe58310106c18fcad7192309e277174",
+            "kind": "frozen-theorem",
+            "work_unit_id": "BoomMSHRFile.respq"
+          },
+          "index_projection": {
+            "domain": {
+              "end_exclusive": 4,
+              "start": 0
+            },
+            "from": "same-index history",
+            "index_name": "slot",
+            "kind": "safe-existential-index-weakening",
+            "to": "unindexed occurrence history"
+          },
+          "occurrence_bridge": {
+            "boundary": {
+              "clock": {
+                "child_clock": "respq.clock",
+                "parent_clock": "clock",
+                "statement_ids": [
+                  1262
+                ]
+              },
+              "physical_event_id": "BoomMSHRFile.respq::io.deq.fire"
+            },
+            "kind": "exact-occurrence-bridge",
+            "local_rtl_only": true,
+            "relation": "occurrence-inclusion",
+            "signal_proofs": [
+              {
+                "kind": "frontier-input",
+                "signal": "respq.io.deq.valid"
+              },
+              {
+                "kind": "exact-priority-writer-cone",
+                "signal": "respq.io.deq.ready",
+                "writers": [
+                  {
+                    "activation": {
+                      "control_signals": [],
+                      "kind": "unconditional"
+                    },
+                    "rhs": "io.resp.ready",
+                    "statement_id": 1387
+                  }
+                ]
+              }
+            ],
+            "subset": "RespHandshake",
+            "superset": "BoomMSHRFile.respq::DeqHandshake"
+          },
+          "prover": "composition-prover-0.4"
+        },
+        "proof": "trusted history theorem restricted to an exact parent-local subset of its after occurrence",
+        "proof_method": "trusted-history-after-restriction",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "emergent",
+          "proof_method": "trusted-history-after-restriction",
+          "source_axioms": [
+            "BoomMSHRFile.respq::A9"
+          ]
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.respq::QueueInsert",
+          "RespHandshake"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHRFile.respq::QueueInsert <mu RespHandshake",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 0,
+        "signal": "io.prefetch.valid"
+      },
+      "axiom_id": "A25",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        12
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "prover": "composition-prover-0.4",
+          "value_lift": {
+            "child_rtl_reopened": false,
+            "kind": "trusted-child-value-lift",
+            "signal_bridge": {
+              "child_frontier_signal": "prefetcher.io.prefetch.valid",
+              "kind": "exact-parent-local-signal-alias",
+              "normal_form": "('ref', 'prefetcher.io.prefetch.valid')",
+              "target_signal": "io.prefetch.valid"
+            },
+            "source_theorem": {
+              "axiom_id": "A1",
+              "frozen_umcm_sha256": "d406a1ba99491ffb3942ef1d38e092640acb24becf34c54db0d8240f50fe3ac0",
+              "kind": "frozen-theorem",
+              "work_unit_id": "BoomMSHRFile.prefetcher"
+            }
+          }
+        },
+        "proof": "trusted child value constraint lifted through an exact parent-local signal alias",
+        "proof_method": "trusted-child-value-lift",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "lifted",
+          "proof_method": "trusted-child-value-lift",
+          "source_axioms": [
+            "BoomMSHRFile.prefetcher::A1"
+          ]
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [],
+        "predicates": [],
+        "signals": [
+          "io.prefetch.valid"
+        ]
+      },
+      "rendered_formula": "bits(io.prefetch.valid, 0, 0) == 0",
+      "structural": {
+        "reason": "could not constant-propagate io.prefetch.valid",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    }
+  ],
+  "trusted_axiom_count": 23,
+  "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
+  "validator": "semantic-validator-0.14",
+  "work_unit_id": "BoomMSHRFile"
+}

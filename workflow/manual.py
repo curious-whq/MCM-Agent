@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import json
 from pathlib import Path
+import re
 from typing import Any
 
 from .schema import UMCM_SCHEMA_VERSION, parse_candidate_response
@@ -14,6 +15,38 @@ from .research_memory import initialize_experience, write_run_summary
 PENDING = "PENDING_MANUAL_LLM"
 GROUNDING_VALID = "GROUNDING_VALID"
 REFINEMENT_NEEDED = "REFINEMENT_NEEDED"
+
+
+_INDEX_REF_RE = re.compile(r"\[([^\]]+)\]")
+_SIMPLE_INDEX_RE = re.compile(
+    r"^[A-Za-z_][A-Za-z0-9_.$]*(?:\.[A-Za-z_][A-Za-z0-9_$]*)*$"
+)
+
+
+def _is_allowed_signal_reference(signal: str, allowed_signals: set[str]) -> bool:
+    """Accept exact signals and grounded dynamic selections of compacted arrays.
+
+    The frontend deliberately compacts a read such as ``valids[deq_ptr]`` to
+    ``valids[*]`` in dependency summaries.  A candidate may retain the exact
+    FIRRTL selection only when the wildcarded array path and every symbolic
+    index are independently present in the WorkUnit grounding universe.
+    """
+
+    if signal in allowed_signals:
+        return True
+    indices = _INDEX_REF_RE.findall(signal)
+    if not indices:
+        return False
+    wildcard = _INDEX_REF_RE.sub("[*]", signal)
+    if wildcard not in allowed_signals:
+        return False
+    for index in indices:
+        text = index.strip()
+        if text.isdigit():
+            continue
+        if not _SIMPLE_INDEX_RE.fullmatch(text) or text not in allowed_signals:
+            return False
+    return True
 
 
 @dataclass(frozen=True)
@@ -165,6 +198,20 @@ def validate_candidate_grounding(
     allowed_signals = {
         entry["id"] for entry in handoff.get("frontier", []) if isinstance(entry, dict)
     }
+    # Physical boundary events are authoritative grounding objects. Their
+    # valid/ready and leaf payload paths remain legal even when logical FIRRTL
+    # compaction records an aggregate read such as ``io.in[0].bits``.
+    for event in handoff.get("events", []):
+        if not isinstance(event, dict):
+            continue
+        allowed_signals.update(
+            signal
+            for signal in (event.get("valid"), event.get("ready"))
+            if isinstance(signal, str)
+        )
+        allowed_signals.update(
+            signal for signal in event.get("payload", []) if isinstance(signal, str)
+        )
     for statement in handoff.get("statements", []):
         if not isinstance(statement, dict):
             continue
@@ -223,7 +270,7 @@ def validate_candidate_grounding(
                 errors.extend(shape_errors)
                 if not shape_errors:
                     for signal in sorted(expr_signals(expr)):
-                        if signal not in allowed_signals:
+                        if not _is_allowed_signal_reference(signal, allowed_signals):
                             errors.append(f"occurrence {occurrence.get('id')!r} index references unknown signal {signal!r}")
                 domain = index.get("domain")
                 if isinstance(domain, dict):
@@ -269,7 +316,7 @@ def validate_candidate_grounding(
                     f"occurrence {occurrence_id!r} references unknown state register {state_register!r}"
                 )
             for signal in grounding.get("signals_true", []) + grounding.get("signals_false", []):
-                if signal not in allowed_signals:
+                if not _is_allowed_signal_reference(signal, allowed_signals):
                     errors.append(
                         f"occurrence {occurrence_id!r} references unknown signal {signal!r}"
                     )
@@ -285,7 +332,7 @@ def validate_candidate_grounding(
             continue
         source_signal = grounding.get("source_signal")
         state_register = grounding.get("state_register")
-        if source_signal is not None and source_signal not in allowed_signals:
+        if source_signal is not None and not _is_allowed_signal_reference(source_signal, allowed_signals):
             errors.append(
                 f"predicate {predicate_id!r} references unknown source signal {source_signal!r}"
             )
@@ -432,7 +479,7 @@ def validate_candidate_grounding(
             if ref not in identity_ids:
                 errors.append(f"axiom {axiom_id!r} references undefined identity {ref!r}")
         for signal in refs.get("signals", []):
-            if signal not in allowed_signals:
+            if not _is_allowed_signal_reference(signal, allowed_signals):
                 errors.append(f"axiom {axiom_id!r} references unknown signal {signal!r}")
 
         scope_index = formal.get("scope_index")

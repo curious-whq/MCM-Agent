@@ -1,0 +1,98 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        3
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.prefetch.valid",
+            "op": "signal"
+          }
+        },
+        "on": null,
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "id": "A1",
+      "rendered_formula": "bits(io.prefetch.valid, 0, 0) == 0",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        3
+      ],
+      "formal": {
+        "occurrence": "PrefetchHandshake",
+        "predicate": "PrefetchDisabled",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A2",
+      "rendered_formula": "PrefetchDisabled => !PrefetchHandshake",
+      "status": "candidate"
+    }
+  ],
+  "cases": [],
+  "freeze": {
+    "candidate_axiom_count": 2,
+    "policy": "all-declared-axioms-trusted-and-no-unresolved-v0.1",
+    "reopen_policy": "This summary may be reopened if later parent/system counterexample validation shows the abstraction is too weak and a missing concrete constraint must be synthesized.",
+    "status": "FROZEN_FOR_COMPOSITION",
+    "trusted_axiom_count": 2
+  },
+  "identity_keys": [],
+  "note": "Only axioms with FORMALLY_PROVED or SPEC_PROVED validation level are included. Grounded/structurally-supported candidate axioms remain outside the trusted abstraction.",
+  "occurrences": [
+    {
+      "definition": "io.prefetch.valid && io.prefetch.ready",
+      "evidence_statement_ids": [
+        3
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "PrefetchHandshake",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHRFile.prefetcher::io.prefetch.fire"
+      ]
+    }
+  ],
+  "predicates": [
+    {
+      "definition": "io.prefetch.valid == 0",
+      "evidence_statement_ids": [
+        3
+      ],
+      "grounding": {
+        "negated": true,
+        "source_signal": "io.prefetch.valid",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "PrefetchDisabled"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-BoomMSHRFile.prefetcher-974790994b1992ac",
+  "trust_policy": "formal-ast-plus-certified-provenance-v0.3",
+  "trusted_axiom_ids": [
+    "A1",
+    "A2"
+  ],
+  "work_unit_id": "BoomMSHRFile.prefetcher"
+}

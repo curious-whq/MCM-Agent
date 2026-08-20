@@ -1,0 +1,4022 @@
+{
+  "children": [],
+  "complexity": {
+    "event_state_coupling": 0.0,
+    "events": 1,
+    "logical": {
+      "dependency_edges": 1,
+      "signals": 12,
+      "source_loc": 4,
+      "statements": 4
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 1,
+      "signals": 124,
+      "source_loc": 4,
+      "statements": 118,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 0,
+    "state_regions": 0
+  },
+  "dependency_edges": [
+    {
+      "dst": "io.prefetch.valid",
+      "kind": "data",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 41,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 41:21"
+      },
+      "src": "h0",
+      "statement_ids": [
+        3
+      ]
+    }
+  ],
+  "events": [
+    {
+      "channel": "io.prefetch",
+      "direction": "send",
+      "id": "BoomMSHRFile.prefetcher::io.prefetch.fire",
+      "payload": [
+        "io.prefetch.bits.addr",
+        "io.prefetch.bits.data",
+        "io.prefetch.bits.is_hella",
+        "io.prefetch.bits.uop.bp_debug_if",
+        "io.prefetch.bits.uop.bp_xcpt_if",
+        "io.prefetch.bits.uop.br_mask",
+        "io.prefetch.bits.uop.br_tag",
+        "io.prefetch.bits.uop.br_type",
+        "io.prefetch.bits.uop.csr_cmd",
+        "io.prefetch.bits.uop.debug_fsrc",
+        "io.prefetch.bits.uop.debug_inst",
+        "io.prefetch.bits.uop.debug_pc",
+        "io.prefetch.bits.uop.debug_tsrc",
+        "io.prefetch.bits.uop.dis_col_sel",
+        "io.prefetch.bits.uop.dst_rtype",
+        "io.prefetch.bits.uop.edge_inst",
+        "io.prefetch.bits.uop.exc_cause",
+        "io.prefetch.bits.uop.exception",
+        "io.prefetch.bits.uop.fcn_dw",
+        "io.prefetch.bits.uop.fcn_op",
+        "io.prefetch.bits.uop.flush_on_commit",
+        "io.prefetch.bits.uop.fp_ctrl.div",
+        "io.prefetch.bits.uop.fp_ctrl.fastpipe",
+        "io.prefetch.bits.uop.fp_ctrl.fma",
+        "io.prefetch.bits.uop.fp_ctrl.fromint",
+        "io.prefetch.bits.uop.fp_ctrl.ldst",
+        "io.prefetch.bits.uop.fp_ctrl.ren1",
+        "io.prefetch.bits.uop.fp_ctrl.ren2",
+        "io.prefetch.bits.uop.fp_ctrl.ren3",
+        "io.prefetch.bits.uop.fp_ctrl.sqrt",
+        "io.prefetch.bits.uop.fp_ctrl.swap12",
+        "io.prefetch.bits.uop.fp_ctrl.swap23",
+        "io.prefetch.bits.uop.fp_ctrl.toint",
+        "io.prefetch.bits.uop.fp_ctrl.typeTagIn",
+        "io.prefetch.bits.uop.fp_ctrl.typeTagOut",
+        "io.prefetch.bits.uop.fp_ctrl.vec",
+        "io.prefetch.bits.uop.fp_ctrl.wen",
+        "io.prefetch.bits.uop.fp_ctrl.wflags",
+        "io.prefetch.bits.uop.fp_rm",
+        "io.prefetch.bits.uop.fp_typ",
+        "io.prefetch.bits.uop.fp_val",
+        "io.prefetch.bits.uop.frs3_en",
+        "io.prefetch.bits.uop.ftq_idx",
+        "io.prefetch.bits.uop.fu_code[0]",
+        "io.prefetch.bits.uop.fu_code[1]",
+        "io.prefetch.bits.uop.fu_code[2]",
+        "io.prefetch.bits.uop.fu_code[3]",
+        "io.prefetch.bits.uop.fu_code[4]",
+        "io.prefetch.bits.uop.fu_code[5]",
+        "io.prefetch.bits.uop.fu_code[6]",
+        "io.prefetch.bits.uop.fu_code[7]",
+        "io.prefetch.bits.uop.fu_code[8]",
+        "io.prefetch.bits.uop.fu_code[9]",
+        "io.prefetch.bits.uop.imm_packed",
+        "io.prefetch.bits.uop.imm_rename",
+        "io.prefetch.bits.uop.imm_sel",
+        "io.prefetch.bits.uop.inst",
+        "io.prefetch.bits.uop.iq_type[0]",
+        "io.prefetch.bits.uop.iq_type[1]",
+        "io.prefetch.bits.uop.iq_type[2]",
+        "io.prefetch.bits.uop.iq_type[3]",
+        "io.prefetch.bits.uop.is_amo",
+        "io.prefetch.bits.uop.is_eret",
+        "io.prefetch.bits.uop.is_fence",
+        "io.prefetch.bits.uop.is_fencei",
+        "io.prefetch.bits.uop.is_mov",
+        "io.prefetch.bits.uop.is_rocc",
+        "io.prefetch.bits.uop.is_rvc",
+        "io.prefetch.bits.uop.is_sfb",
+        "io.prefetch.bits.uop.is_sfence",
+        "io.prefetch.bits.uop.is_sys_pc2epc",
+        "io.prefetch.bits.uop.is_unique",
+        "io.prefetch.bits.uop.iw_issued",
+        "io.prefetch.bits.uop.iw_issued_partial_agen",
+        "io.prefetch.bits.uop.iw_issued_partial_dgen",
+        "io.prefetch.bits.uop.iw_p1_bypass_hint",
+        "io.prefetch.bits.uop.iw_p1_speculative_child",
+        "io.prefetch.bits.uop.iw_p2_bypass_hint",
+        "io.prefetch.bits.uop.iw_p2_speculative_child",
+        "io.prefetch.bits.uop.iw_p3_bypass_hint",
+        "io.prefetch.bits.uop.ldq_idx",
+        "io.prefetch.bits.uop.ldst",
+        "io.prefetch.bits.uop.ldst_is_rs1",
+        "io.prefetch.bits.uop.lrs1",
+        "io.prefetch.bits.uop.lrs1_rtype",
+        "io.prefetch.bits.uop.lrs2",
+        "io.prefetch.bits.uop.lrs2_rtype",
+        "io.prefetch.bits.uop.lrs3",
+        "io.prefetch.bits.uop.mem_cmd",
+        "io.prefetch.bits.uop.mem_signed",
+        "io.prefetch.bits.uop.mem_size",
+        "io.prefetch.bits.uop.op1_sel",
+        "io.prefetch.bits.uop.op2_sel",
+        "io.prefetch.bits.uop.pc_lob",
+        "io.prefetch.bits.uop.pdst",
+        "io.prefetch.bits.uop.pimm",
+        "io.prefetch.bits.uop.ppred",
+        "io.prefetch.bits.uop.ppred_busy",
+        "io.prefetch.bits.uop.prs1",
+        "io.prefetch.bits.uop.prs1_busy",
+        "io.prefetch.bits.uop.prs2",
+        "io.prefetch.bits.uop.prs2_busy",
+        "io.prefetch.bits.uop.prs3",
+        "io.prefetch.bits.uop.prs3_busy",
+        "io.prefetch.bits.uop.rob_idx",
+        "io.prefetch.bits.uop.rxq_idx",
+        "io.prefetch.bits.uop.stale_pdst",
+        "io.prefetch.bits.uop.stq_idx",
+        "io.prefetch.bits.uop.taken",
+        "io.prefetch.bits.uop.uses_ldq",
+        "io.prefetch.bits.uop.uses_stq",
+        "io.prefetch.bits.uop.xcpt_ae_if",
+        "io.prefetch.bits.uop.xcpt_ma_if",
+        "io.prefetch.bits.uop.xcpt_pf_if"
+      ],
+      "predicate": "io.prefetch.valid && io.prefetch.ready",
+      "protocol": "decoupled",
+      "ready": "io.prefetch.ready",
+      "registry_id": "NullPrefetcher.io.prefetch.fire",
+      "sources": [
+        {
+          "column": 14,
+          "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+          "line": 26,
+          "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+        }
+      ],
+      "valid": "io.prefetch.valid"
+    }
+  ],
+  "frontier": [
+    {
+      "id": "io.prefetch.bits.addr",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.data",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.is_hella",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.bp_debug_if",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.bp_xcpt_if",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.br_mask",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.br_tag",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.br_type",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.csr_cmd",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.debug_fsrc",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.debug_inst",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.debug_pc",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.debug_tsrc",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.dis_col_sel",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.dst_rtype",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.edge_inst",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.exc_cause",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.exception",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fcn_dw",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fcn_op",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.flush_on_commit",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fp_ctrl.div",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fp_ctrl.fastpipe",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fp_ctrl.fma",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fp_ctrl.fromint",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fp_ctrl.ldst",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fp_ctrl.ren1",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fp_ctrl.ren2",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fp_ctrl.ren3",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fp_ctrl.sqrt",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fp_ctrl.swap12",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fp_ctrl.swap23",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fp_ctrl.toint",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fp_ctrl.typeTagIn",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fp_ctrl.typeTagOut",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fp_ctrl.vec",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fp_ctrl.wen",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fp_ctrl.wflags",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fp_rm",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fp_typ",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fp_val",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.frs3_en",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.ftq_idx",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fu_code[0]",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fu_code[1]",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fu_code[2]",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fu_code[3]",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fu_code[4]",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fu_code[5]",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fu_code[6]",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fu_code[7]",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fu_code[8]",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.fu_code[9]",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.imm_packed",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.imm_rename",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.imm_sel",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.inst",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.iq_type[0]",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.iq_type[1]",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.iq_type[2]",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.iq_type[3]",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.is_amo",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.is_eret",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.is_fence",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.is_fencei",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.is_mov",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.is_rocc",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.is_rvc",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.is_sfb",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.is_sfence",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.is_sys_pc2epc",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.is_unique",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.iw_issued",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.iw_issued_partial_agen",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.iw_issued_partial_dgen",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.iw_p1_bypass_hint",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.iw_p1_speculative_child",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.iw_p2_bypass_hint",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.iw_p2_speculative_child",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.iw_p3_bypass_hint",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.ldq_idx",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.ldst",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.ldst_is_rs1",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.lrs1",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.lrs1_rtype",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.lrs2",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.lrs2_rtype",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.lrs3",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.mem_cmd",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.mem_signed",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.mem_size",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.op1_sel",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.op2_sel",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.pc_lob",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.pdst",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.pimm",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.ppred",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.ppred_busy",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.prs1",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.prs1_busy",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.prs2",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.prs2_busy",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.prs3",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.prs3_busy",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.rob_idx",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.rxq_idx",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.stale_pdst",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.stq_idx",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.taken",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.uses_ldq",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.uses_stq",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.xcpt_ae_if",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.xcpt_ma_if",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.bits.uop.xcpt_pf_if",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.prefetch.valid",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "type": null
+    }
+  ],
+  "grounding": {
+    "allowed_physical_event_ids": [
+      "BoomMSHRFile.prefetcher::io.prefetch.fire"
+    ],
+    "allowed_state_ids": [],
+    "allowed_statement_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117
+    ],
+    "semantic_labels": []
+  },
+  "memory_state": [],
+  "parent_connection_signals": [
+    "prefetcher.clock",
+    "prefetcher.io",
+    "prefetcher.io.mshr_avail",
+    "prefetcher.io.prefetch.bits.addr",
+    "prefetcher.io.prefetch.bits.data",
+    "prefetcher.io.prefetch.bits.is_hella",
+    "prefetcher.io.prefetch.bits.uop.bp_debug_if",
+    "prefetcher.io.prefetch.bits.uop.bp_xcpt_if",
+    "prefetcher.io.prefetch.bits.uop.br_mask",
+    "prefetcher.io.prefetch.bits.uop.br_tag",
+    "prefetcher.io.prefetch.bits.uop.br_type",
+    "prefetcher.io.prefetch.bits.uop.csr_cmd",
+    "prefetcher.io.prefetch.bits.uop.debug_fsrc",
+    "prefetcher.io.prefetch.bits.uop.debug_inst",
+    "prefetcher.io.prefetch.bits.uop.debug_pc",
+    "prefetcher.io.prefetch.bits.uop.debug_tsrc",
+    "prefetcher.io.prefetch.bits.uop.dis_col_sel",
+    "prefetcher.io.prefetch.bits.uop.dst_rtype",
+    "prefetcher.io.prefetch.bits.uop.edge_inst",
+    "prefetcher.io.prefetch.bits.uop.exc_cause",
+    "prefetcher.io.prefetch.bits.uop.exception",
+    "prefetcher.io.prefetch.bits.uop.fcn_dw",
+    "prefetcher.io.prefetch.bits.uop.fcn_op",
+    "prefetcher.io.prefetch.bits.uop.flush_on_commit",
+    "prefetcher.io.prefetch.bits.uop.fp_ctrl.div",
+    "prefetcher.io.prefetch.bits.uop.fp_ctrl.fastpipe",
+    "prefetcher.io.prefetch.bits.uop.fp_ctrl.fma",
+    "prefetcher.io.prefetch.bits.uop.fp_ctrl.fromint",
+    "prefetcher.io.prefetch.bits.uop.fp_ctrl.ldst",
+    "prefetcher.io.prefetch.bits.uop.fp_ctrl.ren1",
+    "prefetcher.io.prefetch.bits.uop.fp_ctrl.ren2",
+    "prefetcher.io.prefetch.bits.uop.fp_ctrl.ren3",
+    "prefetcher.io.prefetch.bits.uop.fp_ctrl.sqrt",
+    "prefetcher.io.prefetch.bits.uop.fp_ctrl.swap12",
+    "prefetcher.io.prefetch.bits.uop.fp_ctrl.swap23",
+    "prefetcher.io.prefetch.bits.uop.fp_ctrl.toint",
+    "prefetcher.io.prefetch.bits.uop.fp_ctrl.typeTagIn",
+    "prefetcher.io.prefetch.bits.uop.fp_ctrl.typeTagOut",
+    "prefetcher.io.prefetch.bits.uop.fp_ctrl.vec",
+    "prefetcher.io.prefetch.bits.uop.fp_ctrl.wen",
+    "prefetcher.io.prefetch.bits.uop.fp_ctrl.wflags",
+    "prefetcher.io.prefetch.bits.uop.fp_rm",
+    "prefetcher.io.prefetch.bits.uop.fp_typ",
+    "prefetcher.io.prefetch.bits.uop.fp_val",
+    "prefetcher.io.prefetch.bits.uop.frs3_en",
+    "prefetcher.io.prefetch.bits.uop.ftq_idx",
+    "prefetcher.io.prefetch.bits.uop.fu_code[0]",
+    "prefetcher.io.prefetch.bits.uop.fu_code[1]",
+    "prefetcher.io.prefetch.bits.uop.fu_code[2]",
+    "prefetcher.io.prefetch.bits.uop.fu_code[3]",
+    "prefetcher.io.prefetch.bits.uop.fu_code[4]",
+    "prefetcher.io.prefetch.bits.uop.fu_code[5]",
+    "prefetcher.io.prefetch.bits.uop.fu_code[6]",
+    "prefetcher.io.prefetch.bits.uop.fu_code[7]",
+    "prefetcher.io.prefetch.bits.uop.fu_code[8]",
+    "prefetcher.io.prefetch.bits.uop.fu_code[9]",
+    "prefetcher.io.prefetch.bits.uop.imm_packed",
+    "prefetcher.io.prefetch.bits.uop.imm_rename",
+    "prefetcher.io.prefetch.bits.uop.imm_sel",
+    "prefetcher.io.prefetch.bits.uop.inst",
+    "prefetcher.io.prefetch.bits.uop.iq_type[0]",
+    "prefetcher.io.prefetch.bits.uop.iq_type[1]",
+    "prefetcher.io.prefetch.bits.uop.iq_type[2]",
+    "prefetcher.io.prefetch.bits.uop.iq_type[3]",
+    "prefetcher.io.prefetch.bits.uop.is_amo",
+    "prefetcher.io.prefetch.bits.uop.is_eret",
+    "prefetcher.io.prefetch.bits.uop.is_fence",
+    "prefetcher.io.prefetch.bits.uop.is_fencei",
+    "prefetcher.io.prefetch.bits.uop.is_mov",
+    "prefetcher.io.prefetch.bits.uop.is_rocc",
+    "prefetcher.io.prefetch.bits.uop.is_rvc",
+    "prefetcher.io.prefetch.bits.uop.is_sfb",
+    "prefetcher.io.prefetch.bits.uop.is_sfence",
+    "prefetcher.io.prefetch.bits.uop.is_sys_pc2epc",
+    "prefetcher.io.prefetch.bits.uop.is_unique",
+    "prefetcher.io.prefetch.bits.uop.iw_issued",
+    "prefetcher.io.prefetch.bits.uop.iw_issued_partial_agen",
+    "prefetcher.io.prefetch.bits.uop.iw_issued_partial_dgen",
+    "prefetcher.io.prefetch.bits.uop.iw_p1_bypass_hint",
+    "prefetcher.io.prefetch.bits.uop.iw_p1_speculative_child",
+    "prefetcher.io.prefetch.bits.uop.iw_p2_bypass_hint",
+    "prefetcher.io.prefetch.bits.uop.iw_p2_speculative_child",
+    "prefetcher.io.prefetch.bits.uop.iw_p3_bypass_hint",
+    "prefetcher.io.prefetch.bits.uop.ldq_idx",
+    "prefetcher.io.prefetch.bits.uop.ldst",
+    "prefetcher.io.prefetch.bits.uop.ldst_is_rs1",
+    "prefetcher.io.prefetch.bits.uop.lrs1",
+    "prefetcher.io.prefetch.bits.uop.lrs1_rtype",
+    "prefetcher.io.prefetch.bits.uop.lrs2",
+    "prefetcher.io.prefetch.bits.uop.lrs2_rtype",
+    "prefetcher.io.prefetch.bits.uop.lrs3",
+    "prefetcher.io.prefetch.bits.uop.mem_cmd",
+    "prefetcher.io.prefetch.bits.uop.mem_signed",
+    "prefetcher.io.prefetch.bits.uop.mem_size",
+    "prefetcher.io.prefetch.bits.uop.op1_sel",
+    "prefetcher.io.prefetch.bits.uop.op2_sel",
+    "prefetcher.io.prefetch.bits.uop.pc_lob",
+    "prefetcher.io.prefetch.bits.uop.pdst",
+    "prefetcher.io.prefetch.bits.uop.pimm",
+    "prefetcher.io.prefetch.bits.uop.ppred",
+    "prefetcher.io.prefetch.bits.uop.ppred_busy",
+    "prefetcher.io.prefetch.bits.uop.prs1",
+    "prefetcher.io.prefetch.bits.uop.prs1_busy",
+    "prefetcher.io.prefetch.bits.uop.prs2",
+    "prefetcher.io.prefetch.bits.uop.prs2_busy",
+    "prefetcher.io.prefetch.bits.uop.prs3",
+    "prefetcher.io.prefetch.bits.uop.prs3_busy",
+    "prefetcher.io.prefetch.bits.uop.rob_idx",
+    "prefetcher.io.prefetch.bits.uop.rxq_idx",
+    "prefetcher.io.prefetch.bits.uop.stale_pdst",
+    "prefetcher.io.prefetch.bits.uop.stq_idx",
+    "prefetcher.io.prefetch.bits.uop.taken",
+    "prefetcher.io.prefetch.bits.uop.uses_ldq",
+    "prefetcher.io.prefetch.bits.uop.uses_stq",
+    "prefetcher.io.prefetch.bits.uop.xcpt_ae_if",
+    "prefetcher.io.prefetch.bits.uop.xcpt_ma_if",
+    "prefetcher.io.prefetch.bits.uop.xcpt_pf_if",
+    "prefetcher.io.prefetch.ready",
+    "prefetcher.io.prefetch.valid",
+    "prefetcher.io.req_addr",
+    "prefetcher.io.req_coh.state",
+    "prefetcher.io.req_val",
+    "prefetcher.reset"
+  ],
+  "planner_version": "hierarchical-planner-v10",
+  "replacement_complexity": {
+    "event_state_coupling": 0.0,
+    "events": 1,
+    "logical": {
+      "dependency_edges": 1,
+      "signals": 7,
+      "source_loc": 4,
+      "statements": 4
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 1,
+      "signals": 117,
+      "source_loc": 4,
+      "statements": 118,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 0,
+    "state_regions": 0
+  },
+  "schema_version": "workunit-static-0.1",
+  "semantic_event_cones": [
+    {
+      "complete": true,
+      "event_id": "BoomMSHRFile.prefetcher::io.prefetch.fire",
+      "historical_registers": [],
+      "historical_statement_ids": [
+        3
+      ],
+      "immediate_frontier": [
+        "h0",
+        "io.prefetch.ready"
+      ],
+      "immediate_registers": [],
+      "immediate_statement_ids": [
+        3
+      ]
+    }
+  ],
+  "source_evidence": {
+    "resolved": [
+      {
+        "end_line": 27,
+        "logical_file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "start_line": 25,
+        "text": "{\n  val io = IO(new Bundle {\n    val mshr_avail = Input(Bool())\n"
+      },
+      {
+        "end_line": 43,
+        "logical_file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "start_line": 38,
+        "text": "  */\nclass NullPrefetcher(implicit edge: TLEdgeOut, p: Parameters) extends DataPrefetcher\n{\n  io.prefetch.valid := false.B\n  io.prefetch.bits  := DontCare\n}\n"
+      }
+    ],
+    "roots": [
+      "/t1/MCM-Agent/tools/chipyard"
+    ],
+    "unresolved": []
+  },
+  "source_spans": [
+    {
+      "end_line": 26,
+      "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+      "start_line": 26
+    },
+    {
+      "end_line": 42,
+      "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+      "start_line": 39
+    }
+  ],
+  "state": [],
+  "statements": [
+    {
+      "control_reads": [],
+      "drives": [],
+      "firrtl_line": 188349,
+      "id": 0,
+      "kind": "structural",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 7,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 39,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 39:7"
+      },
+      "status": "nondriving",
+      "text": "input clock : Clock"
+    },
+    {
+      "control_reads": [],
+      "drives": [],
+      "firrtl_line": 188350,
+      "id": 1,
+      "kind": "structural",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 7,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 39,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 39:7"
+      },
+      "status": "nondriving",
+      "text": "input reset : Reset"
+    },
+    {
+      "control_reads": [],
+      "drives": [],
+      "firrtl_line": 188351,
+      "id": 2,
+      "kind": "structural",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 26,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 26:14"
+      },
+      "status": "nondriving",
+      "text": "output io : { flip mshr_avail : UInt<1>, flip req_val : UInt<1>, flip req_addr : UInt<40>, flip req_coh : { state : UInt<2>}, prefetch : { flip ready : UInt<1>, valid : UInt<1>, bits : { uop : { inst : UInt<32>, debug_inst : UInt<32>, is_rvc : UInt<1>, debug_pc : UInt<40>, iq_type : UInt<1>[4], fu_code : UInt<1>[10], iw_issued : UInt<1>, iw_issued_partial_agen : UInt<1>, iw_issued_partial_dgen : UInt<1>, iw_p1_speculative_child : UInt<1>, iw_p2_speculative_child : UInt<1>, iw_p1_bypass_hint : UInt<1>, iw_p2_bypass_hint : UInt<1>, iw_p3_bypass_hint : UInt<1>, dis_col_sel : UInt<1>, br_mask : UInt<8>, br_tag : UInt<3>, br_type : UInt<4>, is_sfb : UInt<1>, is_fence : UInt<1>, is_fencei : UInt<1>, is_sfence : UInt<1>, is_amo : UInt<1>, is_eret : UInt<1>, is_sys_pc2epc : UInt<1>, is_rocc : UInt<1>, is_mov : UInt<1>, ftq_idx : UInt<4>, edge_inst : UInt<1>, pc_lob : UInt<6>, taken : UInt<1>, imm_rename : UInt<1>, imm_sel : UInt<3>, pimm : UInt<5>, imm_packed : UInt<20>, op1_sel : UInt<2>, op2_sel : UInt<3>, fp_ctrl : { ldst : UInt<1>, wen : UInt<1>, ren1 : UInt<1>, ren2 : UInt<1>, ren3 : UInt<1>, swap12 : UInt<1>, swap23 : UInt<1>, typeTagIn : UInt<2>, typeTagOut : UInt<2>, fromint : UInt<1>, toint : UInt<1>, fastpipe : UInt<1>, fma : UInt<1>, div : UInt<1>, sqrt : UInt<1>, wflags : UInt<1>, vec : UInt<1>}, rob_idx : UInt<5>, ldq_idx : UInt<4>, stq_idx : UInt<4>, rxq_idx : UInt<2>, pdst : UInt<6>, prs1 : UInt<6>, prs2 : UInt<6>, prs3 : UInt<6>, ppred : UInt<4>, prs1_busy : UInt<1>, prs2_busy : UInt<1>, prs3_busy : UInt<1>, ppred_busy : UInt<1>, stale_pdst : UInt<6>, exception : UInt<1>, exc_cause : UInt<64>, mem_cmd : UInt<5>, mem_size : UInt<2>, mem_signed : UInt<1>, uses_ldq : UInt<1>, uses_stq : UInt<1>, is_unique : UInt<1>, flush_on_commit : UInt<1>, csr_cmd : UInt<3>, ldst_is_rs1 : UInt<1>, ldst : UInt<6>, lrs1 : UInt<6>, lrs2 : UInt<6>, lrs3 : UInt<6>, dst_rtype : UInt<2>, lrs1_rtype : UInt<2>, lrs2_rtype : UInt<2>, frs3_en : UInt<1>, fcn_dw : UInt<1>, fcn_op : UInt<5>, fp_val : UInt<1>, fp_rm : UInt<3>, fp_typ : UInt<2>, xcpt_pf_if : UInt<1>, xcpt_ae_if : UInt<1>, xcpt_ma_if : UInt<1>, bp_debug_if : UInt<1>, bp_xcpt_if : UInt<1>, debug_fsrc : UInt<3>, debug_tsrc : UInt<3>}, addr : UInt<40>, data : UInt<64>, is_hella : UInt<1>}}}"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.valid"
+      ],
+      "firrtl_line": 188353,
+      "id": 3,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h0"
+      ],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 41,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 41:21"
+      },
+      "status": "supported",
+      "text": "connect io.prefetch.valid, UInt<1>(0h0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.is_hella"
+      ],
+      "firrtl_line": 188354,
+      "id": 4,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.is_hella"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.data"
+      ],
+      "firrtl_line": 188355,
+      "id": 5,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.data"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.addr"
+      ],
+      "firrtl_line": 188356,
+      "id": 6,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.addr"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.debug_tsrc"
+      ],
+      "firrtl_line": 188357,
+      "id": 7,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.debug_tsrc"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.debug_fsrc"
+      ],
+      "firrtl_line": 188358,
+      "id": 8,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.debug_fsrc"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.bp_xcpt_if"
+      ],
+      "firrtl_line": 188359,
+      "id": 9,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.bp_xcpt_if"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.bp_debug_if"
+      ],
+      "firrtl_line": 188360,
+      "id": 10,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.bp_debug_if"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.xcpt_ma_if"
+      ],
+      "firrtl_line": 188361,
+      "id": 11,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.xcpt_ma_if"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.xcpt_ae_if"
+      ],
+      "firrtl_line": 188362,
+      "id": 12,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.xcpt_ae_if"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.xcpt_pf_if"
+      ],
+      "firrtl_line": 188363,
+      "id": 13,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.xcpt_pf_if"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fp_typ"
+      ],
+      "firrtl_line": 188364,
+      "id": 14,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fp_typ"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fp_rm"
+      ],
+      "firrtl_line": 188365,
+      "id": 15,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fp_rm"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fp_val"
+      ],
+      "firrtl_line": 188366,
+      "id": 16,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fp_val"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fcn_op"
+      ],
+      "firrtl_line": 188367,
+      "id": 17,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fcn_op"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fcn_dw"
+      ],
+      "firrtl_line": 188368,
+      "id": 18,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fcn_dw"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.frs3_en"
+      ],
+      "firrtl_line": 188369,
+      "id": 19,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.frs3_en"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.lrs2_rtype"
+      ],
+      "firrtl_line": 188370,
+      "id": 20,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.lrs2_rtype"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.lrs1_rtype"
+      ],
+      "firrtl_line": 188371,
+      "id": 21,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.lrs1_rtype"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.dst_rtype"
+      ],
+      "firrtl_line": 188372,
+      "id": 22,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.dst_rtype"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.lrs3"
+      ],
+      "firrtl_line": 188373,
+      "id": 23,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.lrs3"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.lrs2"
+      ],
+      "firrtl_line": 188374,
+      "id": 24,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.lrs2"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.lrs1"
+      ],
+      "firrtl_line": 188375,
+      "id": 25,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.lrs1"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.ldst"
+      ],
+      "firrtl_line": 188376,
+      "id": 26,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.ldst"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.ldst_is_rs1"
+      ],
+      "firrtl_line": 188377,
+      "id": 27,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.ldst_is_rs1"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.csr_cmd"
+      ],
+      "firrtl_line": 188378,
+      "id": 28,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.csr_cmd"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.flush_on_commit"
+      ],
+      "firrtl_line": 188379,
+      "id": 29,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.flush_on_commit"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.is_unique"
+      ],
+      "firrtl_line": 188380,
+      "id": 30,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.is_unique"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.uses_stq"
+      ],
+      "firrtl_line": 188381,
+      "id": 31,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.uses_stq"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.uses_ldq"
+      ],
+      "firrtl_line": 188382,
+      "id": 32,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.uses_ldq"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.mem_signed"
+      ],
+      "firrtl_line": 188383,
+      "id": 33,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.mem_signed"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.mem_size"
+      ],
+      "firrtl_line": 188384,
+      "id": 34,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.mem_size"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.mem_cmd"
+      ],
+      "firrtl_line": 188385,
+      "id": 35,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.mem_cmd"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.exc_cause"
+      ],
+      "firrtl_line": 188386,
+      "id": 36,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.exc_cause"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.exception"
+      ],
+      "firrtl_line": 188387,
+      "id": 37,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.exception"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.stale_pdst"
+      ],
+      "firrtl_line": 188388,
+      "id": 38,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.stale_pdst"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.ppred_busy"
+      ],
+      "firrtl_line": 188389,
+      "id": 39,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.ppred_busy"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.prs3_busy"
+      ],
+      "firrtl_line": 188390,
+      "id": 40,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.prs3_busy"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.prs2_busy"
+      ],
+      "firrtl_line": 188391,
+      "id": 41,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.prs2_busy"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.prs1_busy"
+      ],
+      "firrtl_line": 188392,
+      "id": 42,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.prs1_busy"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.ppred"
+      ],
+      "firrtl_line": 188393,
+      "id": 43,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.ppred"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.prs3"
+      ],
+      "firrtl_line": 188394,
+      "id": 44,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.prs3"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.prs2"
+      ],
+      "firrtl_line": 188395,
+      "id": 45,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.prs2"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.prs1"
+      ],
+      "firrtl_line": 188396,
+      "id": 46,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.prs1"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.pdst"
+      ],
+      "firrtl_line": 188397,
+      "id": 47,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.pdst"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.rxq_idx"
+      ],
+      "firrtl_line": 188398,
+      "id": 48,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.rxq_idx"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.stq_idx"
+      ],
+      "firrtl_line": 188399,
+      "id": 49,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.stq_idx"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.ldq_idx"
+      ],
+      "firrtl_line": 188400,
+      "id": 50,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.ldq_idx"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.rob_idx"
+      ],
+      "firrtl_line": 188401,
+      "id": 51,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.rob_idx"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fp_ctrl.vec"
+      ],
+      "firrtl_line": 188402,
+      "id": 52,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fp_ctrl.vec"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fp_ctrl.wflags"
+      ],
+      "firrtl_line": 188403,
+      "id": 53,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fp_ctrl.wflags"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fp_ctrl.sqrt"
+      ],
+      "firrtl_line": 188404,
+      "id": 54,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fp_ctrl.sqrt"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fp_ctrl.div"
+      ],
+      "firrtl_line": 188405,
+      "id": 55,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fp_ctrl.div"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fp_ctrl.fma"
+      ],
+      "firrtl_line": 188406,
+      "id": 56,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fp_ctrl.fma"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fp_ctrl.fastpipe"
+      ],
+      "firrtl_line": 188407,
+      "id": 57,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fp_ctrl.fastpipe"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fp_ctrl.toint"
+      ],
+      "firrtl_line": 188408,
+      "id": 58,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fp_ctrl.toint"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fp_ctrl.fromint"
+      ],
+      "firrtl_line": 188409,
+      "id": 59,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fp_ctrl.fromint"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fp_ctrl.typeTagOut"
+      ],
+      "firrtl_line": 188410,
+      "id": 60,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fp_ctrl.typeTagOut"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fp_ctrl.typeTagIn"
+      ],
+      "firrtl_line": 188411,
+      "id": 61,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fp_ctrl.typeTagIn"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fp_ctrl.swap23"
+      ],
+      "firrtl_line": 188412,
+      "id": 62,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fp_ctrl.swap23"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fp_ctrl.swap12"
+      ],
+      "firrtl_line": 188413,
+      "id": 63,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fp_ctrl.swap12"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fp_ctrl.ren3"
+      ],
+      "firrtl_line": 188414,
+      "id": 64,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fp_ctrl.ren3"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fp_ctrl.ren2"
+      ],
+      "firrtl_line": 188415,
+      "id": 65,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fp_ctrl.ren2"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fp_ctrl.ren1"
+      ],
+      "firrtl_line": 188416,
+      "id": 66,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fp_ctrl.ren1"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fp_ctrl.wen"
+      ],
+      "firrtl_line": 188417,
+      "id": 67,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fp_ctrl.wen"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fp_ctrl.ldst"
+      ],
+      "firrtl_line": 188418,
+      "id": 68,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fp_ctrl.ldst"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.op2_sel"
+      ],
+      "firrtl_line": 188419,
+      "id": 69,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.op2_sel"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.op1_sel"
+      ],
+      "firrtl_line": 188420,
+      "id": 70,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.op1_sel"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.imm_packed"
+      ],
+      "firrtl_line": 188421,
+      "id": 71,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.imm_packed"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.pimm"
+      ],
+      "firrtl_line": 188422,
+      "id": 72,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.pimm"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.imm_sel"
+      ],
+      "firrtl_line": 188423,
+      "id": 73,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.imm_sel"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.imm_rename"
+      ],
+      "firrtl_line": 188424,
+      "id": 74,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.imm_rename"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.taken"
+      ],
+      "firrtl_line": 188425,
+      "id": 75,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.taken"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.pc_lob"
+      ],
+      "firrtl_line": 188426,
+      "id": 76,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.pc_lob"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.edge_inst"
+      ],
+      "firrtl_line": 188427,
+      "id": 77,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.edge_inst"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.ftq_idx"
+      ],
+      "firrtl_line": 188428,
+      "id": 78,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.ftq_idx"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.is_mov"
+      ],
+      "firrtl_line": 188429,
+      "id": 79,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.is_mov"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.is_rocc"
+      ],
+      "firrtl_line": 188430,
+      "id": 80,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.is_rocc"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.is_sys_pc2epc"
+      ],
+      "firrtl_line": 188431,
+      "id": 81,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.is_sys_pc2epc"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.is_eret"
+      ],
+      "firrtl_line": 188432,
+      "id": 82,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.is_eret"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.is_amo"
+      ],
+      "firrtl_line": 188433,
+      "id": 83,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.is_amo"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.is_sfence"
+      ],
+      "firrtl_line": 188434,
+      "id": 84,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.is_sfence"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.is_fencei"
+      ],
+      "firrtl_line": 188435,
+      "id": 85,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.is_fencei"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.is_fence"
+      ],
+      "firrtl_line": 188436,
+      "id": 86,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.is_fence"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.is_sfb"
+      ],
+      "firrtl_line": 188437,
+      "id": 87,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.is_sfb"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.br_type"
+      ],
+      "firrtl_line": 188438,
+      "id": 88,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.br_type"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.br_tag"
+      ],
+      "firrtl_line": 188439,
+      "id": 89,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.br_tag"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.br_mask"
+      ],
+      "firrtl_line": 188440,
+      "id": 90,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.br_mask"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.dis_col_sel"
+      ],
+      "firrtl_line": 188441,
+      "id": 91,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.dis_col_sel"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.iw_p3_bypass_hint"
+      ],
+      "firrtl_line": 188442,
+      "id": 92,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.iw_p3_bypass_hint"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.iw_p2_bypass_hint"
+      ],
+      "firrtl_line": 188443,
+      "id": 93,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.iw_p2_bypass_hint"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.iw_p1_bypass_hint"
+      ],
+      "firrtl_line": 188444,
+      "id": 94,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.iw_p1_bypass_hint"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.iw_p2_speculative_child"
+      ],
+      "firrtl_line": 188445,
+      "id": 95,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.iw_p2_speculative_child"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.iw_p1_speculative_child"
+      ],
+      "firrtl_line": 188446,
+      "id": 96,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.iw_p1_speculative_child"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.iw_issued_partial_dgen"
+      ],
+      "firrtl_line": 188447,
+      "id": 97,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.iw_issued_partial_dgen"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.iw_issued_partial_agen"
+      ],
+      "firrtl_line": 188448,
+      "id": 98,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.iw_issued_partial_agen"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.iw_issued"
+      ],
+      "firrtl_line": 188449,
+      "id": 99,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.iw_issued"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fu_code[0]"
+      ],
+      "firrtl_line": 188450,
+      "id": 100,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fu_code[0]"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fu_code[1]"
+      ],
+      "firrtl_line": 188451,
+      "id": 101,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fu_code[1]"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fu_code[2]"
+      ],
+      "firrtl_line": 188452,
+      "id": 102,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fu_code[2]"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fu_code[3]"
+      ],
+      "firrtl_line": 188453,
+      "id": 103,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fu_code[3]"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fu_code[4]"
+      ],
+      "firrtl_line": 188454,
+      "id": 104,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fu_code[4]"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fu_code[5]"
+      ],
+      "firrtl_line": 188455,
+      "id": 105,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fu_code[5]"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fu_code[6]"
+      ],
+      "firrtl_line": 188456,
+      "id": 106,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fu_code[6]"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fu_code[7]"
+      ],
+      "firrtl_line": 188457,
+      "id": 107,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fu_code[7]"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fu_code[8]"
+      ],
+      "firrtl_line": 188458,
+      "id": 108,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fu_code[8]"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.fu_code[9]"
+      ],
+      "firrtl_line": 188459,
+      "id": 109,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.fu_code[9]"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.iq_type[0]"
+      ],
+      "firrtl_line": 188460,
+      "id": 110,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.iq_type[0]"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.iq_type[1]"
+      ],
+      "firrtl_line": 188461,
+      "id": 111,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.iq_type[1]"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.iq_type[2]"
+      ],
+      "firrtl_line": 188462,
+      "id": 112,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.iq_type[2]"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.iq_type[3]"
+      ],
+      "firrtl_line": 188463,
+      "id": 113,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.iq_type[3]"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.debug_pc"
+      ],
+      "firrtl_line": 188464,
+      "id": 114,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.debug_pc"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.is_rvc"
+      ],
+      "firrtl_line": 188465,
+      "id": 115,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.is_rvc"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.debug_inst"
+      ],
+      "firrtl_line": 188466,
+      "id": 116,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.debug_inst"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.prefetch.bits.uop.inst"
+      ],
+      "firrtl_line": 188467,
+      "id": 117,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala",
+        "line": 42,
+        "raw": "generators/boom/src/main/scala/v4/lsu/prefetcher.scala 42:21"
+      },
+      "status": "supported",
+      "text": "invalidate io.prefetch.bits.uop.inst"
+    }
+  ],
+  "work_unit": {
+    "coverage_complete": true,
+    "decision": "manageable",
+    "depth": 1,
+    "exceeded_limits": [],
+    "id": "BoomMSHRFile.prefetcher",
+    "instance_path": "BoomMSHRFile.prefetcher",
+    "is_leaf": true,
+    "kind": "module",
+    "module": "NullPrefetcher",
+    "replacement_exceeded_limits": []
+  }
+}

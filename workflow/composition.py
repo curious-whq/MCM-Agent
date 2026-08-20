@@ -34,6 +34,152 @@ def _canonical_sha256(value: Any) -> str:
     return hashlib.sha256(payload).hexdigest()
 
 
+def _concrete_suffix(value: Any) -> Any:
+    if not isinstance(value, str) or "::" not in value:
+        return value
+    return value.split("::", 1)[1]
+
+
+def work_unit_implementation_sha256(handoff: dict[str, Any]) -> str:
+    """Hash the instance-independent RTL/proof scope of one WorkUnit.
+
+    Instance paths, source locations, task metadata, and composition artifacts
+    are excluded.  Local FIRRTL, state/interface shape, event definitions, and
+    child summary-slot shape are retained.  Consequently two concrete slots can
+    share a theorem template only when their implementation-facing handoffs are
+    structurally identical.
+    """
+
+    unit = handoff.get("work_unit", {})
+    payload = {
+        "schema": "workunit-implementation-fingerprint-v0.1",
+        "module": unit.get("module"),
+        "kind": unit.get("kind"),
+        "is_leaf": unit.get("is_leaf"),
+        "statements": [
+            {
+                key: statement.get(key)
+                for key in ("kind", "text", "status", "drives", "reads", "control_reads", "note")
+            }
+            for statement in handoff.get("statements", [])
+            if isinstance(statement, dict)
+        ],
+        "dependency_edges": sorted(
+            (
+                str(edge.get("src", "")),
+                str(edge.get("dst", "")),
+                str(edge.get("kind", "")),
+            )
+            for edge in handoff.get("dependency_edges", [])
+            if isinstance(edge, dict)
+        ),
+        "state": sorted(
+            (
+                str(item.get("id", "")),
+                str(item.get("kind", "")),
+                str(item.get("type", "")),
+            )
+            for item in handoff.get("state", [])
+            if isinstance(item, dict)
+        ),
+        "memory_state": sorted(str(item) for item in handoff.get("memory_state", [])),
+        "frontier": sorted(
+            (
+                str(item.get("id", "")),
+                str(item.get("kind", "")),
+                str(item.get("type", "")),
+            )
+            for item in handoff.get("frontier", [])
+            if isinstance(item, dict)
+        ),
+        "events": sorted(
+            (
+                str(event.get("registry_id", "")),
+                _concrete_suffix(event.get("id")),
+                str(event.get("channel", "")),
+                str(event.get("direction", "")),
+                str(event.get("protocol", "")),
+                str(event.get("predicate", "")),
+                str(event.get("valid", "")),
+                str(event.get("ready", "")),
+                tuple(event.get("payload", [])),
+            )
+            for event in handoff.get("events", [])
+            if isinstance(event, dict)
+        ),
+        "children": sorted(
+            (
+                str(child.get("child_kind", "")),
+                tuple(sorted(_concrete_suffix(item) for item in child.get("boundary_events", []))),
+                tuple(sorted(str(item) for item in child.get("frontier_signals", []))),
+            )
+            for child in handoff.get("children", [])
+            if isinstance(child, dict)
+        ),
+        "semantic_event_cones": sorted(
+            (
+                _concrete_suffix(cone.get("event_id")),
+                tuple(sorted(str(item) for item in cone.get("historical_registers", []))),
+                tuple(sorted(str(item) for item in cone.get("immediate_registers", []))),
+                tuple(sorted(str(item) for item in cone.get("immediate_frontier", []))),
+                bool(cone.get("complete")),
+            )
+            for cone in handoff.get("semantic_event_cones", [])
+            if isinstance(cone, dict)
+        ),
+    }
+    return _canonical_sha256(payload)
+
+
+def _rewrite_instance_prefix(value: Any, source: str, target: str) -> Any:
+    if isinstance(value, dict):
+        return {
+            _rewrite_instance_prefix(key, source, target): _rewrite_instance_prefix(item, source, target)
+            for key, item in value.items()
+        }
+    if isinstance(value, list):
+        return [_rewrite_instance_prefix(item, source, target) for item in value]
+    if not isinstance(value, str):
+        return value
+    if value == source or value.startswith(source + "::") or value.startswith(source + "."):
+        return target + value[len(source):]
+    return value
+
+
+def _rehash_instantiated_imports(frozen: dict[str, Any]) -> None:
+    composition = frozen.get("composition")
+    if not isinstance(composition, dict):
+        return
+    for imported in composition.get("imports", []):
+        if not isinstance(imported, dict):
+            continue
+        child_frozen = imported.get("frozen_umcm")
+        if not isinstance(child_frozen, dict):
+            continue
+        _rehash_instantiated_imports(child_frozen)
+        imported["frozen_umcm_sha256"] = _canonical_sha256(child_frozen)
+
+
+def instantiate_frozen_umcm(
+    frozen: dict[str, Any],
+    *,
+    source_work_unit_id: str,
+    target_work_unit_id: str,
+) -> dict[str, Any]:
+    """Instantiate one frozen theorem template at a concrete instance path."""
+
+    instantiated = _rewrite_instance_prefix(
+        deepcopy(frozen),
+        source_work_unit_id,
+        target_work_unit_id,
+    )
+    if not isinstance(instantiated, dict):
+        raise ValueError("instantiated frozen µMCM is not an object")
+    instantiated["work_unit_id"] = target_work_unit_id
+    _rehash_instantiated_imports(instantiated)
+    return instantiated
+
+
 def _empty_catalog() -> dict[str, dict[str, dict[str, str]]]:
     return {field: {} for field in SEMANTIC_FIELDS}
 
@@ -108,6 +254,8 @@ def _load_frozen_record(task_dir: Path) -> dict[str, Any] | None:
     task = _read_json(task_path)
     status = _read_json(status_path)
     frozen = _read_json(frozen_path)
+    static_handoff_path = task_dir / "static_handoff.json"
+    static_handoff = _read_json(static_handoff_path) if static_handoff_path.is_file() else None
     if status.get("status") != FROZEN_STATUS:
         return None
     if frozen.get("freeze", {}).get("status") != FROZEN_STATUS:
@@ -122,6 +270,12 @@ def _load_frozen_record(task_dir: Path) -> dict[str, Any] | None:
         "task": task,
         "status": status,
         "frozen": frozen,
+        "static_handoff": static_handoff,
+        "implementation_sha256": (
+            work_unit_implementation_sha256(static_handoff)
+            if isinstance(static_handoff, dict)
+            else None
+        ),
     }
 
 
@@ -143,6 +297,42 @@ def _discover_frozen_records(run_roots: Iterable[str | Path]) -> list[dict[str, 
             if record is not None:
                 records.append(record)
     return records
+
+
+def _template_compatible(
+    record: dict[str, Any],
+    slot: dict[str, Any],
+    implementation_catalog: dict[str, Any],
+) -> bool:
+    handoff = record.get("static_handoff")
+    if not isinstance(handoff, dict):
+        return False
+    source_unit = handoff.get("work_unit", {})
+    source_id = str(record.get("task", {}).get("work_unit_id", ""))
+    source_module = str(source_unit.get("module", ""))
+    source_current = implementation_catalog.get(source_module, {})
+    target_structural = slot.get("structural_implementation_sha256")
+    return bool(
+        slot.get("child_kind") == "module"
+        and source_module
+        and target_structural
+        and source_unit.get("kind") == "module"
+        and source_unit.get("id") == source_id == source_module
+        and source_unit.get("instance_path") == source_module
+        and source_current.get("proof_scope_sha256") == record.get("implementation_sha256")
+        and source_current.get("structural_implementation_sha256") == target_structural
+    )
+
+
+def _record_matches_exact_slot(record: dict[str, Any], slot: dict[str, Any]) -> bool:
+    source_id = str(record.get("task", {}).get("work_unit_id", ""))
+    if source_id != str(slot.get("child_id", "")):
+        return False
+    expected = slot.get("implementation_sha256")
+    actual = record.get("implementation_sha256")
+    # Preserve compatibility with legacy exact-instance artifacts that predate
+    # fingerprints; module-template reuse never takes this fallback.
+    return not expected or not actual or expected == actual
 
 
 def attach_frozen_child_summaries(
@@ -167,8 +357,13 @@ def attach_frozen_child_summaries(
     }
     if len(direct_child_ids) != len(slots):
         raise ValueError("parent child slots contain missing/duplicate child ids")
+    implementation_catalog = handoff.get("implementation_catalog", {})
+    if not isinstance(implementation_catalog, dict):
+        implementation_catalog = {}
 
+    slot_by_id = {str(slot["child_id"]): slot for slot in slots}
     explicit: dict[str, dict[str, Any]] = {}
+    explicit_templates: list[dict[str, Any]] = []
     for raw in child_task_dirs:
         directory = Path(raw).expanduser()
         record = _load_frozen_record(directory)
@@ -177,20 +372,33 @@ def attach_frozen_child_summaries(
                 f"explicit child task dir {directory} is not FROZEN_FOR_COMPOSITION"
             )
         child_id = str(record["task"].get("work_unit_id", ""))
-        if child_id not in direct_child_ids:
+        if child_id in direct_child_ids:
+            if not _record_matches_exact_slot(record, slot_by_id[child_id]):
+                raise ValueError(
+                    f"explicit child task {directory} implementation fingerprint "
+                    f"does not match direct child {child_id!r}"
+                )
+            if child_id in explicit:
+                raise ValueError(f"multiple explicit frozen task dirs for child {child_id!r}")
+            explicit[child_id] = record
+            continue
+        compatible = [
+            slot for slot in slots
+            if _template_compatible(record, slot, implementation_catalog)
+        ]
+        if not compatible:
             raise ValueError(
                 f"explicit child task {directory} belongs to {child_id!r}, "
-                f"not one of direct children {sorted(direct_child_ids)}"
+                "and is not an implementation-equivalent module theorem template "
+                f"for any direct child {sorted(direct_child_ids)}"
             )
-        if child_id in explicit:
-            raise ValueError(f"multiple explicit frozen task dirs for child {child_id!r}")
-        explicit[child_id] = record
+        explicit_templates.append(record)
 
     discovered = _discover_frozen_records(run_roots)
     by_child: dict[str, list[dict[str, Any]]] = {}
     for record in discovered:
         child_id = str(record["task"].get("work_unit_id", ""))
-        if child_id in direct_child_ids:
+        if child_id in direct_child_ids and _record_matches_exact_slot(record, slot_by_id[child_id]):
             by_child.setdefault(child_id, []).append(record)
 
     summaries: list[dict[str, Any]] = []
@@ -199,24 +407,62 @@ def attach_frozen_child_summaries(
 
     for slot in slots:
         child_id = str(slot["child_id"])
+        reused_template = False
         if child_id in explicit:
             record = explicit[child_id]
         else:
             matches = by_child.get(child_id, [])
-            if not matches:
-                raise ValueError(
-                    f"no frozen child µMCM found for {child_id!r}; "
-                    "freeze the child first or pass --child-task-dir"
-                )
             if len(matches) > 1:
                 choices = [str(item["task_dir"]) for item in matches]
                 raise ValueError(
                     f"multiple frozen child µMCM runs found for {child_id!r}: "
                     f"{choices}. Pass the intended --child-task-dir explicitly."
                 )
-            record = matches[0]
+            if matches:
+                record = matches[0]
+            else:
+                template_matches = [
+                    item for item in explicit_templates
+                    if _template_compatible(item, slot, implementation_catalog)
+                ]
+                if not template_matches:
+                    template_matches = [
+                        item for item in discovered
+                        if _template_compatible(item, slot, implementation_catalog)
+                    ]
+                # Discovery may see the same explicit directory through run_roots.
+                unique_templates = {
+                    Path(item["task_dir"]).resolve(): item for item in template_matches
+                }
+                template_matches = list(unique_templates.values())
+                if not template_matches:
+                    module = slot.get("child_module")
+                    fingerprint = slot.get("implementation_sha256")
+                    raise ValueError(
+                        f"no frozen child µMCM found for {child_id!r}, and no "
+                        "implementation-equivalent module theorem template is available "
+                        f"(module={module!r}, implementation_sha256={fingerprint!r})"
+                    )
+                if len(template_matches) > 1:
+                    choices = [str(item["task_dir"]) for item in template_matches]
+                    raise ValueError(
+                        f"multiple implementation-equivalent module theorem templates "
+                        f"found for {child_id!r}: {choices}. Pass one --child-task-dir explicitly."
+                    )
+                record = template_matches[0]
+                reused_template = True
 
-        frozen = record["frozen"]
+        source_unit_id = str(record["task"].get("work_unit_id", ""))
+        template_frozen = record["frozen"]
+        frozen = (
+            instantiate_frozen_umcm(
+                template_frozen,
+                source_work_unit_id=source_unit_id,
+                target_work_unit_id=child_id,
+            )
+            if reused_template
+            else template_frozen
+        )
         catalog = semantic_catalog_from_frozen(
             frozen,
             work_unit_id=child_id,
@@ -238,6 +484,26 @@ def attach_frozen_child_summaries(
                 "task_id": record["task"].get("task_id"),
                 "task_dir": str(record["task_dir"]),
                 "frozen_umcm_sha256": _canonical_sha256(frozen),
+                "template_frozen_umcm_sha256": _canonical_sha256(template_frozen),
+                "implementation_sha256": slot.get("implementation_sha256"),
+                "instance_reuse": {
+                    "kind": "module-theorem-template-instantiation" if reused_template else "exact-work-unit",
+                    "source_work_unit_id": source_unit_id,
+                    "target_work_unit_id": child_id,
+                    "module": slot.get("child_module"),
+                    "implementation_sha256": slot.get("implementation_sha256"),
+                    "structural_implementation_sha256": slot.get("structural_implementation_sha256"),
+                    "source_module": (
+                        record.get("static_handoff", {}).get("work_unit", {}).get("module")
+                        if isinstance(record.get("static_handoff"), dict)
+                        else None
+                    ),
+                    "verification": (
+                        "source-artifact-proof-scope-plus-transitive-structural-equivalence-v0.1"
+                        if reused_template
+                        else "exact-work-unit-id"
+                    ),
+                },
                 "semantic_catalog": catalog,
                 "frozen_umcm": frozen,
             }
@@ -247,7 +513,7 @@ def attach_frozen_child_summaries(
     result = deepcopy(handoff)
     result["composition"] = {
         "mode": "parent_synthesis",
-        "policy": "frozen-direct-children-no-child-rtl-v0.1",
+        "policy": "frozen-direct-children-with-verified-module-instance-reuse-v0.2",
         "child_summaries": summaries,
         "semantic_catalog": imported,
     }

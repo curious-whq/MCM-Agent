@@ -17,7 +17,7 @@ RESEARCH_DOCS = (
     "STATUS.md",
 )
 
-EXPERIENCE_TEMPLATE = """# Experiment Experience\n\nKeep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.\n\n## INPUT_NEEDED\n\n- \n\n## PROMPT_RULE\n\n- \n\n## SCHEMA_CHANGE\n\n- \n\n## VALIDATOR_CHANGE\n\n- \n\n## MODEL_FAILURE\n\n- \n\n## GENERALIZATION\n\n- \n"""
+EXPERIENCE_TEMPLATE = """# Experiment Experience\n\nKeep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.\n\n## INPUT_NEEDED\n\n-\n\n## PROMPT_RULE\n\n-\n\n## SCHEMA_CHANGE\n\n-\n\n## VALIDATOR_CHANGE\n\n-\n\n## MODEL_FAILURE\n\n-\n\n## GENERALIZATION\n\n-\n"""
 
 
 def _load_json(path: Path) -> dict[str, Any]:
@@ -130,6 +130,20 @@ def build_run_summary(task_dir: str | Path) -> str:
             lines.append(f"- `{axiom_id}` [{level}] {formula}")
         lines.append("")
 
+    provenance = trusted.get("provenance")
+    if isinstance(provenance, dict) and provenance:
+        lines.extend(["## Certified provenance", ""])
+        for axiom_id, entry in sorted(provenance.items()):
+            if not isinstance(entry, dict):
+                continue
+            sources = entry.get("source_axioms", [])
+            rendered_sources = ", ".join(f"`{source}`" for source in sources) if sources else "parent-local proof"
+            lines.append(
+                f"- `{axiom_id}` [{entry.get('kind', 'unknown')}; "
+                f"{entry.get('proof_method', 'unknown')}] <- {rendered_sources}"
+            )
+        lines.append("")
+
     unresolved = candidate.get("unresolved", [])
     if unresolved:
         lines.extend(["## Unresolved", ""])
@@ -232,7 +246,10 @@ def build_current_handoff(
     for task_dir in discovered:
         write_run_summary(task_dir)
         summary = (task_dir / "SUMMARY.md").read_text(encoding="utf-8").strip()
-        experience = initialize_experience(task_dir).read_text(encoding="utf-8").strip()
+        experience = "\n".join(
+            line.rstrip()
+            for line in initialize_experience(task_dir).read_text(encoding="utf-8").strip().splitlines()
+        )
         lines.extend(
             [
                 f"### Run: `{task_dir.name}`",

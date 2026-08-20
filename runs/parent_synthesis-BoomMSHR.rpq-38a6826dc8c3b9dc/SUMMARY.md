@@ -45,6 +45,16 @@
 - `A6` [FORMALLY_PROVED] TransferBranchKilled => !BufferCapture
 - `A7` [FORMALLY_PROVED] TransferFlushKilled => !BufferCapture
 
+## Certified provenance
+
+- `A1` [lifted; trusted-child-lift] <- `BoomMSHR.rpq.main::A1`
+- `A2` [parent_local; exact-combinational-exclusion] <- parent-local proof
+- `A3` [parent_local; exact-scalar-valid-token-provenance] <- parent-local proof
+- `A4` [parent_local; occurrence-bridge-history-composition] <- parent-local proof
+- `A5` [emergent; trusted-history-transitivity] <- `BoomMSHR.rpq.main::A11`
+- `A6` [parent_local; exact-combinational-exclusion] <- parent-local proof
+- `A7` [parent_local; exact-combinational-exclusion] <- parent-local proof
+
 ## Next action
 
 A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.

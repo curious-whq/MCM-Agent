@@ -1,0 +1,1558 @@
+{
+  "all_axioms_formally_proved": true,
+  "all_axioms_structurally_supported": true,
+  "candidate_axiom_count": 9,
+  "control_model": {
+    "known_states": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "reset_state": 0,
+    "state_register": "state",
+    "transitions": [
+      {
+        "dst": 1,
+        "guard_leaves": [
+          "io.req.valid",
+          "state"
+        ],
+        "labels": [
+          "ReqAccept"
+        ],
+        "src": 0,
+        "statement_id": 1604
+      },
+      {
+        "dst": 2,
+        "guard_leaves": [
+          "io.mem_access.ready",
+          "state"
+        ],
+        "labels": [
+          "MemAccess"
+        ],
+        "src": 1,
+        "statement_id": 1607
+      },
+      {
+        "dst": 3,
+        "guard_leaves": [
+          "io.mem_ack.valid",
+          "state"
+        ],
+        "labels": [
+          "AckConsumed"
+        ],
+        "src": 2,
+        "statement_id": 1611
+      },
+      {
+        "dst": 0,
+        "guard_leaves": [
+          "h10",
+          "hb",
+          "hc",
+          "hd",
+          "he",
+          "hf",
+          "io.resp.ready",
+          "req.uop.mem_cmd",
+          "state"
+        ],
+        "labels": [],
+        "src": 3,
+        "statement_id": 1648
+      },
+      {
+        "dst": 0,
+        "guard_leaves": [],
+        "labels": [],
+        "src": 0,
+        "statement_id": null
+      },
+      {
+        "dst": 1,
+        "guard_leaves": [],
+        "labels": [],
+        "src": 1,
+        "statement_id": null
+      },
+      {
+        "dst": 2,
+        "guard_leaves": [],
+        "labels": [],
+        "src": 2,
+        "statement_id": null
+      },
+      {
+        "dst": 3,
+        "guard_leaves": [],
+        "labels": [
+          "RespHandshake"
+        ],
+        "src": 3,
+        "statement_id": null
+      }
+    ]
+  },
+  "counts": {
+    "FORMALLY_PROVED": 9,
+    "GROUNDED": 0,
+    "PARTIALLY_SUPPORTED": 0,
+    "REFUTED": 0,
+    "SPEC_PROVED": 0,
+    "STRUCTURALLY_SUPPORTED": 0
+  },
+  "formal_backend": {
+    "api_version": "formal-backend-api-0.13",
+    "available": true,
+    "name": "explicit-control",
+    "note": "Exhaustive formal proof for certified finite-control/order properties, exact symbolic local/identity facts, exact local Boolean exclusion/conservation, bounded indexed token provenance, and selected finite reference equivalence checks. It is not a general bit-level SMT backend.",
+    "proof_domain": "control + exact symbolic local + exact combinational exclusion/conservation + scalar/indexed token provenance + finite reference equivalence",
+    "supported_checkers": [
+      "forbid_when",
+      "history_order",
+      "history_chain",
+      "history_join",
+      "indexed_coverage",
+      "occurrence_partition",
+      "transaction_exclusion",
+      "signal_alias",
+      "constant_bit",
+      "identity_projection",
+      "tilelink_on_probe_spec"
+    ],
+    "trusted_proof_levels": [
+      "FORMALLY_PROVED",
+      "SPEC_PROVED"
+    ]
+  },
+  "has_counterexample": false,
+  "property_compiler": "formal-axiom-compiler-0.7",
+  "results": [
+    {
+      "arguments": {
+        "occurrence": "ReqAccept",
+        "predicate": "Busy"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        6,
+        7,
+        1601
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "accounted_state_write_ids": [
+            1604,
+            1607,
+            1611,
+            1648
+          ],
+          "certified": true,
+          "known_states": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "note": "This is a formal exhaustive proof over a fail-closed conservative control abstraction derived from the FIRRTL ledger. It is not a full bit-level proof of arbitrary datapath semantics.",
+          "proof_domain": "conservative-finite-control-abstraction",
+          "reset_state": 0,
+          "state_register": "state",
+          "stutter_closed_states": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        "proof": "occurrence source states [0] are disjoint from predicate states [1, 2, 3]",
+        "proof_method": "exhaustive-state-reachability",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ReqAccept"
+        ],
+        "predicates": [
+          "Busy"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "Busy => !ReqAccept",
+      "structural": {
+        "proof": "occurrence source states [0] are disjoint from predicate states [1, 2, 3]",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "after": "MemAccess",
+        "before": "ReqAccept"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "ordering",
+      "checker": "history_order",
+      "evidence_statement_ids": [
+        1481,
+        1482,
+        1601,
+        1602,
+        1603,
+        1604,
+        1605,
+        1606,
+        1607
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "accounted_state_write_ids": [
+            1604,
+            1607,
+            1611,
+            1648
+          ],
+          "certified": true,
+          "known_states": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "note": "This is a formal exhaustive proof over a fail-closed conservative control abstraction derived from the FIRRTL ledger. It is not a full bit-level proof of arbitrary datapath semantics.",
+          "proof_domain": "conservative-finite-control-abstraction",
+          "reset_state": 0,
+          "state_register": "state",
+          "stutter_closed_states": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        "proof": "finite-control over-approximation found no transaction path violating history order",
+        "proof_method": "exhaustive-state-reachability",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "MemAccess",
+          "ReqAccept"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "ReqAccept <mu MemAccess",
+      "structural": {
+        "proof": "finite-control over-approximation found no transaction path violating history order",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "after": "AckConsumed",
+        "before": "MemAccess"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "ordering",
+      "checker": "history_order",
+      "evidence_statement_ids": [
+        1605,
+        1606,
+        1607,
+        1608,
+        1609,
+        1610,
+        1611
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "accounted_state_write_ids": [
+            1604,
+            1607,
+            1611,
+            1648
+          ],
+          "certified": true,
+          "known_states": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "note": "This is a formal exhaustive proof over a fail-closed conservative control abstraction derived from the FIRRTL ledger. It is not a full bit-level proof of arbitrary datapath semantics.",
+          "proof_domain": "conservative-finite-control-abstraction",
+          "reset_state": 0,
+          "state_register": "state",
+          "stutter_closed_states": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        "proof": "finite-control over-approximation found no transaction path violating history order",
+        "proof_method": "exhaustive-state-reachability",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "AckConsumed",
+          "MemAccess"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "MemAccess <mu AckConsumed",
+      "structural": {
+        "proof": "finite-control over-approximation found no transaction path violating history order",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "after": "RespHandshake",
+        "before": "AckConsumed"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "ordering",
+      "checker": "history_order",
+      "evidence_statement_ids": [
+        1552,
+        1553,
+        1554,
+        1555,
+        1611,
+        1642,
+        1643,
+        1645
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "accounted_state_write_ids": [
+            1604,
+            1607,
+            1611,
+            1648
+          ],
+          "certified": true,
+          "known_states": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "note": "This is a formal exhaustive proof over a fail-closed conservative control abstraction derived from the FIRRTL ledger. It is not a full bit-level proof of arbitrary datapath semantics.",
+          "proof_domain": "conservative-finite-control-abstraction",
+          "reset_state": 0,
+          "state_register": "state",
+          "stutter_closed_states": [
+            0,
+            1,
+            2,
+            3
+          ]
+        },
+        "proof": "finite-control over-approximation found no transaction path violating history order",
+        "proof_method": "exhaustive-state-reachability",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "AckConsumed",
+          "RespHandshake"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "AckConsumed <mu RespHandshake",
+      "structural": {
+        "proof": "finite-control over-approximation found no transaction path violating history order",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "RespHandshake",
+        "predicate": "NoResponseRequired"
+      },
+      "axiom_id": "A5",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        1552,
+        1553,
+        1554,
+        1555
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 0,
+          "proof": "RespHandshake and NoResponseRequired have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "RespHandshake and NoResponseRequired have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "RespHandshake"
+        ],
+        "predicates": [
+          "NoResponseRequired"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "NoResponseRequired => !RespHandshake",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "accepted_by": "ReqAccept",
+        "capture_source": "io.req.bits",
+        "identity_key": "RequestIdentity",
+        "projections": [
+          {
+            "source": "req.uop.rob_idx",
+            "target": "io.resp.bits.uop.rob_idx"
+          },
+          {
+            "source": "req.uop.ldq_idx",
+            "target": "io.resp.bits.uop.ldq_idx"
+          },
+          {
+            "source": "req.uop.stq_idx",
+            "target": "io.resp.bits.uop.stq_idx"
+          },
+          {
+            "source": "req.uop.mem_cmd",
+            "target": "io.resp.bits.uop.mem_cmd"
+          },
+          {
+            "source": "req.uop.mem_size",
+            "target": "io.resp.bits.uop.mem_size"
+          }
+        ]
+      },
+      "axiom_id": "A6",
+      "axiom_kind": "identity_flow",
+      "checker": "identity_projection",
+      "evidence_statement_ids": [
+        1603,
+        1556
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "capture_statement_ids": [
+          1603
+        ],
+        "projection_proofs": [
+          {
+            "normal_form": "('ref', 'req.uop.rob_idx')",
+            "source": "req.uop.rob_idx",
+            "target": "io.resp.bits.uop.rob_idx"
+          },
+          {
+            "normal_form": "('ref', 'req.uop.ldq_idx')",
+            "source": "req.uop.ldq_idx",
+            "target": "io.resp.bits.uop.ldq_idx"
+          },
+          {
+            "normal_form": "('ref', 'req.uop.stq_idx')",
+            "source": "req.uop.stq_idx",
+            "target": "io.resp.bits.uop.stq_idx"
+          },
+          {
+            "normal_form": "('ref', 'req.uop.mem_cmd')",
+            "source": "req.uop.mem_cmd",
+            "target": "io.resp.bits.uop.mem_cmd"
+          },
+          {
+            "normal_form": "('ref', 'req.uop.mem_size')",
+            "source": "req.uop.mem_size",
+            "target": "io.resp.bits.uop.mem_size"
+          }
+        ],
+        "proof": "carrier 'req' is captured exactly from 'io.req.bits' only on ReqAccept; all 5 declared projections are exact symbolic functions of the latched carrier",
+        "proof_domain": "exact-symbolic-transaction-identity",
+        "proof_method": "exact-symbolic-transaction-identity",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [
+          "RequestIdentity"
+        ],
+        "occurrences": [
+          "ReqAccept",
+          "RespHandshake"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.req.bits",
+          "io.resp.bits.uop.ldq_idx",
+          "io.resp.bits.uop.mem_cmd",
+          "io.resp.bits.uop.mem_size",
+          "io.resp.bits.uop.rob_idx",
+          "io.resp.bits.uop.stq_idx",
+          "req",
+          "req.uop.ldq_idx",
+          "req.uop.mem_cmd",
+          "req.uop.mem_size",
+          "req.uop.rob_idx",
+          "req.uop.stq_idx"
+        ]
+      },
+      "rendered_formula": "capture RequestIdentity := io.req.bits on ReqAccept; preserve 5 exact identity projections",
+      "structural": {
+        "capture_statement_ids": [
+          1603
+        ],
+        "projection_proofs": [
+          {
+            "normal_form": "('ref', 'req.uop.rob_idx')",
+            "source": "req.uop.rob_idx",
+            "target": "io.resp.bits.uop.rob_idx"
+          },
+          {
+            "normal_form": "('ref', 'req.uop.ldq_idx')",
+            "source": "req.uop.ldq_idx",
+            "target": "io.resp.bits.uop.ldq_idx"
+          },
+          {
+            "normal_form": "('ref', 'req.uop.stq_idx')",
+            "source": "req.uop.stq_idx",
+            "target": "io.resp.bits.uop.stq_idx"
+          },
+          {
+            "normal_form": "('ref', 'req.uop.mem_cmd')",
+            "source": "req.uop.mem_cmd",
+            "target": "io.resp.bits.uop.mem_cmd"
+          },
+          {
+            "normal_form": "('ref', 'req.uop.mem_size')",
+            "source": "req.uop.mem_size",
+            "target": "io.resp.bits.uop.mem_size"
+          }
+        ],
+        "proof": "carrier 'req' is captured exactly from 'io.req.bits' only on ReqAccept; all 5 declared projections are exact symbolic functions of the latched carrier",
+        "proof_domain": "exact-symbolic-transaction-identity",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "MemAccess",
+        "source": "bits(req.addr, 31, 0)",
+        "target": "io.mem_access.bits.address"
+      },
+      "axiom_id": "A7",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        79,
+        224,
+        361,
+        489,
+        617,
+        745,
+        873,
+        1001,
+        1129,
+        1257,
+        1385,
+        1525,
+        1526,
+        1527
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "all_driver_statement_ids": [
+            1527
+          ],
+          "on": "MemAccess",
+          "proof": "every last-connect driver of io.mem_access.bits.address reachable on MemAccess equals bits(req.addr, 31, 0)",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "unconditional"
+              },
+              "atom_count": 2,
+              "rhs": "_io_mem_access_bits_T_43.address",
+              "statement_id": 1527,
+              "value_proof": {
+                "branches": [
+                  {
+                    "branch": "high",
+                    "proof": {
+                      "branches": [
+                        {
+                          "branch": "high",
+                          "proof": {
+                            "kind": "firrtl-sink-width-truncation",
+                            "sink_width": 32
+                          }
+                        },
+                        {
+                          "branch": "low",
+                          "proof": {
+                            "branches": [
+                              {
+                                "branch": "high",
+                                "proof": {
+                                  "kind": "firrtl-sink-width-truncation",
+                                  "sink_width": 32
+                                }
+                              },
+                              {
+                                "branch": "low",
+                                "proof": {
+                                  "branches": [
+                                    {
+                                      "branch": "high",
+                                      "proof": {
+                                        "kind": "firrtl-sink-width-truncation",
+                                        "sink_width": 32
+                                      }
+                                    },
+                                    {
+                                      "branch": "low",
+                                      "proof": {
+                                        "branches": [
+                                          {
+                                            "branch": "high",
+                                            "proof": {
+                                              "kind": "firrtl-sink-width-truncation",
+                                              "sink_width": 32
+                                            }
+                                          },
+                                          {
+                                            "branch": "low",
+                                            "proof": {
+                                              "branches": [
+                                                {
+                                                  "branch": "high",
+                                                  "proof": {
+                                                    "kind": "firrtl-sink-width-truncation",
+                                                    "sink_width": 32
+                                                  }
+                                                },
+                                                {
+                                                  "branch": "low",
+                                                  "proof": {
+                                                    "branches": [
+                                                      {
+                                                        "branch": "high",
+                                                        "proof": {
+                                                          "kind": "firrtl-sink-width-truncation",
+                                                          "sink_width": 32
+                                                        }
+                                                      },
+                                                      {
+                                                        "branch": "low",
+                                                        "proof": {
+                                                          "branches": [
+                                                            {
+                                                              "branch": "high",
+                                                              "proof": {
+                                                                "kind": "firrtl-sink-width-truncation",
+                                                                "sink_width": 32
+                                                              }
+                                                            },
+                                                            {
+                                                              "branch": "low",
+                                                              "proof": {
+                                                                "branches": [
+                                                                  {
+                                                                    "branch": "high",
+                                                                    "proof": {
+                                                                      "kind": "firrtl-sink-width-truncation",
+                                                                      "sink_width": 32
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "branch": "low",
+                                                                    "proof": {
+                                                                      "branches": [
+                                                                        {
+                                                                          "branch": "high",
+                                                                          "proof": {
+                                                                            "kind": "firrtl-sink-width-truncation",
+                                                                            "sink_width": 32
+                                                                          }
+                                                                        },
+                                                                        {
+                                                                          "branch": "low",
+                                                                          "proof": {
+                                                                            "atom_count": 11,
+                                                                            "kind": "unreachable-branch"
+                                                                          }
+                                                                        }
+                                                                      ],
+                                                                      "kind": "conditional-mux-equality",
+                                                                      "select": "_atomics_T"
+                                                                    }
+                                                                  }
+                                                                ],
+                                                                "kind": "conditional-mux-equality",
+                                                                "select": "_atomics_T_2"
+                                                              }
+                                                            }
+                                                          ],
+                                                          "kind": "conditional-mux-equality",
+                                                          "select": "_atomics_T_4"
+                                                        }
+                                                      }
+                                                    ],
+                                                    "kind": "conditional-mux-equality",
+                                                    "select": "_atomics_T_6"
+                                                  }
+                                                }
+                                              ],
+                                              "kind": "conditional-mux-equality",
+                                              "select": "_atomics_T_8"
+                                            }
+                                          }
+                                        ],
+                                        "kind": "conditional-mux-equality",
+                                        "select": "_atomics_T_10"
+                                      }
+                                    }
+                                  ],
+                                  "kind": "conditional-mux-equality",
+                                  "select": "_atomics_T_12"
+                                }
+                              }
+                            ],
+                            "kind": "conditional-mux-equality",
+                            "select": "_atomics_T_14"
+                          }
+                        }
+                      ],
+                      "kind": "conditional-mux-equality",
+                      "select": "_atomics_T_16"
+                    }
+                  },
+                  {
+                    "branch": "low",
+                    "proof": {
+                      "branches": [
+                        {
+                          "branch": "high",
+                          "proof": {
+                            "kind": "firrtl-sink-width-truncation",
+                            "sink_width": 32
+                          }
+                        },
+                        {
+                          "branch": "low",
+                          "proof": {
+                            "kind": "firrtl-sink-width-truncation",
+                            "sink_width": 32
+                          }
+                        }
+                      ],
+                      "kind": "conditional-mux-equality",
+                      "select": "_io_mem_access_bits_T_41"
+                    }
+                  }
+                ],
+                "kind": "conditional-mux-equality",
+                "select": "_io_mem_access_bits_T_16"
+              }
+            }
+          ],
+          "source": "bits(req.addr, 31, 0)",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.mem_access.bits.address",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.mem_access.bits.address reachable on MemAccess equals bits(req.addr, 31, 0)",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "MemAccess"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.mem_access.bits.address",
+          "req.addr"
+        ]
+      },
+      "rendered_formula": "io.mem_access.bits.address = bits(req.addr, 31, 0) on MemAccess",
+      "structural": {
+        "all_driver_statement_ids": [
+          1527
+        ],
+        "on": "MemAccess",
+        "proof": "every last-connect driver of io.mem_access.bits.address reachable on MemAccess equals bits(req.addr, 31, 0)",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "unconditional"
+            },
+            "atom_count": 2,
+            "rhs": "_io_mem_access_bits_T_43.address",
+            "statement_id": 1527,
+            "value_proof": {
+              "branches": [
+                {
+                  "branch": "high",
+                  "proof": {
+                    "branches": [
+                      {
+                        "branch": "high",
+                        "proof": {
+                          "kind": "firrtl-sink-width-truncation",
+                          "sink_width": 32
+                        }
+                      },
+                      {
+                        "branch": "low",
+                        "proof": {
+                          "branches": [
+                            {
+                              "branch": "high",
+                              "proof": {
+                                "kind": "firrtl-sink-width-truncation",
+                                "sink_width": 32
+                              }
+                            },
+                            {
+                              "branch": "low",
+                              "proof": {
+                                "branches": [
+                                  {
+                                    "branch": "high",
+                                    "proof": {
+                                      "kind": "firrtl-sink-width-truncation",
+                                      "sink_width": 32
+                                    }
+                                  },
+                                  {
+                                    "branch": "low",
+                                    "proof": {
+                                      "branches": [
+                                        {
+                                          "branch": "high",
+                                          "proof": {
+                                            "kind": "firrtl-sink-width-truncation",
+                                            "sink_width": 32
+                                          }
+                                        },
+                                        {
+                                          "branch": "low",
+                                          "proof": {
+                                            "branches": [
+                                              {
+                                                "branch": "high",
+                                                "proof": {
+                                                  "kind": "firrtl-sink-width-truncation",
+                                                  "sink_width": 32
+                                                }
+                                              },
+                                              {
+                                                "branch": "low",
+                                                "proof": {
+                                                  "branches": [
+                                                    {
+                                                      "branch": "high",
+                                                      "proof": {
+                                                        "kind": "firrtl-sink-width-truncation",
+                                                        "sink_width": 32
+                                                      }
+                                                    },
+                                                    {
+                                                      "branch": "low",
+                                                      "proof": {
+                                                        "branches": [
+                                                          {
+                                                            "branch": "high",
+                                                            "proof": {
+                                                              "kind": "firrtl-sink-width-truncation",
+                                                              "sink_width": 32
+                                                            }
+                                                          },
+                                                          {
+                                                            "branch": "low",
+                                                            "proof": {
+                                                              "branches": [
+                                                                {
+                                                                  "branch": "high",
+                                                                  "proof": {
+                                                                    "kind": "firrtl-sink-width-truncation",
+                                                                    "sink_width": 32
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "branch": "low",
+                                                                  "proof": {
+                                                                    "branches": [
+                                                                      {
+                                                                        "branch": "high",
+                                                                        "proof": {
+                                                                          "kind": "firrtl-sink-width-truncation",
+                                                                          "sink_width": 32
+                                                                        }
+                                                                      },
+                                                                      {
+                                                                        "branch": "low",
+                                                                        "proof": {
+                                                                          "atom_count": 11,
+                                                                          "kind": "unreachable-branch"
+                                                                        }
+                                                                      }
+                                                                    ],
+                                                                    "kind": "conditional-mux-equality",
+                                                                    "select": "_atomics_T"
+                                                                  }
+                                                                }
+                                                              ],
+                                                              "kind": "conditional-mux-equality",
+                                                              "select": "_atomics_T_2"
+                                                            }
+                                                          }
+                                                        ],
+                                                        "kind": "conditional-mux-equality",
+                                                        "select": "_atomics_T_4"
+                                                      }
+                                                    }
+                                                  ],
+                                                  "kind": "conditional-mux-equality",
+                                                  "select": "_atomics_T_6"
+                                                }
+                                              }
+                                            ],
+                                            "kind": "conditional-mux-equality",
+                                            "select": "_atomics_T_8"
+                                          }
+                                        }
+                                      ],
+                                      "kind": "conditional-mux-equality",
+                                      "select": "_atomics_T_10"
+                                    }
+                                  }
+                                ],
+                                "kind": "conditional-mux-equality",
+                                "select": "_atomics_T_12"
+                              }
+                            }
+                          ],
+                          "kind": "conditional-mux-equality",
+                          "select": "_atomics_T_14"
+                        }
+                      }
+                    ],
+                    "kind": "conditional-mux-equality",
+                    "select": "_atomics_T_16"
+                  }
+                },
+                {
+                  "branch": "low",
+                  "proof": {
+                    "branches": [
+                      {
+                        "branch": "high",
+                        "proof": {
+                          "kind": "firrtl-sink-width-truncation",
+                          "sink_width": 32
+                        }
+                      },
+                      {
+                        "branch": "low",
+                        "proof": {
+                          "kind": "firrtl-sink-width-truncation",
+                          "sink_width": 32
+                        }
+                      }
+                    ],
+                    "kind": "conditional-mux-equality",
+                    "select": "_io_mem_access_bits_T_41"
+                  }
+                }
+              ],
+              "kind": "conditional-mux-equality",
+              "select": "_io_mem_access_bits_T_16"
+            }
+          }
+        ],
+        "source": "bits(req.addr, 31, 0)",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.mem_access.bits.address",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "MemAccess",
+        "source": "req.uop.mem_size",
+        "target": "io.mem_access.bits.size"
+      },
+      "axiom_id": "A8",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        77,
+        222,
+        359,
+        487,
+        615,
+        743,
+        871,
+        999,
+        1127,
+        1255,
+        1383,
+        1525,
+        1526,
+        1527
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "all_driver_statement_ids": [
+            1527
+          ],
+          "on": "MemAccess",
+          "proof": "every last-connect driver of io.mem_access.bits.size reachable on MemAccess equals req.uop.mem_size",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "unconditional"
+              },
+              "atom_count": 2,
+              "rhs": "_io_mem_access_bits_T_43.size",
+              "statement_id": 1527,
+              "value_proof": {
+                "branches": [
+                  {
+                    "branch": "high",
+                    "proof": {
+                      "branches": [
+                        {
+                          "branch": "high",
+                          "proof": {
+                            "kind": "symbolic-normal-form-equality"
+                          }
+                        },
+                        {
+                          "branch": "low",
+                          "proof": {
+                            "branches": [
+                              {
+                                "branch": "high",
+                                "proof": {
+                                  "kind": "symbolic-normal-form-equality"
+                                }
+                              },
+                              {
+                                "branch": "low",
+                                "proof": {
+                                  "branches": [
+                                    {
+                                      "branch": "high",
+                                      "proof": {
+                                        "kind": "symbolic-normal-form-equality"
+                                      }
+                                    },
+                                    {
+                                      "branch": "low",
+                                      "proof": {
+                                        "branches": [
+                                          {
+                                            "branch": "high",
+                                            "proof": {
+                                              "kind": "symbolic-normal-form-equality"
+                                            }
+                                          },
+                                          {
+                                            "branch": "low",
+                                            "proof": {
+                                              "branches": [
+                                                {
+                                                  "branch": "high",
+                                                  "proof": {
+                                                    "kind": "symbolic-normal-form-equality"
+                                                  }
+                                                },
+                                                {
+                                                  "branch": "low",
+                                                  "proof": {
+                                                    "branches": [
+                                                      {
+                                                        "branch": "high",
+                                                        "proof": {
+                                                          "kind": "symbolic-normal-form-equality"
+                                                        }
+                                                      },
+                                                      {
+                                                        "branch": "low",
+                                                        "proof": {
+                                                          "branches": [
+                                                            {
+                                                              "branch": "high",
+                                                              "proof": {
+                                                                "kind": "symbolic-normal-form-equality"
+                                                              }
+                                                            },
+                                                            {
+                                                              "branch": "low",
+                                                              "proof": {
+                                                                "branches": [
+                                                                  {
+                                                                    "branch": "high",
+                                                                    "proof": {
+                                                                      "kind": "symbolic-normal-form-equality"
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "branch": "low",
+                                                                    "proof": {
+                                                                      "branches": [
+                                                                        {
+                                                                          "branch": "high",
+                                                                          "proof": {
+                                                                            "kind": "symbolic-normal-form-equality"
+                                                                          }
+                                                                        },
+                                                                        {
+                                                                          "branch": "low",
+                                                                          "proof": {
+                                                                            "atom_count": 11,
+                                                                            "kind": "unreachable-branch"
+                                                                          }
+                                                                        }
+                                                                      ],
+                                                                      "kind": "conditional-mux-equality",
+                                                                      "select": "_atomics_T"
+                                                                    }
+                                                                  }
+                                                                ],
+                                                                "kind": "conditional-mux-equality",
+                                                                "select": "_atomics_T_2"
+                                                              }
+                                                            }
+                                                          ],
+                                                          "kind": "conditional-mux-equality",
+                                                          "select": "_atomics_T_4"
+                                                        }
+                                                      }
+                                                    ],
+                                                    "kind": "conditional-mux-equality",
+                                                    "select": "_atomics_T_6"
+                                                  }
+                                                }
+                                              ],
+                                              "kind": "conditional-mux-equality",
+                                              "select": "_atomics_T_8"
+                                            }
+                                          }
+                                        ],
+                                        "kind": "conditional-mux-equality",
+                                        "select": "_atomics_T_10"
+                                      }
+                                    }
+                                  ],
+                                  "kind": "conditional-mux-equality",
+                                  "select": "_atomics_T_12"
+                                }
+                              }
+                            ],
+                            "kind": "conditional-mux-equality",
+                            "select": "_atomics_T_14"
+                          }
+                        }
+                      ],
+                      "kind": "conditional-mux-equality",
+                      "select": "_atomics_T_16"
+                    }
+                  },
+                  {
+                    "branch": "low",
+                    "proof": {
+                      "branches": [
+                        {
+                          "branch": "high",
+                          "proof": {
+                            "kind": "symbolic-normal-form-equality"
+                          }
+                        },
+                        {
+                          "branch": "low",
+                          "proof": {
+                            "kind": "symbolic-normal-form-equality"
+                          }
+                        }
+                      ],
+                      "kind": "conditional-mux-equality",
+                      "select": "_io_mem_access_bits_T_41"
+                    }
+                  }
+                ],
+                "kind": "conditional-mux-equality",
+                "select": "_io_mem_access_bits_T_16"
+              }
+            }
+          ],
+          "source": "req.uop.mem_size",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.mem_access.bits.size",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.mem_access.bits.size reachable on MemAccess equals req.uop.mem_size",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "MemAccess"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.mem_access.bits.size",
+          "req.uop.mem_size"
+        ]
+      },
+      "rendered_formula": "io.mem_access.bits.size = req.uop.mem_size on MemAccess",
+      "structural": {
+        "all_driver_statement_ids": [
+          1527
+        ],
+        "on": "MemAccess",
+        "proof": "every last-connect driver of io.mem_access.bits.size reachable on MemAccess equals req.uop.mem_size",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "unconditional"
+            },
+            "atom_count": 2,
+            "rhs": "_io_mem_access_bits_T_43.size",
+            "statement_id": 1527,
+            "value_proof": {
+              "branches": [
+                {
+                  "branch": "high",
+                  "proof": {
+                    "branches": [
+                      {
+                        "branch": "high",
+                        "proof": {
+                          "kind": "symbolic-normal-form-equality"
+                        }
+                      },
+                      {
+                        "branch": "low",
+                        "proof": {
+                          "branches": [
+                            {
+                              "branch": "high",
+                              "proof": {
+                                "kind": "symbolic-normal-form-equality"
+                              }
+                            },
+                            {
+                              "branch": "low",
+                              "proof": {
+                                "branches": [
+                                  {
+                                    "branch": "high",
+                                    "proof": {
+                                      "kind": "symbolic-normal-form-equality"
+                                    }
+                                  },
+                                  {
+                                    "branch": "low",
+                                    "proof": {
+                                      "branches": [
+                                        {
+                                          "branch": "high",
+                                          "proof": {
+                                            "kind": "symbolic-normal-form-equality"
+                                          }
+                                        },
+                                        {
+                                          "branch": "low",
+                                          "proof": {
+                                            "branches": [
+                                              {
+                                                "branch": "high",
+                                                "proof": {
+                                                  "kind": "symbolic-normal-form-equality"
+                                                }
+                                              },
+                                              {
+                                                "branch": "low",
+                                                "proof": {
+                                                  "branches": [
+                                                    {
+                                                      "branch": "high",
+                                                      "proof": {
+                                                        "kind": "symbolic-normal-form-equality"
+                                                      }
+                                                    },
+                                                    {
+                                                      "branch": "low",
+                                                      "proof": {
+                                                        "branches": [
+                                                          {
+                                                            "branch": "high",
+                                                            "proof": {
+                                                              "kind": "symbolic-normal-form-equality"
+                                                            }
+                                                          },
+                                                          {
+                                                            "branch": "low",
+                                                            "proof": {
+                                                              "branches": [
+                                                                {
+                                                                  "branch": "high",
+                                                                  "proof": {
+                                                                    "kind": "symbolic-normal-form-equality"
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "branch": "low",
+                                                                  "proof": {
+                                                                    "branches": [
+                                                                      {
+                                                                        "branch": "high",
+                                                                        "proof": {
+                                                                          "kind": "symbolic-normal-form-equality"
+                                                                        }
+                                                                      },
+                                                                      {
+                                                                        "branch": "low",
+                                                                        "proof": {
+                                                                          "atom_count": 11,
+                                                                          "kind": "unreachable-branch"
+                                                                        }
+                                                                      }
+                                                                    ],
+                                                                    "kind": "conditional-mux-equality",
+                                                                    "select": "_atomics_T"
+                                                                  }
+                                                                }
+                                                              ],
+                                                              "kind": "conditional-mux-equality",
+                                                              "select": "_atomics_T_2"
+                                                            }
+                                                          }
+                                                        ],
+                                                        "kind": "conditional-mux-equality",
+                                                        "select": "_atomics_T_4"
+                                                      }
+                                                    }
+                                                  ],
+                                                  "kind": "conditional-mux-equality",
+                                                  "select": "_atomics_T_6"
+                                                }
+                                              }
+                                            ],
+                                            "kind": "conditional-mux-equality",
+                                            "select": "_atomics_T_8"
+                                          }
+                                        }
+                                      ],
+                                      "kind": "conditional-mux-equality",
+                                      "select": "_atomics_T_10"
+                                    }
+                                  }
+                                ],
+                                "kind": "conditional-mux-equality",
+                                "select": "_atomics_T_12"
+                              }
+                            }
+                          ],
+                          "kind": "conditional-mux-equality",
+                          "select": "_atomics_T_14"
+                        }
+                      }
+                    ],
+                    "kind": "conditional-mux-equality",
+                    "select": "_atomics_T_16"
+                  }
+                },
+                {
+                  "branch": "low",
+                  "proof": {
+                    "branches": [
+                      {
+                        "branch": "high",
+                        "proof": {
+                          "kind": "symbolic-normal-form-equality"
+                        }
+                      },
+                      {
+                        "branch": "low",
+                        "proof": {
+                          "kind": "symbolic-normal-form-equality"
+                        }
+                      }
+                    ],
+                    "kind": "conditional-mux-equality",
+                    "select": "_io_mem_access_bits_T_41"
+                  }
+                }
+              ],
+              "kind": "conditional-mux-equality",
+              "select": "_io_mem_access_bits_T_16"
+            }
+          }
+        ],
+        "source": "req.uop.mem_size",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.mem_access.bits.size",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "RespHandshake",
+        "source": "req.is_hella",
+        "target": "io.resp.bits.is_hella"
+      },
+      "axiom_id": "A9",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        1600
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "all_driver_statement_ids": [
+            1600
+          ],
+          "on": "RespHandshake",
+          "proof": "every last-connect driver of io.resp.bits.is_hella reachable on RespHandshake equals req.is_hella",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "unconditional"
+              },
+              "atom_count": 15,
+              "rhs": "req.is_hella",
+              "statement_id": 1600,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "req.is_hella",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.resp.bits.is_hella",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.resp.bits.is_hella reachable on RespHandshake equals req.is_hella",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "RespHandshake"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.resp.bits.is_hella",
+          "req.is_hella"
+        ]
+      },
+      "rendered_formula": "io.resp.bits.is_hella = req.is_hella on RespHandshake",
+      "structural": {
+        "all_driver_statement_ids": [
+          1600
+        ],
+        "on": "RespHandshake",
+        "proof": "every last-connect driver of io.resp.bits.is_hella reachable on RespHandshake equals req.is_hella",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "unconditional"
+            },
+            "atom_count": 15,
+            "rhs": "req.is_hella",
+            "statement_id": 1600,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "req.is_hella",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.resp.bits.is_hella",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    }
+  ],
+  "trusted_axiom_count": 9,
+  "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
+  "validator": "semantic-validator-0.14",
+  "work_unit_id": "BoomMSHRFile.mmios_0"
+}

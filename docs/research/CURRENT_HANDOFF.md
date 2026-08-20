@@ -61,6 +61,21 @@ Current experimental language uses:
 - candidate axioms;
 - environment assumptions and unresolved obligations.
 
+Same-cycle combinational routing/merging is expressed by a generic
+`occurrence_partition`: `whole <=> OR(parts)` plus pairwise exclusion of all
+parts. Ordering remains a separate historical relation, and payload/identity
+forwarding remains a separate equality/flow claim.
+
+The partition is defined for every non-empty `parts` set. A singleton is the
+degenerate but useful 1→1 routing case: pairwise exclusion is vacuous and the
+conservation relation becomes exact same-cycle occurrence equivalence.
+
+An occurrence-conditioned `signal_equality` retains its `on` guard through
+compilation. Exact proof reconstructs FIRRTL last-connect priority and checks
+all selected payload drivers reachable under that occurrence; aggregate event
+payload leaves remain valid grounding even when the logical ledger compacts the
+corresponding statement read to the aggregate bundle.
+
 The LLM may propose candidates, but candidate axioms are not trusted by default.
 
 ## Validation and trust
@@ -76,6 +91,8 @@ GROUNDED
 
 Only `FORMALLY_PROVED` or `SPEC_PROVED` axioms may enter `trusted_umcm.json`.
 
+Structural control/dataflow counterexamples are conservative diagnostic evidence, not automatically concrete RTL counterexamples. When an exact certified backend proves the concrete Boolean/control obligation, that proof takes precedence; otherwise the workflow remains fail-closed.
+
 Completeness is not assumed. Missing axioms are expected to make the µMCM an over-approximation. Later system-level counterexamples are checked against concrete RTL; spurious traces drive counterexample-guided µMCM refinement.
 
 ## Bottom-up synthesis
@@ -86,7 +103,7 @@ Parent synthesis must preserve provenance. A parent axiom can be:
 - lifted/generalized from one or more case-specific child axioms;
 - emergent from multiple child contracts plus parent-local RTL/glue.
 
-Any generalization must record `derived_from` information so the user can observe how several lower-level axioms became one higher-level axiom.
+Any generalization must preserve direct theorem provenance so the user can observe how lower-level axioms became a higher-level axiom. For a trusted parent axiom, `source_axioms` is derived from the composition prover certificate and checked against the LLM declaration before entering `trusted_umcm.json` or `frozen_umcm.json`; recursive descent through each frozen parent's direct provenance recovers the complete bottom-up chain.
 
 ---
 
@@ -151,7 +168,22 @@ When completion requires several events that may arrive in either order, µMCM u
 During the manual bootstrap, the human only transports `prompt.md` to the LLM and returns the result to the workflow. The human should not choose occurrences, predicates, identities, cases or axioms for each leaf. A leaf task must autonomously produce a complete candidate JSON when the current Formal AST is sufficient, or explicitly report a necessary, grounded, reusable `MCM-AGENT LANGUAGE GAP` when it is not. A formal-backend proof limitation is not a language gap: expressible candidate axioms are still emitted and `semantic-validate` decides whether they can be certified. Optional strengthening constraints may be deferred in `rationale` for later CEGAR rather than blocking the leaf.
 
 ## D018 — Parent synthesis consumes frozen semantic imports, never child RTL
-A parent-synthesis task is built only after every direct child is `FROZEN_FOR_COMPOSITION`. The parent handoff contains parent-local RTL plus self-contained frozen child µMCM summaries and qualified imported semantic IDs; child internal RTL/state is not reopened. New parent axioms must record provenance in `extensions.parent_synthesis.axiom_provenance`. A wrapper may declare zero new axioms when it adds no memory/coherence-relevant constraint; freezing such a parent is valid because the already-frozen child summaries remain embedded imports. Axiom obligations that span imported child semantic objects remain fail-closed until a certified composition prover can discharge them.
+A parent-synthesis task is built only after every direct child is `FROZEN_FOR_COMPOSITION`. The parent handoff contains parent-local RTL plus self-contained frozen child µMCM summaries and qualified imported semantic IDs; child internal RTL/state is not reopened. New parent axioms must record provenance in `extensions.parent_synthesis.axiom_provenance`. A wrapper may declare zero new axioms when it adds no memory/coherence-relevant constraint; freezing such a parent is valid because the already-frozen child summaries remain embedded imports. Obligations outside the certified composition rules remain fail-closed.
+
+## D019 — Frozen parent provenance is certificate-derived
+The LLM provenance declaration is a claim, not a trusted source. For every trusted parent axiom, the workflow extracts direct frozen-child theorem dependencies from the actual composition proof DAG, derives the provenance kind from the certified proof rule, and requires an exact match with the declaration before trust/freeze. The frozen parent stores these direct dependencies; higher-level tracing follows provenance recursively through frozen imports rather than copying an ever-growing transitive dependency list into every axiom.
+
+## D020 — Conservative structural counterexamples do not preempt exact proof
+The finite structural abstraction may admit signal combinations that concrete local Boolean logic excludes. A structural counterexample therefore remains diagnostic when a stronger exact checker is available. A certified `FORMALLY_PROVED` or `SPEC_PROVED` result takes precedence over such an abstract counterexample; a formal counterexample still refutes the axiom, and an unresolved formal result does not gain trust.
+
+## D021 — Same-cycle event routing uses one-hot occurrence partitions
+µMCM represents exact combinational event routing/merging with the protocol-agnostic `occurrence_partition` axiom. `same_cycle_exactly_one` means `whole` is equivalent to the same-cycle disjunction of `parts`, and every pair of parts is mutually exclusive. It is one-hot conservation, not n-ary parity. The deterministic prover must establish both directions and all pairwise exclusions from exact local Boolean cones; it does not recognize arbiter/module names or assume a priority policy. Identity/payload flow remains a separate axiom, so the initial partition form requires `scope_identity: null`.
+
+## D022 — Conditional payload equality preserves its occurrence guard
+`signal_equality.on` is part of the proof obligation and may not be erased by compilation. The exact local prover reconstructs FIRRTL last-connect priority from all payload drivers and positive `when` activations, then checks every driver selection reachable under the physical boundary occurrence. If a derived occurrence has no exact Boolean guard, only an unconditional equality strengthening may discharge the claim. Physical event payload leaf paths are authoritative grounding signals even when logical compaction records only an aggregate FIRRTL read.
+
+## D023 — Occurrence partitions include the singleton passthrough case
+`occurrence_partition.parts` is non-empty rather than requiring at least two elements. For one part, `same_cycle_exactly_one` reduces to exact same-cycle equivalence between the whole and that part, while pairwise exclusion is vacuous. This keeps 1→1 routers in the same protocol-independent conservation primitive as N→1 arbiters instead of introducing a module-specific passthrough axiom.
 
 ---
 
@@ -228,11 +260,13 @@ Implement a real LLM provider, replay known manual cases, then evaluate held-out
 ## Workflow
 
 - Manual-first leaf task export/import is implemented.
-- µMCM `umcm-formal-0.5` supports scalar/indexed boundary or derived occurrences, predicates, identity, cases, assumptions, generic join/indexed-completeness relations, and same-index relation scopes with indexed lookup expressions; prose formulas/validation programs are no longer semantic inputs.
+- µMCM `umcm-formal-0.5` supports scalar/indexed boundary or derived occurrences, predicates, identity, cases, assumptions, generic join/indexed-completeness relations, exact same-cycle one-hot occurrence partitions, and same-index relation scopes with indexed lookup expressions; prose formulas/validation programs are no longer semantic inputs.
 - Grounding validation is deterministic and fail-closed; it rejects legacy `formula`/`validation` fields and unsupported Formal AST shapes.
 - Validation trust levels distinguish grounding, structural support, formal proof and reference/spec proof.
-- `explicit-control` backend proves certified finite-control/order properties, exact symbolic local/identity facts, selected finite reference equivalence checks, bounded monotone counter/index coverage, supported same-index pipeline/storage relations, sticky-state joins, and supported aggregate-mux constant properties.
+- `explicit-control` backend proves certified finite-control/order properties, exact symbolic local/identity facts, exact local Boolean exclusion and same-cycle occurrence conservation, selected finite reference equivalence checks, bounded monotone counter/index coverage (including cyclic FSM phase-entry zeroing cuts), supported same-index pipeline/storage relations, sticky-state joins, and supported aggregate-mux constant properties.
 - A fully proved leaf with no unresolved items can be frozen as `frozen_umcm.json` for parent composition; it remains reopenable by later CEGAR refinement.
+- Certified parent composition supports frozen theorem lift, exact parent-local/state-scoped occurrence bridges, scalar valid-token provenance, history transitivity, after-side history restriction, and safe same-index-to-unindexed weakening.
+- Trusted/frozen parent provenance is derived from the composition certificate and must exactly match the LLM declaration; direct dependencies remain recursively traceable across frozen levels.
 
 ## ProbeUnit
 
@@ -255,17 +289,1064 @@ Implement a real LLM provider, replay known manual cases, then evaluate held-out
 - The trusted result covers bounded 8-beat completeness, same-index fill/buffer ordering, same-index release-data lookup, release ordering/exclusion, identity preservation, opcode constraint, and voluntary completion join.
 - Status: `FROZEN_FOR_COMPOSITION`.
 
+## BoomMSHR.rpq
+
+- `BoomMSHR.rpq.main` is frozen with 9/9 trusted axioms.
+- `BoomMSHR.rpq` completed the first real parent synthesis and is frozen with 7/7 `FORMALLY_PROVED`, 0 unresolved items.
+- Frozen provenance records `BoomMSHR.rpq::A1` as lifted from `BoomMSHR.rpq.main::A1` and `BoomMSHR.rpq::A5` as emergent from `BoomMSHR.rpq.main::A11`, as required by their proof certificates.
+
+## BoomMSHR
+
+- Parent-synthesis candidate: 15 axioms, 15 `FORMALLY_PROVED`, 0 unresolved, 0 refuted.
+- Refill completeness is certified through the three-bit counter, final-index transition, modulo wrap, and a zeroing-transition cut across the cyclic FSM.
+- `MemFinish` exclusion is proved by its exact Boolean cone even though the conservative structural state abstraction admits a spurious state-only counterexample.
+- Response/replay provenance is composed from frozen `BoomMSHR.rpq::A5` through exact state-scoped subsets of the RPQ dequeue boundary.
+- Status: `FORMALLY_VALIDATED`; not yet frozen.
+
+## BoomMSHRFile.meta_write_arb
+
+- Candidate axioms: 12; trusted axioms: 12; unresolved: 0.
+- `A1` proves exact same-cycle one-hot conservation from the two input handshakes to the output handshake.
+- `A2` proves input-0 priority exclusion.
+- `A3`–`A12` prove conditional forwarding of every exposed payload leaf through exact last-connect/`when` driver reconstruction.
+- Status: `FROZEN_FOR_COMPOSITION`.
+
+## BoomMSHRFile.meta_read_arb
+
+- Candidate axioms: 8; trusted axioms: 8; unresolved: 0.
+- The same generic occurrence-partition, priority-exclusion, and conditional payload-forwarding rules certify the three-field metadata read arbiter without module-specific logic.
+- Status: `FROZEN_FOR_COMPOSITION`.
+
+## BoomMSHRFile.mmio_alloc_arb
+
+- Candidate axioms: 2; trusted axioms: 2; unresolved: 0.
+- The one-input arbiter is modeled as a singleton occurrence partition, reducing exactly to `OutputFire <=> InputFire`, plus conditional payload equality.
+- Status: `FROZEN_FOR_COMPOSITION`.
+
 ## Current phase
 
-Manual Bootstrap, Week-1 style objective: continue the representative L1 bottom-up chain. ProbeUnit and WritebackUnit are both frozen and may be consumed by later parent composition, but the larger L1 parent is not ready because other representative children remain unfinished.
+Manual Bootstrap, Week-1 style objective: continue the representative L1 bottom-up chain. ProbeUnit, WritebackUnit, `BoomMSHR.rpq.main`, and the composite `BoomMSHR.rpq` are frozen and may be consumed by later parent composition.
 
-Current semantic target: `BoomMSHR`.
+Current semantic target: the next unfinished `BoomMSHRFile` child/parent WorkUnit.
 
-Next Action: construct and validate the `BoomMSHR` leaf µMCM, reusing the existing transaction/occurrence/predicate/case/indexed-occurrence/same-index/join language. Extend the language or prover only when new RTL semantics require a reusable general abstraction; do not reopen ProbeUnit or WritebackUnit unless counterexample-guided refinement requires it.
+Next Action: audit direct-child freeze readiness for `BoomMSHRFile`, freeze any already validated prerequisite such as `BoomMSHR` when appropriate, then export the next planner-selected task.
 
 ---
 
 ## Recent WorkUnit Runs
+
+### Run: `leaf_abstraction-BoomMSHRFile.respq-95e53b3103df506e`
+
+# Run Summary — BoomMSHRFile.respq
+
+## Identity
+
+- task: `leaf_abstraction-BoomMSHRFile.respq-95e53b3103df506e`
+- kind: `leaf_abstraction`
+- workflow: `manual-first-workflow-0.9`
+- prompt: `leaf-abstraction-prompt-0.9`
+- schema: `umcm-formal-0.5`
+- workflow status: `FROZEN_FOR_COMPOSITION`
+
+## Grounding
+
+- valid: `True`
+- errors: 0
+- warnings: 0
+
+## Candidate µMCM
+
+- occurrences: 4
+- predicates: 6
+- identity keys: 0
+- cases: 5
+- candidate axioms: 9
+- unresolved: 0
+
+## Validation
+
+- GROUNDED: 0
+- PARTIALLY_SUPPORTED: 0
+- STRUCTURALLY_SUPPORTED: 0
+- FORMALLY_PROVED: 9
+- SPEC_PROVED: 0
+- REFUTED: 0
+- trusted axioms: 9
+- formal backend: `explicit-control`
+
+## Axioms
+
+- `A1` [FORMALLY_PROVED] QueueFull => !EnqHandshake
+- `A2` [FORMALLY_PROVED] IncomingBranchKilled => !QueueInsert
+- `A3` [FORMALLY_PROVED] IncomingFlushKilled => !QueueInsert
+- `A4` [FORMALLY_PROVED] QueueEmpty => !DeqHandshake
+- `A5` [FORMALLY_PROVED] HeadInvalid => !DeqHandshake
+- `A6` [FORMALLY_PROVED] QueueEmpty => !InvalidHeadSkip
+- `A7` [FORMALLY_PROVED] HeadValid => !InvalidHeadSkip
+- `A8` [FORMALLY_PROVED] MPORT = io.enq.bits on QueueInsert
+- `A9` [FORMALLY_PROVED] QueueInsert <mu DeqHandshake [same index slot]
+
+## Next action
+
+A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
+
+## Durable experiment notes
+
+See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
+
+### Experiment experience
+
+# Experiment Experience
+
+Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
+
+## INPUT_NEEDED
+
+-
+
+## PROMPT_RULE
+
+-
+
+## SCHEMA_CHANGE
+
+-
+
+## VALIDATOR_CHANGE
+
+-
+
+## MODEL_FAILURE
+
+-
+
+## GENERALIZATION
+
+-
+
+### Run: `leaf_abstraction-BoomMSHRFile.mmios_0-b0066721dd609259`
+
+# Run Summary — BoomMSHRFile.mmios_0
+
+## Identity
+
+- task: `leaf_abstraction-BoomMSHRFile.mmios_0-b0066721dd609259`
+- kind: `leaf_abstraction`
+- workflow: `manual-first-workflow-0.9`
+- prompt: `leaf-abstraction-prompt-0.9`
+- schema: `umcm-formal-0.5`
+- workflow status: `FROZEN_FOR_COMPOSITION`
+
+## Grounding
+
+- valid: `True`
+- errors: 0
+- warnings: 0
+
+## Candidate µMCM
+
+- occurrences: 5
+- predicates: 2
+- identity keys: 1
+- cases: 3
+- candidate axioms: 9
+- unresolved: 0
+
+## Validation
+
+- GROUNDED: 0
+- PARTIALLY_SUPPORTED: 0
+- STRUCTURALLY_SUPPORTED: 0
+- FORMALLY_PROVED: 9
+- SPEC_PROVED: 0
+- REFUTED: 0
+- trusted axioms: 9
+- formal backend: `explicit-control`
+
+## Axioms
+
+- `A1` [FORMALLY_PROVED] Busy => !ReqAccept
+- `A2` [FORMALLY_PROVED] ReqAccept <mu MemAccess
+- `A3` [FORMALLY_PROVED] MemAccess <mu AckConsumed
+- `A4` [FORMALLY_PROVED] AckConsumed <mu RespHandshake
+- `A5` [FORMALLY_PROVED] NoResponseRequired => !RespHandshake
+- `A6` [FORMALLY_PROVED] capture RequestIdentity := io.req.bits on ReqAccept; preserve 5 exact identity projections
+- `A7` [FORMALLY_PROVED] io.mem_access.bits.address = bits(req.addr, 31, 0) on MemAccess
+- `A8` [FORMALLY_PROVED] io.mem_access.bits.size = req.uop.mem_size on MemAccess
+- `A9` [FORMALLY_PROVED] io.resp.bits.is_hella = req.is_hella on RespHandshake
+
+## Next action
+
+A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
+
+## Durable experiment notes
+
+See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
+
+### Experiment experience
+
+# Experiment Experience
+
+Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
+
+## INPUT_NEEDED
+
+-
+
+## PROMPT_RULE
+
+-
+
+## SCHEMA_CHANGE
+
+-
+
+## VALIDATOR_CHANGE
+
+-
+
+## MODEL_FAILURE
+
+-
+
+## GENERALIZATION
+
+-
+
+### Run: `leaf_abstraction-BoomMSHRFile.mmio_alloc_arb-4b970ccfa4defb7e`
+
+# Run Summary — BoomMSHRFile.mmio_alloc_arb
+
+## Identity
+
+- task: `leaf_abstraction-BoomMSHRFile.mmio_alloc_arb-4b970ccfa4defb7e`
+- kind: `leaf_abstraction`
+- workflow: `manual-first-workflow-0.9`
+- prompt: `leaf-abstraction-prompt-0.8`
+- schema: `umcm-formal-0.5`
+- workflow status: `FROZEN_FOR_COMPOSITION`
+
+## Grounding
+
+- valid: `True`
+- errors: 0
+- warnings: 0
+
+## Candidate µMCM
+
+- occurrences: 2
+- predicates: 0
+- identity keys: 0
+- cases: 1
+- candidate axioms: 2
+- unresolved: 0
+
+## Validation
+
+- GROUNDED: 0
+- PARTIALLY_SUPPORTED: 0
+- STRUCTURALLY_SUPPORTED: 0
+- FORMALLY_PROVED: 2
+- SPEC_PROVED: 0
+- REFUTED: 0
+- trusted axioms: 2
+- formal backend: `explicit-control`
+
+## Axioms
+
+- `A1` [FORMALLY_PROVED] OutputFire <=> exactly_one_same_cycle({InputFire})
+- `A2` [FORMALLY_PROVED] io.out.bits = io.in[0].bits on InputFire
+
+## Next action
+
+A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
+
+## Durable experiment notes
+
+See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
+
+### Experiment experience
+
+# Experiment Experience
+
+Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
+
+## INPUT_NEEDED
+
+-
+
+## PROMPT_RULE
+
+-
+
+## SCHEMA_CHANGE
+
+-
+
+## VALIDATOR_CHANGE
+
+-
+
+## MODEL_FAILURE
+
+-
+
+## GENERALIZATION
+
+-
+
+### Run: `leaf_abstraction-BoomMSHRFile.resp_arb-9f8d9cdf03590f99`
+
+# Run Summary — BoomMSHRFile.resp_arb
+
+## Identity
+
+- task: `leaf_abstraction-BoomMSHRFile.resp_arb-9f8d9cdf03590f99`
+- kind: `leaf_abstraction`
+- workflow: `manual-first-workflow-0.9`
+- prompt: `leaf-abstraction-prompt-0.8`
+- schema: `umcm-formal-0.5`
+- workflow status: `FROZEN_FOR_COMPOSITION`
+
+## Grounding
+
+- valid: `True`
+- errors: 0
+- warnings: 0
+
+## Candidate µMCM
+
+- occurrences: 4
+- predicates: 2
+- identity keys: 0
+- cases: 3
+- candidate axioms: 21
+- unresolved: 0
+
+## Validation
+
+- GROUNDED: 0
+- PARTIALLY_SUPPORTED: 0
+- STRUCTURALLY_SUPPORTED: 0
+- FORMALLY_PROVED: 21
+- SPEC_PROVED: 0
+- REFUTED: 0
+- trusted axioms: 21
+- formal backend: `explicit-control`
+
+## Axioms
+
+- `A1` [FORMALLY_PROVED] OutputFire <=> exactly_one_same_cycle({Input0Fire, Input1Fire, Input2Fire})
+- `A2` [FORMALLY_PROVED] Input0Valid => !Input1Fire
+- `A3` [FORMALLY_PROVED] Higher01Valid => !Input2Fire
+- `A4` [FORMALLY_PROVED] io.out.bits.data = io.in[0].bits.data on Input0Fire
+- `A5` [FORMALLY_PROVED] io.out.bits.is_hella = io.in[0].bits.is_hella on Input0Fire
+- `A6` [FORMALLY_PROVED] io.out.bits.uop.rob_idx = io.in[0].bits.uop.rob_idx on Input0Fire
+- `A7` [FORMALLY_PROVED] io.out.bits.uop.ldq_idx = io.in[0].bits.uop.ldq_idx on Input0Fire
+- `A8` [FORMALLY_PROVED] io.out.bits.uop.stq_idx = io.in[0].bits.uop.stq_idx on Input0Fire
+- `A9` [FORMALLY_PROVED] io.out.bits.uop.mem_cmd = io.in[0].bits.uop.mem_cmd on Input0Fire
+- `A10` [FORMALLY_PROVED] io.out.bits.data = io.in[1].bits.data on Input1Fire
+- `A11` [FORMALLY_PROVED] io.out.bits.is_hella = io.in[1].bits.is_hella on Input1Fire
+- `A12` [FORMALLY_PROVED] io.out.bits.uop.rob_idx = io.in[1].bits.uop.rob_idx on Input1Fire
+- `A13` [FORMALLY_PROVED] io.out.bits.uop.ldq_idx = io.in[1].bits.uop.ldq_idx on Input1Fire
+- `A14` [FORMALLY_PROVED] io.out.bits.uop.stq_idx = io.in[1].bits.uop.stq_idx on Input1Fire
+- `A15` [FORMALLY_PROVED] io.out.bits.uop.mem_cmd = io.in[1].bits.uop.mem_cmd on Input1Fire
+- `A16` [FORMALLY_PROVED] io.out.bits.data = io.in[2].bits.data on Input2Fire
+- `A17` [FORMALLY_PROVED] io.out.bits.is_hella = io.in[2].bits.is_hella on Input2Fire
+- `A18` [FORMALLY_PROVED] io.out.bits.uop.rob_idx = io.in[2].bits.uop.rob_idx on Input2Fire
+- `A19` [FORMALLY_PROVED] io.out.bits.uop.ldq_idx = io.in[2].bits.uop.ldq_idx on Input2Fire
+- `A20` [FORMALLY_PROVED] io.out.bits.uop.stq_idx = io.in[2].bits.uop.stq_idx on Input2Fire
+- `A21` [FORMALLY_PROVED] io.out.bits.uop.mem_cmd = io.in[2].bits.uop.mem_cmd on Input2Fire
+
+## Next action
+
+A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
+
+## Durable experiment notes
+
+See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
+
+### Experiment experience
+
+# Experiment Experience
+
+Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
+
+## INPUT_NEEDED
+
+-
+
+## PROMPT_RULE
+
+-
+
+## SCHEMA_CHANGE
+
+-
+
+## VALIDATOR_CHANGE
+
+-
+
+## MODEL_FAILURE
+
+-
+
+## GENERALIZATION
+
+-
+
+### Run: `leaf_abstraction-BoomMSHRFile.refill_arb-af45d6b6d169fc58`
+
+# Run Summary — BoomMSHRFile.refill_arb
+
+## Identity
+
+- task: `leaf_abstraction-BoomMSHRFile.refill_arb-af45d6b6d169fc58`
+- kind: `leaf_abstraction`
+- workflow: `manual-first-workflow-0.9`
+- prompt: `leaf-abstraction-prompt-0.8`
+- schema: `umcm-formal-0.5`
+- workflow status: `FROZEN_FOR_COMPOSITION`
+
+## Grounding
+
+- valid: `True`
+- errors: 0
+- warnings: 0
+
+## Candidate µMCM
+
+- occurrences: 3
+- predicates: 1
+- identity keys: 0
+- cases: 2
+- candidate axioms: 10
+- unresolved: 0
+
+## Validation
+
+- GROUNDED: 0
+- PARTIALLY_SUPPORTED: 0
+- STRUCTURALLY_SUPPORTED: 0
+- FORMALLY_PROVED: 10
+- SPEC_PROVED: 0
+- REFUTED: 0
+- trusted axioms: 10
+- formal backend: `explicit-control`
+
+## Axioms
+
+- `A1` [FORMALLY_PROVED] OutputFire <=> exactly_one_same_cycle({Input0Fire, Input1Fire})
+- `A2` [FORMALLY_PROVED] Input0Valid => !Input1Fire
+- `A3` [FORMALLY_PROVED] io.out.bits.addr = io.in[0].bits.addr on Input0Fire
+- `A4` [FORMALLY_PROVED] io.out.bits.data = io.in[0].bits.data on Input0Fire
+- `A5` [FORMALLY_PROVED] io.out.bits.way_en = io.in[0].bits.way_en on Input0Fire
+- `A6` [FORMALLY_PROVED] io.out.bits.wmask = io.in[0].bits.wmask on Input0Fire
+- `A7` [FORMALLY_PROVED] io.out.bits.addr = io.in[1].bits.addr on Input1Fire
+- `A8` [FORMALLY_PROVED] io.out.bits.data = io.in[1].bits.data on Input1Fire
+- `A9` [FORMALLY_PROVED] io.out.bits.way_en = io.in[1].bits.way_en on Input1Fire
+- `A10` [FORMALLY_PROVED] io.out.bits.wmask = io.in[1].bits.wmask on Input1Fire
+
+## Next action
+
+A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
+
+## Durable experiment notes
+
+See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
+
+### Experiment experience
+
+# Experiment Experience
+
+Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
+
+## INPUT_NEEDED
+
+-
+
+## PROMPT_RULE
+
+-
+
+## SCHEMA_CHANGE
+
+-
+
+## VALIDATOR_CHANGE
+
+-
+
+## MODEL_FAILURE
+
+-
+
+## GENERALIZATION
+
+-
+
+### Run: `leaf_abstraction-BoomMSHRFile.replay_arb-8fdf73acfd546ea3`
+
+# Run Summary — BoomMSHRFile.replay_arb
+
+## Identity
+
+- task: `leaf_abstraction-BoomMSHRFile.replay_arb-8fdf73acfd546ea3`
+- kind: `leaf_abstraction`
+- workflow: `manual-first-workflow-0.9`
+- prompt: `leaf-abstraction-prompt-0.8`
+- schema: `umcm-formal-0.5`
+- workflow status: `GROUNDING_VALID`
+
+## Grounding
+
+- valid: `True`
+- errors: 0
+- warnings: 0
+
+## Candidate µMCM
+
+- occurrences: 3
+- predicates: 1
+- identity keys: 0
+- cases: 2
+- candidate axioms: 20
+- unresolved: 0
+
+## Validation
+
+- GROUNDED: 0
+- PARTIALLY_SUPPORTED: 0
+- STRUCTURALLY_SUPPORTED: 0
+- FORMALLY_PROVED: 20
+- SPEC_PROVED: 0
+- REFUTED: 0
+- trusted axioms: 20
+- formal backend: `explicit-control`
+
+## Axioms
+
+- `A1` [FORMALLY_PROVED] OutputFire <=> exactly_one_same_cycle({Input0Fire, Input1Fire})
+- `A2` [FORMALLY_PROVED] Input0Valid => !Input1Fire
+- `A3` [FORMALLY_PROVED] io.out.bits.addr = io.in[0].bits.addr on Input0Fire
+- `A4` [FORMALLY_PROVED] io.out.bits.uop.mem_cmd = io.in[0].bits.uop.mem_cmd on Input0Fire
+- `A5` [FORMALLY_PROVED] io.out.bits.uop.ldq_idx = io.in[0].bits.uop.ldq_idx on Input0Fire
+- `A6` [FORMALLY_PROVED] io.out.bits.uop.stq_idx = io.in[0].bits.uop.stq_idx on Input0Fire
+- `A7` [FORMALLY_PROVED] io.out.bits.sdq_id = io.in[0].bits.sdq_id on Input0Fire
+- `A8` [FORMALLY_PROVED] io.out.bits.old_meta.tag = io.in[0].bits.old_meta.tag on Input0Fire
+- `A9` [FORMALLY_PROVED] io.out.bits.old_meta.coh.state = io.in[0].bits.old_meta.coh.state on Input0Fire
+- `A10` [FORMALLY_PROVED] io.out.bits.way_en = io.in[0].bits.way_en on Input0Fire
+- `A11` [FORMALLY_PROVED] io.out.bits.tag_match = io.in[0].bits.tag_match on Input0Fire
+- `A12` [FORMALLY_PROVED] io.out.bits.addr = io.in[1].bits.addr on Input1Fire
+- `A13` [FORMALLY_PROVED] io.out.bits.uop.mem_cmd = io.in[1].bits.uop.mem_cmd on Input1Fire
+- `A14` [FORMALLY_PROVED] io.out.bits.uop.ldq_idx = io.in[1].bits.uop.ldq_idx on Input1Fire
+- `A15` [FORMALLY_PROVED] io.out.bits.uop.stq_idx = io.in[1].bits.uop.stq_idx on Input1Fire
+- `A16` [FORMALLY_PROVED] io.out.bits.sdq_id = io.in[1].bits.sdq_id on Input1Fire
+- `A17` [FORMALLY_PROVED] io.out.bits.old_meta.tag = io.in[1].bits.old_meta.tag on Input1Fire
+- `A18` [FORMALLY_PROVED] io.out.bits.old_meta.coh.state = io.in[1].bits.old_meta.coh.state on Input1Fire
+- `A19` [FORMALLY_PROVED] io.out.bits.way_en = io.in[1].bits.way_en on Input1Fire
+- `A20` [FORMALLY_PROVED] io.out.bits.tag_match = io.in[1].bits.tag_match on Input1Fire
+
+## Next action
+
+Run `mcm-agent semantic-validate <task_dir>`; grounding is complete, but no axiom is trusted until formal proof.
+
+## Durable experiment notes
+
+See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
+
+### Experiment experience
+
+# Experiment Experience
+
+Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
+
+## INPUT_NEEDED
+
+-
+
+## PROMPT_RULE
+
+-
+
+## SCHEMA_CHANGE
+
+-
+
+## VALIDATOR_CHANGE
+
+-
+
+## MODEL_FAILURE
+
+-
+
+## GENERALIZATION
+
+-
+
+### Run: `leaf_abstraction-BoomMSHRFile.wb_req_arb-3fab8edcb559ff62`
+
+# Run Summary — BoomMSHRFile.wb_req_arb
+
+## Identity
+
+- task: `leaf_abstraction-BoomMSHRFile.wb_req_arb-3fab8edcb559ff62`
+- kind: `leaf_abstraction`
+- workflow: `manual-first-workflow-0.9`
+- prompt: `leaf-abstraction-prompt-0.8`
+- schema: `umcm-formal-0.5`
+- workflow status: `FROZEN_FOR_COMPOSITION`
+
+## Grounding
+
+- valid: `True`
+- errors: 0
+- warnings: 0
+
+## Candidate µMCM
+
+- occurrences: 3
+- predicates: 1
+- identity keys: 0
+- cases: 2
+- candidate axioms: 14
+- unresolved: 0
+
+## Validation
+
+- GROUNDED: 0
+- PARTIALLY_SUPPORTED: 0
+- STRUCTURALLY_SUPPORTED: 0
+- FORMALLY_PROVED: 14
+- SPEC_PROVED: 0
+- REFUTED: 0
+- trusted axioms: 14
+- formal backend: `explicit-control`
+
+## Axioms
+
+- `A1` [FORMALLY_PROVED] OutputFire <=> exactly_one_same_cycle({Input0Fire, Input1Fire})
+- `A2` [FORMALLY_PROVED] Input0Valid => !Input1Fire
+- `A3` [FORMALLY_PROVED] io.out.bits.tag = io.in[0].bits.tag on Input0Fire
+- `A4` [FORMALLY_PROVED] io.out.bits.idx = io.in[0].bits.idx on Input0Fire
+- `A5` [FORMALLY_PROVED] io.out.bits.source = io.in[0].bits.source on Input0Fire
+- `A6` [FORMALLY_PROVED] io.out.bits.param = io.in[0].bits.param on Input0Fire
+- `A7` [FORMALLY_PROVED] io.out.bits.way_en = io.in[0].bits.way_en on Input0Fire
+- `A8` [FORMALLY_PROVED] io.out.bits.voluntary = io.in[0].bits.voluntary on Input0Fire
+- `A9` [FORMALLY_PROVED] io.out.bits.tag = io.in[1].bits.tag on Input1Fire
+- `A10` [FORMALLY_PROVED] io.out.bits.idx = io.in[1].bits.idx on Input1Fire
+- `A11` [FORMALLY_PROVED] io.out.bits.source = io.in[1].bits.source on Input1Fire
+- `A12` [FORMALLY_PROVED] io.out.bits.param = io.in[1].bits.param on Input1Fire
+- `A13` [FORMALLY_PROVED] io.out.bits.way_en = io.in[1].bits.way_en on Input1Fire
+- `A14` [FORMALLY_PROVED] io.out.bits.voluntary = io.in[1].bits.voluntary on Input1Fire
+
+## Next action
+
+A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
+
+## Durable experiment notes
+
+See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
+
+### Experiment experience
+
+# Experiment Experience
+
+Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
+
+## INPUT_NEEDED
+
+-
+
+## PROMPT_RULE
+
+-
+
+## SCHEMA_CHANGE
+
+-
+
+## VALIDATOR_CHANGE
+
+-
+
+## MODEL_FAILURE
+
+-
+
+## GENERALIZATION
+
+-
+
+### Run: `leaf_abstraction-BoomMSHRFile.meta_read_arb-e5228745004b6981`
+
+# Run Summary — BoomMSHRFile.meta_read_arb
+
+## Identity
+
+- task: `leaf_abstraction-BoomMSHRFile.meta_read_arb-e5228745004b6981`
+- kind: `leaf_abstraction`
+- workflow: `manual-first-workflow-0.9`
+- prompt: `leaf-abstraction-prompt-0.7`
+- schema: `umcm-formal-0.5`
+- workflow status: `FROZEN_FOR_COMPOSITION`
+
+## Grounding
+
+- valid: `True`
+- errors: 0
+- warnings: 0
+
+## Candidate µMCM
+
+- occurrences: 3
+- predicates: 1
+- identity keys: 0
+- cases: 2
+- candidate axioms: 8
+- unresolved: 0
+
+## Validation
+
+- GROUNDED: 0
+- PARTIALLY_SUPPORTED: 0
+- STRUCTURALLY_SUPPORTED: 0
+- FORMALLY_PROVED: 8
+- SPEC_PROVED: 0
+- REFUTED: 0
+- trusted axioms: 8
+- formal backend: `explicit-control`
+
+## Axioms
+
+- `A1` [FORMALLY_PROVED] OutputFire <=> exactly_one_same_cycle({Input0Fire, Input1Fire})
+- `A2` [FORMALLY_PROVED] Input0Valid => !Input1Fire
+- `A3` [FORMALLY_PROVED] io.out.bits.idx = io.in[0].bits.idx on Input0Fire
+- `A4` [FORMALLY_PROVED] io.out.bits.tag = io.in[0].bits.tag on Input0Fire
+- `A5` [FORMALLY_PROVED] io.out.bits.way_en = io.in[0].bits.way_en on Input0Fire
+- `A6` [FORMALLY_PROVED] io.out.bits.idx = io.in[1].bits.idx on Input1Fire
+- `A7` [FORMALLY_PROVED] io.out.bits.tag = io.in[1].bits.tag on Input1Fire
+- `A8` [FORMALLY_PROVED] io.out.bits.way_en = io.in[1].bits.way_en on Input1Fire
+
+## Next action
+
+A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
+
+## Durable experiment notes
+
+See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
+
+### Experiment experience
+
+# Experiment Experience
+
+Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
+
+## INPUT_NEEDED
+
+-
+
+## PROMPT_RULE
+
+-
+
+## SCHEMA_CHANGE
+
+-
+
+## VALIDATOR_CHANGE
+
+-
+
+## MODEL_FAILURE
+
+-
+
+## GENERALIZATION
+
+-
+
+### Run: `leaf_abstraction-BoomMSHRFile.meta_write_arb-37cf63871121acc7`
+
+# Run Summary — BoomMSHRFile.meta_write_arb
+
+## Identity
+
+- task: `leaf_abstraction-BoomMSHRFile.meta_write_arb-37cf63871121acc7`
+- kind: `leaf_abstraction`
+- workflow: `manual-first-workflow-0.9`
+- prompt: `leaf-abstraction-prompt-0.7`
+- schema: `umcm-formal-0.5`
+- workflow status: `FROZEN_FOR_COMPOSITION`
+
+## Grounding
+
+- valid: `True`
+- errors: 0
+- warnings: 0
+
+## Candidate µMCM
+
+- occurrences: 3
+- predicates: 1
+- identity keys: 0
+- cases: 2
+- candidate axioms: 12
+- unresolved: 0
+
+## Validation
+
+- GROUNDED: 0
+- PARTIALLY_SUPPORTED: 0
+- STRUCTURALLY_SUPPORTED: 0
+- FORMALLY_PROVED: 12
+- SPEC_PROVED: 0
+- REFUTED: 0
+- trusted axioms: 12
+- formal backend: `explicit-control`
+
+## Axioms
+
+- `A1` [FORMALLY_PROVED] OutputFire <=> exactly_one_same_cycle({Input0Fire, Input1Fire})
+- `A2` [FORMALLY_PROVED] Input0Valid => !Input1Fire
+- `A3` [FORMALLY_PROVED] io.out.bits.idx = io.in[0].bits.idx on Input0Fire
+- `A4` [FORMALLY_PROVED] io.out.bits.way_en = io.in[0].bits.way_en on Input0Fire
+- `A5` [FORMALLY_PROVED] io.out.bits.tag = io.in[0].bits.tag on Input0Fire
+- `A6` [FORMALLY_PROVED] io.out.bits.data.coh.state = io.in[0].bits.data.coh.state on Input0Fire
+- `A7` [FORMALLY_PROVED] io.out.bits.data.tag = io.in[0].bits.data.tag on Input0Fire
+- `A8` [FORMALLY_PROVED] io.out.bits.idx = io.in[1].bits.idx on Input1Fire
+- `A9` [FORMALLY_PROVED] io.out.bits.way_en = io.in[1].bits.way_en on Input1Fire
+- `A10` [FORMALLY_PROVED] io.out.bits.tag = io.in[1].bits.tag on Input1Fire
+- `A11` [FORMALLY_PROVED] io.out.bits.data.coh.state = io.in[1].bits.data.coh.state on Input1Fire
+- `A12` [FORMALLY_PROVED] io.out.bits.data.tag = io.in[1].bits.data.tag on Input1Fire
+
+## Next action
+
+A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
+
+## Durable experiment notes
+
+See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
+
+### Experiment experience
+
+# Experiment Experience
+
+Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
+
+## INPUT_NEEDED
+
+-
+
+## PROMPT_RULE
+
+-
+
+## SCHEMA_CHANGE
+
+-
+
+## VALIDATOR_CHANGE
+
+-
+
+## MODEL_FAILURE
+
+-
+
+## GENERALIZATION
+
+-
+
+### Run: `leaf_abstraction-BoomMSHRFile.prefetcher-974790994b1992ac`
+
+# Run Summary — BoomMSHRFile.prefetcher
+
+## Identity
+
+- task: `leaf_abstraction-BoomMSHRFile.prefetcher-974790994b1992ac`
+- kind: `leaf_abstraction`
+- workflow: `manual-first-workflow-0.9`
+- prompt: `leaf-abstraction-prompt-0.6`
+- schema: `umcm-formal-0.5`
+- workflow status: `FROZEN_FOR_COMPOSITION`
+
+## Grounding
+
+- valid: `True`
+- errors: 0
+- warnings: 0
+
+## Candidate µMCM
+
+- occurrences: 1
+- predicates: 1
+- identity keys: 0
+- cases: 0
+- candidate axioms: 2
+- unresolved: 0
+
+## Validation
+
+- GROUNDED: 0
+- PARTIALLY_SUPPORTED: 0
+- STRUCTURALLY_SUPPORTED: 0
+- FORMALLY_PROVED: 2
+- SPEC_PROVED: 0
+- REFUTED: 0
+- trusted axioms: 2
+- formal backend: `explicit-control`
+
+## Axioms
+
+- `A1` [FORMALLY_PROVED] bits(io.prefetch.valid, 0, 0) == 0
+- `A2` [FORMALLY_PROVED] PrefetchDisabled => !PrefetchHandshake
+
+## Next action
+
+A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
+
+## Durable experiment notes
+
+See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
+
+### Experiment experience
+
+# Experiment Experience
+
+Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
+
+## INPUT_NEEDED
+
+-
+
+## PROMPT_RULE
+
+-
+
+## SCHEMA_CHANGE
+
+-
+
+## VALIDATOR_CHANGE
+
+-
+
+## MODEL_FAILURE
+
+-
+
+## GENERALIZATION
+
+-
+
+### Run: `parent_synthesis-BoomMSHR-6362a83e7f824669`
+
+# Run Summary — BoomMSHR
+
+## Identity
+
+- task: `parent_synthesis-BoomMSHR-6362a83e7f824669`
+- kind: `parent_synthesis`
+- workflow: `manual-first-workflow-0.9`
+- prompt: `parent-synthesis-prompt-0.1`
+- schema: `umcm-formal-0.5`
+- workflow status: `FROZEN_FOR_COMPOSITION`
+
+## Grounding
+
+- valid: `True`
+- errors: 0
+- warnings: 0
+
+## Candidate µMCM
+
+- occurrences: 16
+- predicates: 1
+- identity keys: 0
+- cases: 7
+- candidate axioms: 15
+- unresolved: 0
+
+## Validation
+
+- GROUNDED: 0
+- PARTIALLY_SUPPORTED: 0
+- STRUCTURALLY_SUPPORTED: 0
+- FORMALLY_PROVED: 15
+- SPEC_PROVED: 0
+- REFUTED: 0
+- trusted axioms: 15
+- formal backend: `explicit-control`
+
+## Axioms
+
+- `A1` [FORMALLY_PROVED] PrimaryAccept <mu MemAcquire
+- `A2` [FORMALLY_PROVED] MemAcquire <mu MemGrant
+- `A3` [FORMALLY_PROVED] GrantComplete <mu RespHandshake
+- `A4` [FORMALLY_PROVED] GrantComplete <mu MetaRead
+- `A5` [FORMALLY_PROVED] MetaRead <mu MetaClearWrite <mu WBReq <mu WBComplete
+- `A6` [FORMALLY_PROVED] MetaRead <mu CommitRefillBeat
+- `A7` [FORMALLY_PROVED] CommitRefillDone => forall beat in [0, 8): count(CommitRefillBeat(beat)) = 1
+- `A8` [FORMALLY_PROVED] RPQDrained <mu FinalMetaWrite
+- `A9` [FORMALLY_PROVED] GrantComplete <mu MemFinish
+- `A10` [FORMALLY_PROVED] GrantAckAbsent => !MemFinish
+- `A11` [FORMALLY_PROVED] io.lb_write.bits.data = io.mem_grant.bits.data on GrantDataWrite
+- `A12` [FORMALLY_PROVED] io.refill.bits.data = io.lb_resp on CommitRefillBeat
+- `A13` [FORMALLY_PROVED] io.mem_finish.bits.sink = grantack.bits.sink on MemFinish
+- `A14` [FORMALLY_PROVED] BoomMSHR.rpq.main::QueueInsert <mu RespHandshake
+- `A15` [FORMALLY_PROVED] BoomMSHR.rpq.main::QueueInsert <mu ReplayHandshake
+
+## Certified provenance
+
+- `A1` [parent_local; exhaustive-state-reachability] <- parent-local proof
+- `A10` [parent_local; exact-combinational-exclusion] <- parent-local proof
+- `A11` [parent_local; exact-symbolic-driver-equality] <- parent-local proof
+- `A12` [parent_local; exact-symbolic-driver-equality] <- parent-local proof
+- `A13` [parent_local; exact-symbolic-driver-equality] <- parent-local proof
+- `A14` [emergent; trusted-history-after-restriction] <- `BoomMSHR.rpq::A5`
+- `A15` [emergent; trusted-history-after-restriction] <- `BoomMSHR.rpq::A5`
+- `A2` [parent_local; exhaustive-state-reachability] <- parent-local proof
+- `A3` [parent_local; exhaustive-state-reachability] <- parent-local proof
+- `A4` [parent_local; exhaustive-state-reachability] <- parent-local proof
+- `A5` [parent_local; exhaustive-state-reachability] <- parent-local proof
+- `A6` [parent_local; exhaustive-state-reachability] <- parent-local proof
+- `A7` [parent_local; exact-bounded-indexed-occurrence] <- parent-local proof
+- `A8` [parent_local; exhaustive-state-reachability] <- parent-local proof
+- `A9` [parent_local; exhaustive-state-reachability] <- parent-local proof
+
+## Next action
+
+A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
+
+## Durable experiment notes
+
+See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
+
+### Experiment experience
+
+# Experiment Experience
+
+Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
+
+## INPUT_NEEDED
+
+## PROMPT_RULE
+
+## SCHEMA_CHANGE
+
+## VALIDATOR_CHANGE
+
+- A conservative structural counterexample must not suppress an available exact formal checker. `MemFinish && GrantAckAbsent` was admitted by the state-only abstraction but proved unsatisfiable by the concrete Boolean cone.
+
+## MODEL_FAILURE
+
+## GENERALIZATION
+
+- Exact indexed coverage can prove a counter starts at zero in a cyclic FSM by certifying zeroing transition cuts from reset, modulo-zero phase exits, and absence of nonzero writes outside the counted phase.
+- Generic history after-restriction composes `X < ChildBoundary` with `ParentOccurrence ⊆ ChildBoundary` to obtain `X < ParentOccurrence`; lowered state-case writer polarity must be certified for the local boundary bridge.
 
 ### Run: `parent_synthesis-BoomMSHR.rpq-38a6826dc8c3b9dc`
 
@@ -316,6 +1397,16 @@ Next Action: construct and validate the `BoomMSHR` leaf µMCM, reusing the exist
 - `A6` [FORMALLY_PROVED] TransferBranchKilled => !BufferCapture
 - `A7` [FORMALLY_PROVED] TransferFlushKilled => !BufferCapture
 
+## Certified provenance
+
+- `A1` [lifted; trusted-child-lift] <- `BoomMSHR.rpq.main::A1`
+- `A2` [parent_local; exact-combinational-exclusion] <- parent-local proof
+- `A3` [parent_local; exact-scalar-valid-token-provenance] <- parent-local proof
+- `A4` [parent_local; occurrence-bridge-history-composition] <- parent-local proof
+- `A5` [emergent; trusted-history-transitivity] <- `BoomMSHR.rpq.main::A11`
+- `A6` [parent_local; exact-combinational-exclusion] <- parent-local proof
+- `A7` [parent_local; exact-combinational-exclusion] <- parent-local proof
+
 ## Next action
 
 A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
@@ -332,290 +1423,23 @@ Keep only lessons that should survive this conversation. Delete empty bullets in
 
 ## INPUT_NEEDED
 
-- 
+-
 
 ## PROMPT_RULE
-
-- 
-
-## SCHEMA_CHANGE
-
-- 
-
-## VALIDATOR_CHANGE
-
-- 
-
-## MODEL_FAILURE
-
-- 
-
-## GENERALIZATION
 
 -
 
-### Run: `leaf_abstraction-BoomMSHR.rpq.main-30765c6beda665d8`
-
-# Run Summary — BoomMSHR.rpq.main
-
-## Identity
-
-- task: `leaf_abstraction-BoomMSHR.rpq.main-30765c6beda665d8`
-- kind: `leaf_abstraction`
-- workflow: `manual-first-workflow-0.9`
-- prompt: `leaf-abstraction-prompt-0.6`
-- schema: `umcm-formal-0.5`
-- workflow status: `FROZEN_FOR_COMPOSITION`
-
-## Grounding
-
-- valid: `True`
-- errors: 0
-- warnings: 0
-
-## Candidate µMCM
-
-- occurrences: 4
-- predicates: 6
-- identity keys: 0
-- cases: 5
-- candidate axioms: 9
-- unresolved: 0
-
-## Validation
-
-- GROUNDED: 0
-- PARTIALLY_SUPPORTED: 0
-- STRUCTURALLY_SUPPORTED: 0
-- FORMALLY_PROVED: 9
-- SPEC_PROVED: 0
-- REFUTED: 0
-- trusted axioms: 9
-- formal backend: `explicit-control`
-
-## Axioms
-
-- `A1` [FORMALLY_PROVED] QueueFull => !EnqHandshake
-- `A2` [FORMALLY_PROVED] IncomingBranchKilled => !QueueInsert
-- `A3` [FORMALLY_PROVED] IncomingFlushKilled => !QueueInsert
-- `A4` [FORMALLY_PROVED] QueueEmpty => !DeqHandshake
-- `A5` [FORMALLY_PROVED] HeadInvalid => !DeqHandshake
-- `A6` [FORMALLY_PROVED] QueueEmpty => !InvalidHeadSkip
-- `A7` [FORMALLY_PROVED] HeadValid => !InvalidHeadSkip
-- `A8` [FORMALLY_PROVED] MPORT = io.enq.bits on QueueInsert
-- `A11` [FORMALLY_PROVED] QueueInsert <mu DeqHandshake [same index slot]
-
-## Next action
-
-Parent synthesis may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
-
-## Durable experiment notes
-
-See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
-
-### Experiment experience
-
-# Experiment Experience
-
-Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
-
-## INPUT_NEEDED
-
-- 
-
-## PROMPT_RULE
-
-- 
-
 ## SCHEMA_CHANGE
-
-- 
-
-## VALIDATOR_CHANGE
-
-- 
-
-## MODEL_FAILURE
-
-- 
-
-## GENERALIZATION
 
 -
 
-### Run: `leaf_abstraction-BoomWritebackUnit-5966d4c9d61e033b`
-
-# Run Summary — BoomWritebackUnit
-
-## Identity
-
-- task: `leaf_abstraction-BoomWritebackUnit-5966d4c9d61e033b`
-- kind: `leaf_abstraction`
-- workflow: `manual-first-workflow-0.9`
-- prompt: `leaf-abstraction-prompt-0.5`
-- schema: `umcm-formal-0.5`
-- workflow status: `FROZEN_FOR_COMPOSITION`
-
-## Grounding
-
-- valid: `True`
-- errors: 0
-- warnings: 0
-
-## Candidate µMCM
-
-- occurrences: 9
-- predicates: 4
-- identity keys: 1
-- cases: 2
-- candidate axioms: 10
-- unresolved: 0
-
-## Validation
-
-- GROUNDED: 0
-- PARTIALLY_SUPPORTED: 0
-- STRUCTURALLY_SUPPORTED: 0
-- FORMALLY_PROVED: 10
-- SPEC_PROVED: 0
-- REFUTED: 0
-- trusted axioms: 10
-- formal backend: `explicit-control`
-
-## Axioms
-
-- `A1` [FORMALLY_PROVED] ActiveWriteback => !WritebackReq [same WritebackTxn]
-- `A2` [FORMALLY_PROVED] capture WritebackTxn := io.req.bits on WritebackReq; preserve 6 exact identity projections
-- `A3` [FORMALLY_PROVED] BufferFilled => forall beat in [0, 8): count(BufferBeat(beat)) = 1 [same WritebackTxn]
-- `A4` [FORMALLY_PROVED] FillIssue <mu BufferBeat [same WritebackTxn] [same index beat]
-- `A5` [FORMALLY_PROVED] BufferFilled <mu LSURelease [same WritebackTxn]
-- `A6` [FORMALLY_PROVED] BeforeNetworkRelease => !ReleaseBeat [same WritebackTxn]
-- `A7` [FORMALLY_PROVED] ReleaseComplete => forall beat in [0, 8): count(ReleaseBeat(beat)) = 1 [same WritebackTxn]
-- `A8` [FORMALLY_PROVED] io.release.bits.data = wb_buffer[beat] on ReleaseBeat [same WritebackTxn] [same index beat]
-- `A9` [FORMALLY_PROVED] bits(io.release.bits.opcode, 0, 0) == 1 on ReleaseBeat [same WritebackTxn]
-- `A10` [FORMALLY_PROVED] {ReleaseComplete, MemGrantSeen} <mu VoluntaryDone [same WritebackTxn]
-
-## Next action
-
-Parent synthesis may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
-
-## Durable experiment notes
-
-See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
-
-### Experiment experience
-
-# Experiment Experience
-
-Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
-
-## INPUT_NEEDED
-
-- 
-
-## PROMPT_RULE
-
-- 
-
-## SCHEMA_CHANGE
-
-- 
-
 ## VALIDATOR_CHANGE
-
-- 
-
-## MODEL_FAILURE
-
-- 
-
-## GENERALIZATION
 
 -
 
-### Run: `leaf_abstraction-BoomProbeUnit-6a11da8fc6b94afe`
-
-# Run Summary — BoomProbeUnit
-
-## Identity
-
-- task: `leaf_abstraction-BoomProbeUnit-6a11da8fc6b94afe`
-- kind: `leaf_abstraction`
-- workflow: `manual-first-workflow-0.7`
-- prompt: `leaf-abstraction-prompt-0.3`
-- schema: `umcm-formal-0.3`
-- workflow status: `FROZEN_FOR_COMPOSITION`
-
-## Grounding
-
-- valid: `True`
-- errors: 0
-- warnings: 0
-
-## Candidate µMCM
-
-- occurrences: 7
-- predicates: 4
-- identity keys: 1
-- cases: 3
-- candidate axioms: 8
-- unresolved: 0
-
-## Validation
-
-- GROUNDED: 0
-- PARTIALLY_SUPPORTED: 0
-- STRUCTURALLY_SUPPORTED: 0
-- FORMALLY_PROVED: 7
-- SPEC_PROVED: 1
-- REFUTED: 0
-- trusted axioms: 8
-- formal backend: `explicit-control`
-
-## Axioms
-
-- `A1` [FORMALLY_PROVED] ActiveProbe => !ProbeReq [same ProbeTxn]
-- `A2` [FORMALLY_PROVED] capture ProbeTxn := io.req.bits on ProbeReq; preserve 14 exact identity projections
-- `A3` [FORMALLY_PROVED] WBReq excludes {LSURelease, ProbeAck} [same ProbeTxn]
-- `A4` [FORMALLY_PROVED] LSURelease <mu ProbeAck [same ProbeTxn]
-- `A5` [FORMALLY_PROVED] LSURelease <mu ProbeAck <mu MetaWrite [same ProbeTxn]
-- `A6` [FORMALLY_PROVED] WBReq <mu WBComplete <mu MetaWrite [same ProbeTxn]
-- `A7` [SPEC_PROVED] bindings satisfy tilelink.ClientMetadata.onProbe on MetaWrite [same ProbeTxn]
-- `A8` [FORMALLY_PROVED] bits(io.rep.bits.opcode, 0, 0) == 0 on ProbeAck [same ProbeTxn]
-
-## Next action
-
-Parent synthesis may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
-
-## Durable experiment notes
-
-See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
-
-### Experiment experience
-
-# Experiment Experience
-
-Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
-
-## INPUT_NEEDED
-
-- 
-
-## PROMPT_RULE
-
-- 
-
-## SCHEMA_CHANGE
-
-- 
-
-## VALIDATOR_CHANGE
-
-- 
-
 ## MODEL_FAILURE
 
-- 
+-
 
 ## GENERALIZATION
 

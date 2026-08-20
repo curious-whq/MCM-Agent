@@ -1,0 +1,214 @@
+{
+  "all_axioms_formally_proved": true,
+  "all_axioms_structurally_supported": true,
+  "candidate_axiom_count": 2,
+  "control_model": {
+    "known_states": [],
+    "reset_state": null,
+    "state_register": "state",
+    "transitions": []
+  },
+  "counts": {
+    "FORMALLY_PROVED": 2,
+    "GROUNDED": 0,
+    "PARTIALLY_SUPPORTED": 0,
+    "REFUTED": 0,
+    "SPEC_PROVED": 0,
+    "STRUCTURALLY_SUPPORTED": 0
+  },
+  "formal_backend": {
+    "api_version": "formal-backend-api-0.12",
+    "available": true,
+    "name": "explicit-control",
+    "note": "Exhaustive formal proof for certified finite-control/order properties, exact symbolic local/identity facts, exact local Boolean exclusion/conservation, bounded indexed token provenance, and selected finite reference equivalence checks. It is not a general bit-level SMT backend.",
+    "proof_domain": "control + exact symbolic local + exact combinational exclusion/conservation + scalar/indexed token provenance + finite reference equivalence",
+    "supported_checkers": [
+      "forbid_when",
+      "history_order",
+      "history_chain",
+      "history_join",
+      "indexed_coverage",
+      "occurrence_partition",
+      "transaction_exclusion",
+      "signal_alias",
+      "constant_bit",
+      "identity_projection",
+      "tilelink_on_probe_spec"
+    ],
+    "trusted_proof_levels": [
+      "FORMALLY_PROVED",
+      "SPEC_PROVED"
+    ]
+  },
+  "has_counterexample": false,
+  "property_compiler": "formal-axiom-compiler-0.7",
+  "results": [
+    {
+      "arguments": {
+        "parts": [
+          "InputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "OutputFire"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "mutex_pairs": [],
+          "obligations": [
+            {
+              "atom_count": 0,
+              "kind": "whole_without_part",
+              "unsat": true
+            },
+            {
+              "atom_count": 0,
+              "kind": "part_without_whole",
+              "unsat": true
+            }
+          ],
+          "parts": [
+            "InputFire"
+          ],
+          "proof": "OutputFire is equivalent to the same-cycle disjunction of its parts, and every pair of parts has an unsatisfiable conjunction",
+          "proof_domain": "exact-same-cycle-occurrence-partition",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "whole": "OutputFire"
+        },
+        "proof": "OutputFire is equivalent to the same-cycle disjunction of its parts, and every pair of parts has an unsatisfiable conjunction",
+        "proof_method": "exact-same-cycle-occurrence-partition",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "InputFire",
+          "OutputFire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "OutputFire <=> exactly_one_same_cycle({InputFire})",
+      "structural": {
+        "mutex_pairs": [],
+        "obligations": [
+          {
+            "atom_count": 0,
+            "kind": "whole_without_part",
+            "unsat": true
+          },
+          {
+            "atom_count": 0,
+            "kind": "part_without_whole",
+            "unsat": true
+          }
+        ],
+        "parts": [
+          "InputFire"
+        ],
+        "proof": "OutputFire is equivalent to the same-cycle disjunction of its parts, and every pair of parts has an unsatisfiable conjunction",
+        "proof_domain": "exact-same-cycle-occurrence-partition",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "whole": "OutputFire"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "InputFire",
+        "source": "io.in[0].bits",
+        "target": "io.out.bits"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        4
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "all_driver_statement_ids": [
+            4
+          ],
+          "on": "InputFire",
+          "proof": "every last-connect driver of io.out.bits reachable on InputFire equals io.in[0].bits",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "unconditional"
+              },
+              "atom_count": 2,
+              "rhs": "io.in[0].bits",
+              "statement_id": 4
+            }
+          ],
+          "source": "io.in[0].bits",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.out.bits",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.out.bits reachable on InputFire equals io.in[0].bits",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "InputFire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.in[0].bits",
+          "io.out.bits"
+        ]
+      },
+      "rendered_formula": "io.out.bits = io.in[0].bits on InputFire",
+      "structural": {
+        "all_driver_statement_ids": [
+          4
+        ],
+        "on": "InputFire",
+        "proof": "every last-connect driver of io.out.bits reachable on InputFire equals io.in[0].bits",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "unconditional"
+            },
+            "atom_count": 2,
+            "rhs": "io.in[0].bits",
+            "statement_id": 4
+          }
+        ],
+        "source": "io.in[0].bits",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.out.bits",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    }
+  ],
+  "trusted_axiom_count": 2,
+  "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
+  "validator": "semantic-validator-0.13",
+  "work_unit_id": "BoomMSHRFile.mmio_alloc_arb"
+}

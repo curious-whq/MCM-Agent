@@ -1,0 +1,135 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [
+        "C1_Passthrough"
+      ],
+      "evidence_statement_ids": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "formal": {
+        "parts": [
+          "InputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "OutputFire"
+      },
+      "id": "A1",
+      "rendered_formula": "OutputFire <=> exactly_one_same_cycle({InputFire})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_Passthrough"
+      ],
+      "evidence_statement_ids": [
+        4
+      ],
+      "formal": {
+        "on": "InputFire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[0].bits",
+          "op": "signal"
+        },
+        "target": "io.out.bits",
+        "type": "signal_equality"
+      },
+      "id": "A2",
+      "rendered_formula": "io.out.bits = io.in[0].bits on InputFire",
+      "status": "candidate"
+    }
+  ],
+  "cases": [
+    {
+      "confidence": "high",
+      "emits": [
+        "OutputFire"
+      ],
+      "evidence_statement_ids": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "guard_predicates": [],
+      "id": "C1_Passthrough",
+      "relations": [
+        "The single accepted MMIO-allocation input is forwarded to the output in exactly the same cycle."
+      ],
+      "trigger_occurrences": [
+        "InputFire"
+      ]
+    }
+  ],
+  "freeze": {
+    "candidate_axiom_count": 2,
+    "policy": "all-declared-axioms-trusted-and-no-unresolved-v0.1",
+    "reopen_policy": "This summary may be reopened if later parent/system counterexample validation shows the abstraction is too weak and a missing concrete constraint must be synthesized.",
+    "status": "FROZEN_FOR_COMPOSITION",
+    "trusted_axiom_count": 2
+  },
+  "identity_keys": [],
+  "note": "Only axioms with FORMALLY_PROVED or SPEC_PROVED validation level are included. Grounded/structurally-supported candidate axioms remain outside the trusted abstraction.",
+  "occurrences": [
+    {
+      "definition": "io.in[0].valid && io.in[0].ready",
+      "evidence_statement_ids": [
+        5,
+        6
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "InputFire",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHRFile.mmio_alloc_arb::io.in[0].fire"
+      ]
+    },
+    {
+      "definition": "io.out.valid && io.out.ready",
+      "evidence_statement_ids": [
+        7,
+        8,
+        9
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "OutputFire",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHRFile.mmio_alloc_arb::io.out.fire"
+      ]
+    }
+  ],
+  "predicates": [],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-BoomMSHRFile.mmio_alloc_arb-4b970ccfa4defb7e",
+  "trust_policy": "formal-ast-plus-certified-provenance-v0.3",
+  "trusted_axiom_ids": [
+    "A1",
+    "A2"
+  ],
+  "work_unit_id": "BoomMSHRFile.mmio_alloc_arb"
+}

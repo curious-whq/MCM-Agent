@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 
-FORMAL_AXIOM_IR_VERSION = "formal-axiom-ir-0.5"
+FORMAL_AXIOM_IR_VERSION = "formal-axiom-ir-0.8"
 
 
 def _string_list(*, min_items: int = 0) -> dict[str, Any]:
@@ -239,6 +239,18 @@ def formal_axiom_schema() -> dict[str, Any]:
             {
                 "type": "object",
                 "additionalProperties": False,
+                "required": ["type", "whole", "parts", "relation", "scope_identity"],
+                "properties": {
+                    "type": {"const": "occurrence_partition"},
+                    "whole": {"type": "string", "minLength": 1},
+                    "parts": _string_list(min_items=1),
+                    "relation": {"const": "same_cycle_exactly_one"},
+                    "scope_identity": {"type": "null"},
+                },
+            },
+            {
+                "type": "object",
+                "additionalProperties": False,
                 "required": [
                     "type", "occurrence", "completion", "index", "domain",
                     "cardinality", "scope_identity"
@@ -462,7 +474,11 @@ def compile_formal_axiom(formal: dict[str, Any]) -> dict[str, Any]:
         source = expr_to_symbolic(formal["source"])
         return {
             "checker": "signal_alias",
-            "arguments": scoped_arguments({"target": formal["target"], "source": source}),
+            "arguments": scoped_arguments({
+                "target": formal["target"],
+                "source": source,
+                **({"on": formal["on"]} if formal.get("on") else {}),
+            }),
             "references": _refs(occurrences, predicates, identities, signals),
             "kind": "state_update",
         }
@@ -498,6 +514,21 @@ def compile_formal_axiom(formal: dict[str, Any]) -> dict[str, Any]:
             }),
             "references": _refs(occurrences, predicates, identities, signals),
             "kind": "ordering",
+        }
+
+    if axiom_type == "occurrence_partition":
+        occurrences.add(formal["whole"])
+        occurrences.update(formal["parts"])
+        add_scope()
+        return {
+            "checker": "occurrence_partition",
+            "arguments": {
+                "whole": formal["whole"],
+                "parts": list(formal["parts"]),
+                "relation": formal["relation"],
+            },
+            "references": _refs(occurrences, predicates, identities, signals),
+            "kind": "conservation",
         }
 
     if axiom_type == "indexed_complete":
@@ -583,6 +614,11 @@ def render_formal_axiom(formal: dict[str, Any]) -> str:
         return f"{expr_to_symbolic(formal['expr'])} == {formal['value']}{on}{suffix}"
     if t == "join":
         return f"{{{', '.join(formal['prerequisites'])}}} <mu {formal['after']}{suffix}"
+    if t == "occurrence_partition":
+        return (
+            f"{formal['whole']} <=> exactly_one_same_cycle"
+            f"({{{', '.join(formal['parts'])}}}){suffix}"
+        )
     if t == "indexed_complete":
         domain = formal["domain"]
         return (
@@ -661,6 +697,10 @@ def validate_formal_axiom_shape(formal: Any) -> list[str]:
             {"type", "prerequisites", "after", "scope_identity"},
             {"type", "prerequisites", "after", "scope_identity", "scope_index"},
         ),
+        "occurrence_partition": (
+            {"type", "whole", "parts", "relation", "scope_identity"},
+            {"type", "whole", "parts", "relation", "scope_identity"},
+        ),
         "indexed_complete": (
             {"type", "occurrence", "completion", "index", "domain", "cardinality", "scope_identity"},
             {"type", "occurrence", "completion", "index", "domain", "cardinality", "scope_identity", "scope_index"},
@@ -732,6 +772,24 @@ def validate_formal_axiom_shape(formal: Any) -> list[str]:
             errors.append("join.prerequisites must contain at least two occurrences")
         elif len(set(prerequisites)) != len(prerequisites):
             errors.append("join.prerequisites must be unique")
+    elif t == "occurrence_partition":
+        parts = formal.get("parts")
+        if formal.get("scope_identity") is not None:
+            errors.append(
+                "occurrence_partition.scope_identity is currently required to be null; "
+                "payload identity flow must be stated separately"
+            )
+        if formal.get("relation") != "same_cycle_exactly_one":
+            errors.append(
+                "occurrence_partition.relation currently supports only "
+                "'same_cycle_exactly_one'"
+            )
+        if not isinstance(parts, list) or not parts:
+            errors.append("occurrence_partition.parts must contain at least one occurrence")
+        elif len(set(parts)) != len(parts):
+            errors.append("occurrence_partition.parts must be unique")
+        elif formal.get("whole") in parts:
+            errors.append("occurrence_partition.whole must not also be a part")
     elif t == "indexed_complete":
         domain = formal.get("domain")
         if formal.get("cardinality") != "exactly_once":

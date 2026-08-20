@@ -1,0 +1,956 @@
+{
+  "compiler": "formal-axiom-compiler-0.7",
+  "obligations": [
+    {
+      "arguments": {
+        "parts": [
+          "PrimaryMSHRAccept",
+          "SecondaryMSHRAccept",
+          "MMIOAccept"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "RequestAccept"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        4,
+        5,
+        6,
+        48,
+        128,
+        130,
+        1388,
+        1389,
+        1390,
+        1391,
+        1392,
+        1393,
+        1395
+      ],
+      "formal": {
+        "parts": [
+          "PrimaryMSHRAccept",
+          "SecondaryMSHRAccept",
+          "MMIOAccept"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "RequestAccept"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "MMIOAccept",
+          "PrimaryMSHRAccept",
+          "RequestAccept",
+          "SecondaryMSHRAccept"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "RequestAccept <=> exactly_one_same_cycle({PrimaryMSHRAccept, SecondaryMSHRAccept, MMIOAccept})"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mmios_0::ReqAccept"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "MMIOAccept"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        5,
+        6,
+        843,
+        845,
+        960,
+        979,
+        981,
+        1389,
+        1393,
+        1395
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mmios_0::ReqAccept"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "MMIOAccept"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.mmios_0::ReqAccept",
+          "MMIOAccept"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "MMIOAccept <=> exactly_one_same_cycle({BoomMSHRFile.mmios_0::ReqAccept})"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::MemAcquire",
+          "BoomMSHRFile.mshrs_1::MemAcquire",
+          "BoomMSHRFile.mmios_0::MemAccess"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "MemAcquire"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        1003,
+        1004,
+        1006,
+        1007,
+        1025,
+        1026,
+        1027,
+        1029,
+        1030,
+        1031,
+        1083,
+        1084,
+        1085,
+        1086,
+        1087,
+        1088,
+        1089,
+        1090,
+        1091,
+        1099,
+        1100
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::MemAcquire",
+          "BoomMSHRFile.mshrs_1::MemAcquire",
+          "BoomMSHRFile.mmios_0::MemAccess"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "MemAcquire"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.mmios_0::MemAccess",
+          "BoomMSHRFile.mshrs_0::MemAcquire",
+          "BoomMSHRFile.mshrs_1::MemAcquire",
+          "MemAcquire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "MemAcquire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::MemAcquire, BoomMSHRFile.mshrs_1::MemAcquire, BoomMSHRFile.mmios_0::MemAccess})"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::MemGrant",
+          "BoomMSHRFile.mshrs_1::MemGrant",
+          "MMIOGrantDelivery"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "MemGrant"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        162,
+        467,
+        476,
+        478,
+        787,
+        796,
+        798,
+        969,
+        970,
+        971,
+        972,
+        974
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::MemGrant",
+          "BoomMSHRFile.mshrs_1::MemGrant",
+          "MMIOGrantDelivery"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "MemGrant"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.mshrs_0::MemGrant",
+          "BoomMSHRFile.mshrs_1::MemGrant",
+          "MMIOGrantDelivery",
+          "MemGrant"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "MemGrant <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::MemGrant, BoomMSHRFile.mshrs_1::MemGrant, MMIOGrantDelivery})"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::MemFinish",
+          "BoomMSHRFile.mshrs_1::MemFinish"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "MemFinish"
+      },
+      "axiom_id": "A5",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        1178,
+        1179,
+        1181,
+        1194,
+        1195,
+        1197,
+        1198,
+        1240,
+        1241,
+        1242,
+        1243,
+        1244,
+        1245,
+        1251,
+        1252
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::MemFinish",
+          "BoomMSHRFile.mshrs_1::MemFinish"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "MemFinish"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.mshrs_0::MemFinish",
+          "BoomMSHRFile.mshrs_1::MemFinish",
+          "MemFinish"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "MemFinish <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::MemFinish, BoomMSHRFile.mshrs_1::MemFinish})"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.meta_read_arb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "MetaRead"
+      },
+      "axiom_id": "A6",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        831,
+        832,
+        833
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.meta_read_arb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "MetaRead"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.meta_read_arb::OutputFire",
+          "MetaRead"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "MetaRead <=> exactly_one_same_cycle({BoomMSHRFile.meta_read_arb::OutputFire})"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::MetaRead"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomMSHRFile.meta_read_arb::Input0Fire"
+      },
+      "axiom_id": "A7",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        454
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::MetaRead"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomMSHRFile.meta_read_arb::Input0Fire"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.meta_read_arb::Input0Fire",
+          "BoomMSHRFile.mshrs_0::MetaRead"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHRFile.meta_read_arb::Input0Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::MetaRead})"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mshrs_1::MetaRead"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomMSHRFile.meta_read_arb::Input1Fire"
+      },
+      "axiom_id": "A8",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        774
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mshrs_1::MetaRead"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomMSHRFile.meta_read_arb::Input1Fire"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.meta_read_arb::Input1Fire",
+          "BoomMSHRFile.mshrs_1::MetaRead"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHRFile.meta_read_arb::Input1Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_1::MetaRead})"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.meta_write_arb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "MetaWrite"
+      },
+      "axiom_id": "A9",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        828,
+        829,
+        830
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.meta_write_arb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "MetaWrite"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.meta_write_arb::OutputFire",
+          "MetaWrite"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "MetaWrite <=> exactly_one_same_cycle({BoomMSHRFile.meta_write_arb::OutputFire})"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.wb_req_arb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "WBReq"
+      },
+      "axiom_id": "A10",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        834,
+        835,
+        836
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.wb_req_arb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "WBReq"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.wb_req_arb::OutputFire",
+          "WBReq"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "WBReq <=> exactly_one_same_cycle({BoomMSHRFile.wb_req_arb::OutputFire})"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::WBReq"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomMSHRFile.wb_req_arb::Input0Fire"
+      },
+      "axiom_id": "A11",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        458
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::WBReq"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomMSHRFile.wb_req_arb::Input0Fire"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.mshrs_0::WBReq",
+          "BoomMSHRFile.wb_req_arb::Input0Fire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHRFile.wb_req_arb::Input0Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::WBReq})"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mshrs_1::WBReq"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomMSHRFile.wb_req_arb::Input1Fire"
+      },
+      "axiom_id": "A12",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        778
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mshrs_1::WBReq"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomMSHRFile.wb_req_arb::Input1Fire"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.mshrs_1::WBReq",
+          "BoomMSHRFile.wb_req_arb::Input1Fire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHRFile.wb_req_arb::Input1Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_1::WBReq})"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.refill_arb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "Refill"
+      },
+      "axiom_id": "A13",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        1402,
+        1403,
+        1404
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.refill_arb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "Refill"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.refill_arb::OutputFire",
+          "Refill"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "Refill <=> exactly_one_same_cycle({BoomMSHRFile.refill_arb::OutputFire})"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::CommitRefillBeat"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomMSHRFile.refill_arb::Input0Fire"
+      },
+      "axiom_id": "A14",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        460
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::CommitRefillBeat"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomMSHRFile.refill_arb::Input0Fire"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.mshrs_0::CommitRefillBeat",
+          "BoomMSHRFile.refill_arb::Input0Fire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHRFile.refill_arb::Input0Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::CommitRefillBeat})"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mshrs_1::CommitRefillBeat"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomMSHRFile.refill_arb::Input1Fire"
+      },
+      "axiom_id": "A15",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        780
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mshrs_1::CommitRefillBeat"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomMSHRFile.refill_arb::Input1Fire"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.mshrs_1::CommitRefillBeat",
+          "BoomMSHRFile.refill_arb::Input1Fire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHRFile.refill_arb::Input1Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_1::CommitRefillBeat})"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.replay_arb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "Replay"
+      },
+      "axiom_id": "A16",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        1430,
+        1431,
+        1432
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.replay_arb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "Replay"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.replay_arb::OutputFire",
+          "Replay"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "Replay <=> exactly_one_same_cycle({BoomMSHRFile.replay_arb::OutputFire})"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::ReplayHandshake"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomMSHRFile.replay_arb::Input0Fire"
+      },
+      "axiom_id": "A17",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        459
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::ReplayHandshake"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomMSHRFile.replay_arb::Input0Fire"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.mshrs_0::ReplayHandshake",
+          "BoomMSHRFile.replay_arb::Input0Fire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHRFile.replay_arb::Input0Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::ReplayHandshake})"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mshrs_1::ReplayHandshake"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomMSHRFile.replay_arb::Input1Fire"
+      },
+      "axiom_id": "A18",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        779
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mshrs_1::ReplayHandshake"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomMSHRFile.replay_arb::Input1Fire"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.mshrs_1::ReplayHandshake",
+          "BoomMSHRFile.replay_arb::Input1Fire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHRFile.replay_arb::Input1Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_1::ReplayHandshake})"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::RespHandshake"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomMSHRFile.resp_arb::Input0Fire"
+      },
+      "axiom_id": "A19",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        481
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::RespHandshake"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomMSHRFile.resp_arb::Input0Fire"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.mshrs_0::RespHandshake",
+          "BoomMSHRFile.resp_arb::Input0Fire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHRFile.resp_arb::Input0Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::RespHandshake})"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mshrs_1::RespHandshake"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomMSHRFile.resp_arb::Input1Fire"
+      },
+      "axiom_id": "A20",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        801
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mshrs_1::RespHandshake"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomMSHRFile.resp_arb::Input1Fire"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.mshrs_1::RespHandshake",
+          "BoomMSHRFile.resp_arb::Input1Fire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHRFile.resp_arb::Input1Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_1::RespHandshake})"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.mmios_0::RespHandshake"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomMSHRFile.resp_arb::Input2Fire"
+      },
+      "axiom_id": "A21",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        975
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mmios_0::RespHandshake"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomMSHRFile.resp_arb::Input2Fire"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.mmios_0::RespHandshake",
+          "BoomMSHRFile.resp_arb::Input2Fire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHRFile.resp_arb::Input2Fire <=> exactly_one_same_cycle({BoomMSHRFile.mmios_0::RespHandshake})"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.resp_arb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomMSHRFile.respq::EnqHandshake"
+      },
+      "axiom_id": "A22",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        1384
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.resp_arb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomMSHRFile.respq::EnqHandshake"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.resp_arb::OutputFire",
+          "BoomMSHRFile.respq::EnqHandshake"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHRFile.respq::EnqHandshake <=> exactly_one_same_cycle({BoomMSHRFile.resp_arb::OutputFire})"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomMSHRFile.respq::DeqHandshake"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "RespHandshake"
+      },
+      "axiom_id": "A23",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        1385,
+        1386,
+        1387
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.respq::DeqHandshake"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "RespHandshake"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.respq::DeqHandshake",
+          "RespHandshake"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "RespHandshake <=> exactly_one_same_cycle({BoomMSHRFile.respq::DeqHandshake})"
+    },
+    {
+      "arguments": {
+        "after": "RespHandshake",
+        "before": "BoomMSHRFile.respq::QueueInsert"
+      },
+      "axiom_id": "A24",
+      "axiom_kind": "ordering",
+      "checker": "history_order",
+      "evidence_statement_ids": [
+        1385,
+        1386,
+        1387
+      ],
+      "formal": {
+        "after": "RespHandshake",
+        "before": "BoomMSHRFile.respq::QueueInsert",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHRFile.respq::QueueInsert",
+          "RespHandshake"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHRFile.respq::QueueInsert <mu RespHandshake"
+    },
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 0,
+        "signal": "io.prefetch.valid"
+      },
+      "axiom_id": "A25",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        12
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.prefetch.valid",
+            "op": "signal"
+          }
+        },
+        "on": null,
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [],
+        "predicates": [],
+        "signals": [
+          "io.prefetch.valid"
+        ]
+      },
+      "rendered_formula": "bits(io.prefetch.valid, 0, 0) == 0"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "work_unit_id": "BoomMSHRFile"
+}

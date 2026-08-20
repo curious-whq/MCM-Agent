@@ -1,0 +1,80 @@
+{
+  "compiler": "formal-axiom-compiler-0.7",
+  "obligations": [
+    {
+      "arguments": {
+        "parts": [
+          "InputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "OutputFire"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "formal": {
+        "parts": [
+          "InputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "OutputFire"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "InputFire",
+          "OutputFire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "OutputFire <=> exactly_one_same_cycle({InputFire})"
+    },
+    {
+      "arguments": {
+        "on": "InputFire",
+        "source": "io.in[0].bits",
+        "target": "io.out.bits"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        4
+      ],
+      "formal": {
+        "on": "InputFire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[0].bits",
+          "op": "signal"
+        },
+        "target": "io.out.bits",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "InputFire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.in[0].bits",
+          "io.out.bits"
+        ]
+      },
+      "rendered_formula": "io.out.bits = io.in[0].bits on InputFire"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "work_unit_id": "BoomMSHRFile.mmio_alloc_arb"
+}

@@ -14,7 +14,7 @@ from frontend.workunit import HierarchicalWorkUnit, WorkUnitComplexity
 
 
 HANDOFF_SCHEMA_VERSION = "workunit-static-0.1"
-PLANNER_VERSION = "hierarchical-planner-v10"
+PLANNER_VERSION = "hierarchical-planner-v11"
 
 
 def _source_dict(source: SourceLoc | None) -> dict[str, Any] | None:
@@ -280,6 +280,7 @@ def build_work_unit_static_handoff(
         {
             "child_id": child.child_id,
             "child_kind": child.child_kind.value,
+            "child_module": child.child_module,
             "summary_ref": child.summary_ref,
             "boundary_events": list(child.boundary_events),
             "frontier_signals": list(child.frontier_signals),

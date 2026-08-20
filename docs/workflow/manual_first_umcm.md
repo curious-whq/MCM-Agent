@@ -112,7 +112,8 @@ The formal-axiom compiler turns each Formal AST axiom into one of the
 currently supported deterministic proof obligations; the LLM does not choose
 the checker separately: finite-control history ordering,
 transaction-path exclusion, occurrence-vs-predicate exclusion, identity-carrier
-stability/dataflow, direct signal aliasing, and static constant-bit checks.
+stability/dataflow, exact same-cycle one-hot occurrence partition, direct signal
+aliasing, and static constant-bit checks.
 The finite-control graph over-approximates data-dependent FSM branches and does
 not assume ready/valid progress.
 

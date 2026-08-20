@@ -3,6 +3,9 @@ from __future__ import annotations
 from collections import Counter, defaultdict
 from dataclasses import dataclass, replace
 from enum import Enum
+import hashlib
+import json
+import re
 from typing import Callable, Iterable
 
 from .dependency import (
@@ -33,6 +36,93 @@ class WorkUnitDecision(str, Enum):
     MANAGEABLE = "manageable"
     PARTITIONED = "partitioned"
     UNSPLITTABLE = "unsplittable"
+
+
+def module_structural_sha256(
+    design: Design,
+    graph_for_module: Callable[[str], ModuleDependencyGraph],
+    module_name: str,
+    *,
+    _cache: dict[str, str] | None = None,
+    _stack: tuple[str, ...] = (),
+) -> str:
+    """Return a transitive, generated-module-name-independent RTL hash."""
+
+    cache = _cache if _cache is not None else {}
+    if module_name in cache:
+        return cache[module_name]
+    if module_name in _stack:
+        raise ValueError("recursive module hierarchy while hashing: " + " -> ".join(_stack + (module_name,)))
+    module = design.modules.get(module_name)
+    if module is None:
+        raise KeyError(f"unknown module {module_name!r}")
+
+    child_hashes = {
+        instance.name: module_structural_sha256(
+            design,
+            graph_for_module,
+            instance.module,
+            _cache=cache,
+            _stack=_stack + (module_name,),
+        )
+        for instance in module.instances
+    }
+    ports = sorted(
+        (
+            port.name,
+            port.direction.value,
+            repr(port.type),
+        )
+        for port in module.ports
+    )
+    if module.external:
+        payload = {
+            "schema": "transitive-module-structural-fingerprint-v0.1",
+            "external": True,
+            "ports": ports,
+        }
+    else:
+        graph = graph_for_module(module_name)
+        statements = []
+        for statement in graph.statements:
+            text = statement.text
+            match = re.fullmatch(r"inst\s+([^\s]+)\s+of\s+([^\s]+)", text.strip())
+            if match and match.group(1) in child_hashes:
+                text = f"inst {match.group(1)} of structural-sha256:{child_hashes[match.group(1)]}"
+            statements.append(
+                {
+                    "kind": statement.kind,
+                    "text": text,
+                    "status": statement.status.value,
+                    "drives": statement.drives,
+                    "reads": statement.reads,
+                    "control_reads": statement.control_reads,
+                    "note": statement.note,
+                }
+            )
+        payload = {
+            "schema": "transitive-module-structural-fingerprint-v0.1",
+            "external": False,
+            "ports": ports,
+            "signals": sorted(
+                (
+                    name,
+                    info.kind.value,
+                    str(info.type_text or ""),
+                )
+                for name, info in graph.signals.items()
+            ),
+            "input_ports": sorted(graph.input_ports),
+            "output_ports": sorted(graph.output_ports),
+            "register_roots": sorted(graph.register_roots),
+            "memory_roots": sorted(graph.memory_roots),
+            "instances": sorted((name, child_hashes[name]) for name in child_hashes),
+            "statements": statements,
+        }
+    encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    result = hashlib.sha256(encoded).hexdigest()
+    cache[module_name] = result
+    return result
     MAX_DEPTH = "max_depth"
     EXTERNAL = "external"
 
@@ -154,6 +244,7 @@ class WorkUnitCoverage:
 class ChildReplacement:
     child_id: str
     child_kind: WorkUnitKind
+    child_module: str
     summary_ref: str
     boundary_events: tuple[str, ...]
     frontier_signals: tuple[str, ...]
@@ -214,6 +305,7 @@ class HierarchicalWorkUnit:
             ChildReplacement(
                 child_id=child.id,
                 child_kind=child.kind,
+                child_module=child.module,
                 summary_ref=f"umcm://{child.id}",
                 boundary_events=child.event_ids,
                 frontier_signals=(

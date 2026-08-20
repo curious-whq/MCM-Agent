@@ -103,7 +103,7 @@
             "subset": "ParentEnqHandshake",
             "superset": "BoomMSHR.rpq.main::EnqHandshake"
           },
-          "prover": "composition-prover-0.1",
+          "prover": "composition-prover-0.2",
           "source_theorem": {
             "axiom_id": "A1",
             "frozen_umcm_sha256": "d79c2389d52d6e60f76113d837d619dc94e00e7184c466434d6697cfad97dad8",
@@ -113,6 +113,14 @@
         },
         "proof": "trusted forbid theorem lifted across an exact parent-local occurrence bridge",
         "proof_method": "trusted-child-lift",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "lifted",
+          "proof_method": "trusted-child-lift",
+          "source_axioms": [
+            "BoomMSHR.rpq.main::A1"
+          ]
+        },
         "status": "FORMALLY_PROVED"
       },
       "grounding_status": "GROUNDED",
@@ -372,10 +380,16 @@
             "subset": "BufferCapture",
             "superset": "BoomMSHR.rpq.main::DeqHandshake"
           },
-          "prover": "composition-prover-0.1"
+          "prover": "composition-prover-0.2"
         },
         "proof": "local history theorem weakened through an exact occurrence inclusion bridge",
         "proof_method": "occurrence-bridge-history-composition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "occurrence-bridge-history-composition",
+          "source_axioms": []
+        },
         "status": "FORMALLY_PROVED"
       },
       "grounding_status": "GROUNDED",
@@ -434,7 +448,7 @@
             "kind": "frozen-theorem",
             "work_unit_id": "BoomMSHR.rpq.main"
           },
-          "prover": "composition-prover-0.1",
+          "prover": "composition-prover-0.2",
           "right_theorem": {
             "axiom_id": "A4",
             "certificate": {
@@ -533,7 +547,7 @@
                 "subset": "BufferCapture",
                 "superset": "BoomMSHR.rpq.main::DeqHandshake"
               },
-              "prover": "composition-prover-0.1"
+              "prover": "composition-prover-0.2"
             },
             "kind": "composed-theorem",
             "proof_method": "occurrence-bridge-history-composition"
@@ -541,6 +555,14 @@
         },
         "proof": "history order composed transitively over trusted theorem premises",
         "proof_method": "trusted-history-transitivity",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "emergent",
+          "proof_method": "trusted-history-transitivity",
+          "source_axioms": [
+            "BoomMSHR.rpq.main::A11"
+          ]
+        },
         "status": "FORMALLY_PROVED"
       },
       "grounding_status": "GROUNDED",
@@ -659,6 +681,6 @@
   ],
   "trusted_axiom_count": 7,
   "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
-  "validator": "semantic-validator-0.8",
+  "validator": "semantic-validator-0.9",
   "work_unit_id": "BoomMSHR.rpq"
 }

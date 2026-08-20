@@ -1,0 +1,1113 @@
+{
+  "children": [],
+  "complexity": {
+    "event_state_coupling": 0.036111,
+    "events": 3,
+    "logical": {
+      "dependency_edges": 18,
+      "signals": 16,
+      "source_loc": 10,
+      "statements": 12
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 25,
+      "signals": 26,
+      "source_loc": 10,
+      "statements": 16,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 0,
+    "state_regions": 0
+  },
+  "dependency_edges": [
+    {
+      "dst": "io.chosen",
+      "kind": "data",
+      "source": {
+        "column": 13,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 142,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 142:13"
+      },
+      "src": "h1",
+      "statement_ids": [
+        3
+      ]
+    },
+    {
+      "dst": "io.out.bits.idx",
+      "kind": "data",
+      "source": {
+        "column": 15,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 143,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 143:15"
+      },
+      "src": "io.in[1].bits.idx",
+      "statement_ids": [
+        4
+      ]
+    },
+    {
+      "dst": "io.out.bits.tag",
+      "kind": "data",
+      "source": {
+        "column": 15,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 143,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 143:15"
+      },
+      "src": "io.in[1].bits.tag",
+      "statement_ids": [
+        4
+      ]
+    },
+    {
+      "dst": "io.out.bits.way_en",
+      "kind": "data",
+      "source": {
+        "column": 15,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 143,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 143:15"
+      },
+      "src": "io.in[1].bits.way_en",
+      "statement_ids": [
+        4
+      ]
+    },
+    {
+      "dst": "io.chosen",
+      "kind": "data",
+      "source": {
+        "column": 17,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 146,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 146:17"
+      },
+      "src": "h0",
+      "statement_ids": [
+        5,
+        6
+      ]
+    },
+    {
+      "dst": "io.chosen",
+      "kind": "control",
+      "source": {
+        "column": 17,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 146,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 146:17"
+      },
+      "src": "io.in[0].valid",
+      "statement_ids": [
+        5,
+        6
+      ]
+    },
+    {
+      "dst": "io.out.bits.idx",
+      "kind": "data",
+      "source": {
+        "column": 19,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 147,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 147:19"
+      },
+      "src": "io.in[0].bits.idx",
+      "statement_ids": [
+        5,
+        7
+      ]
+    },
+    {
+      "dst": "io.out.bits.idx",
+      "kind": "control",
+      "source": {
+        "column": 19,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 147,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 147:19"
+      },
+      "src": "io.in[0].valid",
+      "statement_ids": [
+        5,
+        7
+      ]
+    },
+    {
+      "dst": "io.out.bits.tag",
+      "kind": "data",
+      "source": {
+        "column": 19,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 147,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 147:19"
+      },
+      "src": "io.in[0].bits.tag",
+      "statement_ids": [
+        5,
+        7
+      ]
+    },
+    {
+      "dst": "io.out.bits.tag",
+      "kind": "control",
+      "source": {
+        "column": 19,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 147,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 147:19"
+      },
+      "src": "io.in[0].valid",
+      "statement_ids": [
+        5,
+        7
+      ]
+    },
+    {
+      "dst": "io.out.bits.way_en",
+      "kind": "data",
+      "source": {
+        "column": 19,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 147,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 147:19"
+      },
+      "src": "io.in[0].bits.way_en",
+      "statement_ids": [
+        5,
+        7
+      ]
+    },
+    {
+      "dst": "io.out.bits.way_en",
+      "kind": "control",
+      "source": {
+        "column": 19,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 147,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 147:19"
+      },
+      "src": "io.in[0].valid",
+      "statement_ids": [
+        5,
+        7
+      ]
+    },
+    {
+      "dst": "grant_1",
+      "kind": "data",
+      "source": {
+        "column": 78,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 45,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 45:78"
+      },
+      "src": "h0",
+      "statement_ids": [
+        8
+      ]
+    },
+    {
+      "dst": "grant_1",
+      "kind": "data",
+      "source": {
+        "column": 78,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 45,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 45:78"
+      },
+      "src": "io.in[0].valid",
+      "statement_ids": [
+        8
+      ]
+    },
+    {
+      "dst": "_io_in_0_ready_T",
+      "kind": "data",
+      "source": {
+        "column": 19,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 153,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 153:19"
+      },
+      "src": "h1",
+      "statement_ids": [
+        9
+      ]
+    },
+    {
+      "dst": "_io_in_0_ready_T",
+      "kind": "data",
+      "source": {
+        "column": 19,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 153,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 153:19"
+      },
+      "src": "io.out.ready",
+      "statement_ids": [
+        9
+      ]
+    },
+    {
+      "dst": "io.in[0].ready",
+      "kind": "data",
+      "source": {
+        "column": 14,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 153,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 153:14"
+      },
+      "src": "_io_in_0_ready_T",
+      "statement_ids": [
+        10
+      ]
+    },
+    {
+      "dst": "_io_in_1_ready_T",
+      "kind": "data",
+      "source": {
+        "column": 19,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 153,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 153:19"
+      },
+      "src": "grant_1",
+      "statement_ids": [
+        11
+      ]
+    },
+    {
+      "dst": "_io_in_1_ready_T",
+      "kind": "data",
+      "source": {
+        "column": 19,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 153,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 153:19"
+      },
+      "src": "io.out.ready",
+      "statement_ids": [
+        11
+      ]
+    },
+    {
+      "dst": "io.in[1].ready",
+      "kind": "data",
+      "source": {
+        "column": 14,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 153,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 153:14"
+      },
+      "src": "_io_in_1_ready_T",
+      "statement_ids": [
+        12
+      ]
+    },
+    {
+      "dst": "_io_out_valid_T",
+      "kind": "data",
+      "source": {
+        "column": 19,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 154,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 154:19"
+      },
+      "src": "grant_1",
+      "statement_ids": [
+        13
+      ]
+    },
+    {
+      "dst": "_io_out_valid_T",
+      "kind": "data",
+      "source": {
+        "column": 19,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 154,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 154:19"
+      },
+      "src": "h0",
+      "statement_ids": [
+        13
+      ]
+    },
+    {
+      "dst": "_io_out_valid_T_1",
+      "kind": "data",
+      "source": {
+        "column": 31,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 154,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 154:31"
+      },
+      "src": "_io_out_valid_T",
+      "statement_ids": [
+        14
+      ]
+    },
+    {
+      "dst": "_io_out_valid_T_1",
+      "kind": "data",
+      "source": {
+        "column": 31,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 154,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 154:31"
+      },
+      "src": "io.in[1].valid",
+      "statement_ids": [
+        14
+      ]
+    },
+    {
+      "dst": "io.out.valid",
+      "kind": "data",
+      "source": {
+        "column": 16,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 154,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 154:16"
+      },
+      "src": "_io_out_valid_T_1",
+      "statement_ids": [
+        15
+      ]
+    }
+  ],
+  "events": [
+    {
+      "channel": "io.in[0]",
+      "direction": "receive",
+      "id": "BoomMSHRFile.meta_read_arb::io.in[0].fire",
+      "payload": [
+        "io.in[0].bits.idx",
+        "io.in[0].bits.tag",
+        "io.in[0].bits.way_en"
+      ],
+      "predicate": "io.in[0].valid && io.in[0].ready",
+      "protocol": "decoupled",
+      "ready": "io.in[0].ready",
+      "registry_id": "Arbiter2_L1MetaReadReq.io.in[0].fire",
+      "sources": [
+        {
+          "column": 14,
+          "file": "src/main/scala/chisel3/util/Arbiter.scala",
+          "line": 140,
+          "raw": "src/main/scala/chisel3/util/Arbiter.scala 140:14"
+        }
+      ],
+      "valid": "io.in[0].valid"
+    },
+    {
+      "channel": "io.in[1]",
+      "direction": "receive",
+      "id": "BoomMSHRFile.meta_read_arb::io.in[1].fire",
+      "payload": [
+        "io.in[1].bits.idx",
+        "io.in[1].bits.tag",
+        "io.in[1].bits.way_en"
+      ],
+      "predicate": "io.in[1].valid && io.in[1].ready",
+      "protocol": "decoupled",
+      "ready": "io.in[1].ready",
+      "registry_id": "Arbiter2_L1MetaReadReq.io.in[1].fire",
+      "sources": [
+        {
+          "column": 14,
+          "file": "src/main/scala/chisel3/util/Arbiter.scala",
+          "line": 140,
+          "raw": "src/main/scala/chisel3/util/Arbiter.scala 140:14"
+        }
+      ],
+      "valid": "io.in[1].valid"
+    },
+    {
+      "channel": "io.out",
+      "direction": "send",
+      "id": "BoomMSHRFile.meta_read_arb::io.out.fire",
+      "payload": [
+        "io.out.bits.idx",
+        "io.out.bits.tag",
+        "io.out.bits.way_en"
+      ],
+      "predicate": "io.out.valid && io.out.ready",
+      "protocol": "decoupled",
+      "ready": "io.out.ready",
+      "registry_id": "Arbiter2_L1MetaReadReq.io.out.fire",
+      "sources": [
+        {
+          "column": 14,
+          "file": "src/main/scala/chisel3/util/Arbiter.scala",
+          "line": 140,
+          "raw": "src/main/scala/chisel3/util/Arbiter.scala 140:14"
+        }
+      ],
+      "valid": "io.out.valid"
+    }
+  ],
+  "frontier": [
+    {
+      "id": "io.chosen",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 140,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 140:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.in[0].ready",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 140,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 140:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.in[0].valid",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 140,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 140:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.in[1].ready",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 140,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 140:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.in[1].valid",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 140,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 140:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.out.bits.idx",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 140,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 140:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.out.bits.tag",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 140,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 140:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.out.bits.way_en",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 140,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 140:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.out.ready",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 140,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 140:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.out.valid",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 140,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 140:14"
+      },
+      "type": null
+    }
+  ],
+  "grounding": {
+    "allowed_physical_event_ids": [
+      "BoomMSHRFile.meta_read_arb::io.in[0].fire",
+      "BoomMSHRFile.meta_read_arb::io.in[1].fire",
+      "BoomMSHRFile.meta_read_arb::io.out.fire"
+    ],
+    "allowed_state_ids": [],
+    "allowed_statement_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "semantic_labels": []
+  },
+  "memory_state": [],
+  "parent_connection_signals": [
+    "meta_read_arb.clock",
+    "meta_read_arb.io",
+    "meta_read_arb.io.chosen",
+    "meta_read_arb.io.in[0].bits.idx",
+    "meta_read_arb.io.in[0].bits.tag",
+    "meta_read_arb.io.in[0].bits.way_en",
+    "meta_read_arb.io.in[0].ready",
+    "meta_read_arb.io.in[0].valid",
+    "meta_read_arb.io.in[1].bits.idx",
+    "meta_read_arb.io.in[1].bits.tag",
+    "meta_read_arb.io.in[1].bits.way_en",
+    "meta_read_arb.io.in[1].ready",
+    "meta_read_arb.io.in[1].valid",
+    "meta_read_arb.io.out.bits.idx",
+    "meta_read_arb.io.out.bits.tag",
+    "meta_read_arb.io.out.bits.way_en",
+    "meta_read_arb.io.out.ready",
+    "meta_read_arb.io.out.valid",
+    "meta_read_arb.reset"
+  ],
+  "planner_version": "hierarchical-planner-v10",
+  "replacement_complexity": {
+    "event_state_coupling": 0.036111,
+    "events": 3,
+    "logical": {
+      "dependency_edges": 18,
+      "signals": 11,
+      "source_loc": 10,
+      "statements": 12
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 25,
+      "signals": 19,
+      "source_loc": 10,
+      "statements": 16,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 0,
+    "state_regions": 0
+  },
+  "schema_version": "workunit-static-0.1",
+  "semantic_event_cones": [
+    {
+      "complete": true,
+      "event_id": "BoomMSHRFile.meta_read_arb::io.in[0].fire",
+      "historical_registers": [],
+      "historical_statement_ids": [
+        9,
+        10
+      ],
+      "immediate_frontier": [
+        "h1",
+        "io.in[0].valid",
+        "io.out.ready"
+      ],
+      "immediate_registers": [],
+      "immediate_statement_ids": [
+        9,
+        10
+      ]
+    },
+    {
+      "complete": true,
+      "event_id": "BoomMSHRFile.meta_read_arb::io.in[1].fire",
+      "historical_registers": [],
+      "historical_statement_ids": [
+        8,
+        11,
+        12
+      ],
+      "immediate_frontier": [
+        "h0",
+        "io.in[0].valid",
+        "io.in[1].valid",
+        "io.out.ready"
+      ],
+      "immediate_registers": [],
+      "immediate_statement_ids": [
+        8,
+        11,
+        12
+      ]
+    },
+    {
+      "complete": true,
+      "event_id": "BoomMSHRFile.meta_read_arb::io.out.fire",
+      "historical_registers": [],
+      "historical_statement_ids": [
+        4,
+        5,
+        7,
+        8,
+        13,
+        14,
+        15
+      ],
+      "immediate_frontier": [
+        "h0",
+        "io.in[0].valid",
+        "io.in[1].valid",
+        "io.out.ready"
+      ],
+      "immediate_registers": [],
+      "immediate_statement_ids": [
+        8,
+        13,
+        14,
+        15
+      ]
+    }
+  ],
+  "source_evidence": {
+    "resolved": [],
+    "roots": [
+      "/t1/MCM-Agent/tools/chipyard"
+    ],
+    "unresolved": [
+      {
+        "end_line": 45,
+        "error": "Could not resolve source locator 'src/main/scala/chisel3/util/Arbiter.scala' under roots: /t1/MCM-Agent/tools/chipyard",
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "start_line": 45
+      },
+      {
+        "end_line": 133,
+        "error": "Could not resolve source locator 'src/main/scala/chisel3/util/Arbiter.scala' under roots: /t1/MCM-Agent/tools/chipyard",
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "start_line": 133
+      },
+      {
+        "end_line": 147,
+        "error": "Could not resolve source locator 'src/main/scala/chisel3/util/Arbiter.scala' under roots: /t1/MCM-Agent/tools/chipyard",
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "start_line": 140
+      },
+      {
+        "end_line": 154,
+        "error": "Could not resolve source locator 'src/main/scala/chisel3/util/Arbiter.scala' under roots: /t1/MCM-Agent/tools/chipyard",
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "start_line": 153
+      }
+    ]
+  },
+  "source_spans": [
+    {
+      "end_line": 45,
+      "file": "src/main/scala/chisel3/util/Arbiter.scala",
+      "start_line": 45
+    },
+    {
+      "end_line": 133,
+      "file": "src/main/scala/chisel3/util/Arbiter.scala",
+      "start_line": 133
+    },
+    {
+      "end_line": 147,
+      "file": "src/main/scala/chisel3/util/Arbiter.scala",
+      "start_line": 140
+    },
+    {
+      "end_line": 154,
+      "file": "src/main/scala/chisel3/util/Arbiter.scala",
+      "start_line": 153
+    }
+  ],
+  "state": [],
+  "statements": [
+    {
+      "control_reads": [],
+      "drives": [],
+      "firrtl_line": 188489,
+      "id": 0,
+      "kind": "structural",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 7,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 133,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 133:7"
+      },
+      "status": "nondriving",
+      "text": "input clock : Clock"
+    },
+    {
+      "control_reads": [],
+      "drives": [],
+      "firrtl_line": 188490,
+      "id": 1,
+      "kind": "structural",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 7,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 133,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 133:7"
+      },
+      "status": "nondriving",
+      "text": "input reset : Reset"
+    },
+    {
+      "control_reads": [],
+      "drives": [],
+      "firrtl_line": 188491,
+      "id": 2,
+      "kind": "structural",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 14,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 140,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 140:14"
+      },
+      "status": "nondriving",
+      "text": "output io : { flip in : { flip ready : UInt<1>, valid : UInt<1>, bits : { idx : UInt<6>, way_en : UInt<4>, tag : UInt<20>}}[2], out : { flip ready : UInt<1>, valid : UInt<1>, bits : { idx : UInt<6>, way_en : UInt<4>, tag : UInt<20>}}, chosen : UInt<1>}"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.chosen"
+      ],
+      "firrtl_line": 188493,
+      "id": 3,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h1"
+      ],
+      "source": {
+        "column": 13,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 142,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 142:13"
+      },
+      "status": "supported",
+      "text": "connect io.chosen, UInt<1>(0h1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.out.bits.idx",
+        "io.out.bits.tag",
+        "io.out.bits.way_en"
+      ],
+      "firrtl_line": 188494,
+      "id": 4,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "io.in[1].bits"
+      ],
+      "source": {
+        "column": 15,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 143,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 143:15"
+      },
+      "status": "supported",
+      "text": "connect io.out.bits, io.in[1].bits"
+    },
+    {
+      "control_reads": [
+        "io.in[0].valid"
+      ],
+      "drives": [],
+      "firrtl_line": 188495,
+      "id": 5,
+      "kind": "when",
+      "note": null,
+      "reads": [
+        "io.in[0].valid"
+      ],
+      "source": {
+        "column": 26,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 145,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 145:26"
+      },
+      "status": "supported",
+      "text": "when io.in[0].valid :"
+    },
+    {
+      "control_reads": [
+        "io.in[0].valid"
+      ],
+      "drives": [
+        "io.chosen"
+      ],
+      "firrtl_line": 188496,
+      "id": 6,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h0"
+      ],
+      "source": {
+        "column": 17,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 146,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 146:17"
+      },
+      "status": "supported",
+      "text": "connect io.chosen, UInt<1>(0h0)"
+    },
+    {
+      "control_reads": [
+        "io.in[0].valid"
+      ],
+      "drives": [
+        "io.out.bits.idx",
+        "io.out.bits.tag",
+        "io.out.bits.way_en"
+      ],
+      "firrtl_line": 188497,
+      "id": 7,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "io.in[0].bits"
+      ],
+      "source": {
+        "column": 19,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 147,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 147:19"
+      },
+      "status": "supported",
+      "text": "connect io.out.bits, io.in[0].bits"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "grant_1"
+      ],
+      "firrtl_line": 188498,
+      "id": 8,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "io.in[0].valid"
+      ],
+      "source": {
+        "column": 78,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 45,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 45:78"
+      },
+      "status": "supported",
+      "text": "node grant_1 = eq(io.in[0].valid, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_io_in_0_ready_T"
+      ],
+      "firrtl_line": 188499,
+      "id": 9,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h1",
+        "io.out.ready"
+      ],
+      "source": {
+        "column": 19,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 153,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 153:19"
+      },
+      "status": "supported",
+      "text": "node _io_in_0_ready_T = and(UInt<1>(0h1), io.out.ready)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.in[0].ready"
+      ],
+      "firrtl_line": 188500,
+      "id": 10,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_io_in_0_ready_T"
+      ],
+      "source": {
+        "column": 14,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 153,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 153:14"
+      },
+      "status": "supported",
+      "text": "connect io.in[0].ready, _io_in_0_ready_T"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_io_in_1_ready_T"
+      ],
+      "firrtl_line": 188501,
+      "id": 11,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "grant_1",
+        "io.out.ready"
+      ],
+      "source": {
+        "column": 19,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 153,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 153:19"
+      },
+      "status": "supported",
+      "text": "node _io_in_1_ready_T = and(grant_1, io.out.ready)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.in[1].ready"
+      ],
+      "firrtl_line": 188502,
+      "id": 12,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_io_in_1_ready_T"
+      ],
+      "source": {
+        "column": 14,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 153,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 153:14"
+      },
+      "status": "supported",
+      "text": "connect io.in[1].ready, _io_in_1_ready_T"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_io_out_valid_T"
+      ],
+      "firrtl_line": 188503,
+      "id": 13,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "grant_1",
+        "h0"
+      ],
+      "source": {
+        "column": 19,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 154,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 154:19"
+      },
+      "status": "supported",
+      "text": "node _io_out_valid_T = eq(grant_1, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_io_out_valid_T_1"
+      ],
+      "firrtl_line": 188504,
+      "id": 14,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_io_out_valid_T",
+        "io.in[1].valid"
+      ],
+      "source": {
+        "column": 31,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 154,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 154:31"
+      },
+      "status": "supported",
+      "text": "node _io_out_valid_T_1 = or(_io_out_valid_T, io.in[1].valid)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.out.valid"
+      ],
+      "firrtl_line": 188505,
+      "id": 15,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_io_out_valid_T_1"
+      ],
+      "source": {
+        "column": 16,
+        "file": "src/main/scala/chisel3/util/Arbiter.scala",
+        "line": 154,
+        "raw": "src/main/scala/chisel3/util/Arbiter.scala 154:16"
+      },
+      "status": "supported",
+      "text": "connect io.out.valid, _io_out_valid_T_1"
+    }
+  ],
+  "work_unit": {
+    "coverage_complete": true,
+    "decision": "manageable",
+    "depth": 1,
+    "exceeded_limits": [],
+    "id": "BoomMSHRFile.meta_read_arb",
+    "instance_path": "BoomMSHRFile.meta_read_arb",
+    "is_leaf": true,
+    "kind": "module",
+    "module": "Arbiter2_L1MetaReadReq",
+    "replacement_exceeded_limits": []
+  }
+}

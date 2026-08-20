@@ -3,14 +3,22 @@ from __future__ import annotations
 import copy
 import json
 from pathlib import Path
+import tempfile
 import unittest
 
 from workflow.composition import _canonical_sha256
+from workflow.composition_prover import _prove_onehot0_register_invariant
 from workflow.formal_patterns import (
     STRUCTURALLY_SUPPORTED,
     prove_scalar_valid_token_provenance,
 )
-from workflow.semantic import FORMALLY_PROVED, HandoffControlModel, run_semantic_validation
+from workflow.semantic import (
+    FORMALLY_PROVED,
+    HandoffControlModel,
+    _build_trusted_umcm,
+    freeze_task_dir,
+    run_semantic_validation,
+)
 
 
 RUN_DIR = (
@@ -48,6 +56,59 @@ class MshrRpqCompositionProverRegressionTests(unittest.TestCase):
         for axiom_id, method in expected.items():
             self.assertEqual(by_id[axiom_id]["validation_level"], FORMALLY_PROVED, by_id[axiom_id])
             self.assertEqual(by_id[axiom_id]["formal"]["proof_method"], method, by_id[axiom_id])
+
+        trusted = _build_trusted_umcm(self.candidate, result["results"])
+        self.assertEqual(
+            trusted["provenance"]["A1"]["source_axioms"],
+            ["BoomMSHR.rpq.main::A1"],
+        )
+        self.assertEqual(trusted["provenance"]["A1"]["kind"], "lifted")
+        self.assertEqual(
+            trusted["provenance"]["A5"]["source_axioms"],
+            ["BoomMSHR.rpq.main::A11"],
+        )
+        self.assertEqual(trusted["provenance"]["A5"]["kind"], "emergent")
+
+    def test_declared_provenance_must_match_the_actual_certificate(self):
+        candidate = copy.deepcopy(self.candidate)
+        candidate["extensions"]["parent_synthesis"]["axiom_provenance"]["A5"]["source_axioms"] = [
+            "BoomMSHR.rpq.main::A1"
+        ]
+        semantic = run_semantic_validation(
+            candidate,
+            self.handoff,
+            formal_backend="explicit-control",
+        )
+        with self.assertRaisesRegex(ValueError, "provenance mismatch.*A5"):
+            _build_trusted_umcm(candidate, semantic["results"])
+
+    def test_freeze_preserves_certificate_derived_provenance(self):
+        semantic = run_semantic_validation(
+            self.candidate,
+            self.handoff,
+            formal_backend="explicit-control",
+        )
+        trusted = _build_trusted_umcm(self.candidate, semantic["results"])
+        with tempfile.TemporaryDirectory() as tmp:
+            directory = Path(tmp)
+            values = {
+                "task.json": {"kind": "parent_synthesis"},
+                "response_parsed.json": self.candidate,
+                "semantic_validation.json": semantic,
+                "trusted_umcm.json": trusted,
+                "static_handoff.json": self.handoff,
+            }
+            for name, value in values.items():
+                directory.joinpath(name).write_text(json.dumps(value), encoding="utf-8")
+            frozen = freeze_task_dir(directory)
+            self.assertEqual(frozen["provenance"], trusted["provenance"])
+
+            directory.joinpath("trusted_umcm.json").write_text(
+                json.dumps({key: value for key, value in trusted.items() if key != "provenance"}),
+                encoding="utf-8",
+            )
+            with self.assertRaisesRegex(ValueError, "provenance is missing or stale"):
+                freeze_task_dir(directory)
 
     def test_scalar_provenance_rejects_an_extra_creator(self):
         handoff = copy.deepcopy(self.handoff)
@@ -98,6 +159,60 @@ class MshrRpqCompositionProverRegressionTests(unittest.TestCase):
         self.assertNotEqual(by_id["A4"]["validation_level"], FORMALLY_PROVED, by_id["A4"])
         self.assertNotEqual(by_id["A5"]["validation_level"], FORMALLY_PROVED, by_id["A5"])
 
+
+class OnehotRegisterInvariantRegressionTests(unittest.TestCase):
+    @staticmethod
+    def _handoff(second_winner: str = "and(not(a), b)") -> dict:
+        return {
+            "state": [{"id": "state", "kind": "register", "type": "UInt<1>[2]"}],
+            "statements": [
+                {"id": 1, "kind": "connect", "text": "connect reset_vec[0], UInt<1>(0h0)", "drives": ["reset_vec[0]"], "reads": [], "control_reads": []},
+                {"id": 2, "kind": "connect", "text": "connect reset_vec[1], UInt<1>(0h0)", "drives": ["reset_vec[1]"], "reads": [], "control_reads": []},
+                {"id": 3, "kind": "regreset", "text": "regreset state : UInt<1>[2], clock, reset, reset_vec", "drives": ["state"], "reads": ["clock", "reset_vec"], "control_reads": []},
+                {"id": 4, "kind": "node", "text": "node muxState = mux(idle, winner, state)", "drives": ["muxState"], "reads": ["idle", "winner", "state"], "control_reads": ["idle"]},
+                {"id": 5, "kind": "connect", "text": "connect winner[0], a", "drives": ["winner[0]"], "reads": ["a"], "control_reads": []},
+                {"id": 6, "kind": "connect", "text": f"connect winner[1], {second_winner}", "drives": ["winner[1]"], "reads": ["a", "b"], "control_reads": []},
+                {"id": 7, "kind": "connect", "text": "connect state, muxState", "drives": ["state[0]", "state[1]"], "reads": ["muxState"], "control_reads": []},
+            ],
+        }
+
+    @staticmethod
+    def _candidate() -> dict:
+        return {
+            "occurrences": [{
+                "id": "Choice",
+                "kind": "derived",
+                "grounding": {
+                    "signals_true": ["a", "b", "idle"],
+                    "signals_false": [],
+                    "state_register": None,
+                    "state_values": [],
+                },
+            }],
+            "predicates": [],
+        }
+
+    def test_array_projection_and_inductive_onehot0_certificate(self):
+        model = HandoffControlModel(self._handoff())
+        self.assertEqual(model.rhs("state[1]"), "muxState[1]")
+        proof = _prove_onehot0_register_invariant(
+            model,
+            self._candidate(),
+            "state",
+            [0, 1],
+        )
+        self.assertIsNotNone(proof)
+        self.assertEqual(proof[1]["kind"], "exact-inductive-onehot0-register-invariant")
+
+    def test_inductive_onehot0_rejects_nonexclusive_winners(self):
+        model = HandoffControlModel(self._handoff(second_winner="b"))
+        proof = _prove_onehot0_register_invariant(
+            model,
+            self._candidate(),
+            "state",
+            [0, 1],
+        )
+        self.assertIsNone(proof)
 
 if __name__ == "__main__":
     unittest.main()

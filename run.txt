@@ -1,0 +1,23 @@
+python3 -m workflow.cli leaf-task \
+  "$FIR" \
+  --root-module BoomMSHRFile \
+  --unit-id BoomMSHRFile.meta_write_arb \
+  --source-root "$SRC" \
+  --run-root runs
+
+python3 -m workflow.cli manual-import \
+  "$TASK" \
+  "$TASK/response.md"
+
+python3 -m workflow.cli semantic-validate \
+  "$TASK" \
+  --formal-backend explicit-control
+
+
+python3 -m workflow.cli freeze "$TASK"
+
+python3 -m workflow.cli run-summary "$TASK"
+
+python3 -m workflow.cli handoff \
+  --repo-root . \
+  --run-root runs

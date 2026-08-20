@@ -11,8 +11,8 @@ from .research_memory import write_run_summary
 from .axiom_ir import compile_formal_axiom, render_formal_axiom
 
 
-SEMANTIC_VALIDATOR_VERSION = "semantic-validator-0.8"
-PROPERTY_COMPILER_VERSION = "formal-axiom-compiler-0.6"
+SEMANTIC_VALIDATOR_VERSION = "semantic-validator-0.14"
+PROPERTY_COMPILER_VERSION = "formal-axiom-compiler-0.7"
 
 # Structural/static checker outcomes. These deliberately do NOT use the word
 # "proved": they are evidence about an extracted control/dataflow abstraction,
@@ -37,7 +37,9 @@ _CONNECT_RE = re.compile(r"^connect\s+([^,]+),\s*(.*)$")
 _ASSIGN_RE = re.compile(r"^([^\s]+)\s*<=\s*(.*)$")
 _REGRESET_RE = re.compile(r'^regreset\s+([^\s:]+).*UInt(?:<\d+>)?\((?:0h([0-9a-fA-F]+)|"h([0-9a-fA-F]+)"|(\d+))\)')
 _LEGACY_RESET_RE = re.compile(r'^reg\s+([^\s:]+).*reset.*UInt(?:<\d+>)?\((?:0h([0-9a-fA-F]+)|"h([0-9a-fA-F]+)"|(\d+))\)')
-_SIMPLE_REF_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_.$]*(?:\.[A-Za-z_][A-Za-z0-9_$]*)*$")
+_SIMPLE_REF_RE = re.compile(
+    r"^[A-Za-z_][A-Za-z0-9_$]*(?:(?:\.[A-Za-z_][A-Za-z0-9_$]*)|(?:\[[^\[\]]+\]))*$"
+)
 
 
 def _split_args(text: str) -> list[str]:
@@ -140,7 +142,7 @@ class HandoffControlModel:
                 if _SIMPLE_REF_RE.fullmatch(rhs):
                     if signal == lhs:
                         mapped_rhs = rhs
-                    elif signal.startswith(lhs + "."):
+                    elif signal.startswith(lhs + ".") or signal.startswith(lhs + "["):
                         mapped_rhs = rhs + signal[len(lhs):]
                 self.driver[signal] = (statement_id, mapped_rhs)
                 self.definition_statement[signal] = statement_id
@@ -173,13 +175,19 @@ class HandoffControlModel:
         if entry:
             return entry[1]
         # Recover leaf projections through a driven aggregate temporary.
-        parts = signal.split(".")
-        for cut in range(len(parts) - 1, 0, -1):
-            base = ".".join(parts[:cut])
-            entry = self.driver.get(base)
-            if entry is None:
-                continue
-            suffix = "." + ".".join(parts[cut:])
+        # A projection may cross both record fields and nested vector indices,
+        # e.g. ``allowed[0]`` or ``foo[1].bar[2]``.
+        prefixes = sorted(
+            (
+                base for base in self.driver
+                if signal.startswith(base + ".") or signal.startswith(base + "[")
+            ),
+            key=len,
+            reverse=True,
+        )
+        for base in prefixes:
+            entry = self.driver[base]
+            suffix = signal[len(base):]
             projected = self._project_aggregate_rhs(entry[1], suffix)
             if projected is not None:
                 return projected
@@ -316,12 +324,65 @@ class HandoffControlModel:
                 return self.definition_statement.get(signal, -1), value
         return None
 
+    def _positive_state_tests(
+        self,
+        expr: str,
+        seen: set[str] | None = None,
+    ) -> list[tuple[int, int]]:
+        """Recover state equalities required by a positive Boolean guard.
+
+        Lowered Decoupled fires commonly look like ``and(ready, valid)``, with
+        ``ready`` or ``valid`` in turn aliasing ``eq(state, S)``.  Looking only
+        at the immediate ``control_reads`` therefore misses the FSM source
+        state.  This routine follows aliases and conjunctions, but deliberately
+        refuses to infer a required state through disjunction, negation, or a
+        data-dependent mux.
+        """
+
+        text = expr.strip()
+        seen = seen or set()
+        if text in seen:
+            return []
+
+        if _SIMPLE_REF_RE.fullmatch(text):
+            direct = self._state_test(text)
+            if direct is not None:
+                return [direct]
+            rhs = self.rhs(text)
+            if rhs is None:
+                return []
+            return self._positive_state_tests(rhs, seen | {text})
+
+        call = _call(text)
+        if call is None:
+            return []
+        name, args = call
+        if name == "eq" and len(args) == 2:
+            for state_arg, literal_arg in ((args[0], args[1]), (args[1], args[0])):
+                if state_arg.strip() != self.state_register:
+                    continue
+                value = _literal(literal_arg)
+                if value is not None:
+                    return [(-1, value)]
+        if name == "and" and len(args) == 2:
+            return (
+                self._positive_state_tests(args[0], seen)
+                + self._positive_state_tests(args[1], seen)
+            )
+        # Equality-to-one and inequality-to-zero preserve positive Boolean
+        # polarity after FIRRTL lowering.
+        if name in {"eq", "neq"} and len(args) == 2:
+            for value_arg, literal_arg in ((args[0], args[1]), (args[1], args[0])):
+                literal = _literal(literal_arg)
+                positive = (name == "eq" and literal == 1) or (name == "neq" and literal == 0)
+                if positive:
+                    return self._positive_state_tests(value_arg, seen)
+        return []
+
     def _source_state(self, statement: dict[str, Any]) -> int | None:
         candidates: list[tuple[int, int]] = []
         for control in statement.get("control_reads", []):
-            test = self._state_test(control)
-            if test is not None:
-                candidates.append(test)
+            candidates.extend(self._positive_state_tests(control))
         if candidates:
             # In lowered else-if chains older state comparisons remain in the
             # control set with negative polarity.  The latest defining state-eq node
@@ -1154,7 +1215,23 @@ def _transition_cowrite_literal(model: HandoffControlModel, transition: Transiti
     return None
 
 
-def _counter_zero_on_entry(model: HandoffControlModel, phase_state: int, counter: str) -> dict[str, Any] | None:
+def _counter_width(model: HandoffControlModel, counter: str) -> int | None:
+    for item in model.handoff.get("state", []):
+        if item.get("id") != counter:
+            continue
+        match = re.fullmatch(r"UInt<(\d+)>", str(item.get("type", "")))
+        if match is not None:
+            return int(match.group(1))
+    return None
+
+
+def _counter_zero_on_entry(
+    model: HandoffControlModel,
+    phase_state: int,
+    counter: str,
+    *,
+    wrapped_phase_exit_ids: set[int] | None = None,
+) -> dict[str, Any] | None:
     incoming = [t for t in model.transitions if t.statement_id is not None and t.dst == phase_state and t.src != phase_state]
     if not incoming:
         return None
@@ -1191,9 +1268,70 @@ def _counter_zero_on_entry(model: HandoffControlModel, phase_state: int, counter
         return proofs
 
     proof = prove_state(phase_state, set())
-    if proof is None:
+    if proof is not None:
+        return {"counter": counter, "phase_state": phase_state, "entry_proof": proof}
+
+    # Cyclic FSMs cannot be certified by the recursive path proof above.  Use a
+    # graph-cut invariant when (1) every write outside the counted phase is zero,
+    # (2) every phase exit is a certified modulo-wrap-to-zero transition, and
+    # (3) every reset-to-phase path crosses an exact zero co-write.  This reasons
+    # about generic state/counter structure and does not name any RTL phase.
+    wrapped = set(wrapped_phase_exit_ids or set())
+    writes = _write_records(model, counter)
+    outside_zero_writes: list[int] = []
+    for statement, rhs in writes:
+        if model._source_state(statement) == phase_state:
+            continue
+        if _literal(_resolved_rhs(model, rhs)) != 0:
+            return None
+        outside_zero_writes.append(int(statement["id"]))
+
+    transitions = [
+        transition for transition in model.transitions
+        if transition.statement_id is not None and transition.src != transition.dst
+    ]
+    phase_exits = [transition for transition in transitions if transition.src == phase_state]
+    if not phase_exits or any(int(transition.statement_id) not in wrapped for transition in phase_exits):
         return None
-    return {"counter": counter, "phase_state": phase_state, "entry_proof": proof}
+
+    zero_cut: list[dict[str, int]] = []
+    zero_transition_ids: set[int] = set(wrapped)
+    for transition in transitions:
+        zero_write = _transition_cowrite_literal(model, transition, counter, 0)
+        if zero_write is None:
+            continue
+        zero_transition_ids.add(int(transition.statement_id))
+        zero_cut.append({
+            "src": transition.src,
+            "dst": transition.dst,
+            "transition": int(transition.statement_id),
+            "zero_write": zero_write,
+        })
+
+    if model.reset_state is None:
+        return None
+    reachable = {int(model.reset_state)}
+    pending = deque([int(model.reset_state)])
+    while pending:
+        state = pending.popleft()
+        for transition in transitions:
+            if transition.src != state or int(transition.statement_id) in zero_transition_ids:
+                continue
+            if transition.dst not in reachable:
+                reachable.add(transition.dst)
+                pending.append(transition.dst)
+    if phase_state in reachable:
+        return None
+    return {
+        "counter": counter,
+        "phase_state": phase_state,
+        "proof_domain": "exact-counter-zeroing-transition-cut",
+        "reset_state": int(model.reset_state),
+        "zero_cut_transitions": zero_cut,
+        "wrapped_phase_exit_transition_ids": sorted(wrapped),
+        "outside_phase_zero_write_ids": sorted(outside_zero_writes),
+        "reachable_without_zeroing": sorted(reachable),
+    }
 
 
 def _prove_monotone_index_occurrence(
@@ -1235,12 +1373,43 @@ def _prove_monotone_index_occurrence(
         # A same-phase alternate write could skip/repeat indices.
         return None
 
-    entry = _counter_zero_on_entry(model, phase_state, counter)
+    wrapped_exits: set[int] = set()
+    if completion is not None:
+        last = _completion_is_last_index(model, completion, occurrence, counter, domain)
+        width = _counter_width(model, counter)
+        increment_controls = {str(item) for item in increment.get("control_reads", [])}
+        transition_controls_cover_increment = last is not None and all(
+            increment_controls
+            <= {
+                str(item)
+                for item in model.statements.get(int(transition_id), {}).get("control_reads", [])
+            }
+            for transition_id in last.get("transition_ids", [])
+        )
+        if (
+            last is not None
+            and width is not None
+            and int(domain["end_exclusive"]) == (1 << width)
+            and transition_controls_cover_increment
+        ):
+            wrapped_exits = {int(item) for item in last.get("transition_ids", [])}
+    entry = _counter_zero_on_entry(
+        model,
+        phase_state,
+        counter,
+        wrapped_phase_exit_ids=wrapped_exits,
+    )
     if entry is None:
         return None
     upper = int(domain["end_exclusive"])
     gate_signals = _occurrence_upper_bound_signal(model, occurrence)
-    if not any(_expr_contains_compare(model, signal, "lt", counter, upper) for signal in gate_signals):
+    width = _counter_width(model, counter)
+    explicit_bound = any(
+        _expr_contains_compare(model, signal, "lt", counter, upper)
+        for signal in gate_signals
+    )
+    implicit_width_bound = width is not None and upper == (1 << width)
+    if not explicit_bound and not implicit_width_bound:
         return None
     return {
         "status": STRUCTURALLY_SUPPORTED,
@@ -1249,6 +1418,11 @@ def _prove_monotone_index_occurrence(
         "counter": counter,
         "increment_write": int(increment["id"]),
         "entry_zero": entry,
+        "upper_bound": {
+            "kind": "explicit-guard" if explicit_bound else "exact-register-width",
+            "counter_width": width,
+            "end_exclusive": upper,
+        },
         "domain": domain,
     }
 
@@ -1558,19 +1732,44 @@ def _identity_carrier(
     if not writes:
         return {"status": STRUCTURAL_UNKNOWN, "reason": f"no writes to carrier {carrier!r} found"}
 
-    gate_states, counterpart = model._boundary_gate_states(occurrence)
-    if gate_states is None or counterpart is None:
-        return {"status": STRUCTURAL_UNKNOWN, "reason": "accepting occurrence could not be mapped"}
+    # Compare exact same-cycle Boolean conditions.  This recognizes lowered
+    # aliases such as ``when and(io.req.ready, io.req.valid)`` without trusting
+    # candidate-authored state annotations or protocol-specific signal names.
+    from .formal_patterns import (
+        _and,
+        _bool_refs,
+        _exact_boundary_or_derived_occurrence_condition,
+        _not,
+        _unsat,
+        _writer_activation,
+    )
+
+    bool_refs = _bool_refs(model, candidate)
+    accepted_condition = _exact_boundary_or_derived_occurrence_condition(
+        model,
+        candidate,
+        accepted_by,
+        bool_refs,
+    )
+    if accepted_condition is None:
+        return {"status": STRUCTURAL_UNKNOWN, "reason": "accepting occurrence has no exact Boolean condition"}
     for statement in writes:
-        source = model._source_state(statement)
-        leaves: set[str] = set()
-        for control in statement.get("control_reads", []):
-            leaves.update(model._expand_leaves(control))
-        if source not in gate_states or counterpart not in leaves:
+        activation_info = _writer_activation(model, str(carrier), statement, bool_refs)
+        if activation_info is None:
+            return {
+                "status": STRUCTURAL_UNKNOWN,
+                "reason": f"carrier {carrier!r} writer activation is not exact",
+                "statement_id": statement.get("id"),
+            }
+        activation, activation_certificate = activation_info
+        outside_accept, atom_count = _unsat(_and(activation, _not(accepted_condition)))
+        if outside_accept is not True:
             return {
                 "status": COUNTEREXAMPLE,
                 "reason": f"carrier {carrier!r} has a write not guarded by {accepted_by}",
                 "statement_id": statement.get("id"),
+                "atom_count": atom_count,
+                "activation": activation_certificate,
             }
 
     missing = [
@@ -1946,12 +2145,14 @@ def _tilelink_on_probe_spec(
     }
 
 def _validation_level(structural_status: str, formal_status: str) -> str:
-    if structural_status == COUNTEREXAMPLE or formal_status == "FORMAL_COUNTEREXAMPLE":
+    if formal_status == "FORMAL_COUNTEREXAMPLE":
         return REFUTED
     if formal_status == SPEC_PROVED:
         return SPEC_PROVED
     if formal_status == FORMALLY_PROVED:
         return FORMALLY_PROVED
+    if structural_status == COUNTEREXAMPLE:
+        return REFUTED
     if structural_status == STRUCTURALLY_SUPPORTED:
         return STRUCTURALLY_SUPPORTED
     if structural_status == PARTIALLY_SUPPORTED:
@@ -1986,6 +2187,10 @@ def _run_structural_checker(
             return _history_join(model, candidate=candidate, **args)
         if checker == "indexed_coverage":
             return _indexed_coverage(model, candidate, **args)
+        if checker == "occurrence_partition":
+            from .formal_patterns import prove_same_cycle_occurrence_partition
+
+            return prove_same_cycle_occurrence_partition(model, candidate, **args)
         if checker == "transaction_exclusion":
             return _transaction_exclusion(model, **args)
         if checker == "identity_carrier":
@@ -1995,6 +2200,10 @@ def _run_structural_checker(
         if checker == "tilelink_on_probe_spec":
             return _tilelink_on_probe_spec(model, **args)
         if checker == "signal_alias":
+            if args.get("on"):
+                from .formal_patterns import prove_conditional_signal_equality
+
+                return prove_conditional_signal_equality(model, candidate, **args)
             return _signal_alias(model, **args)
         if checker == "constant_bit":
             return _constant_bit(model, **args)
@@ -2006,6 +2215,73 @@ def _run_structural_checker(
         return {"status": STRUCTURAL_UNKNOWN, "reason": f"unsupported checker {checker!r}"}
     except (KeyError, TypeError, ValueError) as exc:
         return {"status": STRUCTURAL_UNKNOWN, "reason": f"checker arguments invalid: {exc}"}
+
+
+def _certified_parent_provenance(result: dict[str, Any]) -> dict[str, Any]:
+    from .composition_prover import derive_composition_provenance, frozen_theorem_dependencies
+
+    formal = result.get("formal", {})
+    if not isinstance(formal, dict) or formal.get("status") not in {FORMALLY_PROVED, SPEC_PROVED}:
+        raise ValueError(f"axiom {result.get('axiom_id')!r} has no trusted formal result")
+    if formal.get("backend") == "composition-prover":
+        derived = derive_composition_provenance(formal)
+        recorded = formal.get("provenance")
+        if recorded != derived:
+            raise ValueError(
+                f"axiom {result.get('axiom_id')!r} composition provenance does not match its certificate"
+            )
+        return derived
+
+    unexpected = frozen_theorem_dependencies(formal.get("certificate", {}))
+    if unexpected:
+        raise ValueError(
+            f"axiom {result.get('axiom_id')!r} consumed frozen theorems outside the composition prover: {unexpected}"
+        )
+    return {
+        "kind": "parent_local",
+        "source_axioms": [],
+        "proof_method": str(formal.get("proof_method", "")),
+        "derivation": "formal-certificate-v0.1",
+    }
+
+
+def _trusted_parent_provenance(
+    candidate: dict[str, Any],
+    results: list[dict[str, Any]],
+    trusted_ids: set[str],
+) -> dict[str, dict[str, Any]] | None:
+    extensions = candidate.get("extensions")
+    if not isinstance(extensions, dict) or "parent_synthesis" not in extensions:
+        return None
+    parent = extensions.get("parent_synthesis")
+    declared = parent.get("axiom_provenance") if isinstance(parent, dict) else None
+    if not isinstance(declared, dict):
+        raise ValueError("parent candidate has no axiom_provenance declaration")
+    by_id = {str(result.get("axiom_id")): result for result in results}
+    certified: dict[str, dict[str, Any]] = {}
+    for axiom_id in sorted(trusted_ids):
+        result = by_id.get(axiom_id)
+        if result is None:
+            raise ValueError(f"trusted parent axiom {axiom_id!r} has no validation result")
+        actual = _certified_parent_provenance(result)
+        claim = declared.get(axiom_id)
+        if not isinstance(claim, dict):
+            raise ValueError(f"trusted parent axiom {axiom_id!r} has no declared provenance")
+        claimed_sources = claim.get("source_axioms", [])
+        if not isinstance(claimed_sources, list) or not all(
+            isinstance(item, str) for item in claimed_sources
+        ) or len(claimed_sources) != len(set(claimed_sources)):
+            raise ValueError(f"parent provenance mismatch for {axiom_id!r}: invalid source_axioms list")
+        normalized_sources = sorted(claimed_sources)
+        if claim.get("kind") != actual["kind"] or normalized_sources != actual["source_axioms"]:
+            raise ValueError(
+                f"parent provenance mismatch for {axiom_id!r}: declared "
+                f"kind={claim.get('kind')!r}, source_axioms={normalized_sources!r}; "
+                f"certificate requires kind={actual['kind']!r}, "
+                f"source_axioms={actual['source_axioms']!r}"
+            )
+        certified[axiom_id] = actual
+    return certified
 
 
 def _build_trusted_umcm(candidate: dict[str, Any], results: list[dict[str, Any]]) -> dict[str, Any]:
@@ -2043,11 +2319,11 @@ def _build_trusted_umcm(candidate: dict[str, Any], results: list[dict[str, Any]]
             if isinstance(guard, dict) and guard.get("id"):
                 predicate_ids.add(guard["id"])
 
-    return {
+    trusted = {
         "schema_version": candidate.get("schema_version"),
         "task_id": candidate.get("task_id"),
         "work_unit_id": candidate.get("work_unit_id"),
-        "trust_policy": "formal-ast-only-v0.2",
+        "trust_policy": "formal-ast-plus-certified-provenance-v0.3",
         "trusted_axiom_ids": sorted(trusted_ids),
         "occurrences": [x for x in candidate.get("occurrences", []) if x.get("id") in occurrence_ids],
         "predicates": [x for x in candidate.get("predicates", []) if x.get("id") in predicate_ids],
@@ -2060,6 +2336,10 @@ def _build_trusted_umcm(candidate: dict[str, Any], results: list[dict[str, Any]]
             "Grounded/structurally-supported candidate axioms remain outside the trusted abstraction."
         ),
     }
+    provenance = _trusted_parent_provenance(candidate, results, trusted_ids)
+    if provenance is not None:
+        trusted["provenance"] = provenance
+    return trusted
 
 
 def run_semantic_validation(
@@ -2114,14 +2394,10 @@ def run_semantic_validation(
             }
         else:
             structural = _run_structural_checker(model, candidate, obligation)
-            if structural.get("status") == COUNTEREXAMPLE:
-                formal = {
-                    "status": "NOT_RUN",
-                    "backend": backend.name,
-                    "reason": "structural counterexample already refutes the encoded candidate obligation",
-                }
-            else:
-                formal = backend.prove(obligation, candidate=candidate, handoff=handoff)
+            # Structural control/dataflow checkers are conservative abstractions.
+            # Their counterexamples may therefore be spurious; an exact formal
+            # proof is allowed to discharge the concrete obligation.
+            formal = backend.prove(obligation, candidate=candidate, handoff=handoff)
 
         level = _validation_level(structural.get("status", STRUCTURAL_UNKNOWN), formal.get("status", "NOT_RUN"))
         results.append(
@@ -2307,6 +2583,13 @@ def freeze_task_dir(task_dir: str | Path) -> dict[str, Any]:
     if len(trusted.get("axioms", [])) != len(candidate.get("axioms", [])):
         raise ValueError("trusted µMCM does not contain every declared candidate axiom")
 
+    if task.get("kind") == "parent_synthesis":
+        expected_trusted = _build_trusted_umcm(candidate, semantic.get("results", []))
+        if trusted.get("provenance") != expected_trusted.get("provenance"):
+            raise ValueError(
+                "trusted parent provenance is missing or stale; rerun semantic validation before freezing"
+            )
+
     frozen = dict(trusted)
     if task.get("kind") == "parent_synthesis":
         from .composition import merge_semantic_catalogs, semantic_catalog_from_frozen
@@ -2335,6 +2618,9 @@ def freeze_task_dir(task_dir: str | Path) -> dict[str, Any]:
                     "summary_ref": child.get("summary_ref"),
                     "task_id": child.get("task_id"),
                     "frozen_umcm_sha256": child.get("frozen_umcm_sha256"),
+                    "template_frozen_umcm_sha256": child.get("template_frozen_umcm_sha256"),
+                    "implementation_sha256": child.get("implementation_sha256"),
+                    "instance_reuse": child.get("instance_reuse"),
                     "semantic_catalog": child_catalog,
                     "frozen_umcm": child_frozen,
                 }

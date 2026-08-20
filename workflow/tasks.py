@@ -10,8 +10,8 @@ from .schema import UMCM_SCHEMA_VERSION, candidate_output_schema
 
 
 WORKFLOW_VERSION = "manual-first-workflow-0.9"
-PROMPT_VERSION = "leaf-abstraction-prompt-0.6"
-PARENT_PROMPT_VERSION = "parent-synthesis-prompt-0.1"
+PROMPT_VERSION = "leaf-abstraction-prompt-0.9"
+PARENT_PROMPT_VERSION = "parent-synthesis-prompt-0.2"
 
 
 class TaskKind(str, Enum):
@@ -157,6 +157,8 @@ def _render_child_summaries(handoff: dict[str, Any]) -> str:
                     f"- summary ref: `{child.get('summary_ref')}`",
                     f"- frozen task: `{child.get('task_id')}`",
                     f"- frozen SHA-256: `{child.get('frozen_umcm_sha256')}`",
+                    f"- implementation SHA-256: `{child.get('implementation_sha256')}`",
+                    f"- instance reuse certificate: `{child.get('instance_reuse')}`",
                     f"- exposed boundary events: {child.get('boundary_events', [])}",
                     f"- frontier signals: {child.get('frontier_signals', [])}",
                     "",
@@ -266,7 +268,13 @@ Output schema version: `{task.schema_version}`
    generated deterministically from the AST.
 8. Use only formal axiom forms supported by the schema. The language includes
    generic `join` and `indexed_complete` forms for unordered prerequisites and
-   finite indexed occurrence sets. Existing relation axioms may additionally use
+   finite indexed occurrence sets. For exact same-cycle event routing or merging,
+   use `occurrence_partition`: `whole` is equivalent to the disjunction of `parts`,
+   and the parts are pairwise mutually exclusive in that cycle. Its exact shape is:
+   `{{"type":"occurrence_partition","whole":"OutputFire","parts":["Input0Fire","Input1Fire"],"relation":"same_cycle_exactly_one","scope_identity":null}}`.
+   The `relation` field is required and must not be omitted. `parts` may contain
+   one occurrence for an exact 1-to-1 passthrough; pairwise exclusion is then
+   vacuous and the relation reduces to same-cycle equivalence. Existing relation axioms may additionally use
    `scope_index: {{name: <index>, relation: same}}` to state that the relation is
    pointwise over the same finite index (beat/entry/bank/etc.). Formal expressions
    may use `index_var` and `lookup` to refer to the bound index and an indexed

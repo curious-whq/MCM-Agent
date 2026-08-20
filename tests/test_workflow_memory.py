@@ -68,7 +68,19 @@ class WorkflowMemoryTests(unittest.TestCase):
                 ],
             },
         )
-        self._write_json(run / "trusted_umcm.json", {"axioms": [{"id": "A1"}]})
+        self._write_json(
+            run / "trusted_umcm.json",
+            {
+                "axioms": [{"id": "A1"}],
+                "provenance": {
+                    "A1": {
+                        "kind": "lifted",
+                        "source_axioms": ["Child::CA1"],
+                        "proof_method": "trusted-child-lift",
+                    }
+                },
+            },
+        )
         return run
 
     def test_run_summary_preserves_validation_and_unresolved(self):
@@ -80,6 +92,8 @@ class WorkflowMemoryTests(unittest.TestCase):
             self.assertIn("`A1` [FORMALLY_PROVED]", text)
             self.assertIn("`A2` [STRUCTURALLY_SUPPORTED]", text)
             self.assertIn("Need bit-level identity proof", text)
+            self.assertIn("Certified provenance", text)
+            self.assertIn("`Child::CA1`", text)
             self.assertTrue((run / "EXPERIENCE.md").exists())
 
     def test_experience_file_is_not_overwritten(self):
