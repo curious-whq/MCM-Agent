@@ -1,7 +1,7 @@
 {
-  "candidate_axiom_count": 10,
-  "next_action": "Freeze only the proved axioms already present in trusted_umcm.json; keep the remaining candidate axioms outside the trusted abstraction until a stronger backend proves them.",
-  "status": "PARTIALLY_FORMALLY_VALIDATED",
+  "candidate_axiom_count": 9,
+  "next_action": "Parent synthesis may consume frozen_umcm.json; reopen only through counterexample-guided refinement.",
+  "status": "FROZEN_FOR_COMPOSITION",
   "task_id": "leaf_abstraction-BoomMSHR.rpq.main-30765c6beda665d8",
-  "trusted_axiom_count": 1
+  "trusted_axiom_count": 9
 }

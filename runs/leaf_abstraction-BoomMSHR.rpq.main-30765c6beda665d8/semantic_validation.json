@@ -1,7 +1,7 @@
 {
-  "all_axioms_formally_proved": false,
-  "all_axioms_structurally_supported": false,
-  "candidate_axiom_count": 10,
+  "all_axioms_formally_proved": true,
+  "all_axioms_structurally_supported": true,
+  "candidate_axiom_count": 9,
   "control_model": {
     "known_states": [],
     "reset_state": null,
@@ -9,19 +9,19 @@
     "transitions": []
   },
   "counts": {
-    "FORMALLY_PROVED": 1,
-    "GROUNDED": 9,
+    "FORMALLY_PROVED": 9,
+    "GROUNDED": 0,
     "PARTIALLY_SUPPORTED": 0,
     "REFUTED": 0,
     "SPEC_PROVED": 0,
     "STRUCTURALLY_SUPPORTED": 0
   },
   "formal_backend": {
-    "api_version": "formal-backend-api-0.6",
+    "api_version": "formal-backend-api-0.7",
     "available": true,
     "name": "explicit-control",
-    "note": "Exhaustive formal proof for certified finite-control/order properties, exact symbolic local/identity facts, and selected finite reference equivalence checks. It is not a general bit-level SMT backend.",
-    "proof_domain": "control + exact symbolic local + finite reference equivalence",
+    "note": "Exhaustive formal proof for certified finite-control/order properties, exact symbolic local/identity facts, exact local Boolean exclusions, bounded indexed token provenance, and selected finite reference equivalence checks. It is not a general bit-level SMT backend.",
+    "proof_domain": "control + exact symbolic local + exact combinational exclusion + indexed token provenance + finite reference equivalence",
     "supported_checkers": [
       "forbid_when",
       "history_order",
@@ -59,11 +59,14 @@
       "formal": {
         "backend": "explicit-control",
         "certificate": {
-          "certified": false,
-          "reason": "control register reset state is unknown"
+          "atom_count": 3,
+          "proof": "EnqHandshake and QueueFull have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
         },
-        "reason": "control abstraction could not be certified",
-        "status": "FORMAL_UNKNOWN"
+        "proof": "EnqHandshake and QueueFull have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
       },
       "grounding_status": "GROUNDED",
       "references": {
@@ -81,8 +84,8 @@
         "reason": "predicate or occurrence control states could not be resolved",
         "status": "STRUCTURAL_UNKNOWN"
       },
-      "trusted": false,
-      "validation_level": "GROUNDED"
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
     },
     {
       "arguments": {
@@ -105,11 +108,14 @@
       "formal": {
         "backend": "explicit-control",
         "certificate": {
-          "certified": false,
-          "reason": "control register reset state is unknown"
+          "atom_count": 6,
+          "proof": "QueueInsert and IncomingBranchKilled have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
         },
-        "reason": "control abstraction could not be certified",
-        "status": "FORMAL_UNKNOWN"
+        "proof": "QueueInsert and IncomingBranchKilled have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
       },
       "grounding_status": "GROUNDED",
       "references": {
@@ -127,8 +133,8 @@
         "reason": "predicate or occurrence control states could not be resolved",
         "status": "STRUCTURAL_UNKNOWN"
       },
-      "trusted": false,
-      "validation_level": "GROUNDED"
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
     },
     {
       "arguments": {
@@ -151,11 +157,14 @@
       "formal": {
         "backend": "explicit-control",
         "certificate": {
-          "certified": false,
-          "reason": "control register reset state is unknown"
+          "atom_count": 6,
+          "proof": "QueueInsert and IncomingFlushKilled have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
         },
-        "reason": "control abstraction could not be certified",
-        "status": "FORMAL_UNKNOWN"
+        "proof": "QueueInsert and IncomingFlushKilled have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
       },
       "grounding_status": "GROUNDED",
       "references": {
@@ -173,8 +182,8 @@
         "reason": "predicate or occurrence control states could not be resolved",
         "status": "STRUCTURAL_UNKNOWN"
       },
-      "trusted": false,
-      "validation_level": "GROUNDED"
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
     },
     {
       "arguments": {
@@ -195,11 +204,14 @@
       "formal": {
         "backend": "explicit-control",
         "certificate": {
-          "certified": false,
-          "reason": "control register reset state is unknown"
+          "atom_count": 4,
+          "proof": "DeqHandshake and QueueEmpty have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
         },
-        "reason": "control abstraction could not be certified",
-        "status": "FORMAL_UNKNOWN"
+        "proof": "DeqHandshake and QueueEmpty have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
       },
       "grounding_status": "GROUNDED",
       "references": {
@@ -217,8 +229,8 @@
         "reason": "predicate or occurrence control states could not be resolved",
         "status": "STRUCTURAL_UNKNOWN"
       },
-      "trusted": false,
-      "validation_level": "GROUNDED"
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
     },
     {
       "arguments": {
@@ -237,11 +249,14 @@
       "formal": {
         "backend": "explicit-control",
         "certificate": {
-          "certified": false,
-          "reason": "control register reset state is unknown"
+          "atom_count": 4,
+          "proof": "DeqHandshake and HeadInvalid have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
         },
-        "reason": "control abstraction could not be certified",
-        "status": "FORMAL_UNKNOWN"
+        "proof": "DeqHandshake and HeadInvalid have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
       },
       "grounding_status": "GROUNDED",
       "references": {
@@ -259,8 +274,8 @@
         "reason": "predicate or occurrence control states could not be resolved",
         "status": "STRUCTURAL_UNKNOWN"
       },
-      "trusted": false,
-      "validation_level": "GROUNDED"
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
     },
     {
       "arguments": {
@@ -282,11 +297,14 @@
       "formal": {
         "backend": "explicit-control",
         "certificate": {
-          "certified": false,
-          "reason": "control register reset state is unknown"
+          "atom_count": 4,
+          "proof": "InvalidHeadSkip and QueueEmpty have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
         },
-        "reason": "control abstraction could not be certified",
-        "status": "FORMAL_UNKNOWN"
+        "proof": "InvalidHeadSkip and QueueEmpty have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
       },
       "grounding_status": "GROUNDED",
       "references": {
@@ -304,8 +322,8 @@
         "reason": "predicate or occurrence control states could not be resolved",
         "status": "STRUCTURAL_UNKNOWN"
       },
-      "trusted": false,
-      "validation_level": "GROUNDED"
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
     },
     {
       "arguments": {
@@ -329,11 +347,14 @@
       "formal": {
         "backend": "explicit-control",
         "certificate": {
-          "certified": false,
-          "reason": "control register reset state is unknown"
+          "atom_count": 4,
+          "proof": "InvalidHeadSkip and HeadValid have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
         },
-        "reason": "control abstraction could not be certified",
-        "status": "FORMAL_UNKNOWN"
+        "proof": "InvalidHeadSkip and HeadValid have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
       },
       "grounding_status": "GROUNDED",
       "references": {
@@ -351,8 +372,8 @@
         "reason": "predicate or occurrence control states could not be resolved",
         "status": "STRUCTURAL_UNKNOWN"
       },
-      "trusted": false,
-      "validation_level": "GROUNDED"
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
     },
     {
       "arguments": {
@@ -396,44 +417,6 @@
     },
     {
       "arguments": {
-        "source": "out_MPORT",
-        "target": "out"
-      },
-      "axiom_id": "A9",
-      "axiom_kind": "state_update",
-      "checker": "signal_alias",
-      "evidence_statement_ids": [
-        269,
-        270,
-        271
-      ],
-      "formal": {
-        "backend": "explicit-control",
-        "reason": "no driver for 'out'",
-        "status": "FORMAL_UNKNOWN"
-      },
-      "grounding_status": "GROUNDED",
-      "references": {
-        "identities": [],
-        "occurrences": [
-          "DeqHandshake"
-        ],
-        "predicates": [],
-        "signals": [
-          "out",
-          "out_MPORT"
-        ]
-      },
-      "rendered_formula": "out = out_MPORT on DeqHandshake",
-      "structural": {
-        "reason": "no driver for 'out'",
-        "status": "STRUCTURAL_UNKNOWN"
-      },
-      "trusted": false,
-      "validation_level": "GROUNDED"
-    },
-    {
-      "arguments": {
         "after": "DeqHandshake",
         "before": "QueueInsert",
         "scope_index": {
@@ -470,11 +453,106 @@
       "formal": {
         "backend": "explicit-control",
         "certificate": {
-          "certified": false,
-          "reason": "control register reset state is unknown"
+          "after_index": "deq_ptr_value",
+          "before_index": "enq_ptr_value",
+          "classified_writes": [
+            {
+              "kind": "false-preserving",
+              "statement_id": 55
+            },
+            {
+              "kind": "false-preserving",
+              "statement_id": 68
+            },
+            {
+              "kind": "false-preserving",
+              "statement_id": 81
+            },
+            {
+              "kind": "false-preserving",
+              "statement_id": 94
+            },
+            {
+              "kind": "false-preserving",
+              "statement_id": 107
+            },
+            {
+              "kind": "false-preserving",
+              "statement_id": 120
+            },
+            {
+              "kind": "false-preserving",
+              "statement_id": 133
+            },
+            {
+              "kind": "false-preserving",
+              "statement_id": 146
+            },
+            {
+              "kind": "false-preserving",
+              "statement_id": 159
+            },
+            {
+              "kind": "false-preserving",
+              "statement_id": 172
+            },
+            {
+              "kind": "false-preserving",
+              "statement_id": 185
+            },
+            {
+              "kind": "false-preserving",
+              "statement_id": 198
+            },
+            {
+              "kind": "false-preserving",
+              "statement_id": 211
+            },
+            {
+              "kind": "false-preserving",
+              "statement_id": 224
+            },
+            {
+              "kind": "false-preserving",
+              "statement_id": 237
+            },
+            {
+              "kind": "creator",
+              "statement_id": 245
+            },
+            {
+              "kind": "clear",
+              "statement_id": 257
+            }
+          ],
+          "creator_guard_proofs": [
+            {
+              "creator": 245,
+              "signal": "do_enq",
+              "when_ids": [
+                242
+              ]
+            }
+          ],
+          "creator_statement_ids": [
+            245
+          ],
+          "domain": {
+            "end_exclusive": 15,
+            "start": 0
+          },
+          "proof": "DeqHandshake requires valids[deq_ptr_value]; all slots reset invalid, QueueInsert is the only creator, and every other valids writer clears or preserves false",
+          "proof_domain": "exact-indexed-valid-token-provenance",
+          "reset_proof": {
+            "reset_expr": "_valids_WIRE",
+            "reset_statement": 20
+          },
+          "status": "STRUCTURALLY_SUPPORTED",
+          "storage": "valids"
         },
-        "reason": "control abstraction could not be certified",
-        "status": "FORMAL_UNKNOWN"
+        "proof": "DeqHandshake requires valids[deq_ptr_value]; all slots reset invalid, QueueInsert is the only creator, and every other valids writer clears or preserves false",
+        "proof_method": "exact-indexed-valid-token-provenance",
+        "status": "FORMALLY_PROVED"
       },
       "grounding_status": "GROUNDED",
       "references": {
@@ -495,11 +573,11 @@
         },
         "status": "STRUCTURAL_UNKNOWN"
       },
-      "trusted": false,
-      "validation_level": "GROUNDED"
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
     }
   ],
-  "trusted_axiom_count": 1,
+  "trusted_axiom_count": 9,
   "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
   "validator": "semantic-validator-0.7",
   "work_unit_id": "BoomMSHR.rpq.main"

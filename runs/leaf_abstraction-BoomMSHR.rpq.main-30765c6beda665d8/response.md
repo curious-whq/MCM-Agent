@@ -609,28 +609,6 @@
       "status": "candidate"
     },
     {
-      "id": "A9",
-      "formal": {
-        "type": "signal_equality",
-        "on": "DeqHandshake",
-        "target": "out",
-        "source": {
-          "op": "signal",
-          "name": "out_MPORT"
-        },
-        "scope_identity": null
-      },
-      "derived_from_case_ids": [
-        "C4_VisibleDequeue"
-      ],
-      "evidence_statement_ids": [
-        269,
-        270,
-        271
-      ],
-      "status": "candidate"
-    },
-    {
       "id": "A11",
       "formal": {
         "type": "ordered_before",
@@ -682,7 +660,7 @@
     "No transaction identity_key is claimed in this leaf. Payload is stored in indexed ram/uops state, uops.br_mask is intentionally rewritten on branch resolution, and the current identity_flow form has no indexed/generational carrier semantics. Omitting identity flow is a conservative over-approximation rather than an approximate claim.",
     "Cross-transaction FIFO preservation and exact inserted-entry-to-dequeued-entry conservation are deliberately omitted. They would strengthen the abstraction but are not required for this conservative candidate; if parent/system CEGAR produces spurious reorder or provenance traces, that evidence can justify a later generic queue/order-flow extension.",
     "Stored-entry branch/flush invalidation is not materialized as 15 semantic occurrences. Its externally relevant consequence is represented by the possibility of a valid slot becoming a hole and by InvalidHeadSkip; omitting stronger per-entry kill conservation allows additional behavior and is therefore conservative.",
-    "The aggregate forwarding assignment io.deq.bits := out is not emitted as a separate signal_equality axiom because the current static handoff does not expose io.deq.bits itself as an allowed aggregate signal. The candidate retains the grounded dequeue boundary occurrence and the preceding ram-to-out datapath fact instead."
+    "The aggregate equalities out = out_MPORT and io.deq.bits = out are deliberately omitted: out.uop is overwritten from uops[deq_ptr_value], so aggregate equality would be stronger than the RTL guarantee. Exact dequeue payload provenance can be added later as leaf/indexed equalities if parent CEGAR requires it."
   ],
   "extensions": {}
 }

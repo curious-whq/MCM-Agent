@@ -7,7 +7,7 @@
 - workflow: `manual-first-workflow-0.9`
 - prompt: `leaf-abstraction-prompt-0.6`
 - schema: `umcm-formal-0.5`
-- workflow status: `PARTIALLY_FORMALLY_VALIDATED`
+- workflow status: `FROZEN_FOR_COMPOSITION`
 
 ## Grounding
 
@@ -21,36 +21,35 @@
 - predicates: 6
 - identity keys: 0
 - cases: 5
-- candidate axioms: 10
+- candidate axioms: 9
 - unresolved: 0
 
 ## Validation
 
-- GROUNDED: 9
+- GROUNDED: 0
 - PARTIALLY_SUPPORTED: 0
 - STRUCTURALLY_SUPPORTED: 0
-- FORMALLY_PROVED: 1
+- FORMALLY_PROVED: 9
 - SPEC_PROVED: 0
 - REFUTED: 0
-- trusted axioms: 1
+- trusted axioms: 9
 - formal backend: `explicit-control`
 
 ## Axioms
 
-- `A1` [GROUNDED] QueueFull => !EnqHandshake
-- `A2` [GROUNDED] IncomingBranchKilled => !QueueInsert
-- `A3` [GROUNDED] IncomingFlushKilled => !QueueInsert
-- `A4` [GROUNDED] QueueEmpty => !DeqHandshake
-- `A5` [GROUNDED] HeadInvalid => !DeqHandshake
-- `A6` [GROUNDED] QueueEmpty => !InvalidHeadSkip
-- `A7` [GROUNDED] HeadValid => !InvalidHeadSkip
+- `A1` [FORMALLY_PROVED] QueueFull => !EnqHandshake
+- `A2` [FORMALLY_PROVED] IncomingBranchKilled => !QueueInsert
+- `A3` [FORMALLY_PROVED] IncomingFlushKilled => !QueueInsert
+- `A4` [FORMALLY_PROVED] QueueEmpty => !DeqHandshake
+- `A5` [FORMALLY_PROVED] HeadInvalid => !DeqHandshake
+- `A6` [FORMALLY_PROVED] QueueEmpty => !InvalidHeadSkip
+- `A7` [FORMALLY_PROVED] HeadValid => !InvalidHeadSkip
 - `A8` [FORMALLY_PROVED] MPORT = io.enq.bits on QueueInsert
-- `A9` [GROUNDED] out = out_MPORT on DeqHandshake
-- `A11` [GROUNDED] QueueInsert <mu DeqHandshake [same index slot]
+- `A11` [FORMALLY_PROVED] QueueInsert <mu DeqHandshake [same index slot]
 
 ## Next action
 
-Freeze only the proved axioms already present in trusted_umcm.json; keep the remaining candidate axioms outside the trusted abstraction until a stronger backend proves them.
+Parent synthesis may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
 
 ## Durable experiment notes
 

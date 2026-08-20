@@ -147,6 +147,9 @@ As of the WritebackUnit v0.9.1 validation pass, the bundled `explicit-control` b
 ## D016 — Unordered prerequisites use a generic join axiom
 When completion requires several events that may arrive in either order, µMCM uses a generic `join` axiom rather than inventing a module-specific completion rule. The `explicit-control` backend can formally prove such join-order obligations when the prerequisite/completion occurrences and any sticky state used to remember an earlier prerequisite are grounded in its certified abstraction.
 
+## D017 — Manual provider is transport-only; leaf semantics are autonomous
+During the manual bootstrap, the human only transports `prompt.md` to the LLM and returns the result to the workflow. The human should not choose occurrences, predicates, identities, cases or axioms for each leaf. A leaf task must autonomously produce a complete candidate JSON when the current Formal AST is sufficient, or explicitly report a necessary, grounded, reusable `MCM-AGENT LANGUAGE GAP` when it is not. A formal-backend proof limitation is not a language gap: expressible candidate axioms are still emitted and `semantic-validate` decides whether they can be certified. Optional strengthening constraints may be deferred in `rationale` for later CEGAR rather than blocking the leaf.
+
 ---
 
 ## Lessons
@@ -260,6 +263,95 @@ Next Action: construct and validate the `BoomMSHR` leaf µMCM, reusing the exist
 ---
 
 ## Recent WorkUnit Runs
+
+### Run: `leaf_abstraction-BoomMSHR.rpq.main-30765c6beda665d8`
+
+# Run Summary — BoomMSHR.rpq.main
+
+## Identity
+
+- task: `leaf_abstraction-BoomMSHR.rpq.main-30765c6beda665d8`
+- kind: `leaf_abstraction`
+- workflow: `manual-first-workflow-0.9`
+- prompt: `leaf-abstraction-prompt-0.6`
+- schema: `umcm-formal-0.5`
+- workflow status: `FROZEN_FOR_COMPOSITION`
+
+## Grounding
+
+- valid: `True`
+- errors: 0
+- warnings: 0
+
+## Candidate µMCM
+
+- occurrences: 4
+- predicates: 6
+- identity keys: 0
+- cases: 5
+- candidate axioms: 9
+- unresolved: 0
+
+## Validation
+
+- GROUNDED: 0
+- PARTIALLY_SUPPORTED: 0
+- STRUCTURALLY_SUPPORTED: 0
+- FORMALLY_PROVED: 9
+- SPEC_PROVED: 0
+- REFUTED: 0
+- trusted axioms: 9
+- formal backend: `explicit-control`
+
+## Axioms
+
+- `A1` [FORMALLY_PROVED] QueueFull => !EnqHandshake
+- `A2` [FORMALLY_PROVED] IncomingBranchKilled => !QueueInsert
+- `A3` [FORMALLY_PROVED] IncomingFlushKilled => !QueueInsert
+- `A4` [FORMALLY_PROVED] QueueEmpty => !DeqHandshake
+- `A5` [FORMALLY_PROVED] HeadInvalid => !DeqHandshake
+- `A6` [FORMALLY_PROVED] QueueEmpty => !InvalidHeadSkip
+- `A7` [FORMALLY_PROVED] HeadValid => !InvalidHeadSkip
+- `A8` [FORMALLY_PROVED] MPORT = io.enq.bits on QueueInsert
+- `A11` [FORMALLY_PROVED] QueueInsert <mu DeqHandshake [same index slot]
+
+## Next action
+
+Parent synthesis may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
+
+## Durable experiment notes
+
+See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
+
+### Experiment experience
+
+# Experiment Experience
+
+Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
+
+## INPUT_NEEDED
+
+- 
+
+## PROMPT_RULE
+
+- 
+
+## SCHEMA_CHANGE
+
+- 
+
+## VALIDATOR_CHANGE
+
+- 
+
+## MODEL_FAILURE
+
+- 
+
+## GENERALIZATION
+
+-
 
 ### Run: `leaf_abstraction-BoomWritebackUnit-5966d4c9d61e033b`
 

@@ -21,9 +21,13 @@ from .semantic import (
     _identity_projection,
     _tilelink_on_probe_spec,
 )
+from .formal_patterns import (
+    prove_combinational_forbid_when,
+    prove_same_index_valid_token_provenance,
+)
 
 
-FORMAL_BACKEND_API_VERSION = "formal-backend-api-0.6"
+FORMAL_BACKEND_API_VERSION = "formal-backend-api-0.7"
 FORMAL_UNKNOWN = "FORMAL_UNKNOWN"
 FORMAL_COUNTEREXAMPLE = "FORMAL_COUNTEREXAMPLE"
 
@@ -229,7 +233,10 @@ class ExplicitControlFormalBackend:
             "name": self.name,
             "available": True,
             "trusted_proof_levels": [FORMALLY_PROVED, SPEC_PROVED],
-            "proof_domain": "control + exact symbolic local + finite reference equivalence",
+            "proof_domain": (
+                "control + exact symbolic local + exact combinational exclusion + "
+                "indexed token provenance + finite reference equivalence"
+            ),
             "supported_checkers": [
                 "forbid_when",
                 "history_order",
@@ -244,8 +251,8 @@ class ExplicitControlFormalBackend:
             ],
             "note": (
                 "Exhaustive formal proof for certified finite-control/order properties, exact symbolic "
-                "local/identity facts, and selected finite reference equivalence checks. It is not a "
-                "general bit-level SMT backend."
+                "local/identity facts, exact local Boolean exclusions, bounded indexed token provenance, "
+                "and selected finite reference equivalence checks. It is not a general bit-level SMT backend."
             ),
         }
 
@@ -271,6 +278,40 @@ class ExplicitControlFormalBackend:
         state_register = _state_register_for(candidate)
         model = HandoffControlModel(handoff, state_register=state_register)
         model.label_occurrences(candidate.get("occurrences", []))
+
+        # Some leaves (queues, arbiters, kill/flush gates) have no single FSM
+        # state register.  Prove purely local forbid_when obligations directly
+        # from their exact Boolean cones before falling back to finite-control.
+        if checker == "forbid_when":
+            local = prove_combinational_forbid_when(model, candidate, **args)
+            if local.get("status") == STRUCTURALLY_SUPPORTED:
+                return {
+                    "status": FORMALLY_PROVED,
+                    "backend": self.name,
+                    "proof_method": local.get("proof_domain"),
+                    "proof": local.get("proof"),
+                    "certificate": local,
+                }
+
+        # A same-index order can also be proved without an FSM when a bounded
+        # valid/token array establishes exact provenance: reset invalid, one
+        # token creator, all other writes clear/preserve false, and after(i)
+        # requires the same token.  If the recognizer cannot certify that shape,
+        # retain the existing control/pipeline proof path below.
+        if checker == "history_order" and args.get("scope_index"):
+            provenance = prove_same_index_valid_token_provenance(
+                model,
+                candidate,
+                **args,
+            )
+            if provenance.get("status") == STRUCTURALLY_SUPPORTED:
+                return {
+                    "status": FORMALLY_PROVED,
+                    "backend": self.name,
+                    "proof_method": provenance.get("proof_domain"),
+                    "proof": provenance.get("proof"),
+                    "certificate": provenance,
+                }
 
         if checker in {"history_order", "history_chain", "history_join", "transaction_exclusion", "forbid_when"}:
             certificate = _certify_control_overapprox(model, candidate, obligation)

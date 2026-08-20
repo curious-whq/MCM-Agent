@@ -16,6 +16,7 @@
         "type": "forbid_when"
       },
       "id": "A1",
+      "rendered_formula": "QueueFull => !EnqHandshake",
       "status": "candidate"
     },
     {
@@ -40,6 +41,7 @@
         "type": "forbid_when"
       },
       "id": "A2",
+      "rendered_formula": "IncomingBranchKilled => !QueueInsert",
       "status": "candidate"
     },
     {
@@ -64,6 +66,7 @@
         "type": "forbid_when"
       },
       "id": "A3",
+      "rendered_formula": "IncomingFlushKilled => !QueueInsert",
       "status": "candidate"
     },
     {
@@ -85,6 +88,7 @@
         "type": "forbid_when"
       },
       "id": "A4",
+      "rendered_formula": "QueueEmpty => !DeqHandshake",
       "status": "candidate"
     },
     {
@@ -104,6 +108,7 @@
         "type": "forbid_when"
       },
       "id": "A5",
+      "rendered_formula": "HeadInvalid => !DeqHandshake",
       "status": "candidate"
     },
     {
@@ -126,6 +131,7 @@
         "type": "forbid_when"
       },
       "id": "A6",
+      "rendered_formula": "QueueEmpty => !InvalidHeadSkip",
       "status": "candidate"
     },
     {
@@ -150,6 +156,7 @@
         "type": "forbid_when"
       },
       "id": "A7",
+      "rendered_formula": "HeadValid => !InvalidHeadSkip",
       "status": "candidate"
     },
     {
@@ -172,6 +179,7 @@
         "type": "signal_equality"
       },
       "id": "A8",
+      "rendered_formula": "MPORT = io.enq.bits on QueueInsert",
       "status": "candidate"
     },
     {
@@ -214,6 +222,7 @@
         "type": "ordered_before"
       },
       "id": "A11",
+      "rendered_formula": "QueueInsert <mu DeqHandshake [same index slot]",
       "status": "candidate"
     }
   ],
@@ -387,8 +396,15 @@
       ]
     }
   ],
-  "extensions": {},
+  "freeze": {
+    "candidate_axiom_count": 9,
+    "policy": "all-declared-axioms-trusted-and-no-unresolved-v0.1",
+    "reopen_policy": "This summary may be reopened if later parent/system counterexample validation shows the abstraction is too weak and a missing concrete constraint must be synthesized.",
+    "status": "FROZEN_FOR_COMPOSITION",
+    "trusted_axiom_count": 9
+  },
   "identity_keys": [],
+  "note": "Only axioms with FORMALLY_PROVED or SPEC_PROVED validation level are included. Grounded/structurally-supported candidate axioms remain outside the trusted abstraction.",
   "occurrences": [
     {
       "definition": "io.enq.valid && io.enq.ready",
@@ -650,17 +666,19 @@
       "id": "HeadValid"
     }
   ],
-  "rationale": [
-    "QueueInsert is separated from EnqHandshake because io.enq.fire can be accepted at the boundary yet be killed by the current branch update or flush before any queue storage/pointer update occurs.",
-    "InvalidHeadSkip is retained as a derived occurrence because a previously invalidated slot can advance deq_ptr without io.deq.fire; this affects the visible path through the queue but does not warrant 15 separate per-entry kill events.",
-    "No liveness or eventual-dequeue property is claimed; the candidate therefore needs no ready/valid fairness assumption.",
-    "No transaction identity_key is claimed in this leaf. Payload is stored in indexed ram/uops state, uops.br_mask is intentionally rewritten on branch resolution, and the current identity_flow form has no indexed/generational carrier semantics. Omitting identity flow is a conservative over-approximation rather than an approximate claim.",
-    "Cross-transaction FIFO preservation and exact inserted-entry-to-dequeued-entry conservation are deliberately omitted. They would strengthen the abstraction but are not required for this conservative candidate; if parent/system CEGAR produces spurious reorder or provenance traces, that evidence can justify a later generic queue/order-flow extension.",
-    "Stored-entry branch/flush invalidation is not materialized as 15 semantic occurrences. Its externally relevant consequence is represented by the possibility of a valid slot becoming a hole and by InvalidHeadSkip; omitting stronger per-entry kill conservation allows additional behavior and is therefore conservative.",
-    "The aggregate equalities out = out_MPORT and io.deq.bits = out are deliberately omitted: out.uop is overwritten from uops[deq_ptr_value], so aggregate equality would be stronger than the RTL guarantee. Exact dequeue payload provenance can be added later as leaf/indexed equalities if parent CEGAR requires it."
-  ],
   "schema_version": "umcm-formal-0.5",
   "task_id": "leaf_abstraction-BoomMSHR.rpq.main-30765c6beda665d8",
-  "unresolved": [],
+  "trust_policy": "formal-ast-only-v0.2",
+  "trusted_axiom_ids": [
+    "A1",
+    "A11",
+    "A2",
+    "A3",
+    "A4",
+    "A5",
+    "A6",
+    "A7",
+    "A8"
+  ],
   "work_unit_id": "BoomMSHR.rpq.main"
 }

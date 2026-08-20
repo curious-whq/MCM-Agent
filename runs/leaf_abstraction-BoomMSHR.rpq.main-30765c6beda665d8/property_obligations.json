@@ -281,42 +281,6 @@
     },
     {
       "arguments": {
-        "source": "out_MPORT",
-        "target": "out"
-      },
-      "axiom_id": "A9",
-      "axiom_kind": "state_update",
-      "checker": "signal_alias",
-      "evidence_statement_ids": [
-        269,
-        270,
-        271
-      ],
-      "formal": {
-        "on": "DeqHandshake",
-        "scope_identity": null,
-        "source": {
-          "name": "out_MPORT",
-          "op": "signal"
-        },
-        "target": "out",
-        "type": "signal_equality"
-      },
-      "references": {
-        "identities": [],
-        "occurrences": [
-          "DeqHandshake"
-        ],
-        "predicates": [],
-        "signals": [
-          "out",
-          "out_MPORT"
-        ]
-      },
-      "rendered_formula": "out = out_MPORT on DeqHandshake"
-    },
-    {
-      "arguments": {
         "after": "DeqHandshake",
         "before": "QueueInsert",
         "scope_index": {
