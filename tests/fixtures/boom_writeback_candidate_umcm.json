@@ -1,0 +1,691 @@
+{
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "x",
+  "work_unit_id": "BoomWritebackUnit",
+  "occurrences": [
+    {
+      "id": "WritebackReq",
+      "kind": "boundary",
+      "physical_event_ids": [
+        "BoomWritebackUnit::io.req.fire"
+      ],
+      "definition": "WritebackReq",
+      "multiplicity": "repeatable",
+      "grounding": {
+        "state_register": null,
+        "state_values": [],
+        "signals_true": [],
+        "signals_false": []
+      },
+      "evidence_statement_ids": [
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123
+      ]
+    },
+    {
+      "id": "FillIssue",
+      "kind": "derived",
+      "physical_event_ids": [],
+      "definition": "FillIssue",
+      "multiplicity": "repeatable",
+      "grounding": {
+        "state_register": "state",
+        "state_values": [
+          1
+        ],
+        "signals_true": [
+          "io.data_req.valid",
+          "io.data_req.ready",
+          "io.meta_read.valid",
+          "io.meta_read.ready"
+        ],
+        "signals_false": []
+      },
+      "evidence_statement_ids": [
+        127,
+        128,
+        131,
+        132,
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150
+      ],
+      "index": {
+        "name": "beat",
+        "expr": {
+          "op": "signal",
+          "name": "data_req_cnt"
+        },
+        "domain": {
+          "start": 0,
+          "end_exclusive": 8
+        }
+      }
+    },
+    {
+      "id": "BufferBeat",
+      "kind": "derived",
+      "physical_event_ids": [],
+      "definition": "BufferBeat",
+      "multiplicity": "repeatable",
+      "grounding": {
+        "state_register": "state",
+        "state_values": [
+          1
+        ],
+        "signals_true": [
+          "r2_data_req_fired"
+        ],
+        "signals_false": []
+      },
+      "evidence_statement_ids": [
+        140,
+        141,
+        151,
+        152,
+        153
+      ],
+      "index": {
+        "name": "beat",
+        "expr": {
+          "op": "signal",
+          "name": "r2_data_req_cnt"
+        },
+        "domain": {
+          "start": 0,
+          "end_exclusive": 8
+        }
+      }
+    },
+    {
+      "id": "BufferFilled",
+      "kind": "derived",
+      "physical_event_ids": [],
+      "definition": "BufferFilled",
+      "multiplicity": "repeatable",
+      "grounding": {
+        "state_register": "state",
+        "state_values": [
+          1
+        ],
+        "signals_true": [
+          "r2_data_req_fired"
+        ],
+        "signals_false": []
+      },
+      "evidence_statement_ids": [
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157,
+        158
+      ]
+    },
+    {
+      "id": "LSURelease",
+      "kind": "boundary",
+      "physical_event_ids": [
+        "BoomWritebackUnit::io.lsu_release.fire"
+      ],
+      "definition": "LSURelease",
+      "multiplicity": "repeatable",
+      "grounding": {
+        "state_register": null,
+        "state_values": [],
+        "signals_true": [],
+        "signals_false": []
+      },
+      "evidence_statement_ids": [
+        160,
+        161,
+        162,
+        163,
+        164,
+        165,
+        166
+      ]
+    },
+    {
+      "id": "ReleaseBeat",
+      "kind": "boundary",
+      "physical_event_ids": [
+        "BoomWritebackUnit::io.release.fire"
+      ],
+      "definition": "ReleaseBeat",
+      "multiplicity": "repeatable",
+      "grounding": {
+        "state_register": null,
+        "state_values": [],
+        "signals_true": [],
+        "signals_false": []
+      },
+      "evidence_statement_ids": [
+        168,
+        169,
+        170,
+        171,
+        172,
+        173,
+        176,
+        177,
+        178,
+        179,
+        180
+      ],
+      "index": {
+        "name": "beat",
+        "expr": {
+          "op": "signal",
+          "name": "data_req_cnt"
+        },
+        "domain": {
+          "start": 0,
+          "end_exclusive": 8
+        }
+      }
+    },
+    {
+      "id": "ReleaseComplete",
+      "kind": "derived",
+      "physical_event_ids": [],
+      "definition": "ReleaseComplete",
+      "multiplicity": "repeatable",
+      "grounding": {
+        "state_register": "state",
+        "state_values": [
+          3
+        ],
+        "signals_true": [
+          "io.release.valid",
+          "io.release.ready"
+        ],
+        "signals_false": []
+      },
+      "evidence_statement_ids": [
+        181,
+        182,
+        183,
+        184,
+        185,
+        186
+      ]
+    },
+    {
+      "id": "MemGrantSeen",
+      "kind": "derived",
+      "physical_event_ids": [],
+      "definition": "MemGrantSeen",
+      "multiplicity": "repeatable",
+      "grounding": {
+        "state_register": "state",
+        "state_values": [
+          3,
+          4
+        ],
+        "signals_true": [
+          "io.mem_grant"
+        ],
+        "signals_false": []
+      },
+      "evidence_statement_ids": [
+        174,
+        175,
+        188,
+        189,
+        190,
+        191
+      ]
+    },
+    {
+      "id": "VoluntaryDone",
+      "kind": "derived",
+      "physical_event_ids": [],
+      "definition": "VoluntaryDone",
+      "multiplicity": "repeatable",
+      "grounding": {
+        "state_register": "state",
+        "state_values": [
+          4
+        ],
+        "signals_true": [
+          "acked"
+        ],
+        "signals_false": []
+      },
+      "evidence_statement_ids": [
+        188,
+        189,
+        190,
+        191,
+        192,
+        193
+      ]
+    }
+  ],
+  "predicates": [
+    {
+      "id": "ActiveWriteback",
+      "definition": "",
+      "grounding": {
+        "source_signal": "io.idx.valid",
+        "negated": false,
+        "state_register": "state",
+        "state_values": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "evidence_statement_ids": [
+        32,
+        33
+      ]
+    },
+    {
+      "id": "BeforeNetworkRelease",
+      "definition": "",
+      "grounding": {
+        "source_signal": null,
+        "negated": false,
+        "state_register": "state",
+        "state_values": [
+          1,
+          2
+        ]
+      },
+      "evidence_statement_ids": [
+        160,
+        161,
+        166
+      ]
+    }
+  ],
+  "identity_keys": [
+    {
+      "id": "WritebackTxn",
+      "carrier_state": "req",
+      "fields": [
+        "tag",
+        "idx",
+        "source",
+        "param",
+        "way_en",
+        "voluntary"
+      ],
+      "description": "",
+      "evidence_statement_ids": [
+        3,
+        122
+      ]
+    }
+  ],
+  "cases": [],
+  "axioms": [
+    {
+      "id": "A1",
+      "formal": {
+        "type": "forbid_when",
+        "occurrence": "WritebackReq",
+        "predicate": "ActiveWriteback",
+        "scope_identity": "WritebackTxn",
+        "scope_index": null
+      },
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        32,
+        33,
+        43,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        122
+      ],
+      "status": "candidate"
+    },
+    {
+      "id": "A2",
+      "formal": {
+        "type": "identity_flow",
+        "identity": "WritebackTxn",
+        "capture": {
+          "on": "WritebackReq",
+          "source": "io.req.bits",
+          "carrier": "req"
+        },
+        "projections": [
+          {
+            "on": "FillIssue",
+            "target": "io.meta_read.bits.idx",
+            "expr": {
+              "op": "signal",
+              "name": "req.idx"
+            }
+          },
+          {
+            "on": "FillIssue",
+            "target": "io.meta_read.bits.tag",
+            "expr": {
+              "op": "signal",
+              "name": "req.tag"
+            }
+          },
+          {
+            "on": "FillIssue",
+            "target": "io.data_req.bits.way_en",
+            "expr": {
+              "op": "signal",
+              "name": "req.way_en"
+            }
+          },
+          {
+            "on": "LSURelease",
+            "target": "io.lsu_release.bits.address",
+            "expr": {
+              "op": "signal",
+              "name": "r_address"
+            }
+          },
+          {
+            "on": "LSURelease",
+            "target": "io.lsu_release.bits.param",
+            "expr": {
+              "op": "signal",
+              "name": "req.param"
+            }
+          },
+          {
+            "on": "LSURelease",
+            "target": "io.lsu_release.bits.source",
+            "expr": {
+              "op": "signal",
+              "name": "req.source"
+            }
+          }
+        ]
+      },
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        3,
+        60,
+        61,
+        65,
+        67,
+        68,
+        109,
+        112,
+        118,
+        122,
+        129,
+        130,
+        133,
+        163,
+        172,
+        173
+      ],
+      "status": "candidate"
+    },
+    {
+      "id": "A3",
+      "formal": {
+        "type": "indexed_complete",
+        "occurrence": "BufferBeat",
+        "completion": "BufferFilled",
+        "index": "beat",
+        "domain": {
+          "start": 0,
+          "end_exclusive": 8
+        },
+        "cardinality": "exactly_once",
+        "scope_identity": "WritebackTxn",
+        "scope_index": null
+      },
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        140,
+        141,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157
+      ],
+      "status": "candidate"
+    },
+    {
+      "id": "A4",
+      "formal": {
+        "type": "ordered_before",
+        "before": "FillIssue",
+        "after": "BufferBeat",
+        "required_prior": null,
+        "scope_identity": "WritebackTxn",
+        "scope_index": {
+          "name": "beat",
+          "relation": "same"
+        }
+      },
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        150,
+        151,
+        152,
+        153
+      ],
+      "status": "candidate"
+    },
+    {
+      "id": "A5",
+      "formal": {
+        "type": "ordered_before",
+        "before": "BufferFilled",
+        "after": "LSURelease",
+        "required_prior": null,
+        "scope_identity": "WritebackTxn",
+        "scope_index": null
+      },
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        154,
+        155,
+        156,
+        157,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166
+      ],
+      "status": "candidate"
+    },
+    {
+      "id": "A6",
+      "formal": {
+        "type": "forbid_when",
+        "occurrence": "ReleaseBeat",
+        "predicate": "BeforeNetworkRelease",
+        "scope_identity": "WritebackTxn",
+        "scope_index": null
+      },
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        160,
+        161,
+        166,
+        168,
+        169,
+        170,
+        171,
+        176,
+        177,
+        180
+      ],
+      "status": "candidate"
+    },
+    {
+      "id": "A7",
+      "formal": {
+        "type": "indexed_complete",
+        "occurrence": "ReleaseBeat",
+        "completion": "ReleaseComplete",
+        "index": "beat",
+        "domain": {
+          "start": 0,
+          "end_exclusive": 8
+        },
+        "cardinality": "exactly_once",
+        "scope_identity": "WritebackTxn",
+        "scope_index": null
+      },
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        168,
+        170,
+        171,
+        176,
+        177,
+        178,
+        179,
+        180,
+        181,
+        182,
+        183,
+        184,
+        185,
+        186
+      ],
+      "status": "candidate"
+    },
+    {
+      "id": "A8",
+      "formal": {
+        "type": "signal_equality",
+        "on": "ReleaseBeat",
+        "target": "io.release.bits.data",
+        "source": {
+          "op": "lookup",
+          "value": {
+            "op": "signal",
+            "name": "wb_buffer"
+          },
+          "index": {
+            "op": "index_var",
+            "name": "beat"
+          }
+        },
+        "scope_identity": "WritebackTxn",
+        "scope_index": {
+          "name": "beat",
+          "relation": "same"
+        }
+      },
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        62,
+        63,
+        69,
+        71,
+        107,
+        113,
+        168,
+        172,
+        173
+      ],
+      "status": "candidate"
+    },
+    {
+      "id": "A9",
+      "formal": {
+        "type": "value_constraint",
+        "on": "ReleaseBeat",
+        "expr": {
+          "op": "bit",
+          "value": {
+            "op": "signal",
+            "name": "io.release.bits.opcode"
+          },
+          "index": 0
+        },
+        "relation": "eq",
+        "value": 1,
+        "scope_identity": "WritebackTxn",
+        "scope_index": null
+      },
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        15,
+        63,
+        64,
+        107,
+        108,
+        168,
+        172,
+        173
+      ],
+      "status": "candidate"
+    },
+    {
+      "id": "A10",
+      "formal": {
+        "type": "join",
+        "prerequisites": [
+          "ReleaseComplete",
+          "MemGrantSeen"
+        ],
+        "after": "VoluntaryDone",
+        "scope_identity": "WritebackTxn",
+        "scope_index": null
+      },
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        174,
+        175,
+        181,
+        182,
+        183,
+        184,
+        185,
+        186,
+        188,
+        189,
+        190,
+        191,
+        192,
+        193
+      ],
+      "status": "candidate"
+    }
+  ],
+  "assumptions": [],
+  "unresolved": [],
+  "rationale": [],
+  "extensions": {}
+}

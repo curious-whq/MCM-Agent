@@ -1,0 +1,1160 @@
+{
+  "all_axioms_formally_proved": true,
+  "all_axioms_structurally_supported": true,
+  "candidate_axiom_count": 10,
+  "control_model": {
+    "known_states": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "reset_state": 0,
+    "state_register": "state",
+    "transitions": [
+      {
+        "dst": 1,
+        "guard_leaves": [
+          "io.req.valid",
+          "state"
+        ],
+        "labels": [
+          "WritebackReq"
+        ],
+        "src": 0,
+        "statement_id": 120
+      },
+      {
+        "dst": 2,
+        "guard_leaves": [
+          "r2_data_req_cnt",
+          "r2_data_req_fired",
+          "state"
+        ],
+        "labels": [
+          "BufferBeat",
+          "BufferFilled"
+        ],
+        "src": 1,
+        "statement_id": 157
+      },
+      {
+        "dst": 3,
+        "guard_leaves": [
+          "io.lsu_release.ready",
+          "state"
+        ],
+        "labels": [
+          "LSURelease"
+        ],
+        "src": 2,
+        "statement_id": 166
+      },
+      {
+        "dst": 0,
+        "guard_leaves": [
+          "data_req_cnt",
+          "io.release.ready",
+          "lt",
+          "state"
+        ],
+        "labels": [
+          "ReleaseComplete"
+        ],
+        "src": 3,
+        "statement_id": 186
+      },
+      {
+        "dst": 4,
+        "guard_leaves": [
+          "data_req_cnt",
+          "io.release.ready",
+          "lt",
+          "state"
+        ],
+        "labels": [
+          "ReleaseComplete"
+        ],
+        "src": 3,
+        "statement_id": 186
+      },
+      {
+        "dst": 0,
+        "guard_leaves": [
+          "acked",
+          "state"
+        ],
+        "labels": [
+          "VoluntaryDone"
+        ],
+        "src": 4,
+        "statement_id": 193
+      },
+      {
+        "dst": 0,
+        "guard_leaves": [],
+        "labels": [],
+        "src": 0,
+        "statement_id": null
+      },
+      {
+        "dst": 1,
+        "guard_leaves": [],
+        "labels": [
+          "FillIssue"
+        ],
+        "src": 1,
+        "statement_id": null
+      },
+      {
+        "dst": 2,
+        "guard_leaves": [],
+        "labels": [],
+        "src": 2,
+        "statement_id": null
+      },
+      {
+        "dst": 3,
+        "guard_leaves": [],
+        "labels": [
+          "MemGrantSeen",
+          "ReleaseBeat"
+        ],
+        "src": 3,
+        "statement_id": null
+      },
+      {
+        "dst": 4,
+        "guard_leaves": [],
+        "labels": [
+          "MemGrantSeen"
+        ],
+        "src": 4,
+        "statement_id": null
+      }
+    ]
+  },
+  "counts": {
+    "FORMALLY_PROVED": 10,
+    "GROUNDED": 0,
+    "PARTIALLY_SUPPORTED": 0,
+    "REFUTED": 0,
+    "SPEC_PROVED": 0,
+    "STRUCTURALLY_SUPPORTED": 0
+  },
+  "formal_backend": {
+    "api_version": "formal-backend-api-0.6",
+    "available": true,
+    "name": "explicit-control",
+    "note": "Exhaustive formal proof for certified finite-control/order properties, exact symbolic local/identity facts, and selected finite reference equivalence checks. It is not a general bit-level SMT backend.",
+    "proof_domain": "control + exact symbolic local + finite reference equivalence",
+    "supported_checkers": [
+      "forbid_when",
+      "history_order",
+      "history_chain",
+      "history_join",
+      "indexed_coverage",
+      "transaction_exclusion",
+      "signal_alias",
+      "constant_bit",
+      "identity_projection",
+      "tilelink_on_probe_spec"
+    ],
+    "trusted_proof_levels": [
+      "FORMALLY_PROVED",
+      "SPEC_PROVED"
+    ]
+  },
+  "has_counterexample": false,
+  "property_compiler": "formal-axiom-compiler-0.6",
+  "results": [
+    {
+      "arguments": {
+        "occurrence": "WritebackReq",
+        "predicate": "ActiveWriteback"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        32,
+        33,
+        43,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        122
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "accounted_state_write_ids": [
+            120,
+            157,
+            166,
+            186,
+            193
+          ],
+          "certified": true,
+          "known_states": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "note": "This is a formal exhaustive proof over a fail-closed conservative control abstraction derived from the FIRRTL ledger. It is not a full bit-level proof of arbitrary datapath semantics.",
+          "proof_domain": "conservative-finite-control-abstraction",
+          "reset_state": 0,
+          "state_register": "state",
+          "stutter_closed_states": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        "proof": "occurrence source states [0] are disjoint from predicate states [1, 2, 3, 4]",
+        "proof_method": "exhaustive-state-reachability",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [
+          "WritebackTxn"
+        ],
+        "occurrences": [
+          "WritebackReq"
+        ],
+        "predicates": [
+          "ActiveWriteback"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "ActiveWriteback => !WritebackReq [same WritebackTxn]",
+      "structural": {
+        "proof": "occurrence source states [0] are disjoint from predicate states [1, 2, 3, 4]",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "accepted_by": "WritebackReq",
+        "capture_source": "io.req.bits",
+        "identity_key": "WritebackTxn",
+        "projections": [
+          {
+            "source": "req.idx",
+            "target": "io.meta_read.bits.idx"
+          },
+          {
+            "source": "req.tag",
+            "target": "io.meta_read.bits.tag"
+          },
+          {
+            "source": "req.way_en",
+            "target": "io.data_req.bits.way_en"
+          },
+          {
+            "source": "r_address",
+            "target": "io.lsu_release.bits.address"
+          },
+          {
+            "source": "req.param",
+            "target": "io.lsu_release.bits.param"
+          },
+          {
+            "source": "req.source",
+            "target": "io.lsu_release.bits.source"
+          }
+        ]
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "identity_flow",
+      "checker": "identity_projection",
+      "evidence_statement_ids": [
+        3,
+        60,
+        61,
+        65,
+        67,
+        68,
+        109,
+        112,
+        118,
+        122,
+        129,
+        130,
+        133,
+        163,
+        172,
+        173
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "capture_statement_ids": [
+          122
+        ],
+        "projection_proofs": [
+          {
+            "normal_form": "('ref', 'req.idx')",
+            "source": "req.idx",
+            "target": "io.meta_read.bits.idx"
+          },
+          {
+            "normal_form": "('ref', 'req.tag')",
+            "source": "req.tag",
+            "target": "io.meta_read.bits.tag"
+          },
+          {
+            "normal_form": "('ref', 'req.way_en')",
+            "source": "req.way_en",
+            "target": "io.data_req.bits.way_en"
+          },
+          {
+            "normal_form": "('call', 'shl', ('call', 'cat', ('ref', 'req.tag'), ('ref', 'req.idx')), ('lit', 6))",
+            "source": "r_address",
+            "target": "io.lsu_release.bits.address"
+          },
+          {
+            "normal_form": "('ref', 'req.param')",
+            "source": "req.param",
+            "target": "io.lsu_release.bits.param"
+          },
+          {
+            "normal_form": "('ref', 'req.source')",
+            "source": "req.source",
+            "target": "io.lsu_release.bits.source"
+          }
+        ],
+        "proof": "carrier 'req' is captured exactly from 'io.req.bits' only on WritebackReq; all 6 declared projections are exact symbolic functions of the latched carrier",
+        "proof_domain": "exact-symbolic-transaction-identity",
+        "proof_method": "exact-symbolic-transaction-identity",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [
+          "WritebackTxn"
+        ],
+        "occurrences": [
+          "FillIssue",
+          "LSURelease",
+          "WritebackReq"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.data_req.bits.way_en",
+          "io.lsu_release.bits.address",
+          "io.lsu_release.bits.param",
+          "io.lsu_release.bits.source",
+          "io.meta_read.bits.idx",
+          "io.meta_read.bits.tag",
+          "io.req.bits",
+          "r_address",
+          "req",
+          "req.idx",
+          "req.param",
+          "req.source",
+          "req.tag",
+          "req.way_en"
+        ]
+      },
+      "rendered_formula": "capture WritebackTxn := io.req.bits on WritebackReq; preserve 6 exact identity projections",
+      "structural": {
+        "capture_statement_ids": [
+          122
+        ],
+        "projection_proofs": [
+          {
+            "normal_form": "('ref', 'req.idx')",
+            "source": "req.idx",
+            "target": "io.meta_read.bits.idx"
+          },
+          {
+            "normal_form": "('ref', 'req.tag')",
+            "source": "req.tag",
+            "target": "io.meta_read.bits.tag"
+          },
+          {
+            "normal_form": "('ref', 'req.way_en')",
+            "source": "req.way_en",
+            "target": "io.data_req.bits.way_en"
+          },
+          {
+            "normal_form": "('call', 'shl', ('call', 'cat', ('ref', 'req.tag'), ('ref', 'req.idx')), ('lit', 6))",
+            "source": "r_address",
+            "target": "io.lsu_release.bits.address"
+          },
+          {
+            "normal_form": "('ref', 'req.param')",
+            "source": "req.param",
+            "target": "io.lsu_release.bits.param"
+          },
+          {
+            "normal_form": "('ref', 'req.source')",
+            "source": "req.source",
+            "target": "io.lsu_release.bits.source"
+          }
+        ],
+        "proof": "carrier 'req' is captured exactly from 'io.req.bits' only on WritebackReq; all 6 declared projections are exact symbolic functions of the latched carrier",
+        "proof_domain": "exact-symbolic-transaction-identity",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "cardinality": "exactly_once",
+        "completion": "BufferFilled",
+        "domain": {
+          "end_exclusive": 8,
+          "start": 0
+        },
+        "index": "beat",
+        "occurrence": "BufferBeat"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "conservation",
+      "checker": "indexed_coverage",
+      "evidence_statement_ids": [
+        140,
+        141,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "completion_proof": {
+            "completion": "BufferFilled",
+            "last_index": 7,
+            "transition_ids": [
+              157
+            ]
+          },
+          "pipeline_proof": {
+            "bijection": true,
+            "domain": {
+              "end_exclusive": 8,
+              "start": 0
+            },
+            "pipeline": [
+              {
+                "from_index": "r1_data_req_cnt",
+                "from_token": "r1_data_req_fired",
+                "index": "r2_data_req_cnt",
+                "index_write": 141,
+                "terminal": false,
+                "token": "r2_data_req_fired",
+                "token_write": 140
+              },
+              {
+                "index": "r1_data_req_cnt",
+                "index_write": 147,
+                "source_index": "data_req_cnt",
+                "terminal": true,
+                "token": "r1_data_req_fired",
+                "token_write": 146
+              }
+            ],
+            "proof": "BufferBeat carries the same beat through a lossless valid/index register pipeline from FillIssue",
+            "proof_domain": "exact-register-token-index-pipeline",
+            "status": "STRUCTURALLY_SUPPORTED"
+          },
+          "proof": "BufferBeat is a lossless same-index pipeline of FillIssue; the source counter visits every index once before final completion",
+          "proof_domain": "exact-bounded-indexed-pipeline",
+          "source_counter_proof": {
+            "counter": "data_req_cnt",
+            "domain": {
+              "end_exclusive": 8,
+              "start": 0
+            },
+            "entry_zero": {
+              "counter": "data_req_cnt",
+              "entry_proof": [
+                {
+                  "dst": 1,
+                  "src": 0,
+                  "transition": 120,
+                  "zero_write": 121
+                }
+              ],
+              "phase_state": 1
+            },
+            "increment_write": 150,
+            "proof": "FillIssue index is a zero-based monotone counter incremented exactly once per occurrence and bounded by data_req_cnt < 8",
+            "proof_domain": "exact-bounded-monotone-counter",
+            "status": "STRUCTURALLY_SUPPORTED"
+          },
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "BufferBeat is a lossless same-index pipeline of FillIssue; the source counter visits every index once before final completion",
+        "proof_method": "exact-bounded-indexed-pipeline",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [
+          "WritebackTxn"
+        ],
+        "occurrences": [
+          "BufferBeat",
+          "BufferFilled"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BufferFilled => forall beat in [0, 8): count(BufferBeat(beat)) = 1 [same WritebackTxn]",
+      "structural": {
+        "completion_proof": {
+          "completion": "BufferFilled",
+          "last_index": 7,
+          "transition_ids": [
+            157
+          ]
+        },
+        "pipeline_proof": {
+          "bijection": true,
+          "domain": {
+            "end_exclusive": 8,
+            "start": 0
+          },
+          "pipeline": [
+            {
+              "from_index": "r1_data_req_cnt",
+              "from_token": "r1_data_req_fired",
+              "index": "r2_data_req_cnt",
+              "index_write": 141,
+              "terminal": false,
+              "token": "r2_data_req_fired",
+              "token_write": 140
+            },
+            {
+              "index": "r1_data_req_cnt",
+              "index_write": 147,
+              "source_index": "data_req_cnt",
+              "terminal": true,
+              "token": "r1_data_req_fired",
+              "token_write": 146
+            }
+          ],
+          "proof": "BufferBeat carries the same beat through a lossless valid/index register pipeline from FillIssue",
+          "proof_domain": "exact-register-token-index-pipeline",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "BufferBeat is a lossless same-index pipeline of FillIssue; the source counter visits every index once before final completion",
+        "proof_domain": "exact-bounded-indexed-pipeline",
+        "source_counter_proof": {
+          "counter": "data_req_cnt",
+          "domain": {
+            "end_exclusive": 8,
+            "start": 0
+          },
+          "entry_zero": {
+            "counter": "data_req_cnt",
+            "entry_proof": [
+              {
+                "dst": 1,
+                "src": 0,
+                "transition": 120,
+                "zero_write": 121
+              }
+            ],
+            "phase_state": 1
+          },
+          "increment_write": 150,
+          "proof": "FillIssue index is a zero-based monotone counter incremented exactly once per occurrence and bounded by data_req_cnt < 8",
+          "proof_domain": "exact-bounded-monotone-counter",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "after": "BufferBeat",
+        "before": "FillIssue",
+        "scope_index": {
+          "name": "beat",
+          "relation": "same"
+        }
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "ordering",
+      "checker": "history_order",
+      "evidence_statement_ids": [
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        150,
+        151,
+        152,
+        153
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "accounted_state_write_ids": [
+            120,
+            157,
+            166,
+            186,
+            193
+          ],
+          "certified": true,
+          "known_states": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "note": "This is a formal exhaustive proof over a fail-closed conservative control abstraction derived from the FIRRTL ledger. It is not a full bit-level proof of arbitrary datapath semantics.",
+          "proof_domain": "conservative-finite-control-abstraction",
+          "reset_state": 0,
+          "state_register": "state",
+          "stutter_closed_states": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        "proof": "BufferBeat carries the same beat through a lossless valid/index register pipeline from FillIssue",
+        "proof_method": "exhaustive-state-reachability",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [
+          "WritebackTxn"
+        ],
+        "occurrences": [
+          "BufferBeat",
+          "FillIssue"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "FillIssue <mu BufferBeat [same WritebackTxn] [same index beat]",
+      "structural": {
+        "reason": "same-index relation is formally represented but requires an index-aware backend; scalar structural checkers intentionally do not erase the index scope",
+        "scope_index": {
+          "name": "beat",
+          "relation": "same"
+        },
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "after": "LSURelease",
+        "before": "BufferFilled"
+      },
+      "axiom_id": "A5",
+      "axiom_kind": "ordering",
+      "checker": "history_order",
+      "evidence_statement_ids": [
+        154,
+        155,
+        156,
+        157,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "accounted_state_write_ids": [
+            120,
+            157,
+            166,
+            186,
+            193
+          ],
+          "certified": true,
+          "known_states": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "note": "This is a formal exhaustive proof over a fail-closed conservative control abstraction derived from the FIRRTL ledger. It is not a full bit-level proof of arbitrary datapath semantics.",
+          "proof_domain": "conservative-finite-control-abstraction",
+          "reset_state": 0,
+          "state_register": "state",
+          "stutter_closed_states": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        "proof": "finite-control over-approximation found no transaction path violating history order",
+        "proof_method": "exhaustive-state-reachability",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [
+          "WritebackTxn"
+        ],
+        "occurrences": [
+          "BufferFilled",
+          "LSURelease"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BufferFilled <mu LSURelease [same WritebackTxn]",
+      "structural": {
+        "proof": "finite-control over-approximation found no transaction path violating history order",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "ReleaseBeat",
+        "predicate": "BeforeNetworkRelease"
+      },
+      "axiom_id": "A6",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        160,
+        161,
+        166,
+        168,
+        169,
+        170,
+        171,
+        176,
+        177,
+        180
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "accounted_state_write_ids": [
+            120,
+            157,
+            166,
+            186,
+            193
+          ],
+          "certified": true,
+          "known_states": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "note": "This is a formal exhaustive proof over a fail-closed conservative control abstraction derived from the FIRRTL ledger. It is not a full bit-level proof of arbitrary datapath semantics.",
+          "proof_domain": "conservative-finite-control-abstraction",
+          "reset_state": 0,
+          "state_register": "state",
+          "stutter_closed_states": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        "proof": "occurrence source states [3] are disjoint from predicate states [1, 2]",
+        "proof_method": "exhaustive-state-reachability",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [
+          "WritebackTxn"
+        ],
+        "occurrences": [
+          "ReleaseBeat"
+        ],
+        "predicates": [
+          "BeforeNetworkRelease"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "BeforeNetworkRelease => !ReleaseBeat [same WritebackTxn]",
+      "structural": {
+        "proof": "occurrence source states [3] are disjoint from predicate states [1, 2]",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "cardinality": "exactly_once",
+        "completion": "ReleaseComplete",
+        "domain": {
+          "end_exclusive": 8,
+          "start": 0
+        },
+        "index": "beat",
+        "occurrence": "ReleaseBeat"
+      },
+      "axiom_id": "A7",
+      "axiom_kind": "conservation",
+      "checker": "indexed_coverage",
+      "evidence_statement_ids": [
+        168,
+        170,
+        171,
+        176,
+        177,
+        178,
+        179,
+        180,
+        181,
+        182,
+        183,
+        184,
+        185,
+        186
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "completion_proof": {
+            "completion": "ReleaseComplete",
+            "last_index": 7,
+            "transition_ids": [
+              186,
+              186
+            ]
+          },
+          "counter_proof": {
+            "counter": "data_req_cnt",
+            "domain": {
+              "end_exclusive": 8,
+              "start": 0
+            },
+            "entry_zero": {
+              "counter": "data_req_cnt",
+              "entry_proof": [
+                {
+                  "dst": 2,
+                  "src": 1,
+                  "transition": 157,
+                  "zero_write": 158
+                },
+                {
+                  "dst": 3,
+                  "src": 2,
+                  "transition": 166
+                }
+              ],
+              "phase_state": 3
+            },
+            "increment_write": 180,
+            "proof": "ReleaseBeat index is a zero-based monotone counter incremented exactly once per occurrence and bounded by data_req_cnt < 8",
+            "proof_domain": "exact-bounded-monotone-counter",
+            "status": "STRUCTURALLY_SUPPORTED"
+          },
+          "proof": "ReleaseBeat covers every beat exactly once before ReleaseComplete",
+          "proof_domain": "exact-bounded-indexed-occurrence",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "ReleaseBeat covers every beat exactly once before ReleaseComplete",
+        "proof_method": "exact-bounded-indexed-occurrence",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [
+          "WritebackTxn"
+        ],
+        "occurrences": [
+          "ReleaseBeat",
+          "ReleaseComplete"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "ReleaseComplete => forall beat in [0, 8): count(ReleaseBeat(beat)) = 1 [same WritebackTxn]",
+      "structural": {
+        "completion_proof": {
+          "completion": "ReleaseComplete",
+          "last_index": 7,
+          "transition_ids": [
+            186,
+            186
+          ]
+        },
+        "counter_proof": {
+          "counter": "data_req_cnt",
+          "domain": {
+            "end_exclusive": 8,
+            "start": 0
+          },
+          "entry_zero": {
+            "counter": "data_req_cnt",
+            "entry_proof": [
+              {
+                "dst": 2,
+                "src": 1,
+                "transition": 157,
+                "zero_write": 158
+              },
+              {
+                "dst": 3,
+                "src": 2,
+                "transition": 166
+              }
+            ],
+            "phase_state": 3
+          },
+          "increment_write": 180,
+          "proof": "ReleaseBeat index is a zero-based monotone counter incremented exactly once per occurrence and bounded by data_req_cnt < 8",
+          "proof_domain": "exact-bounded-monotone-counter",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "ReleaseBeat covers every beat exactly once before ReleaseComplete",
+        "proof_domain": "exact-bounded-indexed-occurrence",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "scope_index": {
+          "name": "beat",
+          "relation": "same"
+        },
+        "source": "wb_buffer[beat]",
+        "target": "io.release.bits.data"
+      },
+      "axiom_id": "A8",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        62,
+        63,
+        69,
+        71,
+        107,
+        113,
+        168,
+        172,
+        173
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "proof": "every combinational branch driving io.release.bits.data reads wb_buffer at the same bounded beat index",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-symbolic-driver-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [
+          "WritebackTxn"
+        ],
+        "occurrences": [
+          "ReleaseBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.release.bits.data",
+          "wb_buffer"
+        ]
+      },
+      "rendered_formula": "io.release.bits.data = wb_buffer[beat] on ReleaseBeat [same WritebackTxn] [same index beat]",
+      "structural": {
+        "reason": "same-index relation is formally represented but requires an index-aware backend; scalar structural checkers intentionally do not erase the index scope",
+        "scope_index": {
+          "name": "beat",
+          "relation": "same"
+        },
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 1,
+        "signal": "io.release.bits.opcode"
+      },
+      "axiom_id": "A9",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        15,
+        63,
+        64,
+        107,
+        108,
+        168,
+        172,
+        173
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "proof": "bit 0 of io.release.bits.opcode is statically 1",
+        "proof_domain": "local-combinational-constant",
+        "proof_method": "exact-constant-propagation",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [
+          "WritebackTxn"
+        ],
+        "occurrences": [
+          "ReleaseBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.release.bits.opcode"
+        ]
+      },
+      "rendered_formula": "bits(io.release.bits.opcode, 0, 0) == 1 on ReleaseBeat [same WritebackTxn]",
+      "structural": {
+        "proof": "bit 0 of io.release.bits.opcode is statically 1",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "after": "VoluntaryDone",
+        "prerequisites": [
+          "ReleaseComplete",
+          "MemGrantSeen"
+        ]
+      },
+      "axiom_id": "A10",
+      "axiom_kind": "ordering",
+      "checker": "history_join",
+      "evidence_statement_ids": [
+        174,
+        175,
+        181,
+        182,
+        183,
+        184,
+        185,
+        186,
+        188,
+        189,
+        190,
+        191,
+        192,
+        193
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "accounted_state_write_ids": [
+            120,
+            157,
+            166,
+            186,
+            193
+          ],
+          "certified": true,
+          "known_states": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "note": "This is a formal exhaustive proof over a fail-closed conservative control abstraction derived from the FIRRTL ledger. It is not a full bit-level proof of arbitrary datapath semantics.",
+          "proof_domain": "conservative-finite-control-abstraction",
+          "reset_state": 0,
+          "state_register": "state",
+          "stutter_closed_states": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        "proof": "finite-control over-approximation found no completion before all unordered prerequisites",
+        "proof_method": "exhaustive-state-reachability",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [
+          "WritebackTxn"
+        ],
+        "occurrences": [
+          "MemGrantSeen",
+          "ReleaseComplete",
+          "VoluntaryDone"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "{ReleaseComplete, MemGrantSeen} <mu VoluntaryDone [same WritebackTxn]",
+      "structural": {
+        "latched_prerequisite_proofs": {
+          "MemGrantSeen": {
+            "flag": "acked",
+            "prerequisite_signals": [
+              "io.mem_grant"
+            ],
+            "proof": "VoluntaryDone is guarded by sticky state acked; every write setting acked=1 is controlled by MemGrantSeen",
+            "reset_write_ids": [
+              123
+            ],
+            "true_write_ids": [
+              175,
+              191
+            ]
+          }
+        },
+        "proof": "finite-control over-approximation found no completion before all unordered prerequisites",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    }
+  ],
+  "trusted_axiom_count": 10,
+  "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
+  "validator": "semantic-validator-0.7",
+  "work_unit_id": "BoomWritebackUnit"
+}

@@ -1,0 +1,1515 @@
+{
+  "all_axioms_formally_proved": true,
+  "all_axioms_structurally_supported": true,
+  "candidate_axiom_count": 8,
+  "control_model": {
+    "known_states": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "reset_state": 0,
+    "state_register": "state",
+    "transitions": [
+      {
+        "dst": 1,
+        "guard_leaves": [
+          "io.req.valid",
+          "state"
+        ],
+        "labels": [
+          "ProbeReq"
+        ],
+        "src": 0,
+        "statement_id": 150
+      },
+      {
+        "dst": 2,
+        "guard_leaves": [
+          "io.meta_read.ready",
+          "state"
+        ],
+        "labels": [
+          "MetaRead"
+        ],
+        "src": 1,
+        "statement_id": 157
+      },
+      {
+        "dst": 3,
+        "guard_leaves": [
+          "state"
+        ],
+        "labels": [],
+        "src": 2,
+        "statement_id": 161
+      },
+      {
+        "dst": 1,
+        "guard_leaves": [
+          "state"
+        ],
+        "labels": [],
+        "src": 3,
+        "statement_id": 169
+      },
+      {
+        "dst": 4,
+        "guard_leaves": [
+          "state"
+        ],
+        "labels": [],
+        "src": 3,
+        "statement_id": 169
+      },
+      {
+        "dst": 5,
+        "guard_leaves": [
+          "state"
+        ],
+        "labels": [],
+        "src": 4,
+        "statement_id": 175
+      },
+      {
+        "dst": 7,
+        "guard_leaves": [
+          "state"
+        ],
+        "labels": [],
+        "src": 4,
+        "statement_id": 175
+      },
+      {
+        "dst": 6,
+        "guard_leaves": [
+          "io.lsu_release.ready",
+          "state"
+        ],
+        "labels": [
+          "LSURelease"
+        ],
+        "src": 5,
+        "statement_id": 181
+      },
+      {
+        "dst": 0,
+        "guard_leaves": [
+          "io.rep.ready",
+          "state"
+        ],
+        "labels": [
+          "ProbeAck"
+        ],
+        "src": 6,
+        "statement_id": 187
+      },
+      {
+        "dst": 9,
+        "guard_leaves": [
+          "io.rep.ready",
+          "state"
+        ],
+        "labels": [
+          "ProbeAck"
+        ],
+        "src": 6,
+        "statement_id": 187
+      },
+      {
+        "dst": 8,
+        "guard_leaves": [
+          "io.wb_req.ready",
+          "state"
+        ],
+        "labels": [
+          "WBReq"
+        ],
+        "src": 7,
+        "statement_id": 193
+      },
+      {
+        "dst": 9,
+        "guard_leaves": [
+          "io.wb_req.ready",
+          "state"
+        ],
+        "labels": [
+          "WBComplete"
+        ],
+        "src": 8,
+        "statement_id": 198
+      },
+      {
+        "dst": 10,
+        "guard_leaves": [
+          "io.meta_write.ready",
+          "state"
+        ],
+        "labels": [
+          "MetaWrite"
+        ],
+        "src": 9,
+        "statement_id": 204
+      },
+      {
+        "dst": 0,
+        "guard_leaves": [
+          "state"
+        ],
+        "labels": [],
+        "src": 10,
+        "statement_id": 208
+      },
+      {
+        "dst": 0,
+        "guard_leaves": [],
+        "labels": [],
+        "src": 0,
+        "statement_id": null
+      },
+      {
+        "dst": 1,
+        "guard_leaves": [],
+        "labels": [],
+        "src": 1,
+        "statement_id": null
+      },
+      {
+        "dst": 2,
+        "guard_leaves": [],
+        "labels": [],
+        "src": 2,
+        "statement_id": null
+      },
+      {
+        "dst": 3,
+        "guard_leaves": [],
+        "labels": [],
+        "src": 3,
+        "statement_id": null
+      },
+      {
+        "dst": 4,
+        "guard_leaves": [],
+        "labels": [],
+        "src": 4,
+        "statement_id": null
+      },
+      {
+        "dst": 5,
+        "guard_leaves": [],
+        "labels": [],
+        "src": 5,
+        "statement_id": null
+      },
+      {
+        "dst": 6,
+        "guard_leaves": [],
+        "labels": [],
+        "src": 6,
+        "statement_id": null
+      },
+      {
+        "dst": 7,
+        "guard_leaves": [],
+        "labels": [],
+        "src": 7,
+        "statement_id": null
+      },
+      {
+        "dst": 8,
+        "guard_leaves": [],
+        "labels": [],
+        "src": 8,
+        "statement_id": null
+      },
+      {
+        "dst": 9,
+        "guard_leaves": [],
+        "labels": [],
+        "src": 9,
+        "statement_id": null
+      },
+      {
+        "dst": 10,
+        "guard_leaves": [],
+        "labels": [],
+        "src": 10,
+        "statement_id": null
+      }
+    ]
+  },
+  "counts": {
+    "FORMALLY_PROVED": 7,
+    "GROUNDED": 0,
+    "PARTIALLY_SUPPORTED": 0,
+    "REFUTED": 0,
+    "SPEC_PROVED": 1,
+    "STRUCTURALLY_SUPPORTED": 0
+  },
+  "formal_backend": {
+    "api_version": "formal-backend-api-0.3",
+    "available": true,
+    "name": "explicit-control",
+    "note": "Exhaustive formal proof for certified finite-control/order properties, exact symbolic local/identity facts, and selected finite reference equivalence checks. It is not a general bit-level SMT backend.",
+    "proof_domain": "control + exact symbolic local + finite reference equivalence",
+    "supported_checkers": [
+      "forbid_when",
+      "history_order",
+      "history_chain",
+      "transaction_exclusion",
+      "signal_alias",
+      "constant_bit",
+      "identity_projection",
+      "tilelink_on_probe_spec"
+    ],
+    "trusted_proof_levels": [
+      "FORMALLY_PROVED",
+      "SPEC_PROVED"
+    ]
+  },
+  "has_counterexample": false,
+  "property_compiler": "formal-axiom-compiler-0.4",
+  "results": [
+    {
+      "arguments": {
+        "occurrence": "ProbeReq",
+        "predicate": "ActiveProbe"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        76,
+        77,
+        79,
+        80,
+        146,
+        147,
+        148,
+        149,
+        150
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "accounted_state_write_ids": [
+            150,
+            157,
+            161,
+            169,
+            175,
+            181,
+            187,
+            193,
+            198,
+            204,
+            208
+          ],
+          "certified": true,
+          "known_states": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "note": "This is a formal exhaustive proof over a fail-closed conservative control abstraction derived from the FIRRTL ledger. It is not a full bit-level proof of arbitrary datapath semantics.",
+          "proof_domain": "conservative-finite-control-abstraction",
+          "reset_state": 0,
+          "state_register": "state",
+          "stutter_closed_states": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        },
+        "proof": "occurrence source states [0] are disjoint from predicate states [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]",
+        "proof_method": "exhaustive-state-reachability",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [
+          "ProbeTxn"
+        ],
+        "occurrences": [
+          "ProbeReq"
+        ],
+        "predicates": [
+          "ActiveProbe"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "ActiveProbe => !ProbeReq [same ProbeTxn]",
+      "structural": {
+        "proof": "occurrence source states [0] are disjoint from predicate states [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "accepted_by": "ProbeReq",
+        "capture_source": "io.req.bits",
+        "identity_key": "ProbeTxn",
+        "projections": [
+          {
+            "source": "bits(req.address, 11, 6)",
+            "target": "io.meta_read.bits.idx"
+          },
+          {
+            "source": "shr(req.address, 12)",
+            "target": "io.meta_read.bits.tag"
+          },
+          {
+            "source": "req.address",
+            "target": "io.lsu_release.bits.address"
+          },
+          {
+            "source": "req.source",
+            "target": "io.lsu_release.bits.source"
+          },
+          {
+            "source": "req.size",
+            "target": "io.lsu_release.bits.size"
+          },
+          {
+            "source": "req.address",
+            "target": "io.rep.bits.address"
+          },
+          {
+            "source": "req.source",
+            "target": "io.rep.bits.source"
+          },
+          {
+            "source": "req.size",
+            "target": "io.rep.bits.size"
+          },
+          {
+            "source": "req.source",
+            "target": "io.wb_req.bits.source"
+          },
+          {
+            "source": "bits(req.address, 11, 6)",
+            "target": "io.wb_req.bits.idx"
+          },
+          {
+            "source": "shr(req.address, 12)",
+            "target": "io.wb_req.bits.tag"
+          },
+          {
+            "source": "bits(req.address, 11, 6)",
+            "target": "io.meta_write.bits.idx"
+          },
+          {
+            "source": "shr(req.address, 12)",
+            "target": "io.meta_write.bits.tag"
+          },
+          {
+            "source": "shr(req.address, 12)",
+            "target": "io.meta_write.bits.data.tag"
+          }
+        ]
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "identity_flow",
+      "checker": "identity_projection",
+      "evidence_statement_ids": [
+        5,
+        6,
+        151,
+        105,
+        106,
+        112,
+        113,
+        114,
+        118,
+        119,
+        120,
+        140,
+        141,
+        142,
+        86,
+        87,
+        88
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "capture_statement_ids": [
+          151
+        ],
+        "projection_proofs": [
+          {
+            "normal_form": "('call', 'bits', ('ref', 'req.address'), ('lit', 11), ('lit', 6))",
+            "source": "bits(req.address, 11, 6)",
+            "target": "io.meta_read.bits.idx"
+          },
+          {
+            "normal_form": "('call', 'shr', ('ref', 'req.address'), ('lit', 12))",
+            "source": "shr(req.address, 12)",
+            "target": "io.meta_read.bits.tag"
+          },
+          {
+            "normal_form": "('ref', 'req.address')",
+            "source": "req.address",
+            "target": "io.lsu_release.bits.address"
+          },
+          {
+            "normal_form": "('ref', 'req.source')",
+            "source": "req.source",
+            "target": "io.lsu_release.bits.source"
+          },
+          {
+            "normal_form": "('ref', 'req.size')",
+            "source": "req.size",
+            "target": "io.lsu_release.bits.size"
+          },
+          {
+            "normal_form": "('ref', 'req.address')",
+            "source": "req.address",
+            "target": "io.rep.bits.address"
+          },
+          {
+            "normal_form": "('ref', 'req.source')",
+            "source": "req.source",
+            "target": "io.rep.bits.source"
+          },
+          {
+            "normal_form": "('ref', 'req.size')",
+            "source": "req.size",
+            "target": "io.rep.bits.size"
+          },
+          {
+            "normal_form": "('ref', 'req.source')",
+            "source": "req.source",
+            "target": "io.wb_req.bits.source"
+          },
+          {
+            "normal_form": "('call', 'bits', ('ref', 'req.address'), ('lit', 11), ('lit', 6))",
+            "source": "bits(req.address, 11, 6)",
+            "target": "io.wb_req.bits.idx"
+          },
+          {
+            "normal_form": "('call', 'shr', ('ref', 'req.address'), ('lit', 12))",
+            "source": "shr(req.address, 12)",
+            "target": "io.wb_req.bits.tag"
+          },
+          {
+            "normal_form": "('call', 'bits', ('ref', 'req.address'), ('lit', 11), ('lit', 6))",
+            "source": "bits(req.address, 11, 6)",
+            "target": "io.meta_write.bits.idx"
+          },
+          {
+            "normal_form": "('call', 'shr', ('ref', 'req.address'), ('lit', 12))",
+            "source": "shr(req.address, 12)",
+            "target": "io.meta_write.bits.tag"
+          },
+          {
+            "normal_form": "('call', 'shr', ('ref', 'req.address'), ('lit', 12))",
+            "source": "shr(req.address, 12)",
+            "target": "io.meta_write.bits.data.tag"
+          }
+        ],
+        "proof": "carrier 'req' is captured exactly from 'io.req.bits' only on ProbeReq; all 14 declared projections are exact symbolic functions of the latched carrier",
+        "proof_domain": "exact-symbolic-transaction-identity",
+        "proof_method": "exact-symbolic-transaction-identity",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [
+          "ProbeTxn"
+        ],
+        "occurrences": [
+          "LSURelease",
+          "MetaRead",
+          "MetaWrite",
+          "ProbeAck",
+          "ProbeReq",
+          "WBReq"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.lsu_release.bits.address",
+          "io.lsu_release.bits.size",
+          "io.lsu_release.bits.source",
+          "io.meta_read.bits.idx",
+          "io.meta_read.bits.tag",
+          "io.meta_write.bits.data.tag",
+          "io.meta_write.bits.idx",
+          "io.meta_write.bits.tag",
+          "io.rep.bits.address",
+          "io.rep.bits.size",
+          "io.rep.bits.source",
+          "io.req.bits",
+          "io.wb_req.bits.idx",
+          "io.wb_req.bits.source",
+          "io.wb_req.bits.tag",
+          "req",
+          "req.address",
+          "req.size",
+          "req.source"
+        ]
+      },
+      "rendered_formula": "capture ProbeTxn := io.req.bits on ProbeReq; preserve 14 exact identity projections",
+      "structural": {
+        "capture_statement_ids": [
+          151
+        ],
+        "projection_proofs": [
+          {
+            "normal_form": "('call', 'bits', ('ref', 'req.address'), ('lit', 11), ('lit', 6))",
+            "source": "bits(req.address, 11, 6)",
+            "target": "io.meta_read.bits.idx"
+          },
+          {
+            "normal_form": "('call', 'shr', ('ref', 'req.address'), ('lit', 12))",
+            "source": "shr(req.address, 12)",
+            "target": "io.meta_read.bits.tag"
+          },
+          {
+            "normal_form": "('ref', 'req.address')",
+            "source": "req.address",
+            "target": "io.lsu_release.bits.address"
+          },
+          {
+            "normal_form": "('ref', 'req.source')",
+            "source": "req.source",
+            "target": "io.lsu_release.bits.source"
+          },
+          {
+            "normal_form": "('ref', 'req.size')",
+            "source": "req.size",
+            "target": "io.lsu_release.bits.size"
+          },
+          {
+            "normal_form": "('ref', 'req.address')",
+            "source": "req.address",
+            "target": "io.rep.bits.address"
+          },
+          {
+            "normal_form": "('ref', 'req.source')",
+            "source": "req.source",
+            "target": "io.rep.bits.source"
+          },
+          {
+            "normal_form": "('ref', 'req.size')",
+            "source": "req.size",
+            "target": "io.rep.bits.size"
+          },
+          {
+            "normal_form": "('ref', 'req.source')",
+            "source": "req.source",
+            "target": "io.wb_req.bits.source"
+          },
+          {
+            "normal_form": "('call', 'bits', ('ref', 'req.address'), ('lit', 11), ('lit', 6))",
+            "source": "bits(req.address, 11, 6)",
+            "target": "io.wb_req.bits.idx"
+          },
+          {
+            "normal_form": "('call', 'shr', ('ref', 'req.address'), ('lit', 12))",
+            "source": "shr(req.address, 12)",
+            "target": "io.wb_req.bits.tag"
+          },
+          {
+            "normal_form": "('call', 'bits', ('ref', 'req.address'), ('lit', 11), ('lit', 6))",
+            "source": "bits(req.address, 11, 6)",
+            "target": "io.meta_write.bits.idx"
+          },
+          {
+            "normal_form": "('call', 'shr', ('ref', 'req.address'), ('lit', 12))",
+            "source": "shr(req.address, 12)",
+            "target": "io.meta_write.bits.tag"
+          },
+          {
+            "normal_form": "('call', 'shr', ('ref', 'req.address'), ('lit', 12))",
+            "source": "shr(req.address, 12)",
+            "target": "io.meta_write.bits.data.tag"
+          }
+        ],
+        "proof": "carrier 'req' is captured exactly from 'io.req.bits' only on ProbeReq; all 14 declared projections are exact symbolic functions of the latched carrier",
+        "proof_domain": "exact-symbolic-transaction-identity",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "left": "WBReq",
+        "rights": [
+          "LSURelease",
+          "ProbeAck"
+        ]
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "exclusion",
+      "checker": "transaction_exclusion",
+      "evidence_statement_ids": [
+        173,
+        174,
+        175,
+        177,
+        181,
+        183,
+        187,
+        189,
+        193
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "accounted_state_write_ids": [
+            150,
+            157,
+            161,
+            169,
+            175,
+            181,
+            187,
+            193,
+            198,
+            204,
+            208
+          ],
+          "certified": true,
+          "known_states": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "note": "This is a formal exhaustive proof over a fail-closed conservative control abstraction derived from the FIRRTL ledger. It is not a full bit-level proof of arbitrary datapath semantics.",
+          "proof_domain": "conservative-finite-control-abstraction",
+          "reset_state": 0,
+          "state_register": "state",
+          "stutter_closed_states": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        },
+        "proof": "finite-control over-approximation keeps excluded occurrences on disjoint transaction paths",
+        "proof_method": "exhaustive-state-reachability",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [
+          "ProbeTxn"
+        ],
+        "occurrences": [
+          "LSURelease",
+          "ProbeAck",
+          "WBReq"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "WBReq excludes {LSURelease, ProbeAck} [same ProbeTxn]",
+      "structural": {
+        "proof": "finite-control over-approximation keeps excluded occurrences on disjoint transaction paths",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "after": "ProbeAck",
+        "before": "LSURelease"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "ordering",
+      "checker": "history_order",
+      "evidence_statement_ids": [
+        177,
+        179,
+        180,
+        181,
+        183,
+        185,
+        186,
+        187
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "accounted_state_write_ids": [
+            150,
+            157,
+            161,
+            169,
+            175,
+            181,
+            187,
+            193,
+            198,
+            204,
+            208
+          ],
+          "certified": true,
+          "known_states": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "note": "This is a formal exhaustive proof over a fail-closed conservative control abstraction derived from the FIRRTL ledger. It is not a full bit-level proof of arbitrary datapath semantics.",
+          "proof_domain": "conservative-finite-control-abstraction",
+          "reset_state": 0,
+          "state_register": "state",
+          "stutter_closed_states": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        },
+        "proof": "finite-control over-approximation found no transaction path violating history order",
+        "proof_method": "exhaustive-state-reachability",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [
+          "ProbeTxn"
+        ],
+        "occurrences": [
+          "LSURelease",
+          "ProbeAck"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "LSURelease <mu ProbeAck [same ProbeTxn]",
+      "structural": {
+        "proof": "finite-control over-approximation found no transaction path violating history order",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "sequence": [
+          "LSURelease",
+          "ProbeAck",
+          "MetaWrite"
+        ]
+      },
+      "axiom_id": "A5",
+      "axiom_kind": "ordering",
+      "checker": "history_chain",
+      "evidence_statement_ids": [
+        177,
+        181,
+        183,
+        185,
+        186,
+        187,
+        200,
+        202,
+        203,
+        204
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "accounted_state_write_ids": [
+            150,
+            157,
+            161,
+            169,
+            175,
+            181,
+            187,
+            193,
+            198,
+            204,
+            208
+          ],
+          "certified": true,
+          "known_states": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "note": "This is a formal exhaustive proof over a fail-closed conservative control abstraction derived from the FIRRTL ledger. It is not a full bit-level proof of arbitrary datapath semantics.",
+          "proof_domain": "conservative-finite-control-abstraction",
+          "reset_state": 0,
+          "state_register": "state",
+          "stutter_closed_states": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        },
+        "proof": "all adjacent strict-history obligations in the transaction chain hold",
+        "proof_method": "exhaustive-state-reachability",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [
+          "ProbeTxn"
+        ],
+        "occurrences": [
+          "LSURelease",
+          "MetaWrite",
+          "ProbeAck"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "LSURelease <mu ProbeAck <mu MetaWrite [same ProbeTxn]",
+      "structural": {
+        "proof": "all adjacent strict-history obligations in the transaction chain hold",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "subresults": [
+          {
+            "after": "ProbeAck",
+            "before": "LSURelease",
+            "proof": "finite-control over-approximation found no transaction path violating history order",
+            "status": "STRUCTURALLY_SUPPORTED"
+          },
+          {
+            "after": "MetaWrite",
+            "before": "ProbeAck",
+            "proof": "finite-control over-approximation found no transaction path violating history order",
+            "status": "STRUCTURALLY_SUPPORTED"
+          }
+        ]
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "sequence": [
+          "WBReq",
+          "WBComplete",
+          "MetaWrite"
+        ]
+      },
+      "axiom_id": "A6",
+      "axiom_kind": "ordering",
+      "checker": "history_chain",
+      "evidence_statement_ids": [
+        189,
+        191,
+        192,
+        193,
+        195,
+        197,
+        198,
+        200,
+        202,
+        203,
+        204
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "accounted_state_write_ids": [
+            150,
+            157,
+            161,
+            169,
+            175,
+            181,
+            187,
+            193,
+            198,
+            204,
+            208
+          ],
+          "certified": true,
+          "known_states": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "note": "This is a formal exhaustive proof over a fail-closed conservative control abstraction derived from the FIRRTL ledger. It is not a full bit-level proof of arbitrary datapath semantics.",
+          "proof_domain": "conservative-finite-control-abstraction",
+          "reset_state": 0,
+          "state_register": "state",
+          "stutter_closed_states": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ]
+        },
+        "proof": "all adjacent strict-history obligations in the transaction chain hold",
+        "proof_method": "exhaustive-state-reachability",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [
+          "ProbeTxn"
+        ],
+        "occurrences": [
+          "MetaWrite",
+          "WBComplete",
+          "WBReq"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "WBReq <mu WBComplete <mu MetaWrite [same ProbeTxn]",
+      "structural": {
+        "proof": "all adjacent strict-history obligations in the transaction chain hold",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "subresults": [
+          {
+            "after": "WBComplete",
+            "before": "WBReq",
+            "proof": "finite-control over-approximation found no transaction path violating history order",
+            "status": "STRUCTURALLY_SUPPORTED"
+          },
+          {
+            "after": "MetaWrite",
+            "before": "WBComplete",
+            "proof": "finite-control over-approximation found no transaction path violating history order",
+            "status": "STRUCTURALLY_SUPPORTED"
+          }
+        ]
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "current_state_signal": "reply_coh.state",
+        "dirty_signal": "is_dirty",
+        "next_state_signal": "io.meta_write.bits.data.coh.state",
+        "param_signal": "req.param",
+        "report_signal": "report_param"
+      },
+      "axiom_id": "A7",
+      "axiom_kind": "state_update",
+      "checker": "tilelink_on_probe_spec",
+      "evidence_statement_ids": [
+        74,
+        75,
+        109,
+        110,
+        115
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "checked_rows": [
+          {
+            "actual": [
+              0,
+              5,
+              0
+            ],
+            "expected": [
+              0,
+              5,
+              0
+            ],
+            "param": 0,
+            "state": 0
+          },
+          {
+            "actual": [
+              0,
+              4,
+              1
+            ],
+            "expected": [
+              0,
+              4,
+              1
+            ],
+            "param": 0,
+            "state": 1
+          },
+          {
+            "actual": [
+              0,
+              3,
+              2
+            ],
+            "expected": [
+              0,
+              3,
+              2
+            ],
+            "param": 0,
+            "state": 2
+          },
+          {
+            "actual": [
+              1,
+              3,
+              2
+            ],
+            "expected": [
+              1,
+              3,
+              2
+            ],
+            "param": 0,
+            "state": 3
+          },
+          {
+            "actual": [
+              0,
+              5,
+              0
+            ],
+            "expected": [
+              0,
+              5,
+              0
+            ],
+            "param": 1,
+            "state": 0
+          },
+          {
+            "actual": [
+              0,
+              4,
+              1
+            ],
+            "expected": [
+              0,
+              4,
+              1
+            ],
+            "param": 1,
+            "state": 1
+          },
+          {
+            "actual": [
+              0,
+              0,
+              1
+            ],
+            "expected": [
+              0,
+              0,
+              1
+            ],
+            "param": 1,
+            "state": 2
+          },
+          {
+            "actual": [
+              1,
+              0,
+              1
+            ],
+            "expected": [
+              1,
+              0,
+              1
+            ],
+            "param": 1,
+            "state": 3
+          },
+          {
+            "actual": [
+              0,
+              5,
+              0
+            ],
+            "expected": [
+              0,
+              5,
+              0
+            ],
+            "param": 2,
+            "state": 0
+          },
+          {
+            "actual": [
+              0,
+              2,
+              0
+            ],
+            "expected": [
+              0,
+              2,
+              0
+            ],
+            "param": 2,
+            "state": 1
+          },
+          {
+            "actual": [
+              0,
+              1,
+              0
+            ],
+            "expected": [
+              0,
+              1,
+              0
+            ],
+            "param": 2,
+            "state": 2
+          },
+          {
+            "actual": [
+              1,
+              1,
+              0
+            ],
+            "expected": [
+              1,
+              1,
+              0
+            ],
+            "param": 2,
+            "state": 3
+          }
+        ],
+        "proof": "all 12 legal Probe cap/current-state combinations match the TileLink ClientMetadata.onProbe reference table",
+        "proof_domain": "finite-reference-equivalence",
+        "proof_method": "exhaustive-finite-reference-equivalence",
+        "reference": "TileLink TLPermissions + ClientMetadata.onProbe/shrinkHelper",
+        "reference_note": "SPEC_PROVED here is relative to the separately encoded TileLink TLPermissions/ClientMetadata.onProbe reference table, not a theorem about all TileLink implementations.",
+        "status": "SPEC_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [
+          "ProbeTxn"
+        ],
+        "occurrences": [
+          "MetaWrite"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.meta_write.bits.data.coh.state",
+          "is_dirty",
+          "reply_coh.state",
+          "report_param",
+          "req.param"
+        ]
+      },
+      "rendered_formula": "bindings satisfy tilelink.ClientMetadata.onProbe on MetaWrite [same ProbeTxn]",
+      "structural": {
+        "checked_rows": [
+          {
+            "actual": [
+              0,
+              5,
+              0
+            ],
+            "expected": [
+              0,
+              5,
+              0
+            ],
+            "param": 0,
+            "state": 0
+          },
+          {
+            "actual": [
+              0,
+              4,
+              1
+            ],
+            "expected": [
+              0,
+              4,
+              1
+            ],
+            "param": 0,
+            "state": 1
+          },
+          {
+            "actual": [
+              0,
+              3,
+              2
+            ],
+            "expected": [
+              0,
+              3,
+              2
+            ],
+            "param": 0,
+            "state": 2
+          },
+          {
+            "actual": [
+              1,
+              3,
+              2
+            ],
+            "expected": [
+              1,
+              3,
+              2
+            ],
+            "param": 0,
+            "state": 3
+          },
+          {
+            "actual": [
+              0,
+              5,
+              0
+            ],
+            "expected": [
+              0,
+              5,
+              0
+            ],
+            "param": 1,
+            "state": 0
+          },
+          {
+            "actual": [
+              0,
+              4,
+              1
+            ],
+            "expected": [
+              0,
+              4,
+              1
+            ],
+            "param": 1,
+            "state": 1
+          },
+          {
+            "actual": [
+              0,
+              0,
+              1
+            ],
+            "expected": [
+              0,
+              0,
+              1
+            ],
+            "param": 1,
+            "state": 2
+          },
+          {
+            "actual": [
+              1,
+              0,
+              1
+            ],
+            "expected": [
+              1,
+              0,
+              1
+            ],
+            "param": 1,
+            "state": 3
+          },
+          {
+            "actual": [
+              0,
+              5,
+              0
+            ],
+            "expected": [
+              0,
+              5,
+              0
+            ],
+            "param": 2,
+            "state": 0
+          },
+          {
+            "actual": [
+              0,
+              2,
+              0
+            ],
+            "expected": [
+              0,
+              2,
+              0
+            ],
+            "param": 2,
+            "state": 1
+          },
+          {
+            "actual": [
+              0,
+              1,
+              0
+            ],
+            "expected": [
+              0,
+              1,
+              0
+            ],
+            "param": 2,
+            "state": 2
+          },
+          {
+            "actual": [
+              1,
+              1,
+              0
+            ],
+            "expected": [
+              1,
+              1,
+              0
+            ],
+            "param": 2,
+            "state": 3
+          }
+        ],
+        "proof": "all 12 legal Probe cap/current-state combinations match the TileLink ClientMetadata.onProbe reference table",
+        "proof_domain": "finite-reference-equivalence",
+        "reference": "TileLink TLPermissions + ClientMetadata.onProbe/shrinkHelper",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "SPEC_PROVED"
+    },
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 0,
+        "signal": "io.rep.bits.opcode"
+      },
+      "axiom_id": "A8",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        81,
+        82,
+        84,
+        91,
+        93,
+        94,
+        95,
+        102
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "proof": "bit 0 of io.rep.bits.opcode is statically 0",
+        "proof_domain": "local-combinational-constant",
+        "proof_method": "exact-constant-propagation",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [
+          "ProbeTxn"
+        ],
+        "occurrences": [
+          "ProbeAck"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.rep.bits.opcode"
+        ]
+      },
+      "rendered_formula": "bits(io.rep.bits.opcode, 0, 0) == 0 on ProbeAck [same ProbeTxn]",
+      "structural": {
+        "proof": "bit 0 of io.rep.bits.opcode is statically 0",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    }
+  ],
+  "trusted_axiom_count": 8,
+  "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
+  "validator": "semantic-validator-0.4",
+  "work_unit_id": "BoomProbeUnit"
+}

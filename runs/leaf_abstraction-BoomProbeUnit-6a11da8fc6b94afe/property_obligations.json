@@ -1,0 +1,596 @@
+{
+  "compiler": "formal-axiom-compiler-0.4",
+  "obligations": [
+    {
+      "arguments": {
+        "occurrence": "ProbeReq",
+        "predicate": "ActiveProbe"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        76,
+        77,
+        79,
+        80,
+        146,
+        147,
+        148,
+        149,
+        150
+      ],
+      "formal": {
+        "occurrence": "ProbeReq",
+        "predicate": "ActiveProbe",
+        "scope_identity": "ProbeTxn",
+        "type": "forbid_when"
+      },
+      "references": {
+        "identities": [
+          "ProbeTxn"
+        ],
+        "occurrences": [
+          "ProbeReq"
+        ],
+        "predicates": [
+          "ActiveProbe"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "ActiveProbe => !ProbeReq [same ProbeTxn]"
+    },
+    {
+      "arguments": {
+        "accepted_by": "ProbeReq",
+        "capture_source": "io.req.bits",
+        "identity_key": "ProbeTxn",
+        "projections": [
+          {
+            "source": "bits(req.address, 11, 6)",
+            "target": "io.meta_read.bits.idx"
+          },
+          {
+            "source": "shr(req.address, 12)",
+            "target": "io.meta_read.bits.tag"
+          },
+          {
+            "source": "req.address",
+            "target": "io.lsu_release.bits.address"
+          },
+          {
+            "source": "req.source",
+            "target": "io.lsu_release.bits.source"
+          },
+          {
+            "source": "req.size",
+            "target": "io.lsu_release.bits.size"
+          },
+          {
+            "source": "req.address",
+            "target": "io.rep.bits.address"
+          },
+          {
+            "source": "req.source",
+            "target": "io.rep.bits.source"
+          },
+          {
+            "source": "req.size",
+            "target": "io.rep.bits.size"
+          },
+          {
+            "source": "req.source",
+            "target": "io.wb_req.bits.source"
+          },
+          {
+            "source": "bits(req.address, 11, 6)",
+            "target": "io.wb_req.bits.idx"
+          },
+          {
+            "source": "shr(req.address, 12)",
+            "target": "io.wb_req.bits.tag"
+          },
+          {
+            "source": "bits(req.address, 11, 6)",
+            "target": "io.meta_write.bits.idx"
+          },
+          {
+            "source": "shr(req.address, 12)",
+            "target": "io.meta_write.bits.tag"
+          },
+          {
+            "source": "shr(req.address, 12)",
+            "target": "io.meta_write.bits.data.tag"
+          }
+        ]
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "identity_flow",
+      "checker": "identity_projection",
+      "evidence_statement_ids": [
+        5,
+        6,
+        151,
+        105,
+        106,
+        112,
+        113,
+        114,
+        118,
+        119,
+        120,
+        140,
+        141,
+        142,
+        86,
+        87,
+        88
+      ],
+      "formal": {
+        "capture": {
+          "carrier": "req",
+          "on": "ProbeReq",
+          "source": "io.req.bits"
+        },
+        "identity": "ProbeTxn",
+        "projections": [
+          {
+            "expr": {
+              "hi": 11,
+              "lo": 6,
+              "op": "slice",
+              "value": {
+                "name": "req.address",
+                "op": "signal"
+              }
+            },
+            "on": "MetaRead",
+            "target": "io.meta_read.bits.idx"
+          },
+          {
+            "expr": {
+              "amount": 12,
+              "op": "shr",
+              "value": {
+                "name": "req.address",
+                "op": "signal"
+              }
+            },
+            "on": "MetaRead",
+            "target": "io.meta_read.bits.tag"
+          },
+          {
+            "expr": {
+              "name": "req.address",
+              "op": "signal"
+            },
+            "on": "LSURelease",
+            "target": "io.lsu_release.bits.address"
+          },
+          {
+            "expr": {
+              "name": "req.source",
+              "op": "signal"
+            },
+            "on": "LSURelease",
+            "target": "io.lsu_release.bits.source"
+          },
+          {
+            "expr": {
+              "name": "req.size",
+              "op": "signal"
+            },
+            "on": "LSURelease",
+            "target": "io.lsu_release.bits.size"
+          },
+          {
+            "expr": {
+              "name": "req.address",
+              "op": "signal"
+            },
+            "on": "ProbeAck",
+            "target": "io.rep.bits.address"
+          },
+          {
+            "expr": {
+              "name": "req.source",
+              "op": "signal"
+            },
+            "on": "ProbeAck",
+            "target": "io.rep.bits.source"
+          },
+          {
+            "expr": {
+              "name": "req.size",
+              "op": "signal"
+            },
+            "on": "ProbeAck",
+            "target": "io.rep.bits.size"
+          },
+          {
+            "expr": {
+              "name": "req.source",
+              "op": "signal"
+            },
+            "on": "WBReq",
+            "target": "io.wb_req.bits.source"
+          },
+          {
+            "expr": {
+              "hi": 11,
+              "lo": 6,
+              "op": "slice",
+              "value": {
+                "name": "req.address",
+                "op": "signal"
+              }
+            },
+            "on": "WBReq",
+            "target": "io.wb_req.bits.idx"
+          },
+          {
+            "expr": {
+              "amount": 12,
+              "op": "shr",
+              "value": {
+                "name": "req.address",
+                "op": "signal"
+              }
+            },
+            "on": "WBReq",
+            "target": "io.wb_req.bits.tag"
+          },
+          {
+            "expr": {
+              "hi": 11,
+              "lo": 6,
+              "op": "slice",
+              "value": {
+                "name": "req.address",
+                "op": "signal"
+              }
+            },
+            "on": "MetaWrite",
+            "target": "io.meta_write.bits.idx"
+          },
+          {
+            "expr": {
+              "amount": 12,
+              "op": "shr",
+              "value": {
+                "name": "req.address",
+                "op": "signal"
+              }
+            },
+            "on": "MetaWrite",
+            "target": "io.meta_write.bits.tag"
+          },
+          {
+            "expr": {
+              "amount": 12,
+              "op": "shr",
+              "value": {
+                "name": "req.address",
+                "op": "signal"
+              }
+            },
+            "on": "MetaWrite",
+            "target": "io.meta_write.bits.data.tag"
+          }
+        ],
+        "type": "identity_flow"
+      },
+      "references": {
+        "identities": [
+          "ProbeTxn"
+        ],
+        "occurrences": [
+          "LSURelease",
+          "MetaRead",
+          "MetaWrite",
+          "ProbeAck",
+          "ProbeReq",
+          "WBReq"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.lsu_release.bits.address",
+          "io.lsu_release.bits.size",
+          "io.lsu_release.bits.source",
+          "io.meta_read.bits.idx",
+          "io.meta_read.bits.tag",
+          "io.meta_write.bits.data.tag",
+          "io.meta_write.bits.idx",
+          "io.meta_write.bits.tag",
+          "io.rep.bits.address",
+          "io.rep.bits.size",
+          "io.rep.bits.source",
+          "io.req.bits",
+          "io.wb_req.bits.idx",
+          "io.wb_req.bits.source",
+          "io.wb_req.bits.tag",
+          "req",
+          "req.address",
+          "req.size",
+          "req.source"
+        ]
+      },
+      "rendered_formula": "capture ProbeTxn := io.req.bits on ProbeReq; preserve 14 exact identity projections"
+    },
+    {
+      "arguments": {
+        "left": "WBReq",
+        "rights": [
+          "LSURelease",
+          "ProbeAck"
+        ]
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "exclusion",
+      "checker": "transaction_exclusion",
+      "evidence_statement_ids": [
+        173,
+        174,
+        175,
+        177,
+        181,
+        183,
+        187,
+        189,
+        193
+      ],
+      "formal": {
+        "left": "WBReq",
+        "rights": [
+          "LSURelease",
+          "ProbeAck"
+        ],
+        "scope_identity": "ProbeTxn",
+        "type": "exclusion"
+      },
+      "references": {
+        "identities": [
+          "ProbeTxn"
+        ],
+        "occurrences": [
+          "LSURelease",
+          "ProbeAck",
+          "WBReq"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "WBReq excludes {LSURelease, ProbeAck} [same ProbeTxn]"
+    },
+    {
+      "arguments": {
+        "after": "ProbeAck",
+        "before": "LSURelease"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "ordering",
+      "checker": "history_order",
+      "evidence_statement_ids": [
+        177,
+        179,
+        180,
+        181,
+        183,
+        185,
+        186,
+        187
+      ],
+      "formal": {
+        "after": "ProbeAck",
+        "before": "LSURelease",
+        "required_prior": null,
+        "scope_identity": "ProbeTxn",
+        "type": "ordered_before"
+      },
+      "references": {
+        "identities": [
+          "ProbeTxn"
+        ],
+        "occurrences": [
+          "LSURelease",
+          "ProbeAck"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "LSURelease <mu ProbeAck [same ProbeTxn]"
+    },
+    {
+      "arguments": {
+        "sequence": [
+          "LSURelease",
+          "ProbeAck",
+          "MetaWrite"
+        ]
+      },
+      "axiom_id": "A5",
+      "axiom_kind": "ordering",
+      "checker": "history_chain",
+      "evidence_statement_ids": [
+        177,
+        181,
+        183,
+        185,
+        186,
+        187,
+        200,
+        202,
+        203,
+        204
+      ],
+      "formal": {
+        "scope_identity": "ProbeTxn",
+        "sequence": [
+          "LSURelease",
+          "ProbeAck",
+          "MetaWrite"
+        ],
+        "type": "ordered_chain"
+      },
+      "references": {
+        "identities": [
+          "ProbeTxn"
+        ],
+        "occurrences": [
+          "LSURelease",
+          "MetaWrite",
+          "ProbeAck"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "LSURelease <mu ProbeAck <mu MetaWrite [same ProbeTxn]"
+    },
+    {
+      "arguments": {
+        "sequence": [
+          "WBReq",
+          "WBComplete",
+          "MetaWrite"
+        ]
+      },
+      "axiom_id": "A6",
+      "axiom_kind": "ordering",
+      "checker": "history_chain",
+      "evidence_statement_ids": [
+        189,
+        191,
+        192,
+        193,
+        195,
+        197,
+        198,
+        200,
+        202,
+        203,
+        204
+      ],
+      "formal": {
+        "scope_identity": "ProbeTxn",
+        "sequence": [
+          "WBReq",
+          "WBComplete",
+          "MetaWrite"
+        ],
+        "type": "ordered_chain"
+      },
+      "references": {
+        "identities": [
+          "ProbeTxn"
+        ],
+        "occurrences": [
+          "MetaWrite",
+          "WBComplete",
+          "WBReq"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "WBReq <mu WBComplete <mu MetaWrite [same ProbeTxn]"
+    },
+    {
+      "arguments": {
+        "current_state_signal": "reply_coh.state",
+        "dirty_signal": "is_dirty",
+        "next_state_signal": "io.meta_write.bits.data.coh.state",
+        "param_signal": "req.param",
+        "report_signal": "report_param"
+      },
+      "axiom_id": "A7",
+      "axiom_kind": "state_update",
+      "checker": "tilelink_on_probe_spec",
+      "evidence_statement_ids": [
+        74,
+        75,
+        109,
+        110,
+        115
+      ],
+      "formal": {
+        "bindings": {
+          "current_state": "reply_coh.state",
+          "dirty": "is_dirty",
+          "next_state": "io.meta_write.bits.data.coh.state",
+          "param": "req.param",
+          "report": "report_param"
+        },
+        "on": "MetaWrite",
+        "scope_identity": "ProbeTxn",
+        "spec": "tilelink.ClientMetadata.onProbe",
+        "type": "spec_relation"
+      },
+      "references": {
+        "identities": [
+          "ProbeTxn"
+        ],
+        "occurrences": [
+          "MetaWrite"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.meta_write.bits.data.coh.state",
+          "is_dirty",
+          "reply_coh.state",
+          "report_param",
+          "req.param"
+        ]
+      },
+      "rendered_formula": "bindings satisfy tilelink.ClientMetadata.onProbe on MetaWrite [same ProbeTxn]"
+    },
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 0,
+        "signal": "io.rep.bits.opcode"
+      },
+      "axiom_id": "A8",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        81,
+        82,
+        84,
+        91,
+        93,
+        94,
+        95,
+        102
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.rep.bits.opcode",
+            "op": "signal"
+          }
+        },
+        "on": "ProbeAck",
+        "relation": "eq",
+        "scope_identity": "ProbeTxn",
+        "type": "value_constraint",
+        "value": 0
+      },
+      "references": {
+        "identities": [
+          "ProbeTxn"
+        ],
+        "occurrences": [
+          "ProbeAck"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.rep.bits.opcode"
+        ]
+      },
+      "rendered_formula": "bits(io.rep.bits.opcode, 0, 0) == 0 on ProbeAck [same ProbeTxn]"
+    }
+  ],
+  "schema_version": "umcm-formal-0.3",
+  "work_unit_id": "BoomProbeUnit"
+}

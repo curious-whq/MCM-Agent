@@ -253,3 +253,69 @@ Formal = correctness of summaries and composition
 ```
 
 v6 still contains no LLM Agent. The next stage can now consume source-grounded static work units rather than raw whole-system RTL.
+
+## Manual-first µMCM workflow (experimental)
+
+The static planner can now export a real leaf-abstraction task without calling
+an LLM API. The exact same task/result boundary is intended for a future API
+provider.
+
+```bash
+python3 -m workflow.cli leaf-task design.fir \
+  --root-module BoomProbeUnit \
+  --source-root /path/to/chipyard \
+  --run-root runs
+```
+
+Send the generated `prompt.md` to the current or a new ChatGPT conversation.
+After the discussion converges, save the final response and import it:
+
+```bash
+python3 -m workflow.cli manual-import runs/<task-id> response.md
+```
+
+The manual workflow now uses `umcm-formal-0.3`. Occurrences/predicates remain
+separate, but every axiom is now a machine-readable Formal AST and is the single
+semantic source of truth. Human-readable formulas, references, and proof
+obligations are generated deterministically from that AST. After grounding
+import, compile and check candidate semantic obligations with:
+
+```bash
+python3 -m workflow.cli semantic-validate runs/<task-id>
+```
+
+The real BoomProbeUnit experiment closes with eight trusted axioms under the
+`explicit-control` backend: seven `FORMALLY_PROVED` and one `SPEC_PROVED`. The
+formal-AST migration preserves the same proof result, while removing the old
+prose-vs-validation trust gap. See `docs/workflow/manual_first_umcm.md`.
+
+### Manual µMCM validation trust levels (v0.4)
+
+The manual-first workflow now bundles an `explicit-control` formal backend. It exhaustively
+checks ordering/exclusion/single-flight obligations only after fail-closed certification that
+every write to the selected control register is represented in a conservative, stutter-closed
+finite-state abstraction. Exact local aliases/constants can also be proved. This backend is
+not a general datapath SMT/protocol-spec prover: unsupported obligations remain outside
+`trusted_umcm.json`. Use `--formal-backend explicit-control` to enable it.
+
+
+## Cross-conversation research memory (v0.5)
+
+Manual-first experiments can span many ChatGPT conversations without relying on chat history. Stable decisions/lessons/status live under `docs/research/`, each run automatically maintains `SUMMARY.md` and a non-overwritten `EXPERIENCE.md`, and a self-contained fresh-conversation handoff can be generated with:
+
+```bash
+python3 -m workflow.cli handoff --repo-root . --run-root runs
+```
+
+Start a fresh conversation with `docs/research/CURRENT_HANDOFF.md`; if an LLM task is pending, provide that run's `prompt.md` as well. See `docs/workflow/conversation_handoff.md`.
+
+
+### Same-index relations (v0.9)
+
+Indexed occurrences can now share a protocol-agnostic pointwise scope using
+`scope_index: {"name": "i", "relation": "same"}`. Existing ordering/value
+relations therefore express `A(txn,i) < B(txn,i)` without introducing a
+module-specific axiom type. Formal expressions also support `index_var` and
+`lookup`, e.g. `buffer[i]`. The bundled `explicit-control` backend deliberately
+returns `FORMAL_UNKNOWN` for same-index obligations until an index-aware backend
+is configured, preserving fail-closed trust semantics.

@@ -1,0 +1,585 @@
+{
+  "compiler": "formal-axiom-compiler-0.6",
+  "obligations": [
+    {
+      "arguments": {
+        "occurrence": "WritebackReq",
+        "predicate": "ActiveWriteback"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        32,
+        33,
+        43,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        122
+      ],
+      "formal": {
+        "occurrence": "WritebackReq",
+        "predicate": "ActiveWriteback",
+        "scope_identity": "WritebackTxn",
+        "scope_index": null,
+        "type": "forbid_when"
+      },
+      "references": {
+        "identities": [
+          "WritebackTxn"
+        ],
+        "occurrences": [
+          "WritebackReq"
+        ],
+        "predicates": [
+          "ActiveWriteback"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "ActiveWriteback => !WritebackReq [same WritebackTxn]"
+    },
+    {
+      "arguments": {
+        "accepted_by": "WritebackReq",
+        "capture_source": "io.req.bits",
+        "identity_key": "WritebackTxn",
+        "projections": [
+          {
+            "source": "req.idx",
+            "target": "io.meta_read.bits.idx"
+          },
+          {
+            "source": "req.tag",
+            "target": "io.meta_read.bits.tag"
+          },
+          {
+            "source": "req.way_en",
+            "target": "io.data_req.bits.way_en"
+          },
+          {
+            "source": "r_address",
+            "target": "io.lsu_release.bits.address"
+          },
+          {
+            "source": "req.param",
+            "target": "io.lsu_release.bits.param"
+          },
+          {
+            "source": "req.source",
+            "target": "io.lsu_release.bits.source"
+          }
+        ]
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "identity_flow",
+      "checker": "identity_projection",
+      "evidence_statement_ids": [
+        3,
+        60,
+        61,
+        65,
+        67,
+        68,
+        109,
+        112,
+        118,
+        122,
+        129,
+        130,
+        133,
+        163,
+        172,
+        173
+      ],
+      "formal": {
+        "capture": {
+          "carrier": "req",
+          "on": "WritebackReq",
+          "source": "io.req.bits"
+        },
+        "identity": "WritebackTxn",
+        "projections": [
+          {
+            "expr": {
+              "name": "req.idx",
+              "op": "signal"
+            },
+            "on": "FillIssue",
+            "target": "io.meta_read.bits.idx"
+          },
+          {
+            "expr": {
+              "name": "req.tag",
+              "op": "signal"
+            },
+            "on": "FillIssue",
+            "target": "io.meta_read.bits.tag"
+          },
+          {
+            "expr": {
+              "name": "req.way_en",
+              "op": "signal"
+            },
+            "on": "FillIssue",
+            "target": "io.data_req.bits.way_en"
+          },
+          {
+            "expr": {
+              "name": "r_address",
+              "op": "signal"
+            },
+            "on": "LSURelease",
+            "target": "io.lsu_release.bits.address"
+          },
+          {
+            "expr": {
+              "name": "req.param",
+              "op": "signal"
+            },
+            "on": "LSURelease",
+            "target": "io.lsu_release.bits.param"
+          },
+          {
+            "expr": {
+              "name": "req.source",
+              "op": "signal"
+            },
+            "on": "LSURelease",
+            "target": "io.lsu_release.bits.source"
+          }
+        ],
+        "type": "identity_flow"
+      },
+      "references": {
+        "identities": [
+          "WritebackTxn"
+        ],
+        "occurrences": [
+          "FillIssue",
+          "LSURelease",
+          "WritebackReq"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.data_req.bits.way_en",
+          "io.lsu_release.bits.address",
+          "io.lsu_release.bits.param",
+          "io.lsu_release.bits.source",
+          "io.meta_read.bits.idx",
+          "io.meta_read.bits.tag",
+          "io.req.bits",
+          "r_address",
+          "req",
+          "req.idx",
+          "req.param",
+          "req.source",
+          "req.tag",
+          "req.way_en"
+        ]
+      },
+      "rendered_formula": "capture WritebackTxn := io.req.bits on WritebackReq; preserve 6 exact identity projections"
+    },
+    {
+      "arguments": {
+        "cardinality": "exactly_once",
+        "completion": "BufferFilled",
+        "domain": {
+          "end_exclusive": 8,
+          "start": 0
+        },
+        "index": "beat",
+        "occurrence": "BufferBeat"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "conservation",
+      "checker": "indexed_coverage",
+      "evidence_statement_ids": [
+        140,
+        141,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157
+      ],
+      "formal": {
+        "cardinality": "exactly_once",
+        "completion": "BufferFilled",
+        "domain": {
+          "end_exclusive": 8,
+          "start": 0
+        },
+        "index": "beat",
+        "occurrence": "BufferBeat",
+        "scope_identity": "WritebackTxn",
+        "scope_index": null,
+        "type": "indexed_complete"
+      },
+      "references": {
+        "identities": [
+          "WritebackTxn"
+        ],
+        "occurrences": [
+          "BufferBeat",
+          "BufferFilled"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BufferFilled => forall beat in [0, 8): count(BufferBeat(beat)) = 1 [same WritebackTxn]"
+    },
+    {
+      "arguments": {
+        "after": "BufferBeat",
+        "before": "FillIssue",
+        "scope_index": {
+          "name": "beat",
+          "relation": "same"
+        }
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "ordering",
+      "checker": "history_order",
+      "evidence_statement_ids": [
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        150,
+        151,
+        152,
+        153
+      ],
+      "formal": {
+        "after": "BufferBeat",
+        "before": "FillIssue",
+        "required_prior": null,
+        "scope_identity": "WritebackTxn",
+        "scope_index": {
+          "name": "beat",
+          "relation": "same"
+        },
+        "type": "ordered_before"
+      },
+      "references": {
+        "identities": [
+          "WritebackTxn"
+        ],
+        "occurrences": [
+          "BufferBeat",
+          "FillIssue"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "FillIssue <mu BufferBeat [same WritebackTxn] [same index beat]"
+    },
+    {
+      "arguments": {
+        "after": "LSURelease",
+        "before": "BufferFilled"
+      },
+      "axiom_id": "A5",
+      "axiom_kind": "ordering",
+      "checker": "history_order",
+      "evidence_statement_ids": [
+        154,
+        155,
+        156,
+        157,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166
+      ],
+      "formal": {
+        "after": "LSURelease",
+        "before": "BufferFilled",
+        "required_prior": null,
+        "scope_identity": "WritebackTxn",
+        "scope_index": null,
+        "type": "ordered_before"
+      },
+      "references": {
+        "identities": [
+          "WritebackTxn"
+        ],
+        "occurrences": [
+          "BufferFilled",
+          "LSURelease"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BufferFilled <mu LSURelease [same WritebackTxn]"
+    },
+    {
+      "arguments": {
+        "occurrence": "ReleaseBeat",
+        "predicate": "BeforeNetworkRelease"
+      },
+      "axiom_id": "A6",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        160,
+        161,
+        166,
+        168,
+        169,
+        170,
+        171,
+        176,
+        177,
+        180
+      ],
+      "formal": {
+        "occurrence": "ReleaseBeat",
+        "predicate": "BeforeNetworkRelease",
+        "scope_identity": "WritebackTxn",
+        "scope_index": null,
+        "type": "forbid_when"
+      },
+      "references": {
+        "identities": [
+          "WritebackTxn"
+        ],
+        "occurrences": [
+          "ReleaseBeat"
+        ],
+        "predicates": [
+          "BeforeNetworkRelease"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "BeforeNetworkRelease => !ReleaseBeat [same WritebackTxn]"
+    },
+    {
+      "arguments": {
+        "cardinality": "exactly_once",
+        "completion": "ReleaseComplete",
+        "domain": {
+          "end_exclusive": 8,
+          "start": 0
+        },
+        "index": "beat",
+        "occurrence": "ReleaseBeat"
+      },
+      "axiom_id": "A7",
+      "axiom_kind": "conservation",
+      "checker": "indexed_coverage",
+      "evidence_statement_ids": [
+        168,
+        170,
+        171,
+        176,
+        177,
+        178,
+        179,
+        180,
+        181,
+        182,
+        183,
+        184,
+        185,
+        186
+      ],
+      "formal": {
+        "cardinality": "exactly_once",
+        "completion": "ReleaseComplete",
+        "domain": {
+          "end_exclusive": 8,
+          "start": 0
+        },
+        "index": "beat",
+        "occurrence": "ReleaseBeat",
+        "scope_identity": "WritebackTxn",
+        "scope_index": null,
+        "type": "indexed_complete"
+      },
+      "references": {
+        "identities": [
+          "WritebackTxn"
+        ],
+        "occurrences": [
+          "ReleaseBeat",
+          "ReleaseComplete"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "ReleaseComplete => forall beat in [0, 8): count(ReleaseBeat(beat)) = 1 [same WritebackTxn]"
+    },
+    {
+      "arguments": {
+        "scope_index": {
+          "name": "beat",
+          "relation": "same"
+        },
+        "source": "wb_buffer[beat]",
+        "target": "io.release.bits.data"
+      },
+      "axiom_id": "A8",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        62,
+        63,
+        69,
+        71,
+        107,
+        113,
+        168,
+        172,
+        173
+      ],
+      "formal": {
+        "on": "ReleaseBeat",
+        "scope_identity": "WritebackTxn",
+        "scope_index": {
+          "name": "beat",
+          "relation": "same"
+        },
+        "source": {
+          "index": {
+            "name": "beat",
+            "op": "index_var"
+          },
+          "op": "lookup",
+          "value": {
+            "name": "wb_buffer",
+            "op": "signal"
+          }
+        },
+        "target": "io.release.bits.data",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [
+          "WritebackTxn"
+        ],
+        "occurrences": [
+          "ReleaseBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.release.bits.data",
+          "wb_buffer"
+        ]
+      },
+      "rendered_formula": "io.release.bits.data = wb_buffer[beat] on ReleaseBeat [same WritebackTxn] [same index beat]"
+    },
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 1,
+        "signal": "io.release.bits.opcode"
+      },
+      "axiom_id": "A9",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        15,
+        63,
+        64,
+        107,
+        108,
+        168,
+        172,
+        173
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.release.bits.opcode",
+            "op": "signal"
+          }
+        },
+        "on": "ReleaseBeat",
+        "relation": "eq",
+        "scope_identity": "WritebackTxn",
+        "scope_index": null,
+        "type": "value_constraint",
+        "value": 1
+      },
+      "references": {
+        "identities": [
+          "WritebackTxn"
+        ],
+        "occurrences": [
+          "ReleaseBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.release.bits.opcode"
+        ]
+      },
+      "rendered_formula": "bits(io.release.bits.opcode, 0, 0) == 1 on ReleaseBeat [same WritebackTxn]"
+    },
+    {
+      "arguments": {
+        "after": "VoluntaryDone",
+        "prerequisites": [
+          "ReleaseComplete",
+          "MemGrantSeen"
+        ]
+      },
+      "axiom_id": "A10",
+      "axiom_kind": "ordering",
+      "checker": "history_join",
+      "evidence_statement_ids": [
+        174,
+        175,
+        181,
+        182,
+        183,
+        184,
+        185,
+        186,
+        188,
+        189,
+        190,
+        191,
+        192,
+        193
+      ],
+      "formal": {
+        "after": "VoluntaryDone",
+        "prerequisites": [
+          "ReleaseComplete",
+          "MemGrantSeen"
+        ],
+        "scope_identity": "WritebackTxn",
+        "scope_index": null,
+        "type": "join"
+      },
+      "references": {
+        "identities": [
+          "WritebackTxn"
+        ],
+        "occurrences": [
+          "MemGrantSeen",
+          "ReleaseComplete",
+          "VoluntaryDone"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "{ReleaseComplete, MemGrantSeen} <mu VoluntaryDone [same WritebackTxn]"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "work_unit_id": "BoomWritebackUnit"
+}

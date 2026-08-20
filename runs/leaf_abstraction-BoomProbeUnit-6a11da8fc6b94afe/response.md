@@ -1,0 +1,480 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [76, 77, 79, 80, 146, 147, 148, 149, 150],
+      "formal": {
+        "occurrence": "ProbeReq",
+        "predicate": "ActiveProbe",
+        "scope_identity": "ProbeTxn",
+        "type": "forbid_when"
+      },
+      "id": "A1",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": ["NoMatch", "MatchedClean", "MatchedDirty"],
+      "evidence_statement_ids": [5, 6, 151, 105, 106, 112, 113, 114, 118, 119, 120, 140, 141, 142, 86, 87, 88],
+      "formal": {
+        "capture": {
+          "carrier": "req",
+          "on": "ProbeReq",
+          "source": "io.req.bits"
+        },
+        "identity": "ProbeTxn",
+        "projections": [
+          {
+            "expr": {
+              "hi": 11,
+              "lo": 6,
+              "op": "slice",
+              "value": {
+                "name": "req.address",
+                "op": "signal"
+              }
+            },
+            "on": "MetaRead",
+            "target": "io.meta_read.bits.idx"
+          },
+          {
+            "expr": {
+              "amount": 12,
+              "op": "shr",
+              "value": {
+                "name": "req.address",
+                "op": "signal"
+              }
+            },
+            "on": "MetaRead",
+            "target": "io.meta_read.bits.tag"
+          },
+          {
+            "expr": {
+              "name": "req.address",
+              "op": "signal"
+            },
+            "on": "LSURelease",
+            "target": "io.lsu_release.bits.address"
+          },
+          {
+            "expr": {
+              "name": "req.source",
+              "op": "signal"
+            },
+            "on": "LSURelease",
+            "target": "io.lsu_release.bits.source"
+          },
+          {
+            "expr": {
+              "name": "req.size",
+              "op": "signal"
+            },
+            "on": "LSURelease",
+            "target": "io.lsu_release.bits.size"
+          },
+          {
+            "expr": {
+              "name": "req.address",
+              "op": "signal"
+            },
+            "on": "ProbeAck",
+            "target": "io.rep.bits.address"
+          },
+          {
+            "expr": {
+              "name": "req.source",
+              "op": "signal"
+            },
+            "on": "ProbeAck",
+            "target": "io.rep.bits.source"
+          },
+          {
+            "expr": {
+              "name": "req.size",
+              "op": "signal"
+            },
+            "on": "ProbeAck",
+            "target": "io.rep.bits.size"
+          },
+          {
+            "expr": {
+              "name": "req.source",
+              "op": "signal"
+            },
+            "on": "WBReq",
+            "target": "io.wb_req.bits.source"
+          },
+          {
+            "expr": {
+              "hi": 11,
+              "lo": 6,
+              "op": "slice",
+              "value": {
+                "name": "req.address",
+                "op": "signal"
+              }
+            },
+            "on": "WBReq",
+            "target": "io.wb_req.bits.idx"
+          },
+          {
+            "expr": {
+              "amount": 12,
+              "op": "shr",
+              "value": {
+                "name": "req.address",
+                "op": "signal"
+              }
+            },
+            "on": "WBReq",
+            "target": "io.wb_req.bits.tag"
+          },
+          {
+            "expr": {
+              "hi": 11,
+              "lo": 6,
+              "op": "slice",
+              "value": {
+                "name": "req.address",
+                "op": "signal"
+              }
+            },
+            "on": "MetaWrite",
+            "target": "io.meta_write.bits.idx"
+          },
+          {
+            "expr": {
+              "amount": 12,
+              "op": "shr",
+              "value": {
+                "name": "req.address",
+                "op": "signal"
+              }
+            },
+            "on": "MetaWrite",
+            "target": "io.meta_write.bits.tag"
+          },
+          {
+            "expr": {
+              "amount": 12,
+              "op": "shr",
+              "value": {
+                "name": "req.address",
+                "op": "signal"
+              }
+            },
+            "on": "MetaWrite",
+            "target": "io.meta_write.bits.data.tag"
+          }
+        ],
+        "type": "identity_flow"
+      },
+      "id": "A2",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": ["NoMatch", "MatchedClean", "MatchedDirty"],
+      "evidence_statement_ids": [173, 174, 175, 177, 181, 183, 187, 189, 193],
+      "formal": {
+        "left": "WBReq",
+        "rights": ["LSURelease", "ProbeAck"],
+        "scope_identity": "ProbeTxn",
+        "type": "exclusion"
+      },
+      "id": "A3",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": ["NoMatch", "MatchedClean"],
+      "evidence_statement_ids": [177, 179, 180, 181, 183, 185, 186, 187],
+      "formal": {
+        "after": "ProbeAck",
+        "before": "LSURelease",
+        "required_prior": null,
+        "scope_identity": "ProbeTxn",
+        "type": "ordered_before"
+      },
+      "id": "A4",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": ["MatchedClean"],
+      "evidence_statement_ids": [177, 181, 183, 185, 186, 187, 200, 202, 203, 204],
+      "formal": {
+        "scope_identity": "ProbeTxn",
+        "sequence": ["LSURelease", "ProbeAck", "MetaWrite"],
+        "type": "ordered_chain"
+      },
+      "id": "A5",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": ["MatchedDirty"],
+      "evidence_statement_ids": [189, 191, 192, 193, 195, 197, 198, 200, 202, 203, 204],
+      "formal": {
+        "scope_identity": "ProbeTxn",
+        "sequence": ["WBReq", "WBComplete", "MetaWrite"],
+        "type": "ordered_chain"
+      },
+      "id": "A6",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": ["MatchedClean", "MatchedDirty"],
+      "evidence_statement_ids": [74, 75, 109, 110, 115],
+      "formal": {
+        "bindings": {
+          "current_state": "reply_coh.state",
+          "dirty": "is_dirty",
+          "next_state": "io.meta_write.bits.data.coh.state",
+          "param": "req.param",
+          "report": "report_param"
+        },
+        "on": "MetaWrite",
+        "scope_identity": "ProbeTxn",
+        "spec": "tilelink.ClientMetadata.onProbe",
+        "type": "spec_relation"
+      },
+      "id": "A7",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": ["NoMatch", "MatchedClean"],
+      "evidence_statement_ids": [81, 82, 84, 91, 93, 94, 95, 102],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.rep.bits.opcode",
+            "op": "signal"
+          }
+        },
+        "on": "ProbeAck",
+        "relation": "eq",
+        "scope_identity": "ProbeTxn",
+        "type": "value_constraint",
+        "value": 0
+      },
+      "id": "A8",
+      "status": "candidate"
+    }
+  ],
+  "cases": [
+    {
+      "confidence": "high",
+      "emits": ["MetaRead", "LSURelease", "ProbeAck"],
+      "evidence_statement_ids": [155, 156, 157, 163, 165, 166, 167, 168, 169, 171, 173, 174, 175, 177, 179, 180, 181, 183, 185, 186, 187],
+      "guard_predicates": [
+        {
+          "id": "TagMatch",
+          "positive": false
+        }
+      ],
+      "id": "NoMatch",
+      "relations": [
+        "MetaRead may repeat before the response path",
+        "LSURelease < ProbeAck"
+      ],
+      "trigger_occurrences": ["ProbeReq"]
+    },
+    {
+      "confidence": "high",
+      "emits": ["MetaRead", "LSURelease", "ProbeAck", "MetaWrite"],
+      "evidence_statement_ids": [171, 173, 174, 175, 177, 179, 180, 181, 183, 185, 186, 187, 200, 202, 203, 204],
+      "guard_predicates": [
+        {
+          "id": "TagMatch",
+          "positive": true
+        },
+        {
+          "id": "DirtyResponseNeeded",
+          "positive": false
+        }
+      ],
+      "id": "MatchedClean",
+      "relations": ["LSURelease < ProbeAck < MetaWrite"],
+      "trigger_occurrences": ["ProbeReq"]
+    },
+    {
+      "confidence": "high",
+      "emits": ["MetaRead", "WBReq", "WBComplete", "MetaWrite"],
+      "evidence_statement_ids": [171, 173, 174, 175, 189, 191, 192, 193, 195, 197, 198, 200, 202, 203, 204],
+      "guard_predicates": [
+        {
+          "id": "DirtyResponseNeeded",
+          "positive": true
+        }
+      ],
+      "id": "MatchedDirty",
+      "relations": ["WBReq < WBComplete < MetaWrite"],
+      "trigger_occurrences": ["ProbeReq"]
+    }
+  ],
+  "extensions": {},
+  "identity_keys": [
+    {
+      "carrier_state": "req",
+      "description": "The accepted TileLink-B request is latched in req and carries Probe identity through the transaction.",
+      "evidence_statement_ids": [4, 5, 6, 150, 151],
+      "fields": ["address", "source", "size", "param"],
+      "id": "ProbeTxn"
+    }
+  ],
+  "occurrences": [
+    {
+      "definition": "io.req.fire",
+      "evidence_statement_ids": [79, 80, 148, 149, 150, 151],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "ProbeReq",
+      "kind": "boundary",
+      "multiplicity": "exactly_once",
+      "physical_event_ids": ["BoomProbeUnit::io.req.fire"]
+    },
+    {
+      "definition": "io.meta_read.fire",
+      "evidence_statement_ids": [103, 104, 105, 106, 107, 108, 155, 156, 157],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "MetaRead",
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": ["BoomProbeUnit::io.meta_read.fire"]
+    },
+    {
+      "definition": "io.lsu_release.fire",
+      "evidence_statement_ids": [135, 136, 139, 140, 141, 142, 145, 179, 180, 181],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "LSURelease",
+      "kind": "boundary",
+      "multiplicity": "at_most_once",
+      "physical_event_ids": ["BoomProbeUnit::io.lsu_release.fire"]
+    },
+    {
+      "definition": "io.rep.fire",
+      "evidence_statement_ids": [81, 82, 84, 85, 86, 87, 88, 91, 185, 186, 187],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "ProbeAck",
+      "kind": "boundary",
+      "multiplicity": "at_most_once",
+      "physical_event_ids": ["BoomProbeUnit::io.rep.fire"]
+    },
+    {
+      "definition": "io.wb_req.fire",
+      "evidence_statement_ids": [116, 117, 118, 119, 120, 121, 122, 123, 191, 192, 193],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "WBReq",
+      "kind": "boundary",
+      "multiplicity": "at_most_once",
+      "physical_event_ids": ["BoomProbeUnit::io.wb_req.fire"]
+    },
+    {
+      "definition": "io.meta_write.fire",
+      "evidence_statement_ids": [109, 110, 111, 112, 113, 114, 115, 202, 203, 204],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "MetaWrite",
+      "kind": "boundary",
+      "multiplicity": "at_most_once",
+      "physical_event_ids": ["BoomProbeUnit::io.meta_write.fire"]
+    },
+    {
+      "definition": "state == s_writeback_resp (8) && io.wb_req.ready",
+      "evidence_statement_ids": [195, 196, 197, 198],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": ["io.wb_req.ready"],
+        "state_register": "state",
+        "state_values": [8]
+      },
+      "id": "WBComplete",
+      "kind": "derived",
+      "multiplicity": "at_most_once",
+      "physical_event_ids": []
+    }
+  ],
+  "predicates": [
+    {
+      "definition": "state != s_invalid",
+      "evidence_statement_ids": [76, 77, 78, 79, 80],
+      "grounding": {
+        "negated": false,
+        "source_signal": "io.state.valid",
+        "state_register": "state",
+        "state_values": []
+      },
+      "id": "ActiveProbe"
+    },
+    {
+      "definition": "way_en.orR",
+      "evidence_statement_ids": [7, 8, 165, 166],
+      "grounding": {
+        "negated": false,
+        "source_signal": "tag_matches",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "TagMatch"
+    },
+    {
+      "definition": "tag_matches && is_dirty",
+      "evidence_statement_ids": [12, 13, 71, 72, 73, 74, 75, 173, 174, 175],
+      "grounding": {
+        "negated": false,
+        "source_signal": "_state_T_2",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "DirtyResponseNeeded"
+    },
+    {
+      "definition": "!io.mshr_wb_rdy",
+      "evidence_statement_ids": [124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134],
+      "grounding": {
+        "negated": true,
+        "source_signal": "io.mshr_wb_rdy",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "BlocksMSHRWriteback"
+    }
+  ],
+  "rationale": [
+    "The 11-state implementation is compressed into three coherence-relevant paths: no-match, matched-clean, matched-dirty.",
+    "WBComplete is retained as a derived occurrence because dropping it would lose the writeback-before-metadata-update ordering fact.",
+    "io.state.valid and io.mshr_wb_rdy are modeled as persistent predicates rather than instantaneous occurrences."
+  ],
+  "schema_version": "umcm-formal-0.3",
+  "task_id": "leaf_abstraction-BoomProbeUnit-6a11da8fc6b94afe",
+  "unresolved": [],
+  "work_unit_id": "BoomProbeUnit"
+}

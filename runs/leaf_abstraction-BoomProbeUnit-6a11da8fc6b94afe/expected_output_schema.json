@@ -1,0 +1,866 @@
+{
+  "$defs": {
+    "formal_axiom": {
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "occurrence": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "predicate": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "scope_identity": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "type": {
+              "const": "forbid_when"
+            }
+          },
+          "required": [
+            "type",
+            "occurrence",
+            "predicate",
+            "scope_identity"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "capture": {
+              "additionalProperties": false,
+              "properties": {
+                "carrier": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "on": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "source": {
+                  "minLength": 1,
+                  "type": "string"
+                }
+              },
+              "required": [
+                "on",
+                "source",
+                "carrier"
+              ],
+              "type": "object"
+            },
+            "identity": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "projections": {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "expr": {
+                    "$ref": "#/$defs/formal_expr"
+                  },
+                  "on": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "target": {
+                    "minLength": 1,
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "on",
+                  "target",
+                  "expr"
+                ],
+                "type": "object"
+              },
+              "minItems": 1,
+              "type": "array"
+            },
+            "type": {
+              "const": "identity_flow"
+            }
+          },
+          "required": [
+            "type",
+            "identity",
+            "capture",
+            "projections"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "left": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "rights": {
+              "items": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "minItems": 1,
+              "type": "array",
+              "uniqueItems": true
+            },
+            "scope_identity": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "type": {
+              "const": "exclusion"
+            }
+          },
+          "required": [
+            "type",
+            "left",
+            "rights",
+            "scope_identity"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "after": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "before": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "required_prior": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "scope_identity": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "type": {
+              "const": "ordered_before"
+            }
+          },
+          "required": [
+            "type",
+            "before",
+            "after",
+            "required_prior",
+            "scope_identity"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "scope_identity": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "sequence": {
+              "items": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "minItems": 2,
+              "type": "array"
+            },
+            "type": {
+              "const": "ordered_chain"
+            }
+          },
+          "required": [
+            "type",
+            "sequence",
+            "scope_identity"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "on": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "scope_identity": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "source": {
+              "$ref": "#/$defs/formal_expr"
+            },
+            "target": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "type": {
+              "const": "signal_equality"
+            }
+          },
+          "required": [
+            "type",
+            "on",
+            "target",
+            "source",
+            "scope_identity"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "expr": {
+              "$ref": "#/$defs/formal_expr"
+            },
+            "on": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "relation": {
+              "const": "eq"
+            },
+            "scope_identity": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "type": {
+              "const": "value_constraint"
+            },
+            "value": {
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "type",
+            "on",
+            "expr",
+            "relation",
+            "value",
+            "scope_identity"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "bindings": {
+              "additionalProperties": false,
+              "properties": {
+                "current_state": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "dirty": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "next_state": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "param": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "report": {
+                  "minLength": 1,
+                  "type": "string"
+                }
+              },
+              "required": [
+                "param",
+                "current_state",
+                "dirty",
+                "report",
+                "next_state"
+              ],
+              "type": "object"
+            },
+            "on": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "scope_identity": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "spec": {
+              "const": "tilelink.ClientMetadata.onProbe"
+            },
+            "type": {
+              "const": "spec_relation"
+            }
+          },
+          "required": [
+            "type",
+            "on",
+            "spec",
+            "bindings",
+            "scope_identity"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "formal_expr": {
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "op": {
+              "const": "signal"
+            }
+          },
+          "required": [
+            "op",
+            "name"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "hi": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "lo": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "op": {
+              "const": "slice"
+            },
+            "value": {
+              "$ref": "#/$defs/formal_expr"
+            }
+          },
+          "required": [
+            "op",
+            "value",
+            "hi",
+            "lo"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "amount": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "op": {
+              "const": "shr"
+            },
+            "value": {
+              "$ref": "#/$defs/formal_expr"
+            }
+          },
+          "required": [
+            "op",
+            "value",
+            "amount"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "index": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "op": {
+              "const": "bit"
+            },
+            "value": {
+              "$ref": "#/$defs/formal_expr"
+            }
+          },
+          "required": [
+            "op",
+            "value",
+            "index"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "op": {
+              "const": "const"
+            },
+            "value": {
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "op",
+            "value"
+          ],
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "assumptions": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "evidence_statement_ids": {
+            "items": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "statement": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "statement",
+          "evidence_statement_ids"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "axioms": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "derived_from_case_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "evidence_statement_ids": {
+            "items": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "formal": {
+            "$ref": "#/$defs/formal_axiom"
+          },
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "status": {
+            "const": "candidate"
+          }
+        },
+        "required": [
+          "id",
+          "formal",
+          "derived_from_case_ids",
+          "evidence_statement_ids",
+          "status"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "cases": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "confidence": {
+            "enum": [
+              "high",
+              "medium",
+              "low"
+            ]
+          },
+          "emits": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "evidence_statement_ids": {
+            "items": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "guard_predicates": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "positive": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "id",
+                "positive"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "relations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "trigger_occurrences": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "id",
+          "trigger_occurrences",
+          "guard_predicates",
+          "emits",
+          "relations",
+          "evidence_statement_ids",
+          "confidence"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "extensions": {
+      "type": "object"
+    },
+    "identity_keys": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "carrier_state": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "evidence_statement_ids": {
+            "items": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "fields": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "carrier_state",
+          "fields",
+          "description",
+          "evidence_statement_ids"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "occurrences": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "definition": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "evidence_statement_ids": {
+            "items": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "grounding": {
+            "additionalProperties": false,
+            "properties": {
+              "signals_false": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array",
+                "uniqueItems": true
+              },
+              "signals_true": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array",
+                "uniqueItems": true
+              },
+              "state_register": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "state_values": {
+                "items": {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "type": "array",
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "state_register",
+              "state_values",
+              "signals_true",
+              "signals_false"
+            ],
+            "type": "object"
+          },
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "boundary",
+              "derived"
+            ]
+          },
+          "multiplicity": {
+            "enum": [
+              "exactly_once",
+              "at_most_once",
+              "repeatable",
+              "unspecified"
+            ]
+          },
+          "physical_event_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "physical_event_ids",
+          "definition",
+          "multiplicity",
+          "grounding",
+          "evidence_statement_ids"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "predicates": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "definition": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "evidence_statement_ids": {
+            "items": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "grounding": {
+            "additionalProperties": false,
+            "properties": {
+              "negated": {
+                "type": "boolean"
+              },
+              "source_signal": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "state_register": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "state_values": {
+                "items": {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "type": "array",
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "source_signal",
+              "negated",
+              "state_register",
+              "state_values"
+            ],
+            "type": "object"
+          },
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "definition",
+          "grounding",
+          "evidence_statement_ids"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "rationale": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "umcm-formal-0.3"
+    },
+    "task_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "unresolved": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "evidence_statement_ids": {
+            "items": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "question": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "question",
+          "evidence_statement_ids"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "work_unit_id": {
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "task_id",
+    "work_unit_id",
+    "occurrences",
+    "predicates",
+    "identity_keys",
+    "cases",
+    "axioms",
+    "assumptions",
+    "unresolved",
+    "rationale",
+    "extensions"
+  ],
+  "title": "Formal \u00b5MCM candidate v0.3",
+  "type": "object"
+}
