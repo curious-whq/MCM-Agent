@@ -114,6 +114,49 @@
         4
       ],
       "status": "candidate"
+    },
+    {
+      "id": "A3",
+      "formal": {
+        "type": "signal_equality",
+        "on": null,
+        "target": "io.out.valid",
+        "source": {
+          "op": "signal",
+          "name": "io.in[0].valid"
+        },
+        "scope_identity": null
+      },
+      "derived_from_case_ids": [
+        "C1_Passthrough"
+      ],
+      "evidence_statement_ids": [
+        7,
+        8,
+        9
+      ],
+      "status": "candidate"
+    },
+    {
+      "id": "A4",
+      "formal": {
+        "type": "signal_equality",
+        "on": null,
+        "target": "io.in[0].ready",
+        "source": {
+          "op": "signal",
+          "name": "io.out.ready"
+        },
+        "scope_identity": null
+      },
+      "derived_from_case_ids": [
+        "C1_Passthrough"
+      ],
+      "evidence_statement_ids": [
+        5,
+        6
+      ],
+      "status": "candidate"
     }
   ],
   "assumptions": [],

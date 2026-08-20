@@ -73,6 +73,73 @@
         ]
       },
       "rendered_formula": "io.out.bits = io.in[0].bits on InputFire"
+    },
+    {
+      "arguments": {
+        "source": "io.in[0].valid",
+        "target": "io.out.valid"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        7,
+        8,
+        9
+      ],
+      "formal": {
+        "on": null,
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[0].valid",
+          "op": "signal"
+        },
+        "target": "io.out.valid",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [],
+        "predicates": [],
+        "signals": [
+          "io.in[0].valid",
+          "io.out.valid"
+        ]
+      },
+      "rendered_formula": "io.out.valid = io.in[0].valid"
+    },
+    {
+      "arguments": {
+        "source": "io.out.ready",
+        "target": "io.in[0].ready"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        5,
+        6
+      ],
+      "formal": {
+        "on": null,
+        "scope_identity": null,
+        "source": {
+          "name": "io.out.ready",
+          "op": "signal"
+        },
+        "target": "io.in[0].ready",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [],
+        "predicates": [],
+        "signals": [
+          "io.in[0].ready",
+          "io.out.ready"
+        ]
+      },
+      "rendered_formula": "io.in[0].ready = io.out.ready"
     }
   ],
   "schema_version": "umcm-formal-0.5",

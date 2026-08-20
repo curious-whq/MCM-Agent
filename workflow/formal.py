@@ -24,13 +24,15 @@ from .semantic import (
 from .formal_patterns import (
     prove_combinational_forbid_when,
     prove_conditional_signal_equality,
+    prove_unconditional_signal_equality,
     prove_same_cycle_occurrence_partition,
     prove_scalar_valid_token_provenance,
     prove_same_index_valid_token_provenance,
 )
+from .storage_prover import prove_indexed_storage_flow
 
 
-FORMAL_BACKEND_API_VERSION = "formal-backend-api-0.13"
+FORMAL_BACKEND_API_VERSION = "formal-backend-api-0.14"
 FORMAL_UNKNOWN = "FORMAL_UNKNOWN"
 FORMAL_COUNTEREXAMPLE = "FORMAL_COUNTEREXAMPLE"
 
@@ -246,6 +248,7 @@ class ExplicitControlFormalBackend:
                 "history_chain",
                 "history_join",
                 "indexed_coverage",
+                "indexed_storage_flow",
                 "occurrence_partition",
                 "transaction_exclusion",
                 "signal_alias",
@@ -317,6 +320,25 @@ class ExplicitControlFormalBackend:
                 "reason": partition.get("reason", "same-cycle occurrence partition unresolved"),
                 "certificate": partition,
                 "required_backend_capability": "exact-same-cycle-occurrence-partition",
+            }
+
+        if checker == "indexed_storage_flow":
+            result = prove_indexed_storage_flow(model, candidate, **args)
+            if result.get("status") == STRUCTURALLY_SUPPORTED:
+                return {
+                    "status": FORMALLY_PROVED,
+                    "backend": self.name,
+                    "proof_method": result.get("proof_domain"),
+                    "proof": result.get("proof"),
+                    "proof_domain": "exact-synchronous-indexed-storage",
+                    "certificate": result,
+                }
+            return {
+                "status": FORMAL_UNKNOWN,
+                "backend": self.name,
+                "reason": result.get("reason", "indexed storage flow unresolved"),
+                "certificate": result,
+                "required_backend_capability": "exact-indexed-storage-rf-co-fr",
             }
 
         # A same-index order can also be proved without an FSM when a bounded
@@ -486,6 +508,12 @@ class ExplicitControlFormalBackend:
                 result = prove_conditional_signal_equality(model, candidate, **args)
             else:
                 result = _signal_alias(model, **args)
+                if result.get("status") != STRUCTURALLY_SUPPORTED:
+                    result = prove_unconditional_signal_equality(
+                        model,
+                        candidate,
+                        **args,
+                    )
             if result.get("status") == STRUCTURALLY_SUPPORTED:
                 return {
                     "status": FORMALLY_PROVED,

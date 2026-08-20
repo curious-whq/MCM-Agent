@@ -11,8 +11,8 @@ from .research_memory import write_run_summary
 from .axiom_ir import compile_formal_axiom, render_formal_axiom
 
 
-SEMANTIC_VALIDATOR_VERSION = "semantic-validator-0.14"
-PROPERTY_COMPILER_VERSION = "formal-axiom-compiler-0.7"
+SEMANTIC_VALIDATOR_VERSION = "semantic-validator-0.15"
+PROPERTY_COMPILER_VERSION = "formal-axiom-compiler-0.8"
 
 # Structural/static checker outcomes. These deliberately do NOT use the word
 # "proved": they are evidence about an extracted control/dataflow abstraction,
@@ -2191,6 +2191,10 @@ def _run_structural_checker(
             from .formal_patterns import prove_same_cycle_occurrence_partition
 
             return prove_same_cycle_occurrence_partition(model, candidate, **args)
+        if checker == "indexed_storage_flow":
+            from .storage_prover import prove_indexed_storage_flow
+
+            return prove_indexed_storage_flow(model, candidate, **args)
         if checker == "transaction_exclusion":
             return _transaction_exclusion(model, **args)
         if checker == "identity_carrier":

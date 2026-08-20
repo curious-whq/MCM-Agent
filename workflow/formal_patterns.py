@@ -3,6 +3,7 @@ from __future__ import annotations
 import re
 from typing import Any
 
+from .axiom_ir import expr_to_symbolic
 from .semantic import _call, _literal, _statement_rhs
 
 
@@ -550,6 +551,26 @@ def _occurrence_condition(
         if value is None:
             return None
         result = _and(result, _not(value))
+    for test in grounding.get("value_tests", []):
+        if not isinstance(test, dict) or not isinstance(test.get("expr"), dict):
+            return None
+        try:
+            symbolic = expr_to_symbolic(test["expr"])
+        except (KeyError, TypeError, ValueError):
+            return None
+        relation = test.get("relation")
+        expected = test.get("value")
+        if relation not in {"eq", "neq"} or not isinstance(expected, int):
+            return None
+        comparison = _bool_expr(
+            model,
+            bool_refs,
+            f"eq({symbolic}, UInt({expected}))",
+            opaque=opaque,
+        )
+        if comparison is None:
+            return None
+        result = _and(result, comparison if relation == "eq" else _not(comparison))
     return result
 
 
@@ -598,6 +619,38 @@ def prove_combinational_forbid_when(
     return {
         "status": STRUCTURAL_UNKNOWN,
         "reason": "local Boolean reasoning does not prove exclusion",
+        "atom_count": atoms,
+    }
+
+
+def prove_unconditional_signal_equality(
+    model: Any,
+    candidate: dict[str, Any],
+    *,
+    target: str,
+    source: str,
+) -> dict[str, Any]:
+    """Prove an unconditional one-bit equality from the exact Boolean cones."""
+
+    refs = _bool_refs(model, candidate) | {target, source}
+    _propagate_bool_refs(model, target, refs)
+    _propagate_bool_refs(model, source, refs)
+    left = _bool_expr(model, refs, target)
+    right = _bool_expr(model, refs, source)
+    if left is None or right is None:
+        return {"status": STRUCTURAL_UNKNOWN, "reason": "no exact Boolean cone for both signals"}
+    mismatch = _or(_and(left, _not(right)), _and(right, _not(left)))
+    unsat, atoms = _unsat(mismatch)
+    if unsat is True:
+        return {
+            "status": STRUCTURALLY_SUPPORTED,
+            "proof": f"{target} and {source} have identical exact Boolean values",
+            "proof_domain": "exact-unconditional-combinational-equality",
+            "atom_count": atoms,
+        }
+    return {
+        "status": STRUCTURAL_UNKNOWN,
+        "reason": "unconditional Boolean equality is not established",
         "atom_count": atoms,
     }
 

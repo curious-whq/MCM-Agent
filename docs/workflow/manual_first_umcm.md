@@ -2,51 +2,45 @@
 
 ## Purpose
 
-The final MCM-Agent should run bottom-up µMCM abstraction and synthesis with an
-LLM provider. During the BOOM research phase, the workflow is already real but
-the provider is manual: every semantic task is exported as a self-contained
-prompt package, discussed in a ChatGPT conversation, then imported back into the
-same deterministic validation path.
-
-The manual and future API modes therefore share the same boundary:
+MCM-Agent 当前已经具备真实的 bottom-up µMCM abstraction/composition workflow；“manual-first”只表示 provider 仍由人工把自包含 prompt 送入 ChatGPT，再把最终 JSON 搬回 run directory。静态 handoff、schema、grounding、formal validation、freeze 与 parent composition 都是确定性的 provider-independent pipeline。
 
 ```text
-Static WorkUnit
-    -> Static Handoff
-    -> LLMTask / PromptPackage
+Hierarchical WorkUnit
+    -> static_handoff.json
+    -> LeafAbstractionTask / ParentSynthesisTask
     -> provider
        current: manual ChatGPT conversation
        future : API provider
-    -> candidate µMCM JSON with Formal Axiom ASTs
-    -> deterministic grounding validation
-    -> formal-axiom compiler
+    -> candidate µMCM (umcm-formal-0.5)
     -> grounding validation
-    -> deterministic structural/control/dataflow support checks
-    -> bit-level RTL formal backend
-    -> trusted µMCM (formal/spec-proved axioms only)
+    -> Formal AST compiler
+    -> deterministic structural evidence
+    -> explicit formal backend
+    -> parent composition prover when needed
+    -> trusted_umcm.json
+    -> frozen_umcm.json
 ```
 
-No API call exists in this stage.
+## Current versions
 
-## Current formal schema
+```text
+workflow          manual-first-workflow-0.9
+leaf prompt       leaf-abstraction-prompt-0.9
+parent prompt     parent-synthesis-prompt-0.2
+µMCM schema       umcm-formal-0.5
+handoff schema    workunit-static-0.1
+planner           hierarchical-planner-v11
+```
 
-`umcm-formal-0.3` keeps the v0.2 distinction between instantaneous occurrences
-and persistent predicates, but changes the axiom layer fundamentally:
+## Formal schema
 
-- `occurrences`: grounded boundary occurrences plus strictly grounded internal milestones;
-- `predicates`: persistent interface/control facts;
-- identity keys and guarded cases;
-- `axioms[].formal`: a structured Formal AST and the **only** semantic source of truth;
-- environment assumptions, unresolved questions, rationale and extensions.
+`axioms[].formal` 是唯一语义源。当前 AST 支持 ordering/exclusion/identity/value、join、same-cycle `occurrence_partition`、bounded indexed coverage、index-variable lookup 与 reference-spec relations。human-readable formula、references 与 checker/proof obligation 都由 workflow 确定性派生。
 
-The LLM no longer supplies a free-form `formula` plus a separate `validation`
-object. The workflow deterministically derives the human-readable formula,
-semantic references, checker type and proof-obligation arguments from the Formal
-AST. Unsupported AST forms fail closed.
+LLM 不再提供 legacy `formula` / `validation` 双轨字段；导入时会拒绝这些字段。
 
-## Create the first leaf task
+## Leaf task
 
-For the real BOOM ProbeUnit:
+例如：
 
 ```bash
 python3 -m workflow.cli leaf-task SmallBoomV4Config.fir \
@@ -55,7 +49,7 @@ python3 -m workflow.cli leaf-task SmallBoomV4Config.fir \
   --run-root runs
 ```
 
-The task directory contains:
+run directory 至少包含：
 
 ```text
 task.json
@@ -63,77 +57,81 @@ prompt.md
 static_handoff.json
 expected_output_schema.json
 status.json
+EXPERIENCE.md
+SUMMARY.md
 ```
 
-`prompt.md` is self-contained. It can be pasted into the current conversation or
-into a fresh ChatGPT conversation without replaying the project history.
+`prompt.md` 自包含 WorkUnit evidence；source root 可解析时带 source snippets，否则保留 exact FIRRTL statement ledger。
 
-If `--source-root` resolves FIRRTL source locators, grounded Scala snippets are
-embedded. Otherwise the prompt falls back to the exact FIRRTL statement ledger
-and source locators instead of guessing unavailable source text.
-
-## Import a converged manual answer
-
-Save the final conversation response to a file and run:
+## Manual import
 
 ```bash
-python3 -m workflow.cli manual-import \
-  runs/<task-id> response.md
-```
-
-or pipe it on stdin:
-
-```bash
+python3 -m workflow.cli manual-import runs/<task-id> response.md
+# 或
 cat response.md | python3 -m workflow.cli manual-import runs/<task-id> -
 ```
 
-The deterministic grounding validator checks:
+Grounding validator 检查 task/work-unit/schema identity、IDs、evidence scope、physical event/state/signal、derived occurrence machine grounding、dynamic indexed selection、case/axiom closure，以及 parent imported semantic namespace/provenance。
 
-- task / WorkUnit / schema identity;
-- unique result IDs;
-- boundary occurrences reference physical WorkUnit events;
-- derived occurrences have explicit state/signal grounding and evidence;
-- predicates and identity carriers reference concrete WorkUnit state/signals;
-- every evidence statement ID is inside the WorkUnit;
-- cases and Formal AST axioms reference defined semantic IDs/signals;
-- legacy axiom `formula` / `validation` fields are rejected;
-- axioms are still marked `candidate`.
+Grounding valid 只说明候选可追溯到当前 WorkUnit，不代表 axiom 已被证明。
 
-Then collect structural evidence and invoke the configured formal backend:
+## Semantic/formal validation
 
 ```bash
-python3 -m workflow.cli semantic-validate runs/<task-id> --formal-backend none
+python3 -m workflow.cli semantic-validate \
+  runs/<task-id> --formal-backend explicit-control
 ```
 
-The command writes `semantic_validation.json`, `property_obligations.json`, and
-`trusted_umcm.json`.
+写出：
 
-The formal-axiom compiler turns each Formal AST axiom into one of the
-currently supported deterministic proof obligations; the LLM does not choose
-the checker separately: finite-control history ordering,
-transaction-path exclusion, occurrence-vs-predicate exclusion, identity-carrier
-stability/dataflow, exact same-cycle one-hot occurrence partition, direct signal
-aliasing, and static constant-bit checks.
-The finite-control graph over-approximates data-dependent FSM branches and does
-not assume ready/valid progress.
+```text
+property_obligations.json
+semantic_validation.json
+trusted_umcm.json
+status.json
+SUMMARY.md
+```
 
-These checks now produce evidence levels rather than a generic PASS:
+`explicit-control` 当前覆盖 finite-control exhaustive reachability、exact combinational exclusion、exact symbolic equality/identity、scalar/same-index token provenance、bounded indexed coverage、same-cycle occurrence partition、constant-bit 与 selected reference-spec proofs。
 
-- `GROUNDED`: the candidate references concrete WorkUnit evidence;
-- `PARTIALLY_SUPPORTED`: deterministic analysis supports only part of the claim;
-- `STRUCTURALLY_SUPPORTED`: the extracted control/dataflow model supports the encoded obligation;
-- `FORMALLY_PROVED`: a bit-level RTL formal backend proves the obligation;
-- `SPEC_PROVED`: the RTL property is also proved against an external/reference protocol spec;
-- `REFUTED`: a counterexample refutes the candidate obligation.
+在 parent synthesis 中，涉及 imported child semantics 的 obligation 不会被 parent-local checker 重开 child RTL；随后由 `composition-prover-0.4` 使用 trusted frozen theorems 与 exact parent-local bridges 尝试关闭。
 
-Only `FORMALLY_PROVED` and `SPEC_PROVED` axioms may enter `trusted_umcm.json`.
-Structural support is intentionally insufficient. With `--formal-backend explicit-control`, the current real BoomProbeUnit result is
-7 `FORMALLY_PROVED` + 1 `SPEC_PROVED`, so all eight declared axioms enter the
-trusted/frozen summary. The backend remains fail-closed outside its certified
-control, exact-symbolic and selected finite-reference proof domains.
+## Trust policy
 
-## Why this is not temporary glue
+候选与 trust 严格分离：
 
-The future API provider will consume the same `LLMTask` and produce the same
-candidate envelope. Static handoff, parsing, grounding, refinement history, and
-all downstream validators do not need to be rewritten when the provider changes.
+```text
+GROUNDED
+  -> PARTIALLY_SUPPORTED / STRUCTURALLY_SUPPORTED / REFUTED
+  -> FORMALLY_PROVED / SPEC_PROVED
+```
+
+只有 `FORMALLY_PROVED` / `SPEC_PROVED` 能进入 `trusted_umcm.json`。
+
+## Freeze
+
+```bash
+python3 -m workflow.cli freeze runs/<task-id>
+```
+
+要求：所有 declared candidate axioms trusted、无 unresolved、无 counterexample。parent 还要求 certificate-derived provenance 与 candidate declaration 一致。
+
+成功后写 `frozen_umcm.json` 并进入 `FROZEN_FOR_COMPOSITION`。parent frozen summary 会透明保留 child imports；后续更高层只消费 frozen semantics，不重开 child RTL。
+
+## Parent synthesis and theorem reuse
+
+`parent-task` 为每个 direct child attach 一个 frozen summary。优先 exact child-id；对于 generic module theorem，可在 proof-scope SHA-256 与 transitive structural SHA-256 都匹配后实例化到 concrete child slot。多个匹配或结构变化均 fail closed。
+
+因此当前 manual-first workflow 已经覆盖：
+
+```text
+leaf abstraction
+  -> formal trust
+  -> freeze
+  -> verified child reuse/import
+  -> parent synthesis
+  -> composition proof
+  -> parent freeze
+```
+
+未来把 manual provider 替换为 API provider，不需要改变这条验证链。

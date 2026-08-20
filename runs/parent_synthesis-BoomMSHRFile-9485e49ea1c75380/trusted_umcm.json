@@ -1,0 +1,1239 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [
+        "C1_PrimaryMSHRAccepted",
+        "C2_SecondaryMSHRAccepted",
+        "C3_MMIOAccepted"
+      ],
+      "evidence_statement_ids": [
+        4,
+        5,
+        6,
+        48,
+        128,
+        130,
+        1388,
+        1389,
+        1390,
+        1391,
+        1392,
+        1393,
+        1395
+      ],
+      "formal": {
+        "parts": [
+          "PrimaryMSHRAccept",
+          "SecondaryMSHRAccept",
+          "MMIOAccept"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "RequestAccept"
+      },
+      "id": "A1",
+      "rendered_formula": "RequestAccept <=> exactly_one_same_cycle({PrimaryMSHRAccept, SecondaryMSHRAccept, MMIOAccept})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_MMIOAccepted"
+      ],
+      "evidence_statement_ids": [
+        5,
+        6,
+        843,
+        845,
+        960,
+        979,
+        981,
+        1389,
+        1393,
+        1395
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mmios_0::ReqAccept"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "MMIOAccept"
+      },
+      "id": "A2",
+      "rendered_formula": "MMIOAccept <=> exactly_one_same_cycle({BoomMSHRFile.mmios_0::ReqAccept})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        1003,
+        1004,
+        1006,
+        1007,
+        1025,
+        1026,
+        1027,
+        1029,
+        1030,
+        1031,
+        1083,
+        1084,
+        1085,
+        1086,
+        1087,
+        1088,
+        1089,
+        1090,
+        1091,
+        1099,
+        1100
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::MemAcquire",
+          "BoomMSHRFile.mshrs_1::MemAcquire",
+          "BoomMSHRFile.mmios_0::MemAccess"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "MemAcquire"
+      },
+      "id": "A3",
+      "rendered_formula": "MemAcquire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::MemAcquire, BoomMSHRFile.mshrs_1::MemAcquire, BoomMSHRFile.mmios_0::MemAccess})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        162,
+        467,
+        476,
+        478,
+        787,
+        796,
+        798,
+        969,
+        970,
+        971,
+        972,
+        974
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::MemGrant",
+          "BoomMSHRFile.mshrs_1::MemGrant",
+          "MMIOGrantDelivery"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "MemGrant"
+      },
+      "id": "A4",
+      "rendered_formula": "MemGrant <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::MemGrant, BoomMSHRFile.mshrs_1::MemGrant, MMIOGrantDelivery})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        1178,
+        1179,
+        1181,
+        1194,
+        1195,
+        1197,
+        1198,
+        1240,
+        1241,
+        1242,
+        1243,
+        1244,
+        1245,
+        1251,
+        1252
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::MemFinish",
+          "BoomMSHRFile.mshrs_1::MemFinish"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "MemFinish"
+      },
+      "id": "A5",
+      "rendered_formula": "MemFinish <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::MemFinish, BoomMSHRFile.mshrs_1::MemFinish})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        831,
+        832,
+        833
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.meta_read_arb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "MetaRead"
+      },
+      "id": "A6",
+      "rendered_formula": "MetaRead <=> exactly_one_same_cycle({BoomMSHRFile.meta_read_arb::OutputFire})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        454
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::MetaRead"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomMSHRFile.meta_read_arb::Input0Fire"
+      },
+      "id": "A7",
+      "rendered_formula": "BoomMSHRFile.meta_read_arb::Input0Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::MetaRead})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        774
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mshrs_1::MetaRead"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomMSHRFile.meta_read_arb::Input1Fire"
+      },
+      "id": "A8",
+      "rendered_formula": "BoomMSHRFile.meta_read_arb::Input1Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_1::MetaRead})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        828,
+        829,
+        830
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.meta_write_arb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "MetaWrite"
+      },
+      "id": "A9",
+      "rendered_formula": "MetaWrite <=> exactly_one_same_cycle({BoomMSHRFile.meta_write_arb::OutputFire})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        834,
+        835,
+        836
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.wb_req_arb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "WBReq"
+      },
+      "id": "A10",
+      "rendered_formula": "WBReq <=> exactly_one_same_cycle({BoomMSHRFile.wb_req_arb::OutputFire})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        458
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::WBReq"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomMSHRFile.wb_req_arb::Input0Fire"
+      },
+      "id": "A11",
+      "rendered_formula": "BoomMSHRFile.wb_req_arb::Input0Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::WBReq})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        778
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mshrs_1::WBReq"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomMSHRFile.wb_req_arb::Input1Fire"
+      },
+      "id": "A12",
+      "rendered_formula": "BoomMSHRFile.wb_req_arb::Input1Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_1::WBReq})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        1402,
+        1403,
+        1404
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.refill_arb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "Refill"
+      },
+      "id": "A13",
+      "rendered_formula": "Refill <=> exactly_one_same_cycle({BoomMSHRFile.refill_arb::OutputFire})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        460
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::CommitRefillBeat"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomMSHRFile.refill_arb::Input0Fire"
+      },
+      "id": "A14",
+      "rendered_formula": "BoomMSHRFile.refill_arb::Input0Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::CommitRefillBeat})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        780
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mshrs_1::CommitRefillBeat"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomMSHRFile.refill_arb::Input1Fire"
+      },
+      "id": "A15",
+      "rendered_formula": "BoomMSHRFile.refill_arb::Input1Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_1::CommitRefillBeat})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        1430,
+        1431,
+        1432
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.replay_arb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "Replay"
+      },
+      "id": "A16",
+      "rendered_formula": "Replay <=> exactly_one_same_cycle({BoomMSHRFile.replay_arb::OutputFire})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        459
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::ReplayHandshake"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomMSHRFile.replay_arb::Input0Fire"
+      },
+      "id": "A17",
+      "rendered_formula": "BoomMSHRFile.replay_arb::Input0Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::ReplayHandshake})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        779
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mshrs_1::ReplayHandshake"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomMSHRFile.replay_arb::Input1Fire"
+      },
+      "id": "A18",
+      "rendered_formula": "BoomMSHRFile.replay_arb::Input1Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_1::ReplayHandshake})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        481
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mshrs_0::RespHandshake"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomMSHRFile.resp_arb::Input0Fire"
+      },
+      "id": "A19",
+      "rendered_formula": "BoomMSHRFile.resp_arb::Input0Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::RespHandshake})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        801
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mshrs_1::RespHandshake"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomMSHRFile.resp_arb::Input1Fire"
+      },
+      "id": "A20",
+      "rendered_formula": "BoomMSHRFile.resp_arb::Input1Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_1::RespHandshake})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        975
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.mmios_0::RespHandshake"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomMSHRFile.resp_arb::Input2Fire"
+      },
+      "id": "A21",
+      "rendered_formula": "BoomMSHRFile.resp_arb::Input2Fire <=> exactly_one_same_cycle({BoomMSHRFile.mmios_0::RespHandshake})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C4_ResponseBuffered"
+      ],
+      "evidence_statement_ids": [
+        1384
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.resp_arb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomMSHRFile.respq::EnqHandshake"
+      },
+      "id": "A22",
+      "rendered_formula": "BoomMSHRFile.respq::EnqHandshake <=> exactly_one_same_cycle({BoomMSHRFile.resp_arb::OutputFire})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C5_VisibleResponse"
+      ],
+      "evidence_statement_ids": [
+        1385,
+        1386,
+        1387
+      ],
+      "formal": {
+        "parts": [
+          "BoomMSHRFile.respq::DeqHandshake"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "RespHandshake"
+      },
+      "id": "A23",
+      "rendered_formula": "RespHandshake <=> exactly_one_same_cycle({BoomMSHRFile.respq::DeqHandshake})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C5_VisibleResponse"
+      ],
+      "evidence_statement_ids": [
+        1385,
+        1386,
+        1387
+      ],
+      "formal": {
+        "after": "RespHandshake",
+        "before": "BoomMSHRFile.respq::QueueInsert",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "id": "A24",
+      "rendered_formula": "BoomMSHRFile.respq::QueueInsert <mu RespHandshake",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        12
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.prefetch.valid",
+            "op": "signal"
+          }
+        },
+        "on": null,
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "id": "A25",
+      "rendered_formula": "bits(io.prefetch.valid, 0, 0) == 0",
+      "status": "candidate"
+    }
+  ],
+  "cases": [
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        128,
+        130,
+        166,
+        169,
+        186,
+        188,
+        506,
+        508,
+        1388,
+        1391,
+        1395
+      ],
+      "guard_predicates": [],
+      "id": "C1_PrimaryMSHRAccepted",
+      "relations": [
+        "A cacheable accepted request with no current index match takes the primary-MSHR allocation path."
+      ],
+      "trigger_occurrences": [
+        "PrimaryMSHRAccept"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        128,
+        130,
+        192,
+        196,
+        479,
+        512,
+        516,
+        799,
+        800,
+        1390,
+        1391,
+        1395
+      ],
+      "guard_predicates": [],
+      "id": "C2_SecondaryMSHRAccepted",
+      "relations": [
+        "A cacheable accepted request with an existing index match takes a matching secondary-MSHR path."
+      ],
+      "trigger_occurrences": [
+        "SecondaryMSHRAccept"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [
+        "BoomMSHRFile.mmios_0::ReqAccept"
+      ],
+      "evidence_statement_ids": [
+        843,
+        845,
+        960,
+        979,
+        981,
+        1389,
+        1393,
+        1395
+      ],
+      "guard_predicates": [],
+      "id": "C3_MMIOAccepted",
+      "relations": [
+        "A non-cacheable accepted request crosses the singleton MMIO allocation arbiter into the frozen BoomIOMSHR."
+      ],
+      "trigger_occurrences": [
+        "MMIOAccept"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [
+        "BoomMSHRFile.respq::EnqHandshake"
+      ],
+      "evidence_statement_ids": [
+        1383,
+        1384
+      ],
+      "guard_predicates": [],
+      "id": "C4_ResponseBuffered",
+      "relations": [
+        "The response-arbiter output is the response-queue enqueue handshake; response-queue kill filtering determines whether it becomes QueueInsert."
+      ],
+      "trigger_occurrences": [
+        "BoomMSHRFile.resp_arb::OutputFire"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        1385,
+        1386,
+        1387
+      ],
+      "guard_predicates": [],
+      "id": "C5_VisibleResponse",
+      "relations": [
+        "The top response handshake is exactly the frozen response-queue dequeue handshake."
+      ],
+      "trigger_occurrences": [
+        "RespHandshake"
+      ]
+    }
+  ],
+  "identity_keys": [],
+  "note": "Only axioms with FORMALLY_PROVED or SPEC_PROVED validation level are included. Grounded/structurally-supported candidate axioms remain outside the trusted abstraction.",
+  "occurrences": [
+    {
+      "definition": "io.req[0].valid && io.req[0].ready",
+      "evidence_statement_ids": [
+        4,
+        5,
+        6,
+        1395
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.req[0].valid",
+          "io.req[0].ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "RequestAccept",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHRFile::io.req[0].fire"
+      ]
+    },
+    {
+      "definition": "io.req[0].valid && io.req[0].ready && cacheable && !idx_match[0]",
+      "evidence_statement_ids": [
+        5,
+        48,
+        128,
+        129,
+        130,
+        1391,
+        1392,
+        1393,
+        1394,
+        1395
+      ],
+      "grounding": {
+        "signals_false": [
+          "idx_match[0]"
+        ],
+        "signals_true": [
+          "io.req[0].valid",
+          "io.req[0].ready",
+          "cacheable"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "PrimaryMSHRAccept",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "io.req[0].valid && io.req[0].ready && cacheable && idx_match[0]",
+      "evidence_statement_ids": [
+        5,
+        48,
+        128,
+        129,
+        130,
+        1390,
+        1391,
+        1392,
+        1393,
+        1394,
+        1395
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.req[0].valid",
+          "io.req[0].ready",
+          "cacheable",
+          "idx_match[0]"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "SecondaryMSHRAccept",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "io.req[0].valid && io.req[0].ready && !cacheable",
+      "evidence_statement_ids": [
+        5,
+        48,
+        960,
+        1389,
+        1393,
+        1394,
+        1395
+      ],
+      "grounding": {
+        "signals_false": [
+          "cacheable"
+        ],
+        "signals_true": [
+          "io.req[0].valid",
+          "io.req[0].ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "MMIOAccept",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "io.mem_acquire.valid && io.mem_acquire.ready",
+      "evidence_statement_ids": [
+        1003,
+        1004,
+        1071,
+        1100
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.mem_acquire.valid",
+          "io.mem_acquire.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "MemAcquire",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHRFile::io.mem_acquire.fire"
+      ]
+    },
+    {
+      "definition": "io.mem_grant.valid && io.mem_grant.ready",
+      "evidence_statement_ids": [
+        162,
+        476,
+        478,
+        796,
+        798,
+        969,
+        974
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.mem_grant.valid",
+          "io.mem_grant.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "MemGrant",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHRFile::io.mem_grant.fire"
+      ]
+    },
+    {
+      "definition": "io.mem_grant.valid && io.mem_grant.ready && io.mem_grant.bits.source == 3",
+      "evidence_statement_ids": [
+        162,
+        969,
+        970,
+        971,
+        972,
+        973,
+        974
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.mem_grant.valid",
+          "io.mem_grant.ready"
+        ],
+        "state_register": null,
+        "state_values": [],
+        "value_tests": [
+          {
+            "expr": {
+              "name": "io.mem_grant.bits.source",
+              "op": "signal"
+            },
+            "relation": "eq",
+            "value": 3
+          }
+        ]
+      },
+      "id": "MMIOGrantDelivery",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "io.mem_finish.valid && io.mem_finish.ready",
+      "evidence_statement_ids": [
+        1178,
+        1229,
+        1252
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.mem_finish.valid",
+          "io.mem_finish.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "MemFinish",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHRFile::io.mem_finish.fire"
+      ]
+    },
+    {
+      "definition": "io.meta_read.valid && io.meta_read.ready",
+      "evidence_statement_ids": [
+        831,
+        832,
+        833
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.meta_read.valid",
+          "io.meta_read.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "MetaRead",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHRFile::io.meta_read.fire"
+      ]
+    },
+    {
+      "definition": "io.meta_write.valid && io.meta_write.ready",
+      "evidence_statement_ids": [
+        828,
+        829,
+        830
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.meta_write.valid",
+          "io.meta_write.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "MetaWrite",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHRFile::io.meta_write.fire"
+      ]
+    },
+    {
+      "definition": "io.wb_req.valid && io.wb_req.ready",
+      "evidence_statement_ids": [
+        834,
+        835,
+        836
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.wb_req.valid",
+          "io.wb_req.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "WBReq",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHRFile::io.wb_req.fire"
+      ]
+    },
+    {
+      "definition": "io.refill.valid && io.refill.ready",
+      "evidence_statement_ids": [
+        1402,
+        1403,
+        1404
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.refill.valid",
+          "io.refill.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "Refill",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHRFile::io.refill.fire"
+      ]
+    },
+    {
+      "definition": "io.replay.valid && io.replay.ready",
+      "evidence_statement_ids": [
+        1430,
+        1431,
+        1432
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.replay.valid",
+          "io.replay.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "Replay",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHRFile::io.replay.fire"
+      ]
+    },
+    {
+      "definition": "io.resp.valid && io.resp.ready",
+      "evidence_statement_ids": [
+        1385,
+        1386,
+        1387
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.resp.valid",
+          "io.resp.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "RespHandshake",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHRFile::io.resp.fire"
+      ]
+    }
+  ],
+  "predicates": [],
+  "provenance": {
+    "A1": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-same-cycle-occurrence-partition",
+      "source_axioms": []
+    },
+    "A10": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A11": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A12": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A13": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A14": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A15": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A16": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A17": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A18": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A19": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A2": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "emergent",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": [
+        "BoomMSHRFile.mmio_alloc_arb::A3",
+        "BoomMSHRFile.mmio_alloc_arb::A4"
+      ]
+    },
+    "A20": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A21": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A22": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A23": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A24": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "emergent",
+      "proof_method": "trusted-history-after-restriction",
+      "source_axioms": [
+        "BoomMSHRFile.respq::A9"
+      ]
+    },
+    "A25": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "lifted",
+      "proof_method": "trusted-child-value-lift",
+      "source_axioms": [
+        "BoomMSHRFile.prefetcher::A1"
+      ]
+    },
+    "A3": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A4": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A5": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A6": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A7": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A8": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A9": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    }
+  },
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "parent_synthesis-BoomMSHRFile-9485e49ea1c75380",
+  "trust_policy": "formal-ast-plus-certified-provenance-v0.3",
+  "trusted_axiom_ids": [
+    "A1",
+    "A10",
+    "A11",
+    "A12",
+    "A13",
+    "A14",
+    "A15",
+    "A16",
+    "A17",
+    "A18",
+    "A19",
+    "A2",
+    "A20",
+    "A21",
+    "A22",
+    "A23",
+    "A24",
+    "A25",
+    "A3",
+    "A4",
+    "A5",
+    "A6",
+    "A7",
+    "A8",
+    "A9"
+  ],
+  "work_unit_id": "BoomMSHRFile"
+}

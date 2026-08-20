@@ -472,3 +472,32 @@ bottom-up replacement input:
 Thus v10 reaches the intended structural fixed point: a genuinely large LSU is
 recursively decomposed, child internals are replaced by summary slots, and the
 remaining parent input becomes manageable without dropping or duplicating RTL.
+
+## v11: structural implementation identity for theorem reuse
+
+The planner now exports a transitive structural implementation fingerprint via
+`module_structural_sha256()`. The hash deliberately replaces generated child
+module names with the recursively computed child structural hash, so the
+identity is stable across elaborations that rename generated modules while
+preserving the actual implementation structure.
+
+The structural fingerprint is **not** a proof by itself. Parent composition
+uses two independent identities:
+
+```text
+proof-scope implementation SHA-256
+    = instance-path-independent hash of the exact WorkUnit proof surface
+
+transitive structural implementation SHA-256
+    = generated-module-name-independent recursive RTL structure hash
+```
+
+A frozen generic module theorem may be instantiated for a concrete child slot
+only when `workflow.composition` verifies both the source proof scope and the
+target transitive structural fingerprint. Exact child-id matches remain the
+simplest reuse path. Ambiguous or mismatched templates fail closed.
+
+This v11 addition connects the static planner to reusable bottom-up proofs: a
+parent can consume a theorem proved once for a generic module WorkUnit without
+reopening the equivalent child RTL, while still rejecting reuse after a real
+implementation change.

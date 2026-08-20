@@ -45,6 +45,51 @@
       "id": "A2",
       "rendered_formula": "io.out.bits = io.in[0].bits on InputFire",
       "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_Passthrough"
+      ],
+      "evidence_statement_ids": [
+        7,
+        8,
+        9
+      ],
+      "formal": {
+        "on": null,
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[0].valid",
+          "op": "signal"
+        },
+        "target": "io.out.valid",
+        "type": "signal_equality"
+      },
+      "id": "A3",
+      "rendered_formula": "io.out.valid = io.in[0].valid",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_Passthrough"
+      ],
+      "evidence_statement_ids": [
+        5,
+        6
+      ],
+      "formal": {
+        "on": null,
+        "scope_identity": null,
+        "source": {
+          "name": "io.out.ready",
+          "op": "signal"
+        },
+        "target": "io.in[0].ready",
+        "type": "signal_equality"
+      },
+      "id": "A4",
+      "rendered_formula": "io.in[0].ready = io.out.ready",
+      "status": "candidate"
     }
   ],
   "cases": [
@@ -72,11 +117,11 @@
     }
   ],
   "freeze": {
-    "candidate_axiom_count": 2,
+    "candidate_axiom_count": 4,
     "policy": "all-declared-axioms-trusted-and-no-unresolved-v0.1",
     "reopen_policy": "This summary may be reopened if later parent/system counterexample validation shows the abstraction is too weak and a missing concrete constraint must be synthesized.",
     "status": "FROZEN_FOR_COMPOSITION",
-    "trusted_axiom_count": 2
+    "trusted_axiom_count": 4
   },
   "identity_keys": [],
   "note": "Only axioms with FORMALLY_PROVED or SPEC_PROVED validation level are included. Grounded/structurally-supported candidate axioms remain outside the trusted abstraction.",
@@ -129,7 +174,9 @@
   "trust_policy": "formal-ast-plus-certified-provenance-v0.3",
   "trusted_axiom_ids": [
     "A1",
-    "A2"
+    "A2",
+    "A3",
+    "A4"
   ],
   "work_unit_id": "BoomMSHRFile.mmio_alloc_arb"
 }

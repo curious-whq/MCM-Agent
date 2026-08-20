@@ -4,6 +4,7 @@ from dataclasses import dataclass
 import re
 from typing import Any
 
+from .axiom_ir import expr_to_symbolic
 from .composition import FROZEN_STATUS, _canonical_sha256
 from .formal_patterns import (
     _and,
@@ -84,7 +85,7 @@ def derive_composition_provenance(formal_proof: dict[str, Any]) -> dict[str, Any
     elif method == "trusted-history-after-restriction":
         kind = "emergent" if source_axioms else "parent_local"
     elif method == "exact-parent-child-occurrence-partition":
-        kind = "parent_local"
+        kind = "emergent" if source_axioms else "parent_local"
     elif method == "trusted-occurrence-partition-substitution":
         kind = "emergent" if source_axioms else "parent_local"
     elif method == "trusted-child-value-lift":
@@ -112,12 +113,30 @@ def _qualified_formal(unit_id: str, formal: dict[str, Any]) -> dict[str, Any]:
             result[key] = _qualify(unit_id, result[key])
     if isinstance(result.get("parts"), list):
         result["parts"] = [_qualify(unit_id, item) for item in result["parts"]]
+    if result.get("type") == "indexed_storage_flow":
+        result["write"] = dict(result.get("write", {}))
+        result["read"] = dict(result.get("read", {}))
+        if result["write"].get("on"):
+            result["write"]["on"] = _qualify(unit_id, result["write"]["on"])
+        if result["read"].get("request"):
+            result["read"]["request"] = _qualify(unit_id, result["read"]["request"])
+        result["relations"] = {
+            name: _qualify(unit_id, relation)
+            for name, relation in result.get("relations", {}).items()
+        }
     return result
 
 
 def _theorem(formal: dict[str, Any], source_id: str, certificate: dict[str, Any]) -> Theorem | None:
     kind = str(formal.get("type", ""))
-    if kind not in {"forbid_when", "ordered_before", "occurrence_partition", "value_constraint"}:
+    if kind not in {
+        "forbid_when",
+        "ordered_before",
+        "occurrence_partition",
+        "signal_equality",
+        "value_constraint",
+        "indexed_storage_flow",
+    }:
         return None
     return Theorem(kind=kind, formal=dict(formal), source_id=source_id, certificate=certificate)
 
@@ -287,13 +306,41 @@ def _effective_signal_condition(
     signal: str,
     *,
     source_occurrence: dict[str, Any] | None = None,
+    opaque_signals: set[str] | None = None,
 ) -> tuple[tuple[Any, ...], dict[str, Any]] | None:
     refs = _bool_refs(model, candidate)
+    opaque_signals = set(opaque_signals or set())
+    directed_writer_ids = {
+        int(item)
+        for edge in model.handoff.get("dependency_edges", [])
+        if edge.get("kind") == "data" and edge.get("dst") == signal
+        for item in edge.get("statement_ids", [])
+    }
+    child_frontier_signals = {
+        str(frontier)
+        for summary in model.handoff.get("composition", {}).get("child_summaries", [])
+        if isinstance(summary, dict)
+        for frontier in summary.get("frontier_signals", [])
+    }
+    directed_frontier_sources = {
+        str(edge.get("src"))
+        for edge in model.handoff.get("dependency_edges", [])
+        if edge.get("kind") == "data" and edge.get("dst") == signal
+        and str(edge.get("src")) in child_frontier_signals
+    }
     writers = [
         statement
         for statement in model.statements.values()
-        if signal in {str(item) for item in statement.get("drives", [])}
+        if (
+            signal in {str(item) for item in statement.get("drives", [])}
+            or int(statement.get("id", -1)) in directed_writer_ids
+        )
         and statement.get("kind") not in {"node", "reg", "regreset", "when"}
+        # Dependency-edge statement_ids also contain the surrounding lowered
+        # when/else blocks.  They explain activation, but are not themselves
+        # value writers.  Keep only statements for which an exact RHS can be
+        # projected onto this leaf signal.
+        and _statement_target_rhs(model, statement, signal) is not None
     ]
     if not writers:
         incoming = [
@@ -314,7 +361,12 @@ def _effective_signal_condition(
                         int(item) for edge in incoming for item in edge.get("statement_ids", [])
                     }),
                 }
-        expr = _bool_expr(model, refs | {signal}, signal, opaque={signal})
+        expr = _bool_expr(
+            model,
+            refs | {signal},
+            signal,
+            opaque=opaque_signals,
+        )
         return None if expr is None else (expr, {"signal": signal, "kind": "frontier-input"})
 
     source_states = {
@@ -371,7 +423,12 @@ def _effective_signal_condition(
         activation, activation_certificate = activation_info
         writer_refs = set(refs)
         _propagate_bool_refs(model, rhs, writer_refs)
-        value = _bool_expr(model, writer_refs, rhs)
+        value = _bool_expr(
+            model,
+            writer_refs,
+            rhs,
+            opaque=directed_frontier_sources | opaque_signals,
+        )
         if value is None:
             return None
         if current is None:
@@ -520,17 +577,71 @@ def _parent_occurrence_condition(
     refs = _bool_refs(model, candidate)
     local_ids = {str(item.get("id")) for item in candidate.get("occurrences", [])}
     if occurrence_id in local_ids:
-        condition = _exact_boundary_or_derived_occurrence_condition(
-            model,
-            candidate,
-            occurrence_id,
-            refs,
+        occurrence = next(
+            item for item in candidate.get("occurrences", [])
+            if str(item.get("id")) == occurrence_id
         )
-        if condition is None:
-            return None
+        grounding = occurrence.get("grounding", {})
+        positive = [str(item) for item in grounding.get("signals_true", [])]
+        negative = [str(item) for item in grounding.get("signals_false", [])]
+        if occurrence.get("kind") == "boundary":
+            physical = occurrence.get("physical_event_ids", [])
+            event = model._event_info(physical[0]) if len(physical) == 1 else None
+            if not isinstance(event, dict):
+                return None
+            positive = [
+                str(event[key]) for key in ("valid", "ready")
+                if isinstance(event.get(key), str)
+            ]
+        if not positive and not negative:
+            condition = _exact_boundary_or_derived_occurrence_condition(
+                model,
+                candidate,
+                occurrence_id,
+                refs,
+            )
+            if condition is None:
+                return None
+            signal_certificates: list[dict[str, Any]] = []
+        else:
+            condition = _const(True)
+            signal_certificates = []
+            for signal, negated in [
+                *[(signal, False) for signal in positive],
+                *[(signal, True) for signal in negative],
+            ]:
+                effective = _effective_signal_condition(
+                    model,
+                    candidate,
+                    signal,
+                )
+                if effective is None:
+                    return None
+                value, certificate = effective
+                condition = _and(condition, _not(value) if negated else value)
+                signal_certificates.append(certificate)
+            for test in grounding.get("value_tests", []):
+                if not isinstance(test, dict) or not isinstance(test.get("expr"), dict):
+                    return None
+                try:
+                    symbolic = expr_to_symbolic(test["expr"])
+                except (KeyError, TypeError, ValueError):
+                    return None
+                value = test.get("value")
+                relation = test.get("relation")
+                if not isinstance(value, int) or relation not in {"eq", "neq"}:
+                    return None
+                comparison = _bool_expr(model, refs, f"eq({symbolic}, UInt({value}))")
+                if comparison is None:
+                    return None
+                condition = _and(
+                    condition,
+                    comparison if relation == "eq" else _not(comparison),
+                )
         return condition, {
             "kind": "exact-parent-local-occurrence-condition",
             "occurrence": occurrence_id,
+            "signal_proofs": signal_certificates,
         }
 
     imported = imported_occurrences.get(occurrence_id)
@@ -625,6 +736,85 @@ def _prove_parent_occurrence_equivalence(
         "atom_count": atoms,
         "left_condition": left_certificate,
         "right_condition": right_certificate,
+    }
+
+
+def _trusted_child_signal_equality_assumption(
+    theorem: Theorem,
+    *,
+    candidate: dict[str, Any],
+    handoff: dict[str, Any],
+    model: HandoffControlModel,
+) -> tuple[tuple[Any, ...], dict[str, Any]] | None:
+    """Map an unconditional frozen child signal equality onto parent frontier wires."""
+
+    formal = theorem.formal
+    source = formal.get("source")
+    if (
+        theorem.kind != "signal_equality"
+        or formal.get("on") is not None
+        or not isinstance(formal.get("target"), str)
+        or not isinstance(source, dict)
+        or source.get("op") != "signal"
+        or not isinstance(source.get("name"), str)
+        or theorem.certificate.get("kind") != "frozen-theorem"
+    ):
+        return None
+    unit_id = str(theorem.certificate.get("work_unit_id", ""))
+    summaries = handoff.get("composition", {}).get("child_summaries", [])
+    summary = next(
+        (
+            item for item in summaries
+            if isinstance(item, dict) and str(item.get("child_id", "")) == unit_id
+        ),
+        None,
+    )
+    parent_path = str(handoff.get("work_unit", {}).get("instance_path", ""))
+    if summary is None or not parent_path or not unit_id.startswith(parent_path + "."):
+        return None
+    relative = unit_id[len(parent_path) + 1:]
+    left = f"{relative}.{formal['target']}"
+    right = f"{relative}.{source['name']}"
+    frontier = {str(item) for item in summary.get("frontier_signals", [])}
+    if left not in frontier or right not in frontier:
+        return None
+    refs = _bool_refs(model, candidate) | {left, right}
+
+    def parent_value(signal: str) -> tuple[tuple[Any, ...], dict[str, Any]] | None:
+        outgoing = [
+            edge for edge in handoff.get("dependency_edges", [])
+            if edge.get("kind") == "data" and edge.get("src") == signal
+        ]
+        incoming = [
+            edge for edge in handoff.get("dependency_edges", [])
+            if edge.get("kind") == "data" and edge.get("dst") == signal
+        ]
+        if outgoing and not incoming:
+            value = _bool_expr(model, refs, signal, opaque={signal})
+            return None if value is None else (value, {
+                "signal": signal,
+                "kind": "exposed-child-frontier-output",
+            })
+        return _effective_signal_condition(model, candidate, signal)
+
+    left_value = parent_value(left)
+    right_value = parent_value(right)
+    if left_value is None or right_value is None:
+        return None
+    left_expr, left_mapping = left_value
+    right_expr, right_mapping = right_value
+    equality = _and(
+        _or(_not(left_expr), right_expr),
+        _or(_not(right_expr), left_expr),
+    )
+    return equality, {
+        "kind": "trusted-child-combinational-signal-equality",
+        "source_theorem": theorem.certificate,
+        "left_parent_frontier_signal": left,
+        "right_parent_frontier_signal": right,
+        "left_parent_mapping": left_mapping,
+        "right_parent_mapping": right_mapping,
+        "child_rtl_reopened": False,
     }
 
 
@@ -732,6 +922,81 @@ def _prove_onehot0_register_invariant(
     }
 
 
+def _finite_value_atom_constraints(
+    expressions: list[tuple[Any, ...]],
+) -> tuple[tuple[Any, ...], dict[str, Any] | None]:
+    """Add exact consistency lemmas between equality and nonzero atoms."""
+
+    atoms = {atom for expression in expressions for atom in _atoms(expression)}
+    nonzero = {
+        atom[1]: atom
+        for atom in atoms
+        if len(atom) == 2 and atom[0] == "nz" and isinstance(atom[1], tuple)
+    }
+    equalities: dict[tuple[Any, ...], list[tuple[int, tuple[Any, ...]]]] = {}
+    for atom in atoms:
+        if len(atom) != 2 or atom[0] != "pred":
+            continue
+        call = atom[1]
+        if (
+            not isinstance(call, tuple)
+            or len(call) != 3
+            or call[0] != "call"
+            or call[1] != "eq"
+            or not isinstance(call[2], tuple)
+            or len(call[2]) != 2
+        ):
+            continue
+        literal = next(
+            (item for item in call[2] if isinstance(item, tuple) and len(item) == 2 and item[0] == "lit"),
+            None,
+        )
+        if literal is None:
+            continue
+        others = [item for item in call[2] if item is not literal]
+        if len(others) != 1:
+            continue
+        equalities.setdefault(others[0], []).append((int(literal[1]), atom))
+
+    constraint = _const(True)
+    records: list[dict[str, Any]] = []
+    for value_expr, tests in equalities.items():
+        nz_atom = nonzero.get(value_expr)
+        for value, equality_atom in tests:
+            equality_expr = ("atom", equality_atom)
+            if nz_atom is not None:
+                nz_expr = ("atom", nz_atom)
+                implication = (
+                    _or(_not(equality_expr), nz_expr)
+                    if value != 0
+                    else _or(_not(equality_expr), _not(nz_expr))
+                )
+                constraint = _and(constraint, implication)
+                records.append({
+                    "kind": "equality-nonzero-consistency",
+                    "value_expr": repr(value_expr),
+                    "value": value,
+                })
+        for position, (left_value, left_atom) in enumerate(tests):
+            for right_value, right_atom in tests[position + 1:]:
+                if left_value == right_value:
+                    continue
+                constraint = _and(
+                    constraint,
+                    _not(_and(("atom", left_atom), ("atom", right_atom))),
+                )
+                records.append({
+                    "kind": "distinct-equalities-mutually-exclusive",
+                    "value_expr": repr(value_expr),
+                    "values": [left_value, right_value],
+                })
+    certificate = None if not records else {
+        "kind": "exact-finite-value-atom-consistency",
+        "lemmas": records,
+    }
+    return constraint, certificate
+
+
 def _prove_parent_occurrence_partition(
     formal: dict[str, Any],
     *,
@@ -739,6 +1004,7 @@ def _prove_parent_occurrence_partition(
     handoff: dict[str, Any],
     model: HandoffControlModel,
     imported_occurrences: dict[str, dict[str, Any]],
+    trusted_signal_equalities: list[Theorem] | None = None,
 ) -> dict[str, Any] | None:
     if formal.get("relation") != "same_cycle_exactly_one":
         return None
@@ -761,6 +1027,23 @@ def _prove_parent_occurrence_partition(
     expressions = {key: value[0] for key, value in resolved.items() if value is not None}
     invariant = _const(True)
     invariant_certificates: list[dict[str, Any]] = []
+    trusted_signal_certificates: list[dict[str, Any]] = []
+    for theorem in trusted_signal_equalities or []:
+        equality = _trusted_child_signal_equality_assumption(
+            theorem,
+            candidate=candidate,
+            handoff=handoff,
+            model=model,
+        )
+        if equality is None:
+            return None
+        constraint, certificate = equality
+        invariant = _and(invariant, constraint)
+        trusted_signal_certificates.append(certificate)
+    value_constraint, value_certificate = _finite_value_atom_constraints(
+        list(expressions.values())
+    )
+    invariant = _and(invariant, value_constraint)
     referenced_atoms = {
         atom
         for expression in expressions.values()
@@ -823,6 +1106,8 @@ def _prove_parent_occurrence_partition(
         },
         "obligations": obligations,
         "inductive_invariants": invariant_certificates,
+        "trusted_signal_equalities": trusted_signal_certificates,
+        "finite_value_consistency": value_certificate,
         "child_rtl_reopened": False,
     }
 
@@ -1057,12 +1342,27 @@ def prove_composition_obligations(
 
             proof: dict[str, Any] | None = None
             if target.get("type") == "occurrence_partition":
+                declared = (
+                    candidate.get("extensions", {})
+                    .get("parent_synthesis", {})
+                    .get("axiom_provenance", {})
+                    .get(axiom_id, {})
+                )
+                declared_sources = {
+                    str(item) for item in declared.get("source_axioms", [])
+                } if isinstance(declared, dict) else set()
+                trusted_signal_equalities = [
+                    source for source in facts
+                    if source.kind == "signal_equality"
+                    and source.source_id in declared_sources
+                ]
                 partition = _prove_parent_occurrence_partition(
                     target,
                     candidate=candidate,
                     handoff=handoff,
                     model=model,
                     imported_occurrences=imported_occurrences,
+                    trusted_signal_equalities=trusted_signal_equalities,
                 )
                 if partition is not None:
                     proof = {
@@ -1075,15 +1375,6 @@ def prove_composition_obligations(
                             "partition": partition,
                         },
                     }
-                declared = (
-                    candidate.get("extensions", {})
-                    .get("parent_synthesis", {})
-                    .get("axiom_provenance", {})
-                    .get(axiom_id, {})
-                )
-                declared_sources = {
-                    str(item) for item in declared.get("source_axioms", [])
-                } if isinstance(declared, dict) else set()
                 partition_sources = [
                     source for source in facts
                     if not declared_sources or source.source_id in declared_sources

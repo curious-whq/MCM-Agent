@@ -335,6 +335,321 @@ Next Action: audit direct-child freeze readiness for `BoomMSHRFile`, freeze any 
 
 ## Recent WorkUnit Runs
 
+### Run: `parent_synthesis-BoomMSHRFile-9485e49ea1c75380`
+
+# Run Summary — BoomMSHRFile
+
+## Identity
+
+- task: `parent_synthesis-BoomMSHRFile-9485e49ea1c75380`
+- kind: `parent_synthesis`
+- workflow: `manual-first-workflow-0.9`
+- prompt: `parent-synthesis-prompt-0.2`
+- schema: `umcm-formal-0.5`
+- workflow status: `FROZEN_FOR_COMPOSITION`
+
+## Grounding
+
+- valid: `True`
+- errors: 0
+- warnings: 0
+
+## Candidate µMCM
+
+- occurrences: 14
+- predicates: 0
+- identity keys: 0
+- cases: 5
+- candidate axioms: 25
+- unresolved: 0
+
+## Validation
+
+- GROUNDED: 0
+- PARTIALLY_SUPPORTED: 0
+- STRUCTURALLY_SUPPORTED: 0
+- FORMALLY_PROVED: 25
+- SPEC_PROVED: 0
+- REFUTED: 0
+- trusted axioms: 25
+- formal backend: `explicit-control`
+
+## Axioms
+
+- `A1` [FORMALLY_PROVED] RequestAccept <=> exactly_one_same_cycle({PrimaryMSHRAccept, SecondaryMSHRAccept, MMIOAccept})
+- `A2` [FORMALLY_PROVED] MMIOAccept <=> exactly_one_same_cycle({BoomMSHRFile.mmios_0::ReqAccept})
+- `A3` [FORMALLY_PROVED] MemAcquire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::MemAcquire, BoomMSHRFile.mshrs_1::MemAcquire, BoomMSHRFile.mmios_0::MemAccess})
+- `A4` [FORMALLY_PROVED] MemGrant <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::MemGrant, BoomMSHRFile.mshrs_1::MemGrant, MMIOGrantDelivery})
+- `A5` [FORMALLY_PROVED] MemFinish <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::MemFinish, BoomMSHRFile.mshrs_1::MemFinish})
+- `A6` [FORMALLY_PROVED] MetaRead <=> exactly_one_same_cycle({BoomMSHRFile.meta_read_arb::OutputFire})
+- `A7` [FORMALLY_PROVED] BoomMSHRFile.meta_read_arb::Input0Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::MetaRead})
+- `A8` [FORMALLY_PROVED] BoomMSHRFile.meta_read_arb::Input1Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_1::MetaRead})
+- `A9` [FORMALLY_PROVED] MetaWrite <=> exactly_one_same_cycle({BoomMSHRFile.meta_write_arb::OutputFire})
+- `A10` [FORMALLY_PROVED] WBReq <=> exactly_one_same_cycle({BoomMSHRFile.wb_req_arb::OutputFire})
+- `A11` [FORMALLY_PROVED] BoomMSHRFile.wb_req_arb::Input0Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::WBReq})
+- `A12` [FORMALLY_PROVED] BoomMSHRFile.wb_req_arb::Input1Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_1::WBReq})
+- `A13` [FORMALLY_PROVED] Refill <=> exactly_one_same_cycle({BoomMSHRFile.refill_arb::OutputFire})
+- `A14` [FORMALLY_PROVED] BoomMSHRFile.refill_arb::Input0Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::CommitRefillBeat})
+- `A15` [FORMALLY_PROVED] BoomMSHRFile.refill_arb::Input1Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_1::CommitRefillBeat})
+- `A16` [FORMALLY_PROVED] Replay <=> exactly_one_same_cycle({BoomMSHRFile.replay_arb::OutputFire})
+- `A17` [FORMALLY_PROVED] BoomMSHRFile.replay_arb::Input0Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::ReplayHandshake})
+- `A18` [FORMALLY_PROVED] BoomMSHRFile.replay_arb::Input1Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_1::ReplayHandshake})
+- `A19` [FORMALLY_PROVED] BoomMSHRFile.resp_arb::Input0Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::RespHandshake})
+- `A20` [FORMALLY_PROVED] BoomMSHRFile.resp_arb::Input1Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_1::RespHandshake})
+- `A21` [FORMALLY_PROVED] BoomMSHRFile.resp_arb::Input2Fire <=> exactly_one_same_cycle({BoomMSHRFile.mmios_0::RespHandshake})
+- `A22` [FORMALLY_PROVED] BoomMSHRFile.respq::EnqHandshake <=> exactly_one_same_cycle({BoomMSHRFile.resp_arb::OutputFire})
+- `A23` [FORMALLY_PROVED] RespHandshake <=> exactly_one_same_cycle({BoomMSHRFile.respq::DeqHandshake})
+- `A24` [FORMALLY_PROVED] BoomMSHRFile.respq::QueueInsert <mu RespHandshake
+- `A25` [FORMALLY_PROVED] bits(io.prefetch.valid, 0, 0) == 0
+
+## Certified provenance
+
+- `A1` [parent_local; exact-same-cycle-occurrence-partition] <- parent-local proof
+- `A10` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A11` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A12` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A13` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A14` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A15` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A16` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A17` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A18` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A19` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A2` [emergent; exact-parent-child-occurrence-partition] <- `BoomMSHRFile.mmio_alloc_arb::A3`, `BoomMSHRFile.mmio_alloc_arb::A4`
+- `A20` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A21` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A22` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A23` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A24` [emergent; trusted-history-after-restriction] <- `BoomMSHRFile.respq::A9`
+- `A25` [lifted; trusted-child-value-lift] <- `BoomMSHRFile.prefetcher::A1`
+- `A3` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A4` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A5` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A6` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A7` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A8` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A9` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+
+## Next action
+
+A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
+
+## Durable experiment notes
+
+See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
+
+### Experiment experience
+
+# Experiment Experience
+
+Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
+
+## INPUT_NEEDED
+
+-
+
+## PROMPT_RULE
+
+-
+
+## SCHEMA_CHANGE
+
+-
+
+## VALIDATOR_CHANGE
+
+-
+
+## MODEL_FAILURE
+
+-
+
+## GENERALIZATION
+
+-
+
+### Run: `leaf_abstraction-BoomNonBlockingDCache.meta_0-42629071bfba9ff5`
+
+# Run Summary — BoomNonBlockingDCache.meta_0
+
+## Identity
+
+- task: `leaf_abstraction-BoomNonBlockingDCache.meta_0-42629071bfba9ff5`
+- kind: `leaf_abstraction`
+- workflow: `manual-first-workflow-0.9`
+- prompt: `leaf-abstraction-prompt-0.9`
+- schema: `umcm-formal-0.5`
+- workflow status: `PENDING_MANUAL_LLM`
+
+## Next action
+
+Send prompt.md to a ChatGPT conversation, converge on a candidate, then import the final response.
+
+## Durable experiment notes
+
+See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
+
+### Experiment experience
+
+# Experiment Experience
+
+Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
+
+## INPUT_NEEDED
+
+-
+
+## PROMPT_RULE
+
+-
+
+## SCHEMA_CHANGE
+
+-
+
+## VALIDATOR_CHANGE
+
+-
+
+## MODEL_FAILURE
+
+-
+
+## GENERALIZATION
+
+-
+
+### Run: `parent_synthesis-BoomMSHRFile-adf43e298d82a651`
+
+# Run Summary — BoomMSHRFile
+
+## Identity
+
+- task: `parent_synthesis-BoomMSHRFile-adf43e298d82a651`
+- kind: `parent_synthesis`
+- workflow: `manual-first-workflow-0.9`
+- prompt: `parent-synthesis-prompt-0.2`
+- schema: `umcm-formal-0.5`
+- workflow status: `PARTIALLY_FORMALLY_VALIDATED`
+
+## Grounding
+
+- valid: `True`
+- errors: 0
+- warnings: 0
+
+## Candidate µMCM
+
+- occurrences: 14
+- predicates: 0
+- identity keys: 0
+- cases: 5
+- candidate axioms: 25
+- unresolved: 0
+
+## Validation
+
+- GROUNDED: 2
+- PARTIALLY_SUPPORTED: 0
+- STRUCTURALLY_SUPPORTED: 0
+- FORMALLY_PROVED: 23
+- SPEC_PROVED: 0
+- REFUTED: 0
+- trusted axioms: 23
+- formal backend: `explicit-control`
+
+## Axioms
+
+- `A1` [FORMALLY_PROVED] RequestAccept <=> exactly_one_same_cycle({PrimaryMSHRAccept, SecondaryMSHRAccept, MMIOAccept})
+- `A2` [GROUNDED] MMIOAccept <=> exactly_one_same_cycle({BoomMSHRFile.mmios_0::ReqAccept})
+- `A3` [FORMALLY_PROVED] MemAcquire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::MemAcquire, BoomMSHRFile.mshrs_1::MemAcquire, BoomMSHRFile.mmios_0::MemAccess})
+- `A4` [GROUNDED] MemGrant <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::MemGrant, BoomMSHRFile.mshrs_1::MemGrant, MMIOGrantDelivery})
+- `A5` [FORMALLY_PROVED] MemFinish <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::MemFinish, BoomMSHRFile.mshrs_1::MemFinish})
+- `A6` [FORMALLY_PROVED] MetaRead <=> exactly_one_same_cycle({BoomMSHRFile.meta_read_arb::OutputFire})
+- `A7` [FORMALLY_PROVED] BoomMSHRFile.meta_read_arb::Input0Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::MetaRead})
+- `A8` [FORMALLY_PROVED] BoomMSHRFile.meta_read_arb::Input1Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_1::MetaRead})
+- `A9` [FORMALLY_PROVED] MetaWrite <=> exactly_one_same_cycle({BoomMSHRFile.meta_write_arb::OutputFire})
+- `A10` [FORMALLY_PROVED] WBReq <=> exactly_one_same_cycle({BoomMSHRFile.wb_req_arb::OutputFire})
+- `A11` [FORMALLY_PROVED] BoomMSHRFile.wb_req_arb::Input0Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::WBReq})
+- `A12` [FORMALLY_PROVED] BoomMSHRFile.wb_req_arb::Input1Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_1::WBReq})
+- `A13` [FORMALLY_PROVED] Refill <=> exactly_one_same_cycle({BoomMSHRFile.refill_arb::OutputFire})
+- `A14` [FORMALLY_PROVED] BoomMSHRFile.refill_arb::Input0Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::CommitRefillBeat})
+- `A15` [FORMALLY_PROVED] BoomMSHRFile.refill_arb::Input1Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_1::CommitRefillBeat})
+- `A16` [FORMALLY_PROVED] Replay <=> exactly_one_same_cycle({BoomMSHRFile.replay_arb::OutputFire})
+- `A17` [FORMALLY_PROVED] BoomMSHRFile.replay_arb::Input0Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::ReplayHandshake})
+- `A18` [FORMALLY_PROVED] BoomMSHRFile.replay_arb::Input1Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_1::ReplayHandshake})
+- `A19` [FORMALLY_PROVED] BoomMSHRFile.resp_arb::Input0Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_0::RespHandshake})
+- `A20` [FORMALLY_PROVED] BoomMSHRFile.resp_arb::Input1Fire <=> exactly_one_same_cycle({BoomMSHRFile.mshrs_1::RespHandshake})
+- `A21` [FORMALLY_PROVED] BoomMSHRFile.resp_arb::Input2Fire <=> exactly_one_same_cycle({BoomMSHRFile.mmios_0::RespHandshake})
+- `A22` [FORMALLY_PROVED] BoomMSHRFile.respq::EnqHandshake <=> exactly_one_same_cycle({BoomMSHRFile.resp_arb::OutputFire})
+- `A23` [FORMALLY_PROVED] RespHandshake <=> exactly_one_same_cycle({BoomMSHRFile.respq::DeqHandshake})
+- `A24` [FORMALLY_PROVED] BoomMSHRFile.respq::QueueInsert <mu RespHandshake
+- `A25` [FORMALLY_PROVED] bits(io.prefetch.valid, 0, 0) == 0
+
+## Certified provenance
+
+- `A1` [parent_local; exact-same-cycle-occurrence-partition] <- parent-local proof
+- `A10` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A11` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A12` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A13` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A14` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A15` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A16` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A17` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A18` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A19` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A20` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A21` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A22` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A23` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A24` [emergent; trusted-history-after-restriction] <- `BoomMSHRFile.respq::A9`
+- `A25` [lifted; trusted-child-value-lift] <- `BoomMSHRFile.prefetcher::A1`
+- `A3` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A5` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A6` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A7` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A8` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+- `A9` [parent_local; exact-parent-child-occurrence-partition] <- parent-local proof
+
+## Next action
+
+Freeze only the proved axioms already present in trusted_umcm.json; keep the remaining candidate axioms outside the trusted abstraction until a stronger backend proves them.
+
+## Durable experiment notes
+
+See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
+
+### Experiment experience
+
+# Experiment Experience
+
+Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
+
+## INPUT_NEEDED
+
+-
+
+## PROMPT_RULE
+
+-
+
+## SCHEMA_CHANGE
+
+-
+
+## VALIDATOR_CHANGE
+
+-
+
+## MODEL_FAILURE
+
+-
+
+## GENERALIZATION
+
+-
+
 ### Run: `leaf_abstraction-BoomMSHRFile.respq-95e53b3103df506e`
 
 # Run Summary — BoomMSHRFile.respq
@@ -538,7 +853,7 @@ Keep only lessons that should survive this conversation. Delete empty bullets in
 - predicates: 0
 - identity keys: 0
 - cases: 1
-- candidate axioms: 2
+- candidate axioms: 4
 - unresolved: 0
 
 ## Validation
@@ -546,16 +861,18 @@ Keep only lessons that should survive this conversation. Delete empty bullets in
 - GROUNDED: 0
 - PARTIALLY_SUPPORTED: 0
 - STRUCTURALLY_SUPPORTED: 0
-- FORMALLY_PROVED: 2
+- FORMALLY_PROVED: 4
 - SPEC_PROVED: 0
 - REFUTED: 0
-- trusted axioms: 2
+- trusted axioms: 4
 - formal backend: `explicit-control`
 
 ## Axioms
 
 - `A1` [FORMALLY_PROVED] OutputFire <=> exactly_one_same_cycle({InputFire})
 - `A2` [FORMALLY_PROVED] io.out.bits = io.in[0].bits on InputFire
+- `A3` [FORMALLY_PROVED] io.out.valid = io.in[0].valid
+- `A4` [FORMALLY_PROVED] io.in[0].ready = io.out.ready
 
 ## Next action
 
@@ -797,7 +1114,7 @@ Keep only lessons that should survive this conversation. Delete empty bullets in
 - workflow: `manual-first-workflow-0.9`
 - prompt: `leaf-abstraction-prompt-0.8`
 - schema: `umcm-formal-0.5`
-- workflow status: `GROUNDING_VALID`
+- workflow status: `FROZEN_FOR_COMPOSITION`
 
 ## Grounding
 
@@ -850,7 +1167,7 @@ Keep only lessons that should survive this conversation. Delete empty bullets in
 
 ## Next action
 
-Run `mcm-agent semantic-validate <task_dir>`; grounding is complete, but no axiom is trusted until formal proof.
+A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
 
 ## Durable experiment notes
 
@@ -1121,291 +1438,6 @@ Keep only lessons that should survive this conversation. Delete empty bullets in
 - `A10` [FORMALLY_PROVED] io.out.bits.tag = io.in[1].bits.tag on Input1Fire
 - `A11` [FORMALLY_PROVED] io.out.bits.data.coh.state = io.in[1].bits.data.coh.state on Input1Fire
 - `A12` [FORMALLY_PROVED] io.out.bits.data.tag = io.in[1].bits.data.tag on Input1Fire
-
-## Next action
-
-A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
-
-## Durable experiment notes
-
-See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
-
-### Experiment experience
-
-# Experiment Experience
-
-Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
-
-## INPUT_NEEDED
-
--
-
-## PROMPT_RULE
-
--
-
-## SCHEMA_CHANGE
-
--
-
-## VALIDATOR_CHANGE
-
--
-
-## MODEL_FAILURE
-
--
-
-## GENERALIZATION
-
--
-
-### Run: `leaf_abstraction-BoomMSHRFile.prefetcher-974790994b1992ac`
-
-# Run Summary — BoomMSHRFile.prefetcher
-
-## Identity
-
-- task: `leaf_abstraction-BoomMSHRFile.prefetcher-974790994b1992ac`
-- kind: `leaf_abstraction`
-- workflow: `manual-first-workflow-0.9`
-- prompt: `leaf-abstraction-prompt-0.6`
-- schema: `umcm-formal-0.5`
-- workflow status: `FROZEN_FOR_COMPOSITION`
-
-## Grounding
-
-- valid: `True`
-- errors: 0
-- warnings: 0
-
-## Candidate µMCM
-
-- occurrences: 1
-- predicates: 1
-- identity keys: 0
-- cases: 0
-- candidate axioms: 2
-- unresolved: 0
-
-## Validation
-
-- GROUNDED: 0
-- PARTIALLY_SUPPORTED: 0
-- STRUCTURALLY_SUPPORTED: 0
-- FORMALLY_PROVED: 2
-- SPEC_PROVED: 0
-- REFUTED: 0
-- trusted axioms: 2
-- formal backend: `explicit-control`
-
-## Axioms
-
-- `A1` [FORMALLY_PROVED] bits(io.prefetch.valid, 0, 0) == 0
-- `A2` [FORMALLY_PROVED] PrefetchDisabled => !PrefetchHandshake
-
-## Next action
-
-A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
-
-## Durable experiment notes
-
-See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
-
-### Experiment experience
-
-# Experiment Experience
-
-Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
-
-## INPUT_NEEDED
-
--
-
-## PROMPT_RULE
-
--
-
-## SCHEMA_CHANGE
-
--
-
-## VALIDATOR_CHANGE
-
--
-
-## MODEL_FAILURE
-
--
-
-## GENERALIZATION
-
--
-
-### Run: `parent_synthesis-BoomMSHR-6362a83e7f824669`
-
-# Run Summary — BoomMSHR
-
-## Identity
-
-- task: `parent_synthesis-BoomMSHR-6362a83e7f824669`
-- kind: `parent_synthesis`
-- workflow: `manual-first-workflow-0.9`
-- prompt: `parent-synthesis-prompt-0.1`
-- schema: `umcm-formal-0.5`
-- workflow status: `FROZEN_FOR_COMPOSITION`
-
-## Grounding
-
-- valid: `True`
-- errors: 0
-- warnings: 0
-
-## Candidate µMCM
-
-- occurrences: 16
-- predicates: 1
-- identity keys: 0
-- cases: 7
-- candidate axioms: 15
-- unresolved: 0
-
-## Validation
-
-- GROUNDED: 0
-- PARTIALLY_SUPPORTED: 0
-- STRUCTURALLY_SUPPORTED: 0
-- FORMALLY_PROVED: 15
-- SPEC_PROVED: 0
-- REFUTED: 0
-- trusted axioms: 15
-- formal backend: `explicit-control`
-
-## Axioms
-
-- `A1` [FORMALLY_PROVED] PrimaryAccept <mu MemAcquire
-- `A2` [FORMALLY_PROVED] MemAcquire <mu MemGrant
-- `A3` [FORMALLY_PROVED] GrantComplete <mu RespHandshake
-- `A4` [FORMALLY_PROVED] GrantComplete <mu MetaRead
-- `A5` [FORMALLY_PROVED] MetaRead <mu MetaClearWrite <mu WBReq <mu WBComplete
-- `A6` [FORMALLY_PROVED] MetaRead <mu CommitRefillBeat
-- `A7` [FORMALLY_PROVED] CommitRefillDone => forall beat in [0, 8): count(CommitRefillBeat(beat)) = 1
-- `A8` [FORMALLY_PROVED] RPQDrained <mu FinalMetaWrite
-- `A9` [FORMALLY_PROVED] GrantComplete <mu MemFinish
-- `A10` [FORMALLY_PROVED] GrantAckAbsent => !MemFinish
-- `A11` [FORMALLY_PROVED] io.lb_write.bits.data = io.mem_grant.bits.data on GrantDataWrite
-- `A12` [FORMALLY_PROVED] io.refill.bits.data = io.lb_resp on CommitRefillBeat
-- `A13` [FORMALLY_PROVED] io.mem_finish.bits.sink = grantack.bits.sink on MemFinish
-- `A14` [FORMALLY_PROVED] BoomMSHR.rpq.main::QueueInsert <mu RespHandshake
-- `A15` [FORMALLY_PROVED] BoomMSHR.rpq.main::QueueInsert <mu ReplayHandshake
-
-## Certified provenance
-
-- `A1` [parent_local; exhaustive-state-reachability] <- parent-local proof
-- `A10` [parent_local; exact-combinational-exclusion] <- parent-local proof
-- `A11` [parent_local; exact-symbolic-driver-equality] <- parent-local proof
-- `A12` [parent_local; exact-symbolic-driver-equality] <- parent-local proof
-- `A13` [parent_local; exact-symbolic-driver-equality] <- parent-local proof
-- `A14` [emergent; trusted-history-after-restriction] <- `BoomMSHR.rpq::A5`
-- `A15` [emergent; trusted-history-after-restriction] <- `BoomMSHR.rpq::A5`
-- `A2` [parent_local; exhaustive-state-reachability] <- parent-local proof
-- `A3` [parent_local; exhaustive-state-reachability] <- parent-local proof
-- `A4` [parent_local; exhaustive-state-reachability] <- parent-local proof
-- `A5` [parent_local; exhaustive-state-reachability] <- parent-local proof
-- `A6` [parent_local; exhaustive-state-reachability] <- parent-local proof
-- `A7` [parent_local; exact-bounded-indexed-occurrence] <- parent-local proof
-- `A8` [parent_local; exhaustive-state-reachability] <- parent-local proof
-- `A9` [parent_local; exhaustive-state-reachability] <- parent-local proof
-
-## Next action
-
-A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
-
-## Durable experiment notes
-
-See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
-
-### Experiment experience
-
-# Experiment Experience
-
-Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
-
-## INPUT_NEEDED
-
-## PROMPT_RULE
-
-## SCHEMA_CHANGE
-
-## VALIDATOR_CHANGE
-
-- A conservative structural counterexample must not suppress an available exact formal checker. `MemFinish && GrantAckAbsent` was admitted by the state-only abstraction but proved unsatisfiable by the concrete Boolean cone.
-
-## MODEL_FAILURE
-
-## GENERALIZATION
-
-- Exact indexed coverage can prove a counter starts at zero in a cyclic FSM by certifying zeroing transition cuts from reset, modulo-zero phase exits, and absence of nonzero writes outside the counted phase.
-- Generic history after-restriction composes `X < ChildBoundary` with `ParentOccurrence ⊆ ChildBoundary` to obtain `X < ParentOccurrence`; lowered state-case writer polarity must be certified for the local boundary bridge.
-
-### Run: `parent_synthesis-BoomMSHR.rpq-38a6826dc8c3b9dc`
-
-# Run Summary — BoomMSHR.rpq
-
-## Identity
-
-- task: `parent_synthesis-BoomMSHR.rpq-38a6826dc8c3b9dc`
-- kind: `parent_synthesis`
-- workflow: `manual-first-workflow-0.9`
-- prompt: `parent-synthesis-prompt-0.1`
-- schema: `umcm-formal-0.5`
-- workflow status: `FROZEN_FOR_COMPOSITION`
-
-## Grounding
-
-- valid: `True`
-- errors: 0
-- warnings: 0
-
-## Candidate µMCM
-
-- occurrences: 3
-- predicates: 3
-- identity keys: 0
-- cases: 5
-- candidate axioms: 7
-- unresolved: 0
-
-## Validation
-
-- GROUNDED: 0
-- PARTIALLY_SUPPORTED: 0
-- STRUCTURALLY_SUPPORTED: 0
-- FORMALLY_PROVED: 7
-- SPEC_PROVED: 0
-- REFUTED: 0
-- trusted axioms: 7
-- formal backend: `explicit-control`
-
-## Axioms
-
-- `A1` [FORMALLY_PROVED] BoomMSHR.rpq.main::QueueFull => !ParentEnqHandshake
-- `A2` [FORMALLY_PROVED] OutputInvalid => !ParentDeqHandshake
-- `A3` [FORMALLY_PROVED] BufferCapture <mu ParentDeqHandshake
-- `A4` [FORMALLY_PROVED] BoomMSHR.rpq.main::DeqHandshake <mu ParentDeqHandshake
-- `A5` [FORMALLY_PROVED] BoomMSHR.rpq.main::QueueInsert <mu ParentDeqHandshake
-- `A6` [FORMALLY_PROVED] TransferBranchKilled => !BufferCapture
-- `A7` [FORMALLY_PROVED] TransferFlushKilled => !BufferCapture
-
-## Certified provenance
-
-- `A1` [lifted; trusted-child-lift] <- `BoomMSHR.rpq.main::A1`
-- `A2` [parent_local; exact-combinational-exclusion] <- parent-local proof
-- `A3` [parent_local; exact-scalar-valid-token-provenance] <- parent-local proof
-- `A4` [parent_local; occurrence-bridge-history-composition] <- parent-local proof
-- `A5` [emergent; trusted-history-transitivity] <- `BoomMSHR.rpq.main::A11`
-- `A6` [parent_local; exact-combinational-exclusion] <- parent-local proof
-- `A7` [parent_local; exact-combinational-exclusion] <- parent-local proof
 
 ## Next action
 

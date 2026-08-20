@@ -1,0 +1,4187 @@
+{
+  "children": [],
+  "complexity": {
+    "event_state_coupling": 0.833333,
+    "events": 2,
+    "logical": {
+      "dependency_edges": 78,
+      "signals": 63,
+      "source_loc": 22,
+      "statements": 35
+    },
+    "memories": 1,
+    "raw": {
+      "dependency_edges": 115,
+      "signals": 357,
+      "source_loc": 22,
+      "statements": 91,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 1,
+    "state_regions": 1
+  },
+  "dependency_edges": [
+    {
+      "dst": "rstVal_meta.state",
+      "kind": "data",
+      "source": {
+        "column": 16,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Metadata.scala",
+        "line": 161,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Metadata.scala 161:16"
+      },
+      "src": "h0",
+      "statement_ids": [
+        4
+      ]
+    },
+    {
+      "dst": "rstVal.tag",
+      "kind": "data",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 306,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 306:14"
+      },
+      "src": "h0",
+      "statement_ids": [
+        6
+      ]
+    },
+    {
+      "dst": "rstVal.coh.state",
+      "kind": "data",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 307,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 307:14"
+      },
+      "src": "rstVal_meta.state",
+      "statement_ids": [
+        7
+      ]
+    },
+    {
+      "dst": "rst_cnt",
+      "kind": "clock",
+      "source": {
+        "column": 24,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 330,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 330:24"
+      },
+      "src": "clock",
+      "statement_ids": [
+        8
+      ]
+    },
+    {
+      "dst": "rst_cnt",
+      "kind": "reset",
+      "source": {
+        "column": 24,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 330,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 330:24"
+      },
+      "src": "h0",
+      "statement_ids": [
+        8
+      ]
+    },
+    {
+      "dst": "rst",
+      "kind": "data",
+      "source": {
+        "column": 21,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 331,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 331:21"
+      },
+      "src": "h40",
+      "statement_ids": [
+        9
+      ]
+    },
+    {
+      "dst": "rst",
+      "kind": "data",
+      "source": {
+        "column": 21,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 331,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 331:21"
+      },
+      "src": "rst_cnt",
+      "statement_ids": [
+        9
+      ]
+    },
+    {
+      "dst": "waddr",
+      "kind": "data",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 332,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 332:18"
+      },
+      "src": "io.write.bits.idx",
+      "statement_ids": [
+        10
+      ]
+    },
+    {
+      "dst": "waddr",
+      "kind": "data",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 332,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 332:18"
+      },
+      "src": "rst_cnt",
+      "statement_ids": [
+        10
+      ]
+    },
+    {
+      "dst": "waddr",
+      "kind": "control",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 332,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 332:18"
+      },
+      "src": "rst",
+      "statement_ids": [
+        10
+      ]
+    },
+    {
+      "dst": "_wdata_T",
+      "kind": "data",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 333,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 333:18"
+      },
+      "src": "io.write.bits.data",
+      "statement_ids": [
+        11
+      ]
+    },
+    {
+      "dst": "_wdata_T",
+      "kind": "data",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 333,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 333:18"
+      },
+      "src": "rstVal",
+      "statement_ids": [
+        11
+      ]
+    },
+    {
+      "dst": "_wdata_T",
+      "kind": "control",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 333,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 333:18"
+      },
+      "src": "rst",
+      "statement_ids": [
+        11
+      ]
+    },
+    {
+      "dst": "wdata",
+      "kind": "data",
+      "source": {
+        "column": 52,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 333,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 333:52"
+      },
+      "src": "_wdata_T.coh.state",
+      "statement_ids": [
+        12
+      ]
+    },
+    {
+      "dst": "wdata",
+      "kind": "data",
+      "source": {
+        "column": 52,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 333,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 333:52"
+      },
+      "src": "_wdata_T.tag",
+      "statement_ids": [
+        12
+      ]
+    },
+    {
+      "dst": "_wmask_T",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 334,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 334:23"
+      },
+      "src": "h0",
+      "statement_ids": [
+        13
+      ]
+    },
+    {
+      "dst": "_wmask_T",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 334,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 334:23"
+      },
+      "src": "rst",
+      "statement_ids": [
+        13
+      ]
+    },
+    {
+      "dst": "_wmask_T_1",
+      "kind": "data",
+      "source": {
+        "column": 71,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 334,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 334:71"
+      },
+      "src": "io.write.bits.way_en",
+      "statement_ids": [
+        14
+      ]
+    },
+    {
+      "dst": "_wmask_T_2",
+      "kind": "data",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 334,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 334:18"
+      },
+      "src": "_wmask_T_1",
+      "statement_ids": [
+        15
+      ]
+    },
+    {
+      "dst": "_wmask_T_2",
+      "kind": "data",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 334,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 334:18"
+      },
+      "src": "h1",
+      "statement_ids": [
+        15
+      ]
+    },
+    {
+      "dst": "_wmask_T_2",
+      "kind": "control",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 334,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 334:18"
+      },
+      "src": "_wmask_T",
+      "statement_ids": [
+        15
+      ]
+    },
+    {
+      "dst": "wmask_0",
+      "kind": "data",
+      "source": {
+        "column": 79,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 334,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 334:79"
+      },
+      "src": "_wmask_T_2",
+      "statement_ids": [
+        16
+      ]
+    },
+    {
+      "dst": "wmask_1",
+      "kind": "data",
+      "source": {
+        "column": 79,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 334,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 334:79"
+      },
+      "src": "_wmask_T_2",
+      "statement_ids": [
+        17
+      ]
+    },
+    {
+      "dst": "wmask_2",
+      "kind": "data",
+      "source": {
+        "column": 79,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 334,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 334:79"
+      },
+      "src": "_wmask_T_2",
+      "statement_ids": [
+        18
+      ]
+    },
+    {
+      "dst": "wmask_3",
+      "kind": "data",
+      "source": {
+        "column": 79,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 334,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 334:79"
+      },
+      "src": "_wmask_T_2",
+      "statement_ids": [
+        19
+      ]
+    },
+    {
+      "dst": "_rmask_T",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 335,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 335:23"
+      },
+      "src": "h0",
+      "statement_ids": [
+        20
+      ]
+    },
+    {
+      "dst": "_rmask_T",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 335,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 335:23"
+      },
+      "src": "rst",
+      "statement_ids": [
+        20
+      ]
+    },
+    {
+      "dst": "_rmask_T_1",
+      "kind": "data",
+      "source": {
+        "column": 70,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 335,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 335:70"
+      },
+      "src": "io.read.bits.way_en",
+      "statement_ids": [
+        21
+      ]
+    },
+    {
+      "dst": "_rmask_T_2",
+      "kind": "data",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 335,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 335:18"
+      },
+      "src": "_rmask_T_1",
+      "statement_ids": [
+        22
+      ]
+    },
+    {
+      "dst": "_rmask_T_2",
+      "kind": "data",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 335,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 335:18"
+      },
+      "src": "h1",
+      "statement_ids": [
+        22
+      ]
+    },
+    {
+      "dst": "_rmask_T_2",
+      "kind": "control",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 335,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 335:18"
+      },
+      "src": "_rmask_T",
+      "statement_ids": [
+        22
+      ]
+    },
+    {
+      "dst": "rmask_0",
+      "kind": "data",
+      "source": {
+        "column": 78,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 335,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 335:78"
+      },
+      "src": "_rmask_T_2",
+      "statement_ids": [
+        23
+      ]
+    },
+    {
+      "dst": "rmask_1",
+      "kind": "data",
+      "source": {
+        "column": 78,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 335,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 335:78"
+      },
+      "src": "_rmask_T_2",
+      "statement_ids": [
+        24
+      ]
+    },
+    {
+      "dst": "rmask_2",
+      "kind": "data",
+      "source": {
+        "column": 78,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 335,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 335:78"
+      },
+      "src": "_rmask_T_2",
+      "statement_ids": [
+        25
+      ]
+    },
+    {
+      "dst": "rmask_3",
+      "kind": "data",
+      "source": {
+        "column": 78,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 335,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 335:78"
+      },
+      "src": "_rmask_T_2",
+      "statement_ids": [
+        26
+      ]
+    },
+    {
+      "dst": "_rst_cnt_T",
+      "kind": "data",
+      "source": {
+        "column": 34,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 336,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 336:34"
+      },
+      "src": "h1",
+      "statement_ids": [
+        27,
+        28
+      ]
+    },
+    {
+      "dst": "_rst_cnt_T",
+      "kind": "data",
+      "source": {
+        "column": 34,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 336,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 336:34"
+      },
+      "src": "rst_cnt",
+      "statement_ids": [
+        27,
+        28
+      ]
+    },
+    {
+      "dst": "_rst_cnt_T",
+      "kind": "control",
+      "source": {
+        "column": 34,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 336,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 336:34"
+      },
+      "src": "rst",
+      "statement_ids": [
+        27,
+        28
+      ]
+    },
+    {
+      "dst": "_rst_cnt_T_1",
+      "kind": "data",
+      "source": {
+        "column": 34,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 336,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 336:34"
+      },
+      "src": "_rst_cnt_T",
+      "statement_ids": [
+        27,
+        29
+      ]
+    },
+    {
+      "dst": "_rst_cnt_T_1",
+      "kind": "control",
+      "source": {
+        "column": 34,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 336,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 336:34"
+      },
+      "src": "rst",
+      "statement_ids": [
+        27,
+        29
+      ]
+    },
+    {
+      "dst": "rst_cnt",
+      "kind": "state",
+      "source": {
+        "column": 24,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 336,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 336:24"
+      },
+      "src": "_rst_cnt_T_1",
+      "statement_ids": [
+        27,
+        30
+      ]
+    },
+    {
+      "dst": "rst_cnt",
+      "kind": "control",
+      "source": {
+        "column": 24,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 336,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 336:24"
+      },
+      "src": "rst",
+      "statement_ids": [
+        27,
+        30
+      ]
+    },
+    {
+      "dst": "wen",
+      "kind": "data",
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 340,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 340:17"
+      },
+      "src": "io.write.valid",
+      "statement_ids": [
+        32
+      ]
+    },
+    {
+      "dst": "wen",
+      "kind": "data",
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 340,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 340:17"
+      },
+      "src": "rst",
+      "statement_ids": [
+        32
+      ]
+    },
+    {
+      "dst": "_WIRE[0]",
+      "kind": "data",
+      "source": {
+        "column": 47,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:47"
+      },
+      "src": "wdata",
+      "statement_ids": [
+        33,
+        35
+      ]
+    },
+    {
+      "dst": "_WIRE[0]",
+      "kind": "control",
+      "source": {
+        "column": 47,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:47"
+      },
+      "src": "wen",
+      "statement_ids": [
+        33,
+        35
+      ]
+    },
+    {
+      "dst": "_WIRE[1]",
+      "kind": "data",
+      "source": {
+        "column": 47,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:47"
+      },
+      "src": "wdata",
+      "statement_ids": [
+        33,
+        36
+      ]
+    },
+    {
+      "dst": "_WIRE[1]",
+      "kind": "control",
+      "source": {
+        "column": 47,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:47"
+      },
+      "src": "wen",
+      "statement_ids": [
+        33,
+        36
+      ]
+    },
+    {
+      "dst": "_WIRE[2]",
+      "kind": "data",
+      "source": {
+        "column": 47,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:47"
+      },
+      "src": "wdata",
+      "statement_ids": [
+        33,
+        37
+      ]
+    },
+    {
+      "dst": "_WIRE[2]",
+      "kind": "control",
+      "source": {
+        "column": 47,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:47"
+      },
+      "src": "wen",
+      "statement_ids": [
+        33,
+        37
+      ]
+    },
+    {
+      "dst": "_WIRE[3]",
+      "kind": "data",
+      "source": {
+        "column": 47,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:47"
+      },
+      "src": "wdata",
+      "statement_ids": [
+        33,
+        38
+      ]
+    },
+    {
+      "dst": "_WIRE[3]",
+      "kind": "control",
+      "source": {
+        "column": 47,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:47"
+      },
+      "src": "wen",
+      "statement_ids": [
+        33,
+        38
+      ]
+    },
+    {
+      "dst": "_T",
+      "kind": "data",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "src": "waddr",
+      "statement_ids": [
+        33,
+        39
+      ]
+    },
+    {
+      "dst": "_T",
+      "kind": "control",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "src": "wen",
+      "statement_ids": [
+        33,
+        39
+      ]
+    },
+    {
+      "dst": "MPORT",
+      "kind": "address",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "src": "_T",
+      "statement_ids": [
+        40
+      ]
+    },
+    {
+      "dst": "MPORT",
+      "kind": "clock",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "src": "clock",
+      "statement_ids": [
+        40
+      ]
+    },
+    {
+      "dst": "MPORT",
+      "kind": "control",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "src": "wen",
+      "statement_ids": [
+        33,
+        40
+      ]
+    },
+    {
+      "dst": "MPORT[0]",
+      "kind": "data",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "src": "_WIRE[0]",
+      "statement_ids": [
+        33,
+        41,
+        42
+      ]
+    },
+    {
+      "dst": "MPORT[0]",
+      "kind": "control",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "src": "wen",
+      "statement_ids": [
+        33,
+        41,
+        42
+      ]
+    },
+    {
+      "dst": "MPORT[0]",
+      "kind": "control",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "src": "wmask_0",
+      "statement_ids": [
+        33,
+        41,
+        42
+      ]
+    },
+    {
+      "dst": "tag_array",
+      "kind": "state",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "src": "MPORT[0]",
+      "statement_ids": [
+        33,
+        41,
+        42
+      ]
+    },
+    {
+      "dst": "MPORT[1]",
+      "kind": "data",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "src": "_WIRE[1]",
+      "statement_ids": [
+        33,
+        43,
+        44
+      ]
+    },
+    {
+      "dst": "MPORT[1]",
+      "kind": "control",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "src": "wen",
+      "statement_ids": [
+        33,
+        43,
+        44
+      ]
+    },
+    {
+      "dst": "MPORT[1]",
+      "kind": "control",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "src": "wmask_1",
+      "statement_ids": [
+        33,
+        43,
+        44
+      ]
+    },
+    {
+      "dst": "tag_array",
+      "kind": "state",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "src": "MPORT[1]",
+      "statement_ids": [
+        33,
+        43,
+        44
+      ]
+    },
+    {
+      "dst": "MPORT[2]",
+      "kind": "data",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "src": "_WIRE[2]",
+      "statement_ids": [
+        33,
+        45,
+        46
+      ]
+    },
+    {
+      "dst": "MPORT[2]",
+      "kind": "control",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "src": "wen",
+      "statement_ids": [
+        33,
+        45,
+        46
+      ]
+    },
+    {
+      "dst": "MPORT[2]",
+      "kind": "control",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "src": "wmask_2",
+      "statement_ids": [
+        33,
+        45,
+        46
+      ]
+    },
+    {
+      "dst": "tag_array",
+      "kind": "state",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "src": "MPORT[2]",
+      "statement_ids": [
+        33,
+        45,
+        46
+      ]
+    },
+    {
+      "dst": "MPORT[3]",
+      "kind": "data",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "src": "_WIRE[3]",
+      "statement_ids": [
+        33,
+        47,
+        48
+      ]
+    },
+    {
+      "dst": "MPORT[3]",
+      "kind": "control",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "src": "wen",
+      "statement_ids": [
+        33,
+        47,
+        48
+      ]
+    },
+    {
+      "dst": "MPORT[3]",
+      "kind": "control",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "src": "wmask_3",
+      "statement_ids": [
+        33,
+        47,
+        48
+      ]
+    },
+    {
+      "dst": "tag_array",
+      "kind": "state",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "src": "MPORT[3]",
+      "statement_ids": [
+        33,
+        47,
+        48
+      ]
+    },
+    {
+      "dst": "_T_1",
+      "kind": "data",
+      "source": {
+        "column": 35,
+        "file": "src/main/scala/chisel3/util/Decoupled.scala",
+        "line": 51,
+        "raw": "src/main/scala/chisel3/util/Decoupled.scala 51:35"
+      },
+      "src": "io.read.ready",
+      "statement_ids": [
+        49
+      ]
+    },
+    {
+      "dst": "_T_1",
+      "kind": "data",
+      "source": {
+        "column": 35,
+        "file": "src/main/scala/chisel3/util/Decoupled.scala",
+        "line": 51,
+        "raw": "src/main/scala/chisel3/util/Decoupled.scala 51:35"
+      },
+      "src": "io.read.valid",
+      "statement_ids": [
+        49
+      ]
+    },
+    {
+      "dst": "_WIRE_1",
+      "kind": "data",
+      "source": {
+        "column": 28,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:28"
+      },
+      "src": "io.read.bits.idx",
+      "statement_ids": [
+        52,
+        53
+      ]
+    },
+    {
+      "dst": "_WIRE_1",
+      "kind": "control",
+      "source": {
+        "column": 28,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:28"
+      },
+      "src": "_T_1",
+      "statement_ids": [
+        52,
+        53
+      ]
+    },
+    {
+      "dst": "MPORT_1",
+      "kind": "memory",
+      "source": {
+        "column": 28,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:28"
+      },
+      "src": "tag_array",
+      "statement_ids": [
+        54
+      ]
+    },
+    {
+      "dst": "MPORT_1",
+      "kind": "address",
+      "source": {
+        "column": 28,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:28"
+      },
+      "src": "_WIRE_1",
+      "statement_ids": [
+        54
+      ]
+    },
+    {
+      "dst": "MPORT_1",
+      "kind": "clock",
+      "source": {
+        "column": 28,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:28"
+      },
+      "src": "clock",
+      "statement_ids": [
+        54
+      ]
+    },
+    {
+      "dst": "MPORT_1",
+      "kind": "control",
+      "source": {
+        "column": 28,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:28"
+      },
+      "src": "_T_1",
+      "statement_ids": [
+        52,
+        54
+      ]
+    },
+    {
+      "dst": "_WIRE_3",
+      "kind": "data",
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "src": "MPORT_1[0]",
+      "statement_ids": [
+        57
+      ]
+    },
+    {
+      "dst": "_T_2",
+      "kind": "data",
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "src": "_WIRE_3",
+      "statement_ids": [
+        58
+      ]
+    },
+    {
+      "dst": "_WIRE_2.tag",
+      "kind": "data",
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "src": "_T_2",
+      "statement_ids": [
+        59
+      ]
+    },
+    {
+      "dst": "_T_3",
+      "kind": "data",
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "src": "_WIRE_3",
+      "statement_ids": [
+        60
+      ]
+    },
+    {
+      "dst": "_WIRE_2.coh.state",
+      "kind": "data",
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "src": "_T_3",
+      "statement_ids": [
+        61
+      ]
+    },
+    {
+      "dst": "_WIRE_5",
+      "kind": "data",
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "src": "MPORT_1[1]",
+      "statement_ids": [
+        64
+      ]
+    },
+    {
+      "dst": "_T_4",
+      "kind": "data",
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "src": "_WIRE_5",
+      "statement_ids": [
+        65
+      ]
+    },
+    {
+      "dst": "_WIRE_4.tag",
+      "kind": "data",
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "src": "_T_4",
+      "statement_ids": [
+        66
+      ]
+    },
+    {
+      "dst": "_T_5",
+      "kind": "data",
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "src": "_WIRE_5",
+      "statement_ids": [
+        67
+      ]
+    },
+    {
+      "dst": "_WIRE_4.coh.state",
+      "kind": "data",
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "src": "_T_5",
+      "statement_ids": [
+        68
+      ]
+    },
+    {
+      "dst": "_WIRE_7",
+      "kind": "data",
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "src": "MPORT_1[2]",
+      "statement_ids": [
+        71
+      ]
+    },
+    {
+      "dst": "_T_6",
+      "kind": "data",
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "src": "_WIRE_7",
+      "statement_ids": [
+        72
+      ]
+    },
+    {
+      "dst": "_WIRE_6.tag",
+      "kind": "data",
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "src": "_T_6",
+      "statement_ids": [
+        73
+      ]
+    },
+    {
+      "dst": "_T_7",
+      "kind": "data",
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "src": "_WIRE_7",
+      "statement_ids": [
+        74
+      ]
+    },
+    {
+      "dst": "_WIRE_6.coh.state",
+      "kind": "data",
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "src": "_T_7",
+      "statement_ids": [
+        75
+      ]
+    },
+    {
+      "dst": "_WIRE_9",
+      "kind": "data",
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "src": "MPORT_1[3]",
+      "statement_ids": [
+        78
+      ]
+    },
+    {
+      "dst": "_T_8",
+      "kind": "data",
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "src": "_WIRE_9",
+      "statement_ids": [
+        79
+      ]
+    },
+    {
+      "dst": "_WIRE_8.tag",
+      "kind": "data",
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "src": "_T_8",
+      "statement_ids": [
+        80
+      ]
+    },
+    {
+      "dst": "_T_9",
+      "kind": "data",
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "src": "_WIRE_9",
+      "statement_ids": [
+        81
+      ]
+    },
+    {
+      "dst": "_WIRE_8.coh.state",
+      "kind": "data",
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "src": "_T_9",
+      "statement_ids": [
+        82
+      ]
+    },
+    {
+      "dst": "io.resp[0].coh.state",
+      "kind": "data",
+      "source": {
+        "column": 11,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:11"
+      },
+      "src": "_WIRE_2.coh.state",
+      "statement_ids": [
+        83
+      ]
+    },
+    {
+      "dst": "io.resp[0].tag",
+      "kind": "data",
+      "source": {
+        "column": 11,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:11"
+      },
+      "src": "_WIRE_2.tag",
+      "statement_ids": [
+        83
+      ]
+    },
+    {
+      "dst": "io.resp[1].coh.state",
+      "kind": "data",
+      "source": {
+        "column": 11,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:11"
+      },
+      "src": "_WIRE_4.coh.state",
+      "statement_ids": [
+        84
+      ]
+    },
+    {
+      "dst": "io.resp[1].tag",
+      "kind": "data",
+      "source": {
+        "column": 11,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:11"
+      },
+      "src": "_WIRE_4.tag",
+      "statement_ids": [
+        84
+      ]
+    },
+    {
+      "dst": "io.resp[2].coh.state",
+      "kind": "data",
+      "source": {
+        "column": 11,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:11"
+      },
+      "src": "_WIRE_6.coh.state",
+      "statement_ids": [
+        85
+      ]
+    },
+    {
+      "dst": "io.resp[2].tag",
+      "kind": "data",
+      "source": {
+        "column": 11,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:11"
+      },
+      "src": "_WIRE_6.tag",
+      "statement_ids": [
+        85
+      ]
+    },
+    {
+      "dst": "io.resp[3].coh.state",
+      "kind": "data",
+      "source": {
+        "column": 11,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:11"
+      },
+      "src": "_WIRE_8.coh.state",
+      "statement_ids": [
+        86
+      ]
+    },
+    {
+      "dst": "io.resp[3].tag",
+      "kind": "data",
+      "source": {
+        "column": 11,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:11"
+      },
+      "src": "_WIRE_8.tag",
+      "statement_ids": [
+        86
+      ]
+    },
+    {
+      "dst": "_io_read_ready_T",
+      "kind": "data",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 346,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 346:20"
+      },
+      "src": "h0",
+      "statement_ids": [
+        87
+      ]
+    },
+    {
+      "dst": "_io_read_ready_T",
+      "kind": "data",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 346,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 346:20"
+      },
+      "src": "wen",
+      "statement_ids": [
+        87
+      ]
+    },
+    {
+      "dst": "io.read.ready",
+      "kind": "data",
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 346,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 346:17"
+      },
+      "src": "_io_read_ready_T",
+      "statement_ids": [
+        88
+      ]
+    },
+    {
+      "dst": "_io_write_ready_T",
+      "kind": "data",
+      "source": {
+        "column": 21,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 347,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 347:21"
+      },
+      "src": "h0",
+      "statement_ids": [
+        89
+      ]
+    },
+    {
+      "dst": "_io_write_ready_T",
+      "kind": "data",
+      "source": {
+        "column": 21,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 347,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 347:21"
+      },
+      "src": "rst",
+      "statement_ids": [
+        89
+      ]
+    },
+    {
+      "dst": "io.write.ready",
+      "kind": "data",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 347,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 347:18"
+      },
+      "src": "_io_write_ready_T",
+      "statement_ids": [
+        90
+      ]
+    }
+  ],
+  "events": [
+    {
+      "channel": "io.read",
+      "direction": "receive",
+      "id": "BoomNonBlockingDCache.meta_0::io.read.fire",
+      "payload": [
+        "io.read.bits.idx",
+        "io.read.bits.tag",
+        "io.read.bits.way_en"
+      ],
+      "predicate": "io.read.valid && io.read.ready",
+      "protocol": "decoupled",
+      "ready": "io.read.ready",
+      "registry_id": "L1MetadataArray.io.read.fire",
+      "sources": [
+        {
+          "column": 14,
+          "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+          "line": 324,
+          "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 324:14"
+        }
+      ],
+      "valid": "io.read.valid"
+    },
+    {
+      "channel": "io.write",
+      "direction": "receive",
+      "id": "BoomNonBlockingDCache.meta_0::io.write.fire",
+      "payload": [
+        "io.write.bits.data.coh.state",
+        "io.write.bits.data.tag",
+        "io.write.bits.idx",
+        "io.write.bits.tag",
+        "io.write.bits.way_en"
+      ],
+      "predicate": "io.write.valid && io.write.ready",
+      "protocol": "decoupled",
+      "ready": "io.write.ready",
+      "registry_id": "L1MetadataArray.io.write.fire",
+      "sources": [
+        {
+          "column": 14,
+          "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+          "line": 324,
+          "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 324:14"
+        }
+      ],
+      "valid": "io.write.valid"
+    }
+  ],
+  "frontier": [
+    {
+      "id": "clock",
+      "kind": "port",
+      "source": {
+        "column": 7,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 322,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 322:7"
+      },
+      "type": "Clock"
+    },
+    {
+      "id": "io.read.bits.idx",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 324,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 324:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.read.bits.way_en",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 324,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 324:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.read.ready",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 324,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 324:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.read.valid",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 324,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 324:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.resp[0].coh.state",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 324,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 324:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.resp[0].tag",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 324,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 324:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.resp[1].coh.state",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 324,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 324:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.resp[1].tag",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 324,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 324:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.resp[2].coh.state",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 324,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 324:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.resp[2].tag",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 324,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 324:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.resp[3].coh.state",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 324,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 324:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.resp[3].tag",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 324,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 324:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.write.bits.idx",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 324,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 324:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.write.bits.way_en",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 324,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 324:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.write.ready",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 324,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 324:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.write.valid",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 324,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 324:14"
+      },
+      "type": null
+    }
+  ],
+  "grounding": {
+    "allowed_physical_event_ids": [
+      "BoomNonBlockingDCache.meta_0::io.read.fire",
+      "BoomNonBlockingDCache.meta_0::io.write.fire"
+    ],
+    "allowed_state_ids": [
+      "rst_cnt"
+    ],
+    "allowed_statement_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90
+    ],
+    "semantic_labels": []
+  },
+  "memory_state": [
+    "tag_array"
+  ],
+  "parent_connection_signals": [
+    "meta_0.clock",
+    "meta_0.io",
+    "meta_0.io.read.bits.idx",
+    "meta_0.io.read.bits.tag",
+    "meta_0.io.read.bits.way_en",
+    "meta_0.io.read.ready",
+    "meta_0.io.read.valid",
+    "meta_0.io.resp[0].coh.state",
+    "meta_0.io.resp[0].tag",
+    "meta_0.io.resp[1].coh.state",
+    "meta_0.io.resp[1].tag",
+    "meta_0.io.resp[2].coh.state",
+    "meta_0.io.resp[2].tag",
+    "meta_0.io.resp[3].coh.state",
+    "meta_0.io.resp[3].tag",
+    "meta_0.io.write.bits.data.coh.state",
+    "meta_0.io.write.bits.data.tag",
+    "meta_0.io.write.bits.idx",
+    "meta_0.io.write.bits.tag",
+    "meta_0.io.write.bits.way_en",
+    "meta_0.io.write.ready",
+    "meta_0.io.write.valid",
+    "meta_0.reset"
+  ],
+  "planner_version": "hierarchical-planner-v11",
+  "replacement_complexity": {
+    "event_state_coupling": 0.833333,
+    "events": 2,
+    "logical": {
+      "dependency_edges": 78,
+      "signals": 59,
+      "source_loc": 22,
+      "statements": 35
+    },
+    "memories": 1,
+    "raw": {
+      "dependency_edges": 115,
+      "signals": 95,
+      "source_loc": 22,
+      "statements": 91,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 1,
+    "state_regions": 1
+  },
+  "schema_version": "workunit-static-0.1",
+  "semantic_event_cones": [
+    {
+      "complete": true,
+      "event_id": "BoomNonBlockingDCache.meta_0::io.read.fire",
+      "historical_registers": [
+        "rst_cnt"
+      ],
+      "historical_statement_ids": [
+        9,
+        27,
+        28,
+        29,
+        30,
+        32,
+        87,
+        88
+      ],
+      "immediate_frontier": [
+        "h0",
+        "h40",
+        "io.read.valid",
+        "io.write.valid",
+        "rst_cnt"
+      ],
+      "immediate_registers": [
+        "rst_cnt"
+      ],
+      "immediate_statement_ids": [
+        9,
+        32,
+        87,
+        88
+      ]
+    },
+    {
+      "complete": true,
+      "event_id": "BoomNonBlockingDCache.meta_0::io.write.fire",
+      "historical_registers": [
+        "rst_cnt"
+      ],
+      "historical_statement_ids": [
+        9,
+        27,
+        28,
+        29,
+        30,
+        89,
+        90
+      ],
+      "immediate_frontier": [
+        "h0",
+        "h40",
+        "io.write.valid",
+        "rst_cnt"
+      ],
+      "immediate_registers": [
+        "rst_cnt"
+      ],
+      "immediate_statement_ids": [
+        9,
+        89,
+        90
+      ]
+    }
+  ],
+  "source_evidence": {
+    "resolved": [
+      {
+        "end_line": 308,
+        "logical_file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "start_line": 304,
+        "text": "  def apply(tag: Bits, coh: ClientMetadata)(implicit p: Parameters) = {\n    val meta = Wire(new L1Metadata)\n    meta.tag := tag\n    meta.coh := coh\n    meta\n"
+      },
+      {
+        "end_line": 325,
+        "logical_file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "start_line": 321,
+        "text": "\nclass L1MetadataArray[T <: L1Metadata](onReset: () => T)(implicit p: Parameters) extends L1HellaCacheModule()(p) {\n  val rstVal = onReset()\n  val io = IO(new Bundle {\n    val read = Flipped(Decoupled(new L1MetaReadReq))\n"
+      },
+      {
+        "end_line": 337,
+        "logical_file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "start_line": 329,
+        "text": "\n  val rst_cnt = RegInit(0.U(log2Up(nSets+1).W))\n  val rst = rst_cnt < nSets.U\n  val waddr = Mux(rst, rst_cnt, io.write.bits.idx)\n  val wdata = Mux(rst, rstVal, io.write.bits.data).asUInt\n  val wmask = Mux(rst || (nWays == 1).B, (-1).S, io.write.bits.way_en.asSInt).asBools\n  val rmask = Mux(rst || (nWays == 1).B, (-1).S, io.read.bits.way_en.asSInt).asBools\n  when (rst) { rst_cnt := rst_cnt+1.U }\n\n"
+      },
+      {
+        "end_line": 348,
+        "logical_file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "start_line": 338,
+        "text": "  val metabits = rstVal.getWidth\n  val tag_array = SyncReadMem(nSets, Vec(nWays, UInt(metabits.W)))\n  val wen = rst || io.write.valid\n  when (wen) {\n    tag_array.write(waddr, VecInit.fill(nWays)(wdata), wmask)\n  }\n  io.resp := tag_array.read(io.read.bits.idx, io.read.fire).map(_.asTypeOf(chiselTypeOf(rstVal)))\n\n  io.read.ready := !wen // so really this could be a 6T RAM\n  io.write.ready := !rst\n}\n"
+      },
+      {
+        "end_line": 162,
+        "logical_file": "generators/rocket-chip/src/main/scala/tilelink/Metadata.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/tilelink/Metadata.scala",
+        "start_line": 159,
+        "text": "  def apply(perm: UInt) = {\n    val meta = Wire(new ClientMetadata)\n    meta.state := perm\n    meta\n"
+      }
+    ],
+    "roots": [
+      "/t1/MCM-Agent/tools/chipyard"
+    ],
+    "unresolved": [
+      {
+        "end_line": 51,
+        "error": "Could not resolve source locator 'src/main/scala/chisel3/util/Decoupled.scala' under roots: /t1/MCM-Agent/tools/chipyard",
+        "file": "src/main/scala/chisel3/util/Decoupled.scala",
+        "start_line": 51
+      }
+    ]
+  },
+  "source_spans": [
+    {
+      "end_line": 307,
+      "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+      "start_line": 305
+    },
+    {
+      "end_line": 324,
+      "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+      "start_line": 322
+    },
+    {
+      "end_line": 336,
+      "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+      "start_line": 330
+    },
+    {
+      "end_line": 347,
+      "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+      "start_line": 339
+    },
+    {
+      "end_line": 161,
+      "file": "generators/rocket-chip/src/main/scala/tilelink/Metadata.scala",
+      "start_line": 160
+    },
+    {
+      "end_line": 51,
+      "file": "src/main/scala/chisel3/util/Decoupled.scala",
+      "start_line": 51
+    }
+  ],
+  "state": [
+    {
+      "id": "rst_cnt",
+      "kind": "register",
+      "source": {
+        "column": 24,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 330,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 330:24"
+      },
+      "type": "UInt<7>"
+    }
+  ],
+  "statements": [
+    {
+      "control_reads": [],
+      "drives": [],
+      "firrtl_line": 197272,
+      "id": 0,
+      "kind": "structural",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 7,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 322,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 322:7"
+      },
+      "status": "nondriving",
+      "text": "input clock : Clock"
+    },
+    {
+      "control_reads": [],
+      "drives": [],
+      "firrtl_line": 197273,
+      "id": 1,
+      "kind": "structural",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 7,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 322,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 322:7"
+      },
+      "status": "nondriving",
+      "text": "input reset : Reset"
+    },
+    {
+      "control_reads": [],
+      "drives": [],
+      "firrtl_line": 197274,
+      "id": 2,
+      "kind": "structural",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 324,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 324:14"
+      },
+      "status": "nondriving",
+      "text": "output io : { flip read : { flip ready : UInt<1>, valid : UInt<1>, bits : { idx : UInt<6>, way_en : UInt<4>, tag : UInt<20>}}, flip write : { flip ready : UInt<1>, valid : UInt<1>, bits : { idx : UInt<6>, way_en : UInt<4>, tag : UInt<20>, data : { coh : { state : UInt<2>}, tag : UInt<20>}}}, resp : { coh : { state : UInt<2>}, tag : UInt<20>}[4]}"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "rstVal_meta"
+      ],
+      "firrtl_line": 197276,
+      "id": 3,
+      "kind": "wire",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Metadata.scala",
+        "line": 160,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Metadata.scala 160:20"
+      },
+      "status": "supported",
+      "text": "wire rstVal_meta : { state : UInt<2>}"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "rstVal_meta.state"
+      ],
+      "firrtl_line": 197277,
+      "id": 4,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h0"
+      ],
+      "source": {
+        "column": 16,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Metadata.scala",
+        "line": 161,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Metadata.scala 161:16"
+      },
+      "status": "supported",
+      "text": "connect rstVal_meta.state, UInt<2>(0h0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "rstVal"
+      ],
+      "firrtl_line": 197278,
+      "id": 5,
+      "kind": "wire",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 305,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 305:20"
+      },
+      "status": "supported",
+      "text": "wire rstVal : { coh : { state : UInt<2>}, tag : UInt<20>}"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "rstVal.tag"
+      ],
+      "firrtl_line": 197279,
+      "id": 6,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h0"
+      ],
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 306,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 306:14"
+      },
+      "status": "supported",
+      "text": "connect rstVal.tag, UInt<1>(0h0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "rstVal.coh.state"
+      ],
+      "firrtl_line": 197280,
+      "id": 7,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "rstVal_meta"
+      ],
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 307,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 307:14"
+      },
+      "status": "supported",
+      "text": "connect rstVal.coh, rstVal_meta"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "rst_cnt"
+      ],
+      "firrtl_line": 197281,
+      "id": 8,
+      "kind": "regreset",
+      "note": null,
+      "reads": [
+        "clock",
+        "h0"
+      ],
+      "source": {
+        "column": 24,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 330,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 330:24"
+      },
+      "status": "supported",
+      "text": "regreset rst_cnt : UInt<7>, clock, reset, UInt<7>(0h0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "rst"
+      ],
+      "firrtl_line": 197282,
+      "id": 9,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h40",
+        "rst_cnt"
+      ],
+      "source": {
+        "column": 21,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 331,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 331:21"
+      },
+      "status": "supported",
+      "text": "node rst = lt(rst_cnt, UInt<7>(0h40))"
+    },
+    {
+      "control_reads": [
+        "rst"
+      ],
+      "drives": [
+        "waddr"
+      ],
+      "firrtl_line": 197283,
+      "id": 10,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.write.bits.idx",
+        "rst",
+        "rst_cnt"
+      ],
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 332,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 332:18"
+      },
+      "status": "supported",
+      "text": "node waddr = mux(rst, rst_cnt, io.write.bits.idx)"
+    },
+    {
+      "control_reads": [
+        "rst"
+      ],
+      "drives": [
+        "_wdata_T"
+      ],
+      "firrtl_line": 197284,
+      "id": 11,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.write.bits.data",
+        "rst",
+        "rstVal"
+      ],
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 333,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 333:18"
+      },
+      "status": "supported",
+      "text": "node _wdata_T = mux(rst, rstVal, io.write.bits.data)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "wdata"
+      ],
+      "firrtl_line": 197285,
+      "id": 12,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_wdata_T.coh.state",
+        "_wdata_T.tag"
+      ],
+      "source": {
+        "column": 52,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 333,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 333:52"
+      },
+      "status": "supported",
+      "text": "node wdata = cat(_wdata_T.coh.state, _wdata_T.tag)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_wmask_T"
+      ],
+      "firrtl_line": 197286,
+      "id": 13,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "rst"
+      ],
+      "source": {
+        "column": 23,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 334,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 334:23"
+      },
+      "status": "supported",
+      "text": "node _wmask_T = or(rst, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_wmask_T_1"
+      ],
+      "firrtl_line": 197287,
+      "id": 14,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.write.bits.way_en"
+      ],
+      "source": {
+        "column": 71,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 334,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 334:71"
+      },
+      "status": "supported",
+      "text": "node _wmask_T_1 = asSInt(io.write.bits.way_en)"
+    },
+    {
+      "control_reads": [
+        "_wmask_T"
+      ],
+      "drives": [
+        "_wmask_T_2"
+      ],
+      "firrtl_line": 197288,
+      "id": 15,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_wmask_T",
+        "_wmask_T_1",
+        "h1"
+      ],
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 334,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 334:18"
+      },
+      "status": "supported",
+      "text": "node _wmask_T_2 = mux(_wmask_T, asSInt(UInt<1>(0h1)), _wmask_T_1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "wmask_0"
+      ],
+      "firrtl_line": 197289,
+      "id": 16,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_wmask_T_2"
+      ],
+      "source": {
+        "column": 79,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 334,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 334:79"
+      },
+      "status": "supported",
+      "text": "node wmask_0 = bits(_wmask_T_2, 0, 0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "wmask_1"
+      ],
+      "firrtl_line": 197290,
+      "id": 17,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_wmask_T_2"
+      ],
+      "source": {
+        "column": 79,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 334,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 334:79"
+      },
+      "status": "supported",
+      "text": "node wmask_1 = bits(_wmask_T_2, 1, 1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "wmask_2"
+      ],
+      "firrtl_line": 197291,
+      "id": 18,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_wmask_T_2"
+      ],
+      "source": {
+        "column": 79,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 334,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 334:79"
+      },
+      "status": "supported",
+      "text": "node wmask_2 = bits(_wmask_T_2, 2, 2)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "wmask_3"
+      ],
+      "firrtl_line": 197292,
+      "id": 19,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_wmask_T_2"
+      ],
+      "source": {
+        "column": 79,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 334,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 334:79"
+      },
+      "status": "supported",
+      "text": "node wmask_3 = bits(_wmask_T_2, 3, 3)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_rmask_T"
+      ],
+      "firrtl_line": 197293,
+      "id": 20,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "rst"
+      ],
+      "source": {
+        "column": 23,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 335,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 335:23"
+      },
+      "status": "supported",
+      "text": "node _rmask_T = or(rst, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_rmask_T_1"
+      ],
+      "firrtl_line": 197294,
+      "id": 21,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.read.bits.way_en"
+      ],
+      "source": {
+        "column": 70,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 335,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 335:70"
+      },
+      "status": "supported",
+      "text": "node _rmask_T_1 = asSInt(io.read.bits.way_en)"
+    },
+    {
+      "control_reads": [
+        "_rmask_T"
+      ],
+      "drives": [
+        "_rmask_T_2"
+      ],
+      "firrtl_line": 197295,
+      "id": 22,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_rmask_T",
+        "_rmask_T_1",
+        "h1"
+      ],
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 335,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 335:18"
+      },
+      "status": "supported",
+      "text": "node _rmask_T_2 = mux(_rmask_T, asSInt(UInt<1>(0h1)), _rmask_T_1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "rmask_0"
+      ],
+      "firrtl_line": 197296,
+      "id": 23,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_rmask_T_2"
+      ],
+      "source": {
+        "column": 78,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 335,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 335:78"
+      },
+      "status": "supported",
+      "text": "node rmask_0 = bits(_rmask_T_2, 0, 0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "rmask_1"
+      ],
+      "firrtl_line": 197297,
+      "id": 24,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_rmask_T_2"
+      ],
+      "source": {
+        "column": 78,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 335,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 335:78"
+      },
+      "status": "supported",
+      "text": "node rmask_1 = bits(_rmask_T_2, 1, 1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "rmask_2"
+      ],
+      "firrtl_line": 197298,
+      "id": 25,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_rmask_T_2"
+      ],
+      "source": {
+        "column": 78,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 335,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 335:78"
+      },
+      "status": "supported",
+      "text": "node rmask_2 = bits(_rmask_T_2, 2, 2)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "rmask_3"
+      ],
+      "firrtl_line": 197299,
+      "id": 26,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_rmask_T_2"
+      ],
+      "source": {
+        "column": 78,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 335,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 335:78"
+      },
+      "status": "supported",
+      "text": "node rmask_3 = bits(_rmask_T_2, 3, 3)"
+    },
+    {
+      "control_reads": [
+        "rst"
+      ],
+      "drives": [],
+      "firrtl_line": 197300,
+      "id": 27,
+      "kind": "when",
+      "note": null,
+      "reads": [
+        "rst"
+      ],
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 336,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 336:14"
+      },
+      "status": "supported",
+      "text": "when rst :"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_rst_cnt_T"
+      ],
+      "firrtl_line": 197301,
+      "id": 28,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h1",
+        "rst_cnt"
+      ],
+      "source": {
+        "column": 34,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 336,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 336:34"
+      },
+      "status": "supported",
+      "text": "node _rst_cnt_T = add(rst_cnt, UInt<1>(0h1))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_rst_cnt_T_1"
+      ],
+      "firrtl_line": 197302,
+      "id": 29,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_rst_cnt_T"
+      ],
+      "source": {
+        "column": 34,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 336,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 336:34"
+      },
+      "status": "supported",
+      "text": "node _rst_cnt_T_1 = tail(_rst_cnt_T, 1)"
+    },
+    {
+      "control_reads": [
+        "rst"
+      ],
+      "drives": [
+        "rst_cnt"
+      ],
+      "firrtl_line": 197303,
+      "id": 30,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_rst_cnt_T_1"
+      ],
+      "source": {
+        "column": 24,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 336,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 336:24"
+      },
+      "status": "supported",
+      "text": "connect rst_cnt, _rst_cnt_T_1"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "tag_array"
+      ],
+      "firrtl_line": 197304,
+      "id": 31,
+      "kind": "memory",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 339,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 339:30"
+      },
+      "status": "supported",
+      "text": "smem tag_array : UInt<22>[4] [64]"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "wen"
+      ],
+      "firrtl_line": 197305,
+      "id": 32,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.write.valid",
+        "rst"
+      ],
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 340,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 340:17"
+      },
+      "status": "supported",
+      "text": "node wen = or(rst, io.write.valid)"
+    },
+    {
+      "control_reads": [
+        "wen"
+      ],
+      "drives": [],
+      "firrtl_line": 197306,
+      "id": 33,
+      "kind": "when",
+      "note": null,
+      "reads": [
+        "wen"
+      ],
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 341,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 341:14"
+      },
+      "status": "supported",
+      "text": "when wen :"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_WIRE"
+      ],
+      "firrtl_line": 197307,
+      "id": 34,
+      "kind": "wire",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 47,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:47"
+      },
+      "status": "supported",
+      "text": "wire _WIRE : UInt<22>[4]"
+    },
+    {
+      "control_reads": [
+        "wen"
+      ],
+      "drives": [
+        "_WIRE[0]"
+      ],
+      "firrtl_line": 197308,
+      "id": 35,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "wdata"
+      ],
+      "source": {
+        "column": 47,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:47"
+      },
+      "status": "supported",
+      "text": "connect _WIRE[0], wdata"
+    },
+    {
+      "control_reads": [
+        "wen"
+      ],
+      "drives": [
+        "_WIRE[1]"
+      ],
+      "firrtl_line": 197309,
+      "id": 36,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "wdata"
+      ],
+      "source": {
+        "column": 47,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:47"
+      },
+      "status": "supported",
+      "text": "connect _WIRE[1], wdata"
+    },
+    {
+      "control_reads": [
+        "wen"
+      ],
+      "drives": [
+        "_WIRE[2]"
+      ],
+      "firrtl_line": 197310,
+      "id": 37,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "wdata"
+      ],
+      "source": {
+        "column": 47,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:47"
+      },
+      "status": "supported",
+      "text": "connect _WIRE[2], wdata"
+    },
+    {
+      "control_reads": [
+        "wen"
+      ],
+      "drives": [
+        "_WIRE[3]"
+      ],
+      "firrtl_line": 197311,
+      "id": 38,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "wdata"
+      ],
+      "source": {
+        "column": 47,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:47"
+      },
+      "status": "supported",
+      "text": "connect _WIRE[3], wdata"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T"
+      ],
+      "firrtl_line": 197312,
+      "id": 39,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "waddr"
+      ],
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "status": "supported",
+      "text": "node _T = bits(waddr, 5, 0)"
+    },
+    {
+      "control_reads": [
+        "wen"
+      ],
+      "drives": [
+        "MPORT"
+      ],
+      "firrtl_line": 197313,
+      "id": 40,
+      "kind": "write_mport",
+      "note": null,
+      "reads": [
+        "_T",
+        "clock",
+        "tag_array"
+      ],
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "status": "supported",
+      "text": "write mport MPORT = tag_array[_T], clock"
+    },
+    {
+      "control_reads": [
+        "wmask_0"
+      ],
+      "drives": [],
+      "firrtl_line": 197314,
+      "id": 41,
+      "kind": "when",
+      "note": null,
+      "reads": [
+        "wmask_0"
+      ],
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "status": "supported",
+      "text": "when wmask_0 :"
+    },
+    {
+      "control_reads": [
+        "wen",
+        "wmask_0"
+      ],
+      "drives": [
+        "MPORT[0]"
+      ],
+      "firrtl_line": 197315,
+      "id": 42,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_WIRE[0]"
+      ],
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "status": "supported",
+      "text": "connect MPORT[0], _WIRE[0]"
+    },
+    {
+      "control_reads": [
+        "wmask_1"
+      ],
+      "drives": [],
+      "firrtl_line": 197316,
+      "id": 43,
+      "kind": "when",
+      "note": null,
+      "reads": [
+        "wmask_1"
+      ],
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "status": "supported",
+      "text": "when wmask_1 :"
+    },
+    {
+      "control_reads": [
+        "wen",
+        "wmask_1"
+      ],
+      "drives": [
+        "MPORT[1]"
+      ],
+      "firrtl_line": 197317,
+      "id": 44,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_WIRE[1]"
+      ],
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "status": "supported",
+      "text": "connect MPORT[1], _WIRE[1]"
+    },
+    {
+      "control_reads": [
+        "wmask_2"
+      ],
+      "drives": [],
+      "firrtl_line": 197318,
+      "id": 45,
+      "kind": "when",
+      "note": null,
+      "reads": [
+        "wmask_2"
+      ],
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "status": "supported",
+      "text": "when wmask_2 :"
+    },
+    {
+      "control_reads": [
+        "wen",
+        "wmask_2"
+      ],
+      "drives": [
+        "MPORT[2]"
+      ],
+      "firrtl_line": 197319,
+      "id": 46,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_WIRE[2]"
+      ],
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "status": "supported",
+      "text": "connect MPORT[2], _WIRE[2]"
+    },
+    {
+      "control_reads": [
+        "wmask_3"
+      ],
+      "drives": [],
+      "firrtl_line": 197320,
+      "id": 47,
+      "kind": "when",
+      "note": null,
+      "reads": [
+        "wmask_3"
+      ],
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "status": "supported",
+      "text": "when wmask_3 :"
+    },
+    {
+      "control_reads": [
+        "wen",
+        "wmask_3"
+      ],
+      "drives": [
+        "MPORT[3]"
+      ],
+      "firrtl_line": 197321,
+      "id": 48,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_WIRE[3]"
+      ],
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 342,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 342:20"
+      },
+      "status": "supported",
+      "text": "connect MPORT[3], _WIRE[3]"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_1"
+      ],
+      "firrtl_line": 197322,
+      "id": 49,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.read.ready",
+        "io.read.valid"
+      ],
+      "source": {
+        "column": 35,
+        "file": "src/main/scala/chisel3/util/Decoupled.scala",
+        "line": 51,
+        "raw": "src/main/scala/chisel3/util/Decoupled.scala 51:35"
+      },
+      "status": "supported",
+      "text": "node _T_1 = and(io.read.ready, io.read.valid)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_WIRE_1"
+      ],
+      "firrtl_line": 197323,
+      "id": 50,
+      "kind": "wire",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 28,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:28"
+      },
+      "status": "supported",
+      "text": "wire _WIRE_1 : UInt<6>"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_WIRE_1"
+      ],
+      "firrtl_line": 197324,
+      "id": 51,
+      "kind": "invalidate",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 28,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:28"
+      },
+      "status": "supported",
+      "text": "invalidate _WIRE_1"
+    },
+    {
+      "control_reads": [
+        "_T_1"
+      ],
+      "drives": [],
+      "firrtl_line": 197325,
+      "id": 52,
+      "kind": "when",
+      "note": null,
+      "reads": [
+        "_T_1"
+      ],
+      "source": {
+        "column": 28,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:28"
+      },
+      "status": "supported",
+      "text": "when _T_1 :"
+    },
+    {
+      "control_reads": [
+        "_T_1"
+      ],
+      "drives": [
+        "_WIRE_1"
+      ],
+      "firrtl_line": 197326,
+      "id": 53,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "io.read.bits.idx"
+      ],
+      "source": {
+        "column": 28,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:28"
+      },
+      "status": "supported",
+      "text": "connect _WIRE_1, io.read.bits.idx"
+    },
+    {
+      "control_reads": [
+        "_T_1"
+      ],
+      "drives": [
+        "MPORT_1"
+      ],
+      "firrtl_line": 197327,
+      "id": 54,
+      "kind": "read_mport",
+      "note": null,
+      "reads": [
+        "_WIRE_1",
+        "clock",
+        "tag_array"
+      ],
+      "source": {
+        "column": 28,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:28"
+      },
+      "status": "supported",
+      "text": "read mport MPORT_1 = tag_array[_WIRE_1], clock"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_WIRE_2"
+      ],
+      "firrtl_line": 197328,
+      "id": 55,
+      "kind": "wire",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "status": "supported",
+      "text": "wire _WIRE_2 : { coh : { state : UInt<2>}, tag : UInt<20>}"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_WIRE_3"
+      ],
+      "firrtl_line": 197329,
+      "id": 56,
+      "kind": "wire",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "status": "supported",
+      "text": "wire _WIRE_3 : UInt<22>"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_WIRE_3"
+      ],
+      "firrtl_line": 197330,
+      "id": 57,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "MPORT_1[0]"
+      ],
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "status": "supported",
+      "text": "connect _WIRE_3, MPORT_1[0]"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_2"
+      ],
+      "firrtl_line": 197331,
+      "id": 58,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_WIRE_3"
+      ],
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "status": "supported",
+      "text": "node _T_2 = bits(_WIRE_3, 19, 0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_WIRE_2.tag"
+      ],
+      "firrtl_line": 197332,
+      "id": 59,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_T_2"
+      ],
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "status": "supported",
+      "text": "connect _WIRE_2.tag, _T_2"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_3"
+      ],
+      "firrtl_line": 197333,
+      "id": 60,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_WIRE_3"
+      ],
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "status": "supported",
+      "text": "node _T_3 = bits(_WIRE_3, 21, 20)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_WIRE_2.coh.state"
+      ],
+      "firrtl_line": 197334,
+      "id": 61,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_T_3"
+      ],
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "status": "supported",
+      "text": "connect _WIRE_2.coh.state, _T_3"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_WIRE_4"
+      ],
+      "firrtl_line": 197335,
+      "id": 62,
+      "kind": "wire",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "status": "supported",
+      "text": "wire _WIRE_4 : { coh : { state : UInt<2>}, tag : UInt<20>}"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_WIRE_5"
+      ],
+      "firrtl_line": 197336,
+      "id": 63,
+      "kind": "wire",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "status": "supported",
+      "text": "wire _WIRE_5 : UInt<22>"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_WIRE_5"
+      ],
+      "firrtl_line": 197337,
+      "id": 64,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "MPORT_1[1]"
+      ],
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "status": "supported",
+      "text": "connect _WIRE_5, MPORT_1[1]"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_4"
+      ],
+      "firrtl_line": 197338,
+      "id": 65,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_WIRE_5"
+      ],
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "status": "supported",
+      "text": "node _T_4 = bits(_WIRE_5, 19, 0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_WIRE_4.tag"
+      ],
+      "firrtl_line": 197339,
+      "id": 66,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_T_4"
+      ],
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "status": "supported",
+      "text": "connect _WIRE_4.tag, _T_4"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_5"
+      ],
+      "firrtl_line": 197340,
+      "id": 67,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_WIRE_5"
+      ],
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "status": "supported",
+      "text": "node _T_5 = bits(_WIRE_5, 21, 20)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_WIRE_4.coh.state"
+      ],
+      "firrtl_line": 197341,
+      "id": 68,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_T_5"
+      ],
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "status": "supported",
+      "text": "connect _WIRE_4.coh.state, _T_5"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_WIRE_6"
+      ],
+      "firrtl_line": 197342,
+      "id": 69,
+      "kind": "wire",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "status": "supported",
+      "text": "wire _WIRE_6 : { coh : { state : UInt<2>}, tag : UInt<20>}"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_WIRE_7"
+      ],
+      "firrtl_line": 197343,
+      "id": 70,
+      "kind": "wire",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "status": "supported",
+      "text": "wire _WIRE_7 : UInt<22>"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_WIRE_7"
+      ],
+      "firrtl_line": 197344,
+      "id": 71,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "MPORT_1[2]"
+      ],
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "status": "supported",
+      "text": "connect _WIRE_7, MPORT_1[2]"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_6"
+      ],
+      "firrtl_line": 197345,
+      "id": 72,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_WIRE_7"
+      ],
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "status": "supported",
+      "text": "node _T_6 = bits(_WIRE_7, 19, 0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_WIRE_6.tag"
+      ],
+      "firrtl_line": 197346,
+      "id": 73,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_T_6"
+      ],
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "status": "supported",
+      "text": "connect _WIRE_6.tag, _T_6"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_7"
+      ],
+      "firrtl_line": 197347,
+      "id": 74,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_WIRE_7"
+      ],
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "status": "supported",
+      "text": "node _T_7 = bits(_WIRE_7, 21, 20)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_WIRE_6.coh.state"
+      ],
+      "firrtl_line": 197348,
+      "id": 75,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_T_7"
+      ],
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "status": "supported",
+      "text": "connect _WIRE_6.coh.state, _T_7"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_WIRE_8"
+      ],
+      "firrtl_line": 197349,
+      "id": 76,
+      "kind": "wire",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "status": "supported",
+      "text": "wire _WIRE_8 : { coh : { state : UInt<2>}, tag : UInt<20>}"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_WIRE_9"
+      ],
+      "firrtl_line": 197350,
+      "id": 77,
+      "kind": "wire",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "status": "supported",
+      "text": "wire _WIRE_9 : UInt<22>"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_WIRE_9"
+      ],
+      "firrtl_line": 197351,
+      "id": 78,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "MPORT_1[3]"
+      ],
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "status": "supported",
+      "text": "connect _WIRE_9, MPORT_1[3]"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_8"
+      ],
+      "firrtl_line": 197352,
+      "id": 79,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_WIRE_9"
+      ],
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "status": "supported",
+      "text": "node _T_8 = bits(_WIRE_9, 19, 0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_WIRE_8.tag"
+      ],
+      "firrtl_line": 197353,
+      "id": 80,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_T_8"
+      ],
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "status": "supported",
+      "text": "connect _WIRE_8.tag, _T_8"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_9"
+      ],
+      "firrtl_line": 197354,
+      "id": 81,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_WIRE_9"
+      ],
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "status": "supported",
+      "text": "node _T_9 = bits(_WIRE_9, 21, 20)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_WIRE_8.coh.state"
+      ],
+      "firrtl_line": 197355,
+      "id": 82,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_T_9"
+      ],
+      "source": {
+        "column": 75,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:75"
+      },
+      "status": "supported",
+      "text": "connect _WIRE_8.coh.state, _T_9"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.resp[0].coh.state",
+        "io.resp[0].tag"
+      ],
+      "firrtl_line": 197356,
+      "id": 83,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_WIRE_2"
+      ],
+      "source": {
+        "column": 11,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:11"
+      },
+      "status": "supported",
+      "text": "connect io.resp[0], _WIRE_2"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.resp[1].coh.state",
+        "io.resp[1].tag"
+      ],
+      "firrtl_line": 197357,
+      "id": 84,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_WIRE_4"
+      ],
+      "source": {
+        "column": 11,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:11"
+      },
+      "status": "supported",
+      "text": "connect io.resp[1], _WIRE_4"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.resp[2].coh.state",
+        "io.resp[2].tag"
+      ],
+      "firrtl_line": 197358,
+      "id": 85,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_WIRE_6"
+      ],
+      "source": {
+        "column": 11,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:11"
+      },
+      "status": "supported",
+      "text": "connect io.resp[2], _WIRE_6"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.resp[3].coh.state",
+        "io.resp[3].tag"
+      ],
+      "firrtl_line": 197359,
+      "id": 86,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_WIRE_8"
+      ],
+      "source": {
+        "column": 11,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 344,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 344:11"
+      },
+      "status": "supported",
+      "text": "connect io.resp[3], _WIRE_8"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_io_read_ready_T"
+      ],
+      "firrtl_line": 197360,
+      "id": 87,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "wen"
+      ],
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 346,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 346:20"
+      },
+      "status": "supported",
+      "text": "node _io_read_ready_T = eq(wen, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.read.ready"
+      ],
+      "firrtl_line": 197361,
+      "id": 88,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_io_read_ready_T"
+      ],
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 346,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 346:17"
+      },
+      "status": "supported",
+      "text": "connect io.read.ready, _io_read_ready_T"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_io_write_ready_T"
+      ],
+      "firrtl_line": 197362,
+      "id": 89,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "rst"
+      ],
+      "source": {
+        "column": 21,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 347,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 347:21"
+      },
+      "status": "supported",
+      "text": "node _io_write_ready_T = eq(rst, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.write.ready"
+      ],
+      "firrtl_line": 197363,
+      "id": 90,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_io_write_ready_T"
+      ],
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala",
+        "line": 347,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/HellaCache.scala 347:18"
+      },
+      "status": "supported",
+      "text": "connect io.write.ready, _io_write_ready_T"
+    }
+  ],
+  "work_unit": {
+    "coverage_complete": true,
+    "decision": "manageable",
+    "depth": 1,
+    "exceeded_limits": [],
+    "id": "BoomNonBlockingDCache.meta_0",
+    "instance_path": "BoomNonBlockingDCache.meta_0",
+    "is_leaf": true,
+    "kind": "module",
+    "module": "L1MetadataArray",
+    "replacement_exceeded_limits": []
+  }
+}

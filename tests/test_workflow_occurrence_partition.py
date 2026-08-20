@@ -294,13 +294,18 @@ class OccurrencePartitionTests(unittest.TestCase):
         )
 
         self.assertTrue(grounding["valid"], grounding)
-        self.assertEqual(result["trusted_axiom_count"], 2, result)
+        self.assertEqual(result["trusted_axiom_count"], 4, result)
         self.assertTrue(result["all_axioms_formally_proved"], result)
         by_id = {item["axiom_id"]: item for item in result["results"]}
         self.assertEqual(
             by_id["A1"]["formal"]["certificate"]["mutex_pairs"],
             [],
         )
+        for axiom_id in ("A3", "A4"):
+            self.assertEqual(
+                by_id[axiom_id]["formal"]["proof_method"],
+                "exact-unconditional-combinational-equality",
+            )
 
 
 if __name__ == "__main__":

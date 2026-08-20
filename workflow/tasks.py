@@ -10,7 +10,7 @@ from .schema import UMCM_SCHEMA_VERSION, candidate_output_schema
 
 
 WORKFLOW_VERSION = "manual-first-workflow-0.9"
-PROMPT_VERSION = "leaf-abstraction-prompt-0.9"
+PROMPT_VERSION = "leaf-abstraction-prompt-0.10"
 PARENT_PROMPT_VERSION = "parent-synthesis-prompt-0.2"
 
 
@@ -244,6 +244,10 @@ Output schema version: `{task.schema_version}`
    must reference one or more physical event IDs listed below. A derived
    occurrence may have no physical event ID only when it has an exact RTL
    definition, concrete grounding, and statement evidence. If one semantic
+   occurrence depends on a multi-bit comparison, record it in grounding as
+   `value_tests`, for example
+   `{{"expr":{{"op":"signal","name":"io.source"}},"relation":"eq","value":3}}`;
+   prose in `definition` is not formal grounding.
    occurrence repeats over a finite hardware index (beat/entry/bank/etc.), use
    the optional occurrence `index` metadata instead of inventing N separate IDs. Do not turn ordinary
    FSM staging states into milestones unless deleting the milestone would lose
@@ -279,7 +283,13 @@ Output schema version: `{task.schema_version}`
    pointwise over the same finite index (beat/entry/bank/etc.). Formal expressions
    may use `index_var` and `lookup` to refer to the bound index and an indexed
    storage element. These constructs are protocol-agnostic and must not be
-   specialized to a particular module. If a semantic property that you judge
+   specialized to a particular module. For a synchronous mutable array whose
+   read returns the latest prior same-key write, use `indexed_storage_flow`.
+   It binds address/lane keys, masked writes, sampled reads, initialization, and
+   the stored value layout, and exports the standard relations: `rf` selects the
+   co-latest prior same-key write, `co` is a strict total order over writes to
+   each key, and `fr` is derived as `rf^-1 ; co`. Relation names must be distinct;
+   do not state `rf`, `co`, and `fr` as unrelated ordering approximations. If a semantic property that you judge
    **necessary** for a sound/useful parent-facing abstraction cannot be faithfully
    represented by the current Formal AST, do not approximate it with a different
    or weaker axiom. Report a `MCM-AGENT LANGUAGE GAP` using the procedure below.

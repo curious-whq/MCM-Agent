@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 
-FORMAL_AXIOM_IR_VERSION = "formal-axiom-ir-0.8"
+FORMAL_AXIOM_IR_VERSION = "formal-axiom-ir-0.9"
 
 
 def _string_list(*, min_items: int = 0) -> dict[str, Any]:
@@ -304,6 +304,116 @@ def formal_axiom_schema() -> dict[str, Any]:
                     "scope_index": index_scope,
                 },
             },
+            {
+                "type": "object",
+                "additionalProperties": False,
+                "required": [
+                    "type", "storage", "key", "write", "read", "value_fields",
+                    "initialization", "resolution", "relations", "scope_identity"
+                ],
+                "properties": {
+                    "type": {"const": "indexed_storage_flow"},
+                    "storage": {"type": "string", "minLength": 1},
+                    "key": {
+                        "type": "object",
+                        "additionalProperties": False,
+                        "required": ["address_domain", "lane"],
+                        "properties": {
+                            "address_domain": {
+                                "type": "object",
+                                "additionalProperties": False,
+                                "required": ["start", "end_exclusive"],
+                                "properties": {
+                                    "start": {"type": "integer", "minimum": 0},
+                                    "end_exclusive": {"type": "integer", "minimum": 1},
+                                },
+                            },
+                            "lane": {
+                                "type": "object",
+                                "additionalProperties": False,
+                                "required": ["name", "count"],
+                                "properties": {
+                                    "name": {"type": "string", "minLength": 1},
+                                    "count": {"type": "integer", "minimum": 1},
+                                },
+                            },
+                        },
+                    },
+                    "write": {
+                        "type": "object",
+                        "additionalProperties": False,
+                        "required": ["on", "address", "lane_mask"],
+                        "properties": {
+                            "on": {"type": "string", "minLength": 1},
+                            "address": {"$ref": "#/$defs/formal_expr"},
+                            "lane_mask": {"$ref": "#/$defs/formal_expr"},
+                        },
+                    },
+                    "read": {
+                        "type": "object",
+                        "additionalProperties": False,
+                        "required": ["request", "address", "latency_cycles"],
+                        "properties": {
+                            "request": {"type": "string", "minLength": 1},
+                            "address": {"$ref": "#/$defs/formal_expr"},
+                            "latency_cycles": {"type": "integer", "minimum": 0},
+                        },
+                    },
+                    "value_fields": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                            "type": "object",
+                            "additionalProperties": False,
+                            "required": [
+                                "name", "storage_bits", "write_value",
+                                "read_targets", "initial_value"
+                            ],
+                            "properties": {
+                                "name": {"type": "string", "minLength": 1},
+                                "storage_bits": {
+                                    "type": "object",
+                                    "additionalProperties": False,
+                                    "required": ["hi", "lo"],
+                                    "properties": {
+                                        "hi": {"type": "integer", "minimum": 0},
+                                        "lo": {"type": "integer", "minimum": 0},
+                                    },
+                                },
+                                "write_value": {"$ref": "#/$defs/formal_expr"},
+                                "read_targets": {
+                                    "type": "array",
+                                    "minItems": 1,
+                                    "items": {"$ref": "#/$defs/formal_expr"},
+                                },
+                                "initial_value": {"$ref": "#/$defs/formal_expr"},
+                            },
+                        },
+                    },
+                    "initialization": {
+                        "type": "object",
+                        "additionalProperties": False,
+                        "required": ["active", "address", "lane_mask"],
+                        "properties": {
+                            "active": {"$ref": "#/$defs/formal_expr"},
+                            "address": {"$ref": "#/$defs/formal_expr"},
+                            "lane_mask": {"$ref": "#/$defs/formal_expr"},
+                        },
+                    },
+                    "resolution": {"const": "latest_prior_write_same_key"},
+                    "relations": {
+                        "type": "object",
+                        "additionalProperties": False,
+                        "required": ["rf", "co", "fr"],
+                        "properties": {
+                            "rf": {"type": "string", "minLength": 1},
+                            "co": {"type": "string", "minLength": 1},
+                            "fr": {"type": "string", "minLength": 1},
+                        },
+                    },
+                    "scope_identity": {"type": "null"},
+                },
+            },
         ]
     }
 
@@ -568,6 +678,64 @@ def compile_formal_axiom(formal: dict[str, Any]) -> dict[str, Any]:
             "kind": "state_update",
         }
 
+    if axiom_type == "indexed_storage_flow":
+        write = formal["write"]
+        read = formal["read"]
+        initialization = formal["initialization"]
+        occurrences.update([write["on"], read["request"]])
+        for expr in (
+            write["address"],
+            write["lane_mask"],
+            read["address"],
+            initialization["active"],
+            initialization["address"],
+            initialization["lane_mask"],
+        ):
+            signals.update(expr_signals(expr))
+        fields = []
+        for field in formal["value_fields"]:
+            signals.update(expr_signals(field["write_value"]))
+            signals.update(expr_signals(field["initial_value"]))
+            for target in field["read_targets"]:
+                signals.update(expr_signals(target))
+            fields.append({
+                "name": field["name"],
+                "storage_bits": dict(field["storage_bits"]),
+                "write_value": expr_to_symbolic(field["write_value"]),
+                "read_targets": [expr_to_symbolic(item) for item in field["read_targets"]],
+                "initial_value": expr_to_symbolic(field["initial_value"]),
+            })
+        return {
+            "checker": "indexed_storage_flow",
+            "arguments": {
+                "storage": formal["storage"],
+                "key": {
+                    "address_domain": dict(formal["key"]["address_domain"]),
+                    "lane": dict(formal["key"]["lane"]),
+                },
+                "write": {
+                    "on": write["on"],
+                    "address": expr_to_symbolic(write["address"]),
+                    "lane_mask": expr_to_symbolic(write["lane_mask"]),
+                },
+                "read": {
+                    "request": read["request"],
+                    "address": expr_to_symbolic(read["address"]),
+                    "latency_cycles": int(read["latency_cycles"]),
+                },
+                "value_fields": fields,
+                "initialization": {
+                    "active": expr_to_symbolic(initialization["active"]),
+                    "address": expr_to_symbolic(initialization["address"]),
+                    "lane_mask": expr_to_symbolic(initialization["lane_mask"]),
+                },
+                "resolution": formal["resolution"],
+                "relations": dict(formal["relations"]),
+            },
+            "references": _refs(occurrences, predicates, identities, signals),
+            "kind": "memory_flow",
+        }
+
     raise ValueError(f"unsupported formal axiom type: {axiom_type!r}")
 
 
@@ -629,6 +797,13 @@ def render_formal_axiom(formal: dict[str, Any]) -> str:
     if t == "spec_relation":
         on = f" on {formal['on']}" if formal.get("on") else ""
         return f"bindings satisfy {formal['spec']}{on}{suffix}"
+    if t == "indexed_storage_flow":
+        rel = formal["relations"]
+        lane = formal["key"]["lane"]
+        return (
+            f"{formal['storage']}[{lane['name']}] latest-write storage flow; "
+            f"{rel['rf']}=rf, {rel['co']}=co, {rel['fr']}=rf^-1;co"
+        )
     return f"<unsupported formal axiom {t!r}>"
 
 
@@ -708,6 +883,16 @@ def validate_formal_axiom_shape(formal: Any) -> list[str]:
         "spec_relation": (
             {"type", "on", "spec", "bindings", "scope_identity"},
             {"type", "on", "spec", "bindings", "scope_identity", "scope_index"},
+        ),
+        "indexed_storage_flow": (
+            {
+                "type", "storage", "key", "write", "read", "value_fields",
+                "initialization", "resolution", "relations", "scope_identity"
+            },
+            {
+                "type", "storage", "key", "write", "read", "value_fields",
+                "initialization", "resolution", "relations", "scope_identity"
+            },
         ),
     }
     if t not in specs:
@@ -818,4 +1003,121 @@ def validate_formal_axiom_shape(formal: Any) -> list[str]:
                 f"spec_relation.bindings missing {key!r}"
                 for key in sorted(required_bindings - set(bindings))
             )
+    elif t == "indexed_storage_flow":
+        if formal.get("scope_identity") is not None:
+            errors.append("indexed_storage_flow.scope_identity is currently required to be null")
+        if formal.get("resolution") != "latest_prior_write_same_key":
+            errors.append(
+                "indexed_storage_flow.resolution currently supports only "
+                "'latest_prior_write_same_key'"
+            )
+
+        key = formal.get("key")
+        if not isinstance(key, dict) or set(key) != {"address_domain", "lane"}:
+            errors.append("indexed_storage_flow.key must contain exactly address_domain/lane")
+            lane_count = None
+        else:
+            domain = key.get("address_domain")
+            if not isinstance(domain, dict) or set(domain) != {"start", "end_exclusive"}:
+                errors.append("indexed_storage_flow.key.address_domain must contain start/end_exclusive")
+            else:
+                start = domain.get("start")
+                end = domain.get("end_exclusive")
+                if not isinstance(start, int) or not isinstance(end, int) or start < 0 or end <= start:
+                    errors.append("indexed_storage_flow address domain must satisfy 0 <= start < end_exclusive")
+            lane = key.get("lane")
+            lane_count = lane.get("count") if isinstance(lane, dict) else None
+            if (
+                not isinstance(lane, dict)
+                or set(lane) != {"name", "count"}
+                or not isinstance(lane.get("name"), str)
+                or not lane.get("name")
+                or not isinstance(lane_count, int)
+                or lane_count < 1
+            ):
+                errors.append("indexed_storage_flow.key.lane requires a non-empty name and positive count")
+
+        expr_paths: list[tuple[str, Any]] = []
+        for owner, required in (
+            ("write", {"on", "address", "lane_mask"}),
+            ("read", {"request", "address", "latency_cycles"}),
+            ("initialization", {"active", "address", "lane_mask"}),
+        ):
+            value = formal.get(owner)
+            if not isinstance(value, dict) or set(value) != required:
+                errors.append(f"indexed_storage_flow.{owner} must contain exactly {sorted(required)}")
+                continue
+            if owner == "write":
+                if not isinstance(value.get("on"), str) or not value.get("on"):
+                    errors.append("indexed_storage_flow.write.on must be a non-empty occurrence ID")
+                expr_paths.extend([
+                    ("indexed_storage_flow.write.address", value.get("address")),
+                    ("indexed_storage_flow.write.lane_mask", value.get("lane_mask")),
+                ])
+            elif owner == "read":
+                if not isinstance(value.get("request"), str) or not value.get("request"):
+                    errors.append("indexed_storage_flow.read.request must be a non-empty occurrence ID")
+                latency = value.get("latency_cycles")
+                if not isinstance(latency, int) or latency < 0:
+                    errors.append("indexed_storage_flow.read.latency_cycles must be a non-negative integer")
+                expr_paths.append(("indexed_storage_flow.read.address", value.get("address")))
+            else:
+                expr_paths.extend([
+                    ("indexed_storage_flow.initialization.active", value.get("active")),
+                    ("indexed_storage_flow.initialization.address", value.get("address")),
+                    ("indexed_storage_flow.initialization.lane_mask", value.get("lane_mask")),
+                ])
+
+        fields = formal.get("value_fields")
+        if not isinstance(fields, list) or not fields:
+            errors.append("indexed_storage_flow.value_fields must be a non-empty list")
+        else:
+            names: set[str] = set()
+            for index, field in enumerate(fields):
+                path = f"indexed_storage_flow.value_fields[{index}]"
+                required = {"name", "storage_bits", "write_value", "read_targets", "initial_value"}
+                if not isinstance(field, dict) or set(field) != required:
+                    errors.append(f"{path} must contain exactly {sorted(required)}")
+                    continue
+                name = field.get("name")
+                if not isinstance(name, str) or not name:
+                    errors.append(f"{path}.name must be non-empty")
+                elif name in names:
+                    errors.append(f"indexed_storage_flow field name {name!r} is duplicated")
+                else:
+                    names.add(name)
+                bits = field.get("storage_bits")
+                if not isinstance(bits, dict) or set(bits) != {"hi", "lo"}:
+                    errors.append(f"{path}.storage_bits must contain exactly hi/lo")
+                elif (
+                    not isinstance(bits.get("hi"), int)
+                    or not isinstance(bits.get("lo"), int)
+                    or bits["lo"] < 0
+                    or bits["hi"] < bits["lo"]
+                ):
+                    errors.append(f"{path}.storage_bits must satisfy 0 <= lo <= hi")
+                expr_paths.extend([
+                    (f"{path}.write_value", field.get("write_value")),
+                    (f"{path}.initial_value", field.get("initial_value")),
+                ])
+                targets = field.get("read_targets")
+                if not isinstance(targets, list) or not targets:
+                    errors.append(f"{path}.read_targets must be a non-empty list")
+                else:
+                    if isinstance(lane_count, int) and len(targets) != lane_count:
+                        errors.append(f"{path}.read_targets must contain exactly {lane_count} lane targets")
+                    expr_paths.extend(
+                        (f"{path}.read_targets[{target_index}]", target)
+                        for target_index, target in enumerate(targets)
+                    )
+        for path, expr in expr_paths:
+            errors.extend(validate_formal_expr_shape(expr, path))
+
+        relations = formal.get("relations")
+        if not isinstance(relations, dict) or set(relations) != {"rf", "co", "fr"}:
+            errors.append("indexed_storage_flow.relations must contain exactly rf/co/fr")
+        elif any(not isinstance(value, str) or not value for value in relations.values()):
+            errors.append("indexed_storage_flow relation names must be non-empty strings")
+        elif len(set(relations.values())) != 3:
+            errors.append("indexed_storage_flow rf/co/fr relation names must be distinct")
     return errors

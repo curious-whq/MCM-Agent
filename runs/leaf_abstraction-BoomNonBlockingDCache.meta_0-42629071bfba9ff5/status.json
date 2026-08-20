@@ -1,0 +1,5 @@
+{
+  "next_action": "Send prompt.md to a ChatGPT conversation, converge on a candidate, then import the final response.",
+  "status": "PENDING_MANUAL_LLM",
+  "task_id": "leaf_abstraction-BoomNonBlockingDCache.meta_0-42629071bfba9ff5"
+}

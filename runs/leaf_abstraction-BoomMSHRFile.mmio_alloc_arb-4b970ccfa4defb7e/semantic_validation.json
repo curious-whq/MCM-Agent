@@ -1,7 +1,7 @@
 {
   "all_axioms_formally_proved": true,
   "all_axioms_structurally_supported": true,
-  "candidate_axiom_count": 2,
+  "candidate_axiom_count": 4,
   "control_model": {
     "known_states": [],
     "reset_state": null,
@@ -9,7 +9,7 @@
     "transitions": []
   },
   "counts": {
-    "FORMALLY_PROVED": 2,
+    "FORMALLY_PROVED": 4,
     "GROUNDED": 0,
     "PARTIALLY_SUPPORTED": 0,
     "REFUTED": 0,
@@ -17,7 +17,7 @@
     "STRUCTURALLY_SUPPORTED": 0
   },
   "formal_backend": {
-    "api_version": "formal-backend-api-0.12",
+    "api_version": "formal-backend-api-0.13",
     "available": true,
     "name": "explicit-control",
     "note": "Exhaustive formal proof for certified finite-control/order properties, exact symbolic local/identity facts, exact local Boolean exclusion/conservation, bounded indexed token provenance, and selected finite reference equivalence checks. It is not a general bit-level SMT backend.",
@@ -154,7 +154,10 @@
               },
               "atom_count": 2,
               "rhs": "io.in[0].bits",
-              "statement_id": 4
+              "statement_id": 4,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
             }
           ],
           "source": "io.in[0].bits",
@@ -195,7 +198,10 @@
             },
             "atom_count": 2,
             "rhs": "io.in[0].bits",
-            "statement_id": 4
+            "statement_id": 4,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
           }
         ],
         "source": "io.in[0].bits",
@@ -205,10 +211,99 @@
       },
       "trusted": true,
       "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "source": "io.in[0].valid",
+        "target": "io.out.valid"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        7,
+        8,
+        9
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 0,
+          "proof": "io.out.valid and io.in[0].valid have identical exact Boolean values",
+          "proof_domain": "exact-unconditional-combinational-equality",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "io.out.valid and io.in[0].valid have identical exact Boolean values",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-unconditional-combinational-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [],
+        "predicates": [],
+        "signals": [
+          "io.in[0].valid",
+          "io.out.valid"
+        ]
+      },
+      "rendered_formula": "io.out.valid = io.in[0].valid",
+      "structural": {
+        "proof": "io.out.valid structurally depends on io.in[0].valid",
+        "reason": "dependency is not enough to prove equality",
+        "status": "PARTIALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "source": "io.out.ready",
+        "target": "io.in[0].ready"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        5,
+        6
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 0,
+          "proof": "io.in[0].ready and io.out.ready have identical exact Boolean values",
+          "proof_domain": "exact-unconditional-combinational-equality",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "io.in[0].ready and io.out.ready have identical exact Boolean values",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-unconditional-combinational-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [],
+        "predicates": [],
+        "signals": [
+          "io.in[0].ready",
+          "io.out.ready"
+        ]
+      },
+      "rendered_formula": "io.in[0].ready = io.out.ready",
+      "structural": {
+        "proof": "io.in[0].ready structurally depends on io.out.ready",
+        "reason": "dependency is not enough to prove equality",
+        "status": "PARTIALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
     }
   ],
-  "trusted_axiom_count": 2,
+  "trusted_axiom_count": 4,
   "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
-  "validator": "semantic-validator-0.13",
+  "validator": "semantic-validator-0.14",
   "work_unit_id": "BoomMSHRFile.mmio_alloc_arb"
 }

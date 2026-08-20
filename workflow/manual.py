@@ -304,6 +304,7 @@ def validate_candidate_grounding(
                 grounding.get("state_values")
                 or grounding.get("signals_true")
                 or grounding.get("signals_false")
+                or grounding.get("value_tests")
             ):
                 errors.append(
                     f"derived occurrence {occurrence_id!r} needs concrete state/signal grounding"
@@ -320,6 +321,34 @@ def validate_candidate_grounding(
                     errors.append(
                         f"occurrence {occurrence_id!r} references unknown signal {signal!r}"
                     )
+            value_tests = grounding.get("value_tests", [])
+            if not isinstance(value_tests, list):
+                errors.append(f"occurrence {occurrence_id!r} value_tests must be a list")
+            else:
+                for index, test in enumerate(value_tests):
+                    if not isinstance(test, dict):
+                        errors.append(f"occurrence {occurrence_id!r} value_tests[{index}] must be an object")
+                        continue
+                    expr = test.get("expr")
+                    shape_errors = validate_formal_expr_shape(
+                        expr,
+                        f"occurrence {occurrence_id!r}.value_tests[{index}].expr",
+                    )
+                    errors.extend(shape_errors)
+                    if not shape_errors:
+                        for signal in sorted(expr_signals(expr)):
+                            if not _is_allowed_signal_reference(signal, allowed_signals):
+                                errors.append(
+                                    f"occurrence {occurrence_id!r} value test references unknown signal {signal!r}"
+                                )
+                    if test.get("relation") not in {"eq", "neq"}:
+                        errors.append(
+                            f"occurrence {occurrence_id!r} value_tests[{index}] relation must be 'eq' or 'neq'"
+                        )
+                    if not isinstance(test.get("value"), int) or int(test["value"]) < 0:
+                        errors.append(
+                            f"occurrence {occurrence_id!r} value_tests[{index}] value must be a non-negative integer"
+                        )
 
     for predicate in candidate.get("predicates", []):
         if not isinstance(predicate, dict):
@@ -525,6 +554,39 @@ def validate_candidate_grounding(
             if identity is not None and capture.get("carrier") != identity.get("carrier_state"):
                 errors.append(
                     f"axiom {axiom_id!r} capture carrier {capture.get('carrier')!r} does not match identity carrier {identity.get('carrier_state')!r}"
+                )
+        if formal.get("type") == "indexed_storage_flow":
+            storage = formal.get("storage")
+            if storage not in set(handoff.get("memory_state", [])):
+                errors.append(
+                    f"axiom {axiom_id!r} references unknown storage object {storage!r}"
+                )
+            lane = formal.get("key", {}).get("lane", {})
+            lane_name = lane.get("name") if isinstance(lane, dict) else None
+            expressions = []
+            for owner, fields in (
+                (formal.get("write", {}), ("address", "lane_mask")),
+                (formal.get("read", {}), ("address",)),
+                (formal.get("initialization", {}), ("active", "address", "lane_mask")),
+            ):
+                if isinstance(owner, dict):
+                    expressions.extend(owner.get(field) for field in fields)
+            for field in formal.get("value_fields", []):
+                if not isinstance(field, dict):
+                    continue
+                expressions.extend([field.get("write_value"), field.get("initial_value")])
+                expressions.extend(field.get("read_targets", []))
+            variables = {
+                variable
+                for expression in expressions
+                if isinstance(expression, dict)
+                for variable in expr_index_vars(expression)
+            }
+            unknown = variables - ({str(lane_name)} if lane_name else set())
+            if unknown:
+                errors.append(
+                    f"axiom {axiom_id!r} indexed_storage_flow uses unbound index variables: "
+                    f"{sorted(unknown)}"
                 )
 
 

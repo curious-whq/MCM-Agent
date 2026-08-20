@@ -138,6 +138,19 @@ def candidate_output_schema() -> dict[str, Any]:
                                 },
                                 "signals_true": strings,
                                 "signals_false": strings,
+                                "value_tests": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "additionalProperties": False,
+                                        "required": ["expr", "relation", "value"],
+                                        "properties": {
+                                            "expr": {"$ref": "#/$defs/formal_expr"},
+                                            "relation": {"enum": ["eq", "neq"]},
+                                            "value": {"type": "integer", "minimum": 0},
+                                        },
+                                    },
+                                },
                             },
                         },
                         "evidence_statement_ids": evidence,
