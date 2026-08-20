@@ -1,0 +1,506 @@
+{
+  "all_axioms_formally_proved": false,
+  "all_axioms_structurally_supported": false,
+  "candidate_axiom_count": 10,
+  "control_model": {
+    "known_states": [],
+    "reset_state": null,
+    "state_register": "state",
+    "transitions": []
+  },
+  "counts": {
+    "FORMALLY_PROVED": 1,
+    "GROUNDED": 9,
+    "PARTIALLY_SUPPORTED": 0,
+    "REFUTED": 0,
+    "SPEC_PROVED": 0,
+    "STRUCTURALLY_SUPPORTED": 0
+  },
+  "formal_backend": {
+    "api_version": "formal-backend-api-0.6",
+    "available": true,
+    "name": "explicit-control",
+    "note": "Exhaustive formal proof for certified finite-control/order properties, exact symbolic local/identity facts, and selected finite reference equivalence checks. It is not a general bit-level SMT backend.",
+    "proof_domain": "control + exact symbolic local + finite reference equivalence",
+    "supported_checkers": [
+      "forbid_when",
+      "history_order",
+      "history_chain",
+      "history_join",
+      "indexed_coverage",
+      "transaction_exclusion",
+      "signal_alias",
+      "constant_bit",
+      "identity_projection",
+      "tilelink_on_probe_spec"
+    ],
+    "trusted_proof_levels": [
+      "FORMALLY_PROVED",
+      "SPEC_PROVED"
+    ]
+  },
+  "has_counterexample": false,
+  "property_compiler": "formal-axiom-compiler-0.6",
+  "results": [
+    {
+      "arguments": {
+        "occurrence": "EnqHandshake",
+        "predicate": "QueueFull"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        29,
+        30,
+        267,
+        268
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "certified": false,
+          "reason": "control register reset state is unknown"
+        },
+        "reason": "control abstraction could not be certified",
+        "status": "FORMAL_UNKNOWN"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "EnqHandshake"
+        ],
+        "predicates": [
+          "QueueFull"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "QueueFull => !EnqHandshake",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": false,
+      "validation_level": "GROUNDED"
+    },
+    {
+      "arguments": {
+        "occurrence": "QueueInsert",
+        "predicate": "IncomingBranchKilled"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        30,
+        31,
+        32,
+        34,
+        35,
+        39,
+        40,
+        242
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "certified": false,
+          "reason": "control register reset state is unknown"
+        },
+        "reason": "control abstraction could not be certified",
+        "status": "FORMAL_UNKNOWN"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "QueueInsert"
+        ],
+        "predicates": [
+          "IncomingBranchKilled"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "IncomingBranchKilled => !QueueInsert",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": false,
+      "validation_level": "GROUNDED"
+    },
+    {
+      "arguments": {
+        "occurrence": "QueueInsert",
+        "predicate": "IncomingFlushKilled"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        30,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        242
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "certified": false,
+          "reason": "control register reset state is unknown"
+        },
+        "reason": "control abstraction could not be certified",
+        "status": "FORMAL_UNKNOWN"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "QueueInsert"
+        ],
+        "predicates": [
+          "IncomingFlushKilled"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "IncomingFlushKilled => !QueueInsert",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": false,
+      "validation_level": "GROUNDED"
+    },
+    {
+      "arguments": {
+        "occurrence": "DeqHandshake",
+        "predicate": "QueueEmpty"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        28,
+        43,
+        44,
+        273,
+        274,
+        275
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "certified": false,
+          "reason": "control register reset state is unknown"
+        },
+        "reason": "control abstraction could not be certified",
+        "status": "FORMAL_UNKNOWN"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "DeqHandshake"
+        ],
+        "predicates": [
+          "QueueEmpty"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "QueueEmpty => !DeqHandshake",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": false,
+      "validation_level": "GROUNDED"
+    },
+    {
+      "arguments": {
+        "occurrence": "DeqHandshake",
+        "predicate": "HeadInvalid"
+      },
+      "axiom_id": "A5",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        41,
+        273,
+        274,
+        275
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "certified": false,
+          "reason": "control register reset state is unknown"
+        },
+        "reason": "control abstraction could not be certified",
+        "status": "FORMAL_UNKNOWN"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "DeqHandshake"
+        ],
+        "predicates": [
+          "HeadInvalid"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "HeadInvalid => !DeqHandshake",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": false,
+      "validation_level": "GROUNDED"
+    },
+    {
+      "arguments": {
+        "occurrence": "InvalidHeadSkip",
+        "predicate": "QueueEmpty"
+      },
+      "axiom_id": "A6",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        28,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "certified": false,
+          "reason": "control register reset state is unknown"
+        },
+        "reason": "control abstraction could not be certified",
+        "status": "FORMAL_UNKNOWN"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "InvalidHeadSkip"
+        ],
+        "predicates": [
+          "QueueEmpty"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "QueueEmpty => !InvalidHeadSkip",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": false,
+      "validation_level": "GROUNDED"
+    },
+    {
+      "arguments": {
+        "occurrence": "InvalidHeadSkip",
+        "predicate": "HeadValid"
+      },
+      "axiom_id": "A7",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        273,
+        274,
+        275
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "certified": false,
+          "reason": "control register reset state is unknown"
+        },
+        "reason": "control abstraction could not be certified",
+        "status": "FORMAL_UNKNOWN"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "InvalidHeadSkip"
+        ],
+        "predicates": [
+          "HeadValid"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "HeadValid => !InvalidHeadSkip",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": false,
+      "validation_level": "GROUNDED"
+    },
+    {
+      "arguments": {
+        "source": "io.enq.bits",
+        "target": "MPORT"
+      },
+      "axiom_id": "A8",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        242,
+        243,
+        244
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "proof": "MPORT is directly connected to io.enq.bits",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-symbolic-driver-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "QueueInsert"
+        ],
+        "predicates": [],
+        "signals": [
+          "MPORT",
+          "io.enq.bits"
+        ]
+      },
+      "rendered_formula": "MPORT = io.enq.bits on QueueInsert",
+      "structural": {
+        "proof": "MPORT is directly connected to io.enq.bits",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "source": "out_MPORT",
+        "target": "out"
+      },
+      "axiom_id": "A9",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        269,
+        270,
+        271
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "reason": "no driver for 'out'",
+        "status": "FORMAL_UNKNOWN"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "DeqHandshake"
+        ],
+        "predicates": [],
+        "signals": [
+          "out",
+          "out_MPORT"
+        ]
+      },
+      "rendered_formula": "out = out_MPORT on DeqHandshake",
+      "structural": {
+        "reason": "no driver for 'out'",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": false,
+      "validation_level": "GROUNDED"
+    },
+    {
+      "arguments": {
+        "after": "DeqHandshake",
+        "before": "QueueInsert",
+        "scope_index": {
+          "name": "slot",
+          "relation": "same"
+        }
+      },
+      "axiom_id": "A11",
+      "axiom_kind": "ordering",
+      "checker": "history_order",
+      "evidence_statement_ids": [
+        20,
+        22,
+        23,
+        242,
+        245,
+        250,
+        251,
+        252,
+        253,
+        254,
+        255,
+        257,
+        258,
+        259,
+        260,
+        261,
+        262,
+        263,
+        273,
+        274,
+        275
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "certified": false,
+          "reason": "control register reset state is unknown"
+        },
+        "reason": "control abstraction could not be certified",
+        "status": "FORMAL_UNKNOWN"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "DeqHandshake",
+          "QueueInsert"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "QueueInsert <mu DeqHandshake [same index slot]",
+      "structural": {
+        "reason": "same-index relation is formally represented but requires an index-aware backend; scalar structural checkers intentionally do not erase the index scope",
+        "scope_index": {
+          "name": "slot",
+          "relation": "same"
+        },
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": false,
+      "validation_level": "GROUNDED"
+    }
+  ],
+  "trusted_axiom_count": 1,
+  "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
+  "validator": "semantic-validator-0.7",
+  "work_unit_id": "BoomMSHR.rpq.main"
+}

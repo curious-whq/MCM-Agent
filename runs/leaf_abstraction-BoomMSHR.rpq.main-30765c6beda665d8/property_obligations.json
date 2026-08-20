@@ -1,0 +1,378 @@
+{
+  "compiler": "formal-axiom-compiler-0.6",
+  "obligations": [
+    {
+      "arguments": {
+        "occurrence": "EnqHandshake",
+        "predicate": "QueueFull"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        29,
+        30,
+        267,
+        268
+      ],
+      "formal": {
+        "occurrence": "EnqHandshake",
+        "predicate": "QueueFull",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "EnqHandshake"
+        ],
+        "predicates": [
+          "QueueFull"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "QueueFull => !EnqHandshake"
+    },
+    {
+      "arguments": {
+        "occurrence": "QueueInsert",
+        "predicate": "IncomingBranchKilled"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        30,
+        31,
+        32,
+        34,
+        35,
+        39,
+        40,
+        242
+      ],
+      "formal": {
+        "occurrence": "QueueInsert",
+        "predicate": "IncomingBranchKilled",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "QueueInsert"
+        ],
+        "predicates": [
+          "IncomingBranchKilled"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "IncomingBranchKilled => !QueueInsert"
+    },
+    {
+      "arguments": {
+        "occurrence": "QueueInsert",
+        "predicate": "IncomingFlushKilled"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        30,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        242
+      ],
+      "formal": {
+        "occurrence": "QueueInsert",
+        "predicate": "IncomingFlushKilled",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "QueueInsert"
+        ],
+        "predicates": [
+          "IncomingFlushKilled"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "IncomingFlushKilled => !QueueInsert"
+    },
+    {
+      "arguments": {
+        "occurrence": "DeqHandshake",
+        "predicate": "QueueEmpty"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        28,
+        43,
+        44,
+        273,
+        274,
+        275
+      ],
+      "formal": {
+        "occurrence": "DeqHandshake",
+        "predicate": "QueueEmpty",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "DeqHandshake"
+        ],
+        "predicates": [
+          "QueueEmpty"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "QueueEmpty => !DeqHandshake"
+    },
+    {
+      "arguments": {
+        "occurrence": "DeqHandshake",
+        "predicate": "HeadInvalid"
+      },
+      "axiom_id": "A5",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        41,
+        273,
+        274,
+        275
+      ],
+      "formal": {
+        "occurrence": "DeqHandshake",
+        "predicate": "HeadInvalid",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "DeqHandshake"
+        ],
+        "predicates": [
+          "HeadInvalid"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "HeadInvalid => !DeqHandshake"
+    },
+    {
+      "arguments": {
+        "occurrence": "InvalidHeadSkip",
+        "predicate": "QueueEmpty"
+      },
+      "axiom_id": "A6",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        28,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "formal": {
+        "occurrence": "InvalidHeadSkip",
+        "predicate": "QueueEmpty",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "InvalidHeadSkip"
+        ],
+        "predicates": [
+          "QueueEmpty"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "QueueEmpty => !InvalidHeadSkip"
+    },
+    {
+      "arguments": {
+        "occurrence": "InvalidHeadSkip",
+        "predicate": "HeadValid"
+      },
+      "axiom_id": "A7",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        273,
+        274,
+        275
+      ],
+      "formal": {
+        "occurrence": "InvalidHeadSkip",
+        "predicate": "HeadValid",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "InvalidHeadSkip"
+        ],
+        "predicates": [
+          "HeadValid"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "HeadValid => !InvalidHeadSkip"
+    },
+    {
+      "arguments": {
+        "source": "io.enq.bits",
+        "target": "MPORT"
+      },
+      "axiom_id": "A8",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        242,
+        243,
+        244
+      ],
+      "formal": {
+        "on": "QueueInsert",
+        "scope_identity": null,
+        "source": {
+          "name": "io.enq.bits",
+          "op": "signal"
+        },
+        "target": "MPORT",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "QueueInsert"
+        ],
+        "predicates": [],
+        "signals": [
+          "MPORT",
+          "io.enq.bits"
+        ]
+      },
+      "rendered_formula": "MPORT = io.enq.bits on QueueInsert"
+    },
+    {
+      "arguments": {
+        "source": "out_MPORT",
+        "target": "out"
+      },
+      "axiom_id": "A9",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        269,
+        270,
+        271
+      ],
+      "formal": {
+        "on": "DeqHandshake",
+        "scope_identity": null,
+        "source": {
+          "name": "out_MPORT",
+          "op": "signal"
+        },
+        "target": "out",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "DeqHandshake"
+        ],
+        "predicates": [],
+        "signals": [
+          "out",
+          "out_MPORT"
+        ]
+      },
+      "rendered_formula": "out = out_MPORT on DeqHandshake"
+    },
+    {
+      "arguments": {
+        "after": "DeqHandshake",
+        "before": "QueueInsert",
+        "scope_index": {
+          "name": "slot",
+          "relation": "same"
+        }
+      },
+      "axiom_id": "A11",
+      "axiom_kind": "ordering",
+      "checker": "history_order",
+      "evidence_statement_ids": [
+        20,
+        22,
+        23,
+        242,
+        245,
+        250,
+        251,
+        252,
+        253,
+        254,
+        255,
+        257,
+        258,
+        259,
+        260,
+        261,
+        262,
+        263,
+        273,
+        274,
+        275
+      ],
+      "formal": {
+        "after": "DeqHandshake",
+        "before": "QueueInsert",
+        "required_prior": null,
+        "scope_identity": null,
+        "scope_index": {
+          "name": "slot",
+          "relation": "same"
+        },
+        "type": "ordered_before"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "DeqHandshake",
+          "QueueInsert"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "QueueInsert <mu DeqHandshake [same index slot]"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "work_unit_id": "BoomMSHR.rpq.main"
+}

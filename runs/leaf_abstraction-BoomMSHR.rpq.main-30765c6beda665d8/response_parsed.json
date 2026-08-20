@@ -1,0 +1,688 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        29,
+        30,
+        267,
+        268
+      ],
+      "formal": {
+        "occurrence": "EnqHandshake",
+        "predicate": "QueueFull",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A1",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_Admitted",
+        "C2_BranchKilledOnArrival"
+      ],
+      "evidence_statement_ids": [
+        30,
+        31,
+        32,
+        34,
+        35,
+        39,
+        40,
+        242
+      ],
+      "formal": {
+        "occurrence": "QueueInsert",
+        "predicate": "IncomingBranchKilled",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A2",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_Admitted",
+        "C3_FlushKilledOnArrival"
+      ],
+      "evidence_statement_ids": [
+        30,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        242
+      ],
+      "formal": {
+        "occurrence": "QueueInsert",
+        "predicate": "IncomingFlushKilled",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A3",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C4_VisibleDequeue"
+      ],
+      "evidence_statement_ids": [
+        28,
+        43,
+        44,
+        273,
+        274,
+        275
+      ],
+      "formal": {
+        "occurrence": "DeqHandshake",
+        "predicate": "QueueEmpty",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A4",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C4_VisibleDequeue"
+      ],
+      "evidence_statement_ids": [
+        41,
+        273,
+        274,
+        275
+      ],
+      "formal": {
+        "occurrence": "DeqHandshake",
+        "predicate": "HeadInvalid",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A5",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C5_InvalidHeadSkip"
+      ],
+      "evidence_statement_ids": [
+        28,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "formal": {
+        "occurrence": "InvalidHeadSkip",
+        "predicate": "QueueEmpty",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A6",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C5_InvalidHeadSkip"
+      ],
+      "evidence_statement_ids": [
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        273,
+        274,
+        275
+      ],
+      "formal": {
+        "occurrence": "InvalidHeadSkip",
+        "predicate": "HeadValid",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A7",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_Admitted"
+      ],
+      "evidence_statement_ids": [
+        242,
+        243,
+        244
+      ],
+      "formal": {
+        "on": "QueueInsert",
+        "scope_identity": null,
+        "source": {
+          "name": "io.enq.bits",
+          "op": "signal"
+        },
+        "target": "MPORT",
+        "type": "signal_equality"
+      },
+      "id": "A8",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C4_VisibleDequeue"
+      ],
+      "evidence_statement_ids": [
+        269,
+        270,
+        271
+      ],
+      "formal": {
+        "on": "DeqHandshake",
+        "scope_identity": null,
+        "source": {
+          "name": "out_MPORT",
+          "op": "signal"
+        },
+        "target": "out",
+        "type": "signal_equality"
+      },
+      "id": "A9",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_Admitted",
+        "C4_VisibleDequeue"
+      ],
+      "evidence_statement_ids": [
+        20,
+        22,
+        23,
+        242,
+        245,
+        250,
+        251,
+        252,
+        253,
+        254,
+        255,
+        257,
+        258,
+        259,
+        260,
+        261,
+        262,
+        263,
+        273,
+        274,
+        275
+      ],
+      "formal": {
+        "after": "DeqHandshake",
+        "before": "QueueInsert",
+        "required_prior": null,
+        "scope_identity": null,
+        "scope_index": {
+          "name": "slot",
+          "relation": "same"
+        },
+        "type": "ordered_before"
+      },
+      "id": "A11",
+      "status": "candidate"
+    }
+  ],
+  "cases": [
+    {
+      "confidence": "high",
+      "emits": [
+        "QueueInsert"
+      ],
+      "evidence_statement_ids": [
+        30,
+        31,
+        32,
+        34,
+        35,
+        36,
+        37,
+        38,
+        40,
+        242,
+        243,
+        244,
+        245,
+        246,
+        249,
+        250,
+        251,
+        252,
+        253,
+        254,
+        255
+      ],
+      "guard_predicates": [
+        {
+          "id": "IncomingBranchKilled",
+          "positive": false
+        },
+        {
+          "id": "IncomingFlushKilled",
+          "positive": false
+        }
+      ],
+      "id": "C1_Admitted",
+      "relations": [
+        "A handshaken request that is not killed on arrival is written into the current enqueue slot and advances enq_ptr."
+      ],
+      "trigger_occurrences": [
+        "EnqHandshake"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        30,
+        31,
+        32,
+        34,
+        35,
+        39,
+        40
+      ],
+      "guard_predicates": [
+        {
+          "id": "IncomingBranchKilled",
+          "positive": true
+        }
+      ],
+      "id": "C2_BranchKilledOnArrival",
+      "relations": [
+        "The boundary handshake does not become a QueueInsert when the incoming uop is killed by the current branch mispredict mask."
+      ],
+      "trigger_occurrences": [
+        "EnqHandshake"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        30,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40
+      ],
+      "guard_predicates": [
+        {
+          "id": "IncomingFlushKilled",
+          "positive": true
+        }
+      ],
+      "id": "C3_FlushKilledOnArrival",
+      "relations": [
+        "The boundary handshake does not become a QueueInsert when flush kills this uses_ldq request."
+      ],
+      "trigger_occurrences": [
+        "EnqHandshake"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        41,
+        43,
+        44,
+        273,
+        274,
+        275,
+        276
+      ],
+      "guard_predicates": [
+        {
+          "id": "QueueEmpty",
+          "positive": false
+        },
+        {
+          "id": "HeadInvalid",
+          "positive": false
+        }
+      ],
+      "id": "C4_VisibleDequeue",
+      "relations": [
+        "A visible dequeue can occur only from a non-empty valid head slot."
+      ],
+      "trigger_occurrences": [
+        "DeqHandshake"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        256,
+        257,
+        258,
+        259,
+        260,
+        261,
+        262,
+        263,
+        273,
+        274,
+        275
+      ],
+      "guard_predicates": [
+        {
+          "id": "QueueEmpty",
+          "positive": false
+        },
+        {
+          "id": "HeadInvalid",
+          "positive": true
+        }
+      ],
+      "id": "C5_InvalidHeadSkip",
+      "relations": [
+        "An invalid hole at the current non-empty head is consumed internally by advancing deq_ptr without io.deq.fire."
+      ],
+      "trigger_occurrences": [
+        "InvalidHeadSkip"
+      ]
+    }
+  ],
+  "extensions": {},
+  "identity_keys": [],
+  "occurrences": [
+    {
+      "definition": "io.enq.valid && io.enq.ready",
+      "evidence_statement_ids": [
+        30,
+        267,
+        268
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.enq.valid",
+          "io.enq.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "EnqHandshake",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHR.rpq.main::io.enq.fire"
+      ]
+    },
+    {
+      "definition": "do_enq; equivalently io.enq.fire && !incoming_branch_killed && !incoming_flush_killed",
+      "evidence_statement_ids": [
+        30,
+        31,
+        32,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        242,
+        243,
+        244,
+        245,
+        246,
+        247,
+        248,
+        249,
+        250,
+        251,
+        252,
+        253,
+        254,
+        255
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "do_enq"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "QueueInsert",
+      "index": {
+        "domain": {
+          "end_exclusive": 15,
+          "start": 0
+        },
+        "expr": {
+          "name": "enq_ptr_value",
+          "op": "signal"
+        },
+        "name": "slot"
+      },
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "io.deq.valid && io.deq.ready",
+      "evidence_statement_ids": [
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        256,
+        257,
+        258,
+        259,
+        260,
+        261,
+        262,
+        263,
+        273,
+        274,
+        275,
+        276
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.deq.valid",
+          "io.deq.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "DeqHandshake",
+      "index": {
+        "domain": {
+          "end_exclusive": 15,
+          "start": 0
+        },
+        "expr": {
+          "name": "deq_ptr_value",
+          "op": "signal"
+        },
+        "name": "slot"
+      },
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHR.rpq.main::io.deq.fire"
+      ]
+    },
+    {
+      "definition": "do_deq && !io.deq.valid; equivalently the queue is non-empty and valids[deq_ptr_value] is false, causing deq_ptr to advance without a dequeue handshake",
+      "evidence_statement_ids": [
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        256,
+        257,
+        258,
+        259,
+        260,
+        261,
+        262,
+        263,
+        273,
+        274,
+        275
+      ],
+      "grounding": {
+        "signals_false": [
+          "io.deq.valid"
+        ],
+        "signals_true": [
+          "do_deq"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "InvalidHeadSkip",
+      "index": {
+        "domain": {
+          "end_exclusive": 15,
+          "start": 0
+        },
+        "expr": {
+          "name": "deq_ptr_value",
+          "op": "signal"
+        },
+        "name": "slot"
+      },
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    }
+  ],
+  "predicates": [
+    {
+      "definition": "enq_ptr_value == deq_ptr_value && !maybe_full",
+      "evidence_statement_ids": [
+        25,
+        26,
+        27,
+        28
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "io.empty",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "QueueEmpty"
+    },
+    {
+      "definition": "enq_ptr_value == deq_ptr_value && maybe_full",
+      "evidence_statement_ids": [
+        25,
+        29,
+        267,
+        268
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "full",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "QueueFull"
+    },
+    {
+      "definition": "(io.brupdate.b1.mispredict_mask & io.enq.bits.uop.br_mask) != 0",
+      "evidence_statement_ids": [
+        31,
+        32
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "_do_enq_T_2",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "IncomingBranchKilled"
+    },
+    {
+      "definition": "io.flush && io.enq.bits.uop.uses_ldq",
+      "evidence_statement_ids": [
+        36
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "_do_enq_T_6",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "IncomingFlushKilled"
+    },
+    {
+      "definition": "valids[deq_ptr_value] == 0",
+      "evidence_statement_ids": [
+        41
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "_do_deq_T",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "HeadInvalid"
+    },
+    {
+      "definition": "valids[deq_ptr_value] != 0",
+      "evidence_statement_ids": [
+        41
+      ],
+      "grounding": {
+        "negated": true,
+        "source_signal": "_do_deq_T",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "HeadValid"
+    }
+  ],
+  "rationale": [
+    "QueueInsert is separated from EnqHandshake because io.enq.fire can be accepted at the boundary yet be killed by the current branch update or flush before any queue storage/pointer update occurs.",
+    "InvalidHeadSkip is retained as a derived occurrence because a previously invalidated slot can advance deq_ptr without io.deq.fire; this affects the visible path through the queue but does not warrant 15 separate per-entry kill events.",
+    "No liveness or eventual-dequeue property is claimed; the candidate therefore needs no ready/valid fairness assumption.",
+    "No transaction identity_key is claimed in this leaf. Payload is stored in indexed ram/uops state, uops.br_mask is intentionally rewritten on branch resolution, and the current identity_flow form has no indexed/generational carrier semantics. Omitting identity flow is a conservative over-approximation rather than an approximate claim.",
+    "Cross-transaction FIFO preservation and exact inserted-entry-to-dequeued-entry conservation are deliberately omitted. They would strengthen the abstraction but are not required for this conservative candidate; if parent/system CEGAR produces spurious reorder or provenance traces, that evidence can justify a later generic queue/order-flow extension.",
+    "Stored-entry branch/flush invalidation is not materialized as 15 semantic occurrences. Its externally relevant consequence is represented by the possibility of a valid slot becoming a hole and by InvalidHeadSkip; omitting stronger per-entry kill conservation allows additional behavior and is therefore conservative.",
+    "The aggregate forwarding assignment io.deq.bits := out is not emitted as a separate signal_equality axiom because the current static handoff does not expose io.deq.bits itself as an allowed aggregate signal. The candidate retains the grounded dequeue boundary occurrence and the preceding ram-to-out datapath fact instead."
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-BoomMSHR.rpq.main-30765c6beda665d8",
+  "unresolved": [],
+  "work_unit_id": "BoomMSHR.rpq.main"
+}

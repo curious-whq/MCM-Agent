@@ -153,6 +153,16 @@ class ManualWorkflowTests(unittest.TestCase):
         self.assertIn("FINAL MCM-AGENT RESULT", prompt)
         self.assertIn(UMCM_SCHEMA_VERSION, prompt)
 
+    def test_prompt_requires_autonomous_completion_or_language_gap(self):
+        prompt = self.package.prompt
+        self.assertIn("Analyze the entire WorkUnit autonomously", prompt)
+        self.assertIn("do **not** ask the human to choose", prompt)
+        self.assertIn("MCM-AGENT LANGUAGE GAP", prompt)
+        self.assertIn("prover capability is decided later by `semantic-validate`", prompt)
+        self.assertIn("safer over-approximation", prompt)
+        self.assertNotIn("We may discuss, challenge, and revise it interactively", prompt)
+        self.assertNotIn("Only when the discussion has converged", prompt)
+
     def test_manual_export_and_import_grounded_candidate(self):
         with tempfile.TemporaryDirectory() as tmp:
             task_dir = export_manual_task(self.package, tmp)

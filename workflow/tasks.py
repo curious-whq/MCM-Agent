@@ -10,7 +10,7 @@ from .schema import UMCM_SCHEMA_VERSION, candidate_output_schema
 
 
 WORKFLOW_VERSION = "manual-first-workflow-0.9"
-PROMPT_VERSION = "leaf-abstraction-prompt-0.5"
+PROMPT_VERSION = "leaf-abstraction-prompt-0.6"
 
 
 class TaskKind(str, Enum):
@@ -168,10 +168,13 @@ This prompt is self-contained and may be used in a fresh conversation.
 ## Research status
 
 The static hierarchical planner is already complete. Do **not** repartition RTL.
-This is a manual-first experiment: the µMCM language is intentionally
-experimental and may be revised after discussion. Your job is to derive a
-candidate abstraction that preserves information potentially relevant to
-microarchitectural memory ordering, not to summarize the module in prose.
+This is a manual-first experiment, but "manual" only means that a human transports
+the exported prompt and returned result between the workflow and the LLM. The
+human is **not** expected to co-design each leaf abstraction. Analyze this WorkUnit
+autonomously and derive the most conservative grounded candidate abstraction that
+preserves information potentially relevant to microarchitectural memory ordering.
+The µMCM language remains experimental and may be revised when new RTL/formal
+evidence exposes a real reusable gap.
 
 Task ID: `{task.task_id}`
 Workflow version: `{task.workflow_version}`
@@ -227,10 +230,20 @@ Output schema version: `{task.schema_version}`
    pointwise over the same finite index (beat/entry/bank/etc.). Formal expressions
    may use `index_var` and `lookup` to refer to the bound index and an indexed
    storage element. These constructs are protocol-agnostic and must not be
-   specialized to a particular module. If the required concept still cannot be
-   expressed, put it in `extensions` or `unresolved` instead of approximating it.
+   specialized to a particular module. If a semantic property that you judge
+   **necessary** for a sound/useful parent-facing abstraction cannot be faithfully
+   represented by the current Formal AST, do not approximate it with a different
+   or weaker axiom. Report a `MCM-AGENT LANGUAGE GAP` using the procedure below.
+   A limitation of the current formal prover is **not** a language gap: if the AST
+   can express the property, emit the candidate axiom and let `semantic-validate`
+   determine whether the backend can certify it.
 9. This stage proposes **candidate** axioms. Do not assert that formal validation
    has already proved them.
+10. Do not treat every potentially useful strengthening as a blocker. If omitting
+    a constraint merely makes the candidate µMCM a safer over-approximation, you
+    may omit it and record the deliberate omission in `rationale` as a possible
+    later CEGAR refinement. Reserve `unresolved` for genuine grounding/semantic
+    uncertainty that prevents you from making a responsible candidate claim.
 
 ## Physical boundary events
 
@@ -257,14 +270,32 @@ in this ledger must not be cited.
 {_render_statement_ledger(handoff)}
 ```
 
-## What to do in the conversation
+## Autonomous decision procedure
 
-First reason about the WorkUnit and propose whatever semantic decomposition is
-most useful. We may discuss, challenge, and revise it interactively. The current
-v0.2 µMCM idea (occurrences, persistent predicates, identity, guarded cases,
-axioms, assumptions) is a working hypothesis, not a sacred final design.
+Analyze the entire WorkUnit autonomously. Do **not** stop after proposing a
+semantic decomposition, and do **not** ask the human to choose occurrences,
+predicates, identities, cases, axioms, or assumptions. When several abstractions
+are plausible, choose the most conservative one that is grounded by the supplied
+RTL evidence.
 
-Focus on questions such as:
+There are exactly two expected outcomes for this task:
+
+1. **Current language is sufficient.** Build the complete candidate with the
+   current schema and emit `FINAL MCM-AGENT RESULT` in this same response. Do this
+   even when you are unsure whether the current prover can certify every candidate
+   axiom; prover capability is decided later by `semantic-validate`.
+2. **Current language has a real gap.** Use this outcome only when a
+   memory/coherence-relevant semantic property is necessary for the abstraction
+   but cannot be faithfully expressed by any current Formal AST form. Emit a
+   section named `MCM-AGENT LANGUAGE GAP` and state:
+   - the missing semantic concept;
+   - the grounded RTL behavior that requires it;
+   - why the current AST cannot express it without changing meaning;
+   - the minimal **generic/reusable** extension you propose;
+   - representative other hardware patterns that could reuse the extension.
+   Do not emit an approximate candidate axiom just to avoid reporting the gap.
+
+While analyzing, answer questions such as:
 
 - Which physical events correspond to meaningful boundary occurrences, and is
   any RTL-grounded internal milestone needed to preserve an ordering fact?
@@ -285,10 +316,14 @@ Consult `expected_output_schema.json` for the exact allowed AST variants.
 
 ## Final machine result
 
-Only when the discussion has converged, emit a final section named
-`FINAL MCM-AGENT RESULT` followed by one fenced JSON object. The object must
-match `expected_output_schema.json`. Use this exact envelope as the starting
-shape:
+If the current language is sufficient, this response **must** include a final
+section named `FINAL MCM-AGENT RESULT` followed by one fenced JSON object. Do not
+wait for another human turn before emitting it. The object must match
+`expected_output_schema.json`. Use this exact envelope as the starting shape.
+
+If and only if the current language has a necessary semantic gap, emit
+`MCM-AGENT LANGUAGE GAP` instead of fabricating an approximate final JSON. A
+formal-backend proof limitation alone never selects this path.
 
 ```json
 {template}

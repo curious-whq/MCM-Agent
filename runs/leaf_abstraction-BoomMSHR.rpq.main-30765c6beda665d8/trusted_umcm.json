@@ -1,0 +1,192 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [
+        "C1_Admitted"
+      ],
+      "evidence_statement_ids": [
+        242,
+        243,
+        244
+      ],
+      "formal": {
+        "on": "QueueInsert",
+        "scope_identity": null,
+        "source": {
+          "name": "io.enq.bits",
+          "op": "signal"
+        },
+        "target": "MPORT",
+        "type": "signal_equality"
+      },
+      "id": "A8",
+      "rendered_formula": "MPORT = io.enq.bits on QueueInsert",
+      "status": "candidate"
+    }
+  ],
+  "cases": [
+    {
+      "confidence": "high",
+      "emits": [
+        "QueueInsert"
+      ],
+      "evidence_statement_ids": [
+        30,
+        31,
+        32,
+        34,
+        35,
+        36,
+        37,
+        38,
+        40,
+        242,
+        243,
+        244,
+        245,
+        246,
+        249,
+        250,
+        251,
+        252,
+        253,
+        254,
+        255
+      ],
+      "guard_predicates": [
+        {
+          "id": "IncomingBranchKilled",
+          "positive": false
+        },
+        {
+          "id": "IncomingFlushKilled",
+          "positive": false
+        }
+      ],
+      "id": "C1_Admitted",
+      "relations": [
+        "A handshaken request that is not killed on arrival is written into the current enqueue slot and advances enq_ptr."
+      ],
+      "trigger_occurrences": [
+        "EnqHandshake"
+      ]
+    }
+  ],
+  "identity_keys": [],
+  "note": "Only axioms with FORMALLY_PROVED or SPEC_PROVED validation level are included. Grounded/structurally-supported candidate axioms remain outside the trusted abstraction.",
+  "occurrences": [
+    {
+      "definition": "io.enq.valid && io.enq.ready",
+      "evidence_statement_ids": [
+        30,
+        267,
+        268
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.enq.valid",
+          "io.enq.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "EnqHandshake",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHR.rpq.main::io.enq.fire"
+      ]
+    },
+    {
+      "definition": "do_enq; equivalently io.enq.fire && !incoming_branch_killed && !incoming_flush_killed",
+      "evidence_statement_ids": [
+        30,
+        31,
+        32,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        242,
+        243,
+        244,
+        245,
+        246,
+        247,
+        248,
+        249,
+        250,
+        251,
+        252,
+        253,
+        254,
+        255
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "do_enq"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "QueueInsert",
+      "index": {
+        "domain": {
+          "end_exclusive": 15,
+          "start": 0
+        },
+        "expr": {
+          "name": "enq_ptr_value",
+          "op": "signal"
+        },
+        "name": "slot"
+      },
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    }
+  ],
+  "predicates": [
+    {
+      "definition": "(io.brupdate.b1.mispredict_mask & io.enq.bits.uop.br_mask) != 0",
+      "evidence_statement_ids": [
+        31,
+        32
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "_do_enq_T_2",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "IncomingBranchKilled"
+    },
+    {
+      "definition": "io.flush && io.enq.bits.uop.uses_ldq",
+      "evidence_statement_ids": [
+        36
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "_do_enq_T_6",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "IncomingFlushKilled"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-BoomMSHR.rpq.main-30765c6beda665d8",
+  "trust_policy": "formal-ast-only-v0.2",
+  "trusted_axiom_ids": [
+    "A8"
+  ],
+  "work_unit_id": "BoomMSHR.rpq.main"
+}

@@ -1,0 +1,9 @@
+{
+  "kind": "leaf_abstraction",
+  "prompt_version": "leaf-abstraction-prompt-0.6",
+  "provider_mode": "manual_conversation",
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-BoomMSHR.rpq.main-30765c6beda665d8",
+  "work_unit_id": "BoomMSHR.rpq.main",
+  "workflow_version": "manual-first-workflow-0.9"
+}
