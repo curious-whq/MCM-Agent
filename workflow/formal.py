@@ -23,11 +23,12 @@ from .semantic import (
 )
 from .formal_patterns import (
     prove_combinational_forbid_when,
+    prove_scalar_valid_token_provenance,
     prove_same_index_valid_token_provenance,
 )
 
 
-FORMAL_BACKEND_API_VERSION = "formal-backend-api-0.7"
+FORMAL_BACKEND_API_VERSION = "formal-backend-api-0.8"
 FORMAL_UNKNOWN = "FORMAL_UNKNOWN"
 FORMAL_COUNTEREXAMPLE = "FORMAL_COUNTEREXAMPLE"
 
@@ -235,7 +236,7 @@ class ExplicitControlFormalBackend:
             "trusted_proof_levels": [FORMALLY_PROVED, SPEC_PROVED],
             "proof_domain": (
                 "control + exact symbolic local + exact combinational exclusion + "
-                "indexed token provenance + finite reference equivalence"
+                "scalar/indexed token provenance + finite reference equivalence"
             ),
             "supported_checkers": [
                 "forbid_when",
@@ -300,6 +301,21 @@ class ExplicitControlFormalBackend:
         # retain the existing control/pipeline proof path below.
         if checker == "history_order" and args.get("scope_index"):
             provenance = prove_same_index_valid_token_provenance(
+                model,
+                candidate,
+                **args,
+            )
+            if provenance.get("status") == STRUCTURALLY_SUPPORTED:
+                return {
+                    "status": FORMALLY_PROVED,
+                    "backend": self.name,
+                    "proof_method": provenance.get("proof_domain"),
+                    "proof": provenance.get("proof"),
+                    "certificate": provenance,
+                }
+
+        if checker == "history_order" and not args.get("scope_index"):
+            provenance = prove_scalar_valid_token_provenance(
                 model,
                 candidate,
                 **args,

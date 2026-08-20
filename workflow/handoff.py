@@ -9,6 +9,7 @@ from frontend.model import SourceLoc
 from frontend.partition import discover_partition_plan
 from frontend.registry import EventRegistry, PhysicalEvent
 from frontend.source import SourceMapper, SourceResolutionError, snippet_dict
+from frontend.slice import SourceSpan
 from frontend.workunit import HierarchicalWorkUnit, WorkUnitComplexity
 
 
@@ -72,6 +73,36 @@ def _event_dict(event: PhysicalEvent, concrete_id: str) -> dict[str, Any]:
         "payload": [port.path for port in event.payload],
         "sources": [_source_dict(source) for source in event.sources],
     }
+
+
+
+def _local_source_spans(statements: list[dict[str, Any]]) -> tuple[SourceSpan, ...]:
+    # Rebuild source spans from only the statements visible in this handoff.
+    # Parent synthesis must not reintroduce child implementation source text.
+    by_file: dict[str, set[int]] = {}
+    for statement in statements:
+        source = statement.get("source") if isinstance(statement, dict) else None
+        if not isinstance(source, dict):
+            continue
+        file = source.get("file")
+        line = source.get("line")
+        if isinstance(file, str) and isinstance(line, int) and line > 0:
+            by_file.setdefault(file, set()).add(line)
+
+    spans: list[SourceSpan] = []
+    for file in sorted(by_file):
+        lines = sorted(by_file[file])
+        if not lines:
+            continue
+        start = end = lines[0]
+        for line in lines[1:]:
+            if line <= end + 2:
+                end = line
+            else:
+                spans.append(SourceSpan(file=file, start_line=start, end_line=end))
+                start = end = line
+        spans.append(SourceSpan(file=file, start_line=start, end_line=end))
+    return tuple(spans)
 
 
 def _resolve_source_snippets(
@@ -256,8 +287,9 @@ def build_work_unit_static_handoff(
         for child in unit.parent_analysis_input().children
     ]
 
+    local_source_spans = _local_source_spans(statements)
     source_evidence = _resolve_source_snippets(
-        unit.source_spans,
+        local_source_spans,
         source_roots,
         context_lines=context_lines,
     )
@@ -288,7 +320,7 @@ def build_work_unit_static_handoff(
         "statements": statements,
         "dependency_edges": edges,
         "semantic_event_cones": semantic_cones,
-        "source_spans": [asdict(span) for span in unit.source_spans],
+        "source_spans": [asdict(span) for span in local_source_spans],
         "source_evidence": source_evidence,
         "grounding": {
             "allowed_statement_ids": sorted(statement_ids),

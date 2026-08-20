@@ -11,6 +11,7 @@ from .schema import UMCM_SCHEMA_VERSION, candidate_output_schema
 
 WORKFLOW_VERSION = "manual-first-workflow-0.9"
 PROMPT_VERSION = "leaf-abstraction-prompt-0.6"
+PARENT_PROMPT_VERSION = "parent-synthesis-prompt-0.1"
 
 
 class TaskKind(str, Enum):
@@ -50,12 +51,17 @@ class PromptPackage:
     prompt: str
 
 
-def _stable_task_id(kind: TaskKind, handoff: dict[str, Any]) -> str:
+def _stable_task_id(
+    kind: TaskKind,
+    handoff: dict[str, Any],
+    *,
+    prompt_version: str = PROMPT_VERSION,
+) -> str:
     payload = json.dumps(
         {
             "kind": kind.value,
             "schema": UMCM_SCHEMA_VERSION,
-            "prompt": PROMPT_VERSION,
+            "prompt": prompt_version,
             "handoff": handoff,
         },
         sort_keys=True,
@@ -132,6 +138,41 @@ def _render_event_table(handoff: dict[str, Any]) -> str:
         )
     return "\n".join(chunks)
 
+
+
+def _render_child_summaries(handoff: dict[str, Any]) -> str:
+    composition = handoff.get("composition", {})
+    summaries = composition.get("child_summaries", []) if isinstance(composition, dict) else []
+    chunks: list[str] = []
+    for child in summaries:
+        if not isinstance(child, dict):
+            continue
+        child_id = child.get("child_id", "<unknown-child>")
+        catalog = child.get("semantic_catalog", {})
+        frozen = child.get("frozen_umcm", {})
+        chunks.append(
+            "\n".join(
+                [
+                    f"### Child `{child_id}`",
+                    f"- summary ref: `{child.get('summary_ref')}`",
+                    f"- frozen task: `{child.get('task_id')}`",
+                    f"- frozen SHA-256: `{child.get('frozen_umcm_sha256')}`",
+                    f"- exposed boundary events: {child.get('boundary_events', [])}",
+                    f"- frontier signals: {child.get('frontier_signals', [])}",
+                    "",
+                    "Qualified semantic IDs available to parent formal AST:",
+                    "```json",
+                    json.dumps(catalog, indent=2, sort_keys=True),
+                    "```",
+                    "",
+                    "Trusted frozen child µMCM:",
+                    "```json",
+                    json.dumps(frozen, indent=2, sort_keys=True),
+                    "```",
+                ]
+            )
+        )
+    return "\n\n".join(chunks)
 
 def _output_template(task: LLMTask) -> dict[str, Any]:
     return {
@@ -333,6 +374,198 @@ IDs inside each list must be unique and stable within this result. Physical
 references must use the exact IDs from this prompt. Evidence must use integer
 statement IDs from the ledger.
 """
+
+
+
+def render_parent_synthesis_prompt(
+    task: LLMTask,
+    handoff: dict[str, Any],
+) -> str:
+    unit = handoff["work_unit"]
+    complexity = handoff["replacement_complexity"]
+    state_ids = [state["id"] for state in handoff["state"]]
+    frontier_ids = [entry["id"] for entry in handoff["frontier"]]
+    template = json.dumps(_output_template(task), indent=2, sort_keys=False)
+
+    return f"""# MCM-Agent manual semantic task: parent µMCM synthesis
+
+You are performing one bottom-up semantic-composition step in MCM-Agent.
+This prompt is self-contained and may be used in a fresh conversation.
+
+## Research status
+
+The static hierarchical planner is already complete. Do **not** repartition RTL.
+This is a parent-synthesis task. Every direct child listed below is already
+`FROZEN_FOR_COMPOSITION`. Child RTL is **not an input** to this task and must not
+be reconstructed, guessed, or re-read. Treat each frozen child µMCM as a trusted
+semantic component and combine it only with the parent-local RTL evidence below.
+
+The human is transport-only. Analyze the parent autonomously. If the current
+µMCM Formal AST is sufficient, emit the complete candidate in this response. If
+a necessary parent-level semantic concept cannot be represented faithfully,
+report `MCM-AGENT LANGUAGE GAP`. If the AST can express a property but the current
+formal backend may not prove a relation spanning imported child semantics, still
+emit the candidate; that is a composition-prover gap, not a language gap.
+
+Task ID: `{task.task_id}`
+Workflow version: `{task.workflow_version}`
+Prompt version: `{task.prompt_version}`
+Output schema version: `{task.schema_version}`
+
+## Parent WorkUnit
+
+- id: `{unit['id']}`
+- module: `{unit['module']}`
+- kind: `{unit['kind']}`
+- instance path: `{unit['instance_path']}`
+- leaf: `{unit['is_leaf']}`
+- coverage complete: `{unit['coverage_complete']}`
+- parent-local raw statements after child replacement: {complexity['raw']['statements']}
+- parent-local logical statements after child replacement: {complexity['logical']['statements']}
+- parent-local registers: {complexity['registers']}
+- parent-local physical boundary events: {complexity['events']}
+
+## Composition rules
+
+1. Frozen child axioms are already trusted and remain imported automatically when
+   this parent is frozen. Do **not** mechanically copy every child axiom into the
+   parent candidate. Grounding signals/state/evidence stored inside a frozen child
+   summary are provenance only: do not treat them as parent-local RTL evidence or
+   infer new child behavior beyond the trusted frozen semantics.
+2. Child semantic objects may be referenced by the exact qualified IDs shown in
+   each child's semantic catalog. Do not redeclare an imported occurrence,
+   predicate, identity, case, or axiom under the same qualified ID.
+3. New boundary occurrences may reference parent-local physical events and the
+   exposed child boundary events. New derived occurrences must be grounded only
+   in parent-local RTL; child internal state/signals are not available.
+4. `evidence_statement_ids` in this result may cite only the parent-local statement
+   ledger below. Child provenance belongs in `extensions`, not in fabricated
+   parent statement evidence.
+5. For every new parent axiom, fill:
+   `extensions.parent_synthesis.axiom_provenance[<axiom-id>]` with:
+   - `kind`: one of `parent_local`, `reexported`, `lifted`, `emergent`;
+   - `source_axioms`: zero or more exact qualified IDs from the imported child
+     axiom catalogs;
+   - `note`: a short explanation.
+   `parent_local` normally has no child source axioms. `lifted`, `emergent`, or
+   `reexported` must cite at least one imported source axiom.
+6. It is valid for this parent to declare **zero new axioms** when the wrapper adds
+   no additional memory/coherence-relevant constraint. The frozen parent will
+   still retain the frozen child imports. Do not invent redundant axioms merely
+   to avoid an empty parent-local candidate.
+7. The trusted child summaries are not assumed complete forever. Omitting an
+   optional strengthening is a safe over-approximation and may be recorded in
+   `rationale` for later CEGAR refinement.
+8. Do not claim liveness without an explicit environment assumption.
+9. Candidate axioms remain candidates until deterministic/formal validation.
+
+## Parent-local physical events
+
+{_render_event_table(handoff)}
+
+## Parent-local concrete state
+
+{state_ids}
+
+## Parent frontier signals
+
+{frontier_ids}
+
+## Frozen child summaries
+
+{_render_child_summaries(handoff)}
+
+## Parent-local source evidence
+
+{_render_source_evidence(handoff)}
+
+## Parent-local FIRRTL statement ledger
+
+Only these parent-local statement IDs may appear in `evidence_statement_ids`.
+
+```text
+{_render_statement_ledger(handoff)}
+```
+
+## Autonomous decision procedure
+
+Synthesize the most conservative parent-facing abstraction that preserves
+memory/coherence ordering, visibility, identity, exclusion, conservation, and
+path facts contributed by the combination of frozen children plus parent-local
+RTL.
+
+There are exactly two expected outcomes:
+
+1. **Current language is sufficient.** Emit `FINAL MCM-AGENT RESULT` followed by
+   one fenced JSON object matching `expected_output_schema.json` in this response.
+2. **Current language has a real gap.** Emit `MCM-AGENT LANGUAGE GAP` and explain
+   the grounded missing concept, why existing AST forms change its meaning, and
+   the minimal reusable extension. A missing composition proof capability is not
+   a language gap.
+
+For the normal JSON outcome, use this exact envelope:
+
+```json
+{template}
+```
+
+For a parent result, `extensions` should normally have this shape:
+
+```json
+{{
+  "parent_synthesis": {{
+    "axiom_provenance": {{
+      "A1": {{
+        "kind": "parent_local",
+        "source_axioms": [],
+        "note": "..."
+      }}
+    }}
+  }}
+}}
+```
+
+IDs inside each list must be unique and stable. Physical references and
+parent-local evidence must use exact IDs from this prompt.
+"""
+
+
+def build_parent_synthesis_task(handoff: dict[str, Any]) -> PromptPackage:
+    if handoff["work_unit"]["is_leaf"]:
+        raise ValueError(
+            f"ParentSynthesisTask requires a non-leaf WorkUnit, got {handoff['work_unit']['id']}"
+        )
+    if not handoff["work_unit"]["coverage_complete"]:
+        raise ValueError("ParentSynthesisTask requires complete static coverage")
+    composition = handoff.get("composition", {})
+    children = handoff.get("children", [])
+    summaries = composition.get("child_summaries", []) if isinstance(composition, dict) else []
+    if len(summaries) != len(children) or not summaries:
+        raise ValueError(
+            "ParentSynthesisTask requires one frozen child summary for every direct child"
+        )
+
+    kind = TaskKind.PARENT_SYNTHESIS
+    task = LLMTask(
+        task_id=_stable_task_id(
+            kind,
+            handoff,
+            prompt_version=PARENT_PROMPT_VERSION,
+        ),
+        kind=kind,
+        work_unit_id=handoff["work_unit"]["id"],
+        schema_version=UMCM_SCHEMA_VERSION,
+        prompt_version=PARENT_PROMPT_VERSION,
+        workflow_version=WORKFLOW_VERSION,
+        provider_mode="manual_conversation",
+    )
+    schema = candidate_output_schema()
+    return PromptPackage(
+        task=task,
+        static_handoff=handoff,
+        expected_output_schema=schema,
+        prompt=render_parent_synthesis_prompt(task, handoff),
+    )
 
 
 def build_leaf_abstraction_task(handoff: dict[str, Any]) -> PromptPackage:

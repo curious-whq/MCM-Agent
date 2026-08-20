@@ -15,7 +15,8 @@ from frontend.workunit import (
 
 from .handoff import build_work_unit_static_handoff
 from .manual import export_manual_task, import_manual_response
-from .tasks import build_leaf_abstraction_task
+from .tasks import build_leaf_abstraction_task, build_parent_synthesis_task
+from .composition import attach_frozen_child_summaries
 from .semantic import validate_task_dir
 from .research_memory import write_current_handoff, write_run_summary
 
@@ -88,6 +89,64 @@ def _leaf_task(args: argparse.Namespace) -> dict:
         "static_handoff": str(task_dir / "static_handoff.json"),
         "expected_output_schema": str(task_dir / "expected_output_schema.json"),
         "next_action": "Send prompt.md to the current or a new ChatGPT conversation.",
+    }
+
+
+
+def _parent_task(args: argparse.Namespace) -> dict:
+    text = _load(args.firrtl)
+    frontend = StaticFrontend.from_firrtl(text, eager=len(text) < 8_000_000)
+    root = build_hierarchical_work_unit(
+        frontend.design,
+        frontend.graph,
+        frontend.registries,
+        root_instance=args.root_instance,
+        root_module=args.root_module,
+        config=WorkUnitConfig(),
+    )
+    unit = _select_unit(root, args.unit_id)
+    if not unit.children:
+        raise ValueError(
+            f"Parent synthesis requires a non-leaf WorkUnit; {unit.id!r} is a leaf"
+        )
+
+    graph = frontend.graph(unit.module)
+    registry = frontend.registries[unit.module]
+    handoff = build_work_unit_static_handoff(
+        unit,
+        graph,
+        registry,
+        source_roots=args.source_root,
+        context_lines=args.context_lines,
+    )
+    child_run_roots = args.child_run_root or [args.run_root]
+    handoff = attach_frozen_child_summaries(
+        handoff,
+        run_roots=child_run_roots,
+        child_task_dirs=args.child_task_dir,
+    )
+    package = build_parent_synthesis_task(handoff)
+    task_dir = export_manual_task(package, args.run_root)
+    return {
+        "status": "PENDING_MANUAL_LLM",
+        "task_id": package.task.task_id,
+        "work_unit_id": unit.id,
+        "task_dir": str(task_dir),
+        "prompt": str(task_dir / "prompt.md"),
+        "static_handoff": str(task_dir / "static_handoff.json"),
+        "expected_output_schema": str(task_dir / "expected_output_schema.json"),
+        "children": [
+            {
+                "child_id": child.get("child_id"),
+                "task_id": child.get("task_id"),
+                "frozen_umcm_sha256": child.get("frozen_umcm_sha256"),
+            }
+            for child in handoff.get("composition", {}).get("child_summaries", [])
+        ],
+        "next_action": (
+            "Send parent prompt.md to the LLM. Child RTL has been replaced by "
+            "frozen child µMCM summaries."
+        ),
     }
 
 
@@ -187,6 +246,28 @@ def build_parser() -> argparse.ArgumentParser:
     leaf.add_argument("--context-lines", type=int, default=1)
     leaf.add_argument("--run-root", default="runs")
 
+    parent = sub.add_parser(
+        "parent-task",
+        help="export a self-contained parent synthesis task using frozen direct children",
+    )
+    parent.add_argument("firrtl")
+    _add_root_args(parent)
+    parent.add_argument("--source-root", action="append", default=[])
+    parent.add_argument("--context-lines", type=int, default=1)
+    parent.add_argument("--run-root", default="runs")
+    parent.add_argument(
+        "--child-run-root",
+        action="append",
+        default=[],
+        help="search root for frozen direct-child runs; defaults to --run-root",
+    )
+    parent.add_argument(
+        "--child-task-dir",
+        action="append",
+        default=[],
+        help="explicit frozen direct-child task dir; repeat to disambiguate children",
+    )
+
     manual_import = sub.add_parser(
         "manual-import",
         help="import the final JSON result from a manual ChatGPT conversation",
@@ -247,6 +328,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     try:
         if args.command == "leaf-task":
             output = _leaf_task(args)
+        elif args.command == "parent-task":
+            output = _parent_task(args)
         elif args.command == "manual-import":
             output = _manual_import(args)
         elif args.command == "semantic-validate":

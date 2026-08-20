@@ -1,0 +1,9 @@
+{
+  "kind": "parent_synthesis",
+  "prompt_version": "parent-synthesis-prompt-0.1",
+  "provider_mode": "manual_conversation",
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "parent_synthesis-BoomMSHR.rpq-38a6826dc8c3b9dc",
+  "work_unit_id": "BoomMSHR.rpq",
+  "workflow_version": "manual-first-workflow-0.9"
+}

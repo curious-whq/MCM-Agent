@@ -11,7 +11,7 @@ from .research_memory import write_run_summary
 from .axiom_ir import compile_formal_axiom, render_formal_axiom
 
 
-SEMANTIC_VALIDATOR_VERSION = "semantic-validator-0.7"
+SEMANTIC_VALIDATOR_VERSION = "semantic-validator-0.8"
 PROPERTY_COMPILER_VERSION = "formal-axiom-compiler-0.6"
 
 # Structural/static checker outcomes. These deliberately do NOT use the word
@@ -2082,17 +2082,46 @@ def run_semantic_validation(
     compiled = compile_candidate_properties(candidate)
     backend = get_formal_backend(formal_backend)
 
+    imported_refs = {
+        "occurrences": set(handoff.get("grounding", {}).get("imported_occurrence_ids", [])),
+        "predicates": set(handoff.get("grounding", {}).get("imported_predicate_ids", [])),
+        "identities": set(handoff.get("grounding", {}).get("imported_identity_ids", [])),
+    }
+
     results: list[dict[str, Any]] = []
     for obligation in compiled["obligations"]:
-        structural = _run_structural_checker(model, candidate, obligation)
-        if structural.get("status") == COUNTEREXAMPLE:
+        references = obligation.get("references", {})
+        uses_imported = any(
+            set(references.get(kind, [])) & imported_refs[kind]
+            for kind in ("occurrences", "predicates", "identities")
+        )
+        if uses_imported:
+            structural = {
+                "status": STRUCTURAL_UNKNOWN,
+                "reason": (
+                    "obligation references frozen child semantic objects; "
+                    "parent-local RTL checkers must not reopen child RTL"
+                ),
+                "proof_domain": "composition-summary-boundary",
+            }
             formal = {
                 "status": "NOT_RUN",
                 "backend": backend.name,
-                "reason": "structural counterexample already refutes the encoded candidate obligation",
+                "reason": (
+                    "current formal backend has no certified composition rule for "
+                    "axioms spanning imported child µMCM objects"
+                ),
             }
         else:
-            formal = backend.prove(obligation, candidate=candidate, handoff=handoff)
+            structural = _run_structural_checker(model, candidate, obligation)
+            if structural.get("status") == COUNTEREXAMPLE:
+                formal = {
+                    "status": "NOT_RUN",
+                    "backend": backend.name,
+                    "reason": "structural counterexample already refutes the encoded candidate obligation",
+                }
+            else:
+                formal = backend.prove(obligation, candidate=candidate, handoff=handoff)
 
         level = _validation_level(structural.get("status", STRUCTURAL_UNKNOWN), formal.get("status", "NOT_RUN"))
         results.append(
@@ -2106,19 +2135,43 @@ def run_semantic_validation(
             }
         )
 
+    if backend.name != "none" and handoff.get("composition", {}).get("mode") == "parent_synthesis":
+        from .composition_prover import prove_composition_obligations
+
+        composed = prove_composition_obligations(candidate, handoff, results)
+        for result in results:
+            proof = composed.get(str(result.get("axiom_id")))
+            if proof is None:
+                continue
+            result["formal"] = proof
+            level = _validation_level(
+                result.get("structural", {}).get("status", STRUCTURAL_UNKNOWN),
+                proof.get("status", "NOT_RUN"),
+            )
+            result["validation_level"] = level
+            result["trusted"] = level in {FORMALLY_PROVED, SPEC_PROVED}
+
     level_order = [GROUNDED, PARTIALLY_SUPPORTED, STRUCTURALLY_SUPPORTED, FORMALLY_PROVED, SPEC_PROVED, REFUTED]
     counts = {
         level: sum(1 for result in results if result.get("validation_level") == level)
         for level in level_order
     }
     has_counterexample = counts[REFUTED] > 0
-    all_structural = bool(results) and all(
-        result.get("validation_level") in {STRUCTURALLY_SUPPORTED, FORMALLY_PROVED, SPEC_PROVED}
-        for result in results
+    is_parent = handoff.get("composition", {}).get("mode") == "parent_synthesis"
+    all_structural = (is_parent and not results) or (
+        bool(results)
+        and all(
+            result.get("validation_level")
+            in {STRUCTURALLY_SUPPORTED, FORMALLY_PROVED, SPEC_PROVED}
+            for result in results
+        )
     )
-    all_formal = bool(results) and all(
-        result.get("validation_level") in {FORMALLY_PROVED, SPEC_PROVED}
-        for result in results
+    all_formal = (is_parent and not results) or (
+        bool(results)
+        and all(
+            result.get("validation_level") in {FORMALLY_PROVED, SPEC_PROVED}
+            for result in results
+        )
     )
 
     return {
@@ -2149,6 +2202,7 @@ def run_semantic_validation(
 
 def validate_task_dir(task_dir: str | Path, *, formal_backend: str = "none") -> dict[str, Any]:
     directory = Path(task_dir)
+    task = json.loads((directory / "task.json").read_text(encoding="utf-8"))
     candidate = json.loads((directory / "response_parsed.json").read_text(encoding="utf-8"))
     grounding = json.loads((directory / "validation.json").read_text(encoding="utf-8"))
     if not grounding.get("valid"):
@@ -2173,7 +2227,13 @@ def validate_task_dir(task_dir: str | Path, *, formal_backend: str = "none") -> 
         next_action = "Return the counterexample to the conversation and refine the candidate axiom."
     elif semantic["all_axioms_formally_proved"]:
         status = "FORMALLY_VALIDATED"
-        next_action = "The formally proved axioms may be frozen into the trusted leaf µMCM."
+        if task.get("kind") == "parent_synthesis":
+            next_action = (
+                "All newly declared parent axioms are trusted (possibly vacuously zero); "
+                "freeze the composite parent while retaining frozen child imports."
+            )
+        else:
+            next_action = "The formally proved axioms may be frozen into the trusted leaf µMCM."
     elif semantic["trusted_axiom_count"] > 0:
         status = "PARTIALLY_FORMALLY_VALIDATED"
         next_action = (
@@ -2201,15 +2261,40 @@ def validate_task_dir(task_dir: str | Path, *, formal_backend: str = "none") -> 
     return semantic
 
 def freeze_task_dir(task_dir: str | Path) -> dict[str, Any]:
-    """Freeze a fully validated leaf summary for parent composition.
+    """Freeze a fully validated WorkUnit summary for composition.
 
-    Closure here means *all currently declared candidate axioms* are trusted and
-    the candidate carries no unresolved items.  It does not claim abstraction
-    completeness forever: a later system-level spurious counterexample may reopen
-    the WorkUnit through the CEGAR loop.
+    Closure means all currently declared *new* candidate axioms are trusted and
+    no unresolved item remains. Parent summaries additionally retain their
+    already-frozen child imports; no child RTL is reopened.
     """
 
     directory = Path(task_dir)
+
+    # Backward compatibility: older leaf-level freeze tests and callers construct
+    # only response_parsed.json / semantic_validation.json / trusted_umcm.json.
+    # Parent synthesis, however, requires task/static-handoff composition metadata
+    # and remains fail-closed.
+    task_path = directory / "task.json"
+    task = (
+        json.loads(task_path.read_text(encoding="utf-8"))
+        if task_path.is_file()
+        else {"kind": "leaf_abstraction"}
+    )
+
+    handoff_path = directory / "static_handoff.json"
+    if task.get("kind") == "parent_synthesis":
+        if not handoff_path.is_file():
+            raise ValueError(
+                "parent_synthesis freeze requires static_handoff.json with frozen child composition metadata"
+            )
+        handoff = json.loads(handoff_path.read_text(encoding="utf-8"))
+    else:
+        handoff = (
+            json.loads(handoff_path.read_text(encoding="utf-8"))
+            if handoff_path.is_file()
+            else {}
+        )
+
     candidate = json.loads((directory / "response_parsed.json").read_text(encoding="utf-8"))
     semantic = json.loads((directory / "semantic_validation.json").read_text(encoding="utf-8"))
     trusted = json.loads((directory / "trusted_umcm.json").read_text(encoding="utf-8"))
@@ -2223,6 +2308,58 @@ def freeze_task_dir(task_dir: str | Path) -> dict[str, Any]:
         raise ValueError("trusted µMCM does not contain every declared candidate axiom")
 
     frozen = dict(trusted)
+    if task.get("kind") == "parent_synthesis":
+        from .composition import merge_semantic_catalogs, semantic_catalog_from_frozen
+
+        composition = handoff.get("composition", {})
+        child_summaries = (
+            composition.get("child_summaries", [])
+            if isinstance(composition, dict)
+            else []
+        )
+        if not child_summaries:
+            raise ValueError("cannot freeze parent without frozen child summaries")
+
+        portable_imports = []
+        imported_catalogs = []
+        for child in child_summaries:
+            child_frozen = child.get("frozen_umcm")
+            child_catalog = child.get("semantic_catalog")
+            if not isinstance(child_frozen, dict) or not isinstance(child_catalog, dict):
+                raise ValueError("parent child summary is incomplete")
+            imported_catalogs.append(child_catalog)
+            portable_imports.append(
+                {
+                    "child_id": child.get("child_id"),
+                    "child_kind": child.get("child_kind"),
+                    "summary_ref": child.get("summary_ref"),
+                    "task_id": child.get("task_id"),
+                    "frozen_umcm_sha256": child.get("frozen_umcm_sha256"),
+                    "semantic_catalog": child_catalog,
+                    "frozen_umcm": child_frozen,
+                }
+            )
+
+        local_catalog = semantic_catalog_from_frozen(
+            frozen,
+            work_unit_id=str(candidate.get("work_unit_id")),
+        )
+        semantic_catalog = merge_semantic_catalogs(
+            *imported_catalogs,
+            local_catalog,
+        )
+        frozen["composition"] = {
+            "mode": "parent_synthesis",
+            "policy": "transparent-frozen-child-imports-v0.1",
+            "imports": portable_imports,
+            "semantic_catalog": semantic_catalog,
+            "note": (
+                "Child RTL is not part of this frozen parent. Imported child µMCMs "
+                "remain frozen semantic components; descendant semantic names are "
+                "transparently propagated in v0.1 for higher-level synthesis."
+            ),
+        }
+
     frozen["freeze"] = {
         "status": "FROZEN_FOR_COMPOSITION",
         "policy": "all-declared-axioms-trusted-and-no-unresolved-v0.1",
@@ -2241,7 +2378,10 @@ def freeze_task_dir(task_dir: str | Path) -> dict[str, Any]:
         "task_id": candidate.get("task_id"),
         "candidate_axiom_count": len(candidate.get("axioms", [])),
         "trusted_axiom_count": len(trusted.get("axioms", [])),
-        "next_action": "Parent synthesis may consume frozen_umcm.json; reopen only through counterexample-guided refinement.",
+        "next_action": (
+            "A higher parent synthesis step may consume frozen_umcm.json; "
+            "reopen only through counterexample-guided refinement."
+        ),
     }
     (directory / "status.json").write_text(
         json.dumps(status_payload, indent=2, sort_keys=True) + "\n", encoding="utf-8"

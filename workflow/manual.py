@@ -171,10 +171,43 @@ def validate_candidate_grounding(
         allowed_signals.update(statement.get("drives", []))
         allowed_signals.update(statement.get("reads", []))
 
-    occurrence_ids = _id_set(candidate, "occurrences")
-    predicate_ids = _id_set(candidate, "predicates")
-    identity_ids = _id_set(candidate, "identity_keys")
-    case_ids = _id_set(candidate, "cases")
+    imported_occurrence_ids = set(
+        handoff.get("grounding", {}).get("imported_occurrence_ids", [])
+    )
+    imported_predicate_ids = set(
+        handoff.get("grounding", {}).get("imported_predicate_ids", [])
+    )
+    imported_identity_ids = set(
+        handoff.get("grounding", {}).get("imported_identity_ids", [])
+    )
+    imported_case_ids = set(
+        handoff.get("grounding", {}).get("imported_case_ids", [])
+    )
+    imported_axiom_ids = set(
+        handoff.get("grounding", {}).get("imported_axiom_ids", [])
+    )
+
+    local_occurrence_ids = _id_set(candidate, "occurrences")
+    local_predicate_ids = _id_set(candidate, "predicates")
+    local_identity_ids = _id_set(candidate, "identity_keys")
+    local_case_ids = _id_set(candidate, "cases")
+
+    for field, local_ids, imported_ids in (
+        ("occurrences", local_occurrence_ids, imported_occurrence_ids),
+        ("predicates", local_predicate_ids, imported_predicate_ids),
+        ("identity_keys", local_identity_ids, imported_identity_ids),
+        ("cases", local_case_ids, imported_case_ids),
+    ):
+        shadowed = sorted(local_ids & imported_ids)
+        if shadowed:
+            errors.append(
+                f"{field} redeclare imported child semantic IDs: {shadowed}"
+            )
+
+    occurrence_ids = local_occurrence_ids | imported_occurrence_ids
+    predicate_ids = local_predicate_ids | imported_predicate_ids
+    identity_ids = local_identity_ids | imported_identity_ids
+    case_ids = local_case_ids | imported_case_ids
 
     for occurrence in candidate.get("occurrences", []):
         if not isinstance(occurrence, dict):
@@ -291,6 +324,79 @@ def validate_candidate_grounding(
             if not isinstance(guard, dict) or guard.get("id") not in predicate_ids:
                 errors.append(
                     f"case {case_id!r} references undefined predicate {guard.get('id') if isinstance(guard, dict) else guard!r}"
+                )
+
+    if task.get("kind") == "parent_synthesis":
+        composition = handoff.get("composition", {})
+        child_summaries = (
+            composition.get("child_summaries", [])
+            if isinstance(composition, dict)
+            else []
+        )
+        if not child_summaries:
+            errors.append("parent_synthesis task has no frozen child summaries")
+
+        extensions = candidate.get("extensions", {})
+        parent_ext = (
+            extensions.get("parent_synthesis", {})
+            if isinstance(extensions, dict)
+            else {}
+        )
+        provenance = (
+            parent_ext.get("axiom_provenance", {})
+            if isinstance(parent_ext, dict)
+            else {}
+        )
+        if not isinstance(provenance, dict):
+            errors.append(
+                "extensions.parent_synthesis.axiom_provenance must be an object"
+            )
+            provenance = {}
+
+        candidate_axiom_ids = _id_set(candidate, "axioms")
+        missing_provenance = sorted(candidate_axiom_ids - set(provenance))
+        extra_provenance = sorted(set(provenance) - candidate_axiom_ids)
+        if missing_provenance:
+            errors.append(
+                f"parent axioms missing provenance entries: {missing_provenance}"
+            )
+        if extra_provenance:
+            errors.append(
+                f"parent provenance references unknown candidate axioms: {extra_provenance}"
+            )
+
+        for axiom_id, entry in provenance.items():
+            if not isinstance(entry, dict):
+                errors.append(
+                    f"parent provenance for axiom {axiom_id!r} must be an object"
+                )
+                continue
+            kind = entry.get("kind")
+            if kind not in {"parent_local", "reexported", "lifted", "emergent"}:
+                errors.append(
+                    f"parent provenance for axiom {axiom_id!r} has invalid kind {kind!r}"
+                )
+            source_axioms = entry.get("source_axioms", [])
+            if not isinstance(source_axioms, list) or not all(
+                isinstance(item, str) for item in source_axioms
+            ):
+                errors.append(
+                    f"parent provenance for axiom {axiom_id!r} source_axioms must be a string list"
+                )
+                source_axioms = []
+            unknown_sources = sorted(set(source_axioms) - imported_axiom_ids)
+            if unknown_sources:
+                errors.append(
+                    f"parent provenance for axiom {axiom_id!r} references unknown imported "
+                    f"axioms: {unknown_sources}"
+                )
+            if kind in {"reexported", "lifted", "emergent"} and not source_axioms:
+                errors.append(
+                    f"parent provenance for {kind} axiom {axiom_id!r} must cite source_axioms"
+                )
+            if not isinstance(entry.get("note", ""), str):
+                errors.append(
+                    f"parent provenance for axiom {axiom_id!r} note must be a string"
                 )
 
     for axiom in candidate.get("axioms", []):

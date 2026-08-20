@@ -1,0 +1,242 @@
+{
+  "compiler": "formal-axiom-compiler-0.6",
+  "obligations": [
+    {
+      "arguments": {
+        "occurrence": "ParentEnqHandshake",
+        "predicate": "BoomMSHR.rpq.main::QueueFull"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        9
+      ],
+      "formal": {
+        "occurrence": "ParentEnqHandshake",
+        "predicate": "BoomMSHR.rpq.main::QueueFull",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ParentEnqHandshake"
+        ],
+        "predicates": [
+          "BoomMSHR.rpq.main::QueueFull"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHR.rpq.main::QueueFull => !ParentEnqHandshake"
+    },
+    {
+      "arguments": {
+        "occurrence": "ParentDeqHandshake",
+        "predicate": "OutputInvalid"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        7,
+        136,
+        155
+      ],
+      "formal": {
+        "occurrence": "ParentDeqHandshake",
+        "predicate": "OutputInvalid",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ParentDeqHandshake"
+        ],
+        "predicates": [
+          "OutputInvalid"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "OutputInvalid => !ParentDeqHandshake"
+    },
+    {
+      "arguments": {
+        "after": "ParentDeqHandshake",
+        "before": "BufferCapture"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "ordering",
+      "checker": "history_order",
+      "evidence_statement_ids": [
+        7,
+        136,
+        153,
+        157,
+        158,
+        167,
+        175
+      ],
+      "formal": {
+        "after": "ParentDeqHandshake",
+        "before": "BufferCapture",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BufferCapture",
+          "ParentDeqHandshake"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BufferCapture <mu ParentDeqHandshake"
+    },
+    {
+      "arguments": {
+        "after": "ParentDeqHandshake",
+        "before": "BoomMSHR.rpq.main::DeqHandshake"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "ordering",
+      "checker": "history_order",
+      "evidence_statement_ids": [
+        7,
+        136,
+        154,
+        155,
+        157,
+        158,
+        167,
+        175
+      ],
+      "formal": {
+        "after": "ParentDeqHandshake",
+        "before": "BoomMSHR.rpq.main::DeqHandshake",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHR.rpq.main::DeqHandshake",
+          "ParentDeqHandshake"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHR.rpq.main::DeqHandshake <mu ParentDeqHandshake"
+    },
+    {
+      "arguments": {
+        "after": "ParentDeqHandshake",
+        "before": "BoomMSHR.rpq.main::QueueInsert"
+      },
+      "axiom_id": "A5",
+      "axiom_kind": "ordering",
+      "checker": "history_order",
+      "evidence_statement_ids": [
+        7,
+        136,
+        154,
+        155,
+        157,
+        158,
+        167,
+        175
+      ],
+      "formal": {
+        "after": "ParentDeqHandshake",
+        "before": "BoomMSHR.rpq.main::QueueInsert",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHR.rpq.main::QueueInsert",
+          "ParentDeqHandshake"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHR.rpq.main::QueueInsert <mu ParentDeqHandshake"
+    },
+    {
+      "arguments": {
+        "occurrence": "BufferCapture",
+        "predicate": "TransferBranchKilled"
+      },
+      "axiom_id": "A6",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        159,
+        160,
+        161,
+        162,
+        163,
+        166,
+        167
+      ],
+      "formal": {
+        "occurrence": "BufferCapture",
+        "predicate": "TransferBranchKilled",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BufferCapture"
+        ],
+        "predicates": [
+          "TransferBranchKilled"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "TransferBranchKilled => !BufferCapture"
+    },
+    {
+      "arguments": {
+        "occurrence": "BufferCapture",
+        "predicate": "TransferFlushKilled"
+      },
+      "axiom_id": "A7",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        163,
+        164,
+        165,
+        166,
+        167
+      ],
+      "formal": {
+        "occurrence": "BufferCapture",
+        "predicate": "TransferFlushKilled",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BufferCapture"
+        ],
+        "predicates": [
+          "TransferFlushKilled"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "TransferFlushKilled => !BufferCapture"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "work_unit_id": "BoomMSHR.rpq"
+}

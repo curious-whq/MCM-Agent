@@ -150,6 +150,9 @@ When completion requires several events that may arrive in either order, µMCM u
 ## D017 — Manual provider is transport-only; leaf semantics are autonomous
 During the manual bootstrap, the human only transports `prompt.md` to the LLM and returns the result to the workflow. The human should not choose occurrences, predicates, identities, cases or axioms for each leaf. A leaf task must autonomously produce a complete candidate JSON when the current Formal AST is sufficient, or explicitly report a necessary, grounded, reusable `MCM-AGENT LANGUAGE GAP` when it is not. A formal-backend proof limitation is not a language gap: expressible candidate axioms are still emitted and `semantic-validate` decides whether they can be certified. Optional strengthening constraints may be deferred in `rationale` for later CEGAR rather than blocking the leaf.
 
+## D018 — Parent synthesis consumes frozen semantic imports, never child RTL
+A parent-synthesis task is built only after every direct child is `FROZEN_FOR_COMPOSITION`. The parent handoff contains parent-local RTL plus self-contained frozen child µMCM summaries and qualified imported semantic IDs; child internal RTL/state is not reopened. New parent axioms must record provenance in `extensions.parent_synthesis.axiom_provenance`. A wrapper may declare zero new axioms when it adds no memory/coherence-relevant constraint; freezing such a parent is valid because the already-frozen child summaries remain embedded imports. Axiom obligations that span imported child semantic objects remain fail-closed until a certified composition prover can discharge them.
+
 ---
 
 ## Lessons
@@ -263,6 +266,93 @@ Next Action: construct and validate the `BoomMSHR` leaf µMCM, reusing the exist
 ---
 
 ## Recent WorkUnit Runs
+
+### Run: `parent_synthesis-BoomMSHR.rpq-38a6826dc8c3b9dc`
+
+# Run Summary — BoomMSHR.rpq
+
+## Identity
+
+- task: `parent_synthesis-BoomMSHR.rpq-38a6826dc8c3b9dc`
+- kind: `parent_synthesis`
+- workflow: `manual-first-workflow-0.9`
+- prompt: `parent-synthesis-prompt-0.1`
+- schema: `umcm-formal-0.5`
+- workflow status: `FROZEN_FOR_COMPOSITION`
+
+## Grounding
+
+- valid: `True`
+- errors: 0
+- warnings: 0
+
+## Candidate µMCM
+
+- occurrences: 3
+- predicates: 3
+- identity keys: 0
+- cases: 5
+- candidate axioms: 7
+- unresolved: 0
+
+## Validation
+
+- GROUNDED: 0
+- PARTIALLY_SUPPORTED: 0
+- STRUCTURALLY_SUPPORTED: 0
+- FORMALLY_PROVED: 7
+- SPEC_PROVED: 0
+- REFUTED: 0
+- trusted axioms: 7
+- formal backend: `explicit-control`
+
+## Axioms
+
+- `A1` [FORMALLY_PROVED] BoomMSHR.rpq.main::QueueFull => !ParentEnqHandshake
+- `A2` [FORMALLY_PROVED] OutputInvalid => !ParentDeqHandshake
+- `A3` [FORMALLY_PROVED] BufferCapture <mu ParentDeqHandshake
+- `A4` [FORMALLY_PROVED] BoomMSHR.rpq.main::DeqHandshake <mu ParentDeqHandshake
+- `A5` [FORMALLY_PROVED] BoomMSHR.rpq.main::QueueInsert <mu ParentDeqHandshake
+- `A6` [FORMALLY_PROVED] TransferBranchKilled => !BufferCapture
+- `A7` [FORMALLY_PROVED] TransferFlushKilled => !BufferCapture
+
+## Next action
+
+A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
+
+## Durable experiment notes
+
+See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
+
+### Experiment experience
+
+# Experiment Experience
+
+Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
+
+## INPUT_NEEDED
+
+- 
+
+## PROMPT_RULE
+
+- 
+
+## SCHEMA_CHANGE
+
+- 
+
+## VALIDATOR_CHANGE
+
+- 
+
+## MODEL_FAILURE
+
+- 
+
+## GENERALIZATION
+
+-
 
 ### Run: `leaf_abstraction-BoomMSHR.rpq.main-30765c6beda665d8`
 

@@ -601,3 +601,193 @@ def prove_same_index_valid_token_provenance(
         "creator_guard_proofs": creator_guards,
         "classified_writes": sorted(writes, key=lambda item: item["statement_id"]),
     }
+
+
+def _scalar_reset_zero(model: Any, storage: str) -> dict[str, Any] | None:
+    for statement in model.statements.values():
+        text = str(statement.get("text", "")).strip()
+        if statement.get("kind") != "regreset" or not text.startswith(f"regreset {storage} "):
+            continue
+        reset_expr = text.rsplit(",", 1)[-1].strip()
+        if _resolve_literal(model, reset_expr) != 0:
+            return None
+        return {
+            "reset_statement": int(statement.get("id", -1)),
+            "reset_expr": reset_expr,
+        }
+    return None
+
+
+def _writer_activation(
+    model: Any,
+    storage: str,
+    statement: dict[str, Any],
+    bool_refs: set[str],
+) -> tuple[tuple[Any, ...], dict[str, Any]] | None:
+    """Recover an exact positive-`when` activation for one scalar writer.
+
+    The dependency ledger does not encode negative `else` polarity.  Such a
+    writer is therefore rejected instead of guessing its activation.
+    """
+
+    statement_id = int(statement.get("id", -1))
+    handoff = getattr(model, "handoff", None)
+    if not isinstance(handoff, dict):
+        return None
+    edges = [
+        edge
+        for edge in handoff.get("dependency_edges", [])
+        if edge.get("kind") == "control"
+        and edge.get("dst") == storage
+        and statement_id in {int(x) for x in edge.get("statement_ids", [])}
+    ]
+    controls = sorted({str(edge.get("src")) for edge in edges if edge.get("src")})
+    declared_controls = {str(x) for x in statement.get("control_reads", [])}
+    if declared_controls and not controls:
+        return None
+    if not controls:
+        return _const(True), {"kind": "unconditional", "control_signals": []}
+
+    block_ids = {
+        int(block_id)
+        for edge in edges
+        for block_id in edge.get("statement_ids", [])
+        if int(block_id) != statement_id
+    }
+    blocks = [model.statements.get(block_id) for block_id in sorted(block_ids)]
+    if any(block is None or block.get("kind") != "when" for block in blocks):
+        return None
+
+    activation = _const(True)
+    for control in controls:
+        expr = _bool_expr(model, bool_refs, control)
+        if expr is None:
+            return None
+        activation = _and(activation, expr)
+    return activation, {
+        "kind": "positive-when-conjunction",
+        "control_signals": controls,
+        "control_statement_ids": sorted(block_ids),
+    }
+
+
+def prove_scalar_valid_token_provenance(
+    model: Any,
+    candidate: dict[str, Any],
+    *,
+    before: str,
+    after: str,
+    required_prior: str | None = None,
+) -> dict[str, Any]:
+    """Prove scalar history from a reset-false Boolean token invariant.
+
+    A successful certificate establishes that `after` requires one scalar
+    token, the token resets false, every writer is accounted for, and every
+    possible false-to-true transition implies `before`.  No module, signal, or
+    protocol name is special-cased.
+    """
+
+    if required_prior is not None:
+        return {"status": STRUCTURAL_UNKNOWN, "reason": "required_prior scalar provenance is unsupported"}
+    before_obj = next((x for x in candidate.get("occurrences", []) if x.get("id") == before), None)
+    after_obj = next((x for x in candidate.get("occurrences", []) if x.get("id") == after), None)
+    if before_obj is None or after_obj is None:
+        return {"status": STRUCTURAL_UNKNOWN, "reason": "before/after occurrence missing"}
+
+    refs = _bool_refs(model, candidate)
+    before_cond = _occurrence_condition(model, candidate, before, refs)
+    if before_cond is None:
+        return {"status": STRUCTURAL_UNKNOWN, "reason": f"{before} has no exact Boolean occurrence condition"}
+
+    successes: list[dict[str, Any]] = []
+    rejected: dict[str, str] = {}
+    for storage in sorted(str(root) for root in getattr(model, "state_roots", set())):
+        if "[" in storage:
+            continue
+        token = ("atom", ("nz", ("ref", storage)))
+        after_cond = _occurrence_condition(model, candidate, after, refs, opaque={storage})
+        if after_cond is None or _unsat(_and(after_cond, _not(token)))[0] is not True:
+            continue
+        reset = _scalar_reset_zero(model, storage)
+        if reset is None:
+            rejected[storage] = "reset-to-zero not proved"
+            continue
+
+        writes: list[dict[str, Any]] = []
+        creators: list[int] = []
+        failed: str | None = None
+        for statement in model.statements.values():
+            if storage not in {str(x) for x in statement.get("drives", [])}:
+                continue
+            if statement.get("kind") in {"reg", "regreset"}:
+                continue
+            parsed = _statement_rhs(statement)
+            if parsed is None or parsed[0].strip() != storage:
+                failed = f"unparsed or non-scalar writer {statement.get('id')}"
+                break
+            statement_id = int(statement.get("id", -1))
+            activation_info = _writer_activation(model, storage, statement, refs)
+            if activation_info is None:
+                failed = f"writer activation is not exact for statement {statement_id}"
+                break
+            activation, activation_certificate = activation_info
+            writer_refs = set(refs) | {storage}
+            _propagate_bool_refs(model, parsed[1], writer_refs)
+            rhs_expr = _bool_expr(model, writer_refs, parsed[1], opaque={storage})
+            if rhs_expr is None:
+                failed = f"writer RHS is not an exact Boolean expression at statement {statement_id}"
+                break
+
+            false_to_true = _and(_and(activation, rhs_expr), _not(token))
+            impossible, _ = _unsat(false_to_true)
+            if impossible is True:
+                writes.append({
+                    "statement_id": statement_id,
+                    "kind": "false-preserving",
+                    "activation": activation_certificate,
+                })
+                continue
+
+            implies_before, _ = _unsat(_and(false_to_true, _not(before_cond)))
+            if implies_before is not True:
+                failed = f"unaccounted writer can create a scalar token at statement {statement_id}"
+                break
+            creators.append(statement_id)
+            writes.append({
+                "statement_id": statement_id,
+                "kind": "creator",
+                "activation": activation_certificate,
+            })
+
+        if failed is not None:
+            rejected[storage] = failed
+            continue
+        if not creators:
+            rejected[storage] = "no false-to-true creator was found"
+            continue
+        successes.append({
+            "status": STRUCTURALLY_SUPPORTED,
+            "proof": (
+                f"{after} requires scalar token {storage}; it resets false, every writer is accounted "
+                f"for, and every false-to-true transition implies {before}"
+            ),
+            "proof_domain": "exact-scalar-valid-token-provenance",
+            "storage": storage,
+            "reset_proof": reset,
+            "creator_statement_ids": sorted(creators),
+            "classified_writes": sorted(writes, key=lambda item: item["statement_id"]),
+        })
+
+    if len(successes) == 1:
+        return successes[0]
+    if len(successes) > 1:
+        return {
+            "status": STRUCTURAL_UNKNOWN,
+            "reason": "multiple scalar token invariants can explain the requested history",
+            "storages": sorted(item["storage"] for item in successes),
+        }
+    return {
+        "status": STRUCTURAL_UNKNOWN,
+        "reason": "no certified scalar valid-token provenance invariant was found",
+        "rejected_storages": rejected,
+    }

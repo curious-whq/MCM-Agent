@@ -1,0 +1,664 @@
+{
+  "all_axioms_formally_proved": true,
+  "all_axioms_structurally_supported": true,
+  "candidate_axiom_count": 7,
+  "control_model": {
+    "known_states": [],
+    "reset_state": null,
+    "state_register": "state",
+    "transitions": []
+  },
+  "counts": {
+    "FORMALLY_PROVED": 7,
+    "GROUNDED": 0,
+    "PARTIALLY_SUPPORTED": 0,
+    "REFUTED": 0,
+    "SPEC_PROVED": 0,
+    "STRUCTURALLY_SUPPORTED": 0
+  },
+  "formal_backend": {
+    "api_version": "formal-backend-api-0.8",
+    "available": true,
+    "name": "explicit-control",
+    "note": "Exhaustive formal proof for certified finite-control/order properties, exact symbolic local/identity facts, exact local Boolean exclusions, bounded indexed token provenance, and selected finite reference equivalence checks. It is not a general bit-level SMT backend.",
+    "proof_domain": "control + exact symbolic local + exact combinational exclusion + scalar/indexed token provenance + finite reference equivalence",
+    "supported_checkers": [
+      "forbid_when",
+      "history_order",
+      "history_chain",
+      "history_join",
+      "indexed_coverage",
+      "transaction_exclusion",
+      "signal_alias",
+      "constant_bit",
+      "identity_projection",
+      "tilelink_on_probe_spec"
+    ],
+    "trusted_proof_levels": [
+      "FORMALLY_PROVED",
+      "SPEC_PROVED"
+    ]
+  },
+  "has_counterexample": false,
+  "property_compiler": "formal-axiom-compiler-0.6",
+  "results": [
+    {
+      "arguments": {
+        "occurrence": "ParentEnqHandshake",
+        "predicate": "BoomMSHR.rpq.main::QueueFull"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        9
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "occurrence_bridge": {
+            "boundary": {
+              "clock": {
+                "child_clock": "main.clock",
+                "parent_clock": "clock",
+                "statement_ids": [
+                  4
+                ]
+              },
+              "physical_event_id": "BoomMSHR.rpq.main::io.enq.fire"
+            },
+            "kind": "exact-occurrence-bridge",
+            "local_rtl_only": true,
+            "relation": "occurrence-inclusion",
+            "signal_proofs": [
+              {
+                "kind": "exact-priority-writer-cone",
+                "signal": "main.io.enq.valid",
+                "writers": [
+                  {
+                    "activation": {
+                      "control_signals": [],
+                      "kind": "unconditional"
+                    },
+                    "rhs": "io.enq.valid",
+                    "statement_id": 9
+                  }
+                ]
+              },
+              {
+                "kind": "exact-priority-writer-cone",
+                "signal": "main.io.enq.ready",
+                "writers": [
+                  {
+                    "activation": {
+                      "control_signals": [],
+                      "kind": "unconditional"
+                    },
+                    "rhs": "io.enq.ready",
+                    "statement_id": 9
+                  }
+                ]
+              }
+            ],
+            "subset": "ParentEnqHandshake",
+            "superset": "BoomMSHR.rpq.main::EnqHandshake"
+          },
+          "prover": "composition-prover-0.1",
+          "source_theorem": {
+            "axiom_id": "A1",
+            "frozen_umcm_sha256": "d79c2389d52d6e60f76113d837d619dc94e00e7184c466434d6697cfad97dad8",
+            "kind": "frozen-theorem",
+            "work_unit_id": "BoomMSHR.rpq.main"
+          }
+        },
+        "proof": "trusted forbid theorem lifted across an exact parent-local occurrence bridge",
+        "proof_method": "trusted-child-lift",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ParentEnqHandshake"
+        ],
+        "predicates": [
+          "BoomMSHR.rpq.main::QueueFull"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHR.rpq.main::QueueFull => !ParentEnqHandshake",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "ParentDeqHandshake",
+        "predicate": "OutputInvalid"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        7,
+        136,
+        155
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 2,
+          "proof": "ParentDeqHandshake and OutputInvalid have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "ParentDeqHandshake and OutputInvalid have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ParentDeqHandshake"
+        ],
+        "predicates": [
+          "OutputInvalid"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "OutputInvalid => !ParentDeqHandshake",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "after": "ParentDeqHandshake",
+        "before": "BufferCapture"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "ordering",
+      "checker": "history_order",
+      "evidence_statement_ids": [
+        7,
+        136,
+        153,
+        157,
+        158,
+        167,
+        175
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "classified_writes": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "unconditional"
+              },
+              "kind": "false-preserving",
+              "statement_id": 153
+            },
+            {
+              "activation": {
+                "control_signals": [
+                  "_T_2"
+                ],
+                "control_statement_ids": [
+                  158
+                ],
+                "kind": "positive-when-conjunction"
+              },
+              "kind": "creator",
+              "statement_id": 167
+            }
+          ],
+          "creator_statement_ids": [
+            167
+          ],
+          "proof": "ParentDeqHandshake requires scalar token out_valid; it resets false, every writer is accounted for, and every false-to-true transition implies BufferCapture",
+          "proof_domain": "exact-scalar-valid-token-provenance",
+          "reset_proof": {
+            "reset_expr": "UInt<1>(0h0)",
+            "reset_statement": 7
+          },
+          "status": "STRUCTURALLY_SUPPORTED",
+          "storage": "out_valid"
+        },
+        "proof": "ParentDeqHandshake requires scalar token out_valid; it resets false, every writer is accounted for, and every false-to-true transition implies BufferCapture",
+        "proof_method": "exact-scalar-valid-token-provenance",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BufferCapture",
+          "ParentDeqHandshake"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BufferCapture <mu ParentDeqHandshake",
+      "structural": {
+        "reason": "no reset state for finite-control model",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "after": "ParentDeqHandshake",
+        "before": "BoomMSHR.rpq.main::DeqHandshake"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "ordering",
+      "checker": "history_order",
+      "evidence_statement_ids": [
+        7,
+        136,
+        154,
+        155,
+        157,
+        158,
+        167,
+        175
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "history_theorem": {
+            "kind": "local-proved-theorem",
+            "proof": {
+              "backend": "explicit-control",
+              "certificate": {
+                "classified_writes": [
+                  {
+                    "activation": {
+                      "control_signals": [],
+                      "kind": "unconditional"
+                    },
+                    "kind": "false-preserving",
+                    "statement_id": 153
+                  },
+                  {
+                    "activation": {
+                      "control_signals": [
+                        "_T_2"
+                      ],
+                      "control_statement_ids": [
+                        158
+                      ],
+                      "kind": "positive-when-conjunction"
+                    },
+                    "kind": "creator",
+                    "statement_id": 167
+                  }
+                ],
+                "creator_statement_ids": [
+                  167
+                ],
+                "proof": "ParentDeqHandshake requires scalar token out_valid; it resets false, every writer is accounted for, and every false-to-true transition implies BufferCapture",
+                "proof_domain": "exact-scalar-valid-token-provenance",
+                "reset_proof": {
+                  "reset_expr": "UInt<1>(0h0)",
+                  "reset_statement": 7
+                },
+                "status": "STRUCTURALLY_SUPPORTED",
+                "storage": "out_valid"
+              },
+              "proof": "ParentDeqHandshake requires scalar token out_valid; it resets false, every writer is accounted for, and every false-to-true transition implies BufferCapture",
+              "proof_method": "exact-scalar-valid-token-provenance",
+              "status": "FORMALLY_PROVED"
+            }
+          },
+          "occurrence_bridge": {
+            "boundary": {
+              "clock": {
+                "child_clock": "main.clock",
+                "parent_clock": "clock",
+                "statement_ids": [
+                  4
+                ]
+              },
+              "physical_event_id": "BoomMSHR.rpq.main::io.deq.fire"
+            },
+            "kind": "exact-occurrence-bridge",
+            "local_rtl_only": true,
+            "relation": "occurrence-inclusion",
+            "signal_proofs": [
+              {
+                "kind": "frontier-input",
+                "signal": "main.io.deq.valid"
+              },
+              {
+                "kind": "exact-priority-writer-cone",
+                "signal": "main.io.deq.ready",
+                "writers": [
+                  {
+                    "activation": {
+                      "control_signals": [],
+                      "kind": "unconditional"
+                    },
+                    "rhs": "UInt<1>(0h0)",
+                    "statement_id": 154
+                  },
+                  {
+                    "activation": {
+                      "control_signals": [
+                        "_T_2"
+                      ],
+                      "control_statement_ids": [
+                        158
+                      ],
+                      "kind": "positive-when-conjunction"
+                    },
+                    "rhs": "UInt<1>(0h1)",
+                    "statement_id": 175
+                  }
+                ]
+              }
+            ],
+            "subset": "BufferCapture",
+            "superset": "BoomMSHR.rpq.main::DeqHandshake"
+          },
+          "prover": "composition-prover-0.1"
+        },
+        "proof": "local history theorem weakened through an exact occurrence inclusion bridge",
+        "proof_method": "occurrence-bridge-history-composition",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHR.rpq.main::DeqHandshake",
+          "ParentDeqHandshake"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHR.rpq.main::DeqHandshake <mu ParentDeqHandshake",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "after": "ParentDeqHandshake",
+        "before": "BoomMSHR.rpq.main::QueueInsert"
+      },
+      "axiom_id": "A5",
+      "axiom_kind": "ordering",
+      "checker": "history_order",
+      "evidence_statement_ids": [
+        7,
+        136,
+        154,
+        155,
+        157,
+        158,
+        167,
+        175
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "index_projection": {
+            "domain": {
+              "end_exclusive": 15,
+              "start": 0
+            },
+            "from": "same-index history",
+            "index_name": "slot",
+            "kind": "safe-existential-index-weakening",
+            "to": "unindexed occurrence history"
+          },
+          "left_theorem": {
+            "axiom_id": "A11",
+            "frozen_umcm_sha256": "d79c2389d52d6e60f76113d837d619dc94e00e7184c466434d6697cfad97dad8",
+            "kind": "frozen-theorem",
+            "work_unit_id": "BoomMSHR.rpq.main"
+          },
+          "prover": "composition-prover-0.1",
+          "right_theorem": {
+            "axiom_id": "A4",
+            "certificate": {
+              "history_theorem": {
+                "kind": "local-proved-theorem",
+                "proof": {
+                  "backend": "explicit-control",
+                  "certificate": {
+                    "classified_writes": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "kind": "false-preserving",
+                        "statement_id": 153
+                      },
+                      {
+                        "activation": {
+                          "control_signals": [
+                            "_T_2"
+                          ],
+                          "control_statement_ids": [
+                            158
+                          ],
+                          "kind": "positive-when-conjunction"
+                        },
+                        "kind": "creator",
+                        "statement_id": 167
+                      }
+                    ],
+                    "creator_statement_ids": [
+                      167
+                    ],
+                    "proof": "ParentDeqHandshake requires scalar token out_valid; it resets false, every writer is accounted for, and every false-to-true transition implies BufferCapture",
+                    "proof_domain": "exact-scalar-valid-token-provenance",
+                    "reset_proof": {
+                      "reset_expr": "UInt<1>(0h0)",
+                      "reset_statement": 7
+                    },
+                    "status": "STRUCTURALLY_SUPPORTED",
+                    "storage": "out_valid"
+                  },
+                  "proof": "ParentDeqHandshake requires scalar token out_valid; it resets false, every writer is accounted for, and every false-to-true transition implies BufferCapture",
+                  "proof_method": "exact-scalar-valid-token-provenance",
+                  "status": "FORMALLY_PROVED"
+                }
+              },
+              "occurrence_bridge": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "main.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      4
+                    ]
+                  },
+                  "physical_event_id": "BoomMSHR.rpq.main::io.deq.fire"
+                },
+                "kind": "exact-occurrence-bridge",
+                "local_rtl_only": true,
+                "relation": "occurrence-inclusion",
+                "signal_proofs": [
+                  {
+                    "kind": "frontier-input",
+                    "signal": "main.io.deq.valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "main.io.deq.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "UInt<1>(0h0)",
+                        "statement_id": 154
+                      },
+                      {
+                        "activation": {
+                          "control_signals": [
+                            "_T_2"
+                          ],
+                          "control_statement_ids": [
+                            158
+                          ],
+                          "kind": "positive-when-conjunction"
+                        },
+                        "rhs": "UInt<1>(0h1)",
+                        "statement_id": 175
+                      }
+                    ]
+                  }
+                ],
+                "subset": "BufferCapture",
+                "superset": "BoomMSHR.rpq.main::DeqHandshake"
+              },
+              "prover": "composition-prover-0.1"
+            },
+            "kind": "composed-theorem",
+            "proof_method": "occurrence-bridge-history-composition"
+          }
+        },
+        "proof": "history order composed transitively over trusted theorem premises",
+        "proof_method": "trusted-history-transitivity",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomMSHR.rpq.main::QueueInsert",
+          "ParentDeqHandshake"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomMSHR.rpq.main::QueueInsert <mu ParentDeqHandshake",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "BufferCapture",
+        "predicate": "TransferBranchKilled"
+      },
+      "axiom_id": "A6",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        159,
+        160,
+        161,
+        162,
+        163,
+        166,
+        167
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 6,
+          "proof": "BufferCapture and TransferBranchKilled have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "BufferCapture and TransferBranchKilled have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BufferCapture"
+        ],
+        "predicates": [
+          "TransferBranchKilled"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "TransferBranchKilled => !BufferCapture",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "BufferCapture",
+        "predicate": "TransferFlushKilled"
+      },
+      "axiom_id": "A7",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        163,
+        164,
+        165,
+        166,
+        167
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 6,
+          "proof": "BufferCapture and TransferFlushKilled have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "BufferCapture and TransferFlushKilled have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BufferCapture"
+        ],
+        "predicates": [
+          "TransferFlushKilled"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "TransferFlushKilled => !BufferCapture",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    }
+  ],
+  "trusted_axiom_count": 7,
+  "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
+  "validator": "semantic-validator-0.8",
+  "work_unit_id": "BoomMSHR.rpq"
+}

@@ -17,11 +17,17 @@ from .handoff import (
 )
 from .tasks import (
     PROMPT_VERSION,
+    PARENT_PROMPT_VERSION,
     WORKFLOW_VERSION,
     LLMTask,
     PromptPackage,
     TaskKind,
     build_leaf_abstraction_task,
+    build_parent_synthesis_task,
+)
+from .composition import (
+    attach_frozen_child_summaries,
+    semantic_catalog_from_frozen,
 )
 from .manual import (
     ManualImportResult,
@@ -37,11 +43,15 @@ __all__ = [
     "HANDOFF_SCHEMA_VERSION",
     "build_work_unit_static_handoff",
     "PROMPT_VERSION",
+    "PARENT_PROMPT_VERSION",
     "WORKFLOW_VERSION",
     "LLMTask",
     "PromptPackage",
     "TaskKind",
     "build_leaf_abstraction_task",
+    "build_parent_synthesis_task",
+    "attach_frozen_child_summaries",
+    "semantic_catalog_from_frozen",
     "ManualImportResult",
     "export_manual_task",
     "import_manual_response",

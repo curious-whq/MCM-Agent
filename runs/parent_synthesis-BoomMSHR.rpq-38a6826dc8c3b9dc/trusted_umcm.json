@@ -1,0 +1,441 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [
+        "C1_EnqueueForwarded"
+      ],
+      "evidence_statement_ids": [
+        9
+      ],
+      "formal": {
+        "occurrence": "ParentEnqHandshake",
+        "predicate": "BoomMSHR.rpq.main::QueueFull",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A1",
+      "rendered_formula": "BoomMSHR.rpq.main::QueueFull => !ParentEnqHandshake",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C5_VisibleParentDequeue"
+      ],
+      "evidence_statement_ids": [
+        7,
+        136,
+        155
+      ],
+      "formal": {
+        "occurrence": "ParentDeqHandshake",
+        "predicate": "OutputInvalid",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A2",
+      "rendered_formula": "OutputInvalid => !ParentDeqHandshake",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_ChildDequeueCaptured",
+        "C5_VisibleParentDequeue"
+      ],
+      "evidence_statement_ids": [
+        7,
+        136,
+        153,
+        157,
+        158,
+        167,
+        175
+      ],
+      "formal": {
+        "after": "ParentDeqHandshake",
+        "before": "BufferCapture",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "id": "A3",
+      "rendered_formula": "BufferCapture <mu ParentDeqHandshake",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_ChildDequeueCaptured",
+        "C5_VisibleParentDequeue"
+      ],
+      "evidence_statement_ids": [
+        7,
+        136,
+        154,
+        155,
+        157,
+        158,
+        167,
+        175
+      ],
+      "formal": {
+        "after": "ParentDeqHandshake",
+        "before": "BoomMSHR.rpq.main::DeqHandshake",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "id": "A4",
+      "rendered_formula": "BoomMSHR.rpq.main::DeqHandshake <mu ParentDeqHandshake",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C5_VisibleParentDequeue"
+      ],
+      "evidence_statement_ids": [
+        7,
+        136,
+        154,
+        155,
+        157,
+        158,
+        167,
+        175
+      ],
+      "formal": {
+        "after": "ParentDeqHandshake",
+        "before": "BoomMSHR.rpq.main::QueueInsert",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "id": "A5",
+      "rendered_formula": "BoomMSHR.rpq.main::QueueInsert <mu ParentDeqHandshake",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_ChildDequeueCaptured",
+        "C3_ChildDequeueBranchKilled"
+      ],
+      "evidence_statement_ids": [
+        159,
+        160,
+        161,
+        162,
+        163,
+        166,
+        167
+      ],
+      "formal": {
+        "occurrence": "BufferCapture",
+        "predicate": "TransferBranchKilled",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A6",
+      "rendered_formula": "TransferBranchKilled => !BufferCapture",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_ChildDequeueCaptured",
+        "C4_ChildDequeueFlushKilled"
+      ],
+      "evidence_statement_ids": [
+        163,
+        164,
+        165,
+        166,
+        167
+      ],
+      "formal": {
+        "occurrence": "BufferCapture",
+        "predicate": "TransferFlushKilled",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A7",
+      "rendered_formula": "TransferFlushKilled => !BufferCapture",
+      "status": "candidate"
+    }
+  ],
+  "cases": [
+    {
+      "confidence": "high",
+      "emits": [
+        "BoomMSHR.rpq.main::EnqHandshake"
+      ],
+      "evidence_statement_ids": [
+        9
+      ],
+      "guard_predicates": [],
+      "id": "C1_EnqueueForwarded",
+      "relations": [
+        "The parent enqueue interface is directly connected to the frozen child enqueue interface, so the parent handshake is the same forwarded enqueue transaction observed by the child."
+      ],
+      "trigger_occurrences": [
+        "ParentEnqHandshake"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [
+        "BufferCapture"
+      ],
+      "evidence_statement_ids": [
+        154,
+        157,
+        158,
+        159,
+        160,
+        161,
+        162,
+        163,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170,
+        171,
+        172,
+        173,
+        174,
+        175
+      ],
+      "guard_predicates": [
+        {
+          "id": "TransferBranchKilled",
+          "positive": false
+        },
+        {
+          "id": "TransferFlushKilled",
+          "positive": false
+        }
+      ],
+      "id": "C2_ChildDequeueCaptured",
+      "relations": [
+        "A child dequeue accepted during the refill window becomes a valid buffered parent-visible item when it survives the parent-local branch and flush filters."
+      ],
+      "trigger_occurrences": [
+        "BoomMSHR.rpq.main::DeqHandshake"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        158,
+        159,
+        160,
+        161,
+        162,
+        163,
+        167,
+        175
+      ],
+      "guard_predicates": [
+        {
+          "id": "TransferBranchKilled",
+          "positive": true
+        }
+      ],
+      "id": "C3_ChildDequeueBranchKilled",
+      "relations": [
+        "A child dequeue may be consumed by the wrapper without becoming a valid buffered output when its uop is killed by the current branch update."
+      ],
+      "trigger_occurrences": [
+        "BoomMSHR.rpq.main::DeqHandshake"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        158,
+        163,
+        164,
+        165,
+        166,
+        167,
+        175
+      ],
+      "guard_predicates": [
+        {
+          "id": "TransferFlushKilled",
+          "positive": true
+        }
+      ],
+      "id": "C4_ChildDequeueFlushKilled",
+      "relations": [
+        "A child dequeue may be consumed by the wrapper without becoming a valid buffered output when flush kills the dequeued uses_ldq uop."
+      ],
+      "trigger_occurrences": [
+        "BoomMSHR.rpq.main::DeqHandshake"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        7,
+        136,
+        155
+      ],
+      "guard_predicates": [
+        {
+          "id": "OutputInvalid",
+          "positive": false
+        }
+      ],
+      "id": "C5_VisibleParentDequeue",
+      "relations": [
+        "A parent-visible dequeue consumes a previously valid output-buffer entry; reset initializes the output buffer invalid."
+      ],
+      "trigger_occurrences": [
+        "ParentDeqHandshake"
+      ]
+    }
+  ],
+  "identity_keys": [],
+  "note": "Only axioms with FORMALLY_PROVED or SPEC_PROVED validation level are included. Grounded/structurally-supported candidate axioms remain outside the trusted abstraction.",
+  "occurrences": [
+    {
+      "definition": "io.enq.valid && io.enq.ready",
+      "evidence_statement_ids": [
+        9
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "ParentEnqHandshake",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHR.rpq::io.enq.fire"
+      ]
+    },
+    {
+      "definition": "io.deq.valid && io.deq.ready",
+      "evidence_statement_ids": [
+        136,
+        155
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.deq.valid",
+          "io.deq.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "ParentDeqHandshake",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHR.rpq::io.deq.fire"
+      ]
+    },
+    {
+      "definition": "_T_2 && _out_valid_T_15; the wrapper refill window is active and the exposed child dequeue is valid and survives branch/flush filtering, so the child payload is captured into the output buffer and out_valid is set",
+      "evidence_statement_ids": [
+        157,
+        158,
+        159,
+        160,
+        161,
+        162,
+        163,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170,
+        171,
+        172,
+        173,
+        174,
+        175
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "_T_2",
+          "_out_valid_T_15"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "BufferCapture",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    }
+  ],
+  "predicates": [
+    {
+      "definition": "out_valid == 0",
+      "evidence_statement_ids": [
+        7,
+        136,
+        156
+      ],
+      "grounding": {
+        "negated": true,
+        "source_signal": "out_valid",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "OutputInvalid"
+    },
+    {
+      "definition": "(io.brupdate.b1.mispredict_mask & main.io.deq.bits.uop.br_mask) != 0",
+      "evidence_statement_ids": [
+        159,
+        160
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "_out_valid_T_9",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "TransferBranchKilled"
+    },
+    {
+      "definition": "io.flush && main.io.deq.bits.uop.uses_ldq",
+      "evidence_statement_ids": [
+        164
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "_out_valid_T_13",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "TransferFlushKilled"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "parent_synthesis-BoomMSHR.rpq-38a6826dc8c3b9dc",
+  "trust_policy": "formal-ast-only-v0.2",
+  "trusted_axiom_ids": [
+    "A1",
+    "A2",
+    "A3",
+    "A4",
+    "A5",
+    "A6",
+    "A7"
+  ],
+  "work_unit_id": "BoomMSHR.rpq"
+}

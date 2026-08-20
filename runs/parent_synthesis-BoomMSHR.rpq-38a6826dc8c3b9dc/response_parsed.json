@@ -1,0 +1,477 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [
+        "C1_EnqueueForwarded"
+      ],
+      "evidence_statement_ids": [
+        9
+      ],
+      "formal": {
+        "occurrence": "ParentEnqHandshake",
+        "predicate": "BoomMSHR.rpq.main::QueueFull",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A1",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C5_VisibleParentDequeue"
+      ],
+      "evidence_statement_ids": [
+        7,
+        136,
+        155
+      ],
+      "formal": {
+        "occurrence": "ParentDeqHandshake",
+        "predicate": "OutputInvalid",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A2",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_ChildDequeueCaptured",
+        "C5_VisibleParentDequeue"
+      ],
+      "evidence_statement_ids": [
+        7,
+        136,
+        153,
+        157,
+        158,
+        167,
+        175
+      ],
+      "formal": {
+        "after": "ParentDeqHandshake",
+        "before": "BufferCapture",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "id": "A3",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_ChildDequeueCaptured",
+        "C5_VisibleParentDequeue"
+      ],
+      "evidence_statement_ids": [
+        7,
+        136,
+        154,
+        155,
+        157,
+        158,
+        167,
+        175
+      ],
+      "formal": {
+        "after": "ParentDeqHandshake",
+        "before": "BoomMSHR.rpq.main::DeqHandshake",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "id": "A4",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C5_VisibleParentDequeue"
+      ],
+      "evidence_statement_ids": [
+        7,
+        136,
+        154,
+        155,
+        157,
+        158,
+        167,
+        175
+      ],
+      "formal": {
+        "after": "ParentDeqHandshake",
+        "before": "BoomMSHR.rpq.main::QueueInsert",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "id": "A5",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_ChildDequeueCaptured",
+        "C3_ChildDequeueBranchKilled"
+      ],
+      "evidence_statement_ids": [
+        159,
+        160,
+        161,
+        162,
+        163,
+        166,
+        167
+      ],
+      "formal": {
+        "occurrence": "BufferCapture",
+        "predicate": "TransferBranchKilled",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A6",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_ChildDequeueCaptured",
+        "C4_ChildDequeueFlushKilled"
+      ],
+      "evidence_statement_ids": [
+        163,
+        164,
+        165,
+        166,
+        167
+      ],
+      "formal": {
+        "occurrence": "BufferCapture",
+        "predicate": "TransferFlushKilled",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A7",
+      "status": "candidate"
+    }
+  ],
+  "cases": [
+    {
+      "confidence": "high",
+      "emits": [
+        "BoomMSHR.rpq.main::EnqHandshake"
+      ],
+      "evidence_statement_ids": [
+        9
+      ],
+      "guard_predicates": [],
+      "id": "C1_EnqueueForwarded",
+      "relations": [
+        "The parent enqueue interface is directly connected to the frozen child enqueue interface, so the parent handshake is the same forwarded enqueue transaction observed by the child."
+      ],
+      "trigger_occurrences": [
+        "ParentEnqHandshake"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [
+        "BufferCapture"
+      ],
+      "evidence_statement_ids": [
+        154,
+        157,
+        158,
+        159,
+        160,
+        161,
+        162,
+        163,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170,
+        171,
+        172,
+        173,
+        174,
+        175
+      ],
+      "guard_predicates": [
+        {
+          "id": "TransferBranchKilled",
+          "positive": false
+        },
+        {
+          "id": "TransferFlushKilled",
+          "positive": false
+        }
+      ],
+      "id": "C2_ChildDequeueCaptured",
+      "relations": [
+        "A child dequeue accepted during the refill window becomes a valid buffered parent-visible item when it survives the parent-local branch and flush filters."
+      ],
+      "trigger_occurrences": [
+        "BoomMSHR.rpq.main::DeqHandshake"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        158,
+        159,
+        160,
+        161,
+        162,
+        163,
+        167,
+        175
+      ],
+      "guard_predicates": [
+        {
+          "id": "TransferBranchKilled",
+          "positive": true
+        }
+      ],
+      "id": "C3_ChildDequeueBranchKilled",
+      "relations": [
+        "A child dequeue may be consumed by the wrapper without becoming a valid buffered output when its uop is killed by the current branch update."
+      ],
+      "trigger_occurrences": [
+        "BoomMSHR.rpq.main::DeqHandshake"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        158,
+        163,
+        164,
+        165,
+        166,
+        167,
+        175
+      ],
+      "guard_predicates": [
+        {
+          "id": "TransferFlushKilled",
+          "positive": true
+        }
+      ],
+      "id": "C4_ChildDequeueFlushKilled",
+      "relations": [
+        "A child dequeue may be consumed by the wrapper without becoming a valid buffered output when flush kills the dequeued uses_ldq uop."
+      ],
+      "trigger_occurrences": [
+        "BoomMSHR.rpq.main::DeqHandshake"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        7,
+        136,
+        155
+      ],
+      "guard_predicates": [
+        {
+          "id": "OutputInvalid",
+          "positive": false
+        }
+      ],
+      "id": "C5_VisibleParentDequeue",
+      "relations": [
+        "A parent-visible dequeue consumes a previously valid output-buffer entry; reset initializes the output buffer invalid."
+      ],
+      "trigger_occurrences": [
+        "ParentDeqHandshake"
+      ]
+    }
+  ],
+  "extensions": {
+    "parent_synthesis": {
+      "axiom_provenance": {
+        "A1": {
+          "kind": "lifted",
+          "note": "Lift the frozen child QueueFull exclusion to the parent enqueue boundary through the direct parent-child enqueue connection.",
+          "source_axioms": [
+            "BoomMSHR.rpq.main::A1"
+          ]
+        },
+        "A2": {
+          "kind": "parent_local",
+          "note": "Parent dequeue valid is exactly out_valid, which is reset false.",
+          "source_axioms": []
+        },
+        "A3": {
+          "kind": "parent_local",
+          "note": "The parent-local one-entry buffer can produce a visible dequeue only after a surviving BufferCapture created its valid token.",
+          "source_axioms": []
+        },
+        "A4": {
+          "kind": "parent_local",
+          "note": "Uses the exposed frozen-child dequeue occurrence plus the parent-local refill/valid protocol; no child axiom is needed for this path fact.",
+          "source_axioms": []
+        },
+        "A5": {
+          "kind": "emergent",
+          "note": "Compose the child's same-slot QueueInsert-before-DeqHandshake guarantee with the parent output-buffer path, weakening away the hidden child slot index at the parent boundary.",
+          "source_axioms": [
+            "BoomMSHR.rpq.main::A11"
+          ]
+        },
+        "A6": {
+          "kind": "parent_local",
+          "note": "The parent-local capture-valid expression explicitly excludes a branch-killed child transfer.",
+          "source_axioms": []
+        },
+        "A7": {
+          "kind": "parent_local",
+          "note": "The parent-local capture-valid expression explicitly excludes a flush-killed child transfer.",
+          "source_axioms": []
+        }
+      }
+    }
+  },
+  "identity_keys": [],
+  "occurrences": [
+    {
+      "definition": "io.enq.valid && io.enq.ready",
+      "evidence_statement_ids": [
+        9
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "ParentEnqHandshake",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHR.rpq::io.enq.fire"
+      ]
+    },
+    {
+      "definition": "io.deq.valid && io.deq.ready",
+      "evidence_statement_ids": [
+        136,
+        155
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.deq.valid",
+          "io.deq.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "ParentDeqHandshake",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomMSHR.rpq::io.deq.fire"
+      ]
+    },
+    {
+      "definition": "_T_2 && _out_valid_T_15; the wrapper refill window is active and the exposed child dequeue is valid and survives branch/flush filtering, so the child payload is captured into the output buffer and out_valid is set",
+      "evidence_statement_ids": [
+        157,
+        158,
+        159,
+        160,
+        161,
+        162,
+        163,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170,
+        171,
+        172,
+        173,
+        174,
+        175
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "_T_2",
+          "_out_valid_T_15"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "BufferCapture",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    }
+  ],
+  "predicates": [
+    {
+      "definition": "out_valid == 0",
+      "evidence_statement_ids": [
+        7,
+        136,
+        156
+      ],
+      "grounding": {
+        "negated": true,
+        "source_signal": "out_valid",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "OutputInvalid"
+    },
+    {
+      "definition": "(io.brupdate.b1.mispredict_mask & main.io.deq.bits.uop.br_mask) != 0",
+      "evidence_statement_ids": [
+        159,
+        160
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "_out_valid_T_9",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "TransferBranchKilled"
+    },
+    {
+      "definition": "io.flush && main.io.deq.bits.uop.uses_ldq",
+      "evidence_statement_ids": [
+        164
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "_out_valid_T_13",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "TransferFlushKilled"
+    }
+  ],
+  "rationale": [
+    "The parent wrapper adds a one-entry output buffer in front of the frozen child. Parent enqueue is directly forwarded to the child, while parent-visible dequeue is driven only by out_valid.",
+    "A child dequeue is not guaranteed to become parent-visible: the wrapper may consume the child transfer while suppressing out_valid when the transferred uop is killed by the current branch update or flush. Therefore no liveness or one-for-one child-dequeue-to-parent-dequeue conservation axiom is claimed.",
+    "A3 captures the parent-local valid-token provenance of the output buffer. A4 exposes the corresponding child-to-parent path explicitly so higher-level composition does not treat parent dequeues as unrelated to the frozen child dequeue stream.",
+    "A5 is an emergent weakening of the frozen child A11: the child proves same-slot QueueInsert-before-DeqHandshake, while the parent wrapper hides the child slot index. Dropping the slot scope yields the conservative parent-facing fact that every visible parent dequeue has some prior frozen-child QueueInsert.",
+    "No new transaction identity_key is claimed. The frozen child has no trusted identity key, and the wrapper splits payload state between out_reg and a separately rewritten out_uop whose br_mask changes under branch resolution. Claiming exact same-request identity across the complete queue would therefore exceed the trusted child semantics.",
+    "Exact parent-output aggregate equality is deliberately omitted. io.deq.bits is sourced from out_reg but its uop subaggregate is overwritten by out_uop, and out_uop.br_mask is updated over time. Omitting stronger field-level payload equalities is a safe over-approximation that can be refined later by CEGAR if needed."
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "parent_synthesis-BoomMSHR.rpq-38a6826dc8c3b9dc",
+  "unresolved": [],
+  "work_unit_id": "BoomMSHR.rpq"
+}
