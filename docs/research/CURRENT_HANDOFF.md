@@ -140,10 +140,12 @@ For small finite protocol functions such as TileLink `ClientMetadata.onProbe`, a
 Every µMCM axiom is represented as a structured formal AST. The LLM may not provide a separate prose formula or validation program. Human-readable formulas, referenced semantic objects, proof-obligation checker type, and checker arguments are all generated deterministically from the same AST. This removes the trust gap where prose could claim more than the verifier actually proved.
 
 ## D015 — Finite repetition is modeled generically as indexed occurrences
-µMCM does not add module-specific "multi-beat" axioms. A repeated hardware action may carry a finite index domain, and generic `indexed_complete` axioms state exact coverage at a completion point. The same abstraction is intended for cache beats, refill beats, banks, entries, fragments or similar bounded repetitions. The bundled explicit-control backend intentionally leaves exact indexed completeness untrusted until a counter/index-capable proof backend is available.
+µMCM does not add module-specific "multi-beat" axioms. A repeated hardware action may carry a finite index domain, and generic `indexed_complete` axioms state exact coverage at a completion point. The same abstraction is intended for cache beats, refill beats, banks, entries, fragments or similar bounded repetitions.
+
+As of the WritebackUnit v0.9.1 validation pass, the bundled `explicit-control` backend can formally prove a bounded indexed-completeness obligation when it can certify the relevant finite index domain, monotone counter/index progression, completion condition, and absence of skipped/duplicated indices. The same backend can also certify supported same-index relations and indexed storage lookups. These capabilities remain fail-closed: if the required counter/index or lookup structure cannot be certified, the result stays untrusted.
 
 ## D016 — Unordered prerequisites use a generic join axiom
-When completion requires several events that may arrive in either order, µMCM uses a generic `join` axiom rather than inventing a module-specific completion rule. The current explicit-control backend can formally prove such join-order obligations when the occurrences are grounded in the certified finite-control abstraction.
+When completion requires several events that may arrive in either order, µMCM uses a generic `join` axiom rather than inventing a module-specific completion rule. The `explicit-control` backend can formally prove such join-order obligations when the prerequisite/completion occurrences and any sticky state used to remember an earlier prerequisite are grounded in its certified abstraction.
 
 ---
 
@@ -165,18 +167,20 @@ When completion requires several events that may arrive in either order, µMCM u
 ## Validation
 
 - A structural path check is useful evidence but must not be called a complete semantic proof.
-- The explicit-control backend remains fail-closed for control/order properties, but now also supports exact symbolic identity projection and selected finite reference-equivalence obligations. It is still not a general-purpose SMT/bit-level RTL prover.
+- The explicit-control backend remains fail-closed. In addition to certified control/order properties, exact symbolic identity projection and selected finite reference-equivalence obligations, the WritebackUnit v0.9.1 pass adds certified bounded monotone counter/index reasoning, same-index valid/index pipeline reasoning, same-index indexed-storage lookup checks, sticky-state join reasoning, and aggregate-mux constant propagation. It is still not a general-purpose SMT/bit-level RTL prover.
 - A finite protocol function can be `SPEC_PROVED` when the reference semantics are encoded independently from the FIRRTL evaluator and every legal input row is exhaustively checked. ProbeUnit `onProbe` is the first such example.
 - Freezing a leaf does not prove abstraction completeness forever; the child may be reopened if later CEGAR finds a spurious parent/system trace that requires a missing axiom.
 
 - Formal axiom AST is now the unique source of truth: ProbeUnit's same 8 axioms migrate without semantic loss, while pretty-printed formulas and proof obligations are generated from the AST rather than authored independently.
 
-## WritebackUnit (language-discovery pass)
+## WritebackUnit
 
 - WritebackUnit introduces bounded repeated cache-line transfers: the same semantic action occurs once per beat/index rather than as one scalar occurrence.
-- The useful abstraction is not a Writeback-specific beat axiom. µMCM now permits a generic indexed occurrence `o(txn,i)` over a finite domain plus an `indexed_complete` conservation axiom.
-- Voluntary writeback also exposes an unordered completion join: all release beats must finish and a memory grant must be observed, but the grant may arrive before or after the last release beat. This is represented by the generic `join` axiom.
-- Exact indexed completeness is intentionally not promoted by the current explicit-control backend because that backend does not track counter/index values. The AST and proof obligation exist now; trust requires a later bounded-index/counter-capable backend.
+- The useful abstraction is not a Writeback-specific beat axiom. µMCM uses a generic indexed occurrence `o(txn,i)` over a finite domain plus an `indexed_complete` conservation axiom.
+- Voluntary writeback exposes an unordered completion join: all release beats must finish and a memory grant must be observed, but the grant may arrive before or after the last release beat. This is represented by the generic `join` axiom.
+- WritebackUnit also requires pointwise same-index relations and indexed storage lookup, e.g. `FillIssue(txn,i) < BufferBeat(txn,i)` and `ReleaseBeat(txn,i).data = wb_buffer[i]`; these remain generic language features rather than module-specific axioms.
+- The v0.9.1 formal-backend pass added reusable proofs for bounded monotone counter/index coverage, same-index valid/index pipelines, same-index storage lookup, sticky-state joins, and aggregate-mux constant propagation.
+- The final WritebackUnit run closes with 10/10 candidate axioms `FORMALLY_PROVED`, 10 trusted axioms, 0 unresolved items, and status `FROZEN_FOR_COMPOSITION`.
 
 ---
 
@@ -221,7 +225,7 @@ Implement a real LLM provider, replay known manual cases, then evaluate held-out
 - µMCM `umcm-formal-0.5` supports scalar/indexed boundary or derived occurrences, predicates, identity, cases, assumptions, generic join/indexed-completeness relations, and same-index relation scopes with indexed lookup expressions; prose formulas/validation programs are no longer semantic inputs.
 - Grounding validation is deterministic and fail-closed; it rejects legacy `formula`/`validation` fields and unsupported Formal AST shapes.
 - Validation trust levels distinguish grounding, structural support, formal proof and reference/spec proof.
-- `explicit-control` backend proves certified finite-control/order properties, exact symbolic local/identity facts, and selected finite reference equivalence checks.
+- `explicit-control` backend proves certified finite-control/order properties, exact symbolic local/identity facts, selected finite reference equivalence checks, bounded monotone counter/index coverage, supported same-index pipeline/storage relations, sticky-state joins, and supported aggregate-mux constant properties.
 - A fully proved leaf with no unresolved items can be frozen as `frozen_umcm.json` for parent composition; it remains reopenable by later CEGAR refinement.
 
 ## ProbeUnit
@@ -234,9 +238,24 @@ Implement a real LLM provider, replay known manual cases, then evaluate held-out
 - Unresolved items: 0.
 - Status: `FROZEN_FOR_COMPOSITION`.
 
+## WritebackUnit
+
+- Workflow: `manual-first-workflow-0.9`; schema: `umcm-formal-0.5`.
+- Candidate axioms: 10.
+- Trusted axioms: 10.
+- `FORMALLY_PROVED`: 10.
+- `SPEC_PROVED`: 0.
+- Unresolved items: 0.
+- The trusted result covers bounded 8-beat completeness, same-index fill/buffer ordering, same-index release-data lookup, release ordering/exclusion, identity preservation, opcode constraint, and voluntary completion join.
+- Status: `FROZEN_FOR_COMPOSITION`.
+
 ## Current phase
 
-Manual Bootstrap, Week-1 style objective: continue the representative L1 chain. Current semantic target is WritebackUnit. Its language-discovery passes added generic indexed occurrences, join/indexed-completeness axioms, and same-index relation scopes; next regenerate the WritebackUnit task under v0.9 and produce/validate the candidate µMCM before deciding whether a bounded-index proof backend is required.
+Manual Bootstrap, Week-1 style objective: continue the representative L1 bottom-up chain. ProbeUnit and WritebackUnit are both frozen and may be consumed by later parent composition, but the larger L1 parent is not ready because other representative children remain unfinished.
+
+Current semantic target: `BoomMSHR`.
+
+Next Action: construct and validate the `BoomMSHR` leaf µMCM, reusing the existing transaction/occurrence/predicate/case/indexed-occurrence/same-index/join language. Extend the language or prover only when new RTL semantics require a reusable general abstraction; do not reopen ProbeUnit or WritebackUnit unless counterexample-guided refinement requires it.
 
 ---
 
