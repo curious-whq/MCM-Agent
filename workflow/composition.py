@@ -6,6 +6,8 @@ import json
 from pathlib import Path
 from typing import Any, Iterable
 
+from .axiom_ir import compile_formal_axiom, render_formal_axiom
+
 
 FROZEN_STATUS = "FROZEN_FOR_COMPOSITION"
 SEMANTIC_FIELDS = (
@@ -160,6 +162,29 @@ def _rehash_instantiated_imports(frozen: dict[str, Any]) -> None:
         imported["frozen_umcm_sha256"] = _canonical_sha256(child_frozen)
 
 
+def _refresh_rendered_formulas(frozen: dict[str, Any]) -> None:
+    """Regenerate every display formula after instance-path rewriting.
+
+    ``formal`` is the semantic source of truth.  Rewriting a module theorem
+    template changes qualified IDs inside that AST, so carrying the old human
+    rendering forward can make the two disagree.
+    """
+
+    for axiom in frozen.get("axioms", []):
+        if not isinstance(axiom, dict) or not isinstance(axiom.get("formal"), dict):
+            continue
+        axiom["rendered_formula"] = render_formal_axiom(axiom["formal"])
+    composition = frozen.get("composition")
+    if not isinstance(composition, dict):
+        return
+    for imported in composition.get("imports", []):
+        if not isinstance(imported, dict):
+            continue
+        child_frozen = imported.get("frozen_umcm")
+        if isinstance(child_frozen, dict):
+            _refresh_rendered_formulas(child_frozen)
+
+
 def instantiate_frozen_umcm(
     frozen: dict[str, Any],
     *,
@@ -176,8 +201,278 @@ def instantiate_frozen_umcm(
     if not isinstance(instantiated, dict):
         raise ValueError("instantiated frozen µMCM is not an object")
     instantiated["work_unit_id"] = target_work_unit_id
+    _refresh_rendered_formulas(instantiated)
     _rehash_instantiated_imports(instantiated)
     return instantiated
+
+
+PROMPT_INTERFACE_VERSION = "frozen-child-prompt-interface-v0.1"
+
+
+def _qualified_semantic_id(work_unit_id: str, local_id: str) -> str:
+    if "::" in local_id:
+        return local_id
+    return f"{work_unit_id}::{local_id}"
+
+
+def _compact_occurrence(item: dict[str, Any], work_unit_id: str) -> dict[str, Any]:
+    return {
+        key: deepcopy(item[key])
+        for key in (
+            "id",
+            "kind",
+            "definition",
+            "physical_event_ids",
+            "multiplicity",
+            "index",
+        )
+        if key in item
+    } | {"qualified_id": _qualified_semantic_id(work_unit_id, str(item["id"]))}
+
+
+def _compact_predicate(item: dict[str, Any], work_unit_id: str) -> dict[str, Any]:
+    return {
+        key: deepcopy(item[key])
+        for key in ("id", "definition")
+        if key in item
+    } | {"qualified_id": _qualified_semantic_id(work_unit_id, str(item["id"]))}
+
+
+def _compact_identity(item: dict[str, Any], work_unit_id: str) -> dict[str, Any]:
+    return {
+        key: deepcopy(item[key])
+        for key in ("id", "fields", "description")
+        if key in item
+    } | {"qualified_id": _qualified_semantic_id(work_unit_id, str(item["id"]))}
+
+
+def _direct_frontier_signal(
+    signal: str,
+    *,
+    child_id: str,
+    parent_work_unit_id: str,
+    frontier_signals: set[str],
+) -> str | None:
+    """Map a child-local theorem signal to its exact parent frontier name."""
+
+    if signal in frontier_signals:
+        return signal
+    prefix = parent_work_unit_id + "."
+    if not child_id.startswith(prefix):
+        return None
+    relative_child = child_id[len(prefix):]
+    candidate = f"{relative_child}.{signal}"
+    return candidate if candidate in frontier_signals else None
+
+
+def build_prompt_interface(
+    child_summary: dict[str, Any],
+    *,
+    parent_work_unit_id: str,
+) -> dict[str, Any]:
+    """Build the non-recursive trusted semantic contract shown to a parent LLM.
+
+    The full frozen artifact remains embedded in ``static_handoff.json`` and is
+    consumed by the composition prover.  This view contains only direct trusted
+    theorems, their typed semantic dependency closure, assumptions, and the
+    minimum direct-child boundary/frontier information needed for synthesis.
+    Descendant objects referenced by a direct theorem remain resolvable opaque
+    atoms; their definitions and proof history are deliberately not expanded.
+    """
+
+    frozen = child_summary.get("frozen_umcm")
+    if not isinstance(frozen, dict):
+        raise ValueError("child summary has no frozen_umcm object")
+    child_id = str(child_summary.get("child_id") or frozen.get("work_unit_id") or "")
+    if not child_id:
+        raise ValueError("child summary has no child_id")
+    expected_hash = child_summary.get("frozen_umcm_sha256")
+    actual_hash = _canonical_sha256(frozen)
+    if expected_hash != actual_hash:
+        raise ValueError(f"frozen child hash mismatch while building prompt interface for {child_id!r}")
+    if frozen.get("freeze", {}).get("status") != FROZEN_STATUS:
+        raise ValueError(f"child {child_id!r} is not frozen for composition")
+
+    trusted_ids = {str(item) for item in frozen.get("trusted_axiom_ids", [])}
+    local_objects = {
+        field: {
+            str(item["id"]): item
+            for item in frozen.get(field, [])
+            if isinstance(item, dict) and isinstance(item.get("id"), str)
+        }
+        for field in ("occurrences", "predicates", "identity_keys")
+    }
+    referenced: dict[str, set[str]] = {
+        "occurrences": set(),
+        "predicates": set(),
+        "identity_keys": set(),
+        "signals": set(),
+        "axioms": set(),
+    }
+    trusted_axioms: list[dict[str, Any]] = []
+    frozen_provenance = frozen.get("provenance", {})
+    if not isinstance(frozen_provenance, dict):
+        frozen_provenance = {}
+
+    for axiom in frozen.get("axioms", []):
+        if not isinstance(axiom, dict) or str(axiom.get("id")) not in trusted_ids:
+            continue
+        formal = axiom.get("formal")
+        if not isinstance(formal, dict):
+            raise ValueError(f"trusted child axiom {axiom.get('id')!r} has no formal AST")
+        compiled = compile_formal_axiom(formal)
+        refs = compiled["references"]
+        referenced["occurrences"].update(str(item) for item in refs.get("occurrences", []))
+        referenced["predicates"].update(str(item) for item in refs.get("predicates", []))
+        referenced["identity_keys"].update(str(item) for item in refs.get("identities", []))
+        referenced["signals"].update(str(item) for item in refs.get("signals", []))
+
+        axiom_id = str(axiom["id"])
+        provenance = frozen_provenance.get(axiom_id, {})
+        compact_provenance: dict[str, Any] = {}
+        if isinstance(provenance, dict):
+            for key in ("kind", "source_axioms", "proof_method"):
+                if key in provenance:
+                    compact_provenance[key] = deepcopy(provenance[key])
+            referenced["axioms"].update(
+                str(item)
+                for item in provenance.get("source_axioms", [])
+                if isinstance(item, str)
+            )
+        trusted_axioms.append(
+            {
+                "id": axiom_id,
+                "qualified_id": _qualified_semantic_id(child_id, axiom_id),
+                "formal": deepcopy(formal),
+                "rendered_formula": render_formal_axiom(formal),
+                **({"provenance": compact_provenance} if compact_provenance else {}),
+            }
+        )
+
+    if {item["id"] for item in trusted_axioms} != trusted_ids:
+        missing = sorted(trusted_ids - {item["id"] for item in trusted_axioms})
+        raise ValueError(f"trusted child axioms missing from frozen artifact: {missing}")
+
+    declarations: dict[str, list[dict[str, Any]]] = {
+        "occurrences": [],
+        "predicates": [],
+        "identity_keys": [],
+    }
+    opaque_imports: list[dict[str, str]] = []
+    compactors = {
+        "occurrences": _compact_occurrence,
+        "predicates": _compact_predicate,
+        "identity_keys": _compact_identity,
+    }
+    kind_names = {
+        "occurrences": "occurrence",
+        "predicates": "predicate",
+        "identity_keys": "identity_key",
+        "axioms": "axiom",
+    }
+    exported_ids: dict[str, list[str]] = {
+        "occurrences": [],
+        "predicates": [],
+        "identity_keys": [],
+        "axioms": sorted(item["qualified_id"] for item in trusted_axioms),
+    }
+
+    for field in ("occurrences", "predicates", "identity_keys"):
+        local = local_objects[field]
+        for semantic_id in sorted(referenced[field]):
+            local_id = semantic_id
+            qualified_local = None
+            if semantic_id.startswith(child_id + "::"):
+                local_id = semantic_id[len(child_id) + 2:]
+                qualified_local = semantic_id
+            if "::" not in semantic_id or qualified_local is not None:
+                item = local.get(local_id)
+                if item is None:
+                    raise ValueError(
+                        f"trusted child theorem references missing local {kind_names[field]} "
+                        f"{semantic_id!r}"
+                    )
+                declaration = compactors[field](item, child_id)
+                declarations[field].append(declaration)
+                exported_ids[field].append(str(declaration["qualified_id"]))
+            else:
+                opaque_imports.append({"id": semantic_id, "kind": kind_names[field]})
+                exported_ids[field].append(semantic_id)
+
+    direct_axiom_ids = set(exported_ids["axioms"])
+    for axiom_id in sorted(referenced["axioms"] - direct_axiom_ids):
+        opaque_imports.append({"id": axiom_id, "kind": "axiom"})
+
+    frontier_signals = {
+        str(item) for item in child_summary.get("frontier_signals", []) if isinstance(item, str)
+    }
+    semantic_signals = []
+    relevant_frontier_signals: set[str] = set()
+    for signal in sorted(referenced["signals"]):
+        parent_signal = _direct_frontier_signal(
+            signal,
+            child_id=child_id,
+            parent_work_unit_id=parent_work_unit_id,
+            frontier_signals=frontier_signals,
+        )
+        semantic_signals.append(
+            {
+                "id": signal,
+                "visibility": "direct_frontier" if parent_signal else "opaque_child_signal",
+                **({"parent_frontier_signal": parent_signal} if parent_signal else {}),
+            }
+        )
+        if parent_signal:
+            relevant_frontier_signals.add(parent_signal)
+
+    instance_reuse = child_summary.get("instance_reuse", {})
+    trust = {
+        "status": frozen.get("freeze", {}).get("status"),
+        "frozen_sha256": actual_hash,
+        "trusted_axiom_count": len(trusted_axioms),
+        "instance_reuse": deepcopy(instance_reuse),
+    }
+    return {
+        "interface_version": PROMPT_INTERFACE_VERSION,
+        "child_id": child_id,
+        "task_id": child_summary.get("task_id"),
+        "summary_ref": child_summary.get("summary_ref"),
+        "trust": trust,
+        "boundary_events": [
+            str(item) for item in child_summary.get("boundary_events", []) if isinstance(item, str)
+        ],
+        "semantic_objects": declarations,
+        "semantic_signals": semantic_signals,
+        "relevant_frontier_signals": sorted(relevant_frontier_signals),
+        "trusted_axioms": trusted_axioms,
+        "assumptions": deepcopy(frozen.get("assumptions", [])),
+        "opaque_imports": sorted(opaque_imports, key=lambda item: (item["kind"], item["id"])),
+        "exported_ids": {
+            field: sorted(set(values)) for field, values in exported_ids.items()
+        },
+    }
+
+
+def prompt_semantic_catalog(handoff: dict[str, Any]) -> dict[str, set[str]]:
+    """Return exactly the child semantic IDs exported in a compact parent prompt."""
+
+    result = {
+        "occurrences": set(),
+        "predicates": set(),
+        "identity_keys": set(),
+        "axioms": set(),
+    }
+    composition = handoff.get("composition", {})
+    summaries = composition.get("child_summaries", []) if isinstance(composition, dict) else []
+    parent_id = str(handoff.get("work_unit", {}).get("id", ""))
+    for summary in summaries:
+        if not isinstance(summary, dict):
+            continue
+        interface = build_prompt_interface(summary, parent_work_unit_id=parent_id)
+        exported = interface["exported_ids"]
+        for field in result:
+            result[field].update(str(item) for item in exported.get(field, []))
+    return result
 
 
 def _empty_catalog() -> dict[str, dict[str, dict[str, str]]]:

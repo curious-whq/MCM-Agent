@@ -9,10 +9,17 @@ import unittest
 from workflow.composition import (
     _canonical_sha256,
     attach_frozen_child_summaries,
+    build_prompt_interface,
     instantiate_frozen_umcm,
+    prompt_semantic_catalog,
     work_unit_implementation_sha256,
 )
-from workflow.manual import GROUNDING_VALID, export_manual_task, import_manual_response
+from workflow.manual import (
+    GROUNDING_VALID,
+    export_manual_task,
+    import_manual_response,
+    validate_candidate_grounding,
+)
 from workflow.schema import UMCM_SCHEMA_VERSION
 from workflow.semantic import freeze_task_dir, validate_task_dir
 from workflow.tasks import build_parent_synthesis_task
@@ -331,6 +338,14 @@ class ParentWorkflowTests(unittest.TestCase):
             self.assertIn("Child RTL is **not an input**", package.prompt)
             self.assertIn("Parent.child::ChildOut", package.prompt)
             self.assertIn("Parent.child::CA1", package.prompt)
+            child_section = package.prompt.split("### Child `Parent.child`", 1)[1].split(
+                "## Parent-local source evidence", 1
+            )[0]
+            self.assertNotIn('"frozen_umcm"', child_section)
+            self.assertNotIn('"semantic_catalog"', child_section)
+            self.assertNotIn('"evidence_statement_ids"', child_section)
+            self.assertNotIn('"grounding"', child_section)
+            self.assertNotIn("child.io.out.valid", child_section)
             self.assertEqual(
                 handoff["grounding"]["imported_occurrence_ids"],
                 ["Parent.child::ChildOut"],
@@ -338,6 +353,118 @@ class ParentWorkflowTests(unittest.TestCase):
             self.assertEqual(
                 handoff["grounding"]["imported_axiom_ids"],
                 ["Parent.child::CA1"],
+            )
+
+    def test_prompt_interface_keeps_typed_reference_closure_without_recursing(self):
+        frozen = _frozen_child()
+        frozen["axioms"][0]["formal"] = {
+            "type": "ordered_before",
+            "before": "ChildOut",
+            "after": "Parent.child.inner::Done",
+            "required_prior": None,
+            "scope_identity": None,
+        }
+        frozen["composition"] = {
+            "semantic_catalog": {
+                "occurrences": {
+                    "Parent.child.inner::Done": {
+                        "work_unit_id": "Parent.child.inner",
+                        "local_id": "Done",
+                    }
+                }
+            },
+            "imports": [{"large_recursive_proof": "must stay hidden"}],
+        }
+        summary = {
+            "child_id": "Parent.child",
+            "task_id": "child-task",
+            "summary_ref": "umcm://Parent.child",
+            "boundary_events": ["Parent.child::io.out.fire"],
+            "frontier_signals": ["child.io.out.valid", "child.io.out.bits.payload"],
+            "instance_reuse": {"kind": "exact-work-unit"},
+            "frozen_umcm": frozen,
+            "frozen_umcm_sha256": _canonical_sha256(frozen),
+        }
+
+        interface = build_prompt_interface(summary, parent_work_unit_id="Parent")
+
+        self.assertEqual(
+            interface["semantic_objects"]["occurrences"][0]["qualified_id"],
+            "Parent.child::ChildOut",
+        )
+        self.assertIn(
+            {"id": "Parent.child.inner::Done", "kind": "occurrence"},
+            interface["opaque_imports"],
+        )
+        self.assertNotIn("large_recursive_proof", json.dumps(interface))
+        self.assertEqual(
+            interface["trusted_axioms"][0]["rendered_formula"],
+            "ChildOut <mu Parent.child.inner::Done",
+        )
+        self.assertEqual(
+            set(interface["exported_ids"]["occurrences"]),
+            {"Parent.child::ChildOut", "Parent.child.inner::Done"},
+        )
+
+    def test_prompt_catalog_exports_only_direct_axioms(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            child_dir = self._child_run(root)
+            handoff = attach_frozen_child_summaries(
+                _parent_handoff(),
+                run_roots=[root],
+                child_task_dirs=[child_dir],
+            )
+            handoff["grounding"]["imported_axiom_ids"].append(
+                "Parent.child.inner::HiddenA"
+            )
+
+            visible = prompt_semantic_catalog(handoff)
+
+            self.assertEqual(visible["axioms"], {"Parent.child::CA1"})
+            self.assertNotIn("Parent.child.inner::HiddenA", visible["axioms"])
+
+            package = build_parent_synthesis_task(handoff)
+            candidate = {
+                "schema_version": UMCM_SCHEMA_VERSION,
+                "task_id": package.task.task_id,
+                "work_unit_id": "Parent",
+                "occurrences": [],
+                "predicates": [],
+                "identity_keys": [],
+                "cases": [],
+                "axioms": [{
+                    "id": "A1",
+                    "formal": {
+                        "type": "forbid_when",
+                        "occurrence": "Parent.child::ChildOut",
+                        "predicate": "Parent.child::ChildActive",
+                        "scope_identity": None,
+                    },
+                    "derived_from_case_ids": [],
+                    "evidence_statement_ids": [],
+                    "status": "candidate",
+                }],
+                "assumptions": [],
+                "unresolved": [],
+                "rationale": [],
+                "extensions": {"parent_synthesis": {"axiom_provenance": {
+                    "A1": {
+                        "kind": "lifted",
+                        "source_axioms": ["Parent.child.inner::HiddenA"],
+                        "note": "must be rejected because it was not exported",
+                    }
+                }}},
+            }
+            validation = validate_candidate_grounding(
+                candidate,
+                package.task.to_dict(),
+                handoff,
+            )
+            self.assertIn(
+                "parent provenance for axiom 'A1' references unknown imported axioms: "
+                "['Parent.child.inner::HiddenA']",
+                validation["errors"],
             )
 
     def test_parent_manual_import_accepts_qualified_child_semantic_refs(self):
@@ -522,6 +649,14 @@ class ParentWorkflowTests(unittest.TestCase):
         }
         template = _frozen_child()
         template["work_unit_id"] = "ChildModule"
+        template["axioms"][0]["formal"] = {
+            "type": "ordered_before",
+            "before": "ChildOut",
+            "after": "ChildModule.inner::Done",
+            "required_prior": None,
+            "scope_identity": None,
+        }
+        template["axioms"][0]["rendered_formula"] = "stale template formula"
         template["composition"] = {
             "imports": [{
                 "child_id": "ChildModule.inner",
@@ -554,6 +689,10 @@ class ParentWorkflowTests(unittest.TestCase):
         self.assertIn(
             "Parent.child0.inner::Done",
             instantiated["composition"]["semantic_catalog"]["occurrences"],
+        )
+        self.assertEqual(
+            instantiated["axioms"][0]["rendered_formula"],
+            "ChildOut <mu Parent.child0.inner::Done",
         )
 
 

@@ -27,6 +27,8 @@ from .tasks import (
 )
 from .composition import (
     attach_frozen_child_summaries,
+    build_prompt_interface,
+    prompt_semantic_catalog,
     semantic_catalog_from_frozen,
 )
 from .manual import (
@@ -51,6 +53,8 @@ __all__ = [
     "build_leaf_abstraction_task",
     "build_parent_synthesis_task",
     "attach_frozen_child_summaries",
+    "build_prompt_interface",
+    "prompt_semantic_catalog",
     "semantic_catalog_from_frozen",
     "ManualImportResult",
     "export_manual_task",

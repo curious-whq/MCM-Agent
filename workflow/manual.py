@@ -8,7 +8,8 @@ from typing import Any
 
 from .schema import UMCM_SCHEMA_VERSION, parse_candidate_response
 from .axiom_ir import compile_formal_axiom, expr_index_vars, expr_signals, validate_formal_expr_shape
-from .tasks import PromptPackage
+from .composition import prompt_semantic_catalog
+from .tasks import PARENT_PROMPT_VERSION, PromptPackage
 from .research_memory import initialize_experience, write_run_summary
 
 
@@ -240,6 +241,20 @@ def validate_candidate_grounding(
     imported_axiom_ids = set(
         handoff.get("grounding", {}).get("imported_axiom_ids", [])
     )
+    # Parent prompt v0.3 deliberately exposes a non-recursive child contract.
+    # Keep the validator's legal imported namespace identical to what the LLM
+    # could actually see, while retaining the full catalog in static_handoff for
+    # the composition prover and for backward compatibility with older tasks.
+    if (
+        task.get("kind") == "parent_synthesis"
+        and task.get("prompt_version") == PARENT_PROMPT_VERSION
+    ):
+        visible = prompt_semantic_catalog(handoff)
+        imported_occurrence_ids = visible["occurrences"]
+        imported_predicate_ids = visible["predicates"]
+        imported_identity_ids = visible["identity_keys"]
+        imported_case_ids = set()
+        imported_axiom_ids = visible["axioms"]
 
     local_occurrence_ids = _id_set(candidate, "occurrences")
     local_predicate_ids = _id_set(candidate, "predicates")

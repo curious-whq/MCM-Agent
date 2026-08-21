@@ -25,8 +25,8 @@ Hierarchical WorkUnit
 
 ```text
 workflow          manual-first-workflow-0.9
-leaf prompt       leaf-abstraction-prompt-0.9
-parent prompt     parent-synthesis-prompt-0.2
+leaf prompt       leaf-abstraction-prompt-0.11
+parent prompt     parent-synthesis-prompt-0.3
 µMCM schema       umcm-formal-0.5
 handoff schema    workunit-static-0.1
 planner           hierarchical-planner-v11
@@ -62,6 +62,8 @@ SUMMARY.md
 ```
 
 `prompt.md` 自包含 WorkUnit evidence；source root 可解析时带 source snippets，否则保留 exact FIRRTL statement ledger。
+
+Parent prompt 使用由 frozen child artifact 确定性生成的 compact semantic interface。LLM 只看到 direct trusted theorem contract 及其 typed reference closure；完整递归 proof artifact 仍留在 `static_handoff.json` 中供 composition prover 校验证书、hash 与 theorem ancestry。
 
 ## Manual import
 

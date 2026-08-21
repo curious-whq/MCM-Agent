@@ -6,12 +6,13 @@ import hashlib
 import json
 from typing import Any
 
+from .composition import build_prompt_interface
 from .schema import UMCM_SCHEMA_VERSION, candidate_output_schema
 
 
 WORKFLOW_VERSION = "manual-first-workflow-0.9"
 PROMPT_VERSION = "leaf-abstraction-prompt-0.11"
-PARENT_PROMPT_VERSION = "parent-synthesis-prompt-0.2"
+PARENT_PROMPT_VERSION = "parent-synthesis-prompt-0.3"
 
 
 class TaskKind(str, Enum):
@@ -144,32 +145,29 @@ def _render_child_summaries(handoff: dict[str, Any]) -> str:
     composition = handoff.get("composition", {})
     summaries = composition.get("child_summaries", []) if isinstance(composition, dict) else []
     chunks: list[str] = []
+    parent_work_unit_id = str(handoff.get("work_unit", {}).get("id", ""))
     for child in summaries:
         if not isinstance(child, dict):
             continue
         child_id = child.get("child_id", "<unknown-child>")
-        catalog = child.get("semantic_catalog", {})
-        frozen = child.get("frozen_umcm", {})
+        interface = build_prompt_interface(
+            child,
+            parent_work_unit_id=parent_work_unit_id,
+        )
         chunks.append(
             "\n".join(
                 [
                     f"### Child `{child_id}`",
-                    f"- summary ref: `{child.get('summary_ref')}`",
-                    f"- frozen task: `{child.get('task_id')}`",
-                    f"- frozen SHA-256: `{child.get('frozen_umcm_sha256')}`",
-                    f"- implementation SHA-256: `{child.get('implementation_sha256')}`",
-                    f"- instance reuse certificate: `{child.get('instance_reuse')}`",
-                    f"- exposed boundary events: {child.get('boundary_events', [])}",
-                    f"- frontier signals: {child.get('frontier_signals', [])}",
-                    "",
-                    "Qualified semantic IDs available to parent formal AST:",
+                    "This is the complete LLM-visible semantic contract for this child. "
+                    "Opaque imports are typed atoms referenced by a direct trusted theorem; "
+                    "do not infer their hidden definitions or proof history.",
                     "```json",
-                    json.dumps(catalog, indent=2, sort_keys=True),
-                    "```",
-                    "",
-                    "Trusted frozen child µMCM:",
-                    "```json",
-                    json.dumps(frozen, indent=2, sort_keys=True),
+                    json.dumps(
+                        interface,
+                        ensure_ascii=False,
+                        separators=(",", ":"),
+                        sort_keys=True,
+                    ),
                     "```",
                 ]
             )
@@ -460,9 +458,12 @@ Output schema version: `{task.schema_version}`
    parent candidate. Grounding signals/state/evidence stored inside a frozen child
    summary are provenance only: do not treat them as parent-local RTL evidence or
    infer new child behavior beyond the trusted frozen semantics.
-2. Child semantic objects may be referenced by the exact qualified IDs shown in
-   each child's semantic catalog. Do not redeclare an imported occurrence,
-   predicate, identity, case, or axiom under the same qualified ID.
+2. Child semantic objects may be referenced only by the exact qualified IDs in
+   each compact child interface's `exported_ids`. A direct theorem's Formal AST
+   uses child-local IDs for local declarations; use their `qualified_id` from the
+   interface when referencing them in the parent candidate. Opaque imports are
+   usable only as typed semantic atoms: do not infer their hidden definitions.
+   Do not redeclare an imported occurrence, predicate, identity, or axiom.
 3. New boundary occurrences may reference parent-local physical events and the
    exposed child boundary events. New derived occurrences must be grounded only
    in parent-local RTL; child internal state/signals are not available.
@@ -473,7 +474,7 @@ Output schema version: `{task.schema_version}`
    `extensions.parent_synthesis.axiom_provenance[<axiom-id>]` with:
    - `kind`: one of `parent_local`, `reexported`, `lifted`, `emergent`;
    - `source_axioms`: zero or more exact qualified IDs from the imported child
-     axiom catalogs;
+     `exported_ids.axioms` lists;
    - `note`: a short explanation.
    `parent_local` normally has no child source axioms. `lifted`, `emergent`, or
    `reexported` must cite at least one imported source axiom.
