@@ -1,0 +1,178 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [
+        "C1_RequestAccepted"
+      ],
+      "evidence_statement_ids": [
+        271,
+        273,
+        274,
+        275
+      ],
+      "formal": {
+        "occurrence": "RequestAccept",
+        "predicate": "MSHRResponsePending",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A1",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_RequestAccepted"
+      ],
+      "evidence_statement_ids": [
+        272,
+        274,
+        275
+      ],
+      "formal": {
+        "occurrence": "RequestAccept",
+        "predicate": "MetaReadUnavailable",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A2",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_RequestAccepted"
+      ],
+      "evidence_statement_ids": [
+        272,
+        274,
+        275
+      ],
+      "formal": {
+        "occurrence": "RequestAccept",
+        "predicate": "DataReadUnavailable",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A3",
+      "status": "candidate"
+    }
+  ],
+  "cases": [
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        271,
+        272,
+        273,
+        274,
+        275
+      ],
+      "guard_predicates": [
+        {
+          "id": "MSHRResponsePending",
+          "positive": false
+        },
+        {
+          "id": "MetaReadUnavailable",
+          "positive": false
+        },
+        {
+          "id": "DataReadUnavailable",
+          "positive": false
+        }
+      ],
+      "id": "C1_RequestAccepted",
+      "relations": [
+        "An LSU request can be accepted only when no MSHR response is blocking admission and both the metadata-read and data-read arbitration inputs are ready."
+      ],
+      "trigger_occurrences": [
+        "RequestAccept"
+      ]
+    }
+  ],
+  "extensions": {},
+  "identity_keys": [],
+  "occurrences": [
+    {
+      "definition": "io.lsu.req.valid && io.lsu.req.ready; one LSU request is accepted by the DCache",
+      "evidence_statement_ids": [
+        272,
+        273,
+        274,
+        275
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.lsu.req.valid",
+          "io.lsu.req.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "RequestAccept",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::io.lsu.req.fire"
+      ]
+    }
+  ],
+  "predicates": [
+    {
+      "definition": "mshrs.io.resp.valid",
+      "evidence_statement_ids": [
+        271
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "mshrs.io.resp.valid",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "MSHRResponsePending"
+    },
+    {
+      "definition": "!metaReadArb.io.in[4].ready",
+      "evidence_statement_ids": [
+        272
+      ],
+      "grounding": {
+        "negated": true,
+        "source_signal": "metaReadArb.io.in[4].ready",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "MetaReadUnavailable"
+    },
+    {
+      "definition": "!dataReadArb.io.in[2].ready",
+      "evidence_statement_ids": [
+        272
+      ],
+      "grounding": {
+        "negated": true,
+        "source_signal": "dataReadArb.io.in[2].ready",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "DataReadUnavailable"
+    }
+  ],
+  "rationale": [
+    "This region is a stateless admission-control fragment. Its only physical semantic occurrence is acceptance of an LSU request.",
+    "Because lsuWidth is one in this elaboration, block_incoming_reqs is exactly mshrs.io.resp.valid. A1 therefore preserves the explicit design rule that a returning MSHR response blocks acceptance of a new LSU request.",
+    "A2 and A3 preserve the two independent downstream resource requirements: the metadata-read arbiter input and data-read arbiter input must both be ready before io.lsu.req.ready can assert.",
+    "The conjunction implemented by RTL is io.lsu.req.ready = metaReadArb.io.in[4].ready && dataReadArb.io.in[2].ready && !mshrs.io.resp.valid.",
+    "The candidate intentionally records only the necessary admission exclusions rather than a stronger valid-implies-fire rule. Omitting sufficiency permits extra abstract stalls and is therefore a safe over-approximation.",
+    "No request payload axioms are emitted. This region does not transform the LSU request payload, and the supplied FIRRTL ledger contains only the ready-path logic; inventing downstream payload forwarding claims would exceed the available evidence.",
+    "No transaction identity key is needed because there is no local state or cross-cycle request retention in this WorkUnit.",
+    "No fairness or eventual-acceptance property is claimed. Either downstream arbiter may remain not ready indefinitely, and an MSHR response may delay admission."
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-BoomNonBlockingDCache-region-0-4-f13601df6f3c1120",
+  "unresolved": [],
+  "work_unit_id": "BoomNonBlockingDCache::region-0-4"
+}

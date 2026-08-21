@@ -1,0 +1,684 @@
+{
+  "compiler": "formal-axiom-compiler-0.9",
+  "obligations": [
+    {
+      "arguments": {
+        "initialization": {
+          "kind": "implicit_unconstrained"
+        },
+        "key": {
+          "address_domain": {
+            "end_exclusive": 512,
+            "start": 0
+          },
+          "lane": {
+            "count": 1,
+            "name": "word"
+          }
+        },
+        "read": {
+          "address": "shr(io.read[0].bits.addr, 3)",
+          "latency_cycles": 2,
+          "request": "ReadRequest"
+        },
+        "read_write_collision": "implicit_unconstrained",
+        "relations": {
+          "co": "DataWay0CO",
+          "fr": "DataWay0FR",
+          "rf": "DataWay0RF"
+        },
+        "resolution": "latest_prior_write_same_key",
+        "storage": "array_0_0",
+        "value_fields": [
+          {
+            "name": "data",
+            "read_targets": [
+              "io.resp[0][0]"
+            ],
+            "storage_bits": {
+              "hi": 63,
+              "lo": 0
+            },
+            "write_value": "io.write.bits.data"
+          }
+        ],
+        "write": {
+          "address": "shr(io.write.bits.addr, 3)",
+          "lane_mask": "1",
+          "on": "Way0Write"
+        }
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "memory_flow",
+      "checker": "indexed_storage_flow",
+      "evidence_statement_ids": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "formal": {
+        "initialization": {
+          "kind": "implicit_unconstrained"
+        },
+        "key": {
+          "address_domain": {
+            "end_exclusive": 512,
+            "start": 0
+          },
+          "lane": {
+            "count": 1,
+            "name": "word"
+          }
+        },
+        "read": {
+          "address": {
+            "amount": 3,
+            "op": "shr",
+            "value": {
+              "name": "io.read[0].bits.addr",
+              "op": "signal"
+            }
+          },
+          "latency_cycles": 2,
+          "request": "ReadRequest"
+        },
+        "read_write_collision": "implicit_unconstrained",
+        "relations": {
+          "co": "DataWay0CO",
+          "fr": "DataWay0FR",
+          "rf": "DataWay0RF"
+        },
+        "resolution": "latest_prior_write_same_key",
+        "scope_identity": null,
+        "storage": "array_0_0",
+        "type": "indexed_storage_flow",
+        "value_fields": [
+          {
+            "name": "data",
+            "read_targets": [
+              {
+                "name": "io.resp[0][0]",
+                "op": "signal"
+              }
+            ],
+            "storage_bits": {
+              "hi": 63,
+              "lo": 0
+            },
+            "write_value": {
+              "name": "io.write.bits.data",
+              "op": "signal"
+            }
+          }
+        ],
+        "write": {
+          "address": {
+            "amount": 3,
+            "op": "shr",
+            "value": {
+              "name": "io.write.bits.addr",
+              "op": "signal"
+            }
+          },
+          "lane_mask": {
+            "op": "const",
+            "value": 1
+          },
+          "on": "Way0Write"
+        }
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ReadRequest",
+          "Way0Write"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.read[0].bits.addr",
+          "io.resp[0][0]",
+          "io.write.bits.addr",
+          "io.write.bits.data"
+        ]
+      },
+      "rendered_formula": "array_0_0[word] latest-write storage flow with implicit_unconstrained initialization; DataWay0RF=rf, DataWay0CO=co, DataWay0FR=rf^-1;co"
+    },
+    {
+      "arguments": {
+        "initialization": {
+          "kind": "implicit_unconstrained"
+        },
+        "key": {
+          "address_domain": {
+            "end_exclusive": 512,
+            "start": 0
+          },
+          "lane": {
+            "count": 1,
+            "name": "word"
+          }
+        },
+        "read": {
+          "address": "shr(io.read[0].bits.addr, 3)",
+          "latency_cycles": 2,
+          "request": "ReadRequest"
+        },
+        "read_write_collision": "implicit_unconstrained",
+        "relations": {
+          "co": "DataWay1CO",
+          "fr": "DataWay1FR",
+          "rf": "DataWay1RF"
+        },
+        "resolution": "latest_prior_write_same_key",
+        "storage": "array_1_0",
+        "value_fields": [
+          {
+            "name": "data",
+            "read_targets": [
+              "io.resp[0][1]"
+            ],
+            "storage_bits": {
+              "hi": 63,
+              "lo": 0
+            },
+            "write_value": "io.write.bits.data"
+          }
+        ],
+        "write": {
+          "address": "shr(io.write.bits.addr, 3)",
+          "lane_mask": "1",
+          "on": "Way1Write"
+        }
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "memory_flow",
+      "checker": "indexed_storage_flow",
+      "evidence_statement_ids": [
+        3,
+        4,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42
+      ],
+      "formal": {
+        "initialization": {
+          "kind": "implicit_unconstrained"
+        },
+        "key": {
+          "address_domain": {
+            "end_exclusive": 512,
+            "start": 0
+          },
+          "lane": {
+            "count": 1,
+            "name": "word"
+          }
+        },
+        "read": {
+          "address": {
+            "amount": 3,
+            "op": "shr",
+            "value": {
+              "name": "io.read[0].bits.addr",
+              "op": "signal"
+            }
+          },
+          "latency_cycles": 2,
+          "request": "ReadRequest"
+        },
+        "read_write_collision": "implicit_unconstrained",
+        "relations": {
+          "co": "DataWay1CO",
+          "fr": "DataWay1FR",
+          "rf": "DataWay1RF"
+        },
+        "resolution": "latest_prior_write_same_key",
+        "scope_identity": null,
+        "storage": "array_1_0",
+        "type": "indexed_storage_flow",
+        "value_fields": [
+          {
+            "name": "data",
+            "read_targets": [
+              {
+                "name": "io.resp[0][1]",
+                "op": "signal"
+              }
+            ],
+            "storage_bits": {
+              "hi": 63,
+              "lo": 0
+            },
+            "write_value": {
+              "name": "io.write.bits.data",
+              "op": "signal"
+            }
+          }
+        ],
+        "write": {
+          "address": {
+            "amount": 3,
+            "op": "shr",
+            "value": {
+              "name": "io.write.bits.addr",
+              "op": "signal"
+            }
+          },
+          "lane_mask": {
+            "op": "const",
+            "value": 1
+          },
+          "on": "Way1Write"
+        }
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ReadRequest",
+          "Way1Write"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.read[0].bits.addr",
+          "io.resp[0][1]",
+          "io.write.bits.addr",
+          "io.write.bits.data"
+        ]
+      },
+      "rendered_formula": "array_1_0[word] latest-write storage flow with implicit_unconstrained initialization; DataWay1RF=rf, DataWay1CO=co, DataWay1FR=rf^-1;co"
+    },
+    {
+      "arguments": {
+        "initialization": {
+          "kind": "implicit_unconstrained"
+        },
+        "key": {
+          "address_domain": {
+            "end_exclusive": 512,
+            "start": 0
+          },
+          "lane": {
+            "count": 1,
+            "name": "word"
+          }
+        },
+        "read": {
+          "address": "shr(io.read[0].bits.addr, 3)",
+          "latency_cycles": 2,
+          "request": "ReadRequest"
+        },
+        "read_write_collision": "implicit_unconstrained",
+        "relations": {
+          "co": "DataWay2CO",
+          "fr": "DataWay2FR",
+          "rf": "DataWay2RF"
+        },
+        "resolution": "latest_prior_write_same_key",
+        "storage": "array_2_0",
+        "value_fields": [
+          {
+            "name": "data",
+            "read_targets": [
+              "io.resp[0][2]"
+            ],
+            "storage_bits": {
+              "hi": 63,
+              "lo": 0
+            },
+            "write_value": "io.write.bits.data"
+          }
+        ],
+        "write": {
+          "address": "shr(io.write.bits.addr, 3)",
+          "lane_mask": "1",
+          "on": "Way2Write"
+        }
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "memory_flow",
+      "checker": "indexed_storage_flow",
+      "evidence_statement_ids": [
+        3,
+        4,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61
+      ],
+      "formal": {
+        "initialization": {
+          "kind": "implicit_unconstrained"
+        },
+        "key": {
+          "address_domain": {
+            "end_exclusive": 512,
+            "start": 0
+          },
+          "lane": {
+            "count": 1,
+            "name": "word"
+          }
+        },
+        "read": {
+          "address": {
+            "amount": 3,
+            "op": "shr",
+            "value": {
+              "name": "io.read[0].bits.addr",
+              "op": "signal"
+            }
+          },
+          "latency_cycles": 2,
+          "request": "ReadRequest"
+        },
+        "read_write_collision": "implicit_unconstrained",
+        "relations": {
+          "co": "DataWay2CO",
+          "fr": "DataWay2FR",
+          "rf": "DataWay2RF"
+        },
+        "resolution": "latest_prior_write_same_key",
+        "scope_identity": null,
+        "storage": "array_2_0",
+        "type": "indexed_storage_flow",
+        "value_fields": [
+          {
+            "name": "data",
+            "read_targets": [
+              {
+                "name": "io.resp[0][2]",
+                "op": "signal"
+              }
+            ],
+            "storage_bits": {
+              "hi": 63,
+              "lo": 0
+            },
+            "write_value": {
+              "name": "io.write.bits.data",
+              "op": "signal"
+            }
+          }
+        ],
+        "write": {
+          "address": {
+            "amount": 3,
+            "op": "shr",
+            "value": {
+              "name": "io.write.bits.addr",
+              "op": "signal"
+            }
+          },
+          "lane_mask": {
+            "op": "const",
+            "value": 1
+          },
+          "on": "Way2Write"
+        }
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ReadRequest",
+          "Way2Write"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.read[0].bits.addr",
+          "io.resp[0][2]",
+          "io.write.bits.addr",
+          "io.write.bits.data"
+        ]
+      },
+      "rendered_formula": "array_2_0[word] latest-write storage flow with implicit_unconstrained initialization; DataWay2RF=rf, DataWay2CO=co, DataWay2FR=rf^-1;co"
+    },
+    {
+      "arguments": {
+        "initialization": {
+          "kind": "implicit_unconstrained"
+        },
+        "key": {
+          "address_domain": {
+            "end_exclusive": 512,
+            "start": 0
+          },
+          "lane": {
+            "count": 1,
+            "name": "word"
+          }
+        },
+        "read": {
+          "address": "shr(io.read[0].bits.addr, 3)",
+          "latency_cycles": 2,
+          "request": "ReadRequest"
+        },
+        "read_write_collision": "implicit_unconstrained",
+        "relations": {
+          "co": "DataWay3CO",
+          "fr": "DataWay3FR",
+          "rf": "DataWay3RF"
+        },
+        "resolution": "latest_prior_write_same_key",
+        "storage": "array_3_0",
+        "value_fields": [
+          {
+            "name": "data",
+            "read_targets": [
+              "io.resp[0][3]"
+            ],
+            "storage_bits": {
+              "hi": 63,
+              "lo": 0
+            },
+            "write_value": "io.write.bits.data"
+          }
+        ],
+        "write": {
+          "address": "shr(io.write.bits.addr, 3)",
+          "lane_mask": "1",
+          "on": "Way3Write"
+        }
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "memory_flow",
+      "checker": "indexed_storage_flow",
+      "evidence_statement_ids": [
+        3,
+        4,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80
+      ],
+      "formal": {
+        "initialization": {
+          "kind": "implicit_unconstrained"
+        },
+        "key": {
+          "address_domain": {
+            "end_exclusive": 512,
+            "start": 0
+          },
+          "lane": {
+            "count": 1,
+            "name": "word"
+          }
+        },
+        "read": {
+          "address": {
+            "amount": 3,
+            "op": "shr",
+            "value": {
+              "name": "io.read[0].bits.addr",
+              "op": "signal"
+            }
+          },
+          "latency_cycles": 2,
+          "request": "ReadRequest"
+        },
+        "read_write_collision": "implicit_unconstrained",
+        "relations": {
+          "co": "DataWay3CO",
+          "fr": "DataWay3FR",
+          "rf": "DataWay3RF"
+        },
+        "resolution": "latest_prior_write_same_key",
+        "scope_identity": null,
+        "storage": "array_3_0",
+        "type": "indexed_storage_flow",
+        "value_fields": [
+          {
+            "name": "data",
+            "read_targets": [
+              {
+                "name": "io.resp[0][3]",
+                "op": "signal"
+              }
+            ],
+            "storage_bits": {
+              "hi": 63,
+              "lo": 0
+            },
+            "write_value": {
+              "name": "io.write.bits.data",
+              "op": "signal"
+            }
+          }
+        ],
+        "write": {
+          "address": {
+            "amount": 3,
+            "op": "shr",
+            "value": {
+              "name": "io.write.bits.addr",
+              "op": "signal"
+            }
+          },
+          "lane_mask": {
+            "op": "const",
+            "value": 1
+          },
+          "on": "Way3Write"
+        }
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ReadRequest",
+          "Way3Write"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.read[0].bits.addr",
+          "io.resp[0][3]",
+          "io.write.bits.addr",
+          "io.write.bits.data"
+        ]
+      },
+      "rendered_formula": "array_3_0[word] latest-write storage flow with implicit_unconstrained initialization; DataWay3RF=rf, DataWay3CO=co, DataWay3FR=rf^-1;co"
+    },
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 0,
+        "signal": "io.s1_nacks[0]"
+      },
+      "axiom_id": "A5",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        81
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.s1_nacks[0]",
+            "op": "signal"
+          }
+        },
+        "on": null,
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [],
+        "predicates": [],
+        "signals": [
+          "io.s1_nacks[0]"
+        ]
+      },
+      "rendered_formula": "bits(io.s1_nacks[0], 0, 0) == 0"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "work_unit_id": "BoomNonBlockingDCache.data"
+}

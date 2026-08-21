@@ -155,7 +155,7 @@ class IndexedStorageFlowTests(unittest.TestCase):
         certificate = proof["certificate"]
         self.assertEqual(certificate["relations"]["fr"]["definition"], "rf^-1 ; co")
         self.assertEqual(certificate["initialization"]["kind"], "exact-reset-initialization-sweep")
-        self.assertEqual(certificate["collision_policy"], "read_write_exclusive")
+        self.assertEqual(certificate["collision_policy"], "exclusive")
 
     def test_wrong_read_lane_binding_fails_closed(self):
         candidate = copy.deepcopy(self.candidate)
@@ -174,6 +174,14 @@ class IndexedStorageFlowTests(unittest.TestCase):
         candidate = copy.deepcopy(self.candidate)
         candidate["axioms"][0]["formal"]["read"]["latency_cycles"] = 0
         result = run_semantic_validation(candidate, self.handoff, formal_backend="explicit-control")
+        self.assertNotEqual(result["results"][0]["validation_level"], FORMALLY_PROVED)
+
+    def test_possible_read_write_collision_fails_closed(self):
+        handoff = copy.deepcopy(self.handoff)
+        ready = next(item for item in handoff["statements"] if item["id"] == 87)
+        ready["text"] = "node _io_read_ready_T = UInt<1>(0h1)"
+        ready["reads"] = ["h1"]
+        result = run_semantic_validation(self.candidate, handoff, formal_backend="explicit-control")
         self.assertNotEqual(result["results"][0]["validation_level"], FORMALLY_PROVED)
 
 

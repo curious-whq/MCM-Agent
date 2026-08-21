@@ -23,6 +23,7 @@ from .semantic import (
 )
 from .formal_patterns import (
     prove_combinational_forbid_when,
+    prove_locked_owner_provenance,
     prove_conditional_signal_equality,
     prove_unconditional_signal_equality,
     prove_same_cycle_occurrence_partition,
@@ -32,7 +33,7 @@ from .formal_patterns import (
 from .storage_prover import prove_indexed_storage_flow
 
 
-FORMAL_BACKEND_API_VERSION = "formal-backend-api-0.14"
+FORMAL_BACKEND_API_VERSION = "formal-backend-api-0.15"
 FORMAL_UNKNOWN = "FORMAL_UNKNOWN"
 FORMAL_COUNTEREXAMPLE = "FORMAL_COUNTEREXAMPLE"
 
@@ -362,6 +363,19 @@ class ExplicitControlFormalBackend:
                 }
 
         if checker == "history_order" and not args.get("scope_index"):
+            locked_owner = prove_locked_owner_provenance(
+                model,
+                candidate,
+                **args,
+            )
+            if locked_owner.get("status") == STRUCTURALLY_SUPPORTED:
+                return {
+                    "status": FORMALLY_PROVED,
+                    "backend": self.name,
+                    "proof_method": locked_owner.get("proof_domain"),
+                    "proof": locked_owner.get("proof"),
+                    "certificate": locked_owner,
+                }
             provenance = prove_scalar_valid_token_provenance(
                 model,
                 candidate,

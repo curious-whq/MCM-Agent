@@ -1,0 +1,5245 @@
+{
+  "children": [],
+  "complexity": {
+    "event_state_coupling": 0.0,
+    "events": 1,
+    "logical": {
+      "dependency_edges": 64,
+      "signals": 44,
+      "source_loc": 20,
+      "statements": 25
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 156,
+      "signals": 115,
+      "source_loc": 20,
+      "statements": 89,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 2,
+    "state_regions": 1
+  },
+  "dependency_edges": [
+    {
+      "dst": "_decode_T",
+      "kind": "data",
+      "source": {
+        "column": 71,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 244,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 244:71"
+      },
+      "src": "hfff",
+      "statement_ids": [
+        2546
+      ]
+    },
+    {
+      "dst": "_decode_T",
+      "kind": "data",
+      "source": {
+        "column": 71,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 244,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 244:71"
+      },
+      "src": "wb.io.release.bits.size",
+      "statement_ids": [
+        2546
+      ]
+    },
+    {
+      "dst": "_decode_T_1",
+      "kind": "data",
+      "source": {
+        "column": 76,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 244,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 244:76"
+      },
+      "src": "_decode_T",
+      "statement_ids": [
+        2547
+      ]
+    },
+    {
+      "dst": "_decode_T_2",
+      "kind": "data",
+      "source": {
+        "column": 46,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 244,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 244:46"
+      },
+      "src": "_decode_T_1",
+      "statement_ids": [
+        2548
+      ]
+    },
+    {
+      "dst": "decode",
+      "kind": "data",
+      "source": {
+        "column": 59,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala",
+        "line": 220,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala 220:59"
+      },
+      "src": "_decode_T_2",
+      "statement_ids": [
+        2549
+      ]
+    },
+    {
+      "dst": "opdata",
+      "kind": "data",
+      "source": {
+        "column": 36,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala",
+        "line": 102,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala 102:36"
+      },
+      "src": "wb.io.release.bits.opcode",
+      "statement_ids": [
+        2550
+      ]
+    },
+    {
+      "dst": "_T_83",
+      "kind": "data",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala",
+        "line": 221,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala 221:14"
+      },
+      "src": "decode",
+      "statement_ids": [
+        2551
+      ]
+    },
+    {
+      "dst": "_T_83",
+      "kind": "data",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala",
+        "line": 221,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala 221:14"
+      },
+      "src": "h0",
+      "statement_ids": [
+        2551
+      ]
+    },
+    {
+      "dst": "_T_83",
+      "kind": "control",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala",
+        "line": 221,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala 221:14"
+      },
+      "src": "opdata",
+      "statement_ids": [
+        2551
+      ]
+    },
+    {
+      "dst": "_decode_T_3",
+      "kind": "data",
+      "source": {
+        "column": 71,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 244,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 244:71"
+      },
+      "src": "hfff",
+      "statement_ids": [
+        2552
+      ]
+    },
+    {
+      "dst": "_decode_T_3",
+      "kind": "data",
+      "source": {
+        "column": 71,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 244,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 244:71"
+      },
+      "src": "prober.io.rep.bits.size",
+      "statement_ids": [
+        2552
+      ]
+    },
+    {
+      "dst": "_decode_T_4",
+      "kind": "data",
+      "source": {
+        "column": 76,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 244,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 244:76"
+      },
+      "src": "_decode_T_3",
+      "statement_ids": [
+        2553
+      ]
+    },
+    {
+      "dst": "_decode_T_5",
+      "kind": "data",
+      "source": {
+        "column": 46,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 244,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 244:46"
+      },
+      "src": "_decode_T_4",
+      "statement_ids": [
+        2554
+      ]
+    },
+    {
+      "dst": "decode_1",
+      "kind": "data",
+      "source": {
+        "column": 59,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala",
+        "line": 220,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala 220:59"
+      },
+      "src": "_decode_T_5",
+      "statement_ids": [
+        2555
+      ]
+    },
+    {
+      "dst": "opdata_1",
+      "kind": "data",
+      "source": {
+        "column": 36,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala",
+        "line": 102,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala 102:36"
+      },
+      "src": "prober.io.rep.bits.opcode",
+      "statement_ids": [
+        2556
+      ]
+    },
+    {
+      "dst": "_T_84",
+      "kind": "data",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala",
+        "line": 221,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala 221:14"
+      },
+      "src": "decode_1",
+      "statement_ids": [
+        2557
+      ]
+    },
+    {
+      "dst": "_T_84",
+      "kind": "data",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala",
+        "line": 221,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala 221:14"
+      },
+      "src": "h0",
+      "statement_ids": [
+        2557
+      ]
+    },
+    {
+      "dst": "_T_84",
+      "kind": "control",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala",
+        "line": 221,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala 221:14"
+      },
+      "src": "opdata_1",
+      "statement_ids": [
+        2557
+      ]
+    },
+    {
+      "dst": "idle",
+      "kind": "data",
+      "source": {
+        "column": 28,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 61,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 61:28"
+      },
+      "src": "beatsLeft",
+      "statement_ids": [
+        2559
+      ]
+    },
+    {
+      "dst": "idle",
+      "kind": "data",
+      "source": {
+        "column": 28,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 61,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 61:28"
+      },
+      "src": "h0",
+      "statement_ids": [
+        2559
+      ]
+    },
+    {
+      "dst": "latch",
+      "kind": "data",
+      "source": {
+        "column": 24,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 62,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 62:24"
+      },
+      "src": "idle",
+      "statement_ids": [
+        2560
+      ]
+    },
+    {
+      "dst": "latch",
+      "kind": "data",
+      "source": {
+        "column": 24,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 62,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 62:24"
+      },
+      "src": "nodeOut.c.ready",
+      "statement_ids": [
+        2560
+      ]
+    },
+    {
+      "dst": "_readys_T",
+      "kind": "data",
+      "source": {
+        "column": 51,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 68,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 68:51"
+      },
+      "src": "prober.io.rep.valid",
+      "statement_ids": [
+        2561
+      ]
+    },
+    {
+      "dst": "_readys_T",
+      "kind": "data",
+      "source": {
+        "column": 51,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 68,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 68:51"
+      },
+      "src": "wb.io.release.valid",
+      "statement_ids": [
+        2561
+      ]
+    },
+    {
+      "dst": "_readys_T_1",
+      "kind": "data",
+      "source": {
+        "column": 48,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 254,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 254:48"
+      },
+      "src": "_readys_T",
+      "statement_ids": [
+        2562
+      ]
+    },
+    {
+      "dst": "_readys_T_2",
+      "kind": "data",
+      "source": {
+        "column": 53,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 254,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 254:53"
+      },
+      "src": "_readys_T_1",
+      "statement_ids": [
+        2563
+      ]
+    },
+    {
+      "dst": "_readys_T_3",
+      "kind": "data",
+      "source": {
+        "column": 43,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 254,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 254:43"
+      },
+      "src": "_readys_T",
+      "statement_ids": [
+        2564
+      ]
+    },
+    {
+      "dst": "_readys_T_3",
+      "kind": "data",
+      "source": {
+        "column": 43,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 254,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 254:43"
+      },
+      "src": "_readys_T_2",
+      "statement_ids": [
+        2564
+      ]
+    },
+    {
+      "dst": "_readys_T_4",
+      "kind": "data",
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 255,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 255:17"
+      },
+      "src": "_readys_T_3",
+      "statement_ids": [
+        2565
+      ]
+    },
+    {
+      "dst": "_readys_T_5",
+      "kind": "data",
+      "source": {
+        "column": 78,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 16,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 16:78"
+      },
+      "src": "_readys_T_4",
+      "statement_ids": [
+        2566
+      ]
+    },
+    {
+      "dst": "_readys_T_6",
+      "kind": "data",
+      "source": {
+        "column": 83,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 16,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 16:83"
+      },
+      "src": "_readys_T_5",
+      "statement_ids": [
+        2567
+      ]
+    },
+    {
+      "dst": "_readys_T_7",
+      "kind": "data",
+      "source": {
+        "column": 61,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 16,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 16:61"
+      },
+      "src": "_readys_T_6",
+      "statement_ids": [
+        2568
+      ]
+    },
+    {
+      "dst": "_readys_T_8",
+      "kind": "data",
+      "source": {
+        "column": 76,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 68,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 68:76"
+      },
+      "src": "_readys_T_7",
+      "statement_ids": [
+        2569
+      ]
+    },
+    {
+      "dst": "_readys_T_9",
+      "kind": "data",
+      "source": {
+        "column": 76,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 68,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 68:76"
+      },
+      "src": "_readys_T_7",
+      "statement_ids": [
+        2570
+      ]
+    },
+    {
+      "dst": "readys[0]",
+      "kind": "data",
+      "source": {
+        "column": 27,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 68,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 68:27"
+      },
+      "src": "_readys_T_8",
+      "statement_ids": [
+        2572
+      ]
+    },
+    {
+      "dst": "readys[1]",
+      "kind": "data",
+      "source": {
+        "column": 27,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 68,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 68:27"
+      },
+      "src": "_readys_T_9",
+      "statement_ids": [
+        2573
+      ]
+    },
+    {
+      "dst": "_winner_T",
+      "kind": "data",
+      "source": {
+        "column": 69,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 71,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 71:69"
+      },
+      "src": "readys[0]",
+      "statement_ids": [
+        2574
+      ]
+    },
+    {
+      "dst": "_winner_T",
+      "kind": "data",
+      "source": {
+        "column": 69,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 71,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 71:69"
+      },
+      "src": "wb.io.release.valid",
+      "statement_ids": [
+        2574
+      ]
+    },
+    {
+      "dst": "_winner_T_1",
+      "kind": "data",
+      "source": {
+        "column": 69,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 71,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 71:69"
+      },
+      "src": "prober.io.rep.valid",
+      "statement_ids": [
+        2575
+      ]
+    },
+    {
+      "dst": "_winner_T_1",
+      "kind": "data",
+      "source": {
+        "column": 69,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 71,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 71:69"
+      },
+      "src": "readys[1]",
+      "statement_ids": [
+        2575
+      ]
+    },
+    {
+      "dst": "winner[0]",
+      "kind": "data",
+      "source": {
+        "column": 27,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 71,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 71:27"
+      },
+      "src": "_winner_T",
+      "statement_ids": [
+        2577
+      ]
+    },
+    {
+      "dst": "winner[1]",
+      "kind": "data",
+      "source": {
+        "column": 27,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 71,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 71:27"
+      },
+      "src": "_winner_T_1",
+      "statement_ids": [
+        2578
+      ]
+    },
+    {
+      "dst": "maskedBeats_0",
+      "kind": "data",
+      "source": {
+        "column": 69,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 82,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 82:69"
+      },
+      "src": "_T_83",
+      "statement_ids": [
+        2606
+      ]
+    },
+    {
+      "dst": "maskedBeats_0",
+      "kind": "data",
+      "source": {
+        "column": 69,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 82,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 82:69"
+      },
+      "src": "h0",
+      "statement_ids": [
+        2606
+      ]
+    },
+    {
+      "dst": "maskedBeats_0",
+      "kind": "control",
+      "source": {
+        "column": 69,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 82,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 82:69"
+      },
+      "src": "winner[0]",
+      "statement_ids": [
+        2606
+      ]
+    },
+    {
+      "dst": "maskedBeats_1",
+      "kind": "data",
+      "source": {
+        "column": 69,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 82,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 82:69"
+      },
+      "src": "_T_84",
+      "statement_ids": [
+        2607
+      ]
+    },
+    {
+      "dst": "maskedBeats_1",
+      "kind": "data",
+      "source": {
+        "column": 69,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 82,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 82:69"
+      },
+      "src": "h0",
+      "statement_ids": [
+        2607
+      ]
+    },
+    {
+      "dst": "maskedBeats_1",
+      "kind": "control",
+      "source": {
+        "column": 69,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 82,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 82:69"
+      },
+      "src": "winner[1]",
+      "statement_ids": [
+        2607
+      ]
+    },
+    {
+      "dst": "initBeats",
+      "kind": "data",
+      "source": {
+        "column": 44,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 84,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 84:44"
+      },
+      "src": "maskedBeats_0",
+      "statement_ids": [
+        2608
+      ]
+    },
+    {
+      "dst": "initBeats",
+      "kind": "data",
+      "source": {
+        "column": 44,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 84,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 84:44"
+      },
+      "src": "maskedBeats_1",
+      "statement_ids": [
+        2608
+      ]
+    },
+    {
+      "dst": "_beatsLeft_T",
+      "kind": "data",
+      "source": {
+        "column": 35,
+        "file": "src/main/scala/chisel3/util/Decoupled.scala",
+        "line": 51,
+        "raw": "src/main/scala/chisel3/util/Decoupled.scala 51:35"
+      },
+      "src": "nodeOut.c.ready",
+      "statement_ids": [
+        2609
+      ]
+    },
+    {
+      "dst": "_beatsLeft_T",
+      "kind": "data",
+      "source": {
+        "column": 35,
+        "file": "src/main/scala/chisel3/util/Decoupled.scala",
+        "line": 51,
+        "raw": "src/main/scala/chisel3/util/Decoupled.scala 51:35"
+      },
+      "src": "nodeOut.c.valid",
+      "statement_ids": [
+        2609
+      ]
+    },
+    {
+      "dst": "_beatsLeft_T_1",
+      "kind": "data",
+      "source": {
+        "column": 52,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 85,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 85:52"
+      },
+      "src": "_beatsLeft_T",
+      "statement_ids": [
+        2610
+      ]
+    },
+    {
+      "dst": "_beatsLeft_T_1",
+      "kind": "data",
+      "source": {
+        "column": 52,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 85,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 85:52"
+      },
+      "src": "beatsLeft",
+      "statement_ids": [
+        2610
+      ]
+    },
+    {
+      "dst": "_beatsLeft_T_2",
+      "kind": "data",
+      "source": {
+        "column": 52,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 85,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 85:52"
+      },
+      "src": "_beatsLeft_T_1",
+      "statement_ids": [
+        2611
+      ]
+    },
+    {
+      "dst": "_beatsLeft_T_3",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 85,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 85:23"
+      },
+      "src": "_beatsLeft_T_2",
+      "statement_ids": [
+        2612
+      ]
+    },
+    {
+      "dst": "_beatsLeft_T_3",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 85,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 85:23"
+      },
+      "src": "initBeats",
+      "statement_ids": [
+        2612
+      ]
+    },
+    {
+      "dst": "_beatsLeft_T_3",
+      "kind": "control",
+      "source": {
+        "column": 23,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 85,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 85:23"
+      },
+      "src": "latch",
+      "statement_ids": [
+        2612
+      ]
+    },
+    {
+      "dst": "beatsLeft",
+      "kind": "state",
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 85,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 85:17"
+      },
+      "src": "_beatsLeft_T_3",
+      "statement_ids": [
+        2613
+      ]
+    },
+    {
+      "dst": "muxState",
+      "kind": "data",
+      "source": {
+        "column": 25,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 89,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 89:25"
+      },
+      "src": "state",
+      "statement_ids": [
+        2618
+      ]
+    },
+    {
+      "dst": "muxState",
+      "kind": "data",
+      "source": {
+        "column": 25,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 89,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 89:25"
+      },
+      "src": "winner",
+      "statement_ids": [
+        2618
+      ]
+    },
+    {
+      "dst": "muxState",
+      "kind": "control",
+      "source": {
+        "column": 25,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 89,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 89:25"
+      },
+      "src": "idle",
+      "statement_ids": [
+        2618
+      ]
+    },
+    {
+      "dst": "state[0]",
+      "kind": "state",
+      "source": {
+        "column": 13,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 90,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 90:13"
+      },
+      "src": "muxState",
+      "statement_ids": [
+        2619
+      ]
+    },
+    {
+      "dst": "state[1]",
+      "kind": "state",
+      "source": {
+        "column": 13,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 90,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 90:13"
+      },
+      "src": "muxState",
+      "statement_ids": [
+        2619
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_valid_T",
+      "kind": "data",
+      "source": {
+        "column": 46,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 96,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 96:46"
+      },
+      "src": "prober.io.rep.valid",
+      "statement_ids": [
+        2625
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_valid_T",
+      "kind": "data",
+      "source": {
+        "column": 46,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 96,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 96:46"
+      },
+      "src": "wb.io.release.valid",
+      "statement_ids": [
+        2625
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_valid_T_1",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "h0",
+      "statement_ids": [
+        2626
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_valid_T_1",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "wb.io.release.valid",
+      "statement_ids": [
+        2626
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_valid_T_1",
+      "kind": "control",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "state[0]",
+      "statement_ids": [
+        2626
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_valid_T_2",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "h0",
+      "statement_ids": [
+        2627
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_valid_T_2",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "prober.io.rep.valid",
+      "statement_ids": [
+        2627
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_valid_T_2",
+      "kind": "control",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "state[1]",
+      "statement_ids": [
+        2627
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_valid_T_3",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_valid_T_1",
+      "statement_ids": [
+        2628
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_valid_T_3",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_valid_T_2",
+      "statement_ids": [
+        2628
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_valid_WIRE",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_valid_T_3",
+      "statement_ids": [
+        2630
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_valid_T_4",
+      "kind": "data",
+      "source": {
+        "column": 24,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 96,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 96:24"
+      },
+      "src": "_nodeOut_c_valid_T",
+      "statement_ids": [
+        2631
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_valid_T_4",
+      "kind": "data",
+      "source": {
+        "column": 24,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 96,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 96:24"
+      },
+      "src": "_nodeOut_c_valid_WIRE",
+      "statement_ids": [
+        2631
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_valid_T_4",
+      "kind": "control",
+      "source": {
+        "column": 24,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 96,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 96:24"
+      },
+      "src": "idle",
+      "statement_ids": [
+        2631
+      ]
+    },
+    {
+      "dst": "nodeOut.c.valid",
+      "kind": "data",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 96,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 96:18"
+      },
+      "src": "_nodeOut_c_valid_T_4",
+      "statement_ids": [
+        2632
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "h0",
+      "statement_ids": [
+        2634
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "wb.io.release.bits.corrupt",
+      "statement_ids": [
+        2634
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T",
+      "kind": "control",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "muxState[0]",
+      "statement_ids": [
+        2634
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_1",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "h0",
+      "statement_ids": [
+        2635
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_1",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "prober.io.rep.bits.corrupt",
+      "statement_ids": [
+        2635
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_1",
+      "kind": "control",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "muxState[1]",
+      "statement_ids": [
+        2635
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_2",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_bits_T",
+      "statement_ids": [
+        2636
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_2",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_bits_T_1",
+      "statement_ids": [
+        2636
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_WIRE_1",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_bits_T_2",
+      "statement_ids": [
+        2638
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_WIRE.corrupt",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_bits_WIRE_1",
+      "statement_ids": [
+        2639
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_3",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "h0",
+      "statement_ids": [
+        2640
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_3",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "wb.io.release.bits.data",
+      "statement_ids": [
+        2640
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_3",
+      "kind": "control",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "muxState[0]",
+      "statement_ids": [
+        2640
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_4",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "h0",
+      "statement_ids": [
+        2641
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_4",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "prober.io.rep.bits.data",
+      "statement_ids": [
+        2641
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_4",
+      "kind": "control",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "muxState[1]",
+      "statement_ids": [
+        2641
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_5",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_bits_T_3",
+      "statement_ids": [
+        2642
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_5",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_bits_T_4",
+      "statement_ids": [
+        2642
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_WIRE_2",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_bits_T_5",
+      "statement_ids": [
+        2644
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_WIRE.data",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_bits_WIRE_2",
+      "statement_ids": [
+        2645
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_6",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "h0",
+      "statement_ids": [
+        2650
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_6",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "wb.io.release.bits.address",
+      "statement_ids": [
+        2650
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_6",
+      "kind": "control",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "muxState[0]",
+      "statement_ids": [
+        2650
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_7",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "h0",
+      "statement_ids": [
+        2651
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_7",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "prober.io.rep.bits.address",
+      "statement_ids": [
+        2651
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_7",
+      "kind": "control",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "muxState[1]",
+      "statement_ids": [
+        2651
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_8",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_bits_T_6",
+      "statement_ids": [
+        2652
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_8",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_bits_T_7",
+      "statement_ids": [
+        2652
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_WIRE_5",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_bits_T_8",
+      "statement_ids": [
+        2654
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_WIRE.address",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_bits_WIRE_5",
+      "statement_ids": [
+        2655
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_9",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "h0",
+      "statement_ids": [
+        2656
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_9",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "wb.io.release.bits.source",
+      "statement_ids": [
+        2656
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_9",
+      "kind": "control",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "muxState[0]",
+      "statement_ids": [
+        2656
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_10",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "h0",
+      "statement_ids": [
+        2657
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_10",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "prober.io.rep.bits.source",
+      "statement_ids": [
+        2657
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_10",
+      "kind": "control",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "muxState[1]",
+      "statement_ids": [
+        2657
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_11",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_bits_T_10",
+      "statement_ids": [
+        2658
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_11",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_bits_T_9",
+      "statement_ids": [
+        2658
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_WIRE_6",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_bits_T_11",
+      "statement_ids": [
+        2660
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_WIRE.source",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_bits_WIRE_6",
+      "statement_ids": [
+        2661
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_12",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "h0",
+      "statement_ids": [
+        2662
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_12",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "wb.io.release.bits.size",
+      "statement_ids": [
+        2662
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_12",
+      "kind": "control",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "muxState[0]",
+      "statement_ids": [
+        2662
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_13",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "h0",
+      "statement_ids": [
+        2663
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_13",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "prober.io.rep.bits.size",
+      "statement_ids": [
+        2663
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_13",
+      "kind": "control",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "muxState[1]",
+      "statement_ids": [
+        2663
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_14",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_bits_T_12",
+      "statement_ids": [
+        2664
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_14",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_bits_T_13",
+      "statement_ids": [
+        2664
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_WIRE_7",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_bits_T_14",
+      "statement_ids": [
+        2666
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_WIRE.size",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_bits_WIRE_7",
+      "statement_ids": [
+        2667
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_15",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "h0",
+      "statement_ids": [
+        2668
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_15",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "wb.io.release.bits.param",
+      "statement_ids": [
+        2668
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_15",
+      "kind": "control",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "muxState[0]",
+      "statement_ids": [
+        2668
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_16",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "h0",
+      "statement_ids": [
+        2669
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_16",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "prober.io.rep.bits.param",
+      "statement_ids": [
+        2669
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_16",
+      "kind": "control",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "muxState[1]",
+      "statement_ids": [
+        2669
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_17",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_bits_T_15",
+      "statement_ids": [
+        2670
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_17",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_bits_T_16",
+      "statement_ids": [
+        2670
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_WIRE_8",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_bits_T_17",
+      "statement_ids": [
+        2672
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_WIRE.param",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_bits_WIRE_8",
+      "statement_ids": [
+        2673
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_18",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "h0",
+      "statement_ids": [
+        2674
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_18",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "wb.io.release.bits.opcode",
+      "statement_ids": [
+        2674
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_18",
+      "kind": "control",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "muxState[0]",
+      "statement_ids": [
+        2674
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_19",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "h0",
+      "statement_ids": [
+        2675
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_19",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "prober.io.rep.bits.opcode",
+      "statement_ids": [
+        2675
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_19",
+      "kind": "control",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "muxState[1]",
+      "statement_ids": [
+        2675
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_20",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_bits_T_18",
+      "statement_ids": [
+        2676
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_T_20",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_bits_T_19",
+      "statement_ids": [
+        2676
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_WIRE_9",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_bits_T_20",
+      "statement_ids": [
+        2678
+      ]
+    },
+    {
+      "dst": "_nodeOut_c_bits_WIRE.opcode",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "src": "_nodeOut_c_bits_WIRE_9",
+      "statement_ids": [
+        2679
+      ]
+    },
+    {
+      "dst": "nodeOut.c.bits.corrupt",
+      "kind": "data",
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 97,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 97:17"
+      },
+      "src": "_nodeOut_c_bits_WIRE.corrupt",
+      "statement_ids": [
+        2680
+      ]
+    },
+    {
+      "dst": "nodeOut.c.bits.data",
+      "kind": "data",
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 97,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 97:17"
+      },
+      "src": "_nodeOut_c_bits_WIRE.data",
+      "statement_ids": [
+        2681
+      ]
+    },
+    {
+      "dst": "nodeOut.c.bits.address",
+      "kind": "data",
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 97,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 97:17"
+      },
+      "src": "_nodeOut_c_bits_WIRE.address",
+      "statement_ids": [
+        2682
+      ]
+    },
+    {
+      "dst": "nodeOut.c.bits.source",
+      "kind": "data",
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 97,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 97:17"
+      },
+      "src": "_nodeOut_c_bits_WIRE.source",
+      "statement_ids": [
+        2683
+      ]
+    },
+    {
+      "dst": "nodeOut.c.bits.size",
+      "kind": "data",
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 97,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 97:17"
+      },
+      "src": "_nodeOut_c_bits_WIRE.size",
+      "statement_ids": [
+        2684
+      ]
+    },
+    {
+      "dst": "nodeOut.c.bits.param",
+      "kind": "data",
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 97,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 97:17"
+      },
+      "src": "_nodeOut_c_bits_WIRE.param",
+      "statement_ids": [
+        2685
+      ]
+    },
+    {
+      "dst": "nodeOut.c.bits.opcode",
+      "kind": "data",
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 97,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 97:17"
+      },
+      "src": "_nodeOut_c_bits_WIRE.opcode",
+      "statement_ids": [
+        2686
+      ]
+    }
+  ],
+  "events": [
+    {
+      "channel": "auto.out.c",
+      "direction": "send",
+      "id": "BoomNonBlockingDCache::auto.out.c.fire",
+      "payload": [
+        "auto.out.c.bits.address",
+        "auto.out.c.bits.corrupt",
+        "auto.out.c.bits.data",
+        "auto.out.c.bits.opcode",
+        "auto.out.c.bits.param",
+        "auto.out.c.bits.size",
+        "auto.out.c.bits.source"
+      ],
+      "predicate": "auto.out.c.valid && auto.out.c.ready",
+      "protocol": "decoupled",
+      "ready": "auto.out.c.ready",
+      "registry_id": "BoomNonBlockingDCache.auto.out.c.fire",
+      "sources": [
+        {
+          "column": 25,
+          "file": "generators/diplomacy/diplomacy/src/diplomacy/lazymodule/LazyModuleImp.scala",
+          "line": 107,
+          "raw": "generators/diplomacy/diplomacy/src/diplomacy/lazymodule/LazyModuleImp.scala 107:25"
+        }
+      ],
+      "valid": "auto.out.c.valid"
+    }
+  ],
+  "frontier": [
+    {
+      "id": "_nodeOut_c_bits_WIRE_1",
+      "kind": "wire",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "type": "UInt<1>"
+    },
+    {
+      "id": "_nodeOut_c_bits_WIRE_2",
+      "kind": "wire",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "type": "UInt<64>"
+    },
+    {
+      "id": "_nodeOut_c_bits_WIRE_5",
+      "kind": "wire",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "type": "UInt<32>"
+    },
+    {
+      "id": "_nodeOut_c_bits_WIRE_6",
+      "kind": "wire",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "type": "UInt<2>"
+    },
+    {
+      "id": "_nodeOut_c_bits_WIRE_7",
+      "kind": "wire",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "type": "UInt<4>"
+    },
+    {
+      "id": "_nodeOut_c_bits_WIRE_8",
+      "kind": "wire",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "type": "UInt<3>"
+    },
+    {
+      "id": "_nodeOut_c_bits_WIRE_9",
+      "kind": "wire",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "type": "UInt<3>"
+    },
+    {
+      "id": "_nodeOut_c_valid_WIRE",
+      "kind": "wire",
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "type": "UInt<1>"
+    },
+    {
+      "id": "beatsLeft",
+      "kind": "register",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 60,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 60:30"
+      },
+      "type": "UInt"
+    },
+    {
+      "id": "h0",
+      "kind": "unknown",
+      "source": {
+        "column": 53,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 503,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 503:53"
+      },
+      "type": null
+    },
+    {
+      "id": "hfff",
+      "kind": "unknown",
+      "source": {
+        "column": 71,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 244,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 244:71"
+      },
+      "type": null
+    },
+    {
+      "id": "idle",
+      "kind": "node",
+      "source": {
+        "column": 28,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 61,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 61:28"
+      },
+      "type": null
+    },
+    {
+      "id": "nodeOut.c.bits.address",
+      "kind": "wire",
+      "source": {
+        "column": 17,
+        "file": "generators/diplomacy/diplomacy/src/diplomacy/nodes/MixedNode.scala",
+        "line": 543,
+        "raw": "generators/diplomacy/diplomacy/src/diplomacy/nodes/MixedNode.scala 543:17"
+      },
+      "type": null
+    },
+    {
+      "id": "nodeOut.c.bits.corrupt",
+      "kind": "wire",
+      "source": {
+        "column": 17,
+        "file": "generators/diplomacy/diplomacy/src/diplomacy/nodes/MixedNode.scala",
+        "line": 543,
+        "raw": "generators/diplomacy/diplomacy/src/diplomacy/nodes/MixedNode.scala 543:17"
+      },
+      "type": null
+    },
+    {
+      "id": "nodeOut.c.bits.data",
+      "kind": "wire",
+      "source": {
+        "column": 17,
+        "file": "generators/diplomacy/diplomacy/src/diplomacy/nodes/MixedNode.scala",
+        "line": 543,
+        "raw": "generators/diplomacy/diplomacy/src/diplomacy/nodes/MixedNode.scala 543:17"
+      },
+      "type": null
+    },
+    {
+      "id": "nodeOut.c.bits.opcode",
+      "kind": "wire",
+      "source": {
+        "column": 17,
+        "file": "generators/diplomacy/diplomacy/src/diplomacy/nodes/MixedNode.scala",
+        "line": 543,
+        "raw": "generators/diplomacy/diplomacy/src/diplomacy/nodes/MixedNode.scala 543:17"
+      },
+      "type": null
+    },
+    {
+      "id": "nodeOut.c.bits.param",
+      "kind": "wire",
+      "source": {
+        "column": 17,
+        "file": "generators/diplomacy/diplomacy/src/diplomacy/nodes/MixedNode.scala",
+        "line": 543,
+        "raw": "generators/diplomacy/diplomacy/src/diplomacy/nodes/MixedNode.scala 543:17"
+      },
+      "type": null
+    },
+    {
+      "id": "nodeOut.c.bits.size",
+      "kind": "wire",
+      "source": {
+        "column": 17,
+        "file": "generators/diplomacy/diplomacy/src/diplomacy/nodes/MixedNode.scala",
+        "line": 543,
+        "raw": "generators/diplomacy/diplomacy/src/diplomacy/nodes/MixedNode.scala 543:17"
+      },
+      "type": null
+    },
+    {
+      "id": "nodeOut.c.bits.source",
+      "kind": "wire",
+      "source": {
+        "column": 17,
+        "file": "generators/diplomacy/diplomacy/src/diplomacy/nodes/MixedNode.scala",
+        "line": 543,
+        "raw": "generators/diplomacy/diplomacy/src/diplomacy/nodes/MixedNode.scala 543:17"
+      },
+      "type": null
+    },
+    {
+      "id": "nodeOut.c.ready",
+      "kind": "wire",
+      "source": {
+        "column": 17,
+        "file": "generators/diplomacy/diplomacy/src/diplomacy/nodes/MixedNode.scala",
+        "line": 543,
+        "raw": "generators/diplomacy/diplomacy/src/diplomacy/nodes/MixedNode.scala 543:17"
+      },
+      "type": null
+    },
+    {
+      "id": "nodeOut.c.valid",
+      "kind": "wire",
+      "source": {
+        "column": 17,
+        "file": "generators/diplomacy/diplomacy/src/diplomacy/nodes/MixedNode.scala",
+        "line": 543,
+        "raw": "generators/diplomacy/diplomacy/src/diplomacy/nodes/MixedNode.scala 543:17"
+      },
+      "type": null
+    },
+    {
+      "id": "prober.io.rep.bits.address",
+      "kind": "instance_port",
+      "source": {
+        "column": 22,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 459,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 459:22"
+      },
+      "type": null
+    },
+    {
+      "id": "prober.io.rep.bits.corrupt",
+      "kind": "instance_port",
+      "source": {
+        "column": 22,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 459,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 459:22"
+      },
+      "type": null
+    },
+    {
+      "id": "prober.io.rep.bits.data",
+      "kind": "instance_port",
+      "source": {
+        "column": 22,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 459,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 459:22"
+      },
+      "type": null
+    },
+    {
+      "id": "prober.io.rep.bits.opcode",
+      "kind": "instance_port",
+      "source": {
+        "column": 22,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 459,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 459:22"
+      },
+      "type": null
+    },
+    {
+      "id": "prober.io.rep.bits.param",
+      "kind": "instance_port",
+      "source": {
+        "column": 22,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 459,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 459:22"
+      },
+      "type": null
+    },
+    {
+      "id": "prober.io.rep.bits.size",
+      "kind": "instance_port",
+      "source": {
+        "column": 22,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 459,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 459:22"
+      },
+      "type": null
+    },
+    {
+      "id": "prober.io.rep.bits.source",
+      "kind": "instance_port",
+      "source": {
+        "column": 22,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 459,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 459:22"
+      },
+      "type": null
+    },
+    {
+      "id": "prober.io.rep.valid",
+      "kind": "instance_port",
+      "source": {
+        "column": 22,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 459,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 459:22"
+      },
+      "type": null
+    },
+    {
+      "id": "state",
+      "kind": "register",
+      "source": {
+        "column": 26,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 88,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 88:26"
+      },
+      "type": "UInt<1>[2]"
+    },
+    {
+      "id": "wb.io.release.bits.address",
+      "kind": "instance_port",
+      "source": {
+        "column": 18,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 458,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 458:18"
+      },
+      "type": null
+    },
+    {
+      "id": "wb.io.release.bits.corrupt",
+      "kind": "instance_port",
+      "source": {
+        "column": 18,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 458,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 458:18"
+      },
+      "type": null
+    },
+    {
+      "id": "wb.io.release.bits.data",
+      "kind": "instance_port",
+      "source": {
+        "column": 18,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 458,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 458:18"
+      },
+      "type": null
+    },
+    {
+      "id": "wb.io.release.bits.opcode",
+      "kind": "instance_port",
+      "source": {
+        "column": 18,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 458,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 458:18"
+      },
+      "type": null
+    },
+    {
+      "id": "wb.io.release.bits.param",
+      "kind": "instance_port",
+      "source": {
+        "column": 18,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 458,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 458:18"
+      },
+      "type": null
+    },
+    {
+      "id": "wb.io.release.bits.size",
+      "kind": "instance_port",
+      "source": {
+        "column": 18,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 458,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 458:18"
+      },
+      "type": null
+    },
+    {
+      "id": "wb.io.release.bits.source",
+      "kind": "instance_port",
+      "source": {
+        "column": 18,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 458,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 458:18"
+      },
+      "type": null
+    },
+    {
+      "id": "wb.io.release.valid",
+      "kind": "instance_port",
+      "source": {
+        "column": 18,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 458,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 458:18"
+      },
+      "type": null
+    },
+    {
+      "id": "winner",
+      "kind": "wire",
+      "source": {
+        "column": 27,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 71,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 71:27"
+      },
+      "type": "UInt<1>[2]"
+    },
+    {
+      "id": "winner[0]",
+      "kind": "wire",
+      "source": {
+        "column": 27,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 71,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 71:27"
+      },
+      "type": null
+    },
+    {
+      "id": "winner[1]",
+      "kind": "wire",
+      "source": {
+        "column": 27,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 71,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 71:27"
+      },
+      "type": null
+    }
+  ],
+  "grounding": {
+    "allowed_physical_event_ids": [
+      "BoomNonBlockingDCache::auto.out.c.fire"
+    ],
+    "allowed_state_ids": [
+      "beatsLeft",
+      "state"
+    ],
+    "allowed_statement_ids": [
+      2546,
+      2547,
+      2548,
+      2549,
+      2550,
+      2551,
+      2552,
+      2553,
+      2554,
+      2555,
+      2556,
+      2557,
+      2559,
+      2560,
+      2561,
+      2562,
+      2563,
+      2564,
+      2565,
+      2566,
+      2567,
+      2568,
+      2569,
+      2570,
+      2572,
+      2573,
+      2574,
+      2575,
+      2577,
+      2578,
+      2606,
+      2607,
+      2608,
+      2609,
+      2610,
+      2611,
+      2612,
+      2613,
+      2618,
+      2619,
+      2625,
+      2626,
+      2627,
+      2628,
+      2630,
+      2631,
+      2632,
+      2634,
+      2635,
+      2636,
+      2638,
+      2639,
+      2640,
+      2641,
+      2642,
+      2644,
+      2645,
+      2650,
+      2651,
+      2652,
+      2654,
+      2655,
+      2656,
+      2657,
+      2658,
+      2660,
+      2661,
+      2662,
+      2663,
+      2664,
+      2666,
+      2667,
+      2668,
+      2669,
+      2670,
+      2672,
+      2673,
+      2674,
+      2675,
+      2676,
+      2678,
+      2679,
+      2680,
+      2681,
+      2682,
+      2683,
+      2684,
+      2685,
+      2686
+    ],
+    "semantic_labels": []
+  },
+  "memory_state": [],
+  "parent_connection_signals": [],
+  "planner_version": "hierarchical-planner-v12",
+  "proof_context": {
+    "event_gate_statement_ids": [
+      47
+    ],
+    "event_gate_statements": [
+      {
+        "control_reads": [],
+        "drives": [
+          "auto.out.a.bits.address",
+          "auto.out.a.bits.corrupt",
+          "auto.out.a.bits.data",
+          "auto.out.a.bits.mask",
+          "auto.out.a.bits.opcode",
+          "auto.out.a.bits.param",
+          "auto.out.a.bits.size",
+          "auto.out.a.bits.source",
+          "auto.out.a.ready",
+          "auto.out.a.valid",
+          "auto.out.b.bits.address",
+          "auto.out.b.bits.corrupt",
+          "auto.out.b.bits.data",
+          "auto.out.b.bits.mask",
+          "auto.out.b.bits.opcode",
+          "auto.out.b.bits.param",
+          "auto.out.b.bits.size",
+          "auto.out.b.bits.source",
+          "auto.out.b.ready",
+          "auto.out.b.valid",
+          "auto.out.c.bits.address",
+          "auto.out.c.bits.corrupt",
+          "auto.out.c.bits.data",
+          "auto.out.c.bits.opcode",
+          "auto.out.c.bits.param",
+          "auto.out.c.bits.size",
+          "auto.out.c.bits.source",
+          "auto.out.c.ready",
+          "auto.out.c.valid",
+          "auto.out.d.bits.corrupt",
+          "auto.out.d.bits.data",
+          "auto.out.d.bits.denied",
+          "auto.out.d.bits.opcode",
+          "auto.out.d.bits.param",
+          "auto.out.d.bits.sink",
+          "auto.out.d.bits.size",
+          "auto.out.d.bits.source",
+          "auto.out.d.ready",
+          "auto.out.d.valid",
+          "auto.out.e.bits.sink",
+          "auto.out.e.ready",
+          "auto.out.e.valid"
+        ],
+        "firrtl_line": 197816,
+        "id": 47,
+        "kind": "connect",
+        "note": null,
+        "reads": [
+          "nodeOut"
+        ],
+        "source": {
+          "column": 12,
+          "file": "generators/diplomacy/diplomacy/src/diplomacy/lazymodule/LazyModuleImp.scala",
+          "line": 113,
+          "raw": "generators/diplomacy/diplomacy/src/diplomacy/lazymodule/LazyModuleImp.scala 113:12"
+        },
+        "status": "supported",
+        "text": "connect auto.out, nodeOut"
+      }
+    ],
+    "llm_evidence": false,
+    "policy": "exact-local-event-gate-bridges-v0.1",
+    "state_support_statement_ids": [
+      2558,
+      2617
+    ],
+    "state_support_statements": [
+      {
+        "control_reads": [],
+        "drives": [
+          "beatsLeft"
+        ],
+        "firrtl_line": 200327,
+        "id": 2558,
+        "kind": "regreset",
+        "note": null,
+        "reads": [
+          "clock",
+          "h0"
+        ],
+        "source": {
+          "column": 30,
+          "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+          "line": 60,
+          "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 60:30"
+        },
+        "status": "supported",
+        "text": "regreset beatsLeft : UInt, clock, reset, UInt<1>(0h0)"
+      },
+      {
+        "control_reads": [],
+        "drives": [
+          "state"
+        ],
+        "firrtl_line": 200386,
+        "id": 2617,
+        "kind": "regreset",
+        "note": null,
+        "reads": [
+          "_state_WIRE",
+          "clock"
+        ],
+        "source": {
+          "column": 26,
+          "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+          "line": 88,
+          "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 88:26"
+        },
+        "status": "supported",
+        "text": "regreset state : UInt<1>[2], clock, reset, _state_WIRE"
+      }
+    ]
+  },
+  "replacement_complexity": {
+    "event_state_coupling": 0.0,
+    "events": 1,
+    "logical": {
+      "dependency_edges": 64,
+      "signals": 44,
+      "source_loc": 20,
+      "statements": 25
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 156,
+      "signals": 115,
+      "source_loc": 20,
+      "statements": 89,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 2,
+    "state_regions": 1
+  },
+  "schema_version": "workunit-static-0.2",
+  "semantic_event_cones": [
+    {
+      "complete": true,
+      "event_id": "BoomNonBlockingDCache::auto.out.c.fire",
+      "historical_registers": [
+        "beatsLeft",
+        "state"
+      ],
+      "historical_statement_ids": [
+        2546,
+        2547,
+        2548,
+        2549,
+        2550,
+        2551,
+        2552,
+        2553,
+        2554,
+        2555,
+        2556,
+        2557,
+        2559,
+        2560,
+        2561,
+        2562,
+        2563,
+        2564,
+        2565,
+        2566,
+        2567,
+        2568,
+        2569,
+        2570,
+        2572,
+        2573,
+        2574,
+        2575,
+        2577,
+        2578,
+        2606,
+        2607,
+        2608,
+        2609,
+        2610,
+        2611,
+        2612,
+        2613,
+        2618,
+        2619,
+        2625,
+        2626,
+        2627,
+        2628,
+        2630,
+        2631,
+        2632,
+        2634,
+        2635,
+        2636,
+        2638,
+        2639,
+        2640,
+        2641,
+        2642,
+        2644,
+        2645,
+        2650,
+        2651,
+        2652,
+        2654,
+        2655,
+        2656,
+        2657,
+        2658,
+        2660,
+        2661,
+        2662,
+        2663,
+        2664,
+        2666,
+        2667,
+        2668,
+        2669,
+        2670,
+        2672,
+        2673,
+        2674,
+        2675,
+        2676,
+        2678,
+        2679,
+        2680,
+        2681,
+        2682,
+        2683,
+        2684,
+        2685,
+        2686
+      ],
+      "immediate_frontier": [
+        "auto.out.c.ready",
+        "beatsLeft",
+        "h0",
+        "prober.io.rep.valid",
+        "state",
+        "wb.io.release.valid"
+      ],
+      "immediate_registers": [
+        "beatsLeft",
+        "state"
+      ],
+      "immediate_statement_ids": [
+        2559,
+        2625,
+        2626,
+        2627,
+        2628,
+        2630,
+        2631,
+        2632
+      ]
+    }
+  ],
+  "source_evidence": {
+    "resolved": [
+      {
+        "end_line": 17,
+        "logical_file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "start_line": 15,
+        "text": "\n  val lowestIndexFirst: Policy = (width, valids, select) => ~(leftOR(valids) << 1)(width-1, 0)\n\n"
+      },
+      {
+        "end_line": 63,
+        "logical_file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "start_line": 60,
+        "text": "      val beatsLeft = RegInit(0.U)\n      val idle = beatsLeft === 0.U\n      val latch = idle && sink.ready // winner (if any) claims sink\n\n"
+      },
+      {
+        "end_line": 69,
+        "logical_file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "start_line": 67,
+        "text": "      // Arbitrate amongst the requests\n      val readys = VecInit(policy(valids.size, Cat(valids.reverse), latch).asBools)\n\n"
+      },
+      {
+        "end_line": 72,
+        "logical_file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "start_line": 70,
+        "text": "      // Which request wins arbitration?\n      val winner = VecInit((readys zip valids) map { case (r,v) => r&&v })\n\n"
+      },
+      {
+        "end_line": 86,
+        "logical_file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "start_line": 81,
+        "text": "      // Track remaining beats\n      val maskedBeats = (winner zip beatsIn) map { case (w,b) => Mux(w, b, 0.U) }\n\n      val initBeats = maskedBeats.reduce(_ | _) // no winner => 0 beats\n      beatsLeft := Mux(latch, initBeats, beatsLeft - sink.fire)\n\n"
+      },
+      {
+        "end_line": 91,
+        "logical_file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "start_line": 88,
+        "text": "      val state = RegInit(VecInit(Seq.fill(sources.size)(false.B)))\n      val muxState = Mux(idle, winner, state)\n      state := muxState\n\n"
+      },
+      {
+        "end_line": 98,
+        "logical_file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "start_line": 95,
+        "text": "      }\n      sink.valid := Mux(idle, valids.reduce(_||_), Mux1H(state, valids))\n      sink.bits :<= Mux1H(muxState, sourcesIn.map(_.bits))\n    }\n"
+      },
+      {
+        "end_line": 103,
+        "logical_file": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/tilelink/Edges.scala",
+        "start_line": 101,
+        "text": "        //    opcode === TLMessages.LogicalData\n      case c: TLBundleC => c.opcode(0)\n        //    opcode === TLMessages.AccessAckData ||\n"
+      },
+      {
+        "end_line": 222,
+        "logical_file": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/tilelink/Edges.scala",
+        "start_line": 219,
+        "text": "        } else {\n          val decode = UIntToOH1(size(bundle), maxLgSize) >> log2Ceil(manager.beatBytes)\n          Mux(hasData(bundle), decode, 0.U)\n        }\n"
+      },
+      {
+        "end_line": 245,
+        "logical_file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/util/package.scala",
+        "start_line": 243,
+        "text": "  def OH1ToUInt(x: UInt): UInt = OHToUInt(OH1ToOH(x))\n  def UIntToOH1(x: UInt, width: Int): UInt = ~((-1).S(width.W).asUInt << x)(width-1, 0)\n  def UIntToOH1(x: UInt): UInt = UIntToOH1(x, (1 << x.getWidth) - 1)\n"
+      },
+      {
+        "end_line": 256,
+        "logical_file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/util/package.scala",
+        "start_line": 253,
+        "text": "    def helper(s: Int, x: UInt): UInt =\n      if (s >= stop) x else helper(s+s, x | (x << s)(width-1,0))\n    helper(1, x)(width-1, 0)\n  }\n"
+      }
+    ],
+    "roots": [
+      "/t1/MCM-Agent/tools/chipyard"
+    ],
+    "unresolved": [
+      {
+        "end_line": 51,
+        "error": "Could not resolve source locator 'src/main/scala/chisel3/util/Decoupled.scala' under roots: /t1/MCM-Agent/tools/chipyard",
+        "file": "src/main/scala/chisel3/util/Decoupled.scala",
+        "start_line": 51
+      },
+      {
+        "end_line": 30,
+        "error": "Could not resolve source locator 'src/main/scala/chisel3/util/Mux.scala' under roots: /t1/MCM-Agent/tools/chipyard",
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "start_line": 30
+      }
+    ]
+  },
+  "source_spans": [
+    {
+      "end_line": 16,
+      "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+      "start_line": 16
+    },
+    {
+      "end_line": 62,
+      "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+      "start_line": 61
+    },
+    {
+      "end_line": 68,
+      "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+      "start_line": 68
+    },
+    {
+      "end_line": 71,
+      "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+      "start_line": 71
+    },
+    {
+      "end_line": 85,
+      "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+      "start_line": 82
+    },
+    {
+      "end_line": 90,
+      "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+      "start_line": 89
+    },
+    {
+      "end_line": 97,
+      "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+      "start_line": 96
+    },
+    {
+      "end_line": 102,
+      "file": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala",
+      "start_line": 102
+    },
+    {
+      "end_line": 221,
+      "file": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala",
+      "start_line": 220
+    },
+    {
+      "end_line": 244,
+      "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+      "start_line": 244
+    },
+    {
+      "end_line": 255,
+      "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+      "start_line": 254
+    },
+    {
+      "end_line": 51,
+      "file": "src/main/scala/chisel3/util/Decoupled.scala",
+      "start_line": 51
+    },
+    {
+      "end_line": 30,
+      "file": "src/main/scala/chisel3/util/Mux.scala",
+      "start_line": 30
+    }
+  ],
+  "state": [
+    {
+      "id": "beatsLeft",
+      "kind": "register",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 60,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 60:30"
+      },
+      "type": "UInt"
+    },
+    {
+      "id": "state",
+      "kind": "register",
+      "source": {
+        "column": 26,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 88,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 88:26"
+      },
+      "type": "UInt<1>[2]"
+    }
+  ],
+  "statements": [
+    {
+      "control_reads": [],
+      "drives": [
+        "_decode_T"
+      ],
+      "firrtl_line": 200315,
+      "id": 2546,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "hfff",
+        "wb.io.release.bits.size"
+      ],
+      "source": {
+        "column": 71,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 244,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 244:71"
+      },
+      "status": "supported",
+      "text": "node _decode_T = dshl(UInt<12>(0hfff), wb.io.release.bits.size)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_decode_T_1"
+      ],
+      "firrtl_line": 200316,
+      "id": 2547,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_decode_T"
+      ],
+      "source": {
+        "column": 76,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 244,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 244:76"
+      },
+      "status": "supported",
+      "text": "node _decode_T_1 = bits(_decode_T, 11, 0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_decode_T_2"
+      ],
+      "firrtl_line": 200317,
+      "id": 2548,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_decode_T_1"
+      ],
+      "source": {
+        "column": 46,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 244,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 244:46"
+      },
+      "status": "supported",
+      "text": "node _decode_T_2 = not(_decode_T_1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "decode"
+      ],
+      "firrtl_line": 200318,
+      "id": 2549,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_decode_T_2"
+      ],
+      "source": {
+        "column": 59,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala",
+        "line": 220,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala 220:59"
+      },
+      "status": "supported",
+      "text": "node decode = shr(_decode_T_2, 3)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "opdata"
+      ],
+      "firrtl_line": 200319,
+      "id": 2550,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "wb.io.release.bits.opcode"
+      ],
+      "source": {
+        "column": 36,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala",
+        "line": 102,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala 102:36"
+      },
+      "status": "supported",
+      "text": "node opdata = bits(wb.io.release.bits.opcode, 0, 0)"
+    },
+    {
+      "control_reads": [
+        "opdata"
+      ],
+      "drives": [
+        "_T_83"
+      ],
+      "firrtl_line": 200320,
+      "id": 2551,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "decode",
+        "h0",
+        "opdata"
+      ],
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala",
+        "line": 221,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala 221:14"
+      },
+      "status": "supported",
+      "text": "node _T_83 = mux(opdata, decode, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_decode_T_3"
+      ],
+      "firrtl_line": 200321,
+      "id": 2552,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "hfff",
+        "prober.io.rep.bits.size"
+      ],
+      "source": {
+        "column": 71,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 244,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 244:71"
+      },
+      "status": "supported",
+      "text": "node _decode_T_3 = dshl(UInt<12>(0hfff), prober.io.rep.bits.size)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_decode_T_4"
+      ],
+      "firrtl_line": 200322,
+      "id": 2553,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_decode_T_3"
+      ],
+      "source": {
+        "column": 76,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 244,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 244:76"
+      },
+      "status": "supported",
+      "text": "node _decode_T_4 = bits(_decode_T_3, 11, 0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_decode_T_5"
+      ],
+      "firrtl_line": 200323,
+      "id": 2554,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_decode_T_4"
+      ],
+      "source": {
+        "column": 46,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 244,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 244:46"
+      },
+      "status": "supported",
+      "text": "node _decode_T_5 = not(_decode_T_4)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "decode_1"
+      ],
+      "firrtl_line": 200324,
+      "id": 2555,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_decode_T_5"
+      ],
+      "source": {
+        "column": 59,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala",
+        "line": 220,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala 220:59"
+      },
+      "status": "supported",
+      "text": "node decode_1 = shr(_decode_T_5, 3)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "opdata_1"
+      ],
+      "firrtl_line": 200325,
+      "id": 2556,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "prober.io.rep.bits.opcode"
+      ],
+      "source": {
+        "column": 36,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala",
+        "line": 102,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala 102:36"
+      },
+      "status": "supported",
+      "text": "node opdata_1 = bits(prober.io.rep.bits.opcode, 0, 0)"
+    },
+    {
+      "control_reads": [
+        "opdata_1"
+      ],
+      "drives": [
+        "_T_84"
+      ],
+      "firrtl_line": 200326,
+      "id": 2557,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "decode_1",
+        "h0",
+        "opdata_1"
+      ],
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala",
+        "line": 221,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Edges.scala 221:14"
+      },
+      "status": "supported",
+      "text": "node _T_84 = mux(opdata_1, decode_1, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "idle"
+      ],
+      "firrtl_line": 200328,
+      "id": 2559,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "beatsLeft",
+        "h0"
+      ],
+      "source": {
+        "column": 28,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 61,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 61:28"
+      },
+      "status": "supported",
+      "text": "node idle = eq(beatsLeft, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "latch"
+      ],
+      "firrtl_line": 200329,
+      "id": 2560,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "idle",
+        "nodeOut.c.ready"
+      ],
+      "source": {
+        "column": 24,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 62,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 62:24"
+      },
+      "status": "supported",
+      "text": "node latch = and(idle, nodeOut.c.ready)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_readys_T"
+      ],
+      "firrtl_line": 200330,
+      "id": 2561,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "prober.io.rep.valid",
+        "wb.io.release.valid"
+      ],
+      "source": {
+        "column": 51,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 68,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 68:51"
+      },
+      "status": "supported",
+      "text": "node _readys_T = cat(prober.io.rep.valid, wb.io.release.valid)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_readys_T_1"
+      ],
+      "firrtl_line": 200331,
+      "id": 2562,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_readys_T"
+      ],
+      "source": {
+        "column": 48,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 254,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 254:48"
+      },
+      "status": "supported",
+      "text": "node _readys_T_1 = shl(_readys_T, 1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_readys_T_2"
+      ],
+      "firrtl_line": 200332,
+      "id": 2563,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_readys_T_1"
+      ],
+      "source": {
+        "column": 53,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 254,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 254:53"
+      },
+      "status": "supported",
+      "text": "node _readys_T_2 = bits(_readys_T_1, 1, 0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_readys_T_3"
+      ],
+      "firrtl_line": 200333,
+      "id": 2564,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_readys_T",
+        "_readys_T_2"
+      ],
+      "source": {
+        "column": 43,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 254,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 254:43"
+      },
+      "status": "supported",
+      "text": "node _readys_T_3 = or(_readys_T, _readys_T_2)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_readys_T_4"
+      ],
+      "firrtl_line": 200334,
+      "id": 2565,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_readys_T_3"
+      ],
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 255,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 255:17"
+      },
+      "status": "supported",
+      "text": "node _readys_T_4 = bits(_readys_T_3, 1, 0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_readys_T_5"
+      ],
+      "firrtl_line": 200335,
+      "id": 2566,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_readys_T_4"
+      ],
+      "source": {
+        "column": 78,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 16,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 16:78"
+      },
+      "status": "supported",
+      "text": "node _readys_T_5 = shl(_readys_T_4, 1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_readys_T_6"
+      ],
+      "firrtl_line": 200336,
+      "id": 2567,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_readys_T_5"
+      ],
+      "source": {
+        "column": 83,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 16,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 16:83"
+      },
+      "status": "supported",
+      "text": "node _readys_T_6 = bits(_readys_T_5, 1, 0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_readys_T_7"
+      ],
+      "firrtl_line": 200337,
+      "id": 2568,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_readys_T_6"
+      ],
+      "source": {
+        "column": 61,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 16,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 16:61"
+      },
+      "status": "supported",
+      "text": "node _readys_T_7 = not(_readys_T_6)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_readys_T_8"
+      ],
+      "firrtl_line": 200338,
+      "id": 2569,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_readys_T_7"
+      ],
+      "source": {
+        "column": 76,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 68,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 68:76"
+      },
+      "status": "supported",
+      "text": "node _readys_T_8 = bits(_readys_T_7, 0, 0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_readys_T_9"
+      ],
+      "firrtl_line": 200339,
+      "id": 2570,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_readys_T_7"
+      ],
+      "source": {
+        "column": 76,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 68,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 68:76"
+      },
+      "status": "supported",
+      "text": "node _readys_T_9 = bits(_readys_T_7, 1, 1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "readys[0]"
+      ],
+      "firrtl_line": 200341,
+      "id": 2572,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_readys_T_8"
+      ],
+      "source": {
+        "column": 27,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 68,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 68:27"
+      },
+      "status": "supported",
+      "text": "connect readys[0], _readys_T_8"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "readys[1]"
+      ],
+      "firrtl_line": 200342,
+      "id": 2573,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_readys_T_9"
+      ],
+      "source": {
+        "column": 27,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 68,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 68:27"
+      },
+      "status": "supported",
+      "text": "connect readys[1], _readys_T_9"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_winner_T"
+      ],
+      "firrtl_line": 200343,
+      "id": 2574,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "readys[0]",
+        "wb.io.release.valid"
+      ],
+      "source": {
+        "column": 69,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 71,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 71:69"
+      },
+      "status": "supported",
+      "text": "node _winner_T = and(readys[0], wb.io.release.valid)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_winner_T_1"
+      ],
+      "firrtl_line": 200344,
+      "id": 2575,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "prober.io.rep.valid",
+        "readys[1]"
+      ],
+      "source": {
+        "column": 69,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 71,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 71:69"
+      },
+      "status": "supported",
+      "text": "node _winner_T_1 = and(readys[1], prober.io.rep.valid)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "winner[0]"
+      ],
+      "firrtl_line": 200346,
+      "id": 2577,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_winner_T"
+      ],
+      "source": {
+        "column": 27,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 71,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 71:27"
+      },
+      "status": "supported",
+      "text": "connect winner[0], _winner_T"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "winner[1]"
+      ],
+      "firrtl_line": 200347,
+      "id": 2578,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_winner_T_1"
+      ],
+      "source": {
+        "column": 27,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 71,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 71:27"
+      },
+      "status": "supported",
+      "text": "connect winner[1], _winner_T_1"
+    },
+    {
+      "control_reads": [
+        "winner[0]"
+      ],
+      "drives": [
+        "maskedBeats_0"
+      ],
+      "firrtl_line": 200375,
+      "id": 2606,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_T_83",
+        "h0",
+        "winner[0]"
+      ],
+      "source": {
+        "column": 69,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 82,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 82:69"
+      },
+      "status": "supported",
+      "text": "node maskedBeats_0 = mux(winner[0], _T_83, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [
+        "winner[1]"
+      ],
+      "drives": [
+        "maskedBeats_1"
+      ],
+      "firrtl_line": 200376,
+      "id": 2607,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_T_84",
+        "h0",
+        "winner[1]"
+      ],
+      "source": {
+        "column": 69,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 82,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 82:69"
+      },
+      "status": "supported",
+      "text": "node maskedBeats_1 = mux(winner[1], _T_84, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "initBeats"
+      ],
+      "firrtl_line": 200377,
+      "id": 2608,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "maskedBeats_0",
+        "maskedBeats_1"
+      ],
+      "source": {
+        "column": 44,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 84,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 84:44"
+      },
+      "status": "supported",
+      "text": "node initBeats = or(maskedBeats_0, maskedBeats_1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_beatsLeft_T"
+      ],
+      "firrtl_line": 200378,
+      "id": 2609,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "nodeOut.c.ready",
+        "nodeOut.c.valid"
+      ],
+      "source": {
+        "column": 35,
+        "file": "src/main/scala/chisel3/util/Decoupled.scala",
+        "line": 51,
+        "raw": "src/main/scala/chisel3/util/Decoupled.scala 51:35"
+      },
+      "status": "supported",
+      "text": "node _beatsLeft_T = and(nodeOut.c.ready, nodeOut.c.valid)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_beatsLeft_T_1"
+      ],
+      "firrtl_line": 200379,
+      "id": 2610,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_beatsLeft_T",
+        "beatsLeft"
+      ],
+      "source": {
+        "column": 52,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 85,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 85:52"
+      },
+      "status": "supported",
+      "text": "node _beatsLeft_T_1 = sub(beatsLeft, _beatsLeft_T)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_beatsLeft_T_2"
+      ],
+      "firrtl_line": 200380,
+      "id": 2611,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_beatsLeft_T_1"
+      ],
+      "source": {
+        "column": 52,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 85,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 85:52"
+      },
+      "status": "supported",
+      "text": "node _beatsLeft_T_2 = tail(_beatsLeft_T_1, 1)"
+    },
+    {
+      "control_reads": [
+        "latch"
+      ],
+      "drives": [
+        "_beatsLeft_T_3"
+      ],
+      "firrtl_line": 200381,
+      "id": 2612,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_beatsLeft_T_2",
+        "initBeats",
+        "latch"
+      ],
+      "source": {
+        "column": 23,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 85,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 85:23"
+      },
+      "status": "supported",
+      "text": "node _beatsLeft_T_3 = mux(latch, initBeats, _beatsLeft_T_2)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "beatsLeft"
+      ],
+      "firrtl_line": 200382,
+      "id": 2613,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_beatsLeft_T_3"
+      ],
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 85,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 85:17"
+      },
+      "status": "supported",
+      "text": "connect beatsLeft, _beatsLeft_T_3"
+    },
+    {
+      "control_reads": [
+        "idle"
+      ],
+      "drives": [
+        "muxState"
+      ],
+      "firrtl_line": 200387,
+      "id": 2618,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "idle",
+        "state",
+        "winner"
+      ],
+      "source": {
+        "column": 25,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 89,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 89:25"
+      },
+      "status": "supported",
+      "text": "node muxState = mux(idle, winner, state)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "state[0]",
+        "state[1]"
+      ],
+      "firrtl_line": 200388,
+      "id": 2619,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "muxState"
+      ],
+      "source": {
+        "column": 13,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 90,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 90:13"
+      },
+      "status": "supported",
+      "text": "connect state, muxState"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_nodeOut_c_valid_T"
+      ],
+      "firrtl_line": 200394,
+      "id": 2625,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "prober.io.rep.valid",
+        "wb.io.release.valid"
+      ],
+      "source": {
+        "column": 46,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 96,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 96:46"
+      },
+      "status": "supported",
+      "text": "node _nodeOut_c_valid_T = or(wb.io.release.valid, prober.io.rep.valid)"
+    },
+    {
+      "control_reads": [
+        "state[0]"
+      ],
+      "drives": [
+        "_nodeOut_c_valid_T_1"
+      ],
+      "firrtl_line": 200395,
+      "id": 2626,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "state[0]",
+        "wb.io.release.valid"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "node _nodeOut_c_valid_T_1 = mux(state[0], wb.io.release.valid, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [
+        "state[1]"
+      ],
+      "drives": [
+        "_nodeOut_c_valid_T_2"
+      ],
+      "firrtl_line": 200396,
+      "id": 2627,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "prober.io.rep.valid",
+        "state[1]"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "node _nodeOut_c_valid_T_2 = mux(state[1], prober.io.rep.valid, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_nodeOut_c_valid_T_3"
+      ],
+      "firrtl_line": 200397,
+      "id": 2628,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_valid_T_1",
+        "_nodeOut_c_valid_T_2"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "node _nodeOut_c_valid_T_3 = or(_nodeOut_c_valid_T_1, _nodeOut_c_valid_T_2)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_nodeOut_c_valid_WIRE"
+      ],
+      "firrtl_line": 200399,
+      "id": 2630,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_valid_T_3"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "connect _nodeOut_c_valid_WIRE, _nodeOut_c_valid_T_3"
+    },
+    {
+      "control_reads": [
+        "idle"
+      ],
+      "drives": [
+        "_nodeOut_c_valid_T_4"
+      ],
+      "firrtl_line": 200400,
+      "id": 2631,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_valid_T",
+        "_nodeOut_c_valid_WIRE",
+        "idle"
+      ],
+      "source": {
+        "column": 24,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 96,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 96:24"
+      },
+      "status": "supported",
+      "text": "node _nodeOut_c_valid_T_4 = mux(idle, _nodeOut_c_valid_T, _nodeOut_c_valid_WIRE)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "nodeOut.c.valid"
+      ],
+      "firrtl_line": 200401,
+      "id": 2632,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_valid_T_4"
+      ],
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 96,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 96:18"
+      },
+      "status": "supported",
+      "text": "connect nodeOut.c.valid, _nodeOut_c_valid_T_4"
+    },
+    {
+      "control_reads": [
+        "muxState[0]"
+      ],
+      "drives": [
+        "_nodeOut_c_bits_T"
+      ],
+      "firrtl_line": 200403,
+      "id": 2634,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "muxState[0]",
+        "wb.io.release.bits.corrupt"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "node _nodeOut_c_bits_T = mux(muxState[0], wb.io.release.bits.corrupt, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [
+        "muxState[1]"
+      ],
+      "drives": [
+        "_nodeOut_c_bits_T_1"
+      ],
+      "firrtl_line": 200404,
+      "id": 2635,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "muxState[1]",
+        "prober.io.rep.bits.corrupt"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "node _nodeOut_c_bits_T_1 = mux(muxState[1], prober.io.rep.bits.corrupt, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_nodeOut_c_bits_T_2"
+      ],
+      "firrtl_line": 200405,
+      "id": 2636,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_bits_T",
+        "_nodeOut_c_bits_T_1"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "node _nodeOut_c_bits_T_2 = or(_nodeOut_c_bits_T, _nodeOut_c_bits_T_1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_nodeOut_c_bits_WIRE_1"
+      ],
+      "firrtl_line": 200407,
+      "id": 2638,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_bits_T_2"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "connect _nodeOut_c_bits_WIRE_1, _nodeOut_c_bits_T_2"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_nodeOut_c_bits_WIRE.corrupt"
+      ],
+      "firrtl_line": 200408,
+      "id": 2639,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_bits_WIRE_1"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "connect _nodeOut_c_bits_WIRE.corrupt, _nodeOut_c_bits_WIRE_1"
+    },
+    {
+      "control_reads": [
+        "muxState[0]"
+      ],
+      "drives": [
+        "_nodeOut_c_bits_T_3"
+      ],
+      "firrtl_line": 200409,
+      "id": 2640,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "muxState[0]",
+        "wb.io.release.bits.data"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "node _nodeOut_c_bits_T_3 = mux(muxState[0], wb.io.release.bits.data, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [
+        "muxState[1]"
+      ],
+      "drives": [
+        "_nodeOut_c_bits_T_4"
+      ],
+      "firrtl_line": 200410,
+      "id": 2641,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "muxState[1]",
+        "prober.io.rep.bits.data"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "node _nodeOut_c_bits_T_4 = mux(muxState[1], prober.io.rep.bits.data, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_nodeOut_c_bits_T_5"
+      ],
+      "firrtl_line": 200411,
+      "id": 2642,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_bits_T_3",
+        "_nodeOut_c_bits_T_4"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "node _nodeOut_c_bits_T_5 = or(_nodeOut_c_bits_T_3, _nodeOut_c_bits_T_4)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_nodeOut_c_bits_WIRE_2"
+      ],
+      "firrtl_line": 200413,
+      "id": 2644,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_bits_T_5"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "connect _nodeOut_c_bits_WIRE_2, _nodeOut_c_bits_T_5"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_nodeOut_c_bits_WIRE.data"
+      ],
+      "firrtl_line": 200414,
+      "id": 2645,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_bits_WIRE_2"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "connect _nodeOut_c_bits_WIRE.data, _nodeOut_c_bits_WIRE_2"
+    },
+    {
+      "control_reads": [
+        "muxState[0]"
+      ],
+      "drives": [
+        "_nodeOut_c_bits_T_6"
+      ],
+      "firrtl_line": 200419,
+      "id": 2650,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "muxState[0]",
+        "wb.io.release.bits.address"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "node _nodeOut_c_bits_T_6 = mux(muxState[0], wb.io.release.bits.address, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [
+        "muxState[1]"
+      ],
+      "drives": [
+        "_nodeOut_c_bits_T_7"
+      ],
+      "firrtl_line": 200420,
+      "id": 2651,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "muxState[1]",
+        "prober.io.rep.bits.address"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "node _nodeOut_c_bits_T_7 = mux(muxState[1], prober.io.rep.bits.address, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_nodeOut_c_bits_T_8"
+      ],
+      "firrtl_line": 200421,
+      "id": 2652,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_bits_T_6",
+        "_nodeOut_c_bits_T_7"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "node _nodeOut_c_bits_T_8 = or(_nodeOut_c_bits_T_6, _nodeOut_c_bits_T_7)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_nodeOut_c_bits_WIRE_5"
+      ],
+      "firrtl_line": 200423,
+      "id": 2654,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_bits_T_8"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "connect _nodeOut_c_bits_WIRE_5, _nodeOut_c_bits_T_8"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_nodeOut_c_bits_WIRE.address"
+      ],
+      "firrtl_line": 200424,
+      "id": 2655,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_bits_WIRE_5"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "connect _nodeOut_c_bits_WIRE.address, _nodeOut_c_bits_WIRE_5"
+    },
+    {
+      "control_reads": [
+        "muxState[0]"
+      ],
+      "drives": [
+        "_nodeOut_c_bits_T_9"
+      ],
+      "firrtl_line": 200425,
+      "id": 2656,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "muxState[0]",
+        "wb.io.release.bits.source"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "node _nodeOut_c_bits_T_9 = mux(muxState[0], wb.io.release.bits.source, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [
+        "muxState[1]"
+      ],
+      "drives": [
+        "_nodeOut_c_bits_T_10"
+      ],
+      "firrtl_line": 200426,
+      "id": 2657,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "muxState[1]",
+        "prober.io.rep.bits.source"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "node _nodeOut_c_bits_T_10 = mux(muxState[1], prober.io.rep.bits.source, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_nodeOut_c_bits_T_11"
+      ],
+      "firrtl_line": 200427,
+      "id": 2658,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_bits_T_10",
+        "_nodeOut_c_bits_T_9"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "node _nodeOut_c_bits_T_11 = or(_nodeOut_c_bits_T_9, _nodeOut_c_bits_T_10)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_nodeOut_c_bits_WIRE_6"
+      ],
+      "firrtl_line": 200429,
+      "id": 2660,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_bits_T_11"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "connect _nodeOut_c_bits_WIRE_6, _nodeOut_c_bits_T_11"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_nodeOut_c_bits_WIRE.source"
+      ],
+      "firrtl_line": 200430,
+      "id": 2661,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_bits_WIRE_6"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "connect _nodeOut_c_bits_WIRE.source, _nodeOut_c_bits_WIRE_6"
+    },
+    {
+      "control_reads": [
+        "muxState[0]"
+      ],
+      "drives": [
+        "_nodeOut_c_bits_T_12"
+      ],
+      "firrtl_line": 200431,
+      "id": 2662,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "muxState[0]",
+        "wb.io.release.bits.size"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "node _nodeOut_c_bits_T_12 = mux(muxState[0], wb.io.release.bits.size, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [
+        "muxState[1]"
+      ],
+      "drives": [
+        "_nodeOut_c_bits_T_13"
+      ],
+      "firrtl_line": 200432,
+      "id": 2663,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "muxState[1]",
+        "prober.io.rep.bits.size"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "node _nodeOut_c_bits_T_13 = mux(muxState[1], prober.io.rep.bits.size, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_nodeOut_c_bits_T_14"
+      ],
+      "firrtl_line": 200433,
+      "id": 2664,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_bits_T_12",
+        "_nodeOut_c_bits_T_13"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "node _nodeOut_c_bits_T_14 = or(_nodeOut_c_bits_T_12, _nodeOut_c_bits_T_13)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_nodeOut_c_bits_WIRE_7"
+      ],
+      "firrtl_line": 200435,
+      "id": 2666,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_bits_T_14"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "connect _nodeOut_c_bits_WIRE_7, _nodeOut_c_bits_T_14"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_nodeOut_c_bits_WIRE.size"
+      ],
+      "firrtl_line": 200436,
+      "id": 2667,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_bits_WIRE_7"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "connect _nodeOut_c_bits_WIRE.size, _nodeOut_c_bits_WIRE_7"
+    },
+    {
+      "control_reads": [
+        "muxState[0]"
+      ],
+      "drives": [
+        "_nodeOut_c_bits_T_15"
+      ],
+      "firrtl_line": 200437,
+      "id": 2668,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "muxState[0]",
+        "wb.io.release.bits.param"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "node _nodeOut_c_bits_T_15 = mux(muxState[0], wb.io.release.bits.param, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [
+        "muxState[1]"
+      ],
+      "drives": [
+        "_nodeOut_c_bits_T_16"
+      ],
+      "firrtl_line": 200438,
+      "id": 2669,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "muxState[1]",
+        "prober.io.rep.bits.param"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "node _nodeOut_c_bits_T_16 = mux(muxState[1], prober.io.rep.bits.param, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_nodeOut_c_bits_T_17"
+      ],
+      "firrtl_line": 200439,
+      "id": 2670,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_bits_T_15",
+        "_nodeOut_c_bits_T_16"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "node _nodeOut_c_bits_T_17 = or(_nodeOut_c_bits_T_15, _nodeOut_c_bits_T_16)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_nodeOut_c_bits_WIRE_8"
+      ],
+      "firrtl_line": 200441,
+      "id": 2672,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_bits_T_17"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "connect _nodeOut_c_bits_WIRE_8, _nodeOut_c_bits_T_17"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_nodeOut_c_bits_WIRE.param"
+      ],
+      "firrtl_line": 200442,
+      "id": 2673,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_bits_WIRE_8"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "connect _nodeOut_c_bits_WIRE.param, _nodeOut_c_bits_WIRE_8"
+    },
+    {
+      "control_reads": [
+        "muxState[0]"
+      ],
+      "drives": [
+        "_nodeOut_c_bits_T_18"
+      ],
+      "firrtl_line": 200443,
+      "id": 2674,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "muxState[0]",
+        "wb.io.release.bits.opcode"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "node _nodeOut_c_bits_T_18 = mux(muxState[0], wb.io.release.bits.opcode, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [
+        "muxState[1]"
+      ],
+      "drives": [
+        "_nodeOut_c_bits_T_19"
+      ],
+      "firrtl_line": 200444,
+      "id": 2675,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "muxState[1]",
+        "prober.io.rep.bits.opcode"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "node _nodeOut_c_bits_T_19 = mux(muxState[1], prober.io.rep.bits.opcode, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_nodeOut_c_bits_T_20"
+      ],
+      "firrtl_line": 200445,
+      "id": 2676,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_bits_T_18",
+        "_nodeOut_c_bits_T_19"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "node _nodeOut_c_bits_T_20 = or(_nodeOut_c_bits_T_18, _nodeOut_c_bits_T_19)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_nodeOut_c_bits_WIRE_9"
+      ],
+      "firrtl_line": 200447,
+      "id": 2678,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_bits_T_20"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "connect _nodeOut_c_bits_WIRE_9, _nodeOut_c_bits_T_20"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_nodeOut_c_bits_WIRE.opcode"
+      ],
+      "firrtl_line": 200448,
+      "id": 2679,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_bits_WIRE_9"
+      ],
+      "source": {
+        "column": 73,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 30,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 30:73"
+      },
+      "status": "supported",
+      "text": "connect _nodeOut_c_bits_WIRE.opcode, _nodeOut_c_bits_WIRE_9"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "nodeOut.c.bits.corrupt"
+      ],
+      "firrtl_line": 200449,
+      "id": 2680,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_bits_WIRE.corrupt"
+      ],
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 97,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 97:17"
+      },
+      "status": "supported",
+      "text": "connect nodeOut.c.bits.corrupt, _nodeOut_c_bits_WIRE.corrupt"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "nodeOut.c.bits.data"
+      ],
+      "firrtl_line": 200450,
+      "id": 2681,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_bits_WIRE.data"
+      ],
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 97,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 97:17"
+      },
+      "status": "supported",
+      "text": "connect nodeOut.c.bits.data, _nodeOut_c_bits_WIRE.data"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "nodeOut.c.bits.address"
+      ],
+      "firrtl_line": 200451,
+      "id": 2682,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_bits_WIRE.address"
+      ],
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 97,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 97:17"
+      },
+      "status": "supported",
+      "text": "connect nodeOut.c.bits.address, _nodeOut_c_bits_WIRE.address"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "nodeOut.c.bits.source"
+      ],
+      "firrtl_line": 200452,
+      "id": 2683,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_bits_WIRE.source"
+      ],
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 97,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 97:17"
+      },
+      "status": "supported",
+      "text": "connect nodeOut.c.bits.source, _nodeOut_c_bits_WIRE.source"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "nodeOut.c.bits.size"
+      ],
+      "firrtl_line": 200453,
+      "id": 2684,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_bits_WIRE.size"
+      ],
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 97,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 97:17"
+      },
+      "status": "supported",
+      "text": "connect nodeOut.c.bits.size, _nodeOut_c_bits_WIRE.size"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "nodeOut.c.bits.param"
+      ],
+      "firrtl_line": 200454,
+      "id": 2685,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_bits_WIRE.param"
+      ],
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 97,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 97:17"
+      },
+      "status": "supported",
+      "text": "connect nodeOut.c.bits.param, _nodeOut_c_bits_WIRE.param"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "nodeOut.c.bits.opcode"
+      ],
+      "firrtl_line": 200455,
+      "id": 2686,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_nodeOut_c_bits_WIRE.opcode"
+      ],
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala",
+        "line": 97,
+        "raw": "generators/rocket-chip/src/main/scala/tilelink/Arbiter.scala 97:17"
+      },
+      "status": "supported",
+      "text": "connect nodeOut.c.bits.opcode, _nodeOut_c_bits_WIRE.opcode"
+    }
+  ],
+  "work_unit": {
+    "coverage_complete": true,
+    "decision": "manageable",
+    "depth": 1,
+    "exceeded_limits": [],
+    "id": "BoomNonBlockingDCache::region-0-1",
+    "instance_path": "BoomNonBlockingDCache",
+    "is_leaf": true,
+    "kind": "region",
+    "module": "BoomNonBlockingDCache",
+    "replacement_exceeded_limits": []
+  }
+}

@@ -1,0 +1,741 @@
+{
+  "all_axioms_formally_proved": true,
+  "all_axioms_structurally_supported": true,
+  "candidate_axiom_count": 4,
+  "control_model": {
+    "known_states": [],
+    "reset_state": null,
+    "state_register": "state",
+    "transitions": []
+  },
+  "counts": {
+    "FORMALLY_PROVED": 4,
+    "GROUNDED": 0,
+    "PARTIALLY_SUPPORTED": 0,
+    "REFUTED": 0,
+    "SPEC_PROVED": 0,
+    "STRUCTURALLY_SUPPORTED": 0
+  },
+  "formal_backend": {
+    "api_version": "formal-backend-api-0.14",
+    "available": true,
+    "name": "explicit-control",
+    "note": "Exhaustive formal proof for certified finite-control/order properties, exact symbolic local/identity facts, exact local Boolean exclusion/conservation, bounded indexed token provenance, and selected finite reference equivalence checks. It is not a general bit-level SMT backend.",
+    "proof_domain": "control + exact symbolic local + exact combinational exclusion/conservation + scalar/indexed token provenance + finite reference equivalence",
+    "supported_checkers": [
+      "forbid_when",
+      "history_order",
+      "history_chain",
+      "history_join",
+      "indexed_coverage",
+      "indexed_storage_flow",
+      "occurrence_partition",
+      "transaction_exclusion",
+      "signal_alias",
+      "constant_bit",
+      "identity_projection",
+      "tilelink_on_probe_spec"
+    ],
+    "trusted_proof_levels": [
+      "FORMALLY_PROVED",
+      "SPEC_PROVED"
+    ]
+  },
+  "has_counterexample": false,
+  "property_compiler": "formal-axiom-compiler-0.8",
+  "results": [
+    {
+      "arguments": {
+        "initialization": {
+          "active": "rst",
+          "address": "rst_cnt",
+          "lane_mask": "15"
+        },
+        "key": {
+          "address_domain": {
+            "end_exclusive": 64,
+            "start": 0
+          },
+          "lane": {
+            "count": 4,
+            "name": "way"
+          }
+        },
+        "read": {
+          "address": "io.read.bits.idx",
+          "latency_cycles": 1,
+          "request": "ReadRequest"
+        },
+        "relations": {
+          "co": "MetaCO",
+          "fr": "MetaFR",
+          "rf": "MetaRF"
+        },
+        "resolution": "latest_prior_write_same_key",
+        "storage": "tag_array",
+        "value_fields": [
+          {
+            "initial_value": "0",
+            "name": "coh.state",
+            "read_targets": [
+              "io.resp[0].coh.state",
+              "io.resp[1].coh.state",
+              "io.resp[2].coh.state",
+              "io.resp[3].coh.state"
+            ],
+            "storage_bits": {
+              "hi": 21,
+              "lo": 20
+            },
+            "write_value": "io.write.bits.data.coh.state"
+          },
+          {
+            "initial_value": "0",
+            "name": "tag",
+            "read_targets": [
+              "io.resp[0].tag",
+              "io.resp[1].tag",
+              "io.resp[2].tag",
+              "io.resp[3].tag"
+            ],
+            "storage_bits": {
+              "hi": 19,
+              "lo": 0
+            },
+            "write_value": "io.write.bits.data.tag"
+          }
+        ],
+        "write": {
+          "address": "io.write.bits.idx",
+          "lane_mask": "io.write.bits.way_en",
+          "on": "MetadataWrite"
+        }
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "memory_flow",
+      "checker": "indexed_storage_flow",
+      "evidence_statement_ids": [
+        4,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        52,
+        53,
+        54,
+        57,
+        58,
+        59,
+        60,
+        61,
+        64,
+        65,
+        66,
+        67,
+        68,
+        71,
+        72,
+        73,
+        74,
+        75,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "collision_exclusion": {
+            "atom_count": 3,
+            "kind": "exact-combinational-exclusion",
+            "read": "ReadRequest",
+            "write": "MetadataWrite"
+          },
+          "collision_policy": "read_write_exclusive",
+          "initialization": {
+            "active_guard": "rst_cnt < 64",
+            "counter": "rst_cnt",
+            "counter_width": 7,
+            "domain": {
+              "end_exclusive": 64,
+              "start": 0
+            },
+            "increment_statement_id": 30,
+            "kind": "exact-reset-initialization-sweep",
+            "reset_value": 0
+          },
+          "key": {
+            "address_domain": {
+              "end_exclusive": 64,
+              "start": 0
+            },
+            "lane": {
+              "count": 4,
+              "name": "way"
+            }
+          },
+          "proof": "tag_array is one completely initialized synchronous indexed store; each read returns the value of its co-latest prior same-key write",
+          "proof_domain": "exact-indexed-storage-rf-co-fr",
+          "read_bindings": [
+            {
+              "field": "coh.state",
+              "lane": 0,
+              "storage_bits": {
+                "hi": 21,
+                "lo": 20
+              },
+              "target": "io.resp[0].coh.state"
+            },
+            {
+              "field": "coh.state",
+              "lane": 1,
+              "storage_bits": {
+                "hi": 21,
+                "lo": 20
+              },
+              "target": "io.resp[1].coh.state"
+            },
+            {
+              "field": "coh.state",
+              "lane": 2,
+              "storage_bits": {
+                "hi": 21,
+                "lo": 20
+              },
+              "target": "io.resp[2].coh.state"
+            },
+            {
+              "field": "coh.state",
+              "lane": 3,
+              "storage_bits": {
+                "hi": 21,
+                "lo": 20
+              },
+              "target": "io.resp[3].coh.state"
+            },
+            {
+              "field": "tag",
+              "lane": 0,
+              "storage_bits": {
+                "hi": 19,
+                "lo": 0
+              },
+              "target": "io.resp[0].tag"
+            },
+            {
+              "field": "tag",
+              "lane": 1,
+              "storage_bits": {
+                "hi": 19,
+                "lo": 0
+              },
+              "target": "io.resp[1].tag"
+            },
+            {
+              "field": "tag",
+              "lane": 2,
+              "storage_bits": {
+                "hi": 19,
+                "lo": 0
+              },
+              "target": "io.resp[2].tag"
+            },
+            {
+              "field": "tag",
+              "lane": 3,
+              "storage_bits": {
+                "hi": 19,
+                "lo": 0
+              },
+              "target": "io.resp[3].tag"
+            }
+          ],
+          "relations": {
+            "co": {
+              "definition": "strict total order of committed writes per (address,lane)",
+              "id": "MetaCO",
+              "properties": [
+                "per_key",
+                "irreflexive",
+                "transitive",
+                "total_on_writes"
+              ]
+            },
+            "fr": {
+              "definition": "rf^-1 ; co",
+              "derived_from": [
+                "MetaRF",
+                "MetaCO"
+              ],
+              "id": "MetaFR"
+            },
+            "rf": {
+              "definition": "same-key write selected by the read, with no co-later write before the sampled request",
+              "id": "MetaRF",
+              "properties": [
+                "same_key",
+                "same_value",
+                "functional_per_read",
+                "latest_prior"
+              ]
+            }
+          },
+          "semantic_basis": "FIRRTL smem synchronous read/write semantics",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "storage": {
+            "clock": "clock",
+            "depth": 64,
+            "lanes": 4,
+            "name": "tag_array",
+            "read_latency_cycles": 1,
+            "read_mport_statement_id": 54,
+            "statement_id": 31,
+            "word_width": 22,
+            "write_mport_statement_id": 40
+          },
+          "value_layout": [
+            {
+              "hi": 21,
+              "lo": 20,
+              "name": "coh.state"
+            },
+            {
+              "hi": 19,
+              "lo": 0,
+              "name": "tag"
+            }
+          ],
+          "write_lanes": [
+            {
+              "initialized": true,
+              "lane": 0,
+              "normal_mask_bit": 0,
+              "statement_id": 42
+            },
+            {
+              "initialized": true,
+              "lane": 1,
+              "normal_mask_bit": 1,
+              "statement_id": 44
+            },
+            {
+              "initialized": true,
+              "lane": 2,
+              "normal_mask_bit": 2,
+              "statement_id": 46
+            },
+            {
+              "initialized": true,
+              "lane": 3,
+              "normal_mask_bit": 3,
+              "statement_id": 48
+            }
+          ]
+        },
+        "proof": "tag_array is one completely initialized synchronous indexed store; each read returns the value of its co-latest prior same-key write",
+        "proof_domain": "exact-synchronous-indexed-storage",
+        "proof_method": "exact-indexed-storage-rf-co-fr",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "MetadataWrite",
+          "ReadRequest"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.read.bits.idx",
+          "io.resp[0].coh.state",
+          "io.resp[0].tag",
+          "io.resp[1].coh.state",
+          "io.resp[1].tag",
+          "io.resp[2].coh.state",
+          "io.resp[2].tag",
+          "io.resp[3].coh.state",
+          "io.resp[3].tag",
+          "io.write.bits.data.coh.state",
+          "io.write.bits.data.tag",
+          "io.write.bits.idx",
+          "io.write.bits.way_en",
+          "rst",
+          "rst_cnt"
+        ]
+      },
+      "rendered_formula": "tag_array[way] latest-write storage flow; MetaRF=rf, MetaCO=co, MetaFR=rf^-1;co",
+      "structural": {
+        "collision_exclusion": {
+          "atom_count": 3,
+          "kind": "exact-combinational-exclusion",
+          "read": "ReadRequest",
+          "write": "MetadataWrite"
+        },
+        "collision_policy": "read_write_exclusive",
+        "initialization": {
+          "active_guard": "rst_cnt < 64",
+          "counter": "rst_cnt",
+          "counter_width": 7,
+          "domain": {
+            "end_exclusive": 64,
+            "start": 0
+          },
+          "increment_statement_id": 30,
+          "kind": "exact-reset-initialization-sweep",
+          "reset_value": 0
+        },
+        "key": {
+          "address_domain": {
+            "end_exclusive": 64,
+            "start": 0
+          },
+          "lane": {
+            "count": 4,
+            "name": "way"
+          }
+        },
+        "proof": "tag_array is one completely initialized synchronous indexed store; each read returns the value of its co-latest prior same-key write",
+        "proof_domain": "exact-indexed-storage-rf-co-fr",
+        "read_bindings": [
+          {
+            "field": "coh.state",
+            "lane": 0,
+            "storage_bits": {
+              "hi": 21,
+              "lo": 20
+            },
+            "target": "io.resp[0].coh.state"
+          },
+          {
+            "field": "coh.state",
+            "lane": 1,
+            "storage_bits": {
+              "hi": 21,
+              "lo": 20
+            },
+            "target": "io.resp[1].coh.state"
+          },
+          {
+            "field": "coh.state",
+            "lane": 2,
+            "storage_bits": {
+              "hi": 21,
+              "lo": 20
+            },
+            "target": "io.resp[2].coh.state"
+          },
+          {
+            "field": "coh.state",
+            "lane": 3,
+            "storage_bits": {
+              "hi": 21,
+              "lo": 20
+            },
+            "target": "io.resp[3].coh.state"
+          },
+          {
+            "field": "tag",
+            "lane": 0,
+            "storage_bits": {
+              "hi": 19,
+              "lo": 0
+            },
+            "target": "io.resp[0].tag"
+          },
+          {
+            "field": "tag",
+            "lane": 1,
+            "storage_bits": {
+              "hi": 19,
+              "lo": 0
+            },
+            "target": "io.resp[1].tag"
+          },
+          {
+            "field": "tag",
+            "lane": 2,
+            "storage_bits": {
+              "hi": 19,
+              "lo": 0
+            },
+            "target": "io.resp[2].tag"
+          },
+          {
+            "field": "tag",
+            "lane": 3,
+            "storage_bits": {
+              "hi": 19,
+              "lo": 0
+            },
+            "target": "io.resp[3].tag"
+          }
+        ],
+        "relations": {
+          "co": {
+            "definition": "strict total order of committed writes per (address,lane)",
+            "id": "MetaCO",
+            "properties": [
+              "per_key",
+              "irreflexive",
+              "transitive",
+              "total_on_writes"
+            ]
+          },
+          "fr": {
+            "definition": "rf^-1 ; co",
+            "derived_from": [
+              "MetaRF",
+              "MetaCO"
+            ],
+            "id": "MetaFR"
+          },
+          "rf": {
+            "definition": "same-key write selected by the read, with no co-later write before the sampled request",
+            "id": "MetaRF",
+            "properties": [
+              "same_key",
+              "same_value",
+              "functional_per_read",
+              "latest_prior"
+            ]
+          }
+        },
+        "semantic_basis": "FIRRTL smem synchronous read/write semantics",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "storage": {
+          "clock": "clock",
+          "depth": 64,
+          "lanes": 4,
+          "name": "tag_array",
+          "read_latency_cycles": 1,
+          "read_mport_statement_id": 54,
+          "statement_id": 31,
+          "word_width": 22,
+          "write_mport_statement_id": 40
+        },
+        "value_layout": [
+          {
+            "hi": 21,
+            "lo": 20,
+            "name": "coh.state"
+          },
+          {
+            "hi": 19,
+            "lo": 0,
+            "name": "tag"
+          }
+        ],
+        "write_lanes": [
+          {
+            "initialized": true,
+            "lane": 0,
+            "normal_mask_bit": 0,
+            "statement_id": 42
+          },
+          {
+            "initialized": true,
+            "lane": 1,
+            "normal_mask_bit": 1,
+            "statement_id": 44
+          },
+          {
+            "initialized": true,
+            "lane": 2,
+            "normal_mask_bit": 2,
+            "statement_id": 46
+          },
+          {
+            "initialized": true,
+            "lane": 3,
+            "normal_mask_bit": 3,
+            "statement_id": 48
+          }
+        ]
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "ReadRequest",
+        "predicate": "ResetActive"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        9,
+        32,
+        49,
+        87,
+        88
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 3,
+          "proof": "ReadRequest and ResetActive have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "ReadRequest and ResetActive have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ReadRequest"
+        ],
+        "predicates": [
+          "ResetActive"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "ResetActive => !ReadRequest",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "MetadataWrite",
+        "predicate": "ResetActive"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        9,
+        89,
+        90
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 2,
+          "proof": "MetadataWrite and ResetActive have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "MetadataWrite and ResetActive have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "MetadataWrite"
+        ],
+        "predicates": [
+          "ResetActive"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "ResetActive => !MetadataWrite",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "ReadRequest",
+        "predicate": "WriteRequested"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        32,
+        49,
+        87,
+        88
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 3,
+          "proof": "ReadRequest and WriteRequested have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "ReadRequest and WriteRequested have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ReadRequest"
+        ],
+        "predicates": [
+          "WriteRequested"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "WriteRequested => !ReadRequest",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    }
+  ],
+  "trusted_axiom_count": 4,
+  "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
+  "validator": "semantic-validator-0.15",
+  "work_unit_id": "BoomNonBlockingDCache.meta_0"
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-BoomNonBlockingDCache.lfsr_prng-80cbcb83351fc3e0",
+  "work_unit_id": "BoomNonBlockingDCache.lfsr_prng",
+  "occurrences": [],
+  "predicates": [],
+  "identity_keys": [],
+  "cases": [],
+  "axioms": [],
+  "assumptions": [],
+  "unresolved": [],
+  "rationale": [
+    "MaxPeriodFibonacciLFSR_1 is a pseudo-random state generator rather than a memory/coherence protocol component. Its state influences downstream replacement choice but does not itself create memory visibility, ordering, transaction identity, coherence-message, or storage-provenance events.",
+    "The physical io.seed.valid event is deliberately not promoted to a semantic occurrence. It only replaces the internal PRNG state with an externally supplied seed and has no independently observable memory/coherence meaning at this leaf boundary.",
+    "The exact reset state, Fibonacci feedback polynomial, increment transition, and seed-overwrite behavior are deliberately omitted. Leaving io.out unconstrained permits any replacement choice and therefore safely over-approximates the concrete LFSR sequence.",
+    "This over-approximation may introduce spurious victim selections, evictions, or downstream writebacks, but it cannot remove a replacement choice that the concrete RTL can make; exact PRNG sequencing is therefore not necessary for sound microarchitectural memory-order analysis.",
+    "No persistent predicate or transaction identity is required. The internal state register carries PRNG history, not request/cache-line identity.",
+    "If a later counterexample depends specifically on proving that a particular replacement sequence is impossible under this LFSR, this leaf can be reopened by CEGAR and the deterministic transition function can be added as a strengthening without changing the core memory-model language.",
+    "No liveness or fairness property is claimed."
+  ],
+  "extensions": {}
+}

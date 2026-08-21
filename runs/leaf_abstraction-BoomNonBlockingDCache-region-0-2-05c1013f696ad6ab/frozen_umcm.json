@@ -1,0 +1,427 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [
+        "C1_ReleaseAckConsumed",
+        "C2_MSHRGrantForwarded"
+      ],
+      "evidence_statement_ids": [
+        2507,
+        2508,
+        2509,
+        2519,
+        2520
+      ],
+      "formal": {
+        "parts": [
+          "ReleaseAckFire",
+          "MSHRGrantFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "DFire"
+      },
+      "id": "A1",
+      "rendered_formula": "DFire <=> exactly_one_same_cycle({ReleaseAckFire, MSHRGrantFire})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_ReleaseAckConsumed"
+      ],
+      "evidence_statement_ids": [
+        2507,
+        2508,
+        2509
+      ],
+      "formal": {
+        "occurrence": "ReleaseAckFire",
+        "predicate": "NonReleaseAckSource",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A2",
+      "rendered_formula": "NonReleaseAckSource => !ReleaseAckFire",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_MSHRGrantForwarded"
+      ],
+      "evidence_statement_ids": [
+        2507,
+        2508,
+        2519,
+        2520
+      ],
+      "formal": {
+        "occurrence": "MSHRGrantFire",
+        "predicate": "ReleaseAckSource",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A3",
+      "rendered_formula": "ReleaseAckSource => !MSHRGrantFire",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_MSHRGrantForwarded"
+      ],
+      "evidence_statement_ids": [
+        2520
+      ],
+      "formal": {
+        "on": "MSHRGrantFire",
+        "scope_identity": null,
+        "source": {
+          "name": "nodeOut.d.bits.opcode",
+          "op": "signal"
+        },
+        "target": "mshrs.io.mem_grant.bits.opcode",
+        "type": "signal_equality"
+      },
+      "id": "A4",
+      "rendered_formula": "mshrs.io.mem_grant.bits.opcode = nodeOut.d.bits.opcode on MSHRGrantFire",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_MSHRGrantForwarded"
+      ],
+      "evidence_statement_ids": [
+        2520
+      ],
+      "formal": {
+        "on": "MSHRGrantFire",
+        "scope_identity": null,
+        "source": {
+          "name": "nodeOut.d.bits.param",
+          "op": "signal"
+        },
+        "target": "mshrs.io.mem_grant.bits.param",
+        "type": "signal_equality"
+      },
+      "id": "A5",
+      "rendered_formula": "mshrs.io.mem_grant.bits.param = nodeOut.d.bits.param on MSHRGrantFire",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_MSHRGrantForwarded"
+      ],
+      "evidence_statement_ids": [
+        2520
+      ],
+      "formal": {
+        "on": "MSHRGrantFire",
+        "scope_identity": null,
+        "source": {
+          "name": "nodeOut.d.bits.size",
+          "op": "signal"
+        },
+        "target": "mshrs.io.mem_grant.bits.size",
+        "type": "signal_equality"
+      },
+      "id": "A6",
+      "rendered_formula": "mshrs.io.mem_grant.bits.size = nodeOut.d.bits.size on MSHRGrantFire",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_MSHRGrantForwarded"
+      ],
+      "evidence_statement_ids": [
+        2520
+      ],
+      "formal": {
+        "on": "MSHRGrantFire",
+        "scope_identity": null,
+        "source": {
+          "name": "nodeOut.d.bits.source",
+          "op": "signal"
+        },
+        "target": "mshrs.io.mem_grant.bits.source",
+        "type": "signal_equality"
+      },
+      "id": "A7",
+      "rendered_formula": "mshrs.io.mem_grant.bits.source = nodeOut.d.bits.source on MSHRGrantFire",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_MSHRGrantForwarded"
+      ],
+      "evidence_statement_ids": [
+        2520
+      ],
+      "formal": {
+        "on": "MSHRGrantFire",
+        "scope_identity": null,
+        "source": {
+          "name": "nodeOut.d.bits.sink",
+          "op": "signal"
+        },
+        "target": "mshrs.io.mem_grant.bits.sink",
+        "type": "signal_equality"
+      },
+      "id": "A8",
+      "rendered_formula": "mshrs.io.mem_grant.bits.sink = nodeOut.d.bits.sink on MSHRGrantFire",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_MSHRGrantForwarded"
+      ],
+      "evidence_statement_ids": [
+        2520
+      ],
+      "formal": {
+        "on": "MSHRGrantFire",
+        "scope_identity": null,
+        "source": {
+          "name": "nodeOut.d.bits.denied",
+          "op": "signal"
+        },
+        "target": "mshrs.io.mem_grant.bits.denied",
+        "type": "signal_equality"
+      },
+      "id": "A9",
+      "rendered_formula": "mshrs.io.mem_grant.bits.denied = nodeOut.d.bits.denied on MSHRGrantFire",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_MSHRGrantForwarded"
+      ],
+      "evidence_statement_ids": [
+        2520
+      ],
+      "formal": {
+        "on": "MSHRGrantFire",
+        "scope_identity": null,
+        "source": {
+          "name": "nodeOut.d.bits.data",
+          "op": "signal"
+        },
+        "target": "mshrs.io.mem_grant.bits.data",
+        "type": "signal_equality"
+      },
+      "id": "A10",
+      "rendered_formula": "mshrs.io.mem_grant.bits.data = nodeOut.d.bits.data on MSHRGrantFire",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_MSHRGrantForwarded"
+      ],
+      "evidence_statement_ids": [
+        2520
+      ],
+      "formal": {
+        "on": "MSHRGrantFire",
+        "scope_identity": null,
+        "source": {
+          "name": "nodeOut.d.bits.corrupt",
+          "op": "signal"
+        },
+        "target": "mshrs.io.mem_grant.bits.corrupt",
+        "type": "signal_equality"
+      },
+      "id": "A11",
+      "rendered_formula": "mshrs.io.mem_grant.bits.corrupt = nodeOut.d.bits.corrupt on MSHRGrantFire",
+      "status": "candidate"
+    }
+  ],
+  "cases": [
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        2507,
+        2508,
+        2509
+      ],
+      "guard_predicates": [
+        {
+          "id": "ReleaseAckSource",
+          "positive": true
+        }
+      ],
+      "id": "C1_ReleaseAckConsumed",
+      "relations": [
+        "A D-channel beat whose source is 2 is accepted on the local ReleaseAck path rather than being routed through the MSHR grant interface."
+      ],
+      "trigger_occurrences": [
+        "ReleaseAckFire"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        2507,
+        2508,
+        2519,
+        2520
+      ],
+      "guard_predicates": [
+        {
+          "id": "NonReleaseAckSource",
+          "positive": true
+        }
+      ],
+      "id": "C2_MSHRGrantForwarded",
+      "relations": [
+        "A D-channel beat whose source is not 2 is forwarded through mshrs.io.mem_grant with the complete TileLink D payload preserved."
+      ],
+      "trigger_occurrences": [
+        "MSHRGrantFire"
+      ]
+    }
+  ],
+  "freeze": {
+    "candidate_axiom_count": 11,
+    "policy": "all-declared-axioms-trusted-and-no-unresolved-v0.1",
+    "reopen_policy": "This summary may be reopened if later parent/system counterexample validation shows the abstraction is too weak and a missing concrete constraint must be synthesized.",
+    "status": "FROZEN_FOR_COMPOSITION",
+    "trusted_axiom_count": 11
+  },
+  "identity_keys": [],
+  "note": "Only axioms with FORMALLY_PROVED or SPEC_PROVED validation level are included. Grounded/structurally-supported candidate axioms remain outside the trusted abstraction.",
+  "occurrences": [
+    {
+      "definition": "auto.out.d.valid && auto.out.d.ready; one accepted incoming TileLink D beat",
+      "evidence_statement_ids": [
+        2507,
+        2508,
+        2509,
+        2519,
+        2520
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "DFire",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::auto.out.d.fire"
+      ]
+    },
+    {
+      "definition": "DFire with nodeOut.d.bits.source == 2; this D beat follows the local ReleaseAck path",
+      "evidence_statement_ids": [
+        2507,
+        2508,
+        2509
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": [],
+        "value_tests": [
+          {
+            "expr": {
+              "name": "nodeOut.d.bits.source",
+              "op": "signal"
+            },
+            "relation": "eq",
+            "value": 2
+          }
+        ]
+      },
+      "id": "ReleaseAckFire",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::auto.out.d.fire"
+      ]
+    },
+    {
+      "definition": "DFire with nodeOut.d.bits.source != 2; this accepted D beat is forwarded through mshrs.io.mem_grant",
+      "evidence_statement_ids": [
+        2507,
+        2508,
+        2519,
+        2520
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": [],
+        "value_tests": [
+          {
+            "expr": {
+              "name": "nodeOut.d.bits.source",
+              "op": "signal"
+            },
+            "relation": "neq",
+            "value": 2
+          }
+        ]
+      },
+      "id": "MSHRGrantFire",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::auto.out.d.fire"
+      ]
+    }
+  ],
+  "predicates": [
+    {
+      "definition": "nodeOut.d.bits.source == 2",
+      "evidence_statement_ids": [
+        2507
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "_T_82",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "ReleaseAckSource"
+    },
+    {
+      "definition": "nodeOut.d.bits.source != 2",
+      "evidence_statement_ids": [
+        2507
+      ],
+      "grounding": {
+        "negated": true,
+        "source_signal": "_T_82",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "NonReleaseAckSource"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-BoomNonBlockingDCache-region-0-2-05c1013f696ad6ab",
+  "trust_policy": "formal-ast-plus-certified-provenance-v0.3",
+  "trusted_axiom_ids": [
+    "A1",
+    "A10",
+    "A11",
+    "A2",
+    "A3",
+    "A4",
+    "A5",
+    "A6",
+    "A7",
+    "A8",
+    "A9"
+  ],
+  "work_unit_id": "BoomNonBlockingDCache::region-0-2"
+}

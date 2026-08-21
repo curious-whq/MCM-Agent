@@ -1,0 +1,9 @@
+{
+  "kind": "parent_synthesis",
+  "prompt_version": "parent-synthesis-prompt-0.2",
+  "provider_mode": "manual_conversation",
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "parent_synthesis-BoomNonBlockingDCache-4f894e488c4cdd94",
+  "work_unit_id": "BoomNonBlockingDCache",
+  "workflow_version": "manual-first-workflow-0.9"
+}

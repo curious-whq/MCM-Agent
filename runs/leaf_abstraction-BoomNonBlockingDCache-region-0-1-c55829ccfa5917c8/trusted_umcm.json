@@ -1,0 +1,1255 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [
+        "C1_WBStart",
+        "C2_ProbeStart",
+        "C3_WBContinuation",
+        "C4_ProbeContinuation"
+      ],
+      "evidence_statement_ids": [
+        2559,
+        2560,
+        2561,
+        2569,
+        2570,
+        2572,
+        2573,
+        2574,
+        2575,
+        2577,
+        2578,
+        2609,
+        2618,
+        2619,
+        2625,
+        2626,
+        2627,
+        2628,
+        2630,
+        2631,
+        2632
+      ],
+      "formal": {
+        "parts": [
+          "WBStartBeat",
+          "ProbeStartBeat",
+          "WBContinuationBeat",
+          "ProbeContinuationBeat"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "OutputCFire"
+      },
+      "id": "A1",
+      "rendered_formula": "OutputCFire <=> exactly_one_same_cycle({WBStartBeat, ProbeStartBeat, WBContinuationBeat, ProbeContinuationBeat})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_ProbeStart"
+      ],
+      "evidence_statement_ids": [
+        2561,
+        2562,
+        2563,
+        2564,
+        2565,
+        2566,
+        2567,
+        2568,
+        2570,
+        2573,
+        2575,
+        2578
+      ],
+      "formal": {
+        "occurrence": "ProbeStartBeat",
+        "predicate": "WBReleaseValid",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A2",
+      "rendered_formula": "WBReleaseValid => !ProbeStartBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_WBStart",
+        "C3_WBContinuation"
+      ],
+      "evidence_statement_ids": [
+        2559,
+        2606,
+        2608,
+        2609,
+        2610,
+        2611,
+        2612,
+        2613,
+        2618,
+        2619
+      ],
+      "formal": {
+        "after": "WBContinuationBeat",
+        "before": "WBStartBeat",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "id": "A3",
+      "rendered_formula": "WBStartBeat <mu WBContinuationBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_ProbeStart",
+        "C4_ProbeContinuation"
+      ],
+      "evidence_statement_ids": [
+        2559,
+        2607,
+        2608,
+        2609,
+        2610,
+        2611,
+        2612,
+        2613,
+        2618,
+        2619
+      ],
+      "formal": {
+        "after": "ProbeContinuationBeat",
+        "before": "ProbeStartBeat",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "id": "A4",
+      "rendered_formula": "ProbeStartBeat <mu ProbeContinuationBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_WBStart"
+      ],
+      "evidence_statement_ids": [
+        2618,
+        2650,
+        2652,
+        2654,
+        2655,
+        2682
+      ],
+      "formal": {
+        "on": "WBStartBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "wb.io.release.bits.address",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.address",
+        "type": "signal_equality"
+      },
+      "id": "A5",
+      "rendered_formula": "nodeOut.c.bits.address = wb.io.release.bits.address on WBStartBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_WBStart"
+      ],
+      "evidence_statement_ids": [
+        2618,
+        2656,
+        2658,
+        2660,
+        2661,
+        2683
+      ],
+      "formal": {
+        "on": "WBStartBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "wb.io.release.bits.source",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.source",
+        "type": "signal_equality"
+      },
+      "id": "A6",
+      "rendered_formula": "nodeOut.c.bits.source = wb.io.release.bits.source on WBStartBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_WBStart"
+      ],
+      "evidence_statement_ids": [
+        2618,
+        2662,
+        2664,
+        2666,
+        2667,
+        2684
+      ],
+      "formal": {
+        "on": "WBStartBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "wb.io.release.bits.size",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.size",
+        "type": "signal_equality"
+      },
+      "id": "A7",
+      "rendered_formula": "nodeOut.c.bits.size = wb.io.release.bits.size on WBStartBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_WBStart"
+      ],
+      "evidence_statement_ids": [
+        2618,
+        2668,
+        2670,
+        2672,
+        2673,
+        2685
+      ],
+      "formal": {
+        "on": "WBStartBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "wb.io.release.bits.param",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.param",
+        "type": "signal_equality"
+      },
+      "id": "A8",
+      "rendered_formula": "nodeOut.c.bits.param = wb.io.release.bits.param on WBStartBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_WBStart"
+      ],
+      "evidence_statement_ids": [
+        2618,
+        2674,
+        2676,
+        2678,
+        2679,
+        2686
+      ],
+      "formal": {
+        "on": "WBStartBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "wb.io.release.bits.opcode",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.opcode",
+        "type": "signal_equality"
+      },
+      "id": "A9",
+      "rendered_formula": "nodeOut.c.bits.opcode = wb.io.release.bits.opcode on WBStartBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_WBStart"
+      ],
+      "evidence_statement_ids": [
+        2618,
+        2640,
+        2642,
+        2644,
+        2645,
+        2681
+      ],
+      "formal": {
+        "on": "WBStartBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "wb.io.release.bits.data",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.data",
+        "type": "signal_equality"
+      },
+      "id": "A10",
+      "rendered_formula": "nodeOut.c.bits.data = wb.io.release.bits.data on WBStartBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_WBStart"
+      ],
+      "evidence_statement_ids": [
+        2618,
+        2634,
+        2636,
+        2638,
+        2639,
+        2680
+      ],
+      "formal": {
+        "on": "WBStartBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "wb.io.release.bits.corrupt",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.corrupt",
+        "type": "signal_equality"
+      },
+      "id": "A11",
+      "rendered_formula": "nodeOut.c.bits.corrupt = wb.io.release.bits.corrupt on WBStartBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_WBContinuation"
+      ],
+      "evidence_statement_ids": [
+        2618,
+        2619,
+        2650,
+        2652,
+        2654,
+        2655,
+        2682
+      ],
+      "formal": {
+        "on": "WBContinuationBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "wb.io.release.bits.address",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.address",
+        "type": "signal_equality"
+      },
+      "id": "A12",
+      "rendered_formula": "nodeOut.c.bits.address = wb.io.release.bits.address on WBContinuationBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_WBContinuation"
+      ],
+      "evidence_statement_ids": [
+        2618,
+        2619,
+        2656,
+        2658,
+        2660,
+        2661,
+        2683
+      ],
+      "formal": {
+        "on": "WBContinuationBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "wb.io.release.bits.source",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.source",
+        "type": "signal_equality"
+      },
+      "id": "A13",
+      "rendered_formula": "nodeOut.c.bits.source = wb.io.release.bits.source on WBContinuationBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_WBContinuation"
+      ],
+      "evidence_statement_ids": [
+        2618,
+        2619,
+        2662,
+        2664,
+        2666,
+        2667,
+        2684
+      ],
+      "formal": {
+        "on": "WBContinuationBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "wb.io.release.bits.size",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.size",
+        "type": "signal_equality"
+      },
+      "id": "A14",
+      "rendered_formula": "nodeOut.c.bits.size = wb.io.release.bits.size on WBContinuationBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_WBContinuation"
+      ],
+      "evidence_statement_ids": [
+        2618,
+        2619,
+        2668,
+        2670,
+        2672,
+        2673,
+        2685
+      ],
+      "formal": {
+        "on": "WBContinuationBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "wb.io.release.bits.param",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.param",
+        "type": "signal_equality"
+      },
+      "id": "A15",
+      "rendered_formula": "nodeOut.c.bits.param = wb.io.release.bits.param on WBContinuationBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_WBContinuation"
+      ],
+      "evidence_statement_ids": [
+        2618,
+        2619,
+        2674,
+        2676,
+        2678,
+        2679,
+        2686
+      ],
+      "formal": {
+        "on": "WBContinuationBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "wb.io.release.bits.opcode",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.opcode",
+        "type": "signal_equality"
+      },
+      "id": "A16",
+      "rendered_formula": "nodeOut.c.bits.opcode = wb.io.release.bits.opcode on WBContinuationBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_WBContinuation"
+      ],
+      "evidence_statement_ids": [
+        2618,
+        2619,
+        2640,
+        2642,
+        2644,
+        2645,
+        2681
+      ],
+      "formal": {
+        "on": "WBContinuationBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "wb.io.release.bits.data",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.data",
+        "type": "signal_equality"
+      },
+      "id": "A17",
+      "rendered_formula": "nodeOut.c.bits.data = wb.io.release.bits.data on WBContinuationBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_WBContinuation"
+      ],
+      "evidence_statement_ids": [
+        2618,
+        2619,
+        2634,
+        2636,
+        2638,
+        2639,
+        2680
+      ],
+      "formal": {
+        "on": "WBContinuationBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "wb.io.release.bits.corrupt",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.corrupt",
+        "type": "signal_equality"
+      },
+      "id": "A18",
+      "rendered_formula": "nodeOut.c.bits.corrupt = wb.io.release.bits.corrupt on WBContinuationBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_ProbeStart"
+      ],
+      "evidence_statement_ids": [
+        2618,
+        2651,
+        2652,
+        2654,
+        2655,
+        2682
+      ],
+      "formal": {
+        "on": "ProbeStartBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "prober.io.rep.bits.address",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.address",
+        "type": "signal_equality"
+      },
+      "id": "A19",
+      "rendered_formula": "nodeOut.c.bits.address = prober.io.rep.bits.address on ProbeStartBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_ProbeStart"
+      ],
+      "evidence_statement_ids": [
+        2618,
+        2657,
+        2658,
+        2660,
+        2661,
+        2683
+      ],
+      "formal": {
+        "on": "ProbeStartBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "prober.io.rep.bits.source",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.source",
+        "type": "signal_equality"
+      },
+      "id": "A20",
+      "rendered_formula": "nodeOut.c.bits.source = prober.io.rep.bits.source on ProbeStartBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_ProbeStart"
+      ],
+      "evidence_statement_ids": [
+        2618,
+        2663,
+        2664,
+        2666,
+        2667,
+        2684
+      ],
+      "formal": {
+        "on": "ProbeStartBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "prober.io.rep.bits.size",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.size",
+        "type": "signal_equality"
+      },
+      "id": "A21",
+      "rendered_formula": "nodeOut.c.bits.size = prober.io.rep.bits.size on ProbeStartBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_ProbeStart"
+      ],
+      "evidence_statement_ids": [
+        2618,
+        2669,
+        2670,
+        2672,
+        2673,
+        2685
+      ],
+      "formal": {
+        "on": "ProbeStartBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "prober.io.rep.bits.param",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.param",
+        "type": "signal_equality"
+      },
+      "id": "A22",
+      "rendered_formula": "nodeOut.c.bits.param = prober.io.rep.bits.param on ProbeStartBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_ProbeStart"
+      ],
+      "evidence_statement_ids": [
+        2618,
+        2675,
+        2676,
+        2678,
+        2679,
+        2686
+      ],
+      "formal": {
+        "on": "ProbeStartBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "prober.io.rep.bits.opcode",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.opcode",
+        "type": "signal_equality"
+      },
+      "id": "A23",
+      "rendered_formula": "nodeOut.c.bits.opcode = prober.io.rep.bits.opcode on ProbeStartBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_ProbeStart"
+      ],
+      "evidence_statement_ids": [
+        2618,
+        2641,
+        2642,
+        2644,
+        2645,
+        2681
+      ],
+      "formal": {
+        "on": "ProbeStartBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "prober.io.rep.bits.data",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.data",
+        "type": "signal_equality"
+      },
+      "id": "A24",
+      "rendered_formula": "nodeOut.c.bits.data = prober.io.rep.bits.data on ProbeStartBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_ProbeStart"
+      ],
+      "evidence_statement_ids": [
+        2618,
+        2635,
+        2636,
+        2638,
+        2639,
+        2680
+      ],
+      "formal": {
+        "on": "ProbeStartBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "prober.io.rep.bits.corrupt",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.corrupt",
+        "type": "signal_equality"
+      },
+      "id": "A25",
+      "rendered_formula": "nodeOut.c.bits.corrupt = prober.io.rep.bits.corrupt on ProbeStartBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C4_ProbeContinuation"
+      ],
+      "evidence_statement_ids": [
+        2618,
+        2619,
+        2651,
+        2652,
+        2654,
+        2655,
+        2682
+      ],
+      "formal": {
+        "on": "ProbeContinuationBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "prober.io.rep.bits.address",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.address",
+        "type": "signal_equality"
+      },
+      "id": "A26",
+      "rendered_formula": "nodeOut.c.bits.address = prober.io.rep.bits.address on ProbeContinuationBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C4_ProbeContinuation"
+      ],
+      "evidence_statement_ids": [
+        2618,
+        2619,
+        2657,
+        2658,
+        2660,
+        2661,
+        2683
+      ],
+      "formal": {
+        "on": "ProbeContinuationBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "prober.io.rep.bits.source",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.source",
+        "type": "signal_equality"
+      },
+      "id": "A27",
+      "rendered_formula": "nodeOut.c.bits.source = prober.io.rep.bits.source on ProbeContinuationBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C4_ProbeContinuation"
+      ],
+      "evidence_statement_ids": [
+        2618,
+        2619,
+        2663,
+        2664,
+        2666,
+        2667,
+        2684
+      ],
+      "formal": {
+        "on": "ProbeContinuationBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "prober.io.rep.bits.size",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.size",
+        "type": "signal_equality"
+      },
+      "id": "A28",
+      "rendered_formula": "nodeOut.c.bits.size = prober.io.rep.bits.size on ProbeContinuationBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C4_ProbeContinuation"
+      ],
+      "evidence_statement_ids": [
+        2618,
+        2619,
+        2669,
+        2670,
+        2672,
+        2673,
+        2685
+      ],
+      "formal": {
+        "on": "ProbeContinuationBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "prober.io.rep.bits.param",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.param",
+        "type": "signal_equality"
+      },
+      "id": "A29",
+      "rendered_formula": "nodeOut.c.bits.param = prober.io.rep.bits.param on ProbeContinuationBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C4_ProbeContinuation"
+      ],
+      "evidence_statement_ids": [
+        2618,
+        2619,
+        2675,
+        2676,
+        2678,
+        2679,
+        2686
+      ],
+      "formal": {
+        "on": "ProbeContinuationBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "prober.io.rep.bits.opcode",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.opcode",
+        "type": "signal_equality"
+      },
+      "id": "A30",
+      "rendered_formula": "nodeOut.c.bits.opcode = prober.io.rep.bits.opcode on ProbeContinuationBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C4_ProbeContinuation"
+      ],
+      "evidence_statement_ids": [
+        2618,
+        2619,
+        2641,
+        2642,
+        2644,
+        2645,
+        2681
+      ],
+      "formal": {
+        "on": "ProbeContinuationBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "prober.io.rep.bits.data",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.data",
+        "type": "signal_equality"
+      },
+      "id": "A31",
+      "rendered_formula": "nodeOut.c.bits.data = prober.io.rep.bits.data on ProbeContinuationBeat",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C4_ProbeContinuation"
+      ],
+      "evidence_statement_ids": [
+        2618,
+        2619,
+        2635,
+        2636,
+        2638,
+        2639,
+        2680
+      ],
+      "formal": {
+        "on": "ProbeContinuationBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "prober.io.rep.bits.corrupt",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.corrupt",
+        "type": "signal_equality"
+      },
+      "id": "A32",
+      "rendered_formula": "nodeOut.c.bits.corrupt = prober.io.rep.bits.corrupt on ProbeContinuationBeat",
+      "status": "candidate"
+    }
+  ],
+  "cases": [
+    {
+      "confidence": "high",
+      "emits": [
+        "OutputCFire"
+      ],
+      "evidence_statement_ids": [
+        2559,
+        2560,
+        2561,
+        2569,
+        2572,
+        2574,
+        2577,
+        2618,
+        2631,
+        2632,
+        2634,
+        2640,
+        2650,
+        2656,
+        2662,
+        2668,
+        2674,
+        2680,
+        2681,
+        2682,
+        2683,
+        2684,
+        2685,
+        2686
+      ],
+      "guard_predicates": [],
+      "id": "C1_WBStart",
+      "relations": [
+        "When idle, source 0 may win the TileLink C arbiter and the accepted output beat carries wb.io.release payload."
+      ],
+      "trigger_occurrences": [
+        "WBStartBeat"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [
+        "OutputCFire"
+      ],
+      "evidence_statement_ids": [
+        2561,
+        2562,
+        2563,
+        2564,
+        2565,
+        2566,
+        2567,
+        2568,
+        2570,
+        2573,
+        2575,
+        2578,
+        2618,
+        2631,
+        2632,
+        2635,
+        2641,
+        2651,
+        2657,
+        2663,
+        2669,
+        2675,
+        2680,
+        2681,
+        2682,
+        2683,
+        2684,
+        2685,
+        2686
+      ],
+      "guard_predicates": [
+        {
+          "id": "WBReleaseValid",
+          "positive": false
+        }
+      ],
+      "id": "C2_ProbeStart",
+      "relations": [
+        "When idle, source 1 may begin only when the higher-priority writeback source is not valid; the output carries prober.io.rep payload."
+      ],
+      "trigger_occurrences": [
+        "ProbeStartBeat"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [
+        "OutputCFire"
+      ],
+      "evidence_statement_ids": [
+        2559,
+        2606,
+        2607,
+        2608,
+        2609,
+        2610,
+        2611,
+        2612,
+        2613,
+        2618,
+        2619,
+        2626,
+        2628,
+        2630,
+        2631,
+        2632
+      ],
+      "guard_predicates": [],
+      "id": "C3_WBContinuation",
+      "relations": [
+        "While beatsLeft is nonzero and state[0] is retained, continuation output beats remain selected from wb.io.release regardless of newly competing probe traffic."
+      ],
+      "trigger_occurrences": [
+        "WBContinuationBeat"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [
+        "OutputCFire"
+      ],
+      "evidence_statement_ids": [
+        2559,
+        2606,
+        2607,
+        2608,
+        2609,
+        2610,
+        2611,
+        2612,
+        2613,
+        2618,
+        2619,
+        2627,
+        2628,
+        2630,
+        2631,
+        2632
+      ],
+      "guard_predicates": [],
+      "id": "C4_ProbeContinuation",
+      "relations": [
+        "While beatsLeft is nonzero and state[1] is retained, continuation output beats remain selected from prober.io.rep regardless of newly competing writeback traffic."
+      ],
+      "trigger_occurrences": [
+        "ProbeContinuationBeat"
+      ]
+    }
+  ],
+  "identity_keys": [],
+  "note": "Only axioms with FORMALLY_PROVED or SPEC_PROVED validation level are included. Grounded/structurally-supported candidate axioms remain outside the trusted abstraction.",
+  "occurrences": [
+    {
+      "definition": "auto.out.c.valid && auto.out.c.ready; one accepted TileLink C output beat",
+      "evidence_statement_ids": [
+        2609,
+        2625,
+        2626,
+        2627,
+        2628,
+        2630,
+        2631,
+        2632
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "OutputCFire",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::auto.out.c.fire"
+      ]
+    },
+    {
+      "definition": "nodeOut.c.fire && idle && winner[0]; first/only accepted beat of a writeback-release transaction",
+      "evidence_statement_ids": [
+        2559,
+        2560,
+        2561,
+        2569,
+        2572,
+        2574,
+        2577,
+        2609,
+        2618,
+        2625,
+        2631,
+        2632
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "nodeOut.c.valid",
+          "nodeOut.c.ready",
+          "idle",
+          "winner[0]"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "WBStartBeat",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "nodeOut.c.fire && idle && winner[1]; first/only accepted beat of a probe-reply transaction",
+      "evidence_statement_ids": [
+        2559,
+        2560,
+        2561,
+        2570,
+        2573,
+        2575,
+        2578,
+        2609,
+        2618,
+        2625,
+        2631,
+        2632
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "nodeOut.c.valid",
+          "nodeOut.c.ready",
+          "idle",
+          "winner[1]"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "ProbeStartBeat",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "nodeOut.c.fire && !idle && state[0]; an accepted continuation beat while the multibeat arbiter is locked to writeback release",
+      "evidence_statement_ids": [
+        2559,
+        2609,
+        2610,
+        2611,
+        2612,
+        2613,
+        2618,
+        2619,
+        2626,
+        2628,
+        2630,
+        2631,
+        2632
+      ],
+      "grounding": {
+        "signals_false": [
+          "idle"
+        ],
+        "signals_true": [
+          "nodeOut.c.valid",
+          "nodeOut.c.ready",
+          "state[0]"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "WBContinuationBeat",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "nodeOut.c.fire && !idle && state[1]; an accepted continuation beat while the multibeat arbiter is locked to probe reply",
+      "evidence_statement_ids": [
+        2559,
+        2609,
+        2610,
+        2611,
+        2612,
+        2613,
+        2618,
+        2619,
+        2627,
+        2628,
+        2630,
+        2631,
+        2632
+      ],
+      "grounding": {
+        "signals_false": [
+          "idle"
+        ],
+        "signals_true": [
+          "nodeOut.c.valid",
+          "nodeOut.c.ready",
+          "state[1]"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "ProbeContinuationBeat",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    }
+  ],
+  "predicates": [
+    {
+      "definition": "wb.io.release.valid",
+      "evidence_statement_ids": [
+        2561,
+        2574,
+        2625,
+        2626
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "wb.io.release.valid",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "WBReleaseValid"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-BoomNonBlockingDCache-region-0-1-c55829ccfa5917c8",
+  "trust_policy": "formal-ast-plus-certified-provenance-v0.3",
+  "trusted_axiom_ids": [
+    "A1",
+    "A10",
+    "A11",
+    "A12",
+    "A13",
+    "A14",
+    "A15",
+    "A16",
+    "A17",
+    "A18",
+    "A19",
+    "A2",
+    "A20",
+    "A21",
+    "A22",
+    "A23",
+    "A24",
+    "A25",
+    "A26",
+    "A27",
+    "A28",
+    "A29",
+    "A3",
+    "A30",
+    "A31",
+    "A32",
+    "A4",
+    "A5",
+    "A6",
+    "A7",
+    "A8",
+    "A9"
+  ],
+  "work_unit_id": "BoomNonBlockingDCache::region-0-1"
+}

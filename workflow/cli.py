@@ -93,6 +93,11 @@ def _leaf_task(args: argparse.Namespace) -> dict:
     }
 
 
+def _implementation_fingerprint_cache_key(child) -> tuple[str, str, str]:
+    kind = child.kind.value
+    return (child.module, kind, "" if kind == "module" else child.id)
+
+
 
 def _parent_task(args: argparse.Namespace) -> dict:
     text = _load(args.firrtl)
@@ -125,14 +130,18 @@ def _parent_task(args: argparse.Namespace) -> dict:
         for slot in handoff.get("children", [])
         if isinstance(slot, dict) and slot.get("child_id")
     }
-    implementation_cache: dict[tuple[str, str], str] = {}
+    # Module instance WorkUnits with the same implementation may share one
+    # instance-independent fingerprint. Region WorkUnits from the same module
+    # own different statement/state/event slices and must never share the
+    # first region's cached fingerprint.
+    implementation_cache: dict[tuple[str, str, str], str] = {}
     structural_cache: dict[str, str] = {}
     implementation_catalog: dict[str, dict[str, str]] = {}
     for child in unit.children:
         slot = slot_by_id.get(child.id)
         if slot is None or child.module not in frontend.registries:
             continue
-        cache_key = (child.module, child.kind.value)
+        cache_key = _implementation_fingerprint_cache_key(child)
         fingerprint = implementation_cache.get(cache_key)
         if fingerprint is None:
             child_handoff = build_work_unit_static_handoff(

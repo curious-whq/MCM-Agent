@@ -1,0 +1,2344 @@
+{
+  "children": [],
+  "complexity": {
+    "event_state_coupling": 0.0,
+    "events": 1,
+    "logical": {
+      "dependency_edges": 66,
+      "signals": 45,
+      "source_loc": 16,
+      "statements": 22
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 67,
+      "signals": 47,
+      "source_loc": 16,
+      "statements": 34,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 1,
+    "state_regions": 1
+  },
+  "dependency_edges": [
+    {
+      "dst": "_s2_lr_T_1",
+      "kind": "data",
+      "source": {
+        "column": 51,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 701,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 701:51"
+      },
+      "src": "h0",
+      "statement_ids": [
+        1801
+      ]
+    },
+    {
+      "dst": "_s2_lr_T_1",
+      "kind": "data",
+      "source": {
+        "column": 51,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 701,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 701:51"
+      },
+      "src": "s2_lr_REG",
+      "statement_ids": [
+        1801
+      ]
+    },
+    {
+      "dst": "_s2_lr_T_3",
+      "kind": "data",
+      "source": {
+        "column": 72,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 701,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 701:72"
+      },
+      "src": "_s2_lr_T_1",
+      "statement_ids": [
+        1803
+      ]
+    },
+    {
+      "dst": "_s2_lr_T_3",
+      "kind": "data",
+      "source": {
+        "column": 72,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 701,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 701:72"
+      },
+      "src": "_s2_lr_T_2",
+      "statement_ids": [
+        1803
+      ]
+    },
+    {
+      "dst": "s2_lr",
+      "kind": "data",
+      "source": {
+        "column": 47,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 701,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 701:47"
+      },
+      "src": "_s2_lr_T",
+      "statement_ids": [
+        1804
+      ]
+    },
+    {
+      "dst": "s2_lr",
+      "kind": "data",
+      "source": {
+        "column": 47,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 701,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 701:47"
+      },
+      "src": "_s2_lr_T_3",
+      "statement_ids": [
+        1804
+      ]
+    },
+    {
+      "dst": "_T_30",
+      "kind": "data",
+      "source": {
+        "column": 20,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 705,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 705:20"
+      },
+      "src": "h0",
+      "statement_ids": [
+        1819
+      ]
+    },
+    {
+      "dst": "_T_30",
+      "kind": "data",
+      "source": {
+        "column": 20,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 705,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 705:20"
+      },
+      "src": "lrsc_count",
+      "statement_ids": [
+        1819
+      ]
+    },
+    {
+      "dst": "_lrsc_count_T",
+      "kind": "data",
+      "source": {
+        "column": 54,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 705,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 705:54"
+      },
+      "src": "h1",
+      "statement_ids": [
+        1820,
+        1821
+      ]
+    },
+    {
+      "dst": "_lrsc_count_T",
+      "kind": "data",
+      "source": {
+        "column": 54,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 705,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 705:54"
+      },
+      "src": "lrsc_count",
+      "statement_ids": [
+        1820,
+        1821
+      ]
+    },
+    {
+      "dst": "_lrsc_count_T",
+      "kind": "control",
+      "source": {
+        "column": 54,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 705,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 705:54"
+      },
+      "src": "_T_30",
+      "statement_ids": [
+        1820,
+        1821
+      ]
+    },
+    {
+      "dst": "_lrsc_count_T_1",
+      "kind": "data",
+      "source": {
+        "column": 54,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 705,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 705:54"
+      },
+      "src": "_lrsc_count_T",
+      "statement_ids": [
+        1820,
+        1822
+      ]
+    },
+    {
+      "dst": "_lrsc_count_T_1",
+      "kind": "control",
+      "source": {
+        "column": 54,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 705,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 705:54"
+      },
+      "src": "_T_30",
+      "statement_ids": [
+        1820,
+        1822
+      ]
+    },
+    {
+      "dst": "lrsc_count",
+      "kind": "state",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 705,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 705:40"
+      },
+      "src": "_lrsc_count_T_1",
+      "statement_ids": [
+        1820,
+        1823
+      ]
+    },
+    {
+      "dst": "lrsc_count",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 705,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 705:40"
+      },
+      "src": "_T_30",
+      "statement_ids": [
+        1820,
+        1823
+      ]
+    },
+    {
+      "dst": "_T_32",
+      "kind": "data",
+      "source": {
+        "column": 44,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 706,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 706:44"
+      },
+      "src": "_T_31",
+      "statement_ids": [
+        1825
+      ]
+    },
+    {
+      "dst": "_T_32",
+      "kind": "data",
+      "source": {
+        "column": 44,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 706,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 706:44"
+      },
+      "src": "s2_hit[0]",
+      "statement_ids": [
+        1825
+      ]
+    },
+    {
+      "dst": "_T_33",
+      "kind": "data",
+      "source": {
+        "column": 60,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 706,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 706:60"
+      },
+      "src": "h0",
+      "statement_ids": [
+        1826
+      ]
+    },
+    {
+      "dst": "_T_33",
+      "kind": "data",
+      "source": {
+        "column": 60,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 706,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 706:60"
+      },
+      "src": "s2_nack[0]",
+      "statement_ids": [
+        1826
+      ]
+    },
+    {
+      "dst": "_T_34",
+      "kind": "data",
+      "source": {
+        "column": 57,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 706,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 706:57"
+      },
+      "src": "_T_32",
+      "statement_ids": [
+        1827
+      ]
+    },
+    {
+      "dst": "_T_34",
+      "kind": "data",
+      "source": {
+        "column": 57,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 706,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 706:57"
+      },
+      "src": "_T_33",
+      "statement_ids": [
+        1827
+      ]
+    },
+    {
+      "dst": "_T_37",
+      "kind": "data",
+      "source": {
+        "column": 44,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 707,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 707:44"
+      },
+      "src": "_T_35",
+      "statement_ids": [
+        1830
+      ]
+    },
+    {
+      "dst": "_T_37",
+      "kind": "data",
+      "source": {
+        "column": 44,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 707,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 707:44"
+      },
+      "src": "_T_36",
+      "statement_ids": [
+        1830
+      ]
+    },
+    {
+      "dst": "_T_38",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 706,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 706:73"
+      },
+      "src": "_T_34",
+      "statement_ids": [
+        1831
+      ]
+    },
+    {
+      "dst": "_T_38",
+      "kind": "data",
+      "source": {
+        "column": 73,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 706,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 706:73"
+      },
+      "src": "_T_37",
+      "statement_ids": [
+        1831
+      ]
+    },
+    {
+      "dst": "_T_39",
+      "kind": "data",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 706,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 706:21"
+      },
+      "src": "_T_38",
+      "statement_ids": [
+        1832
+      ]
+    },
+    {
+      "dst": "_T_39",
+      "kind": "data",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 706,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 706:21"
+      },
+      "src": "s2_valid[0]",
+      "statement_ids": [
+        1832
+      ]
+    },
+    {
+      "dst": "lrsc_count",
+      "kind": "state",
+      "source": {
+        "column": 18,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 709,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 709:18"
+      },
+      "src": "h4f",
+      "statement_ids": [
+        1833,
+        1834,
+        1835
+      ]
+    },
+    {
+      "dst": "lrsc_count",
+      "kind": "control",
+      "source": {
+        "column": 18,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 709,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 709:18"
+      },
+      "src": "_T_39",
+      "statement_ids": [
+        1833,
+        1834,
+        1835
+      ]
+    },
+    {
+      "dst": "lrsc_count",
+      "kind": "control",
+      "source": {
+        "column": 18,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 709,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 709:18"
+      },
+      "src": "s2_lr",
+      "statement_ids": [
+        1833,
+        1834,
+        1835
+      ]
+    },
+    {
+      "dst": "_lrsc_addr_T",
+      "kind": "data",
+      "source": {
+        "column": 35,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 710,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 710:35"
+      },
+      "src": "s2_req[0].addr",
+      "statement_ids": [
+        1833,
+        1834
+      ]
+    },
+    {
+      "dst": "_lrsc_addr_T",
+      "kind": "control",
+      "source": {
+        "column": 35,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 710,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 710:35"
+      },
+      "src": "_T_39",
+      "statement_ids": [
+        1833,
+        1834
+      ]
+    },
+    {
+      "dst": "_lrsc_addr_T",
+      "kind": "control",
+      "source": {
+        "column": 35,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 710,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 710:35"
+      },
+      "src": "s2_lr",
+      "statement_ids": [
+        1833,
+        1834
+      ]
+    },
+    {
+      "dst": "lrsc_addr",
+      "kind": "state",
+      "source": {
+        "column": 17,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 710,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 710:17"
+      },
+      "src": "_lrsc_addr_T",
+      "statement_ids": [
+        1833,
+        1834
+      ]
+    },
+    {
+      "dst": "lrsc_addr",
+      "kind": "control",
+      "source": {
+        "column": 17,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 710,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 710:17"
+      },
+      "src": "_T_39",
+      "statement_ids": [
+        1833,
+        1834
+      ]
+    },
+    {
+      "dst": "lrsc_addr",
+      "kind": "control",
+      "source": {
+        "column": 17,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 710,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 710:17"
+      },
+      "src": "s2_lr",
+      "statement_ids": [
+        1833,
+        1834
+      ]
+    },
+    {
+      "dst": "_T_40",
+      "kind": "data",
+      "source": {
+        "column": 22,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 712,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 712:22"
+      },
+      "src": "h0",
+      "statement_ids": [
+        1833,
+        1838
+      ]
+    },
+    {
+      "dst": "_T_40",
+      "kind": "data",
+      "source": {
+        "column": 22,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 712,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 712:22"
+      },
+      "src": "lrsc_count",
+      "statement_ids": [
+        1833,
+        1838
+      ]
+    },
+    {
+      "dst": "_T_40",
+      "kind": "control",
+      "source": {
+        "column": 22,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 712,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 712:22"
+      },
+      "src": "_T_39",
+      "statement_ids": [
+        1833,
+        1838
+      ]
+    },
+    {
+      "dst": "lrsc_count",
+      "kind": "state",
+      "source": {
+        "column": 18,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 713,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 713:18"
+      },
+      "src": "h0",
+      "statement_ids": [
+        1833,
+        1839,
+        1840
+      ]
+    },
+    {
+      "dst": "lrsc_count",
+      "kind": "control",
+      "source": {
+        "column": 18,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 713,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 713:18"
+      },
+      "src": "_T_39",
+      "statement_ids": [
+        1833,
+        1839,
+        1840
+      ]
+    },
+    {
+      "dst": "lrsc_count",
+      "kind": "control",
+      "source": {
+        "column": 18,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 713,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 713:18"
+      },
+      "src": "_T_40",
+      "statement_ids": [
+        1833,
+        1839,
+        1840
+      ]
+    },
+    {
+      "dst": "_T_42",
+      "kind": "data",
+      "source": {
+        "column": 50,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 717,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 717:50"
+      },
+      "src": "_T_41",
+      "statement_ids": [
+        1842
+      ]
+    },
+    {
+      "dst": "_T_42",
+      "kind": "data",
+      "source": {
+        "column": 50,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 717,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 717:50"
+      },
+      "src": "s2_valid[0]",
+      "statement_ids": [
+        1842
+      ]
+    },
+    {
+      "dst": "_T_43",
+      "kind": "data",
+      "source": {
+        "column": 7,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 719,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 719:7"
+      },
+      "src": "h0",
+      "statement_ids": [
+        1843
+      ]
+    },
+    {
+      "dst": "_T_43",
+      "kind": "data",
+      "source": {
+        "column": 7,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 719,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 719:7"
+      },
+      "src": "s2_hit[0]",
+      "statement_ids": [
+        1843
+      ]
+    },
+    {
+      "dst": "_T_44",
+      "kind": "data",
+      "source": {
+        "column": 50,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 718,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 718:50"
+      },
+      "src": "_T_42",
+      "statement_ids": [
+        1844
+      ]
+    },
+    {
+      "dst": "_T_44",
+      "kind": "data",
+      "source": {
+        "column": 50,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 718,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 718:50"
+      },
+      "src": "_T_43",
+      "statement_ids": [
+        1844
+      ]
+    },
+    {
+      "dst": "_T_45",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 720,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 720:30"
+      },
+      "src": "s2_has_permission[0]",
+      "statement_ids": [
+        1845
+      ]
+    },
+    {
+      "dst": "_T_45",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 720,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 720:30"
+      },
+      "src": "s2_tag_match_0",
+      "statement_ids": [
+        1845
+      ]
+    },
+    {
+      "dst": "_T_46",
+      "kind": "data",
+      "source": {
+        "column": 7,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 720,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 720:7"
+      },
+      "src": "_T_45",
+      "statement_ids": [
+        1846
+      ]
+    },
+    {
+      "dst": "_T_46",
+      "kind": "data",
+      "source": {
+        "column": 7,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 720,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 720:7"
+      },
+      "src": "h0",
+      "statement_ids": [
+        1846
+      ]
+    },
+    {
+      "dst": "_T_47",
+      "kind": "data",
+      "source": {
+        "column": 50,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 719,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 719:50"
+      },
+      "src": "_T_44",
+      "statement_ids": [
+        1847
+      ]
+    },
+    {
+      "dst": "_T_47",
+      "kind": "data",
+      "source": {
+        "column": 50,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 719,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 719:50"
+      },
+      "src": "_T_46",
+      "statement_ids": [
+        1847
+      ]
+    },
+    {
+      "dst": "_T_48",
+      "kind": "data",
+      "source": {
+        "column": 50,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 720,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 720:50"
+      },
+      "src": "_T_47",
+      "statement_ids": [
+        1848
+      ]
+    },
+    {
+      "dst": "_T_48",
+      "kind": "data",
+      "source": {
+        "column": 50,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 720,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 720:50"
+      },
+      "src": "s2_lrsc_addr_match[0]",
+      "statement_ids": [
+        1848
+      ]
+    },
+    {
+      "dst": "_T_49",
+      "kind": "data",
+      "source": {
+        "column": 7,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 722,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 722:7"
+      },
+      "src": "h0",
+      "statement_ids": [
+        1849
+      ]
+    },
+    {
+      "dst": "_T_49",
+      "kind": "data",
+      "source": {
+        "column": 7,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 722,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 722:7"
+      },
+      "src": "s2_nack[0]",
+      "statement_ids": [
+        1849
+      ]
+    },
+    {
+      "dst": "_T_50",
+      "kind": "data",
+      "source": {
+        "column": 50,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 721,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 721:50"
+      },
+      "src": "_T_48",
+      "statement_ids": [
+        1850
+      ]
+    },
+    {
+      "dst": "_T_50",
+      "kind": "data",
+      "source": {
+        "column": 50,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 721,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 721:50"
+      },
+      "src": "_T_49",
+      "statement_ids": [
+        1850
+      ]
+    },
+    {
+      "dst": "lrsc_count",
+      "kind": "state",
+      "source": {
+        "column": 18,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 723,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 723:18"
+      },
+      "src": "h0",
+      "statement_ids": [
+        1851,
+        1852
+      ]
+    },
+    {
+      "dst": "lrsc_count",
+      "kind": "control",
+      "source": {
+        "column": 18,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 723,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 723:18"
+      },
+      "src": "_T_50",
+      "statement_ids": [
+        1851,
+        1852
+      ]
+    },
+    {
+      "dst": "_nodeOut_b_ready_T",
+      "kind": "data",
+      "source": {
+        "column": 51,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 822,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 822:51"
+      },
+      "src": "h0",
+      "statement_ids": [
+        2486
+      ]
+    },
+    {
+      "dst": "_nodeOut_b_ready_T",
+      "kind": "data",
+      "source": {
+        "column": 51,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 822,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 822:51"
+      },
+      "src": "lrsc_valid",
+      "statement_ids": [
+        2486
+      ]
+    },
+    {
+      "dst": "_nodeOut_b_ready_T_1",
+      "kind": "data",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 822,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 822:48"
+      },
+      "src": "_nodeOut_b_ready_T",
+      "statement_ids": [
+        2487
+      ]
+    },
+    {
+      "dst": "_nodeOut_b_ready_T_1",
+      "kind": "data",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 822,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 822:48"
+      },
+      "src": "prober.io.req.ready",
+      "statement_ids": [
+        2487
+      ]
+    },
+    {
+      "dst": "nodeOut.b.ready",
+      "kind": "data",
+      "source": {
+        "column": 25,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 822,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 822:25"
+      },
+      "src": "_nodeOut_b_ready_T_1",
+      "statement_ids": [
+        2488
+      ]
+    }
+  ],
+  "events": [
+    {
+      "channel": "auto.out.b",
+      "direction": "receive",
+      "id": "BoomNonBlockingDCache::auto.out.b.fire",
+      "payload": [
+        "auto.out.b.bits.address",
+        "auto.out.b.bits.corrupt",
+        "auto.out.b.bits.data",
+        "auto.out.b.bits.mask",
+        "auto.out.b.bits.opcode",
+        "auto.out.b.bits.param",
+        "auto.out.b.bits.size",
+        "auto.out.b.bits.source"
+      ],
+      "predicate": "auto.out.b.valid && auto.out.b.ready",
+      "protocol": "decoupled",
+      "ready": "auto.out.b.ready",
+      "registry_id": "BoomNonBlockingDCache.auto.out.b.fire",
+      "sources": [
+        {
+          "column": 25,
+          "file": "generators/diplomacy/diplomacy/src/diplomacy/lazymodule/LazyModuleImp.scala",
+          "line": 107,
+          "raw": "generators/diplomacy/diplomacy/src/diplomacy/lazymodule/LazyModuleImp.scala 107:25"
+        }
+      ],
+      "valid": "auto.out.b.valid"
+    }
+  ],
+  "frontier": [
+    {
+      "id": "_T_31",
+      "kind": "node",
+      "source": {
+        "column": 34,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 706,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 706:34"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_35",
+      "kind": "node",
+      "source": {
+        "column": 31,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 707,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 707:31"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_36",
+      "kind": "node",
+      "source": {
+        "column": 69,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 707,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 707:69"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_39",
+      "kind": "node",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 706,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 706:21"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_41",
+      "kind": "node",
+      "source": {
+        "column": 15,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 718,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 718:15"
+      },
+      "type": null
+    },
+    {
+      "id": "_s2_lr_T",
+      "kind": "node",
+      "source": {
+        "column": 37,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 701,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 701:37"
+      },
+      "type": null
+    },
+    {
+      "id": "_s2_lr_T_2",
+      "kind": "node",
+      "source": {
+        "column": 83,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 701,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 701:83"
+      },
+      "type": null
+    },
+    {
+      "id": "h0",
+      "kind": "unknown",
+      "source": {
+        "column": 53,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 503,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 503:53"
+      },
+      "type": null
+    },
+    {
+      "id": "h1",
+      "kind": "unknown",
+      "source": {
+        "column": 28,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 498,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 498:28"
+      },
+      "type": null
+    },
+    {
+      "id": "lrsc_count",
+      "kind": "register",
+      "source": {
+        "column": 27,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 698,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 698:27"
+      },
+      "type": "UInt<7>"
+    },
+    {
+      "id": "lrsc_valid",
+      "kind": "node",
+      "source": {
+        "column": 31,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 699,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 699:31"
+      },
+      "type": null
+    },
+    {
+      "id": "nodeOut.b.ready",
+      "kind": "wire",
+      "source": {
+        "column": 17,
+        "file": "generators/diplomacy/diplomacy/src/diplomacy/nodes/MixedNode.scala",
+        "line": 543,
+        "raw": "generators/diplomacy/diplomacy/src/diplomacy/nodes/MixedNode.scala 543:17"
+      },
+      "type": null
+    },
+    {
+      "id": "prober.io.req.ready",
+      "kind": "instance_port",
+      "source": {
+        "column": 22,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 459,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 459:22"
+      },
+      "type": null
+    },
+    {
+      "id": "s2_has_permission[0]",
+      "kind": "wire",
+      "source": {
+        "column": 49,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 454,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 454:49"
+      },
+      "type": null
+    },
+    {
+      "id": "s2_hit[0]",
+      "kind": "wire",
+      "source": {
+        "column": 49,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 454,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 454:49"
+      },
+      "type": null
+    },
+    {
+      "id": "s2_lr",
+      "kind": "node",
+      "source": {
+        "column": 47,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 701,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 701:47"
+      },
+      "type": null
+    },
+    {
+      "id": "s2_lr_REG",
+      "kind": "register",
+      "source": {
+        "column": 59,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 701,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 701:59"
+      },
+      "type": "UInt<1>"
+    },
+    {
+      "id": "s2_lrsc_addr_match[0]",
+      "kind": "wire",
+      "source": {
+        "column": 49,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 454,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 454:49"
+      },
+      "type": null
+    },
+    {
+      "id": "s2_nack[0]",
+      "kind": "wire",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 688,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 688:21"
+      },
+      "type": null
+    },
+    {
+      "id": "s2_tag_match_0",
+      "kind": "node",
+      "source": {
+        "column": 49,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 682,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 682:49"
+      },
+      "type": null
+    },
+    {
+      "id": "s2_valid[0]",
+      "kind": "wire",
+      "source": {
+        "column": 49,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 454,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 454:49"
+      },
+      "type": null
+    }
+  ],
+  "grounding": {
+    "allowed_physical_event_ids": [
+      "BoomNonBlockingDCache::auto.out.b.fire"
+    ],
+    "allowed_state_ids": [
+      "lrsc_count"
+    ],
+    "allowed_statement_ids": [
+      1801,
+      1803,
+      1804,
+      1819,
+      1820,
+      1821,
+      1822,
+      1823,
+      1825,
+      1826,
+      1827,
+      1830,
+      1831,
+      1832,
+      1833,
+      1834,
+      1835,
+      1838,
+      1839,
+      1840,
+      1842,
+      1843,
+      1844,
+      1845,
+      1846,
+      1847,
+      1848,
+      1849,
+      1850,
+      1851,
+      1852,
+      2486,
+      2487,
+      2488
+    ],
+    "semantic_labels": []
+  },
+  "memory_state": [],
+  "parent_connection_signals": [],
+  "planner_version": "hierarchical-planner-v12",
+  "proof_context": {
+    "event_gate_statement_ids": [
+      47,
+      1796
+    ],
+    "event_gate_statements": [
+      {
+        "control_reads": [],
+        "drives": [
+          "auto.out.a.bits.address",
+          "auto.out.a.bits.corrupt",
+          "auto.out.a.bits.data",
+          "auto.out.a.bits.mask",
+          "auto.out.a.bits.opcode",
+          "auto.out.a.bits.param",
+          "auto.out.a.bits.size",
+          "auto.out.a.bits.source",
+          "auto.out.a.ready",
+          "auto.out.a.valid",
+          "auto.out.b.bits.address",
+          "auto.out.b.bits.corrupt",
+          "auto.out.b.bits.data",
+          "auto.out.b.bits.mask",
+          "auto.out.b.bits.opcode",
+          "auto.out.b.bits.param",
+          "auto.out.b.bits.size",
+          "auto.out.b.bits.source",
+          "auto.out.b.ready",
+          "auto.out.b.valid",
+          "auto.out.c.bits.address",
+          "auto.out.c.bits.corrupt",
+          "auto.out.c.bits.data",
+          "auto.out.c.bits.opcode",
+          "auto.out.c.bits.param",
+          "auto.out.c.bits.size",
+          "auto.out.c.bits.source",
+          "auto.out.c.ready",
+          "auto.out.c.valid",
+          "auto.out.d.bits.corrupt",
+          "auto.out.d.bits.data",
+          "auto.out.d.bits.denied",
+          "auto.out.d.bits.opcode",
+          "auto.out.d.bits.param",
+          "auto.out.d.bits.sink",
+          "auto.out.d.bits.size",
+          "auto.out.d.bits.source",
+          "auto.out.d.ready",
+          "auto.out.d.valid",
+          "auto.out.e.bits.sink",
+          "auto.out.e.ready",
+          "auto.out.e.valid"
+        ],
+        "firrtl_line": 197816,
+        "id": 47,
+        "kind": "connect",
+        "note": null,
+        "reads": [
+          "nodeOut"
+        ],
+        "source": {
+          "column": 12,
+          "file": "generators/diplomacy/diplomacy/src/diplomacy/lazymodule/LazyModuleImp.scala",
+          "line": 113,
+          "raw": "generators/diplomacy/diplomacy/src/diplomacy/lazymodule/LazyModuleImp.scala 113:12"
+        },
+        "status": "supported",
+        "text": "connect auto.out, nodeOut"
+      },
+      {
+        "control_reads": [],
+        "drives": [
+          "lrsc_valid"
+        ],
+        "firrtl_line": 199565,
+        "id": 1796,
+        "kind": "node",
+        "note": null,
+        "reads": [
+          "h3",
+          "lrsc_count"
+        ],
+        "source": {
+          "column": 31,
+          "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+          "line": 699,
+          "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 699:31"
+        },
+        "status": "supported",
+        "text": "node lrsc_valid = gt(lrsc_count, UInt<2>(0h3))"
+      }
+    ],
+    "llm_evidence": false,
+    "policy": "exact-local-event-gate-bridges-v0.1"
+  },
+  "replacement_complexity": {
+    "event_state_coupling": 0.0,
+    "events": 1,
+    "logical": {
+      "dependency_edges": 66,
+      "signals": 45,
+      "source_loc": 16,
+      "statements": 22
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 67,
+      "signals": 47,
+      "source_loc": 16,
+      "statements": 34,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 1,
+    "state_regions": 1
+  },
+  "schema_version": "workunit-static-0.2",
+  "semantic_event_cones": [
+    {
+      "complete": true,
+      "event_id": "BoomNonBlockingDCache::auto.out.b.fire",
+      "historical_registers": [
+        "lrsc_addr",
+        "lrsc_count",
+        "s1_mshr_meta_read_way_en",
+        "s1_replay_way_en",
+        "s1_req",
+        "s1_send_resp_or_nack",
+        "s1_type",
+        "s1_valid_REG",
+        "s1_wb_way_en",
+        "s2_hit_state_REG",
+        "s2_hit_state_REG_1",
+        "s2_hit_state_REG_2",
+        "s2_hit_state_REG_3",
+        "s2_lr_REG",
+        "s2_nack_data_REG",
+        "s2_nack_hit",
+        "s2_req",
+        "s2_send_nack_REG",
+        "s2_tag_match_way",
+        "s2_type",
+        "s2_valid_REG",
+        "s2_wb_idx_matches"
+      ],
+      "historical_statement_ids": [
+        1801,
+        1803,
+        1804,
+        1819,
+        1820,
+        1821,
+        1822,
+        1823,
+        1825,
+        1826,
+        1827,
+        1830,
+        1831,
+        1832,
+        1833,
+        1834,
+        1835,
+        1838,
+        1839,
+        1840,
+        1842,
+        1843,
+        1844,
+        1845,
+        1846,
+        1847,
+        1848,
+        1849,
+        1850,
+        1851,
+        1852,
+        2486,
+        2487,
+        2488
+      ],
+      "immediate_frontier": [
+        "auto.out.b.valid",
+        "h0",
+        "h3",
+        "lrsc_count",
+        "prober.io.req.ready"
+      ],
+      "immediate_registers": [
+        "lrsc_count"
+      ],
+      "immediate_statement_ids": [
+        2486,
+        2487,
+        2488
+      ]
+    }
+  ],
+  "source_evidence": {
+    "resolved": [
+      {
+        "end_line": 702,
+        "logical_file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "start_line": 700,
+        "text": "  val lrsc_addr  = Reg(UInt())\n  val s2_lr = s2_req(0).uop.mem_cmd === M_XLR && (!RegNext(s1_nack(0)) || s2_type === t_replay)\n  val s2_sc = s2_req(0).uop.mem_cmd === M_XSC && (!RegNext(s1_nack(0)) || s2_type === t_replay)\n"
+      },
+      {
+        "end_line": 710,
+        "logical_file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "start_line": 704,
+        "text": "  val s2_sc_fail = s2_sc && !s2_lrsc_addr_match(0)\n  when (lrsc_count > 0.U) { lrsc_count := lrsc_count - 1.U }\n  when (s2_valid(0) && ((s2_type === t_lsu && s2_hit(0) && !s2_nack(0)) ||\n                     (s2_type === t_replay && s2_req(0).uop.mem_cmd =/= M_FLUSH_ALL))) {\n    when (s2_lr) {\n      lrsc_count := (lrscCycles - 1).U\n      lrsc_addr := s2_req(0).addr >> blockOffBits\n"
+      },
+      {
+        "end_line": 714,
+        "logical_file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "start_line": 711,
+        "text": "    }\n    when (lrsc_count > 0.U) {\n      lrsc_count := 0.U\n    }\n"
+      },
+      {
+        "end_line": 724,
+        "logical_file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "start_line": 716,
+        "text": "  for (w <- 0 until lsuWidth) {\n    when (s2_valid(w)                            &&\n      s2_type === t_lsu                          &&\n      !s2_hit(w)                                 &&\n      !(s2_has_permission(w) && s2_tag_match(w)) &&\n      s2_lrsc_addr_match(w)                      &&\n      !s2_nack(w)) {\n      lrsc_count := 0.U\n    }\n"
+      },
+      {
+        "end_line": 823,
+        "logical_file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "start_line": 821,
+        "text": "  prober.io.req.valid   := tl_out.b.valid && !lrsc_valid\n  tl_out.b.ready        := prober.io.req.ready && !lrsc_valid\n  prober.io.req.bits    := tl_out.b.bits\n"
+      }
+    ],
+    "roots": [
+      "/t1/MCM-Agent/tools/chipyard"
+    ],
+    "unresolved": []
+  },
+  "source_spans": [
+    {
+      "end_line": 701,
+      "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+      "start_line": 701
+    },
+    {
+      "end_line": 709,
+      "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+      "start_line": 705
+    },
+    {
+      "end_line": 713,
+      "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+      "start_line": 712
+    },
+    {
+      "end_line": 723,
+      "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+      "start_line": 717
+    },
+    {
+      "end_line": 822,
+      "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+      "start_line": 822
+    }
+  ],
+  "state": [
+    {
+      "id": "lrsc_count",
+      "kind": "register",
+      "source": {
+        "column": 27,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 698,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 698:27"
+      },
+      "type": "UInt<7>"
+    }
+  ],
+  "statements": [
+    {
+      "control_reads": [],
+      "drives": [
+        "_s2_lr_T_1"
+      ],
+      "firrtl_line": 199570,
+      "id": 1801,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "s2_lr_REG"
+      ],
+      "source": {
+        "column": 51,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 701,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 701:51"
+      },
+      "status": "supported",
+      "text": "node _s2_lr_T_1 = eq(s2_lr_REG, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_s2_lr_T_3"
+      ],
+      "firrtl_line": 199572,
+      "id": 1803,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_s2_lr_T_1",
+        "_s2_lr_T_2"
+      ],
+      "source": {
+        "column": 72,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 701,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 701:72"
+      },
+      "status": "supported",
+      "text": "node _s2_lr_T_3 = or(_s2_lr_T_1, _s2_lr_T_2)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "s2_lr"
+      ],
+      "firrtl_line": 199573,
+      "id": 1804,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_s2_lr_T",
+        "_s2_lr_T_3"
+      ],
+      "source": {
+        "column": 47,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 701,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 701:47"
+      },
+      "status": "supported",
+      "text": "node s2_lr = and(_s2_lr_T, _s2_lr_T_3)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_30"
+      ],
+      "firrtl_line": 199588,
+      "id": 1819,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "lrsc_count"
+      ],
+      "source": {
+        "column": 20,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 705,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 705:20"
+      },
+      "status": "supported",
+      "text": "node _T_30 = gt(lrsc_count, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [
+        "_T_30"
+      ],
+      "drives": [],
+      "firrtl_line": 199589,
+      "id": 1820,
+      "kind": "when",
+      "note": null,
+      "reads": [
+        "_T_30"
+      ],
+      "source": {
+        "column": 27,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 705,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 705:27"
+      },
+      "status": "supported",
+      "text": "when _T_30 :"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_lrsc_count_T"
+      ],
+      "firrtl_line": 199590,
+      "id": 1821,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h1",
+        "lrsc_count"
+      ],
+      "source": {
+        "column": 54,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 705,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 705:54"
+      },
+      "status": "supported",
+      "text": "node _lrsc_count_T = sub(lrsc_count, UInt<1>(0h1))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_lrsc_count_T_1"
+      ],
+      "firrtl_line": 199591,
+      "id": 1822,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_lrsc_count_T"
+      ],
+      "source": {
+        "column": 54,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 705,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 705:54"
+      },
+      "status": "supported",
+      "text": "node _lrsc_count_T_1 = tail(_lrsc_count_T, 1)"
+    },
+    {
+      "control_reads": [
+        "_T_30"
+      ],
+      "drives": [
+        "lrsc_count"
+      ],
+      "firrtl_line": 199592,
+      "id": 1823,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_lrsc_count_T_1"
+      ],
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 705,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 705:40"
+      },
+      "status": "supported",
+      "text": "connect lrsc_count, _lrsc_count_T_1"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_32"
+      ],
+      "firrtl_line": 199594,
+      "id": 1825,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_T_31",
+        "s2_hit[0]"
+      ],
+      "source": {
+        "column": 44,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 706,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 706:44"
+      },
+      "status": "supported",
+      "text": "node _T_32 = and(_T_31, s2_hit[0])"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_33"
+      ],
+      "firrtl_line": 199595,
+      "id": 1826,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "s2_nack[0]"
+      ],
+      "source": {
+        "column": 60,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 706,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 706:60"
+      },
+      "status": "supported",
+      "text": "node _T_33 = eq(s2_nack[0], UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_34"
+      ],
+      "firrtl_line": 199596,
+      "id": 1827,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_T_32",
+        "_T_33"
+      ],
+      "source": {
+        "column": 57,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 706,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 706:57"
+      },
+      "status": "supported",
+      "text": "node _T_34 = and(_T_32, _T_33)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_37"
+      ],
+      "firrtl_line": 199599,
+      "id": 1830,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_T_35",
+        "_T_36"
+      ],
+      "source": {
+        "column": 44,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 707,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 707:44"
+      },
+      "status": "supported",
+      "text": "node _T_37 = and(_T_35, _T_36)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_38"
+      ],
+      "firrtl_line": 199600,
+      "id": 1831,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_T_34",
+        "_T_37"
+      ],
+      "source": {
+        "column": 73,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 706,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 706:73"
+      },
+      "status": "supported",
+      "text": "node _T_38 = or(_T_34, _T_37)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_39"
+      ],
+      "firrtl_line": 199601,
+      "id": 1832,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_T_38",
+        "s2_valid[0]"
+      ],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 706,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 706:21"
+      },
+      "status": "supported",
+      "text": "node _T_39 = and(s2_valid[0], _T_38)"
+    },
+    {
+      "control_reads": [
+        "_T_39"
+      ],
+      "drives": [],
+      "firrtl_line": 199602,
+      "id": 1833,
+      "kind": "when",
+      "note": null,
+      "reads": [
+        "_T_39"
+      ],
+      "source": {
+        "column": 88,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 707,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 707:88"
+      },
+      "status": "supported",
+      "text": "when _T_39 :"
+    },
+    {
+      "control_reads": [
+        "s2_lr"
+      ],
+      "drives": [],
+      "firrtl_line": 199603,
+      "id": 1834,
+      "kind": "when",
+      "note": null,
+      "reads": [
+        "s2_lr"
+      ],
+      "source": {
+        "column": 18,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 708,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 708:18"
+      },
+      "status": "supported",
+      "text": "when s2_lr :"
+    },
+    {
+      "control_reads": [
+        "_T_39",
+        "s2_lr"
+      ],
+      "drives": [
+        "lrsc_count"
+      ],
+      "firrtl_line": 199604,
+      "id": 1835,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h4f"
+      ],
+      "source": {
+        "column": 18,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 709,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 709:18"
+      },
+      "status": "supported",
+      "text": "connect lrsc_count, UInt<7>(0h4f)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_40"
+      ],
+      "firrtl_line": 199607,
+      "id": 1838,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "lrsc_count"
+      ],
+      "source": {
+        "column": 22,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 712,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 712:22"
+      },
+      "status": "supported",
+      "text": "node _T_40 = gt(lrsc_count, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [
+        "_T_40"
+      ],
+      "drives": [],
+      "firrtl_line": 199608,
+      "id": 1839,
+      "kind": "when",
+      "note": null,
+      "reads": [
+        "_T_40"
+      ],
+      "source": {
+        "column": 29,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 712,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 712:29"
+      },
+      "status": "supported",
+      "text": "when _T_40 :"
+    },
+    {
+      "control_reads": [
+        "_T_39",
+        "_T_40"
+      ],
+      "drives": [
+        "lrsc_count"
+      ],
+      "firrtl_line": 199609,
+      "id": 1840,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h0"
+      ],
+      "source": {
+        "column": 18,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 713,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 713:18"
+      },
+      "status": "supported",
+      "text": "connect lrsc_count, UInt<1>(0h0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_42"
+      ],
+      "firrtl_line": 199611,
+      "id": 1842,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_T_41",
+        "s2_valid[0]"
+      ],
+      "source": {
+        "column": 50,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 717,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 717:50"
+      },
+      "status": "supported",
+      "text": "node _T_42 = and(s2_valid[0], _T_41)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_43"
+      ],
+      "firrtl_line": 199612,
+      "id": 1843,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "s2_hit[0]"
+      ],
+      "source": {
+        "column": 7,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 719,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 719:7"
+      },
+      "status": "supported",
+      "text": "node _T_43 = eq(s2_hit[0], UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_44"
+      ],
+      "firrtl_line": 199613,
+      "id": 1844,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_T_42",
+        "_T_43"
+      ],
+      "source": {
+        "column": 50,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 718,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 718:50"
+      },
+      "status": "supported",
+      "text": "node _T_44 = and(_T_42, _T_43)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_45"
+      ],
+      "firrtl_line": 199614,
+      "id": 1845,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "s2_has_permission[0]",
+        "s2_tag_match_0"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 720,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 720:30"
+      },
+      "status": "supported",
+      "text": "node _T_45 = and(s2_has_permission[0], s2_tag_match_0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_46"
+      ],
+      "firrtl_line": 199615,
+      "id": 1846,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_T_45",
+        "h0"
+      ],
+      "source": {
+        "column": 7,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 720,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 720:7"
+      },
+      "status": "supported",
+      "text": "node _T_46 = eq(_T_45, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_47"
+      ],
+      "firrtl_line": 199616,
+      "id": 1847,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_T_44",
+        "_T_46"
+      ],
+      "source": {
+        "column": 50,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 719,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 719:50"
+      },
+      "status": "supported",
+      "text": "node _T_47 = and(_T_44, _T_46)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_48"
+      ],
+      "firrtl_line": 199617,
+      "id": 1848,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_T_47",
+        "s2_lrsc_addr_match[0]"
+      ],
+      "source": {
+        "column": 50,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 720,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 720:50"
+      },
+      "status": "supported",
+      "text": "node _T_48 = and(_T_47, s2_lrsc_addr_match[0])"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_49"
+      ],
+      "firrtl_line": 199618,
+      "id": 1849,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "s2_nack[0]"
+      ],
+      "source": {
+        "column": 7,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 722,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 722:7"
+      },
+      "status": "supported",
+      "text": "node _T_49 = eq(s2_nack[0], UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_50"
+      ],
+      "firrtl_line": 199619,
+      "id": 1850,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_T_48",
+        "_T_49"
+      ],
+      "source": {
+        "column": 50,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 721,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 721:50"
+      },
+      "status": "supported",
+      "text": "node _T_50 = and(_T_48, _T_49)"
+    },
+    {
+      "control_reads": [
+        "_T_50"
+      ],
+      "drives": [],
+      "firrtl_line": 199620,
+      "id": 1851,
+      "kind": "when",
+      "note": null,
+      "reads": [
+        "_T_50"
+      ],
+      "source": {
+        "column": 20,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 722,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 722:20"
+      },
+      "status": "supported",
+      "text": "when _T_50 :"
+    },
+    {
+      "control_reads": [
+        "_T_50"
+      ],
+      "drives": [
+        "lrsc_count"
+      ],
+      "firrtl_line": 199621,
+      "id": 1852,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h0"
+      ],
+      "source": {
+        "column": 18,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 723,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 723:18"
+      },
+      "status": "supported",
+      "text": "connect lrsc_count, UInt<1>(0h0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_nodeOut_b_ready_T"
+      ],
+      "firrtl_line": 200255,
+      "id": 2486,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "lrsc_valid"
+      ],
+      "source": {
+        "column": 51,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 822,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 822:51"
+      },
+      "status": "supported",
+      "text": "node _nodeOut_b_ready_T = eq(lrsc_valid, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_nodeOut_b_ready_T_1"
+      ],
+      "firrtl_line": 200256,
+      "id": 2487,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_nodeOut_b_ready_T",
+        "prober.io.req.ready"
+      ],
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 822,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 822:48"
+      },
+      "status": "supported",
+      "text": "node _nodeOut_b_ready_T_1 = and(prober.io.req.ready, _nodeOut_b_ready_T)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "nodeOut.b.ready"
+      ],
+      "firrtl_line": 200257,
+      "id": 2488,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_nodeOut_b_ready_T_1"
+      ],
+      "source": {
+        "column": 25,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 822,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 822:25"
+      },
+      "status": "supported",
+      "text": "connect nodeOut.b.ready, _nodeOut_b_ready_T_1"
+    }
+  ],
+  "work_unit": {
+    "coverage_complete": true,
+    "decision": "manageable",
+    "depth": 1,
+    "exceeded_limits": [],
+    "id": "BoomNonBlockingDCache::region-0-0",
+    "instance_path": "BoomNonBlockingDCache",
+    "is_leaf": true,
+    "kind": "region",
+    "module": "BoomNonBlockingDCache",
+    "replacement_exceeded_limits": []
+  }
+}

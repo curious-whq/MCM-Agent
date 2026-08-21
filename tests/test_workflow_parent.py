@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 import tempfile
+from types import SimpleNamespace
 import unittest
 
 from workflow.composition import (
@@ -15,10 +16,36 @@ from workflow.manual import GROUNDING_VALID, export_manual_task, import_manual_r
 from workflow.schema import UMCM_SCHEMA_VERSION
 from workflow.semantic import freeze_task_dir, validate_task_dir
 from workflow.tasks import build_parent_synthesis_task
+from workflow.cli import _implementation_fingerprint_cache_key
 
 
 def _write_json(path: Path, value) -> None:
     path.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+class ParentFingerprintCacheTests(unittest.TestCase):
+    @staticmethod
+    def _child(identifier: str, kind: str):
+        return SimpleNamespace(
+            id=identifier,
+            module="SharedModule",
+            kind=SimpleNamespace(value=kind),
+        )
+
+    def test_module_instances_share_cache_but_regions_do_not(self):
+        module_0 = self._child("Parent.child_0", "module")
+        module_1 = self._child("Parent.child_1", "module")
+        region_0 = self._child("Parent::region-0-0", "region")
+        region_1 = self._child("Parent::region-0-1", "region")
+
+        self.assertEqual(
+            _implementation_fingerprint_cache_key(module_0),
+            _implementation_fingerprint_cache_key(module_1),
+        )
+        self.assertNotEqual(
+            _implementation_fingerprint_cache_key(region_0),
+            _implementation_fingerprint_cache_key(region_1),
+        )
 
 
 def _complexity(statements: int = 1):

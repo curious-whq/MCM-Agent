@@ -11,8 +11,8 @@ from .research_memory import write_run_summary
 from .axiom_ir import compile_formal_axiom, render_formal_axiom
 
 
-SEMANTIC_VALIDATOR_VERSION = "semantic-validator-0.15"
-PROPERTY_COMPILER_VERSION = "formal-axiom-compiler-0.8"
+SEMANTIC_VALIDATOR_VERSION = "semantic-validator-0.16"
+PROPERTY_COMPILER_VERSION = "formal-axiom-compiler-0.9"
 
 # Structural/static checker outcomes. These deliberately do NOT use the word
 # "proved": they are evidence about an extracted control/dataflow abstraction,
@@ -112,8 +112,35 @@ class HandoffControlModel:
         self.handoff = handoff
         self.state_register = state_register
         self.state_roots = {str(item.get("id")) for item in handoff.get("state", []) if item.get("id")}
+        proof_context = handoff.get("proof_context", {})
+        bridge_statements = (
+            proof_context.get("event_gate_statements", [])
+            if isinstance(proof_context, dict)
+            else []
+        )
+        state_support_statements = (
+            proof_context.get("state_support_statements", [])
+            if isinstance(proof_context, dict)
+            else []
+        )
+        visible_statements = list(handoff.get("statements", []))
+        visible_ids = {
+            int(statement["id"])
+            for statement in visible_statements
+            if isinstance(statement, dict) and "id" in statement
+        }
+        self.proof_context_statement_ids = {
+            int(statement["id"])
+            for statement in [*bridge_statements, *state_support_statements]
+            if isinstance(statement, dict) and "id" in statement
+        } - visible_ids
         self.statements = {
-            int(statement["id"]): statement for statement in handoff.get("statements", [])
+            int(statement["id"]): statement
+            for statement in [
+                *visible_statements,
+                *bridge_statements,
+                *state_support_statements,
+            ]
         }
         self.driver: dict[str, tuple[int, str]] = {}
         self.definition_statement: dict[str, int] = {}
@@ -2346,6 +2373,58 @@ def _build_trusted_umcm(candidate: dict[str, Any], results: list[dict[str, Any]]
     return trusted
 
 
+def _certified_empty_leaf_abstraction(
+    candidate: dict[str, Any],
+    handoff: dict[str, Any],
+) -> dict[str, Any] | None:
+    """Certify a deliberately empty µMCM for a semantically inert leaf.
+
+    Empty abstractions are safe over-approximations even for stateful leaves:
+    they constrain nothing and therefore cannot remove a concrete RTL behavior.
+    The certificate requires complete WorkUnit coverage, an explicit rationale,
+    and no semantic declarations, assumptions, or unresolved questions.  Owned
+    state/events are counted in the artifact so the intentional omission stays
+    auditable and can be reopened by CEGAR.
+    """
+
+    unit = handoff.get("work_unit", {})
+    if not isinstance(unit, dict) or not unit.get("is_leaf") or not unit.get("coverage_complete"):
+        return None
+    if any(
+        candidate.get(field)
+        for field in (
+            "occurrences",
+            "predicates",
+            "identity_keys",
+            "cases",
+            "axioms",
+            "assumptions",
+            "unresolved",
+        )
+    ):
+        return None
+    rationale = candidate.get("rationale", [])
+    if not isinstance(rationale, list) or not any(
+        isinstance(item, str) and item.strip() for item in rationale
+    ):
+        return None
+    return {
+        "policy": "covered-explicit-empty-leaf-overapproximation-v0.1",
+        "work_unit_id": candidate.get("work_unit_id"),
+        "coverage_complete": True,
+        "owned_event_count": len(handoff.get("events", [])),
+        "owned_state_count": len(handoff.get("state", [])),
+        "owned_memory_state_count": len(handoff.get("memory_state", [])),
+        "semantic_object_count": 0,
+        "assumption_count": 0,
+        "unresolved_count": 0,
+        "interpretation": (
+            "The leaf contributes no µMCM constraint. Its combinational outputs "
+            "remain unconstrained as a safe over-approximation and may be reopened by CEGAR."
+        ),
+    }
+
+
 def run_semantic_validation(
     candidate: dict[str, Any],
     handoff: dict[str, Any],
@@ -2438,7 +2517,8 @@ def run_semantic_validation(
     }
     has_counterexample = counts[REFUTED] > 0
     is_parent = handoff.get("composition", {}).get("mode") == "parent_synthesis"
-    all_structural = (is_parent and not results) or (
+    empty_leaf_certificate = _certified_empty_leaf_abstraction(candidate, handoff)
+    all_structural = ((is_parent and not results) or empty_leaf_certificate is not None) or (
         bool(results)
         and all(
             result.get("validation_level")
@@ -2446,7 +2526,7 @@ def run_semantic_validation(
             for result in results
         )
     )
-    all_formal = (is_parent and not results) or (
+    all_formal = ((is_parent and not results) or empty_leaf_certificate is not None) or (
         bool(results)
         and all(
             result.get("validation_level") in {FORMALLY_PROVED, SPEC_PROVED}
@@ -2472,6 +2552,7 @@ def run_semantic_validation(
         "all_axioms_structurally_supported": all_structural,
         "all_axioms_formally_proved": all_formal,
         "has_counterexample": has_counterexample,
+        "empty_abstraction_certificate": empty_leaf_certificate,
         "validation_policy": (
             "Grounding and deterministic finite-control/dataflow checks provide evidence only. "
             "They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms "
@@ -2491,6 +2572,8 @@ def validate_task_dir(task_dir: str | Path, *, formal_backend: str = "none") -> 
     compiled = compile_candidate_properties(candidate)
     semantic = run_semantic_validation(candidate, handoff, formal_backend=formal_backend)
     trusted = _build_trusted_umcm(candidate, semantic["results"])
+    if semantic.get("empty_abstraction_certificate") is not None:
+        trusted["empty_abstraction"] = semantic["empty_abstraction_certificate"]
 
     (directory / "property_obligations.json").write_text(
         json.dumps(compiled, indent=2, sort_keys=True) + "\n", encoding="utf-8"
@@ -2587,6 +2670,20 @@ def freeze_task_dir(task_dir: str | Path) -> dict[str, Any]:
     if len(trusted.get("axioms", [])) != len(candidate.get("axioms", [])):
         raise ValueError("trusted µMCM does not contain every declared candidate axiom")
 
+    empty_leaf_certificate = _certified_empty_leaf_abstraction(candidate, handoff)
+    if task.get("kind") != "parent_synthesis" and not candidate.get("axioms"):
+        if empty_leaf_certificate is None:
+            raise ValueError(
+                "cannot freeze an empty leaf abstraction without a covered explicit-overapproximation certificate"
+            )
+        if (
+            semantic.get("empty_abstraction_certificate") != empty_leaf_certificate
+            or trusted.get("empty_abstraction") != empty_leaf_certificate
+        ):
+            raise ValueError(
+                "empty leaf abstraction certificate is missing or stale; rerun semantic validation"
+            )
+
     if task.get("kind") == "parent_synthesis":
         expected_trusted = _build_trusted_umcm(candidate, semantic.get("results", []))
         if trusted.get("provenance") != expected_trusted.get("provenance"):
@@ -2655,6 +2752,7 @@ def freeze_task_dir(task_dir: str | Path) -> dict[str, Any]:
         "policy": "all-declared-axioms-trusted-and-no-unresolved-v0.1",
         "candidate_axiom_count": len(candidate.get("axioms", [])),
         "trusted_axiom_count": len(trusted.get("axioms", [])),
+        "empty_abstraction": empty_leaf_certificate is not None,
         "reopen_policy": (
             "This summary may be reopened if later parent/system counterexample validation "
             "shows the abstraction is too weak and a missing concrete constraint must be synthesized."

@@ -1,0 +1,1168 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [
+        "C1_Input0Selected",
+        "C2_Input1Selected",
+        "C3_Input2Selected",
+        "C4_Input3Selected",
+        "C5_Input4Selected",
+        "C6_Input5Selected"
+      ],
+      "evidence_statement_ids": [
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
+      "formal": {
+        "parts": [
+          "Input0Fire",
+          "Input1Fire",
+          "Input2Fire",
+          "Input3Fire",
+          "Input4Fire",
+          "Input5Fire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "OutputFire"
+      },
+      "id": "A1",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_Input1Selected"
+      ],
+      "evidence_statement_ids": [
+        24,
+        31,
+        32
+      ],
+      "formal": {
+        "occurrence": "Input1Fire",
+        "predicate": "Input0Valid",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A2",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_Input2Selected"
+      ],
+      "evidence_statement_ids": [
+        20,
+        25,
+        33,
+        34
+      ],
+      "formal": {
+        "occurrence": "Input2Fire",
+        "predicate": "Higher01Valid",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A3",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C4_Input3Selected"
+      ],
+      "evidence_statement_ids": [
+        20,
+        21,
+        26,
+        35,
+        36
+      ],
+      "formal": {
+        "occurrence": "Input3Fire",
+        "predicate": "Higher012Valid",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A4",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C5_Input4Selected"
+      ],
+      "evidence_statement_ids": [
+        20,
+        21,
+        22,
+        27,
+        37,
+        38
+      ],
+      "formal": {
+        "occurrence": "Input4Fire",
+        "predicate": "Higher0123Valid",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A5",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C6_Input5Selected"
+      ],
+      "evidence_statement_ids": [
+        20,
+        21,
+        22,
+        23,
+        28,
+        39,
+        40
+      ],
+      "formal": {
+        "occurrence": "Input5Fire",
+        "predicate": "Higher01234Valid",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A6",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_Input0Selected"
+      ],
+      "evidence_statement_ids": [
+        17,
+        18
+      ],
+      "formal": {
+        "on": "Input0Fire",
+        "scope_identity": null,
+        "source": {
+          "op": "const",
+          "value": 0
+        },
+        "target": "io.chosen",
+        "type": "signal_equality"
+      },
+      "id": "A7",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_Input1Selected"
+      ],
+      "evidence_statement_ids": [
+        14,
+        15,
+        24,
+        31,
+        32
+      ],
+      "formal": {
+        "on": "Input1Fire",
+        "scope_identity": null,
+        "source": {
+          "op": "const",
+          "value": 1
+        },
+        "target": "io.chosen",
+        "type": "signal_equality"
+      },
+      "id": "A8",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_Input2Selected"
+      ],
+      "evidence_statement_ids": [
+        11,
+        12,
+        20,
+        25,
+        33,
+        34
+      ],
+      "formal": {
+        "on": "Input2Fire",
+        "scope_identity": null,
+        "source": {
+          "op": "const",
+          "value": 2
+        },
+        "target": "io.chosen",
+        "type": "signal_equality"
+      },
+      "id": "A9",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C4_Input3Selected"
+      ],
+      "evidence_statement_ids": [
+        8,
+        9,
+        21,
+        26,
+        35,
+        36
+      ],
+      "formal": {
+        "on": "Input3Fire",
+        "scope_identity": null,
+        "source": {
+          "op": "const",
+          "value": 3
+        },
+        "target": "io.chosen",
+        "type": "signal_equality"
+      },
+      "id": "A10",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C5_Input4Selected"
+      ],
+      "evidence_statement_ids": [
+        5,
+        6,
+        22,
+        27,
+        37,
+        38
+      ],
+      "formal": {
+        "on": "Input4Fire",
+        "scope_identity": null,
+        "source": {
+          "op": "const",
+          "value": 4
+        },
+        "target": "io.chosen",
+        "type": "signal_equality"
+      },
+      "id": "A11",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C6_Input5Selected"
+      ],
+      "evidence_statement_ids": [
+        3,
+        23,
+        28,
+        39,
+        40
+      ],
+      "formal": {
+        "on": "Input5Fire",
+        "scope_identity": null,
+        "source": {
+          "op": "const",
+          "value": 5
+        },
+        "target": "io.chosen",
+        "type": "signal_equality"
+      },
+      "id": "A12",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_Input0Selected"
+      ],
+      "evidence_statement_ids": [
+        17,
+        19
+      ],
+      "formal": {
+        "on": "Input0Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[0].bits.req[0].idx",
+          "op": "signal"
+        },
+        "target": "io.out.bits.req[0].idx",
+        "type": "signal_equality"
+      },
+      "id": "A13",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_Input0Selected"
+      ],
+      "evidence_statement_ids": [
+        17,
+        19
+      ],
+      "formal": {
+        "on": "Input0Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[0].bits.req[0].tag",
+          "op": "signal"
+        },
+        "target": "io.out.bits.req[0].tag",
+        "type": "signal_equality"
+      },
+      "id": "A14",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_Input0Selected"
+      ],
+      "evidence_statement_ids": [
+        17,
+        19
+      ],
+      "formal": {
+        "on": "Input0Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[0].bits.req[0].way_en",
+          "op": "signal"
+        },
+        "target": "io.out.bits.req[0].way_en",
+        "type": "signal_equality"
+      },
+      "id": "A15",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_Input1Selected"
+      ],
+      "evidence_statement_ids": [
+        14,
+        16,
+        24,
+        31,
+        32
+      ],
+      "formal": {
+        "on": "Input1Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[1].bits.req[0].idx",
+          "op": "signal"
+        },
+        "target": "io.out.bits.req[0].idx",
+        "type": "signal_equality"
+      },
+      "id": "A16",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_Input1Selected"
+      ],
+      "evidence_statement_ids": [
+        14,
+        16,
+        24,
+        31,
+        32
+      ],
+      "formal": {
+        "on": "Input1Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[1].bits.req[0].tag",
+          "op": "signal"
+        },
+        "target": "io.out.bits.req[0].tag",
+        "type": "signal_equality"
+      },
+      "id": "A17",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_Input1Selected"
+      ],
+      "evidence_statement_ids": [
+        14,
+        16,
+        24,
+        31,
+        32
+      ],
+      "formal": {
+        "on": "Input1Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[1].bits.req[0].way_en",
+          "op": "signal"
+        },
+        "target": "io.out.bits.req[0].way_en",
+        "type": "signal_equality"
+      },
+      "id": "A18",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_Input2Selected"
+      ],
+      "evidence_statement_ids": [
+        11,
+        13,
+        20,
+        25,
+        33,
+        34
+      ],
+      "formal": {
+        "on": "Input2Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[2].bits.req[0].idx",
+          "op": "signal"
+        },
+        "target": "io.out.bits.req[0].idx",
+        "type": "signal_equality"
+      },
+      "id": "A19",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_Input2Selected"
+      ],
+      "evidence_statement_ids": [
+        11,
+        13,
+        20,
+        25,
+        33,
+        34
+      ],
+      "formal": {
+        "on": "Input2Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[2].bits.req[0].tag",
+          "op": "signal"
+        },
+        "target": "io.out.bits.req[0].tag",
+        "type": "signal_equality"
+      },
+      "id": "A20",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_Input2Selected"
+      ],
+      "evidence_statement_ids": [
+        11,
+        13,
+        20,
+        25,
+        33,
+        34
+      ],
+      "formal": {
+        "on": "Input2Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[2].bits.req[0].way_en",
+          "op": "signal"
+        },
+        "target": "io.out.bits.req[0].way_en",
+        "type": "signal_equality"
+      },
+      "id": "A21",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C4_Input3Selected"
+      ],
+      "evidence_statement_ids": [
+        8,
+        10,
+        21,
+        26,
+        35,
+        36
+      ],
+      "formal": {
+        "on": "Input3Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[3].bits.req[0].idx",
+          "op": "signal"
+        },
+        "target": "io.out.bits.req[0].idx",
+        "type": "signal_equality"
+      },
+      "id": "A22",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C4_Input3Selected"
+      ],
+      "evidence_statement_ids": [
+        8,
+        10,
+        21,
+        26,
+        35,
+        36
+      ],
+      "formal": {
+        "on": "Input3Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[3].bits.req[0].tag",
+          "op": "signal"
+        },
+        "target": "io.out.bits.req[0].tag",
+        "type": "signal_equality"
+      },
+      "id": "A23",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C4_Input3Selected"
+      ],
+      "evidence_statement_ids": [
+        8,
+        10,
+        21,
+        26,
+        35,
+        36
+      ],
+      "formal": {
+        "on": "Input3Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[3].bits.req[0].way_en",
+          "op": "signal"
+        },
+        "target": "io.out.bits.req[0].way_en",
+        "type": "signal_equality"
+      },
+      "id": "A24",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C5_Input4Selected"
+      ],
+      "evidence_statement_ids": [
+        5,
+        7,
+        22,
+        27,
+        37,
+        38
+      ],
+      "formal": {
+        "on": "Input4Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[4].bits.req[0].idx",
+          "op": "signal"
+        },
+        "target": "io.out.bits.req[0].idx",
+        "type": "signal_equality"
+      },
+      "id": "A25",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C5_Input4Selected"
+      ],
+      "evidence_statement_ids": [
+        5,
+        7,
+        22,
+        27,
+        37,
+        38
+      ],
+      "formal": {
+        "on": "Input4Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[4].bits.req[0].tag",
+          "op": "signal"
+        },
+        "target": "io.out.bits.req[0].tag",
+        "type": "signal_equality"
+      },
+      "id": "A26",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C5_Input4Selected"
+      ],
+      "evidence_statement_ids": [
+        5,
+        7,
+        22,
+        27,
+        37,
+        38
+      ],
+      "formal": {
+        "on": "Input4Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[4].bits.req[0].way_en",
+          "op": "signal"
+        },
+        "target": "io.out.bits.req[0].way_en",
+        "type": "signal_equality"
+      },
+      "id": "A27",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C6_Input5Selected"
+      ],
+      "evidence_statement_ids": [
+        3,
+        4,
+        23,
+        28,
+        39,
+        40
+      ],
+      "formal": {
+        "on": "Input5Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[5].bits.req[0].idx",
+          "op": "signal"
+        },
+        "target": "io.out.bits.req[0].idx",
+        "type": "signal_equality"
+      },
+      "id": "A28",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C6_Input5Selected"
+      ],
+      "evidence_statement_ids": [
+        3,
+        4,
+        23,
+        28,
+        39,
+        40
+      ],
+      "formal": {
+        "on": "Input5Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[5].bits.req[0].tag",
+          "op": "signal"
+        },
+        "target": "io.out.bits.req[0].tag",
+        "type": "signal_equality"
+      },
+      "id": "A29",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C6_Input5Selected"
+      ],
+      "evidence_statement_ids": [
+        3,
+        4,
+        23,
+        28,
+        39,
+        40
+      ],
+      "formal": {
+        "on": "Input5Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[5].bits.req[0].way_en",
+          "op": "signal"
+        },
+        "target": "io.out.bits.req[0].way_en",
+        "type": "signal_equality"
+      },
+      "id": "A30",
+      "status": "candidate"
+    }
+  ],
+  "cases": [
+    {
+      "confidence": "high",
+      "emits": [
+        "OutputFire"
+      ],
+      "evidence_statement_ids": [
+        17,
+        18,
+        19,
+        29,
+        30,
+        41,
+        42,
+        43
+      ],
+      "guard_predicates": [],
+      "id": "C1_Input0Selected",
+      "relations": [
+        "Input 0 is the highest-priority metadata-read source; its idx, tag, and way_en are forwarded to the output and io.chosen is 0."
+      ],
+      "trigger_occurrences": [
+        "Input0Fire"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [
+        "OutputFire"
+      ],
+      "evidence_statement_ids": [
+        14,
+        15,
+        16,
+        17,
+        24,
+        31,
+        32,
+        41,
+        42,
+        43
+      ],
+      "guard_predicates": [
+        {
+          "id": "Input0Valid",
+          "positive": false
+        }
+      ],
+      "id": "C2_Input1Selected",
+      "relations": [
+        "Input 1 is selected only when input 0 is not valid; its payload is forwarded and io.chosen is 1."
+      ],
+      "trigger_occurrences": [
+        "Input1Fire"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [
+        "OutputFire"
+      ],
+      "evidence_statement_ids": [
+        11,
+        12,
+        13,
+        20,
+        25,
+        33,
+        34,
+        41,
+        42,
+        43
+      ],
+      "guard_predicates": [
+        {
+          "id": "Higher01Valid",
+          "positive": false
+        }
+      ],
+      "id": "C3_Input2Selected",
+      "relations": [
+        "Input 2 is selected only when neither input 0 nor input 1 is valid; its payload is forwarded and io.chosen is 2."
+      ],
+      "trigger_occurrences": [
+        "Input2Fire"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [
+        "OutputFire"
+      ],
+      "evidence_statement_ids": [
+        8,
+        9,
+        10,
+        21,
+        26,
+        35,
+        36,
+        41,
+        42,
+        43
+      ],
+      "guard_predicates": [
+        {
+          "id": "Higher012Valid",
+          "positive": false
+        }
+      ],
+      "id": "C4_Input3Selected",
+      "relations": [
+        "Input 3 is selected only when inputs 0 through 2 are all not valid; its payload is forwarded and io.chosen is 3."
+      ],
+      "trigger_occurrences": [
+        "Input3Fire"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [
+        "OutputFire"
+      ],
+      "evidence_statement_ids": [
+        5,
+        6,
+        7,
+        22,
+        27,
+        37,
+        38,
+        41,
+        42,
+        43
+      ],
+      "guard_predicates": [
+        {
+          "id": "Higher0123Valid",
+          "positive": false
+        }
+      ],
+      "id": "C5_Input4Selected",
+      "relations": [
+        "Input 4 is selected only when inputs 0 through 3 are all not valid; its payload is forwarded and io.chosen is 4."
+      ],
+      "trigger_occurrences": [
+        "Input4Fire"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [
+        "OutputFire"
+      ],
+      "evidence_statement_ids": [
+        3,
+        4,
+        23,
+        28,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
+      "guard_predicates": [
+        {
+          "id": "Higher01234Valid",
+          "positive": false
+        }
+      ],
+      "id": "C6_Input5Selected",
+      "relations": [
+        "Input 5 is the lowest-priority default source and is selected only when inputs 0 through 4 are all not valid; its payload is forwarded and io.chosen is 5."
+      ],
+      "trigger_occurrences": [
+        "Input5Fire"
+      ]
+    }
+  ],
+  "extensions": {},
+  "identity_keys": [],
+  "occurrences": [
+    {
+      "definition": "io.in[0].valid && io.in[0].ready",
+      "evidence_statement_ids": [
+        17,
+        29,
+        30
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "Input0Fire",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache.metaReadArb::io.in[0].fire"
+      ]
+    },
+    {
+      "definition": "io.in[1].valid && io.in[1].ready",
+      "evidence_statement_ids": [
+        14,
+        24,
+        31,
+        32
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "Input1Fire",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache.metaReadArb::io.in[1].fire"
+      ]
+    },
+    {
+      "definition": "io.in[2].valid && io.in[2].ready",
+      "evidence_statement_ids": [
+        11,
+        20,
+        25,
+        33,
+        34
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "Input2Fire",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache.metaReadArb::io.in[2].fire"
+      ]
+    },
+    {
+      "definition": "io.in[3].valid && io.in[3].ready",
+      "evidence_statement_ids": [
+        8,
+        21,
+        26,
+        35,
+        36
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "Input3Fire",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache.metaReadArb::io.in[3].fire"
+      ]
+    },
+    {
+      "definition": "io.in[4].valid && io.in[4].ready",
+      "evidence_statement_ids": [
+        5,
+        22,
+        27,
+        37,
+        38
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "Input4Fire",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache.metaReadArb::io.in[4].fire"
+      ]
+    },
+    {
+      "definition": "io.in[5].valid && io.in[5].ready",
+      "evidence_statement_ids": [
+        23,
+        28,
+        39,
+        40
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "Input5Fire",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache.metaReadArb::io.in[5].fire"
+      ]
+    },
+    {
+      "definition": "io.out.valid && io.out.ready",
+      "evidence_statement_ids": [
+        41,
+        42,
+        43
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "OutputFire",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache.metaReadArb::io.out.fire"
+      ]
+    }
+  ],
+  "predicates": [
+    {
+      "definition": "io.in[0].valid",
+      "evidence_statement_ids": [
+        17,
+        20,
+        24
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "io.in[0].valid",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "Input0Valid"
+    },
+    {
+      "definition": "io.in[0].valid || io.in[1].valid",
+      "evidence_statement_ids": [
+        20,
+        25
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "_grant_T",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "Higher01Valid"
+    },
+    {
+      "definition": "io.in[0].valid || io.in[1].valid || io.in[2].valid",
+      "evidence_statement_ids": [
+        20,
+        21,
+        26
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "_grant_T_1",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "Higher012Valid"
+    },
+    {
+      "definition": "io.in[0].valid || io.in[1].valid || io.in[2].valid || io.in[3].valid",
+      "evidence_statement_ids": [
+        20,
+        21,
+        22,
+        27
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "_grant_T_2",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "Higher0123Valid"
+    },
+    {
+      "definition": "io.in[0].valid || io.in[1].valid || io.in[2].valid || io.in[3].valid || io.in[4].valid",
+      "evidence_statement_ids": [
+        20,
+        21,
+        22,
+        23,
+        28
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "_grant_T_3",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "Higher01234Valid"
+    }
+  ],
+  "rationale": [
+    "The module is a stateless fixed-priority 6-to-1 Decoupled arbiter. FIRRTL assignment precedence and the grant chain establish priority Input0 > Input1 > Input2 > Input3 > Input4 > Input5.",
+    "A1 preserves exact same-cycle conservation: every output metadata-read handshake is exactly one of the six input handshakes.",
+    "A2-A6 preserve the actual priority policy. Each lower-priority input is forbidden from firing whenever any higher-priority input is valid.",
+    "A7-A12 preserve io.chosen because it is an exposed parent frontier signal and gives the exact winning source.",
+    "A13-A30 preserve the complete metadata-read request payload for each route: idx identifies the metadata set, way_en carries the way-selection information, and tag is retained because it is an exposed request field and may be used by the parent even though the metadata SRAM itself primarily indexes by idx.",
+    "No transaction identity key is needed because the arbiter contains no state and performs only same-cycle routing.",
+    "No historical ordered_before relation is introduced because there is no buffering or cross-cycle staging.",
+    "No fairness or eventual-service property is claimed. Any lower-priority input may be indefinitely starved by continuously valid higher-priority traffic."
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-BoomNonBlockingDCache.metaReadArb-c0e75040fe953858",
+  "unresolved": [],
+  "work_unit_id": "BoomNonBlockingDCache.metaReadArb"
+}

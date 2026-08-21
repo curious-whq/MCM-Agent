@@ -1,0 +1,22 @@
+{
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-BoomNonBlockingDCache.amoalu-9d11028de14b5b4d",
+  "work_unit_id": "BoomNonBlockingDCache.amoalu",
+  "occurrences": [],
+  "predicates": [],
+  "identity_keys": [],
+  "cases": [],
+  "axioms": [],
+  "assumptions": [],
+  "unresolved": [],
+  "rationale": [
+    "AMOALU is a stateless purely combinational datapath block: the WorkUnit contains zero registers and zero physical boundary events, so it introduces no independently observable memory/coherence occurrence or persistent predicate.",
+    "The module computes the AMO result from io.cmd, io.lhs, io.rhs, and io.mask and then byte-merges the computed result with io.lhs to form io.out. This is functional data transformation rather than a memory-ordering, visibility, exclusion, transaction-identity, or storage-provenance constraint.",
+    "No synthetic occurrence is introduced merely to represent combinational evaluation. There is no RTL event marking an AMOALU transaction, and inventing one would violate the occurrence-grounding policy.",
+    "The exact ADD, AND, OR, XOR, MIN, MINU, MAX, and MAXU result functions are deliberately omitted. Leaving io.out and io.out_unmasked unconstrained at this leaf is a safe over-approximation for microarchitectural memory-ordering analysis; it may admit spurious value behaviors but cannot remove a real ordering behavior.",
+    "Byte-mask preservation, where masked-off bytes of io.out come from io.lhs and enabled bytes come from the computed AMO result, is likewise an optional functional strengthening rather than a necessary parent-facing ordering constraint.",
+    "If a later system-level counterexample depends specifically on AMO returned/written data values rather than ordering, this leaf may be reopened by CEGAR and a generic combinational-function/specification mechanism can then be considered. The present WorkUnit does not justify adding such a language construct preemptively.",
+    "No liveness, fairness, identity, or ordering claim is applicable."
+  ],
+  "extensions": {}
+}

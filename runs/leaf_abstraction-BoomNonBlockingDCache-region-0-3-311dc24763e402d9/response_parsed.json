@@ -1,0 +1,1356 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [
+        "C2_Response"
+      ],
+      "evidence_statement_ids": [
+        2739,
+        2740
+      ],
+      "formal": {
+        "occurrence": "RespValid",
+        "predicate": "S2Invalid",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A1",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_Nack"
+      ],
+      "evidence_statement_ids": [
+        2787,
+        2788
+      ],
+      "formal": {
+        "occurrence": "NackValid",
+        "predicate": "S2Invalid",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A2",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_HitStoreAck",
+        "C4_MissAllocatedStoreAck"
+      ],
+      "evidence_statement_ids": [
+        2800,
+        2801,
+        2802
+      ],
+      "formal": {
+        "occurrence": "StoreAckValid",
+        "predicate": "S2Invalid",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A3",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C5_MSHRRequest"
+      ],
+      "evidence_statement_ids": [
+        2117,
+        2187
+      ],
+      "formal": {
+        "occurrence": "MSHRReqFire",
+        "predicate": "S2Invalid",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A4",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_Response"
+      ],
+      "evidence_statement_ids": [
+        2036,
+        2062,
+        2739,
+        2740
+      ],
+      "formal": {
+        "occurrence": "RespValid",
+        "predicate": "S2Miss",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A5",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_Nack"
+      ],
+      "evidence_statement_ids": [
+        2099,
+        2100,
+        2102,
+        2787,
+        2788
+      ],
+      "formal": {
+        "occurrence": "NackValid",
+        "predicate": "S2NoNack",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A6",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_HitStoreAck",
+        "C4_MissAllocatedStoreAck"
+      ],
+      "evidence_statement_ids": [
+        2067,
+        2068,
+        2092,
+        2095,
+        2097,
+        2800,
+        2801,
+        2802
+      ],
+      "formal": {
+        "occurrence": "StoreAckValid",
+        "predicate": "S2Nack",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A7",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C5_MSHRRequest"
+      ],
+      "evidence_statement_ids": [
+        2116,
+        2117,
+        2187
+      ],
+      "formal": {
+        "occurrence": "MSHRReqFire",
+        "predicate": "S2Hit",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A8",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_HitStoreAck",
+        "C4_MissAllocatedStoreAck"
+      ],
+      "evidence_statement_ids": [
+        2066,
+        2067,
+        2068,
+        2092,
+        2093,
+        2094,
+        2095,
+        2097,
+        2116,
+        2117,
+        2187,
+        2800,
+        2801,
+        2802
+      ],
+      "formal": {
+        "parts": [
+          "HitStoreAck",
+          "MissAllocatedStoreAck"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "StoreAckValid"
+      },
+      "id": "A9",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C6_RespFromS3",
+        "C7_RespFromS4",
+        "C8_RespFromS5",
+        "C9_RespFromArray"
+      ],
+      "evidence_statement_ids": [
+        2739,
+        2740,
+        2858,
+        2864,
+        2870,
+        2871,
+        2872,
+        2873,
+        2874
+      ],
+      "formal": {
+        "parts": [
+          "RespFromS3",
+          "RespFromS4",
+          "RespFromS5",
+          "RespFromArray"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "RespValid"
+      },
+      "id": "A10",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C6_RespFromS3"
+      ],
+      "evidence_statement_ids": [
+        2858,
+        2873,
+        2874
+      ],
+      "formal": {
+        "on": "RespFromS3",
+        "scope_identity": null,
+        "source": {
+          "name": "s3_req.data",
+          "op": "signal"
+        },
+        "target": "s2_data_word[0]",
+        "type": "signal_equality"
+      },
+      "id": "A11",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C7_RespFromS4"
+      ],
+      "evidence_statement_ids": [
+        2864,
+        2872,
+        2873,
+        2874
+      ],
+      "formal": {
+        "on": "RespFromS4",
+        "scope_identity": null,
+        "source": {
+          "name": "s4_req.data",
+          "op": "signal"
+        },
+        "target": "s2_data_word[0]",
+        "type": "signal_equality"
+      },
+      "id": "A12",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C8_RespFromS5"
+      ],
+      "evidence_statement_ids": [
+        2870,
+        2871,
+        2872,
+        2873,
+        2874
+      ],
+      "formal": {
+        "on": "RespFromS5",
+        "scope_identity": null,
+        "source": {
+          "name": "s5_req.data",
+          "op": "signal"
+        },
+        "target": "s2_data_word[0]",
+        "type": "signal_equality"
+      },
+      "id": "A13",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C9_RespFromArray"
+      ],
+      "evidence_statement_ids": [
+        2730,
+        2731,
+        2733,
+        2871,
+        2872,
+        2873,
+        2874
+      ],
+      "formal": {
+        "on": "RespFromArray",
+        "scope_identity": null,
+        "source": {
+          "name": "s2_data_word_prebypass[0]",
+          "op": "signal"
+        },
+        "target": "s2_data_word[0]",
+        "type": "signal_equality"
+      },
+      "id": "A14",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C10_SCResponse"
+      ],
+      "evidence_statement_ids": [
+        1817,
+        1818,
+        2735,
+        2774,
+        2775,
+        2776,
+        2777,
+        2778,
+        2779,
+        2780,
+        2781,
+        2782,
+        2783,
+        2784,
+        2785
+      ],
+      "formal": {
+        "on": "SCResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "s2_sc_fail",
+          "op": "signal"
+        },
+        "target": "io.lsu.resp[0].bits.data",
+        "type": "signal_equality"
+      },
+      "id": "A15",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_Nack"
+      ],
+      "evidence_statement_ids": [
+        2789
+      ],
+      "formal": {
+        "on": "NackValid",
+        "scope_identity": null,
+        "source": {
+          "name": "s2_req[0].addr",
+          "op": "signal"
+        },
+        "target": "io.lsu.nack[0].bits.addr",
+        "type": "signal_equality"
+      },
+      "id": "A16",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_Nack"
+      ],
+      "evidence_statement_ids": [
+        2789
+      ],
+      "formal": {
+        "on": "NackValid",
+        "scope_identity": null,
+        "source": {
+          "name": "s2_req[0].data",
+          "op": "signal"
+        },
+        "target": "io.lsu.nack[0].bits.data",
+        "type": "signal_equality"
+      },
+      "id": "A17",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_Nack"
+      ],
+      "evidence_statement_ids": [
+        2789
+      ],
+      "formal": {
+        "on": "NackValid",
+        "scope_identity": null,
+        "source": {
+          "name": "s2_req[0].uop.mem_cmd",
+          "op": "signal"
+        },
+        "target": "io.lsu.nack[0].bits.uop.mem_cmd",
+        "type": "signal_equality"
+      },
+      "id": "A18",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_Nack"
+      ],
+      "evidence_statement_ids": [
+        2789
+      ],
+      "formal": {
+        "on": "NackValid",
+        "scope_identity": null,
+        "source": {
+          "name": "s2_req[0].uop.rob_idx",
+          "op": "signal"
+        },
+        "target": "io.lsu.nack[0].bits.uop.rob_idx",
+        "type": "signal_equality"
+      },
+      "id": "A19",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_Nack"
+      ],
+      "evidence_statement_ids": [
+        2789
+      ],
+      "formal": {
+        "on": "NackValid",
+        "scope_identity": null,
+        "source": {
+          "name": "s2_req[0].uop.ldq_idx",
+          "op": "signal"
+        },
+        "target": "io.lsu.nack[0].bits.uop.ldq_idx",
+        "type": "signal_equality"
+      },
+      "id": "A20",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_Nack"
+      ],
+      "evidence_statement_ids": [
+        2789
+      ],
+      "formal": {
+        "on": "NackValid",
+        "scope_identity": null,
+        "source": {
+          "name": "s2_req[0].uop.stq_idx",
+          "op": "signal"
+        },
+        "target": "io.lsu.nack[0].bits.uop.stq_idx",
+        "type": "signal_equality"
+      },
+      "id": "A21",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_HitStoreAck",
+        "C4_MissAllocatedStoreAck"
+      ],
+      "evidence_statement_ids": [
+        2803
+      ],
+      "formal": {
+        "on": "StoreAckValid",
+        "scope_identity": null,
+        "source": {
+          "name": "s2_req[0].addr",
+          "op": "signal"
+        },
+        "target": "io.lsu.store_ack[0].bits.addr",
+        "type": "signal_equality"
+      },
+      "id": "A22",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_HitStoreAck",
+        "C4_MissAllocatedStoreAck"
+      ],
+      "evidence_statement_ids": [
+        2803
+      ],
+      "formal": {
+        "on": "StoreAckValid",
+        "scope_identity": null,
+        "source": {
+          "name": "s2_req[0].uop.mem_cmd",
+          "op": "signal"
+        },
+        "target": "io.lsu.store_ack[0].bits.uop.mem_cmd",
+        "type": "signal_equality"
+      },
+      "id": "A23",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_HitStoreAck",
+        "C4_MissAllocatedStoreAck"
+      ],
+      "evidence_statement_ids": [
+        2803
+      ],
+      "formal": {
+        "on": "StoreAckValid",
+        "scope_identity": null,
+        "source": {
+          "name": "s2_req[0].uop.rob_idx",
+          "op": "signal"
+        },
+        "target": "io.lsu.store_ack[0].bits.uop.rob_idx",
+        "type": "signal_equality"
+      },
+      "id": "A24",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_HitStoreAck",
+        "C4_MissAllocatedStoreAck"
+      ],
+      "evidence_statement_ids": [
+        2803
+      ],
+      "formal": {
+        "on": "StoreAckValid",
+        "scope_identity": null,
+        "source": {
+          "name": "s2_req[0].uop.stq_idx",
+          "op": "signal"
+        },
+        "target": "io.lsu.store_ack[0].bits.uop.stq_idx",
+        "type": "signal_equality"
+      },
+      "id": "A25",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_Response"
+      ],
+      "evidence_statement_ids": [
+        2741
+      ],
+      "formal": {
+        "on": "RespValid",
+        "scope_identity": null,
+        "source": {
+          "name": "s2_req[0].uop.mem_cmd",
+          "op": "signal"
+        },
+        "target": "io.lsu.resp[0].bits.uop.mem_cmd",
+        "type": "signal_equality"
+      },
+      "id": "A26",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_Response"
+      ],
+      "evidence_statement_ids": [
+        2741
+      ],
+      "formal": {
+        "on": "RespValid",
+        "scope_identity": null,
+        "source": {
+          "name": "s2_req[0].uop.mem_size",
+          "op": "signal"
+        },
+        "target": "io.lsu.resp[0].bits.uop.mem_size",
+        "type": "signal_equality"
+      },
+      "id": "A27",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_Response"
+      ],
+      "evidence_statement_ids": [
+        2741
+      ],
+      "formal": {
+        "on": "RespValid",
+        "scope_identity": null,
+        "source": {
+          "name": "s2_req[0].uop.rob_idx",
+          "op": "signal"
+        },
+        "target": "io.lsu.resp[0].bits.uop.rob_idx",
+        "type": "signal_equality"
+      },
+      "id": "A28",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_Response"
+      ],
+      "evidence_statement_ids": [
+        2741
+      ],
+      "formal": {
+        "on": "RespValid",
+        "scope_identity": null,
+        "source": {
+          "name": "s2_req[0].uop.ldq_idx",
+          "op": "signal"
+        },
+        "target": "io.lsu.resp[0].bits.uop.ldq_idx",
+        "type": "signal_equality"
+      },
+      "id": "A29",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_Response"
+      ],
+      "evidence_statement_ids": [
+        2741
+      ],
+      "formal": {
+        "on": "RespValid",
+        "scope_identity": null,
+        "source": {
+          "name": "s2_req[0].uop.stq_idx",
+          "op": "signal"
+        },
+        "target": "io.lsu.resp[0].bits.uop.stq_idx",
+        "type": "signal_equality"
+      },
+      "id": "A30",
+      "status": "candidate"
+    }
+  ],
+  "cases": [
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        2099,
+        2100,
+        2102,
+        2787,
+        2788,
+        2789
+      ],
+      "guard_predicates": [
+        {
+          "id": "S2Nack",
+          "positive": true
+        }
+      ],
+      "id": "C1_Nack",
+      "relations": [
+        "A valid stage-2 request on a nack path is returned to the LSU as the same request identity and address."
+      ],
+      "trigger_occurrences": [
+        "NackValid"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        2029,
+        2030,
+        2031,
+        2032,
+        2033,
+        2034,
+        2035,
+        2036,
+        2062,
+        2064,
+        2739,
+        2740,
+        2741
+      ],
+      "guard_predicates": [
+        {
+          "id": "S2Hit",
+          "positive": true
+        }
+      ],
+      "id": "C2_Response",
+      "relations": [
+        "The direct LSU response path is a cache-hit read response carrying the stage-2 request identity."
+      ],
+      "trigger_occurrences": [
+        "RespValid"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [
+        "StoreAckValid"
+      ],
+      "evidence_statement_ids": [
+        2066,
+        2067,
+        2068,
+        2092,
+        2094,
+        2095,
+        2097,
+        2800,
+        2801,
+        2802,
+        2803
+      ],
+      "guard_predicates": [
+        {
+          "id": "S2Hit",
+          "positive": true
+        },
+        {
+          "id": "S2NoNack",
+          "positive": true
+        }
+      ],
+      "id": "C3_HitStoreAck",
+      "relations": [
+        "A non-nacked write hit may be acknowledged immediately to the LSU."
+      ],
+      "trigger_occurrences": [
+        "HitStoreAck"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [
+        "StoreAckValid"
+      ],
+      "evidence_statement_ids": [
+        2066,
+        2067,
+        2068,
+        2092,
+        2093,
+        2094,
+        2095,
+        2097,
+        2116,
+        2117,
+        2187,
+        2800,
+        2801,
+        2802,
+        2803
+      ],
+      "guard_predicates": [
+        {
+          "id": "S2Miss",
+          "positive": true
+        },
+        {
+          "id": "S2NoNack",
+          "positive": true
+        }
+      ],
+      "id": "C4_MissAllocatedStoreAck",
+      "relations": [
+        "A non-nacked write miss may be acknowledged when its MSHR request handshakes; this acknowledgement is admission into the miss machinery rather than downstream memory completion."
+      ],
+      "trigger_occurrences": [
+        "MissAllocatedStoreAck"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        2116,
+        2117,
+        2118,
+        2119,
+        2120,
+        2121,
+        2122,
+        2123,
+        2124,
+        2125,
+        2126,
+        2127,
+        2128,
+        2129,
+        2130,
+        2131,
+        2132,
+        2187
+      ],
+      "guard_predicates": [
+        {
+          "id": "S2Miss",
+          "positive": true
+        }
+      ],
+      "id": "C5_MSHRRequest",
+      "relations": [
+        "An MSHR request handshake can occur only on the miss path represented by this region."
+      ],
+      "trigger_occurrences": [
+        "MSHRReqFire"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [
+        "RespValid"
+      ],
+      "evidence_statement_ids": [
+        2853,
+        2854,
+        2855,
+        2856,
+        2858,
+        2873,
+        2874
+      ],
+      "guard_predicates": [],
+      "id": "C6_RespFromS3",
+      "relations": [
+        "The youngest in-flight matching store in s3 has first forwarding priority for the response data word."
+      ],
+      "trigger_occurrences": [
+        "RespFromS3"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [
+        "RespValid"
+      ],
+      "evidence_statement_ids": [
+        2859,
+        2860,
+        2861,
+        2862,
+        2864,
+        2872,
+        2873,
+        2874
+      ],
+      "guard_predicates": [],
+      "id": "C7_RespFromS4",
+      "relations": [
+        "s4 forwarding is used only when no matching s3 forwarding path is active."
+      ],
+      "trigger_occurrences": [
+        "RespFromS4"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [
+        "RespValid"
+      ],
+      "evidence_statement_ids": [
+        2865,
+        2866,
+        2867,
+        2868,
+        2870,
+        2871,
+        2872,
+        2873,
+        2874
+      ],
+      "guard_predicates": [],
+      "id": "C8_RespFromS5",
+      "relations": [
+        "s5 forwarding is used only when neither s3 nor s4 supplies a matching store value."
+      ],
+      "trigger_occurrences": [
+        "RespFromS5"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [
+        "RespValid"
+      ],
+      "evidence_statement_ids": [
+        2730,
+        2731,
+        2733,
+        2871,
+        2872,
+        2873,
+        2874
+      ],
+      "guard_predicates": [],
+      "id": "C9_RespFromArray",
+      "relations": [
+        "When no s3/s4/s5 forwarding match exists, the response data word comes from the cache-array path."
+      ],
+      "trigger_occurrences": [
+        "RespFromArray"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [
+        "RespValid"
+      ],
+      "evidence_statement_ids": [
+        1805,
+        1808,
+        1809,
+        1810,
+        1811,
+        1817,
+        1818,
+        2735,
+        2774,
+        2775,
+        2776,
+        2777,
+        2778,
+        2779,
+        2780,
+        2781,
+        2782,
+        2783,
+        2784,
+        2785
+      ],
+      "guard_predicates": [],
+      "id": "C10_SCResponse",
+      "relations": [
+        "For an SC response, LoadGen is zeroed and the externally returned value is exactly the SC-failure bit."
+      ],
+      "trigger_occurrences": [
+        "SCResponse"
+      ]
+    }
+  ],
+  "extensions": {},
+  "identity_keys": [],
+  "occurrences": [
+    {
+      "definition": "io.lsu.nack[0].valid",
+      "evidence_statement_ids": [
+        2787,
+        2788
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.lsu.nack[0].valid"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "NackValid",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::io.lsu.nack[0].valid"
+      ]
+    },
+    {
+      "definition": "io.lsu.resp[0].valid",
+      "evidence_statement_ids": [
+        2739,
+        2740
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.lsu.resp[0].valid"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "RespValid",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::io.lsu.resp[0].valid"
+      ]
+    },
+    {
+      "definition": "io.lsu.store_ack[0].valid",
+      "evidence_statement_ids": [
+        2800,
+        2801,
+        2802
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.lsu.store_ack[0].valid"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "StoreAckValid",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::io.lsu.store_ack[0].valid"
+      ]
+    },
+    {
+      "definition": "mshrs.io.req[0].valid && mshrs.io.req[0].ready",
+      "evidence_statement_ids": [
+        2093,
+        2187
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "mshrs.io.req[0].valid",
+          "mshrs.io.req[0].ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "MSHRReqFire",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "io.lsu.store_ack[0].valid && s2_hit[0]",
+      "evidence_statement_ids": [
+        2067,
+        2068,
+        2092,
+        2094,
+        2095,
+        2097,
+        2800,
+        2801,
+        2802
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.lsu.store_ack[0].valid",
+          "s2_hit[0]"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "HitStoreAck",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "io.lsu.store_ack[0].valid && !s2_hit[0] && mshrs.io.req[0].valid && mshrs.io.req[0].ready",
+      "evidence_statement_ids": [
+        2093,
+        2094,
+        2095,
+        2116,
+        2117,
+        2187,
+        2800,
+        2801,
+        2802
+      ],
+      "grounding": {
+        "signals_false": [
+          "s2_hit[0]"
+        ],
+        "signals_true": [
+          "io.lsu.store_ack[0].valid",
+          "mshrs.io.req[0].valid",
+          "mshrs.io.req[0].ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "MissAllocatedStoreAck",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "io.lsu.resp[0].valid && s3_bypass[0]",
+      "evidence_statement_ids": [
+        2739,
+        2740,
+        2853,
+        2854,
+        2855,
+        2856,
+        2858,
+        2873,
+        2874
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.lsu.resp[0].valid",
+          "s3_bypass[0]"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "RespFromS3",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "io.lsu.resp[0].valid && !s3_bypass[0] && s4_bypass[0]",
+      "evidence_statement_ids": [
+        2739,
+        2740,
+        2859,
+        2860,
+        2861,
+        2862,
+        2864,
+        2872,
+        2873,
+        2874
+      ],
+      "grounding": {
+        "signals_false": [
+          "s3_bypass[0]"
+        ],
+        "signals_true": [
+          "io.lsu.resp[0].valid",
+          "s4_bypass[0]"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "RespFromS4",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "io.lsu.resp[0].valid && !s3_bypass[0] && !s4_bypass[0] && s5_bypass[0]",
+      "evidence_statement_ids": [
+        2739,
+        2740,
+        2865,
+        2866,
+        2867,
+        2868,
+        2870,
+        2871,
+        2872,
+        2873,
+        2874
+      ],
+      "grounding": {
+        "signals_false": [
+          "s3_bypass[0]",
+          "s4_bypass[0]"
+        ],
+        "signals_true": [
+          "io.lsu.resp[0].valid",
+          "s5_bypass[0]"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "RespFromS5",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "io.lsu.resp[0].valid && !s3_bypass[0] && !s4_bypass[0] && !s5_bypass[0]",
+      "evidence_statement_ids": [
+        2739,
+        2740,
+        2871,
+        2872,
+        2873,
+        2874
+      ],
+      "grounding": {
+        "signals_false": [
+          "s3_bypass[0]",
+          "s4_bypass[0]",
+          "s5_bypass[0]"
+        ],
+        "signals_true": [
+          "io.lsu.resp[0].valid"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "RespFromArray",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "io.lsu.resp[0].valid && s2_sc",
+      "evidence_statement_ids": [
+        1805,
+        1808,
+        1809,
+        1810,
+        1811,
+        2735,
+        2739,
+        2740,
+        2774,
+        2775,
+        2784,
+        2785
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.lsu.resp[0].valid",
+          "s2_sc"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "SCResponse",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    }
+  ],
+  "predicates": [
+    {
+      "definition": "!s2_valid[0]",
+      "evidence_statement_ids": [
+        2739,
+        2787,
+        2800
+      ],
+      "grounding": {
+        "negated": true,
+        "source_signal": "s2_valid[0]",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "S2Invalid"
+    },
+    {
+      "definition": "s2_hit[0]",
+      "evidence_statement_ids": [
+        2036,
+        2094,
+        2116
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "s2_hit[0]",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "S2Hit"
+    },
+    {
+      "definition": "!s2_hit[0]",
+      "evidence_statement_ids": [
+        2036,
+        2116,
+        2117
+      ],
+      "grounding": {
+        "negated": true,
+        "source_signal": "s2_hit[0]",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "S2Miss"
+    },
+    {
+      "definition": "s2_nack[0]",
+      "evidence_statement_ids": [
+        2067,
+        2100,
+        2112
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "s2_nack[0]",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "S2Nack"
+    },
+    {
+      "definition": "!s2_nack[0]",
+      "evidence_statement_ids": [
+        2067,
+        2068,
+        2100
+      ],
+      "grounding": {
+        "negated": true,
+        "source_signal": "s2_nack[0]",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "S2NoNack"
+    }
+  ],
+  "rationale": [
+    "This region is the stage-2 LSU outcome-selection and local data-forwarding region. It should not be abstracted as a single mutually-exclusive response state machine because the command classes overlap: SC and AMO are both read-like and write-like operations.",
+    "A1-A4 preserve the common validity gate: killed, excepted, branch-killed, or otherwise invalidated requests represented by s2_valid[0] cannot produce an LSU response, nack, store acknowledgement, or MSHR request handshake.",
+    "A5 preserves that the direct LSU response path is hit-only. Misses are handled through MSHR/replay rather than producing the immediate hit response represented here.",
+    "A6 and A7 preserve the opposite nack polarity of NackValid and StoreAckValid. A nack result requires s2_nack; a store acknowledgement requires the request not to be nacked.",
+    "A8 preserves that an MSHR allocation handshake occurs only on the miss path.",
+    "A9 is especially important: StoreAckValid is exactly divided between a cache-hit acknowledgement and a miss acknowledgement caused by a same-cycle MSHR request handshake. Therefore StoreAckValid must not be interpreted by a parent as proof that a store miss has completed at the memory system.",
+    "A10-A14 preserve the exact store-to-load forwarding priority s3 > s4 > s5 > cache-array data. The bypass comparisons operate at the 8-byte word address granularity and the nested mux implements the stated priority.",
+    "The exact general LoadGen byte/halfword/word extraction and sign-extension function is deliberately not encoded. Leaving ordinary response data less constrained is a safe over-approximation and can be refined by CEGAR if architectural-value reasoning later requires it.",
+    "SC is retained as an exception to that omission. The zero flag passed to LoadGen makes the normal SC response value zero, after which s2_sc_fail is ORed into the result; consequently SCResponse returns exactly 0 on success and 1 on failure. A15 preserves this architecturally significant atomic result.",
+    "A16-A30 preserve the request projections needed to correlate LSU-visible results with the stage-2 request: address and store data where present, memory command and size, ROB identity, and LDQ/STQ identity. The many unrelated decode, floating-point, debug, and branch-control fields in the MicroOp payload are deliberately omitted.",
+    "No identity_key object is introduced because this region already exposes the relevant request identity through exact same-cycle payload projections, while the supplied schema evidence does not require an additional cross-generation identity relation.",
+    "No liveness or fairness property is claimed. In particular, MSHR readiness and subsequent miss completion are outside this local result-selection guarantee."
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-BoomNonBlockingDCache-region-0-3-311dc24763e402d9",
+  "unresolved": [],
+  "work_unit_id": "BoomNonBlockingDCache::region-0-3"
+}

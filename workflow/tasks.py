@@ -10,7 +10,7 @@ from .schema import UMCM_SCHEMA_VERSION, candidate_output_schema
 
 
 WORKFLOW_VERSION = "manual-first-workflow-0.9"
-PROMPT_VERSION = "leaf-abstraction-prompt-0.10"
+PROMPT_VERSION = "leaf-abstraction-prompt-0.11"
 PARENT_PROMPT_VERSION = "parent-synthesis-prompt-0.2"
 
 
@@ -289,7 +289,17 @@ Output schema version: `{task.schema_version}`
    the stored value layout, and exports the standard relations: `rf` selects the
    co-latest prior same-key write, `co` is a strict total order over writes to
    each key, and `fr` is derived as `rf^-1 ; co`. Relation names must be distinct;
-   do not state `rf`, `co`, and `fr` as unrelated ordering approximations. If a semantic property that you judge
+   do not state `rf`, `co`, and `fr` as unrelated ordering approximations.
+   Use `initialization.kind: explicit` only for a grounded initialization sweep,
+   with `initial_value` on every value field. For RAM without a specified
+   power-up/reset value, use `initialization: {{"kind":"implicit_unconstrained"}}`
+   and omit every `initial_value`; this creates one fresh unconstrained initial
+   write per key while preserving the same `rf/co/fr` definitions. The optional
+   `read_write_collision` is `exclusive` by default; use
+   `implicit_unconstrained` only when same-key synchronous read/write collision
+   is possible and the RAM result is unspecified. This introduces a transient
+   unconstrained abstract write as the collision read's `rf` source, immediately
+   before the colliding real write in `co`. If a semantic property that you judge
    **necessary** for a sound/useful parent-facing abstraction cannot be faithfully
    represented by the current Formal AST, do not approximate it with a different
    or weaker axiom. Report a `MCM-AGENT LANGUAGE GAP` using the procedure below.

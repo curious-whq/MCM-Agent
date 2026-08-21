@@ -13,8 +13,8 @@ from frontend.slice import SourceSpan
 from frontend.workunit import HierarchicalWorkUnit, WorkUnitComplexity
 
 
-HANDOFF_SCHEMA_VERSION = "workunit-static-0.1"
-PLANNER_VERSION = "hierarchical-planner-v11"
+HANDOFF_SCHEMA_VERSION = "workunit-static-0.2"
+PLANNER_VERSION = "hierarchical-planner-v12"
 
 
 def _source_dict(source: SourceLoc | None) -> dict[str, Any] | None:
@@ -72,6 +72,21 @@ def _event_dict(event: PhysicalEvent, concrete_id: str) -> dict[str, Any]:
         "ready": event.ready.path if event.ready is not None else None,
         "payload": [port.path for port in event.payload],
         "sources": [_source_dict(source) for source in event.sources],
+    }
+
+
+def _statement_dict(statement) -> dict[str, Any]:
+    return {
+        "id": statement.id,
+        "firrtl_line": statement.firrtl_line,
+        "kind": statement.kind,
+        "text": statement.text,
+        "source": _source_dict(statement.source),
+        "status": statement.status.value,
+        "drives": list(statement.drives),
+        "reads": list(statement.reads),
+        "control_reads": list(statement.control_reads),
+        "note": statement.note,
     }
 
 
@@ -180,20 +195,7 @@ def build_work_unit_static_handoff(
             raise ValueError(
                 f"WorkUnit {unit.id!r} references unknown statement {statement_id}"
             )
-        statements.append(
-            {
-                "id": statement.id,
-                "firrtl_line": statement.firrtl_line,
-                "kind": statement.kind,
-                "text": statement.text,
-                "source": _source_dict(statement.source),
-                "status": statement.status.value,
-                "drives": list(statement.drives),
-                "reads": list(statement.reads),
-                "control_reads": list(statement.control_reads),
-                "note": statement.note,
-            }
-        )
+        statements.append(_statement_dict(statement))
 
     edges = []
     for edge in graph.edges:
@@ -248,6 +250,7 @@ def build_work_unit_static_handoff(
 
     plan = discover_partition_plan(graph, registry)
     semantic_cones = []
+    event_gate_bridge_ids: set[int] = set()
     for cone in plan.event_cones:
         if cone.event_id not in local_registry_ids:
             continue
@@ -275,6 +278,42 @@ def build_work_unit_static_handoff(
                 "complete": cone.complete,
             }
         )
+        # A static region may own the state/gate logic for a module boundary
+        # event while the final module-port connector remains parent-owned
+        # shared glue. Keep ownership disjoint, but export that exact
+        # current-cycle connector cone as prover-only context so the physical
+        # event does not become an unrelated opaque atom.
+        event_gate_bridge_ids.update(
+            set(cone.immediate_statement_ids) - statement_ids
+        )
+
+    event_gate_bridges = []
+    for statement_id in sorted(event_gate_bridge_ids):
+        statement = statement_by_id.get(statement_id)
+        if statement is None:
+            raise ValueError(
+                f"WorkUnit {unit.id!r} event gate references unknown bridge statement {statement_id}"
+            )
+        event_gate_bridges.append(_statement_dict(statement))
+
+    state_support_ids: set[int] = set()
+    local_state_roots = {str(root) for root in unit.local_state}
+    for statement in graph.statements:
+        if statement.kind not in {"reg", "regreset"}:
+            continue
+        if any(
+            drive == root
+            or drive.startswith(root + ".")
+            or drive.startswith(root + "[")
+            for drive in statement.drives
+            for root in local_state_roots
+        ):
+            state_support_ids.add(statement.id)
+    state_support_ids -= statement_ids
+    state_support_statements = [
+        _statement_dict(statement_by_id[statement_id])
+        for statement_id in sorted(state_support_ids)
+    ]
 
     children = [
         {
@@ -321,6 +360,14 @@ def build_work_unit_static_handoff(
         "statements": statements,
         "dependency_edges": edges,
         "semantic_event_cones": semantic_cones,
+        "proof_context": {
+            "policy": "exact-local-event-gate-bridges-v0.1",
+            "event_gate_statement_ids": sorted(event_gate_bridge_ids),
+            "event_gate_statements": event_gate_bridges,
+            "state_support_statement_ids": sorted(state_support_ids),
+            "state_support_statements": state_support_statements,
+            "llm_evidence": False,
+        },
         "source_spans": [asdict(span) for span in local_source_spans],
         "source_evidence": source_evidence,
         "grounding": {

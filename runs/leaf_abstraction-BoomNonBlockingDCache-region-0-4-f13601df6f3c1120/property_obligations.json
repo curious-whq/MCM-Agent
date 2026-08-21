@@ -1,0 +1,101 @@
+{
+  "compiler": "formal-axiom-compiler-0.9",
+  "obligations": [
+    {
+      "arguments": {
+        "occurrence": "RequestAccept",
+        "predicate": "MSHRResponsePending"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        271,
+        273,
+        274,
+        275
+      ],
+      "formal": {
+        "occurrence": "RequestAccept",
+        "predicate": "MSHRResponsePending",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "RequestAccept"
+        ],
+        "predicates": [
+          "MSHRResponsePending"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "MSHRResponsePending => !RequestAccept"
+    },
+    {
+      "arguments": {
+        "occurrence": "RequestAccept",
+        "predicate": "MetaReadUnavailable"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        272,
+        274,
+        275
+      ],
+      "formal": {
+        "occurrence": "RequestAccept",
+        "predicate": "MetaReadUnavailable",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "RequestAccept"
+        ],
+        "predicates": [
+          "MetaReadUnavailable"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "MetaReadUnavailable => !RequestAccept"
+    },
+    {
+      "arguments": {
+        "occurrence": "RequestAccept",
+        "predicate": "DataReadUnavailable"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        272,
+        274,
+        275
+      ],
+      "formal": {
+        "occurrence": "RequestAccept",
+        "predicate": "DataReadUnavailable",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "RequestAccept"
+        ],
+        "predicates": [
+          "DataReadUnavailable"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "DataReadUnavailable => !RequestAccept"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "work_unit_id": "BoomNonBlockingDCache::region-0-4"
+}

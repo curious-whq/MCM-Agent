@@ -1,0 +1,38 @@
+{
+  "compiler": "formal-axiom-compiler-0.9",
+  "obligations": [
+    {
+      "arguments": {
+        "occurrence": "ProbeFire",
+        "predicate": "LRSCValid"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        2486,
+        2487,
+        2488
+      ],
+      "formal": {
+        "occurrence": "ProbeFire",
+        "predicate": "LRSCValid",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ProbeFire"
+        ],
+        "predicates": [
+          "LRSCValid"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "LRSCValid => !ProbeFire"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "work_unit_id": "BoomNonBlockingDCache::region-0-0"
+}

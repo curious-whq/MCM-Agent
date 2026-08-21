@@ -1,0 +1,1103 @@
+{
+  "all_axioms_formally_proved": true,
+  "all_axioms_structurally_supported": true,
+  "candidate_axiom_count": 11,
+  "control_model": {
+    "known_states": [],
+    "reset_state": null,
+    "state_register": "state",
+    "transitions": []
+  },
+  "counts": {
+    "FORMALLY_PROVED": 11,
+    "GROUNDED": 0,
+    "PARTIALLY_SUPPORTED": 0,
+    "REFUTED": 0,
+    "SPEC_PROVED": 0,
+    "STRUCTURALLY_SUPPORTED": 0
+  },
+  "formal_backend": {
+    "api_version": "formal-backend-api-0.15",
+    "available": true,
+    "name": "explicit-control",
+    "note": "Exhaustive formal proof for certified finite-control/order properties, exact symbolic local/identity facts, exact local Boolean exclusion/conservation, bounded indexed token provenance, and selected finite reference equivalence checks. It is not a general bit-level SMT backend.",
+    "proof_domain": "control + exact symbolic local + exact combinational exclusion/conservation + scalar/indexed token provenance + finite reference equivalence",
+    "supported_checkers": [
+      "forbid_when",
+      "history_order",
+      "history_chain",
+      "history_join",
+      "indexed_coverage",
+      "indexed_storage_flow",
+      "occurrence_partition",
+      "transaction_exclusion",
+      "signal_alias",
+      "constant_bit",
+      "identity_projection",
+      "tilelink_on_probe_spec"
+    ],
+    "trusted_proof_levels": [
+      "FORMALLY_PROVED",
+      "SPEC_PROVED"
+    ]
+  },
+  "has_counterexample": false,
+  "property_compiler": "formal-axiom-compiler-0.9",
+  "results": [
+    {
+      "arguments": {
+        "parts": [
+          "ReleaseAckFire",
+          "MSHRGrantFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "DFire"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        2507,
+        2508,
+        2509,
+        2519,
+        2520
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "mutex_pairs": [
+            [
+              "ReleaseAckFire",
+              "MSHRGrantFire"
+            ]
+          ],
+          "obligations": [
+            {
+              "atom_count": 2,
+              "kind": "whole_without_part",
+              "unsat": true
+            },
+            {
+              "atom_count": 2,
+              "kind": "part_without_whole",
+              "unsat": true
+            },
+            {
+              "atom_count": 2,
+              "kind": "parts_mutually_exclusive",
+              "parts": [
+                "ReleaseAckFire",
+                "MSHRGrantFire"
+              ],
+              "unsat": true
+            }
+          ],
+          "parts": [
+            "ReleaseAckFire",
+            "MSHRGrantFire"
+          ],
+          "proof": "DFire is equivalent to the same-cycle disjunction of its parts, and every pair of parts has an unsatisfiable conjunction",
+          "proof_domain": "exact-same-cycle-occurrence-partition",
+          "reachable_lock_certificates": [],
+          "status": "STRUCTURALLY_SUPPORTED",
+          "whole": "DFire"
+        },
+        "proof": "DFire is equivalent to the same-cycle disjunction of its parts, and every pair of parts has an unsatisfiable conjunction",
+        "proof_method": "exact-same-cycle-occurrence-partition",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "DFire",
+          "MSHRGrantFire",
+          "ReleaseAckFire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "DFire <=> exactly_one_same_cycle({ReleaseAckFire, MSHRGrantFire})",
+      "structural": {
+        "mutex_pairs": [
+          [
+            "ReleaseAckFire",
+            "MSHRGrantFire"
+          ]
+        ],
+        "obligations": [
+          {
+            "atom_count": 2,
+            "kind": "whole_without_part",
+            "unsat": true
+          },
+          {
+            "atom_count": 2,
+            "kind": "part_without_whole",
+            "unsat": true
+          },
+          {
+            "atom_count": 2,
+            "kind": "parts_mutually_exclusive",
+            "parts": [
+              "ReleaseAckFire",
+              "MSHRGrantFire"
+            ],
+            "unsat": true
+          }
+        ],
+        "parts": [
+          "ReleaseAckFire",
+          "MSHRGrantFire"
+        ],
+        "proof": "DFire is equivalent to the same-cycle disjunction of its parts, and every pair of parts has an unsatisfiable conjunction",
+        "proof_domain": "exact-same-cycle-occurrence-partition",
+        "reachable_lock_certificates": [],
+        "status": "STRUCTURALLY_SUPPORTED",
+        "whole": "DFire"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "ReleaseAckFire",
+        "predicate": "NonReleaseAckSource"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        2507,
+        2508,
+        2509
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 2,
+          "event_gate_bridge_statement_ids": [
+            47
+          ],
+          "proof": "ReleaseAckFire and NonReleaseAckSource have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "ReleaseAckFire and NonReleaseAckSource have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ReleaseAckFire"
+        ],
+        "predicates": [
+          "NonReleaseAckSource"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "NonReleaseAckSource => !ReleaseAckFire",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "MSHRGrantFire",
+        "predicate": "ReleaseAckSource"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        2507,
+        2508,
+        2519,
+        2520
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 2,
+          "event_gate_bridge_statement_ids": [
+            47
+          ],
+          "proof": "MSHRGrantFire and ReleaseAckSource have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "MSHRGrantFire and ReleaseAckSource have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "MSHRGrantFire"
+        ],
+        "predicates": [
+          "ReleaseAckSource"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "ReleaseAckSource => !MSHRGrantFire",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "MSHRGrantFire",
+        "source": "nodeOut.d.bits.opcode",
+        "target": "mshrs.io.mem_grant.bits.opcode"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2520
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "all_driver_statement_ids": [
+            2520
+          ],
+          "on": "MSHRGrantFire",
+          "proof": "every last-connect driver of mshrs.io.mem_grant.bits.opcode reachable on MSHRGrantFire equals nodeOut.d.bits.opcode",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_polarities": {
+                  "_T_82": "negative"
+                },
+                "control_signals": [
+                  "_T_82"
+                ],
+                "control_statement_ids": [
+                  2519
+                ],
+                "kind": "exact-branch-conjunction"
+              },
+              "atom_count": 2,
+              "rhs": "nodeOut.d.bits.opcode",
+              "statement_id": 2520,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "nodeOut.d.bits.opcode",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "mshrs.io.mem_grant.bits.opcode",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of mshrs.io.mem_grant.bits.opcode reachable on MSHRGrantFire equals nodeOut.d.bits.opcode",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "MSHRGrantFire"
+        ],
+        "predicates": [],
+        "signals": [
+          "mshrs.io.mem_grant.bits.opcode",
+          "nodeOut.d.bits.opcode"
+        ]
+      },
+      "rendered_formula": "mshrs.io.mem_grant.bits.opcode = nodeOut.d.bits.opcode on MSHRGrantFire",
+      "structural": {
+        "all_driver_statement_ids": [
+          2520
+        ],
+        "on": "MSHRGrantFire",
+        "proof": "every last-connect driver of mshrs.io.mem_grant.bits.opcode reachable on MSHRGrantFire equals nodeOut.d.bits.opcode",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_polarities": {
+                "_T_82": "negative"
+              },
+              "control_signals": [
+                "_T_82"
+              ],
+              "control_statement_ids": [
+                2519
+              ],
+              "kind": "exact-branch-conjunction"
+            },
+            "atom_count": 2,
+            "rhs": "nodeOut.d.bits.opcode",
+            "statement_id": 2520,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "nodeOut.d.bits.opcode",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "mshrs.io.mem_grant.bits.opcode",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "MSHRGrantFire",
+        "source": "nodeOut.d.bits.param",
+        "target": "mshrs.io.mem_grant.bits.param"
+      },
+      "axiom_id": "A5",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2520
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "all_driver_statement_ids": [
+            2520
+          ],
+          "on": "MSHRGrantFire",
+          "proof": "every last-connect driver of mshrs.io.mem_grant.bits.param reachable on MSHRGrantFire equals nodeOut.d.bits.param",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_polarities": {
+                  "_T_82": "negative"
+                },
+                "control_signals": [
+                  "_T_82"
+                ],
+                "control_statement_ids": [
+                  2519
+                ],
+                "kind": "exact-branch-conjunction"
+              },
+              "atom_count": 2,
+              "rhs": "nodeOut.d.bits.param",
+              "statement_id": 2520,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "nodeOut.d.bits.param",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "mshrs.io.mem_grant.bits.param",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of mshrs.io.mem_grant.bits.param reachable on MSHRGrantFire equals nodeOut.d.bits.param",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "MSHRGrantFire"
+        ],
+        "predicates": [],
+        "signals": [
+          "mshrs.io.mem_grant.bits.param",
+          "nodeOut.d.bits.param"
+        ]
+      },
+      "rendered_formula": "mshrs.io.mem_grant.bits.param = nodeOut.d.bits.param on MSHRGrantFire",
+      "structural": {
+        "all_driver_statement_ids": [
+          2520
+        ],
+        "on": "MSHRGrantFire",
+        "proof": "every last-connect driver of mshrs.io.mem_grant.bits.param reachable on MSHRGrantFire equals nodeOut.d.bits.param",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_polarities": {
+                "_T_82": "negative"
+              },
+              "control_signals": [
+                "_T_82"
+              ],
+              "control_statement_ids": [
+                2519
+              ],
+              "kind": "exact-branch-conjunction"
+            },
+            "atom_count": 2,
+            "rhs": "nodeOut.d.bits.param",
+            "statement_id": 2520,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "nodeOut.d.bits.param",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "mshrs.io.mem_grant.bits.param",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "MSHRGrantFire",
+        "source": "nodeOut.d.bits.size",
+        "target": "mshrs.io.mem_grant.bits.size"
+      },
+      "axiom_id": "A6",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2520
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "all_driver_statement_ids": [
+            2520
+          ],
+          "on": "MSHRGrantFire",
+          "proof": "every last-connect driver of mshrs.io.mem_grant.bits.size reachable on MSHRGrantFire equals nodeOut.d.bits.size",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_polarities": {
+                  "_T_82": "negative"
+                },
+                "control_signals": [
+                  "_T_82"
+                ],
+                "control_statement_ids": [
+                  2519
+                ],
+                "kind": "exact-branch-conjunction"
+              },
+              "atom_count": 2,
+              "rhs": "nodeOut.d.bits.size",
+              "statement_id": 2520,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "nodeOut.d.bits.size",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "mshrs.io.mem_grant.bits.size",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of mshrs.io.mem_grant.bits.size reachable on MSHRGrantFire equals nodeOut.d.bits.size",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "MSHRGrantFire"
+        ],
+        "predicates": [],
+        "signals": [
+          "mshrs.io.mem_grant.bits.size",
+          "nodeOut.d.bits.size"
+        ]
+      },
+      "rendered_formula": "mshrs.io.mem_grant.bits.size = nodeOut.d.bits.size on MSHRGrantFire",
+      "structural": {
+        "all_driver_statement_ids": [
+          2520
+        ],
+        "on": "MSHRGrantFire",
+        "proof": "every last-connect driver of mshrs.io.mem_grant.bits.size reachable on MSHRGrantFire equals nodeOut.d.bits.size",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_polarities": {
+                "_T_82": "negative"
+              },
+              "control_signals": [
+                "_T_82"
+              ],
+              "control_statement_ids": [
+                2519
+              ],
+              "kind": "exact-branch-conjunction"
+            },
+            "atom_count": 2,
+            "rhs": "nodeOut.d.bits.size",
+            "statement_id": 2520,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "nodeOut.d.bits.size",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "mshrs.io.mem_grant.bits.size",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "MSHRGrantFire",
+        "source": "nodeOut.d.bits.source",
+        "target": "mshrs.io.mem_grant.bits.source"
+      },
+      "axiom_id": "A7",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2520
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "all_driver_statement_ids": [
+            2520
+          ],
+          "on": "MSHRGrantFire",
+          "proof": "every last-connect driver of mshrs.io.mem_grant.bits.source reachable on MSHRGrantFire equals nodeOut.d.bits.source",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_polarities": {
+                  "_T_82": "negative"
+                },
+                "control_signals": [
+                  "_T_82"
+                ],
+                "control_statement_ids": [
+                  2519
+                ],
+                "kind": "exact-branch-conjunction"
+              },
+              "atom_count": 2,
+              "rhs": "nodeOut.d.bits.source",
+              "statement_id": 2520,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "nodeOut.d.bits.source",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "mshrs.io.mem_grant.bits.source",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of mshrs.io.mem_grant.bits.source reachable on MSHRGrantFire equals nodeOut.d.bits.source",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "MSHRGrantFire"
+        ],
+        "predicates": [],
+        "signals": [
+          "mshrs.io.mem_grant.bits.source",
+          "nodeOut.d.bits.source"
+        ]
+      },
+      "rendered_formula": "mshrs.io.mem_grant.bits.source = nodeOut.d.bits.source on MSHRGrantFire",
+      "structural": {
+        "all_driver_statement_ids": [
+          2520
+        ],
+        "on": "MSHRGrantFire",
+        "proof": "every last-connect driver of mshrs.io.mem_grant.bits.source reachable on MSHRGrantFire equals nodeOut.d.bits.source",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_polarities": {
+                "_T_82": "negative"
+              },
+              "control_signals": [
+                "_T_82"
+              ],
+              "control_statement_ids": [
+                2519
+              ],
+              "kind": "exact-branch-conjunction"
+            },
+            "atom_count": 2,
+            "rhs": "nodeOut.d.bits.source",
+            "statement_id": 2520,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "nodeOut.d.bits.source",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "mshrs.io.mem_grant.bits.source",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "MSHRGrantFire",
+        "source": "nodeOut.d.bits.sink",
+        "target": "mshrs.io.mem_grant.bits.sink"
+      },
+      "axiom_id": "A8",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2520
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "all_driver_statement_ids": [
+            2520
+          ],
+          "on": "MSHRGrantFire",
+          "proof": "every last-connect driver of mshrs.io.mem_grant.bits.sink reachable on MSHRGrantFire equals nodeOut.d.bits.sink",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_polarities": {
+                  "_T_82": "negative"
+                },
+                "control_signals": [
+                  "_T_82"
+                ],
+                "control_statement_ids": [
+                  2519
+                ],
+                "kind": "exact-branch-conjunction"
+              },
+              "atom_count": 2,
+              "rhs": "nodeOut.d.bits.sink",
+              "statement_id": 2520,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "nodeOut.d.bits.sink",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "mshrs.io.mem_grant.bits.sink",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of mshrs.io.mem_grant.bits.sink reachable on MSHRGrantFire equals nodeOut.d.bits.sink",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "MSHRGrantFire"
+        ],
+        "predicates": [],
+        "signals": [
+          "mshrs.io.mem_grant.bits.sink",
+          "nodeOut.d.bits.sink"
+        ]
+      },
+      "rendered_formula": "mshrs.io.mem_grant.bits.sink = nodeOut.d.bits.sink on MSHRGrantFire",
+      "structural": {
+        "all_driver_statement_ids": [
+          2520
+        ],
+        "on": "MSHRGrantFire",
+        "proof": "every last-connect driver of mshrs.io.mem_grant.bits.sink reachable on MSHRGrantFire equals nodeOut.d.bits.sink",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_polarities": {
+                "_T_82": "negative"
+              },
+              "control_signals": [
+                "_T_82"
+              ],
+              "control_statement_ids": [
+                2519
+              ],
+              "kind": "exact-branch-conjunction"
+            },
+            "atom_count": 2,
+            "rhs": "nodeOut.d.bits.sink",
+            "statement_id": 2520,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "nodeOut.d.bits.sink",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "mshrs.io.mem_grant.bits.sink",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "MSHRGrantFire",
+        "source": "nodeOut.d.bits.denied",
+        "target": "mshrs.io.mem_grant.bits.denied"
+      },
+      "axiom_id": "A9",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2520
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "all_driver_statement_ids": [
+            2520
+          ],
+          "on": "MSHRGrantFire",
+          "proof": "every last-connect driver of mshrs.io.mem_grant.bits.denied reachable on MSHRGrantFire equals nodeOut.d.bits.denied",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_polarities": {
+                  "_T_82": "negative"
+                },
+                "control_signals": [
+                  "_T_82"
+                ],
+                "control_statement_ids": [
+                  2519
+                ],
+                "kind": "exact-branch-conjunction"
+              },
+              "atom_count": 2,
+              "rhs": "nodeOut.d.bits.denied",
+              "statement_id": 2520,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "nodeOut.d.bits.denied",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "mshrs.io.mem_grant.bits.denied",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of mshrs.io.mem_grant.bits.denied reachable on MSHRGrantFire equals nodeOut.d.bits.denied",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "MSHRGrantFire"
+        ],
+        "predicates": [],
+        "signals": [
+          "mshrs.io.mem_grant.bits.denied",
+          "nodeOut.d.bits.denied"
+        ]
+      },
+      "rendered_formula": "mshrs.io.mem_grant.bits.denied = nodeOut.d.bits.denied on MSHRGrantFire",
+      "structural": {
+        "all_driver_statement_ids": [
+          2520
+        ],
+        "on": "MSHRGrantFire",
+        "proof": "every last-connect driver of mshrs.io.mem_grant.bits.denied reachable on MSHRGrantFire equals nodeOut.d.bits.denied",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_polarities": {
+                "_T_82": "negative"
+              },
+              "control_signals": [
+                "_T_82"
+              ],
+              "control_statement_ids": [
+                2519
+              ],
+              "kind": "exact-branch-conjunction"
+            },
+            "atom_count": 2,
+            "rhs": "nodeOut.d.bits.denied",
+            "statement_id": 2520,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "nodeOut.d.bits.denied",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "mshrs.io.mem_grant.bits.denied",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "MSHRGrantFire",
+        "source": "nodeOut.d.bits.data",
+        "target": "mshrs.io.mem_grant.bits.data"
+      },
+      "axiom_id": "A10",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2520
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "all_driver_statement_ids": [
+            2520
+          ],
+          "on": "MSHRGrantFire",
+          "proof": "every last-connect driver of mshrs.io.mem_grant.bits.data reachable on MSHRGrantFire equals nodeOut.d.bits.data",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_polarities": {
+                  "_T_82": "negative"
+                },
+                "control_signals": [
+                  "_T_82"
+                ],
+                "control_statement_ids": [
+                  2519
+                ],
+                "kind": "exact-branch-conjunction"
+              },
+              "atom_count": 2,
+              "rhs": "nodeOut.d.bits.data",
+              "statement_id": 2520,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "nodeOut.d.bits.data",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "mshrs.io.mem_grant.bits.data",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of mshrs.io.mem_grant.bits.data reachable on MSHRGrantFire equals nodeOut.d.bits.data",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "MSHRGrantFire"
+        ],
+        "predicates": [],
+        "signals": [
+          "mshrs.io.mem_grant.bits.data",
+          "nodeOut.d.bits.data"
+        ]
+      },
+      "rendered_formula": "mshrs.io.mem_grant.bits.data = nodeOut.d.bits.data on MSHRGrantFire",
+      "structural": {
+        "all_driver_statement_ids": [
+          2520
+        ],
+        "on": "MSHRGrantFire",
+        "proof": "every last-connect driver of mshrs.io.mem_grant.bits.data reachable on MSHRGrantFire equals nodeOut.d.bits.data",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_polarities": {
+                "_T_82": "negative"
+              },
+              "control_signals": [
+                "_T_82"
+              ],
+              "control_statement_ids": [
+                2519
+              ],
+              "kind": "exact-branch-conjunction"
+            },
+            "atom_count": 2,
+            "rhs": "nodeOut.d.bits.data",
+            "statement_id": 2520,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "nodeOut.d.bits.data",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "mshrs.io.mem_grant.bits.data",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "MSHRGrantFire",
+        "source": "nodeOut.d.bits.corrupt",
+        "target": "mshrs.io.mem_grant.bits.corrupt"
+      },
+      "axiom_id": "A11",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2520
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "all_driver_statement_ids": [
+            2520
+          ],
+          "on": "MSHRGrantFire",
+          "proof": "every last-connect driver of mshrs.io.mem_grant.bits.corrupt reachable on MSHRGrantFire equals nodeOut.d.bits.corrupt",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_polarities": {
+                  "_T_82": "negative"
+                },
+                "control_signals": [
+                  "_T_82"
+                ],
+                "control_statement_ids": [
+                  2519
+                ],
+                "kind": "exact-branch-conjunction"
+              },
+              "atom_count": 2,
+              "rhs": "nodeOut.d.bits.corrupt",
+              "statement_id": 2520,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "nodeOut.d.bits.corrupt",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "mshrs.io.mem_grant.bits.corrupt",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of mshrs.io.mem_grant.bits.corrupt reachable on MSHRGrantFire equals nodeOut.d.bits.corrupt",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "MSHRGrantFire"
+        ],
+        "predicates": [],
+        "signals": [
+          "mshrs.io.mem_grant.bits.corrupt",
+          "nodeOut.d.bits.corrupt"
+        ]
+      },
+      "rendered_formula": "mshrs.io.mem_grant.bits.corrupt = nodeOut.d.bits.corrupt on MSHRGrantFire",
+      "structural": {
+        "all_driver_statement_ids": [
+          2520
+        ],
+        "on": "MSHRGrantFire",
+        "proof": "every last-connect driver of mshrs.io.mem_grant.bits.corrupt reachable on MSHRGrantFire equals nodeOut.d.bits.corrupt",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_polarities": {
+                "_T_82": "negative"
+              },
+              "control_signals": [
+                "_T_82"
+              ],
+              "control_statement_ids": [
+                2519
+              ],
+              "kind": "exact-branch-conjunction"
+            },
+            "atom_count": 2,
+            "rhs": "nodeOut.d.bits.corrupt",
+            "statement_id": 2520,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "nodeOut.d.bits.corrupt",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "mshrs.io.mem_grant.bits.corrupt",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    }
+  ],
+  "trusted_axiom_count": 11,
+  "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
+  "validator": "semantic-validator-0.16",
+  "work_unit_id": "BoomNonBlockingDCache::region-0-2"
+}

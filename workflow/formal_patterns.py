@@ -303,7 +303,19 @@ def _bit_vector_expr(
         select = _bool_expr(model, bool_refs, args[0], opaque=opaque, seen=seen)
         high = _bit_vector_expr(model, bool_refs, args[1], opaque=opaque, seen=seen)
         low = _bit_vector_expr(model, bool_refs, args[2], opaque=opaque, seen=seen)
-        if select is None or high is None or low is None or len(high) != len(low):
+        if select is None or high is None or low is None:
+            return None
+        # FIRRTL may retain a narrow literal zero on one mux arm while the
+        # result is widened to the other arm.  Zero-extension is exact for a
+        # known all-zero vector regardless of signedness; other width
+        # mismatches remain unresolved rather than guessing extension rules.
+        if len(high) != len(low):
+            width = max(len(high), len(low))
+            if len(high) < width and all(bit == _const(False) for bit in high):
+                high = [*high, *_const_bits(width - len(high))]
+            if len(low) < width and all(bit == _const(False) for bit in low):
+                low = [*low, *_const_bits(width - len(low))]
+        if len(high) != len(low):
             return None
         return [_or(_and(select, a), _and(_not(select), b)) for a, b in zip(high, low)]
     if name == "andr" and len(args) == 1:
@@ -321,6 +333,88 @@ def _bit_vector_expr(
 
 def _const_bits(width: int) -> list[tuple[Any, ...]]:
     return [_const(False) for _ in range(width)]
+
+
+def _selected_bit_expr(
+    model: Any,
+    bool_refs: set[str],
+    expr: str,
+    bit: int,
+    *,
+    opaque: set[str],
+    seen: set[str],
+) -> tuple[Any, ...] | None:
+    """Resolve one bit without requiring every mux arm's complete width.
+
+    This preserves correlations such as ``bits(mux(sc, 0, payload), 7, 7)``:
+    the selected bit is known zero when ``sc`` is true even if the payload
+    width/value is otherwise opaque.
+    """
+
+    text = expr.strip()
+    literal = _literal(text)
+    if literal is not None:
+        width_match = re.match(r"^UInt<(\d+)>", text)
+        if width_match is not None or bit < max(1, int(literal).bit_length()):
+            return _const(bool((int(literal) >> bit) & 1))
+        return ("atom", ("bit", bit, _value_key(model, text, opaque=opaque)))
+    if _REF_RE.fullmatch(text):
+        if text in opaque or _under_state(model, text) or text in seen:
+            return ("atom", ("bit", bit, ("ref", text)))
+        nested = _rhs(model, text)
+        if nested is None:
+            return ("atom", ("bit", bit, ("ref", text)))
+        return _selected_bit_expr(
+            model,
+            bool_refs,
+            nested,
+            bit,
+            opaque=opaque,
+            seen=seen | {text},
+        )
+    call = _call(text)
+    if call is None:
+        return None
+    name, args = call
+    if name == "bits" and len(args) == 3:
+        high = _literal(args[1])
+        low = _literal(args[2])
+        if high is None or low is None or bit < 0 or bit >= int(high) - int(low) + 1:
+            return None
+        return _selected_bit_expr(
+            model,
+            bool_refs,
+            args[0],
+            int(low) + bit,
+            opaque=opaque,
+            seen=seen,
+        )
+    if name == "mux" and len(args) == 3:
+        select = _bool_expr(model, bool_refs, args[0], opaque=opaque, seen=seen)
+        high = _selected_bit_expr(
+            model, bool_refs, args[1], bit, opaque=opaque, seen=seen
+        )
+        low = _selected_bit_expr(
+            model, bool_refs, args[2], bit, opaque=opaque, seen=seen
+        )
+        if select is None or high is None or low is None:
+            return None
+        return _or(_and(select, high), _and(_not(select), low))
+    if name in {"and", "or", "xor"} and len(args) == 2:
+        left = _selected_bit_expr(
+            model, bool_refs, args[0], bit, opaque=opaque, seen=seen
+        )
+        right = _selected_bit_expr(
+            model, bool_refs, args[1], bit, opaque=opaque, seen=seen
+        )
+        if left is None or right is None:
+            return None
+        if name == "and":
+            return _and(left, right)
+        if name == "or":
+            return _or(left, right)
+        return _or(_and(left, _not(right)), _and(_not(left), right))
+    return ("atom", ("bit", bit, _value_key(model, text, opaque=opaque)))
 
 
 def _bool_expr(
@@ -377,6 +471,18 @@ def _bool_expr(
         if select is None or high is None or low is None:
             return None
         return _or(_and(select, high), _and(_not(select), low))
+    if name == "bits" and len(args) == 3:
+        high = _literal(args[1])
+        low = _literal(args[2])
+        if high is not None and low is not None and high == low:
+            return _selected_bit_expr(
+                model,
+                bool_refs,
+                args[0],
+                int(low),
+                opaque=opaque,
+                seen=seen,
+            )
     if name in {"eq", "neq"} and len(args) == 2:
         left = _literal(args[0])
         right = _literal(args[1])
@@ -402,11 +508,37 @@ def _bool_expr(
             if value is None:
                 return None
             return _not(value) if name == "eq" else value
-        if value_expr is not None and literal == 1 and value_expr.strip() in bool_refs:
-            value = _bool_expr(model, bool_refs, value_expr, opaque=opaque, seen=seen)
-            if value is None:
-                return None
-            return value if name == "eq" else _not(value)
+        if value_expr is not None and literal == 1:
+            value = None
+            if value_expr.strip() in bool_refs:
+                value = _bool_expr(model, bool_refs, value_expr, opaque=opaque, seen=seen)
+            else:
+                bits = _bit_vector_expr(
+                    model,
+                    bool_refs,
+                    value_expr,
+                    opaque=opaque,
+                    seen=seen,
+                )
+                if bits is not None and len(bits) == 1:
+                    value = bits[0]
+                else:
+                    selected = _call(value_expr)
+                    if (
+                        selected is not None
+                        and selected[0] == "bits"
+                        and len(selected[1]) == 3
+                        and _literal(selected[1][1]) == _literal(selected[1][2])
+                    ):
+                        value = _bool_expr(
+                            model,
+                            bool_refs,
+                            value_expr,
+                            opaque=opaque,
+                            seen=seen,
+                        )
+            if value is not None:
+                return value if name == "eq" else _not(value)
         return ("atom", ("pred", _value_key(model, text, opaque=opaque)))
     bits = _bit_vector_expr(model, bool_refs, text, opaque=opaque, seen=seen)
     if bits is not None:
@@ -531,7 +663,12 @@ def _occurrence_condition(
     grounding = occurrence.get("grounding", {})
     positive = [str(x) for x in grounding.get("signals_true", [])]
     negative = [str(x) for x in grounding.get("signals_false", [])]
-    if not positive and not negative and occurrence.get("kind") == "boundary":
+    # A derived occurrence may refine one physical boundary event with payload
+    # tests (for example, a D-channel fire split by source ID).  In that case
+    # the physical valid/ready gates are the occurrence base and the explicit
+    # grounding below is its filter.  This is distinct from an ungrounded
+    # internal milestone, which remains unresolved.
+    if not positive and not negative:
         physical = occurrence.get("physical_event_ids", [])
         if len(physical) == 1:
             event_fn = getattr(model, "_event_info", None)
@@ -613,6 +750,9 @@ def prove_combinational_forbid_when(
             "proof": f"{occurrence} and {predicate} have an unsatisfiable local Boolean conjunction",
             "proof_domain": "exact-combinational-exclusion",
             "atom_count": atoms,
+            "event_gate_bridge_statement_ids": sorted(
+                getattr(model, "proof_context_statement_ids", set())
+            ),
         }
     if unsat is None:
         return {"status": STRUCTURAL_UNKNOWN, "reason": f"Boolean cone exceeds atom limit ({atoms})"}
@@ -676,9 +816,16 @@ def _exact_boundary_or_derived_occurrence_condition(
     event = event_fn(physical[0]) if len(physical) == 1 and callable(event_fn) else None
     if not isinstance(event, dict):
         return None
-    signals = [event.get("valid"), event.get("ready")]
-    if not all(isinstance(signal, str) and signal for signal in signals):
+    valid = event.get("valid")
+    if not isinstance(valid, str) or not valid:
         return None
+    # Some physical boundaries are valid-only notification interfaces rather
+    # than ready/valid handshakes.  Their exact occurrence gate is simply
+    # `valid`; ready is conjoined only when the registry exposes one.
+    signals = [valid]
+    ready = event.get("ready")
+    if isinstance(ready, str) and ready:
+        signals.append(ready)
     result = _const(True)
     for signal in signals:
         value = _bool_expr(model, bool_refs, signal)
@@ -686,6 +833,216 @@ def _exact_boundary_or_derived_occurrence_condition(
             return None
         result = _and(result, value)
     return result
+
+
+def _resolve_ref_expr(model: Any, expr: str, seen: set[str] | None = None) -> str:
+    text = expr.strip()
+    seen = set() if seen is None else set(seen)
+    if not _REF_RE.fullmatch(text) or _under_state(model, text) or text in seen:
+        return text
+    nested = _rhs(model, text)
+    return text if nested is None else _resolve_ref_expr(model, nested, seen | {text})
+
+
+def _indexed_signal(signal: str) -> tuple[str, int] | None:
+    match = re.fullmatch(r"(.+)\[(\d+)\]", signal.strip())
+    return None if match is None else (match.group(1), int(match.group(2)))
+
+
+def _locked_owner_certificate(
+    model: Any,
+    candidate: dict[str, Any],
+    *,
+    before: str,
+    after: str,
+) -> dict[str, Any]:
+    """Certify history and one-hot ownership for a generic locked arbiter."""
+
+    occurrences = {str(item.get("id")): item for item in candidate.get("occurrences", [])}
+    start = occurrences.get(before)
+    continuation = occurrences.get(after)
+    if not isinstance(start, dict) or not isinstance(continuation, dict):
+        return {"status": STRUCTURAL_UNKNOWN, "reason": "locked owner occurrences are missing"}
+    start_ground = start.get("grounding", {})
+    continuation_ground = continuation.get("grounding", {})
+    start_true = {str(item) for item in start_ground.get("signals_true", [])}
+    continuation_true = {str(item) for item in continuation_ground.get("signals_true", [])}
+    continuation_false = {str(item) for item in continuation_ground.get("signals_false", [])}
+    idle_candidates = start_true & continuation_false
+    if len(idle_candidates) != 1:
+        return {"status": STRUCTURAL_UNKNOWN, "reason": "locked owner idle predicate is not unique"}
+    idle = next(iter(idle_candidates))
+
+    state_candidates = [
+        (signal, indexed)
+        for signal in continuation_true
+        if (indexed := _indexed_signal(signal)) is not None
+        and any(str(root) == indexed[0] for root in getattr(model, "state_roots", set()))
+    ]
+    if len(state_candidates) != 1:
+        return {"status": STRUCTURAL_UNKNOWN, "reason": "locked owner state bit is not unique"}
+    state_signal, (state_root, owner_index) = state_candidates[0]
+    winner_candidates = [
+        signal
+        for signal in start_true
+        if (indexed := _indexed_signal(signal)) is not None and indexed[1] == owner_index
+    ]
+    if len(winner_candidates) != 1:
+        return {"status": STRUCTURAL_UNKNOWN, "reason": "locked owner winner bit is not unique"}
+    winner_signal = winner_candidates[0]
+    winner_root = _indexed_signal(winner_signal)[0]  # type: ignore[index]
+
+    idle_expr_text = _resolve_ref_expr(model, idle)
+    idle_call = _call(idle_expr_text)
+    if idle_call is None or idle_call[0] != "eq" or len(idle_call[1]) != 2:
+        return {"status": STRUCTURAL_UNKNOWN, "reason": "idle is not an exact zero comparison"}
+    counter = next((arg for arg in idle_call[1] if _under_state(model, arg)), None)
+    zero = next((_literal(arg) for arg in idle_call[1] if _literal(arg) is not None), None)
+    if counter is None or zero != 0 or _scalar_reset_zero(model, counter) is None:
+        return {"status": STRUCTURAL_UNKNOWN, "reason": "locked beat counter does not reset to idle"}
+
+    counter_update = _call(_resolve_ref_expr(model, _rhs(model, counter) or counter))
+    if counter_update is None or counter_update[0] != "mux" or len(counter_update[1]) != 3:
+        return {"status": STRUCTURAL_UNKNOWN, "reason": "locked beat counter update is not one mux"}
+    latch, _, decrement = counter_update[1]
+    latch_call = _call(_resolve_ref_expr(model, latch))
+    if latch_call is None or latch_call[0] != "and" or idle not in latch_call[1]:
+        return {"status": STRUCTURAL_UNKNOWN, "reason": "lock acquisition is not idle-and-ready"}
+    ready = next(arg for arg in latch_call[1] if arg != idle)
+    decrement_call = _call(_resolve_ref_expr(model, decrement))
+    if decrement_call is not None and decrement_call[0] == "tail":
+        decrement_call = _call(_resolve_ref_expr(model, decrement_call[1][0]))
+    if (
+        decrement_call is None
+        or decrement_call[0] != "sub"
+        or len(decrement_call[1]) != 2
+        or decrement_call[1][0] != counter
+    ):
+        return {"status": STRUCTURAL_UNKNOWN, "reason": "non-latching counter path is not a decrement"}
+
+    owner_bits: list[tuple[int, str, str]] = []
+    for item in occurrences.values():
+        grounding = item.get("grounding", {})
+        positives = {str(signal) for signal in grounding.get("signals_true", [])}
+        negatives = {str(signal) for signal in grounding.get("signals_false", [])}
+        if idle not in negatives:
+            continue
+        for signal in positives:
+            indexed = _indexed_signal(signal)
+            if indexed is None or indexed[0] != state_root:
+                continue
+            index = indexed[1]
+            winner = f"{winner_root}[{index}]"
+            state_rhs = _call(_resolve_ref_expr(model, _rhs(model, signal) or signal))
+            if (
+                state_rhs is None
+                or state_rhs[0] != "mux"
+                or state_rhs[1] != [idle, winner, signal]
+            ):
+                return {"status": STRUCTURAL_UNKNOWN, "reason": f"owner state bit {signal} is not capture-or-preserve"}
+            owner_bits.append((index, signal, winner))
+    owner_bits = sorted(set(owner_bits))
+    if not owner_bits or owner_index not in {item[0] for item in owner_bits}:
+        return {"status": STRUCTURAL_UNKNOWN, "reason": "complete locked owner bit set was not found"}
+
+    refs = _bool_refs(model, candidate)
+    for _, _, winner in owner_bits:
+        refs.add(winner)
+        _propagate_bool_refs(model, winner, refs)
+    mutex: list[list[str]] = []
+    for left_index, (_, _, left) in enumerate(owner_bits):
+        left_expr = _bool_expr(model, refs, left)
+        if left_expr is None:
+            return {"status": STRUCTURAL_UNKNOWN, "reason": f"winner {left} is unresolved"}
+        for _, _, right in owner_bits[left_index + 1:]:
+            right_expr = _bool_expr(model, refs, right)
+            if right_expr is None or _unsat(_and(left_expr, right_expr))[0] is not True:
+                return {"status": STRUCTURAL_UNKNOWN, "reason": "winner vector is not one-hot"}
+            mutex.append([left, right])
+
+    before_condition = _occurrence_condition(model, candidate, before, refs)
+    idle_expr = _bool_expr(model, refs, idle)
+    ready_expr = _bool_expr(model, refs, ready)
+    winner_expr = _bool_expr(model, refs, winner_signal)
+    if None in {before_condition, idle_expr, ready_expr, winner_expr}:
+        return {"status": STRUCTURAL_UNKNOWN, "reason": "lock acquisition condition is unresolved"}
+    assert before_condition is not None and idle_expr is not None
+    assert ready_expr is not None and winner_expr is not None
+    creator = _and(_and(idle_expr, ready_expr), winner_expr)
+    if _unsat(_and(creator, _not(before_condition)))[0] is not True:
+        return {"status": STRUCTURAL_UNKNOWN, "reason": "owner capture does not imply the start occurrence"}
+
+    invariant = _const(True)
+    for left_index, (_, left, _) in enumerate(owner_bits):
+        left_expr = ("atom", ("nz", ("ref", left)))
+        for _, right, _ in owner_bits[left_index + 1:]:
+            right_expr = ("atom", ("nz", ("ref", right)))
+            invariant = _and(invariant, _or(idle_expr, _not(_and(left_expr, right_expr))))
+    return {
+        "status": STRUCTURALLY_SUPPORTED,
+        "proof_domain": "exact-locked-owner-provenance",
+        "before": before,
+        "after": after,
+        "idle": idle,
+        "counter": counter,
+        "state_root": state_root,
+        "winner_root": winner_root,
+        "owner_index": owner_index,
+        "owner_bits": [item[1] for item in owner_bits],
+        "winner_mutex": mutex,
+        "invariant": invariant,
+    }
+
+
+def prove_locked_owner_provenance(
+    model: Any,
+    candidate: dict[str, Any],
+    *,
+    before: str,
+    after: str,
+    required_prior: str | None = None,
+) -> dict[str, Any]:
+    if required_prior is not None:
+        return {"status": STRUCTURAL_UNKNOWN, "reason": "locked owner required_prior is unsupported"}
+    certificate = _locked_owner_certificate(
+        model,
+        candidate,
+        before=before,
+        after=after,
+    )
+    if certificate.get("status") == STRUCTURALLY_SUPPORTED:
+        certificate["proof"] = (
+            f"{after} requires a preserved locked owner bit whose only non-idle "
+            f"capture implies {before}"
+        )
+    return certificate
+
+
+def _locked_invariants(model: Any, candidate: dict[str, Any]) -> tuple[tuple[Any, ...], list[dict[str, Any]]]:
+    combined = _const(True)
+    certificates: list[dict[str, Any]] = []
+    occurrences = candidate.get("occurrences", [])
+    for after in occurrences:
+        negatives = set(after.get("grounding", {}).get("signals_false", []))
+        if not negatives:
+            continue
+        for before in occurrences:
+            if not negatives & set(before.get("grounding", {}).get("signals_true", [])):
+                continue
+            certificate = _locked_owner_certificate(
+                model,
+                candidate,
+                before=str(before.get("id")),
+                after=str(after.get("id")),
+            )
+            if certificate.get("status") != STRUCTURALLY_SUPPORTED:
+                continue
+            key = (certificate["state_root"], certificate["idle"])
+            if any((item["state_root"], item["idle"]) == key for item in certificates):
+                continue
+            combined = _and(combined, certificate["invariant"])
+            certificates.append(certificate)
+    return combined, certificates
 
 
 def prove_same_cycle_occurrence_partition(
@@ -708,6 +1065,7 @@ def prove_same_cycle_occurrence_partition(
         return {"status": STRUCTURAL_UNKNOWN, "reason": "invalid occurrence partition shape"}
 
     refs = _bool_refs(model, candidate)
+    reachable_invariant, lock_certificates = _locked_invariants(model, candidate)
 
     whole_expr = _exact_boundary_or_derived_occurrence_condition(model, candidate, whole, refs)
     part_exprs = {
@@ -733,7 +1091,7 @@ def prove_same_cycle_occurrence_partition(
         ("whole_without_part", _and(whole_expr, _not(any_part))),
         ("part_without_whole", _and(any_part, _not(whole_expr))),
     ):
-        unsat, atoms = _unsat(expression)
+        unsat, atoms = _unsat(_and(reachable_invariant, expression))
         obligations.append({"kind": name, "unsat": unsat, "atom_count": atoms})
         if unsat is not True:
             reason = (
@@ -751,7 +1109,9 @@ def prove_same_cycle_occurrence_partition(
     mutex_pairs: list[list[str]] = []
     for index, left in enumerate(parts):
         for right in parts[index + 1:]:
-            unsat, atoms = _unsat(_and(part_exprs[left], part_exprs[right]))
+            unsat, atoms = _unsat(
+                _and(reachable_invariant, _and(part_exprs[left], part_exprs[right]))
+            )
             obligations.append({
                 "kind": "parts_mutually_exclusive",
                 "parts": [left, right],
@@ -784,6 +1144,7 @@ def prove_same_cycle_occurrence_partition(
         "parts": list(parts),
         "mutex_pairs": mutex_pairs,
         "obligations": obligations,
+        "reachable_lock_certificates": lock_certificates,
     }
 
 
@@ -916,6 +1277,36 @@ def _value_equal_under_condition(
             )
 
     call = _call(text)
+    if call is not None and call[0] == "or" and len(call[1]) == 2:
+        left, right = call[1]
+        attempts = []
+        for value_branch, zero_branch in ((left, right), (right, left)):
+            value_proved, value_proof = _value_equal_under_condition(
+                model,
+                bool_refs,
+                actual=value_branch,
+                expected=expected,
+                condition=condition,
+                state_roots=state_roots,
+                sink_width=sink_width,
+                seen=seen,
+            )
+            zero_proved, zero_proof = _value_zero_under_condition(
+                model,
+                bool_refs,
+                actual=zero_branch,
+                condition=condition,
+                state_roots=state_roots,
+                seen=seen,
+            )
+            attempts.append({"value": value_proof, "zero": zero_proof})
+            if value_proved and zero_proved:
+                return True, {
+                    "kind": "one-hot-masked-or-equality",
+                    "value_proof": value_proof,
+                    "zero_proof": zero_proof,
+                }
+        return False, {"kind": "masked-or-mismatch", "attempts": attempts}
     if call is None or call[0] != "mux" or len(call[1]) != 3:
         return False, {
             "kind": "value-mismatch",
@@ -961,6 +1352,90 @@ def _value_equal_under_condition(
     }
 
 
+def _value_zero_under_condition(
+    model: Any,
+    bool_refs: set[str],
+    *,
+    actual: str,
+    condition: tuple[Any, ...],
+    state_roots: set[str],
+    seen: set[str] | None = None,
+) -> tuple[bool, dict[str, Any]]:
+    unsat, atoms = _unsat(condition)
+    if unsat is True:
+        return True, {"kind": "unreachable-zero-branch", "atom_count": atoms}
+    text = actual.strip()
+    seen = set() if seen is None else set(seen)
+    literal = _literal(text)
+    if literal == 0:
+        return True, {"kind": "literal-zero"}
+    if _REF_RE.fullmatch(text) and text not in seen and not _under_state(model, text):
+        nested = _rhs(model, text)
+        if nested is not None:
+            return _value_zero_under_condition(
+                model,
+                bool_refs,
+                actual=nested,
+                condition=condition,
+                state_roots=state_roots,
+                seen=seen | {text},
+            )
+    call = _call(text)
+    if call is None:
+        return False, {"kind": "nonzero-value", "actual": text}
+    if call[0] in {"or", "cat"} and len(call[1]) == 2:
+        proofs = [
+            _value_zero_under_condition(
+                model,
+                bool_refs,
+                actual=branch,
+                condition=condition,
+                state_roots=state_roots,
+                seen=seen,
+            )
+            for branch in call[1]
+        ]
+        return all(item[0] for item in proofs), {
+            "kind": f"{call[0]}-of-zero-values",
+            "branches": [item[1] for item in proofs],
+        }
+    if call[0] == "bits" and len(call[1]) == 3:
+        proved, proof = _value_zero_under_condition(
+            model,
+            bool_refs,
+            actual=call[1][0],
+            condition=condition,
+            state_roots=state_roots,
+            seen=seen,
+        )
+        return proved, {"kind": "slice-of-zero-value", "source": proof}
+    if call[0] != "mux" or len(call[1]) != 3:
+        return False, {"kind": "nonzero-expression", "actual": text}
+    select, high, low = call[1]
+    local_refs = set(bool_refs)
+    _propagate_bool_refs(model, select, local_refs)
+    select_expr = _bool_expr(model, local_refs, select)
+    if select_expr is None:
+        return False, {"kind": "unresolved-zero-mux-select", "select": select}
+    branch_proofs = []
+    for name, value, branch_condition in (
+        ("high", high, _and(condition, select_expr)),
+        ("low", low, _and(condition, _not(select_expr))),
+    ):
+        proved, proof = _value_zero_under_condition(
+            model,
+            local_refs,
+            actual=value,
+            condition=branch_condition,
+            state_roots=state_roots,
+            seen=seen,
+        )
+        branch_proofs.append({"branch": name, "proof": proof})
+        if not proved:
+            return False, {"kind": "conditional-mux-zero", "branches": branch_proofs}
+    return True, {"kind": "conditional-mux-zero", "branches": branch_proofs}
+
+
 def prove_conditional_signal_equality(
     model: Any,
     candidate: dict[str, Any],
@@ -987,6 +1462,8 @@ def prove_conditional_signal_equality(
         # condition (for example a state-only derived milestone), proving the
         # equality for every combinational valuation is a sound strengthening.
         on_expr = _const(True)
+    reachable_invariant, lock_certificates = _locked_invariants(model, candidate)
+    on_expr = _and(reachable_invariant, on_expr)
 
     drivers: list[dict[str, Any]] = []
     for statement in sorted(model.statements.values(), key=lambda item: int(item.get("id", -1))):
@@ -1101,6 +1578,7 @@ def prove_conditional_signal_equality(
         "unconditional_strengthening": unconditional_strengthening,
         "selected_drivers": selected,
         "all_driver_statement_ids": [driver["statement_id"] for driver in drivers],
+        "reachable_lock_certificates": lock_certificates,
     }
 
 
@@ -1325,10 +1803,12 @@ def _writer_activation(
     statement: dict[str, Any],
     bool_refs: set[str],
 ) -> tuple[tuple[Any, ...], dict[str, Any]] | None:
-    """Recover an exact positive-`when` activation for one scalar writer.
+    """Recover an exact branch activation for one scalar or aggregate writer.
 
-    The dependency ledger does not encode negative `else` polarity.  Such a
-    writer is therefore rejected instead of guessing its activation.
+    Control dependency edges identify the enclosing branch statements.  A
+    ``when`` contributes its condition and an ``else`` contributes the exact
+    negation of the condition recorded on that block.  Ambiguous/mixed branch
+    polarity remains fail-closed.
     """
 
     statement_id = int(statement.get("id", -1))
@@ -1360,22 +1840,37 @@ def _writer_activation(
         if int(block_id) != statement_id
     }
     blocks = [model.statements.get(block_id) for block_id in sorted(block_ids)]
-    if any(block is None or block.get("kind") != "when" for block in blocks):
+    if any(block is None or block.get("kind") not in {"when", "else"} for block in blocks):
         return None
 
     activation = _const(True)
+    polarities: dict[str, str] = {}
     for control in controls:
+        related_kinds = {
+            str(block.get("kind"))
+            for block in blocks
+            if block is not None
+            and control in {str(item) for item in block.get("control_reads", [])}
+        }
+        if related_kinds == {"when"}:
+            polarity = "positive"
+        elif related_kinds == {"else"}:
+            polarity = "negative"
+        else:
+            return None
         local_bool_refs = set(bool_refs)
         if _is_bool_expr(model, control, local_bool_refs):
             _propagate_bool_refs(model, control, local_bool_refs)
         expr = _bool_expr(model, local_bool_refs, control)
         if expr is None:
             return None
-        activation = _and(activation, expr)
+        activation = _and(activation, expr if polarity == "positive" else _not(expr))
+        polarities[control] = polarity
     return activation, {
-        "kind": "positive-when-conjunction",
+        "kind": "exact-branch-conjunction",
         "control_signals": controls,
         "control_statement_ids": sorted(block_ids),
+        "control_polarities": polarities,
     }
 
 

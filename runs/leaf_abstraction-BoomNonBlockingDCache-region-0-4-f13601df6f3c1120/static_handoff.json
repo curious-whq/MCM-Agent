@@ -1,0 +1,589 @@
+{
+  "children": [],
+  "complexity": {
+    "event_state_coupling": 0.0,
+    "events": 1,
+    "logical": {
+      "dependency_edges": 9,
+      "signals": 10,
+      "source_loc": 2,
+      "statements": 3
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 9,
+      "signals": 11,
+      "source_loc": 2,
+      "statements": 5,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 0,
+    "state_regions": 0
+  },
+  "dependency_edges": [
+    {
+      "dst": "block_incoming_reqs",
+      "kind": "data",
+      "source": {
+        "column": 47,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 510,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 510:47"
+      },
+      "src": "h1",
+      "statement_ids": [
+        271
+      ]
+    },
+    {
+      "dst": "block_incoming_reqs",
+      "kind": "data",
+      "source": {
+        "column": 47,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 510,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 510:47"
+      },
+      "src": "mshrs.io.resp.valid",
+      "statement_ids": [
+        271
+      ]
+    },
+    {
+      "dst": "_io_lsu_req_ready_T",
+      "kind": "data",
+      "source": {
+        "column": 50,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 511,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 511:50"
+      },
+      "src": "dataReadArb.io.in[2].ready",
+      "statement_ids": [
+        272
+      ]
+    },
+    {
+      "dst": "_io_lsu_req_ready_T",
+      "kind": "data",
+      "source": {
+        "column": 50,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 511,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 511:50"
+      },
+      "src": "metaReadArb.io.in[4].ready",
+      "statement_ids": [
+        272
+      ]
+    },
+    {
+      "dst": "_io_lsu_req_ready_T_1",
+      "kind": "data",
+      "source": {
+        "column": 83,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 511,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 511:83"
+      },
+      "src": "block_incoming_reqs",
+      "statement_ids": [
+        273
+      ]
+    },
+    {
+      "dst": "_io_lsu_req_ready_T_1",
+      "kind": "data",
+      "source": {
+        "column": 83,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 511,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 511:83"
+      },
+      "src": "h0",
+      "statement_ids": [
+        273
+      ]
+    },
+    {
+      "dst": "_io_lsu_req_ready_T_2",
+      "kind": "data",
+      "source": {
+        "column": 80,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 511,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 511:80"
+      },
+      "src": "_io_lsu_req_ready_T",
+      "statement_ids": [
+        274
+      ]
+    },
+    {
+      "dst": "_io_lsu_req_ready_T_2",
+      "kind": "data",
+      "source": {
+        "column": 80,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 511,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 511:80"
+      },
+      "src": "_io_lsu_req_ready_T_1",
+      "statement_ids": [
+        274
+      ]
+    },
+    {
+      "dst": "io.lsu.req.ready",
+      "kind": "data",
+      "source": {
+        "column": 20,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 511,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 511:20"
+      },
+      "src": "_io_lsu_req_ready_T_2",
+      "statement_ids": [
+        275
+      ]
+    }
+  ],
+  "events": [
+    {
+      "channel": "io.lsu.req",
+      "direction": "receive",
+      "id": "BoomNonBlockingDCache::io.lsu.req.fire",
+      "payload": [
+        "io.lsu.req.bits[0].bits.addr",
+        "io.lsu.req.bits[0].bits.data",
+        "io.lsu.req.bits[0].bits.is_hella",
+        "io.lsu.req.bits[0].bits.uop.bp_debug_if",
+        "io.lsu.req.bits[0].bits.uop.bp_xcpt_if",
+        "io.lsu.req.bits[0].bits.uop.br_mask",
+        "io.lsu.req.bits[0].bits.uop.br_tag",
+        "io.lsu.req.bits[0].bits.uop.br_type",
+        "io.lsu.req.bits[0].bits.uop.csr_cmd",
+        "io.lsu.req.bits[0].bits.uop.debug_fsrc",
+        "io.lsu.req.bits[0].bits.uop.debug_inst",
+        "io.lsu.req.bits[0].bits.uop.debug_pc",
+        "io.lsu.req.bits[0].bits.uop.debug_tsrc",
+        "io.lsu.req.bits[0].bits.uop.dis_col_sel",
+        "io.lsu.req.bits[0].bits.uop.dst_rtype",
+        "io.lsu.req.bits[0].bits.uop.edge_inst",
+        "io.lsu.req.bits[0].bits.uop.exc_cause",
+        "io.lsu.req.bits[0].bits.uop.exception",
+        "io.lsu.req.bits[0].bits.uop.fcn_dw",
+        "io.lsu.req.bits[0].bits.uop.fcn_op",
+        "io.lsu.req.bits[0].bits.uop.flush_on_commit",
+        "io.lsu.req.bits[0].bits.uop.fp_ctrl.div",
+        "io.lsu.req.bits[0].bits.uop.fp_ctrl.fastpipe",
+        "io.lsu.req.bits[0].bits.uop.fp_ctrl.fma",
+        "io.lsu.req.bits[0].bits.uop.fp_ctrl.fromint",
+        "io.lsu.req.bits[0].bits.uop.fp_ctrl.ldst",
+        "io.lsu.req.bits[0].bits.uop.fp_ctrl.ren1",
+        "io.lsu.req.bits[0].bits.uop.fp_ctrl.ren2",
+        "io.lsu.req.bits[0].bits.uop.fp_ctrl.ren3",
+        "io.lsu.req.bits[0].bits.uop.fp_ctrl.sqrt",
+        "io.lsu.req.bits[0].bits.uop.fp_ctrl.swap12",
+        "io.lsu.req.bits[0].bits.uop.fp_ctrl.swap23",
+        "io.lsu.req.bits[0].bits.uop.fp_ctrl.toint",
+        "io.lsu.req.bits[0].bits.uop.fp_ctrl.typeTagIn",
+        "io.lsu.req.bits[0].bits.uop.fp_ctrl.typeTagOut",
+        "io.lsu.req.bits[0].bits.uop.fp_ctrl.vec",
+        "io.lsu.req.bits[0].bits.uop.fp_ctrl.wen",
+        "io.lsu.req.bits[0].bits.uop.fp_ctrl.wflags",
+        "io.lsu.req.bits[0].bits.uop.fp_rm",
+        "io.lsu.req.bits[0].bits.uop.fp_typ",
+        "io.lsu.req.bits[0].bits.uop.fp_val",
+        "io.lsu.req.bits[0].bits.uop.frs3_en",
+        "io.lsu.req.bits[0].bits.uop.ftq_idx",
+        "io.lsu.req.bits[0].bits.uop.fu_code[0]",
+        "io.lsu.req.bits[0].bits.uop.fu_code[1]",
+        "io.lsu.req.bits[0].bits.uop.fu_code[2]",
+        "io.lsu.req.bits[0].bits.uop.fu_code[3]",
+        "io.lsu.req.bits[0].bits.uop.fu_code[4]",
+        "io.lsu.req.bits[0].bits.uop.fu_code[5]",
+        "io.lsu.req.bits[0].bits.uop.fu_code[6]",
+        "io.lsu.req.bits[0].bits.uop.fu_code[7]",
+        "io.lsu.req.bits[0].bits.uop.fu_code[8]",
+        "io.lsu.req.bits[0].bits.uop.fu_code[9]",
+        "io.lsu.req.bits[0].bits.uop.imm_packed",
+        "io.lsu.req.bits[0].bits.uop.imm_rename",
+        "io.lsu.req.bits[0].bits.uop.imm_sel",
+        "io.lsu.req.bits[0].bits.uop.inst",
+        "io.lsu.req.bits[0].bits.uop.iq_type[0]",
+        "io.lsu.req.bits[0].bits.uop.iq_type[1]",
+        "io.lsu.req.bits[0].bits.uop.iq_type[2]",
+        "io.lsu.req.bits[0].bits.uop.iq_type[3]",
+        "io.lsu.req.bits[0].bits.uop.is_amo",
+        "io.lsu.req.bits[0].bits.uop.is_eret",
+        "io.lsu.req.bits[0].bits.uop.is_fence",
+        "io.lsu.req.bits[0].bits.uop.is_fencei",
+        "io.lsu.req.bits[0].bits.uop.is_mov",
+        "io.lsu.req.bits[0].bits.uop.is_rocc",
+        "io.lsu.req.bits[0].bits.uop.is_rvc",
+        "io.lsu.req.bits[0].bits.uop.is_sfb",
+        "io.lsu.req.bits[0].bits.uop.is_sfence",
+        "io.lsu.req.bits[0].bits.uop.is_sys_pc2epc",
+        "io.lsu.req.bits[0].bits.uop.is_unique",
+        "io.lsu.req.bits[0].bits.uop.iw_issued",
+        "io.lsu.req.bits[0].bits.uop.iw_issued_partial_agen",
+        "io.lsu.req.bits[0].bits.uop.iw_issued_partial_dgen",
+        "io.lsu.req.bits[0].bits.uop.iw_p1_bypass_hint",
+        "io.lsu.req.bits[0].bits.uop.iw_p1_speculative_child",
+        "io.lsu.req.bits[0].bits.uop.iw_p2_bypass_hint",
+        "io.lsu.req.bits[0].bits.uop.iw_p2_speculative_child",
+        "io.lsu.req.bits[0].bits.uop.iw_p3_bypass_hint",
+        "io.lsu.req.bits[0].bits.uop.ldq_idx",
+        "io.lsu.req.bits[0].bits.uop.ldst",
+        "io.lsu.req.bits[0].bits.uop.ldst_is_rs1",
+        "io.lsu.req.bits[0].bits.uop.lrs1",
+        "io.lsu.req.bits[0].bits.uop.lrs1_rtype",
+        "io.lsu.req.bits[0].bits.uop.lrs2",
+        "io.lsu.req.bits[0].bits.uop.lrs2_rtype",
+        "io.lsu.req.bits[0].bits.uop.lrs3",
+        "io.lsu.req.bits[0].bits.uop.mem_cmd",
+        "io.lsu.req.bits[0].bits.uop.mem_signed",
+        "io.lsu.req.bits[0].bits.uop.mem_size",
+        "io.lsu.req.bits[0].bits.uop.op1_sel",
+        "io.lsu.req.bits[0].bits.uop.op2_sel",
+        "io.lsu.req.bits[0].bits.uop.pc_lob",
+        "io.lsu.req.bits[0].bits.uop.pdst",
+        "io.lsu.req.bits[0].bits.uop.pimm",
+        "io.lsu.req.bits[0].bits.uop.ppred",
+        "io.lsu.req.bits[0].bits.uop.ppred_busy",
+        "io.lsu.req.bits[0].bits.uop.prs1",
+        "io.lsu.req.bits[0].bits.uop.prs1_busy",
+        "io.lsu.req.bits[0].bits.uop.prs2",
+        "io.lsu.req.bits[0].bits.uop.prs2_busy",
+        "io.lsu.req.bits[0].bits.uop.prs3",
+        "io.lsu.req.bits[0].bits.uop.prs3_busy",
+        "io.lsu.req.bits[0].bits.uop.rob_idx",
+        "io.lsu.req.bits[0].bits.uop.rxq_idx",
+        "io.lsu.req.bits[0].bits.uop.stale_pdst",
+        "io.lsu.req.bits[0].bits.uop.stq_idx",
+        "io.lsu.req.bits[0].bits.uop.taken",
+        "io.lsu.req.bits[0].bits.uop.uses_ldq",
+        "io.lsu.req.bits[0].bits.uop.uses_stq",
+        "io.lsu.req.bits[0].bits.uop.xcpt_ae_if",
+        "io.lsu.req.bits[0].bits.uop.xcpt_ma_if",
+        "io.lsu.req.bits[0].bits.uop.xcpt_pf_if",
+        "io.lsu.req.bits[0].valid"
+      ],
+      "predicate": "io.lsu.req.valid && io.lsu.req.ready",
+      "protocol": "decoupled",
+      "ready": "io.lsu.req.ready",
+      "registry_id": "BoomNonBlockingDCache.io.lsu.req.fire",
+      "sources": [
+        {
+          "column": 14,
+          "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+          "line": 444,
+          "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 444:14"
+        }
+      ],
+      "valid": "io.lsu.req.valid"
+    }
+  ],
+  "frontier": [
+    {
+      "id": "block_incoming_reqs",
+      "kind": "node",
+      "source": {
+        "column": 47,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 510,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 510:47"
+      },
+      "type": null
+    },
+    {
+      "id": "dataReadArb.io.in[2].ready",
+      "kind": "instance_port",
+      "source": {
+        "column": 27,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 490,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 490:27"
+      },
+      "type": null
+    },
+    {
+      "id": "h0",
+      "kind": "unknown",
+      "source": {
+        "column": 53,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 503,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 503:53"
+      },
+      "type": null
+    },
+    {
+      "id": "h1",
+      "kind": "unknown",
+      "source": {
+        "column": 28,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 498,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 498:28"
+      },
+      "type": null
+    },
+    {
+      "id": "io.lsu.req.ready",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 444,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 444:14"
+      },
+      "type": null
+    },
+    {
+      "id": "metaReadArb.io.in[4].ready",
+      "kind": "instance_port",
+      "source": {
+        "column": 27,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 472,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 472:27"
+      },
+      "type": null
+    },
+    {
+      "id": "mshrs.io.resp.valid",
+      "kind": "instance_port",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 460,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 460:21"
+      },
+      "type": null
+    }
+  ],
+  "grounding": {
+    "allowed_physical_event_ids": [
+      "BoomNonBlockingDCache::io.lsu.req.fire"
+    ],
+    "allowed_state_ids": [],
+    "allowed_statement_ids": [
+      271,
+      272,
+      273,
+      274,
+      275
+    ],
+    "semantic_labels": []
+  },
+  "memory_state": [],
+  "parent_connection_signals": [],
+  "planner_version": "hierarchical-planner-v12",
+  "proof_context": {
+    "event_gate_statement_ids": [],
+    "event_gate_statements": [],
+    "llm_evidence": false,
+    "policy": "exact-local-event-gate-bridges-v0.1",
+    "state_support_statement_ids": [],
+    "state_support_statements": []
+  },
+  "replacement_complexity": {
+    "event_state_coupling": 0.0,
+    "events": 1,
+    "logical": {
+      "dependency_edges": 9,
+      "signals": 10,
+      "source_loc": 2,
+      "statements": 3
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 9,
+      "signals": 11,
+      "source_loc": 2,
+      "statements": 5,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 0,
+    "state_regions": 0
+  },
+  "schema_version": "workunit-static-0.2",
+  "semantic_event_cones": [
+    {
+      "complete": true,
+      "event_id": "BoomNonBlockingDCache::io.lsu.req.fire",
+      "historical_registers": [],
+      "historical_statement_ids": [
+        271,
+        272,
+        273,
+        274,
+        275
+      ],
+      "immediate_frontier": [
+        "dataReadArb.io.in[2].ready",
+        "h0",
+        "h1",
+        "io.lsu.req.valid",
+        "metaReadArb.io.in[4].ready",
+        "mshrs.io.resp.valid"
+      ],
+      "immediate_registers": [],
+      "immediate_statement_ids": [
+        271,
+        272,
+        273,
+        274,
+        275
+      ]
+    }
+  ],
+  "source_evidence": {
+    "resolved": [
+      {
+        "end_line": 512,
+        "logical_file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "start_line": 509,
+        "text": "  // we should block incoming requests when the MSHR trying to respond\n  val block_incoming_reqs = (lsuWidth == 1).B && mshrs.io.resp.valid\n  io.lsu.req.ready := metaReadArb.io.in(4).ready && dataReadArb.io.in(2).ready && !block_incoming_reqs\n  metaReadArb.io.in(4).valid := io.lsu.req.valid && !block_incoming_reqs\n"
+      }
+    ],
+    "roots": [
+      "/t1/MCM-Agent/tools/chipyard"
+    ],
+    "unresolved": []
+  },
+  "source_spans": [
+    {
+      "end_line": 511,
+      "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+      "start_line": 510
+    }
+  ],
+  "state": [],
+  "statements": [
+    {
+      "control_reads": [],
+      "drives": [
+        "block_incoming_reqs"
+      ],
+      "firrtl_line": 198040,
+      "id": 271,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h1",
+        "mshrs.io.resp.valid"
+      ],
+      "source": {
+        "column": 47,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 510,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 510:47"
+      },
+      "status": "supported",
+      "text": "node block_incoming_reqs = and(UInt<1>(0h1), mshrs.io.resp.valid)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_io_lsu_req_ready_T"
+      ],
+      "firrtl_line": 198041,
+      "id": 272,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "dataReadArb.io.in[2].ready",
+        "metaReadArb.io.in[4].ready"
+      ],
+      "source": {
+        "column": 50,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 511,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 511:50"
+      },
+      "status": "supported",
+      "text": "node _io_lsu_req_ready_T = and(metaReadArb.io.in[4].ready, dataReadArb.io.in[2].ready)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_io_lsu_req_ready_T_1"
+      ],
+      "firrtl_line": 198042,
+      "id": 273,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "block_incoming_reqs",
+        "h0"
+      ],
+      "source": {
+        "column": 83,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 511,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 511:83"
+      },
+      "status": "supported",
+      "text": "node _io_lsu_req_ready_T_1 = eq(block_incoming_reqs, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_io_lsu_req_ready_T_2"
+      ],
+      "firrtl_line": 198043,
+      "id": 274,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_io_lsu_req_ready_T",
+        "_io_lsu_req_ready_T_1"
+      ],
+      "source": {
+        "column": 80,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 511,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 511:80"
+      },
+      "status": "supported",
+      "text": "node _io_lsu_req_ready_T_2 = and(_io_lsu_req_ready_T, _io_lsu_req_ready_T_1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.lsu.req.ready"
+      ],
+      "firrtl_line": 198044,
+      "id": 275,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_io_lsu_req_ready_T_2"
+      ],
+      "source": {
+        "column": 20,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 511,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 511:20"
+      },
+      "status": "supported",
+      "text": "connect io.lsu.req.ready, _io_lsu_req_ready_T_2"
+    }
+  ],
+  "work_unit": {
+    "coverage_complete": true,
+    "decision": "manageable",
+    "depth": 1,
+    "exceeded_limits": [],
+    "id": "BoomNonBlockingDCache::region-0-4",
+    "instance_path": "BoomNonBlockingDCache",
+    "is_leaf": true,
+    "kind": "region",
+    "module": "BoomNonBlockingDCache",
+    "replacement_exceeded_limits": []
+  }
+}

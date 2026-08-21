@@ -1,0 +1,7 @@
+{
+  "candidate_axiom_count": 0,
+  "next_action": "A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.",
+  "status": "FROZEN_FOR_COMPOSITION",
+  "task_id": "leaf_abstraction-BoomNonBlockingDCache.amoalu-9d11028de14b5b4d",
+  "trusted_axiom_count": 0
+}

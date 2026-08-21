@@ -1,0 +1,393 @@
+{
+  "compiler": "formal-axiom-compiler-0.8",
+  "obligations": [
+    {
+      "arguments": {
+        "initialization": {
+          "active": "rst",
+          "address": "rst_cnt",
+          "lane_mask": "15"
+        },
+        "key": {
+          "address_domain": {
+            "end_exclusive": 64,
+            "start": 0
+          },
+          "lane": {
+            "count": 4,
+            "name": "way"
+          }
+        },
+        "read": {
+          "address": "io.read.bits.idx",
+          "latency_cycles": 1,
+          "request": "ReadRequest"
+        },
+        "relations": {
+          "co": "MetaCO",
+          "fr": "MetaFR",
+          "rf": "MetaRF"
+        },
+        "resolution": "latest_prior_write_same_key",
+        "storage": "tag_array",
+        "value_fields": [
+          {
+            "initial_value": "0",
+            "name": "coh.state",
+            "read_targets": [
+              "io.resp[0].coh.state",
+              "io.resp[1].coh.state",
+              "io.resp[2].coh.state",
+              "io.resp[3].coh.state"
+            ],
+            "storage_bits": {
+              "hi": 21,
+              "lo": 20
+            },
+            "write_value": "io.write.bits.data.coh.state"
+          },
+          {
+            "initial_value": "0",
+            "name": "tag",
+            "read_targets": [
+              "io.resp[0].tag",
+              "io.resp[1].tag",
+              "io.resp[2].tag",
+              "io.resp[3].tag"
+            ],
+            "storage_bits": {
+              "hi": 19,
+              "lo": 0
+            },
+            "write_value": "io.write.bits.data.tag"
+          }
+        ],
+        "write": {
+          "address": "io.write.bits.idx",
+          "lane_mask": "io.write.bits.way_en",
+          "on": "MetadataWrite"
+        }
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "memory_flow",
+      "checker": "indexed_storage_flow",
+      "evidence_statement_ids": [
+        4,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        52,
+        53,
+        54,
+        57,
+        58,
+        59,
+        60,
+        61,
+        64,
+        65,
+        66,
+        67,
+        68,
+        71,
+        72,
+        73,
+        74,
+        75,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90
+      ],
+      "formal": {
+        "initialization": {
+          "active": {
+            "name": "rst",
+            "op": "signal"
+          },
+          "address": {
+            "name": "rst_cnt",
+            "op": "signal"
+          },
+          "lane_mask": {
+            "op": "const",
+            "value": 15
+          }
+        },
+        "key": {
+          "address_domain": {
+            "end_exclusive": 64,
+            "start": 0
+          },
+          "lane": {
+            "count": 4,
+            "name": "way"
+          }
+        },
+        "read": {
+          "address": {
+            "name": "io.read.bits.idx",
+            "op": "signal"
+          },
+          "latency_cycles": 1,
+          "request": "ReadRequest"
+        },
+        "relations": {
+          "co": "MetaCO",
+          "fr": "MetaFR",
+          "rf": "MetaRF"
+        },
+        "resolution": "latest_prior_write_same_key",
+        "scope_identity": null,
+        "storage": "tag_array",
+        "type": "indexed_storage_flow",
+        "value_fields": [
+          {
+            "initial_value": {
+              "op": "const",
+              "value": 0
+            },
+            "name": "coh.state",
+            "read_targets": [
+              {
+                "name": "io.resp[0].coh.state",
+                "op": "signal"
+              },
+              {
+                "name": "io.resp[1].coh.state",
+                "op": "signal"
+              },
+              {
+                "name": "io.resp[2].coh.state",
+                "op": "signal"
+              },
+              {
+                "name": "io.resp[3].coh.state",
+                "op": "signal"
+              }
+            ],
+            "storage_bits": {
+              "hi": 21,
+              "lo": 20
+            },
+            "write_value": {
+              "name": "io.write.bits.data.coh.state",
+              "op": "signal"
+            }
+          },
+          {
+            "initial_value": {
+              "op": "const",
+              "value": 0
+            },
+            "name": "tag",
+            "read_targets": [
+              {
+                "name": "io.resp[0].tag",
+                "op": "signal"
+              },
+              {
+                "name": "io.resp[1].tag",
+                "op": "signal"
+              },
+              {
+                "name": "io.resp[2].tag",
+                "op": "signal"
+              },
+              {
+                "name": "io.resp[3].tag",
+                "op": "signal"
+              }
+            ],
+            "storage_bits": {
+              "hi": 19,
+              "lo": 0
+            },
+            "write_value": {
+              "name": "io.write.bits.data.tag",
+              "op": "signal"
+            }
+          }
+        ],
+        "write": {
+          "address": {
+            "name": "io.write.bits.idx",
+            "op": "signal"
+          },
+          "lane_mask": {
+            "name": "io.write.bits.way_en",
+            "op": "signal"
+          },
+          "on": "MetadataWrite"
+        }
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "MetadataWrite",
+          "ReadRequest"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.read.bits.idx",
+          "io.resp[0].coh.state",
+          "io.resp[0].tag",
+          "io.resp[1].coh.state",
+          "io.resp[1].tag",
+          "io.resp[2].coh.state",
+          "io.resp[2].tag",
+          "io.resp[3].coh.state",
+          "io.resp[3].tag",
+          "io.write.bits.data.coh.state",
+          "io.write.bits.data.tag",
+          "io.write.bits.idx",
+          "io.write.bits.way_en",
+          "rst",
+          "rst_cnt"
+        ]
+      },
+      "rendered_formula": "tag_array[way] latest-write storage flow; MetaRF=rf, MetaCO=co, MetaFR=rf^-1;co"
+    },
+    {
+      "arguments": {
+        "occurrence": "ReadRequest",
+        "predicate": "ResetActive"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        9,
+        32,
+        49,
+        87,
+        88
+      ],
+      "formal": {
+        "occurrence": "ReadRequest",
+        "predicate": "ResetActive",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ReadRequest"
+        ],
+        "predicates": [
+          "ResetActive"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "ResetActive => !ReadRequest"
+    },
+    {
+      "arguments": {
+        "occurrence": "MetadataWrite",
+        "predicate": "ResetActive"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        9,
+        89,
+        90
+      ],
+      "formal": {
+        "occurrence": "MetadataWrite",
+        "predicate": "ResetActive",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "MetadataWrite"
+        ],
+        "predicates": [
+          "ResetActive"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "ResetActive => !MetadataWrite"
+    },
+    {
+      "arguments": {
+        "occurrence": "ReadRequest",
+        "predicate": "WriteRequested"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        32,
+        49,
+        87,
+        88
+      ],
+      "formal": {
+        "occurrence": "ReadRequest",
+        "predicate": "WriteRequested",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ReadRequest"
+        ],
+        "predicates": [
+          "WriteRequested"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "WriteRequested => !ReadRequest"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "work_unit_id": "BoomNonBlockingDCache.meta_0"
+}

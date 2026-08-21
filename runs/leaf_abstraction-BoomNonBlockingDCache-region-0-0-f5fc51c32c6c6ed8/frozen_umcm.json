@@ -1,0 +1,104 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [
+        "C1_ProbeAccepted"
+      ],
+      "evidence_statement_ids": [
+        2486,
+        2487,
+        2488
+      ],
+      "formal": {
+        "occurrence": "ProbeFire",
+        "predicate": "LRSCValid",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A1",
+      "rendered_formula": "LRSCValid => !ProbeFire",
+      "status": "candidate"
+    }
+  ],
+  "cases": [
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        2486,
+        2487,
+        2488
+      ],
+      "guard_predicates": [
+        {
+          "id": "LRSCValid",
+          "positive": false
+        }
+      ],
+      "id": "C1_ProbeAccepted",
+      "relations": [
+        "An incoming TileLink B probe can handshake only when lrsc_valid is false."
+      ],
+      "trigger_occurrences": [
+        "ProbeFire"
+      ]
+    }
+  ],
+  "freeze": {
+    "candidate_axiom_count": 1,
+    "policy": "all-declared-axioms-trusted-and-no-unresolved-v0.1",
+    "reopen_policy": "This summary may be reopened if later parent/system counterexample validation shows the abstraction is too weak and a missing concrete constraint must be synthesized.",
+    "status": "FROZEN_FOR_COMPOSITION",
+    "trusted_axiom_count": 1
+  },
+  "identity_keys": [],
+  "note": "Only axioms with FORMALLY_PROVED or SPEC_PROVED validation level are included. Grounded/structurally-supported candidate axioms remain outside the trusted abstraction.",
+  "occurrences": [
+    {
+      "definition": "auto.out.b.valid && auto.out.b.ready; an accepted incoming TileLink B probe",
+      "evidence_statement_ids": [
+        2486,
+        2487,
+        2488
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "ProbeFire",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::auto.out.b.fire"
+      ]
+    }
+  ],
+  "predicates": [
+    {
+      "definition": "lrsc_valid is asserted",
+      "evidence_statement_ids": [
+        2486,
+        2487,
+        2488
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "lrsc_valid",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "LRSCValid"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-BoomNonBlockingDCache-region-0-0-f5fc51c32c6c6ed8",
+  "trust_policy": "formal-ast-plus-certified-provenance-v0.3",
+  "trusted_axiom_ids": [
+    "A1"
+  ],
+  "work_unit_id": "BoomNonBlockingDCache::region-0-0"
+}

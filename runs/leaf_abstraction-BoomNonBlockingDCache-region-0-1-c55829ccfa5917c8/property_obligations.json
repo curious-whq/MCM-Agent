@@ -1,0 +1,1320 @@
+{
+  "compiler": "formal-axiom-compiler-0.9",
+  "obligations": [
+    {
+      "arguments": {
+        "parts": [
+          "WBStartBeat",
+          "ProbeStartBeat",
+          "WBContinuationBeat",
+          "ProbeContinuationBeat"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "OutputCFire"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        2559,
+        2560,
+        2561,
+        2569,
+        2570,
+        2572,
+        2573,
+        2574,
+        2575,
+        2577,
+        2578,
+        2609,
+        2618,
+        2619,
+        2625,
+        2626,
+        2627,
+        2628,
+        2630,
+        2631,
+        2632
+      ],
+      "formal": {
+        "parts": [
+          "WBStartBeat",
+          "ProbeStartBeat",
+          "WBContinuationBeat",
+          "ProbeContinuationBeat"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "OutputCFire"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "OutputCFire",
+          "ProbeContinuationBeat",
+          "ProbeStartBeat",
+          "WBContinuationBeat",
+          "WBStartBeat"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "OutputCFire <=> exactly_one_same_cycle({WBStartBeat, ProbeStartBeat, WBContinuationBeat, ProbeContinuationBeat})"
+    },
+    {
+      "arguments": {
+        "occurrence": "ProbeStartBeat",
+        "predicate": "WBReleaseValid"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        2561,
+        2562,
+        2563,
+        2564,
+        2565,
+        2566,
+        2567,
+        2568,
+        2570,
+        2573,
+        2575,
+        2578
+      ],
+      "formal": {
+        "occurrence": "ProbeStartBeat",
+        "predicate": "WBReleaseValid",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ProbeStartBeat"
+        ],
+        "predicates": [
+          "WBReleaseValid"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "WBReleaseValid => !ProbeStartBeat"
+    },
+    {
+      "arguments": {
+        "after": "WBContinuationBeat",
+        "before": "WBStartBeat"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "ordering",
+      "checker": "history_order",
+      "evidence_statement_ids": [
+        2559,
+        2606,
+        2608,
+        2609,
+        2610,
+        2611,
+        2612,
+        2613,
+        2618,
+        2619
+      ],
+      "formal": {
+        "after": "WBContinuationBeat",
+        "before": "WBStartBeat",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "WBContinuationBeat",
+          "WBStartBeat"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "WBStartBeat <mu WBContinuationBeat"
+    },
+    {
+      "arguments": {
+        "after": "ProbeContinuationBeat",
+        "before": "ProbeStartBeat"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "ordering",
+      "checker": "history_order",
+      "evidence_statement_ids": [
+        2559,
+        2607,
+        2608,
+        2609,
+        2610,
+        2611,
+        2612,
+        2613,
+        2618,
+        2619
+      ],
+      "formal": {
+        "after": "ProbeContinuationBeat",
+        "before": "ProbeStartBeat",
+        "required_prior": null,
+        "scope_identity": null,
+        "type": "ordered_before"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ProbeContinuationBeat",
+          "ProbeStartBeat"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "ProbeStartBeat <mu ProbeContinuationBeat"
+    },
+    {
+      "arguments": {
+        "on": "WBStartBeat",
+        "source": "wb.io.release.bits.address",
+        "target": "nodeOut.c.bits.address"
+      },
+      "axiom_id": "A5",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2618,
+        2650,
+        2652,
+        2654,
+        2655,
+        2682
+      ],
+      "formal": {
+        "on": "WBStartBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "wb.io.release.bits.address",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.address",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "WBStartBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "nodeOut.c.bits.address",
+          "wb.io.release.bits.address"
+        ]
+      },
+      "rendered_formula": "nodeOut.c.bits.address = wb.io.release.bits.address on WBStartBeat"
+    },
+    {
+      "arguments": {
+        "on": "WBStartBeat",
+        "source": "wb.io.release.bits.source",
+        "target": "nodeOut.c.bits.source"
+      },
+      "axiom_id": "A6",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2618,
+        2656,
+        2658,
+        2660,
+        2661,
+        2683
+      ],
+      "formal": {
+        "on": "WBStartBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "wb.io.release.bits.source",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.source",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "WBStartBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "nodeOut.c.bits.source",
+          "wb.io.release.bits.source"
+        ]
+      },
+      "rendered_formula": "nodeOut.c.bits.source = wb.io.release.bits.source on WBStartBeat"
+    },
+    {
+      "arguments": {
+        "on": "WBStartBeat",
+        "source": "wb.io.release.bits.size",
+        "target": "nodeOut.c.bits.size"
+      },
+      "axiom_id": "A7",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2618,
+        2662,
+        2664,
+        2666,
+        2667,
+        2684
+      ],
+      "formal": {
+        "on": "WBStartBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "wb.io.release.bits.size",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.size",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "WBStartBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "nodeOut.c.bits.size",
+          "wb.io.release.bits.size"
+        ]
+      },
+      "rendered_formula": "nodeOut.c.bits.size = wb.io.release.bits.size on WBStartBeat"
+    },
+    {
+      "arguments": {
+        "on": "WBStartBeat",
+        "source": "wb.io.release.bits.param",
+        "target": "nodeOut.c.bits.param"
+      },
+      "axiom_id": "A8",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2618,
+        2668,
+        2670,
+        2672,
+        2673,
+        2685
+      ],
+      "formal": {
+        "on": "WBStartBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "wb.io.release.bits.param",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.param",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "WBStartBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "nodeOut.c.bits.param",
+          "wb.io.release.bits.param"
+        ]
+      },
+      "rendered_formula": "nodeOut.c.bits.param = wb.io.release.bits.param on WBStartBeat"
+    },
+    {
+      "arguments": {
+        "on": "WBStartBeat",
+        "source": "wb.io.release.bits.opcode",
+        "target": "nodeOut.c.bits.opcode"
+      },
+      "axiom_id": "A9",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2618,
+        2674,
+        2676,
+        2678,
+        2679,
+        2686
+      ],
+      "formal": {
+        "on": "WBStartBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "wb.io.release.bits.opcode",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.opcode",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "WBStartBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "nodeOut.c.bits.opcode",
+          "wb.io.release.bits.opcode"
+        ]
+      },
+      "rendered_formula": "nodeOut.c.bits.opcode = wb.io.release.bits.opcode on WBStartBeat"
+    },
+    {
+      "arguments": {
+        "on": "WBStartBeat",
+        "source": "wb.io.release.bits.data",
+        "target": "nodeOut.c.bits.data"
+      },
+      "axiom_id": "A10",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2618,
+        2640,
+        2642,
+        2644,
+        2645,
+        2681
+      ],
+      "formal": {
+        "on": "WBStartBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "wb.io.release.bits.data",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.data",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "WBStartBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "nodeOut.c.bits.data",
+          "wb.io.release.bits.data"
+        ]
+      },
+      "rendered_formula": "nodeOut.c.bits.data = wb.io.release.bits.data on WBStartBeat"
+    },
+    {
+      "arguments": {
+        "on": "WBStartBeat",
+        "source": "wb.io.release.bits.corrupt",
+        "target": "nodeOut.c.bits.corrupt"
+      },
+      "axiom_id": "A11",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2618,
+        2634,
+        2636,
+        2638,
+        2639,
+        2680
+      ],
+      "formal": {
+        "on": "WBStartBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "wb.io.release.bits.corrupt",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.corrupt",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "WBStartBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "nodeOut.c.bits.corrupt",
+          "wb.io.release.bits.corrupt"
+        ]
+      },
+      "rendered_formula": "nodeOut.c.bits.corrupt = wb.io.release.bits.corrupt on WBStartBeat"
+    },
+    {
+      "arguments": {
+        "on": "WBContinuationBeat",
+        "source": "wb.io.release.bits.address",
+        "target": "nodeOut.c.bits.address"
+      },
+      "axiom_id": "A12",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2618,
+        2619,
+        2650,
+        2652,
+        2654,
+        2655,
+        2682
+      ],
+      "formal": {
+        "on": "WBContinuationBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "wb.io.release.bits.address",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.address",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "WBContinuationBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "nodeOut.c.bits.address",
+          "wb.io.release.bits.address"
+        ]
+      },
+      "rendered_formula": "nodeOut.c.bits.address = wb.io.release.bits.address on WBContinuationBeat"
+    },
+    {
+      "arguments": {
+        "on": "WBContinuationBeat",
+        "source": "wb.io.release.bits.source",
+        "target": "nodeOut.c.bits.source"
+      },
+      "axiom_id": "A13",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2618,
+        2619,
+        2656,
+        2658,
+        2660,
+        2661,
+        2683
+      ],
+      "formal": {
+        "on": "WBContinuationBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "wb.io.release.bits.source",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.source",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "WBContinuationBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "nodeOut.c.bits.source",
+          "wb.io.release.bits.source"
+        ]
+      },
+      "rendered_formula": "nodeOut.c.bits.source = wb.io.release.bits.source on WBContinuationBeat"
+    },
+    {
+      "arguments": {
+        "on": "WBContinuationBeat",
+        "source": "wb.io.release.bits.size",
+        "target": "nodeOut.c.bits.size"
+      },
+      "axiom_id": "A14",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2618,
+        2619,
+        2662,
+        2664,
+        2666,
+        2667,
+        2684
+      ],
+      "formal": {
+        "on": "WBContinuationBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "wb.io.release.bits.size",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.size",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "WBContinuationBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "nodeOut.c.bits.size",
+          "wb.io.release.bits.size"
+        ]
+      },
+      "rendered_formula": "nodeOut.c.bits.size = wb.io.release.bits.size on WBContinuationBeat"
+    },
+    {
+      "arguments": {
+        "on": "WBContinuationBeat",
+        "source": "wb.io.release.bits.param",
+        "target": "nodeOut.c.bits.param"
+      },
+      "axiom_id": "A15",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2618,
+        2619,
+        2668,
+        2670,
+        2672,
+        2673,
+        2685
+      ],
+      "formal": {
+        "on": "WBContinuationBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "wb.io.release.bits.param",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.param",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "WBContinuationBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "nodeOut.c.bits.param",
+          "wb.io.release.bits.param"
+        ]
+      },
+      "rendered_formula": "nodeOut.c.bits.param = wb.io.release.bits.param on WBContinuationBeat"
+    },
+    {
+      "arguments": {
+        "on": "WBContinuationBeat",
+        "source": "wb.io.release.bits.opcode",
+        "target": "nodeOut.c.bits.opcode"
+      },
+      "axiom_id": "A16",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2618,
+        2619,
+        2674,
+        2676,
+        2678,
+        2679,
+        2686
+      ],
+      "formal": {
+        "on": "WBContinuationBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "wb.io.release.bits.opcode",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.opcode",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "WBContinuationBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "nodeOut.c.bits.opcode",
+          "wb.io.release.bits.opcode"
+        ]
+      },
+      "rendered_formula": "nodeOut.c.bits.opcode = wb.io.release.bits.opcode on WBContinuationBeat"
+    },
+    {
+      "arguments": {
+        "on": "WBContinuationBeat",
+        "source": "wb.io.release.bits.data",
+        "target": "nodeOut.c.bits.data"
+      },
+      "axiom_id": "A17",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2618,
+        2619,
+        2640,
+        2642,
+        2644,
+        2645,
+        2681
+      ],
+      "formal": {
+        "on": "WBContinuationBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "wb.io.release.bits.data",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.data",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "WBContinuationBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "nodeOut.c.bits.data",
+          "wb.io.release.bits.data"
+        ]
+      },
+      "rendered_formula": "nodeOut.c.bits.data = wb.io.release.bits.data on WBContinuationBeat"
+    },
+    {
+      "arguments": {
+        "on": "WBContinuationBeat",
+        "source": "wb.io.release.bits.corrupt",
+        "target": "nodeOut.c.bits.corrupt"
+      },
+      "axiom_id": "A18",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2618,
+        2619,
+        2634,
+        2636,
+        2638,
+        2639,
+        2680
+      ],
+      "formal": {
+        "on": "WBContinuationBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "wb.io.release.bits.corrupt",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.corrupt",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "WBContinuationBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "nodeOut.c.bits.corrupt",
+          "wb.io.release.bits.corrupt"
+        ]
+      },
+      "rendered_formula": "nodeOut.c.bits.corrupt = wb.io.release.bits.corrupt on WBContinuationBeat"
+    },
+    {
+      "arguments": {
+        "on": "ProbeStartBeat",
+        "source": "prober.io.rep.bits.address",
+        "target": "nodeOut.c.bits.address"
+      },
+      "axiom_id": "A19",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2618,
+        2651,
+        2652,
+        2654,
+        2655,
+        2682
+      ],
+      "formal": {
+        "on": "ProbeStartBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "prober.io.rep.bits.address",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.address",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ProbeStartBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "nodeOut.c.bits.address",
+          "prober.io.rep.bits.address"
+        ]
+      },
+      "rendered_formula": "nodeOut.c.bits.address = prober.io.rep.bits.address on ProbeStartBeat"
+    },
+    {
+      "arguments": {
+        "on": "ProbeStartBeat",
+        "source": "prober.io.rep.bits.source",
+        "target": "nodeOut.c.bits.source"
+      },
+      "axiom_id": "A20",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2618,
+        2657,
+        2658,
+        2660,
+        2661,
+        2683
+      ],
+      "formal": {
+        "on": "ProbeStartBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "prober.io.rep.bits.source",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.source",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ProbeStartBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "nodeOut.c.bits.source",
+          "prober.io.rep.bits.source"
+        ]
+      },
+      "rendered_formula": "nodeOut.c.bits.source = prober.io.rep.bits.source on ProbeStartBeat"
+    },
+    {
+      "arguments": {
+        "on": "ProbeStartBeat",
+        "source": "prober.io.rep.bits.size",
+        "target": "nodeOut.c.bits.size"
+      },
+      "axiom_id": "A21",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2618,
+        2663,
+        2664,
+        2666,
+        2667,
+        2684
+      ],
+      "formal": {
+        "on": "ProbeStartBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "prober.io.rep.bits.size",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.size",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ProbeStartBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "nodeOut.c.bits.size",
+          "prober.io.rep.bits.size"
+        ]
+      },
+      "rendered_formula": "nodeOut.c.bits.size = prober.io.rep.bits.size on ProbeStartBeat"
+    },
+    {
+      "arguments": {
+        "on": "ProbeStartBeat",
+        "source": "prober.io.rep.bits.param",
+        "target": "nodeOut.c.bits.param"
+      },
+      "axiom_id": "A22",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2618,
+        2669,
+        2670,
+        2672,
+        2673,
+        2685
+      ],
+      "formal": {
+        "on": "ProbeStartBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "prober.io.rep.bits.param",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.param",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ProbeStartBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "nodeOut.c.bits.param",
+          "prober.io.rep.bits.param"
+        ]
+      },
+      "rendered_formula": "nodeOut.c.bits.param = prober.io.rep.bits.param on ProbeStartBeat"
+    },
+    {
+      "arguments": {
+        "on": "ProbeStartBeat",
+        "source": "prober.io.rep.bits.opcode",
+        "target": "nodeOut.c.bits.opcode"
+      },
+      "axiom_id": "A23",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2618,
+        2675,
+        2676,
+        2678,
+        2679,
+        2686
+      ],
+      "formal": {
+        "on": "ProbeStartBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "prober.io.rep.bits.opcode",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.opcode",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ProbeStartBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "nodeOut.c.bits.opcode",
+          "prober.io.rep.bits.opcode"
+        ]
+      },
+      "rendered_formula": "nodeOut.c.bits.opcode = prober.io.rep.bits.opcode on ProbeStartBeat"
+    },
+    {
+      "arguments": {
+        "on": "ProbeStartBeat",
+        "source": "prober.io.rep.bits.data",
+        "target": "nodeOut.c.bits.data"
+      },
+      "axiom_id": "A24",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2618,
+        2641,
+        2642,
+        2644,
+        2645,
+        2681
+      ],
+      "formal": {
+        "on": "ProbeStartBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "prober.io.rep.bits.data",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.data",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ProbeStartBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "nodeOut.c.bits.data",
+          "prober.io.rep.bits.data"
+        ]
+      },
+      "rendered_formula": "nodeOut.c.bits.data = prober.io.rep.bits.data on ProbeStartBeat"
+    },
+    {
+      "arguments": {
+        "on": "ProbeStartBeat",
+        "source": "prober.io.rep.bits.corrupt",
+        "target": "nodeOut.c.bits.corrupt"
+      },
+      "axiom_id": "A25",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2618,
+        2635,
+        2636,
+        2638,
+        2639,
+        2680
+      ],
+      "formal": {
+        "on": "ProbeStartBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "prober.io.rep.bits.corrupt",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.corrupt",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ProbeStartBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "nodeOut.c.bits.corrupt",
+          "prober.io.rep.bits.corrupt"
+        ]
+      },
+      "rendered_formula": "nodeOut.c.bits.corrupt = prober.io.rep.bits.corrupt on ProbeStartBeat"
+    },
+    {
+      "arguments": {
+        "on": "ProbeContinuationBeat",
+        "source": "prober.io.rep.bits.address",
+        "target": "nodeOut.c.bits.address"
+      },
+      "axiom_id": "A26",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2618,
+        2619,
+        2651,
+        2652,
+        2654,
+        2655,
+        2682
+      ],
+      "formal": {
+        "on": "ProbeContinuationBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "prober.io.rep.bits.address",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.address",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ProbeContinuationBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "nodeOut.c.bits.address",
+          "prober.io.rep.bits.address"
+        ]
+      },
+      "rendered_formula": "nodeOut.c.bits.address = prober.io.rep.bits.address on ProbeContinuationBeat"
+    },
+    {
+      "arguments": {
+        "on": "ProbeContinuationBeat",
+        "source": "prober.io.rep.bits.source",
+        "target": "nodeOut.c.bits.source"
+      },
+      "axiom_id": "A27",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2618,
+        2619,
+        2657,
+        2658,
+        2660,
+        2661,
+        2683
+      ],
+      "formal": {
+        "on": "ProbeContinuationBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "prober.io.rep.bits.source",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.source",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ProbeContinuationBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "nodeOut.c.bits.source",
+          "prober.io.rep.bits.source"
+        ]
+      },
+      "rendered_formula": "nodeOut.c.bits.source = prober.io.rep.bits.source on ProbeContinuationBeat"
+    },
+    {
+      "arguments": {
+        "on": "ProbeContinuationBeat",
+        "source": "prober.io.rep.bits.size",
+        "target": "nodeOut.c.bits.size"
+      },
+      "axiom_id": "A28",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2618,
+        2619,
+        2663,
+        2664,
+        2666,
+        2667,
+        2684
+      ],
+      "formal": {
+        "on": "ProbeContinuationBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "prober.io.rep.bits.size",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.size",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ProbeContinuationBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "nodeOut.c.bits.size",
+          "prober.io.rep.bits.size"
+        ]
+      },
+      "rendered_formula": "nodeOut.c.bits.size = prober.io.rep.bits.size on ProbeContinuationBeat"
+    },
+    {
+      "arguments": {
+        "on": "ProbeContinuationBeat",
+        "source": "prober.io.rep.bits.param",
+        "target": "nodeOut.c.bits.param"
+      },
+      "axiom_id": "A29",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2618,
+        2619,
+        2669,
+        2670,
+        2672,
+        2673,
+        2685
+      ],
+      "formal": {
+        "on": "ProbeContinuationBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "prober.io.rep.bits.param",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.param",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ProbeContinuationBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "nodeOut.c.bits.param",
+          "prober.io.rep.bits.param"
+        ]
+      },
+      "rendered_formula": "nodeOut.c.bits.param = prober.io.rep.bits.param on ProbeContinuationBeat"
+    },
+    {
+      "arguments": {
+        "on": "ProbeContinuationBeat",
+        "source": "prober.io.rep.bits.opcode",
+        "target": "nodeOut.c.bits.opcode"
+      },
+      "axiom_id": "A30",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2618,
+        2619,
+        2675,
+        2676,
+        2678,
+        2679,
+        2686
+      ],
+      "formal": {
+        "on": "ProbeContinuationBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "prober.io.rep.bits.opcode",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.opcode",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ProbeContinuationBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "nodeOut.c.bits.opcode",
+          "prober.io.rep.bits.opcode"
+        ]
+      },
+      "rendered_formula": "nodeOut.c.bits.opcode = prober.io.rep.bits.opcode on ProbeContinuationBeat"
+    },
+    {
+      "arguments": {
+        "on": "ProbeContinuationBeat",
+        "source": "prober.io.rep.bits.data",
+        "target": "nodeOut.c.bits.data"
+      },
+      "axiom_id": "A31",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2618,
+        2619,
+        2641,
+        2642,
+        2644,
+        2645,
+        2681
+      ],
+      "formal": {
+        "on": "ProbeContinuationBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "prober.io.rep.bits.data",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.data",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ProbeContinuationBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "nodeOut.c.bits.data",
+          "prober.io.rep.bits.data"
+        ]
+      },
+      "rendered_formula": "nodeOut.c.bits.data = prober.io.rep.bits.data on ProbeContinuationBeat"
+    },
+    {
+      "arguments": {
+        "on": "ProbeContinuationBeat",
+        "source": "prober.io.rep.bits.corrupt",
+        "target": "nodeOut.c.bits.corrupt"
+      },
+      "axiom_id": "A32",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2618,
+        2619,
+        2635,
+        2636,
+        2638,
+        2639,
+        2680
+      ],
+      "formal": {
+        "on": "ProbeContinuationBeat",
+        "scope_identity": null,
+        "source": {
+          "name": "prober.io.rep.bits.corrupt",
+          "op": "signal"
+        },
+        "target": "nodeOut.c.bits.corrupt",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ProbeContinuationBeat"
+        ],
+        "predicates": [],
+        "signals": [
+          "nodeOut.c.bits.corrupt",
+          "prober.io.rep.bits.corrupt"
+        ]
+      },
+      "rendered_formula": "nodeOut.c.bits.corrupt = prober.io.rep.bits.corrupt on ProbeContinuationBeat"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "work_unit_id": "BoomNonBlockingDCache::region-0-1"
+}

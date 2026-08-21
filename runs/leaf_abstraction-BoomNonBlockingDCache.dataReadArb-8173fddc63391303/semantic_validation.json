@@ -1,0 +1,1538 @@
+{
+  "all_axioms_formally_proved": true,
+  "all_axioms_structurally_supported": true,
+  "candidate_axiom_count": 15,
+  "control_model": {
+    "known_states": [],
+    "reset_state": null,
+    "state_register": "state",
+    "transitions": []
+  },
+  "counts": {
+    "FORMALLY_PROVED": 15,
+    "GROUNDED": 0,
+    "PARTIALLY_SUPPORTED": 0,
+    "REFUTED": 0,
+    "SPEC_PROVED": 0,
+    "STRUCTURALLY_SUPPORTED": 0
+  },
+  "formal_backend": {
+    "api_version": "formal-backend-api-0.15",
+    "available": true,
+    "name": "explicit-control",
+    "note": "Exhaustive formal proof for certified finite-control/order properties, exact symbolic local/identity facts, exact local Boolean exclusion/conservation, bounded indexed token provenance, and selected finite reference equivalence checks. It is not a general bit-level SMT backend.",
+    "proof_domain": "control + exact symbolic local + exact combinational exclusion/conservation + scalar/indexed token provenance + finite reference equivalence",
+    "supported_checkers": [
+      "forbid_when",
+      "history_order",
+      "history_chain",
+      "history_join",
+      "indexed_coverage",
+      "indexed_storage_flow",
+      "occurrence_partition",
+      "transaction_exclusion",
+      "signal_alias",
+      "constant_bit",
+      "identity_projection",
+      "tilelink_on_probe_spec"
+    ],
+    "trusted_proof_levels": [
+      "FORMALLY_PROVED",
+      "SPEC_PROVED"
+    ]
+  },
+  "has_counterexample": false,
+  "property_compiler": "formal-axiom-compiler-0.9",
+  "results": [
+    {
+      "arguments": {
+        "parts": [
+          "Input0Fire",
+          "Input1Fire",
+          "Input2Fire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "OutputFire"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "mutex_pairs": [
+            [
+              "Input0Fire",
+              "Input1Fire"
+            ],
+            [
+              "Input0Fire",
+              "Input2Fire"
+            ],
+            [
+              "Input1Fire",
+              "Input2Fire"
+            ]
+          ],
+          "obligations": [
+            {
+              "atom_count": 4,
+              "kind": "whole_without_part",
+              "unsat": true
+            },
+            {
+              "atom_count": 4,
+              "kind": "part_without_whole",
+              "unsat": true
+            },
+            {
+              "atom_count": 3,
+              "kind": "parts_mutually_exclusive",
+              "parts": [
+                "Input0Fire",
+                "Input1Fire"
+              ],
+              "unsat": true
+            },
+            {
+              "atom_count": 4,
+              "kind": "parts_mutually_exclusive",
+              "parts": [
+                "Input0Fire",
+                "Input2Fire"
+              ],
+              "unsat": true
+            },
+            {
+              "atom_count": 4,
+              "kind": "parts_mutually_exclusive",
+              "parts": [
+                "Input1Fire",
+                "Input2Fire"
+              ],
+              "unsat": true
+            }
+          ],
+          "parts": [
+            "Input0Fire",
+            "Input1Fire",
+            "Input2Fire"
+          ],
+          "proof": "OutputFire is equivalent to the same-cycle disjunction of its parts, and every pair of parts has an unsatisfiable conjunction",
+          "proof_domain": "exact-same-cycle-occurrence-partition",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "whole": "OutputFire"
+        },
+        "proof": "OutputFire is equivalent to the same-cycle disjunction of its parts, and every pair of parts has an unsatisfiable conjunction",
+        "proof_method": "exact-same-cycle-occurrence-partition",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input0Fire",
+          "Input1Fire",
+          "Input2Fire",
+          "OutputFire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "OutputFire <=> exactly_one_same_cycle({Input0Fire, Input1Fire, Input2Fire})",
+      "structural": {
+        "mutex_pairs": [
+          [
+            "Input0Fire",
+            "Input1Fire"
+          ],
+          [
+            "Input0Fire",
+            "Input2Fire"
+          ],
+          [
+            "Input1Fire",
+            "Input2Fire"
+          ]
+        ],
+        "obligations": [
+          {
+            "atom_count": 4,
+            "kind": "whole_without_part",
+            "unsat": true
+          },
+          {
+            "atom_count": 4,
+            "kind": "part_without_whole",
+            "unsat": true
+          },
+          {
+            "atom_count": 3,
+            "kind": "parts_mutually_exclusive",
+            "parts": [
+              "Input0Fire",
+              "Input1Fire"
+            ],
+            "unsat": true
+          },
+          {
+            "atom_count": 4,
+            "kind": "parts_mutually_exclusive",
+            "parts": [
+              "Input0Fire",
+              "Input2Fire"
+            ],
+            "unsat": true
+          },
+          {
+            "atom_count": 4,
+            "kind": "parts_mutually_exclusive",
+            "parts": [
+              "Input1Fire",
+              "Input2Fire"
+            ],
+            "unsat": true
+          }
+        ],
+        "parts": [
+          "Input0Fire",
+          "Input1Fire",
+          "Input2Fire"
+        ],
+        "proof": "OutputFire is equivalent to the same-cycle disjunction of its parts, and every pair of parts has an unsatisfiable conjunction",
+        "proof_domain": "exact-same-cycle-occurrence-partition",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "whole": "OutputFire"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "Input1Fire",
+        "predicate": "Input0Valid"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        12,
+        16,
+        17
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 3,
+          "proof": "Input1Fire and Input0Valid have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "Input1Fire and Input0Valid have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input1Fire"
+        ],
+        "predicates": [
+          "Input0Valid"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "Input0Valid => !Input1Fire",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "Input2Fire",
+        "predicate": "Higher01Valid"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        11,
+        13,
+        18,
+        19
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 4,
+          "proof": "Input2Fire and Higher01Valid have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "Input2Fire and Higher01Valid have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input2Fire"
+        ],
+        "predicates": [
+          "Higher01Valid"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "Higher01Valid => !Input2Fire",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "Input0Fire",
+        "source": "0",
+        "target": "io.chosen"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        8,
+        9
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "all_driver_statement_ids": [
+            3,
+            6,
+            9
+          ],
+          "on": "Input0Fire",
+          "proof": "every last-connect driver of io.chosen reachable on Input0Fire equals 0",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [
+                  "io.in[0].valid"
+                ],
+                "control_statement_ids": [
+                  8
+                ],
+                "kind": "positive-when-conjunction"
+              },
+              "atom_count": 2,
+              "rhs": "UInt<1>(0h0)",
+              "statement_id": 9,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "0",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.chosen",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.chosen reachable on Input0Fire equals 0",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input0Fire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.chosen"
+        ]
+      },
+      "rendered_formula": "io.chosen = 0 on Input0Fire",
+      "structural": {
+        "all_driver_statement_ids": [
+          3,
+          6,
+          9
+        ],
+        "on": "Input0Fire",
+        "proof": "every last-connect driver of io.chosen reachable on Input0Fire equals 0",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [
+                "io.in[0].valid"
+              ],
+              "control_statement_ids": [
+                8
+              ],
+              "kind": "positive-when-conjunction"
+            },
+            "atom_count": 2,
+            "rhs": "UInt<1>(0h0)",
+            "statement_id": 9,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "0",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.chosen",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "Input1Fire",
+        "source": "1",
+        "target": "io.chosen"
+      },
+      "axiom_id": "A5",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        5,
+        6,
+        8,
+        12,
+        16,
+        17
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "all_driver_statement_ids": [
+            3,
+            6,
+            9
+          ],
+          "on": "Input1Fire",
+          "proof": "every last-connect driver of io.chosen reachable on Input1Fire equals 1",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [
+                  "io.in[1].valid"
+                ],
+                "control_statement_ids": [
+                  5
+                ],
+                "kind": "positive-when-conjunction"
+              },
+              "atom_count": 3,
+              "rhs": "UInt<1>(0h1)",
+              "statement_id": 6,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "1",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.chosen",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.chosen reachable on Input1Fire equals 1",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input1Fire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.chosen"
+        ]
+      },
+      "rendered_formula": "io.chosen = 1 on Input1Fire",
+      "structural": {
+        "all_driver_statement_ids": [
+          3,
+          6,
+          9
+        ],
+        "on": "Input1Fire",
+        "proof": "every last-connect driver of io.chosen reachable on Input1Fire equals 1",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [
+                "io.in[1].valid"
+              ],
+              "control_statement_ids": [
+                5
+              ],
+              "kind": "positive-when-conjunction"
+            },
+            "atom_count": 3,
+            "rhs": "UInt<1>(0h1)",
+            "statement_id": 6,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "1",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.chosen",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "Input2Fire",
+        "source": "2",
+        "target": "io.chosen"
+      },
+      "axiom_id": "A6",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        3,
+        5,
+        8,
+        11,
+        13,
+        18,
+        19
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "all_driver_statement_ids": [
+            3,
+            6,
+            9
+          ],
+          "on": "Input2Fire",
+          "proof": "every last-connect driver of io.chosen reachable on Input2Fire equals 2",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "unconditional"
+              },
+              "atom_count": 4,
+              "rhs": "UInt<2>(0h2)",
+              "statement_id": 3,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "2",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.chosen",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.chosen reachable on Input2Fire equals 2",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input2Fire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.chosen"
+        ]
+      },
+      "rendered_formula": "io.chosen = 2 on Input2Fire",
+      "structural": {
+        "all_driver_statement_ids": [
+          3,
+          6,
+          9
+        ],
+        "on": "Input2Fire",
+        "proof": "every last-connect driver of io.chosen reachable on Input2Fire equals 2",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "unconditional"
+            },
+            "atom_count": 4,
+            "rhs": "UInt<2>(0h2)",
+            "statement_id": 3,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "2",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.chosen",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "Input0Fire",
+        "source": "io.in[0].bits.req[0].addr",
+        "target": "io.out.bits.req[0].addr"
+      },
+      "axiom_id": "A7",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        8,
+        10
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "all_driver_statement_ids": [
+            4,
+            7,
+            10
+          ],
+          "on": "Input0Fire",
+          "proof": "every last-connect driver of io.out.bits.req[0].addr reachable on Input0Fire equals io.in[0].bits.req[0].addr",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [
+                  "io.in[0].valid"
+                ],
+                "control_statement_ids": [
+                  8
+                ],
+                "kind": "positive-when-conjunction"
+              },
+              "atom_count": 2,
+              "rhs": "io.in[0].bits.req[0].addr",
+              "statement_id": 10,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "io.in[0].bits.req[0].addr",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.out.bits.req[0].addr",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.out.bits.req[0].addr reachable on Input0Fire equals io.in[0].bits.req[0].addr",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input0Fire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.in[0].bits.req[0].addr",
+          "io.out.bits.req[0].addr"
+        ]
+      },
+      "rendered_formula": "io.out.bits.req[0].addr = io.in[0].bits.req[0].addr on Input0Fire",
+      "structural": {
+        "all_driver_statement_ids": [
+          4,
+          7,
+          10
+        ],
+        "on": "Input0Fire",
+        "proof": "every last-connect driver of io.out.bits.req[0].addr reachable on Input0Fire equals io.in[0].bits.req[0].addr",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [
+                "io.in[0].valid"
+              ],
+              "control_statement_ids": [
+                8
+              ],
+              "kind": "positive-when-conjunction"
+            },
+            "atom_count": 2,
+            "rhs": "io.in[0].bits.req[0].addr",
+            "statement_id": 10,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "io.in[0].bits.req[0].addr",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.out.bits.req[0].addr",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "Input0Fire",
+        "source": "io.in[0].bits.req[0].way_en",
+        "target": "io.out.bits.req[0].way_en"
+      },
+      "axiom_id": "A8",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        8,
+        10
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "all_driver_statement_ids": [
+            4,
+            7,
+            10
+          ],
+          "on": "Input0Fire",
+          "proof": "every last-connect driver of io.out.bits.req[0].way_en reachable on Input0Fire equals io.in[0].bits.req[0].way_en",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [
+                  "io.in[0].valid"
+                ],
+                "control_statement_ids": [
+                  8
+                ],
+                "kind": "positive-when-conjunction"
+              },
+              "atom_count": 2,
+              "rhs": "io.in[0].bits.req[0].way_en",
+              "statement_id": 10,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "io.in[0].bits.req[0].way_en",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.out.bits.req[0].way_en",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.out.bits.req[0].way_en reachable on Input0Fire equals io.in[0].bits.req[0].way_en",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input0Fire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.in[0].bits.req[0].way_en",
+          "io.out.bits.req[0].way_en"
+        ]
+      },
+      "rendered_formula": "io.out.bits.req[0].way_en = io.in[0].bits.req[0].way_en on Input0Fire",
+      "structural": {
+        "all_driver_statement_ids": [
+          4,
+          7,
+          10
+        ],
+        "on": "Input0Fire",
+        "proof": "every last-connect driver of io.out.bits.req[0].way_en reachable on Input0Fire equals io.in[0].bits.req[0].way_en",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [
+                "io.in[0].valid"
+              ],
+              "control_statement_ids": [
+                8
+              ],
+              "kind": "positive-when-conjunction"
+            },
+            "atom_count": 2,
+            "rhs": "io.in[0].bits.req[0].way_en",
+            "statement_id": 10,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "io.in[0].bits.req[0].way_en",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.out.bits.req[0].way_en",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "Input0Fire",
+        "source": "io.in[0].bits.valid[0]",
+        "target": "io.out.bits.valid[0]"
+      },
+      "axiom_id": "A9",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        8,
+        10
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "all_driver_statement_ids": [
+            4,
+            7,
+            10
+          ],
+          "on": "Input0Fire",
+          "proof": "every last-connect driver of io.out.bits.valid[0] reachable on Input0Fire equals io.in[0].bits.valid[0]",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [
+                  "io.in[0].valid"
+                ],
+                "control_statement_ids": [
+                  8
+                ],
+                "kind": "positive-when-conjunction"
+              },
+              "atom_count": 2,
+              "rhs": "io.in[0].bits.valid[0]",
+              "statement_id": 10,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "io.in[0].bits.valid[0]",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.out.bits.valid[0]",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.out.bits.valid[0] reachable on Input0Fire equals io.in[0].bits.valid[0]",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input0Fire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.in[0].bits.valid[0]",
+          "io.out.bits.valid[0]"
+        ]
+      },
+      "rendered_formula": "io.out.bits.valid[0] = io.in[0].bits.valid[0] on Input0Fire",
+      "structural": {
+        "all_driver_statement_ids": [
+          4,
+          7,
+          10
+        ],
+        "on": "Input0Fire",
+        "proof": "every last-connect driver of io.out.bits.valid[0] reachable on Input0Fire equals io.in[0].bits.valid[0]",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [
+                "io.in[0].valid"
+              ],
+              "control_statement_ids": [
+                8
+              ],
+              "kind": "positive-when-conjunction"
+            },
+            "atom_count": 2,
+            "rhs": "io.in[0].bits.valid[0]",
+            "statement_id": 10,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "io.in[0].bits.valid[0]",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.out.bits.valid[0]",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "Input1Fire",
+        "source": "io.in[1].bits.req[0].addr",
+        "target": "io.out.bits.req[0].addr"
+      },
+      "axiom_id": "A10",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        5,
+        7,
+        8,
+        12,
+        16,
+        17
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "all_driver_statement_ids": [
+            4,
+            7,
+            10
+          ],
+          "on": "Input1Fire",
+          "proof": "every last-connect driver of io.out.bits.req[0].addr reachable on Input1Fire equals io.in[1].bits.req[0].addr",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [
+                  "io.in[1].valid"
+                ],
+                "control_statement_ids": [
+                  5
+                ],
+                "kind": "positive-when-conjunction"
+              },
+              "atom_count": 3,
+              "rhs": "io.in[1].bits.req[0].addr",
+              "statement_id": 7,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "io.in[1].bits.req[0].addr",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.out.bits.req[0].addr",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.out.bits.req[0].addr reachable on Input1Fire equals io.in[1].bits.req[0].addr",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input1Fire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.in[1].bits.req[0].addr",
+          "io.out.bits.req[0].addr"
+        ]
+      },
+      "rendered_formula": "io.out.bits.req[0].addr = io.in[1].bits.req[0].addr on Input1Fire",
+      "structural": {
+        "all_driver_statement_ids": [
+          4,
+          7,
+          10
+        ],
+        "on": "Input1Fire",
+        "proof": "every last-connect driver of io.out.bits.req[0].addr reachable on Input1Fire equals io.in[1].bits.req[0].addr",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [
+                "io.in[1].valid"
+              ],
+              "control_statement_ids": [
+                5
+              ],
+              "kind": "positive-when-conjunction"
+            },
+            "atom_count": 3,
+            "rhs": "io.in[1].bits.req[0].addr",
+            "statement_id": 7,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "io.in[1].bits.req[0].addr",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.out.bits.req[0].addr",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "Input1Fire",
+        "source": "io.in[1].bits.req[0].way_en",
+        "target": "io.out.bits.req[0].way_en"
+      },
+      "axiom_id": "A11",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        5,
+        7,
+        8,
+        12,
+        16,
+        17
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "all_driver_statement_ids": [
+            4,
+            7,
+            10
+          ],
+          "on": "Input1Fire",
+          "proof": "every last-connect driver of io.out.bits.req[0].way_en reachable on Input1Fire equals io.in[1].bits.req[0].way_en",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [
+                  "io.in[1].valid"
+                ],
+                "control_statement_ids": [
+                  5
+                ],
+                "kind": "positive-when-conjunction"
+              },
+              "atom_count": 3,
+              "rhs": "io.in[1].bits.req[0].way_en",
+              "statement_id": 7,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "io.in[1].bits.req[0].way_en",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.out.bits.req[0].way_en",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.out.bits.req[0].way_en reachable on Input1Fire equals io.in[1].bits.req[0].way_en",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input1Fire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.in[1].bits.req[0].way_en",
+          "io.out.bits.req[0].way_en"
+        ]
+      },
+      "rendered_formula": "io.out.bits.req[0].way_en = io.in[1].bits.req[0].way_en on Input1Fire",
+      "structural": {
+        "all_driver_statement_ids": [
+          4,
+          7,
+          10
+        ],
+        "on": "Input1Fire",
+        "proof": "every last-connect driver of io.out.bits.req[0].way_en reachable on Input1Fire equals io.in[1].bits.req[0].way_en",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [
+                "io.in[1].valid"
+              ],
+              "control_statement_ids": [
+                5
+              ],
+              "kind": "positive-when-conjunction"
+            },
+            "atom_count": 3,
+            "rhs": "io.in[1].bits.req[0].way_en",
+            "statement_id": 7,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "io.in[1].bits.req[0].way_en",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.out.bits.req[0].way_en",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "Input1Fire",
+        "source": "io.in[1].bits.valid[0]",
+        "target": "io.out.bits.valid[0]"
+      },
+      "axiom_id": "A12",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        5,
+        7,
+        8,
+        12,
+        16,
+        17
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "all_driver_statement_ids": [
+            4,
+            7,
+            10
+          ],
+          "on": "Input1Fire",
+          "proof": "every last-connect driver of io.out.bits.valid[0] reachable on Input1Fire equals io.in[1].bits.valid[0]",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [
+                  "io.in[1].valid"
+                ],
+                "control_statement_ids": [
+                  5
+                ],
+                "kind": "positive-when-conjunction"
+              },
+              "atom_count": 3,
+              "rhs": "io.in[1].bits.valid[0]",
+              "statement_id": 7,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "io.in[1].bits.valid[0]",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.out.bits.valid[0]",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.out.bits.valid[0] reachable on Input1Fire equals io.in[1].bits.valid[0]",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input1Fire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.in[1].bits.valid[0]",
+          "io.out.bits.valid[0]"
+        ]
+      },
+      "rendered_formula": "io.out.bits.valid[0] = io.in[1].bits.valid[0] on Input1Fire",
+      "structural": {
+        "all_driver_statement_ids": [
+          4,
+          7,
+          10
+        ],
+        "on": "Input1Fire",
+        "proof": "every last-connect driver of io.out.bits.valid[0] reachable on Input1Fire equals io.in[1].bits.valid[0]",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [
+                "io.in[1].valid"
+              ],
+              "control_statement_ids": [
+                5
+              ],
+              "kind": "positive-when-conjunction"
+            },
+            "atom_count": 3,
+            "rhs": "io.in[1].bits.valid[0]",
+            "statement_id": 7,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "io.in[1].bits.valid[0]",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.out.bits.valid[0]",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "Input2Fire",
+        "source": "io.in[2].bits.req[0].addr",
+        "target": "io.out.bits.req[0].addr"
+      },
+      "axiom_id": "A13",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        3,
+        4,
+        5,
+        8,
+        11,
+        13,
+        18,
+        19
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "all_driver_statement_ids": [
+            4,
+            7,
+            10
+          ],
+          "on": "Input2Fire",
+          "proof": "every last-connect driver of io.out.bits.req[0].addr reachable on Input2Fire equals io.in[2].bits.req[0].addr",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "unconditional"
+              },
+              "atom_count": 4,
+              "rhs": "io.in[2].bits.req[0].addr",
+              "statement_id": 4,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "io.in[2].bits.req[0].addr",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.out.bits.req[0].addr",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.out.bits.req[0].addr reachable on Input2Fire equals io.in[2].bits.req[0].addr",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input2Fire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.in[2].bits.req[0].addr",
+          "io.out.bits.req[0].addr"
+        ]
+      },
+      "rendered_formula": "io.out.bits.req[0].addr = io.in[2].bits.req[0].addr on Input2Fire",
+      "structural": {
+        "all_driver_statement_ids": [
+          4,
+          7,
+          10
+        ],
+        "on": "Input2Fire",
+        "proof": "every last-connect driver of io.out.bits.req[0].addr reachable on Input2Fire equals io.in[2].bits.req[0].addr",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "unconditional"
+            },
+            "atom_count": 4,
+            "rhs": "io.in[2].bits.req[0].addr",
+            "statement_id": 4,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "io.in[2].bits.req[0].addr",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.out.bits.req[0].addr",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "Input2Fire",
+        "source": "io.in[2].bits.req[0].way_en",
+        "target": "io.out.bits.req[0].way_en"
+      },
+      "axiom_id": "A14",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        3,
+        4,
+        5,
+        8,
+        11,
+        13,
+        18,
+        19
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "all_driver_statement_ids": [
+            4,
+            7,
+            10
+          ],
+          "on": "Input2Fire",
+          "proof": "every last-connect driver of io.out.bits.req[0].way_en reachable on Input2Fire equals io.in[2].bits.req[0].way_en",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "unconditional"
+              },
+              "atom_count": 4,
+              "rhs": "io.in[2].bits.req[0].way_en",
+              "statement_id": 4,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "io.in[2].bits.req[0].way_en",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.out.bits.req[0].way_en",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.out.bits.req[0].way_en reachable on Input2Fire equals io.in[2].bits.req[0].way_en",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input2Fire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.in[2].bits.req[0].way_en",
+          "io.out.bits.req[0].way_en"
+        ]
+      },
+      "rendered_formula": "io.out.bits.req[0].way_en = io.in[2].bits.req[0].way_en on Input2Fire",
+      "structural": {
+        "all_driver_statement_ids": [
+          4,
+          7,
+          10
+        ],
+        "on": "Input2Fire",
+        "proof": "every last-connect driver of io.out.bits.req[0].way_en reachable on Input2Fire equals io.in[2].bits.req[0].way_en",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "unconditional"
+            },
+            "atom_count": 4,
+            "rhs": "io.in[2].bits.req[0].way_en",
+            "statement_id": 4,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "io.in[2].bits.req[0].way_en",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.out.bits.req[0].way_en",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "Input2Fire",
+        "source": "io.in[2].bits.valid[0]",
+        "target": "io.out.bits.valid[0]"
+      },
+      "axiom_id": "A15",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        3,
+        4,
+        5,
+        8,
+        11,
+        13,
+        18,
+        19
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "all_driver_statement_ids": [
+            4,
+            7,
+            10
+          ],
+          "on": "Input2Fire",
+          "proof": "every last-connect driver of io.out.bits.valid[0] reachable on Input2Fire equals io.in[2].bits.valid[0]",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "unconditional"
+              },
+              "atom_count": 4,
+              "rhs": "io.in[2].bits.valid[0]",
+              "statement_id": 4,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "io.in[2].bits.valid[0]",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.out.bits.valid[0]",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.out.bits.valid[0] reachable on Input2Fire equals io.in[2].bits.valid[0]",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input2Fire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.in[2].bits.valid[0]",
+          "io.out.bits.valid[0]"
+        ]
+      },
+      "rendered_formula": "io.out.bits.valid[0] = io.in[2].bits.valid[0] on Input2Fire",
+      "structural": {
+        "all_driver_statement_ids": [
+          4,
+          7,
+          10
+        ],
+        "on": "Input2Fire",
+        "proof": "every last-connect driver of io.out.bits.valid[0] reachable on Input2Fire equals io.in[2].bits.valid[0]",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "unconditional"
+            },
+            "atom_count": 4,
+            "rhs": "io.in[2].bits.valid[0]",
+            "statement_id": 4,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "io.in[2].bits.valid[0]",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.out.bits.valid[0]",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    }
+  ],
+  "trusted_axiom_count": 15,
+  "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
+  "validator": "semantic-validator-0.16",
+  "work_unit_id": "BoomNonBlockingDCache.dataReadArb"
+}

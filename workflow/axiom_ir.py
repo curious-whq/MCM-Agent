@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any
 
 
-FORMAL_AXIOM_IR_VERSION = "formal-axiom-ir-0.9"
+FORMAL_AXIOM_IR_VERSION = "formal-axiom-ir-0.10"
 
 
 def _string_list(*, min_items: int = 0) -> dict[str, Any]:
@@ -367,7 +367,7 @@ def formal_axiom_schema() -> dict[str, Any]:
                             "additionalProperties": False,
                             "required": [
                                 "name", "storage_bits", "write_value",
-                                "read_targets", "initial_value"
+                                "read_targets"
                             ],
                             "properties": {
                                 "name": {"type": "string", "minLength": 1},
@@ -391,14 +391,37 @@ def formal_axiom_schema() -> dict[str, Any]:
                         },
                     },
                     "initialization": {
-                        "type": "object",
-                        "additionalProperties": False,
-                        "required": ["active", "address", "lane_mask"],
-                        "properties": {
-                            "active": {"$ref": "#/$defs/formal_expr"},
-                            "address": {"$ref": "#/$defs/formal_expr"},
-                            "lane_mask": {"$ref": "#/$defs/formal_expr"},
-                        },
+                        "oneOf": [
+                            {
+                                "type": "object",
+                                "additionalProperties": False,
+                                "required": ["kind", "active", "address", "lane_mask"],
+                                "properties": {
+                                    "kind": {"const": "explicit"},
+                                    "active": {"$ref": "#/$defs/formal_expr"},
+                                    "address": {"$ref": "#/$defs/formal_expr"},
+                                    "lane_mask": {"$ref": "#/$defs/formal_expr"},
+                                },
+                            },
+                            {
+                                "type": "object",
+                                "additionalProperties": False,
+                                "required": ["kind"],
+                                "properties": {
+                                    "kind": {"const": "implicit_unconstrained"},
+                                },
+                            },
+                            {
+                                "type": "object",
+                                "additionalProperties": False,
+                                "required": ["active", "address", "lane_mask"],
+                                "properties": {
+                                    "active": {"$ref": "#/$defs/formal_expr"},
+                                    "address": {"$ref": "#/$defs/formal_expr"},
+                                    "lane_mask": {"$ref": "#/$defs/formal_expr"},
+                                },
+                            },
+                        ]
                     },
                     "resolution": {"const": "latest_prior_write_same_key"},
                     "relations": {
@@ -410,6 +433,9 @@ def formal_axiom_schema() -> dict[str, Any]:
                             "co": {"type": "string", "minLength": 1},
                             "fr": {"type": "string", "minLength": 1},
                         },
+                    },
+                    "read_write_collision": {
+                        "enum": ["exclusive", "implicit_unconstrained"]
                     },
                     "scope_identity": {"type": "null"},
                 },
@@ -682,20 +708,22 @@ def compile_formal_axiom(formal: dict[str, Any]) -> dict[str, Any]:
         write = formal["write"]
         read = formal["read"]
         initialization = formal["initialization"]
+        initialization_kind = initialization.get("kind", "explicit")
         occurrences.update([write["on"], read["request"]])
-        for expr in (
-            write["address"],
-            write["lane_mask"],
-            read["address"],
-            initialization["active"],
-            initialization["address"],
-            initialization["lane_mask"],
-        ):
+        expressions = [write["address"], write["lane_mask"], read["address"]]
+        if initialization_kind == "explicit":
+            expressions.extend([
+                initialization["active"],
+                initialization["address"],
+                initialization["lane_mask"],
+            ])
+        for expr in expressions:
             signals.update(expr_signals(expr))
         fields = []
         for field in formal["value_fields"]:
             signals.update(expr_signals(field["write_value"]))
-            signals.update(expr_signals(field["initial_value"]))
+            if initialization_kind == "explicit":
+                signals.update(expr_signals(field["initial_value"]))
             for target in field["read_targets"]:
                 signals.update(expr_signals(target))
             fields.append({
@@ -703,7 +731,11 @@ def compile_formal_axiom(formal: dict[str, Any]) -> dict[str, Any]:
                 "storage_bits": dict(field["storage_bits"]),
                 "write_value": expr_to_symbolic(field["write_value"]),
                 "read_targets": [expr_to_symbolic(item) for item in field["read_targets"]],
-                "initial_value": expr_to_symbolic(field["initial_value"]),
+                **(
+                    {"initial_value": expr_to_symbolic(field["initial_value"])}
+                    if initialization_kind == "explicit"
+                    else {}
+                ),
             })
         return {
             "checker": "indexed_storage_flow",
@@ -724,13 +756,19 @@ def compile_formal_axiom(formal: dict[str, Any]) -> dict[str, Any]:
                     "latency_cycles": int(read["latency_cycles"]),
                 },
                 "value_fields": fields,
-                "initialization": {
-                    "active": expr_to_symbolic(initialization["active"]),
-                    "address": expr_to_symbolic(initialization["address"]),
-                    "lane_mask": expr_to_symbolic(initialization["lane_mask"]),
-                },
+                "initialization": (
+                    {
+                        "kind": "explicit",
+                        "active": expr_to_symbolic(initialization["active"]),
+                        "address": expr_to_symbolic(initialization["address"]),
+                        "lane_mask": expr_to_symbolic(initialization["lane_mask"]),
+                    }
+                    if initialization_kind == "explicit"
+                    else {"kind": "implicit_unconstrained"}
+                ),
                 "resolution": formal["resolution"],
                 "relations": dict(formal["relations"]),
+                "read_write_collision": formal.get("read_write_collision", "exclusive"),
             },
             "references": _refs(occurrences, predicates, identities, signals),
             "kind": "memory_flow",
@@ -800,8 +838,10 @@ def render_formal_axiom(formal: dict[str, Any]) -> str:
     if t == "indexed_storage_flow":
         rel = formal["relations"]
         lane = formal["key"]["lane"]
+        init_kind = formal["initialization"].get("kind", "explicit")
         return (
-            f"{formal['storage']}[{lane['name']}] latest-write storage flow; "
+            f"{formal['storage']}[{lane['name']}] latest-write storage flow "
+            f"with {init_kind} initialization; "
             f"{rel['rf']}=rf, {rel['co']}=co, {rel['fr']}=rf^-1;co"
         )
     return f"<unsupported formal axiom {t!r}>"
@@ -891,7 +931,8 @@ def validate_formal_axiom_shape(formal: Any) -> list[str]:
             },
             {
                 "type", "storage", "key", "write", "read", "value_fields",
-                "initialization", "resolution", "relations", "scope_identity"
+                "initialization", "resolution", "relations", "scope_identity",
+                "read_write_collision"
             },
         ),
     }
@@ -1011,6 +1052,12 @@ def validate_formal_axiom_shape(formal: Any) -> list[str]:
                 "indexed_storage_flow.resolution currently supports only "
                 "'latest_prior_write_same_key'"
             )
+        if formal.get("read_write_collision", "exclusive") not in {
+            "exclusive", "implicit_unconstrained"
+        }:
+            errors.append(
+                "indexed_storage_flow.read_write_collision must be exclusive or implicit_unconstrained"
+            )
 
         key = formal.get("key")
         if not isinstance(key, dict) or set(key) != {"address_domain", "lane"}:
@@ -1041,7 +1088,6 @@ def validate_formal_axiom_shape(formal: Any) -> list[str]:
         for owner, required in (
             ("write", {"on", "address", "lane_mask"}),
             ("read", {"request", "address", "latency_cycles"}),
-            ("initialization", {"active", "address", "lane_mask"}),
         ):
             value = formal.get(owner)
             if not isinstance(value, dict) or set(value) != required:
@@ -1061,12 +1107,34 @@ def validate_formal_axiom_shape(formal: Any) -> list[str]:
                 if not isinstance(latency, int) or latency < 0:
                     errors.append("indexed_storage_flow.read.latency_cycles must be a non-negative integer")
                 expr_paths.append(("indexed_storage_flow.read.address", value.get("address")))
+        initialization = formal.get("initialization")
+        initialization_kind = (
+            initialization.get("kind", "explicit")
+            if isinstance(initialization, dict)
+            else None
+        )
+        if initialization_kind == "explicit":
+            allowed = {"kind", "active", "address", "lane_mask"}
+            required = {"active", "address", "lane_mask"}
+            if not isinstance(initialization, dict) or not required <= set(initialization) or set(initialization) - allowed:
+                errors.append(
+                    "indexed_storage_flow explicit initialization requires active/address/lane_mask"
+                )
             else:
                 expr_paths.extend([
-                    ("indexed_storage_flow.initialization.active", value.get("active")),
-                    ("indexed_storage_flow.initialization.address", value.get("address")),
-                    ("indexed_storage_flow.initialization.lane_mask", value.get("lane_mask")),
+                    ("indexed_storage_flow.initialization.active", initialization.get("active")),
+                    ("indexed_storage_flow.initialization.address", initialization.get("address")),
+                    ("indexed_storage_flow.initialization.lane_mask", initialization.get("lane_mask")),
                 ])
+        elif initialization_kind == "implicit_unconstrained":
+            if not isinstance(initialization, dict) or set(initialization) != {"kind"}:
+                errors.append(
+                    "indexed_storage_flow implicit_unconstrained initialization contains only kind"
+                )
+        else:
+            errors.append(
+                "indexed_storage_flow.initialization.kind must be explicit or implicit_unconstrained"
+            )
 
         fields = formal.get("value_fields")
         if not isinstance(fields, list) or not fields:
@@ -1075,10 +1143,17 @@ def validate_formal_axiom_shape(formal: Any) -> list[str]:
             names: set[str] = set()
             for index, field in enumerate(fields):
                 path = f"indexed_storage_flow.value_fields[{index}]"
-                required = {"name", "storage_bits", "write_value", "read_targets", "initial_value"}
-                if not isinstance(field, dict) or set(field) != required:
-                    errors.append(f"{path} must contain exactly {sorted(required)}")
+                required = {"name", "storage_bits", "write_value", "read_targets"}
+                allowed = required | {"initial_value"}
+                if not isinstance(field, dict) or not required <= set(field) or set(field) - allowed:
+                    errors.append(f"{path} must contain {sorted(required)} and optional initial_value")
                     continue
+                if initialization_kind == "explicit" and "initial_value" not in field:
+                    errors.append(f"{path}.initial_value is required for explicit initialization")
+                if initialization_kind == "implicit_unconstrained" and "initial_value" in field:
+                    errors.append(
+                        f"{path}.initial_value must be omitted for implicit_unconstrained initialization"
+                    )
                 name = field.get("name")
                 if not isinstance(name, str) or not name:
                     errors.append(f"{path}.name must be non-empty")
@@ -1096,10 +1171,9 @@ def validate_formal_axiom_shape(formal: Any) -> list[str]:
                     or bits["hi"] < bits["lo"]
                 ):
                     errors.append(f"{path}.storage_bits must satisfy 0 <= lo <= hi")
-                expr_paths.extend([
-                    (f"{path}.write_value", field.get("write_value")),
-                    (f"{path}.initial_value", field.get("initial_value")),
-                ])
+                expr_paths.append((f"{path}.write_value", field.get("write_value")))
+                if "initial_value" in field:
+                    expr_paths.append((f"{path}.initial_value", field.get("initial_value")))
                 targets = field.get("read_targets")
                 if not isinstance(targets, list) or not targets:
                     errors.append(f"{path}.read_targets must be a non-empty list")

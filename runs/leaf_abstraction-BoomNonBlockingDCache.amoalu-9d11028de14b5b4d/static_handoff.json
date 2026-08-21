@@ -1,0 +1,5246 @@
+{
+  "children": [],
+  "complexity": {
+    "event_state_coupling": 0.0,
+    "events": 0,
+    "logical": {
+      "dependency_edges": 116,
+      "signals": 74,
+      "source_loc": 24,
+      "statements": 25
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 185,
+      "signals": 117,
+      "source_loc": 24,
+      "statements": 103,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 0,
+    "state_regions": 0
+  },
+  "dependency_edges": [
+    {
+      "dst": "_max_T",
+      "kind": "data",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 67,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 67:20"
+      },
+      "src": "hd",
+      "statement_ids": [
+        3
+      ]
+    },
+    {
+      "dst": "_max_T",
+      "kind": "data",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 67,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 67:20"
+      },
+      "src": "io.cmd",
+      "statement_ids": [
+        3
+      ]
+    },
+    {
+      "dst": "_max_T_1",
+      "kind": "data",
+      "source": {
+        "column": 43,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 67,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 67:43"
+      },
+      "src": "hf",
+      "statement_ids": [
+        4
+      ]
+    },
+    {
+      "dst": "_max_T_1",
+      "kind": "data",
+      "source": {
+        "column": 43,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 67,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 67:43"
+      },
+      "src": "io.cmd",
+      "statement_ids": [
+        4
+      ]
+    },
+    {
+      "dst": "max",
+      "kind": "data",
+      "source": {
+        "column": 33,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 67,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 67:33"
+      },
+      "src": "_max_T",
+      "statement_ids": [
+        5
+      ]
+    },
+    {
+      "dst": "max",
+      "kind": "data",
+      "source": {
+        "column": 33,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 67,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 67:33"
+      },
+      "src": "_max_T_1",
+      "statement_ids": [
+        5
+      ]
+    },
+    {
+      "dst": "_min_T",
+      "kind": "data",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 68,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 68:20"
+      },
+      "src": "hc",
+      "statement_ids": [
+        6
+      ]
+    },
+    {
+      "dst": "_min_T",
+      "kind": "data",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 68,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 68:20"
+      },
+      "src": "io.cmd",
+      "statement_ids": [
+        6
+      ]
+    },
+    {
+      "dst": "_min_T_1",
+      "kind": "data",
+      "source": {
+        "column": 43,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 68,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 68:43"
+      },
+      "src": "he",
+      "statement_ids": [
+        7
+      ]
+    },
+    {
+      "dst": "_min_T_1",
+      "kind": "data",
+      "source": {
+        "column": 43,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 68,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 68:43"
+      },
+      "src": "io.cmd",
+      "statement_ids": [
+        7
+      ]
+    },
+    {
+      "dst": "min",
+      "kind": "data",
+      "source": {
+        "column": 33,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 68,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 68:33"
+      },
+      "src": "_min_T",
+      "statement_ids": [
+        8
+      ]
+    },
+    {
+      "dst": "min",
+      "kind": "data",
+      "source": {
+        "column": 33,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 68,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 68:33"
+      },
+      "src": "_min_T_1",
+      "statement_ids": [
+        8
+      ]
+    },
+    {
+      "dst": "add",
+      "kind": "data",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 69,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 69:20"
+      },
+      "src": "h8",
+      "statement_ids": [
+        9
+      ]
+    },
+    {
+      "dst": "add",
+      "kind": "data",
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 69,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 69:20"
+      },
+      "src": "io.cmd",
+      "statement_ids": [
+        9
+      ]
+    },
+    {
+      "dst": "_logic_and_T",
+      "kind": "data",
+      "source": {
+        "column": 26,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 70,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 70:26"
+      },
+      "src": "ha",
+      "statement_ids": [
+        10
+      ]
+    },
+    {
+      "dst": "_logic_and_T",
+      "kind": "data",
+      "source": {
+        "column": 26,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 70,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 70:26"
+      },
+      "src": "io.cmd",
+      "statement_ids": [
+        10
+      ]
+    },
+    {
+      "dst": "_logic_and_T_1",
+      "kind": "data",
+      "source": {
+        "column": 48,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 70,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 70:48"
+      },
+      "src": "hb",
+      "statement_ids": [
+        11
+      ]
+    },
+    {
+      "dst": "_logic_and_T_1",
+      "kind": "data",
+      "source": {
+        "column": 48,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 70,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 70:48"
+      },
+      "src": "io.cmd",
+      "statement_ids": [
+        11
+      ]
+    },
+    {
+      "dst": "logic_and",
+      "kind": "data",
+      "source": {
+        "column": 38,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 70,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 70:38"
+      },
+      "src": "_logic_and_T",
+      "statement_ids": [
+        12
+      ]
+    },
+    {
+      "dst": "logic_and",
+      "kind": "data",
+      "source": {
+        "column": 38,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 70,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 70:38"
+      },
+      "src": "_logic_and_T_1",
+      "statement_ids": [
+        12
+      ]
+    },
+    {
+      "dst": "_logic_xor_T",
+      "kind": "data",
+      "source": {
+        "column": 26,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 71,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 71:26"
+      },
+      "src": "h9",
+      "statement_ids": [
+        13
+      ]
+    },
+    {
+      "dst": "_logic_xor_T",
+      "kind": "data",
+      "source": {
+        "column": 26,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 71,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 71:26"
+      },
+      "src": "io.cmd",
+      "statement_ids": [
+        13
+      ]
+    },
+    {
+      "dst": "_logic_xor_T_1",
+      "kind": "data",
+      "source": {
+        "column": 49,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 71,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 71:49"
+      },
+      "src": "ha",
+      "statement_ids": [
+        14
+      ]
+    },
+    {
+      "dst": "_logic_xor_T_1",
+      "kind": "data",
+      "source": {
+        "column": 49,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 71,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 71:49"
+      },
+      "src": "io.cmd",
+      "statement_ids": [
+        14
+      ]
+    },
+    {
+      "dst": "logic_xor",
+      "kind": "data",
+      "source": {
+        "column": 39,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 71,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 71:39"
+      },
+      "src": "_logic_xor_T",
+      "statement_ids": [
+        15
+      ]
+    },
+    {
+      "dst": "logic_xor",
+      "kind": "data",
+      "source": {
+        "column": 39,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 71,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 71:39"
+      },
+      "src": "_logic_xor_T_1",
+      "statement_ids": [
+        15
+      ]
+    },
+    {
+      "dst": "_adder_out_mask_T",
+      "kind": "data",
+      "source": {
+        "column": 69,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 75,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 75:69"
+      },
+      "src": "io.mask",
+      "statement_ids": [
+        16
+      ]
+    },
+    {
+      "dst": "_adder_out_mask_T_1",
+      "kind": "data",
+      "source": {
+        "column": 61,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 75,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 75:61"
+      },
+      "src": "_adder_out_mask_T",
+      "statement_ids": [
+        17
+      ]
+    },
+    {
+      "dst": "_adder_out_mask_T_1",
+      "kind": "data",
+      "source": {
+        "column": 61,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 75,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 75:61"
+      },
+      "src": "h0",
+      "statement_ids": [
+        17
+      ]
+    },
+    {
+      "dst": "_adder_out_mask_T_2",
+      "kind": "data",
+      "source": {
+        "column": 77,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 75,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 75:77"
+      },
+      "src": "_adder_out_mask_T_1",
+      "statement_ids": [
+        18
+      ]
+    },
+    {
+      "dst": "_adder_out_mask_T_3",
+      "kind": "data",
+      "source": {
+        "column": 96,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 75,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 75:96"
+      },
+      "src": "_adder_out_mask_T_2",
+      "statement_ids": [
+        19
+      ]
+    },
+    {
+      "dst": "_adder_out_mask_T_3",
+      "kind": "data",
+      "source": {
+        "column": 96,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 75,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 75:96"
+      },
+      "src": "h0",
+      "statement_ids": [
+        19
+      ]
+    },
+    {
+      "dst": "adder_out_mask",
+      "kind": "data",
+      "source": {
+        "column": 16,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 75,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 75:16"
+      },
+      "src": "_adder_out_mask_T_3",
+      "statement_ids": [
+        20
+      ]
+    },
+    {
+      "dst": "_adder_out_T",
+      "kind": "data",
+      "source": {
+        "column": 13,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 76,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 76:13"
+      },
+      "src": "adder_out_mask",
+      "statement_ids": [
+        21
+      ]
+    },
+    {
+      "dst": "_adder_out_T",
+      "kind": "data",
+      "source": {
+        "column": 13,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 76,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 76:13"
+      },
+      "src": "io.lhs",
+      "statement_ids": [
+        21
+      ]
+    },
+    {
+      "dst": "_adder_out_T_1",
+      "kind": "data",
+      "source": {
+        "column": 31,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 76,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 76:31"
+      },
+      "src": "adder_out_mask",
+      "statement_ids": [
+        22
+      ]
+    },
+    {
+      "dst": "_adder_out_T_1",
+      "kind": "data",
+      "source": {
+        "column": 31,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 76,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 76:31"
+      },
+      "src": "io.rhs",
+      "statement_ids": [
+        22
+      ]
+    },
+    {
+      "dst": "_adder_out_T_2",
+      "kind": "data",
+      "source": {
+        "column": 21,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 76,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 76:21"
+      },
+      "src": "_adder_out_T",
+      "statement_ids": [
+        23
+      ]
+    },
+    {
+      "dst": "_adder_out_T_2",
+      "kind": "data",
+      "source": {
+        "column": 21,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 76,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 76:21"
+      },
+      "src": "_adder_out_T_1",
+      "statement_ids": [
+        23
+      ]
+    },
+    {
+      "dst": "adder_out",
+      "kind": "data",
+      "source": {
+        "column": 21,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 76,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 76:21"
+      },
+      "src": "_adder_out_T_2",
+      "statement_ids": [
+        24
+      ]
+    },
+    {
+      "dst": "_less_T",
+      "kind": "data",
+      "source": {
+        "column": 49,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 94,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 94:49"
+      },
+      "src": "io.mask",
+      "statement_ids": [
+        25
+      ]
+    },
+    {
+      "dst": "less_signed_mask",
+      "kind": "data",
+      "source": {
+        "column": 29,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 88,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 88:29"
+      },
+      "src": "hc",
+      "statement_ids": [
+        26
+      ]
+    },
+    {
+      "dst": "less_signed_mask",
+      "kind": "data",
+      "source": {
+        "column": 29,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 88,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 88:29"
+      },
+      "src": "he",
+      "statement_ids": [
+        26
+      ]
+    },
+    {
+      "dst": "_less_signed_T",
+      "kind": "data",
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 89,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 89:17"
+      },
+      "src": "io.cmd",
+      "statement_ids": [
+        27
+      ]
+    },
+    {
+      "dst": "_less_signed_T",
+      "kind": "data",
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 89,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 89:17"
+      },
+      "src": "less_signed_mask",
+      "statement_ids": [
+        27
+      ]
+    },
+    {
+      "dst": "_less_signed_T_1",
+      "kind": "data",
+      "source": {
+        "column": 39,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 89,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 89:39"
+      },
+      "src": "hc",
+      "statement_ids": [
+        28
+      ]
+    },
+    {
+      "dst": "_less_signed_T_1",
+      "kind": "data",
+      "source": {
+        "column": 39,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 89,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 89:39"
+      },
+      "src": "less_signed_mask",
+      "statement_ids": [
+        28
+      ]
+    },
+    {
+      "dst": "less_signed",
+      "kind": "data",
+      "source": {
+        "column": 25,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 89,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 89:25"
+      },
+      "src": "_less_signed_T",
+      "statement_ids": [
+        29
+      ]
+    },
+    {
+      "dst": "less_signed",
+      "kind": "data",
+      "source": {
+        "column": 25,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 89,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 89:25"
+      },
+      "src": "_less_signed_T_1",
+      "statement_ids": [
+        29
+      ]
+    },
+    {
+      "dst": "_less_T_1",
+      "kind": "data",
+      "source": {
+        "column": 12,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:12"
+      },
+      "src": "io.lhs",
+      "statement_ids": [
+        30
+      ]
+    },
+    {
+      "dst": "_less_T_2",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:23"
+      },
+      "src": "io.rhs",
+      "statement_ids": [
+        31
+      ]
+    },
+    {
+      "dst": "_less_T_3",
+      "kind": "data",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:18"
+      },
+      "src": "_less_T_1",
+      "statement_ids": [
+        32
+      ]
+    },
+    {
+      "dst": "_less_T_3",
+      "kind": "data",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:18"
+      },
+      "src": "_less_T_2",
+      "statement_ids": [
+        32
+      ]
+    },
+    {
+      "dst": "_less_T_4",
+      "kind": "data",
+      "source": {
+        "column": 13,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 83,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 83:13"
+      },
+      "src": "io.lhs",
+      "statement_ids": [
+        33
+      ]
+    },
+    {
+      "dst": "_less_T_5",
+      "kind": "data",
+      "source": {
+        "column": 27,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 83,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 83:27"
+      },
+      "src": "io.rhs",
+      "statement_ids": [
+        34
+      ]
+    },
+    {
+      "dst": "_less_T_6",
+      "kind": "data",
+      "source": {
+        "column": 24,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 83,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 83:24"
+      },
+      "src": "_less_T_4",
+      "statement_ids": [
+        35
+      ]
+    },
+    {
+      "dst": "_less_T_6",
+      "kind": "data",
+      "source": {
+        "column": 24,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 83,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 83:24"
+      },
+      "src": "_less_T_5",
+      "statement_ids": [
+        35
+      ]
+    },
+    {
+      "dst": "_less_T_7",
+      "kind": "data",
+      "source": {
+        "column": 42,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 83,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 83:42"
+      },
+      "src": "io.lhs",
+      "statement_ids": [
+        36
+      ]
+    },
+    {
+      "dst": "_less_T_8",
+      "kind": "data",
+      "source": {
+        "column": 58,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 83,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 83:58"
+      },
+      "src": "io.rhs",
+      "statement_ids": [
+        37
+      ]
+    },
+    {
+      "dst": "_less_T_9",
+      "kind": "data",
+      "source": {
+        "column": 53,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 83,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 83:53"
+      },
+      "src": "_less_T_7",
+      "statement_ids": [
+        38
+      ]
+    },
+    {
+      "dst": "_less_T_9",
+      "kind": "data",
+      "source": {
+        "column": 53,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 83,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 83:53"
+      },
+      "src": "_less_T_8",
+      "statement_ids": [
+        38
+      ]
+    },
+    {
+      "dst": "_less_T_10",
+      "kind": "data",
+      "source": {
+        "column": 26,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 82,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 82:26"
+      },
+      "src": "io.lhs",
+      "statement_ids": [
+        39
+      ]
+    },
+    {
+      "dst": "_less_T_11",
+      "kind": "data",
+      "source": {
+        "column": 38,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 82,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 82:38"
+      },
+      "src": "io.rhs",
+      "statement_ids": [
+        40
+      ]
+    },
+    {
+      "dst": "_less_T_12",
+      "kind": "data",
+      "source": {
+        "column": 35,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 82,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 82:35"
+      },
+      "src": "_less_T_10",
+      "statement_ids": [
+        41
+      ]
+    },
+    {
+      "dst": "_less_T_12",
+      "kind": "data",
+      "source": {
+        "column": 35,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 82,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 82:35"
+      },
+      "src": "_less_T_11",
+      "statement_ids": [
+        41
+      ]
+    },
+    {
+      "dst": "_less_T_13",
+      "kind": "data",
+      "source": {
+        "column": 69,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 83,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 83:69"
+      },
+      "src": "_less_T_12",
+      "statement_ids": [
+        42
+      ]
+    },
+    {
+      "dst": "_less_T_13",
+      "kind": "data",
+      "source": {
+        "column": 69,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 83,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 83:69"
+      },
+      "src": "_less_T_9",
+      "statement_ids": [
+        42
+      ]
+    },
+    {
+      "dst": "_less_T_14",
+      "kind": "data",
+      "source": {
+        "column": 38,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 83,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 83:38"
+      },
+      "src": "_less_T_13",
+      "statement_ids": [
+        43
+      ]
+    },
+    {
+      "dst": "_less_T_14",
+      "kind": "data",
+      "source": {
+        "column": 38,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 83,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 83:38"
+      },
+      "src": "_less_T_6",
+      "statement_ids": [
+        43
+      ]
+    },
+    {
+      "dst": "_less_T_15",
+      "kind": "data",
+      "source": {
+        "column": 68,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:68"
+      },
+      "src": "io.lhs",
+      "statement_ids": [
+        44
+      ]
+    },
+    {
+      "dst": "_less_T_16",
+      "kind": "data",
+      "source": {
+        "column": 76,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:76"
+      },
+      "src": "io.rhs",
+      "statement_ids": [
+        45
+      ]
+    },
+    {
+      "dst": "_less_T_17",
+      "kind": "data",
+      "source": {
+        "column": 58,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:58"
+      },
+      "src": "_less_T_15",
+      "statement_ids": [
+        46
+      ]
+    },
+    {
+      "dst": "_less_T_17",
+      "kind": "data",
+      "source": {
+        "column": 58,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:58"
+      },
+      "src": "_less_T_16",
+      "statement_ids": [
+        46
+      ]
+    },
+    {
+      "dst": "_less_T_17",
+      "kind": "control",
+      "source": {
+        "column": 58,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:58"
+      },
+      "src": "less_signed",
+      "statement_ids": [
+        46
+      ]
+    },
+    {
+      "dst": "_less_T_18",
+      "kind": "data",
+      "source": {
+        "column": 10,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:10"
+      },
+      "src": "_less_T_14",
+      "statement_ids": [
+        47
+      ]
+    },
+    {
+      "dst": "_less_T_18",
+      "kind": "data",
+      "source": {
+        "column": 10,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:10"
+      },
+      "src": "_less_T_17",
+      "statement_ids": [
+        47
+      ]
+    },
+    {
+      "dst": "_less_T_18",
+      "kind": "control",
+      "source": {
+        "column": 10,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:10"
+      },
+      "src": "_less_T_3",
+      "statement_ids": [
+        47
+      ]
+    },
+    {
+      "dst": "_less_T_19",
+      "kind": "data",
+      "source": {
+        "column": 49,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 94,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 94:49"
+      },
+      "src": "io.mask",
+      "statement_ids": [
+        48
+      ]
+    },
+    {
+      "dst": "less_signed_mask_1",
+      "kind": "data",
+      "source": {
+        "column": 29,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 88,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 88:29"
+      },
+      "src": "hc",
+      "statement_ids": [
+        49
+      ]
+    },
+    {
+      "dst": "less_signed_mask_1",
+      "kind": "data",
+      "source": {
+        "column": 29,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 88,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 88:29"
+      },
+      "src": "he",
+      "statement_ids": [
+        49
+      ]
+    },
+    {
+      "dst": "_less_signed_T_2",
+      "kind": "data",
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 89,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 89:17"
+      },
+      "src": "io.cmd",
+      "statement_ids": [
+        50
+      ]
+    },
+    {
+      "dst": "_less_signed_T_2",
+      "kind": "data",
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 89,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 89:17"
+      },
+      "src": "less_signed_mask_1",
+      "statement_ids": [
+        50
+      ]
+    },
+    {
+      "dst": "_less_signed_T_3",
+      "kind": "data",
+      "source": {
+        "column": 39,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 89,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 89:39"
+      },
+      "src": "hc",
+      "statement_ids": [
+        51
+      ]
+    },
+    {
+      "dst": "_less_signed_T_3",
+      "kind": "data",
+      "source": {
+        "column": 39,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 89,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 89:39"
+      },
+      "src": "less_signed_mask_1",
+      "statement_ids": [
+        51
+      ]
+    },
+    {
+      "dst": "less_signed_1",
+      "kind": "data",
+      "source": {
+        "column": 25,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 89,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 89:25"
+      },
+      "src": "_less_signed_T_2",
+      "statement_ids": [
+        52
+      ]
+    },
+    {
+      "dst": "less_signed_1",
+      "kind": "data",
+      "source": {
+        "column": 25,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 89,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 89:25"
+      },
+      "src": "_less_signed_T_3",
+      "statement_ids": [
+        52
+      ]
+    },
+    {
+      "dst": "_less_T_20",
+      "kind": "data",
+      "source": {
+        "column": 12,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:12"
+      },
+      "src": "io.lhs",
+      "statement_ids": [
+        53
+      ]
+    },
+    {
+      "dst": "_less_T_21",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:23"
+      },
+      "src": "io.rhs",
+      "statement_ids": [
+        54
+      ]
+    },
+    {
+      "dst": "_less_T_22",
+      "kind": "data",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:18"
+      },
+      "src": "_less_T_20",
+      "statement_ids": [
+        55
+      ]
+    },
+    {
+      "dst": "_less_T_22",
+      "kind": "data",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:18"
+      },
+      "src": "_less_T_21",
+      "statement_ids": [
+        55
+      ]
+    },
+    {
+      "dst": "_less_T_23",
+      "kind": "data",
+      "source": {
+        "column": 26,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 82,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 82:26"
+      },
+      "src": "io.lhs",
+      "statement_ids": [
+        56
+      ]
+    },
+    {
+      "dst": "_less_T_24",
+      "kind": "data",
+      "source": {
+        "column": 38,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 82,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 82:38"
+      },
+      "src": "io.rhs",
+      "statement_ids": [
+        57
+      ]
+    },
+    {
+      "dst": "_less_T_25",
+      "kind": "data",
+      "source": {
+        "column": 35,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 82,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 82:35"
+      },
+      "src": "_less_T_23",
+      "statement_ids": [
+        58
+      ]
+    },
+    {
+      "dst": "_less_T_25",
+      "kind": "data",
+      "source": {
+        "column": 35,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 82,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 82:35"
+      },
+      "src": "_less_T_24",
+      "statement_ids": [
+        58
+      ]
+    },
+    {
+      "dst": "_less_T_26",
+      "kind": "data",
+      "source": {
+        "column": 68,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:68"
+      },
+      "src": "io.lhs",
+      "statement_ids": [
+        59
+      ]
+    },
+    {
+      "dst": "_less_T_27",
+      "kind": "data",
+      "source": {
+        "column": 76,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:76"
+      },
+      "src": "io.rhs",
+      "statement_ids": [
+        60
+      ]
+    },
+    {
+      "dst": "_less_T_28",
+      "kind": "data",
+      "source": {
+        "column": 58,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:58"
+      },
+      "src": "_less_T_26",
+      "statement_ids": [
+        61
+      ]
+    },
+    {
+      "dst": "_less_T_28",
+      "kind": "data",
+      "source": {
+        "column": 58,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:58"
+      },
+      "src": "_less_T_27",
+      "statement_ids": [
+        61
+      ]
+    },
+    {
+      "dst": "_less_T_28",
+      "kind": "control",
+      "source": {
+        "column": 58,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:58"
+      },
+      "src": "less_signed_1",
+      "statement_ids": [
+        61
+      ]
+    },
+    {
+      "dst": "_less_T_29",
+      "kind": "data",
+      "source": {
+        "column": 10,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:10"
+      },
+      "src": "_less_T_25",
+      "statement_ids": [
+        62
+      ]
+    },
+    {
+      "dst": "_less_T_29",
+      "kind": "data",
+      "source": {
+        "column": 10,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:10"
+      },
+      "src": "_less_T_28",
+      "statement_ids": [
+        62
+      ]
+    },
+    {
+      "dst": "_less_T_29",
+      "kind": "control",
+      "source": {
+        "column": 10,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:10"
+      },
+      "src": "_less_T_22",
+      "statement_ids": [
+        62
+      ]
+    },
+    {
+      "dst": "less",
+      "kind": "data",
+      "source": {
+        "column": 70,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 50,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 50:70"
+      },
+      "src": "_less_T_18",
+      "statement_ids": [
+        63
+      ]
+    },
+    {
+      "dst": "less",
+      "kind": "data",
+      "source": {
+        "column": 70,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 50,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 50:70"
+      },
+      "src": "_less_T_29",
+      "statement_ids": [
+        63
+      ]
+    },
+    {
+      "dst": "less",
+      "kind": "control",
+      "source": {
+        "column": 70,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 50,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 50:70"
+      },
+      "src": "_less_T",
+      "statement_ids": [
+        63
+      ]
+    },
+    {
+      "dst": "_minmax_T",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 97,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 97:23"
+      },
+      "src": "max",
+      "statement_ids": [
+        64
+      ]
+    },
+    {
+      "dst": "_minmax_T",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 97,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 97:23"
+      },
+      "src": "min",
+      "statement_ids": [
+        64
+      ]
+    },
+    {
+      "dst": "_minmax_T",
+      "kind": "control",
+      "source": {
+        "column": 23,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 97,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 97:23"
+      },
+      "src": "less",
+      "statement_ids": [
+        64
+      ]
+    },
+    {
+      "dst": "minmax",
+      "kind": "data",
+      "source": {
+        "column": 19,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 97,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 97:19"
+      },
+      "src": "io.lhs",
+      "statement_ids": [
+        65
+      ]
+    },
+    {
+      "dst": "minmax",
+      "kind": "data",
+      "source": {
+        "column": 19,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 97,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 97:19"
+      },
+      "src": "io.rhs",
+      "statement_ids": [
+        65
+      ]
+    },
+    {
+      "dst": "minmax",
+      "kind": "control",
+      "source": {
+        "column": 19,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 97,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 97:19"
+      },
+      "src": "_minmax_T",
+      "statement_ids": [
+        65
+      ]
+    },
+    {
+      "dst": "_logic_T",
+      "kind": "data",
+      "source": {
+        "column": 27,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 99,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 99:27"
+      },
+      "src": "io.lhs",
+      "statement_ids": [
+        66
+      ]
+    },
+    {
+      "dst": "_logic_T",
+      "kind": "data",
+      "source": {
+        "column": 27,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 99,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 99:27"
+      },
+      "src": "io.rhs",
+      "statement_ids": [
+        66
+      ]
+    },
+    {
+      "dst": "_logic_T_1",
+      "kind": "data",
+      "source": {
+        "column": 8,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 99,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 99:8"
+      },
+      "src": "_logic_T",
+      "statement_ids": [
+        67
+      ]
+    },
+    {
+      "dst": "_logic_T_1",
+      "kind": "data",
+      "source": {
+        "column": 8,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 99,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 99:8"
+      },
+      "src": "h0",
+      "statement_ids": [
+        67
+      ]
+    },
+    {
+      "dst": "_logic_T_1",
+      "kind": "control",
+      "source": {
+        "column": 8,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 99,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 99:8"
+      },
+      "src": "logic_and",
+      "statement_ids": [
+        67
+      ]
+    },
+    {
+      "dst": "_logic_T_2",
+      "kind": "data",
+      "source": {
+        "column": 27,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 100,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 100:27"
+      },
+      "src": "io.lhs",
+      "statement_ids": [
+        68
+      ]
+    },
+    {
+      "dst": "_logic_T_2",
+      "kind": "data",
+      "source": {
+        "column": 27,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 100,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 100:27"
+      },
+      "src": "io.rhs",
+      "statement_ids": [
+        68
+      ]
+    },
+    {
+      "dst": "_logic_T_3",
+      "kind": "data",
+      "source": {
+        "column": 8,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 100,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 100:8"
+      },
+      "src": "_logic_T_2",
+      "statement_ids": [
+        69
+      ]
+    },
+    {
+      "dst": "_logic_T_3",
+      "kind": "data",
+      "source": {
+        "column": 8,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 100,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 100:8"
+      },
+      "src": "h0",
+      "statement_ids": [
+        69
+      ]
+    },
+    {
+      "dst": "_logic_T_3",
+      "kind": "control",
+      "source": {
+        "column": 8,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 100,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 100:8"
+      },
+      "src": "logic_xor",
+      "statement_ids": [
+        69
+      ]
+    },
+    {
+      "dst": "logic",
+      "kind": "data",
+      "source": {
+        "column": 42,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 99,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 99:42"
+      },
+      "src": "_logic_T_1",
+      "statement_ids": [
+        70
+      ]
+    },
+    {
+      "dst": "logic",
+      "kind": "data",
+      "source": {
+        "column": 42,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 99,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 99:42"
+      },
+      "src": "_logic_T_3",
+      "statement_ids": [
+        70
+      ]
+    },
+    {
+      "dst": "_out_T",
+      "kind": "data",
+      "source": {
+        "column": 19,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 103,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 103:19"
+      },
+      "src": "logic_and",
+      "statement_ids": [
+        71
+      ]
+    },
+    {
+      "dst": "_out_T",
+      "kind": "data",
+      "source": {
+        "column": 19,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 103,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 103:19"
+      },
+      "src": "logic_xor",
+      "statement_ids": [
+        71
+      ]
+    },
+    {
+      "dst": "_out_T_1",
+      "kind": "data",
+      "source": {
+        "column": 8,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 103,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 103:8"
+      },
+      "src": "logic",
+      "statement_ids": [
+        72
+      ]
+    },
+    {
+      "dst": "_out_T_1",
+      "kind": "data",
+      "source": {
+        "column": 8,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 103,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 103:8"
+      },
+      "src": "minmax",
+      "statement_ids": [
+        72
+      ]
+    },
+    {
+      "dst": "_out_T_1",
+      "kind": "control",
+      "source": {
+        "column": 8,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 103,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 103:8"
+      },
+      "src": "_out_T",
+      "statement_ids": [
+        72
+      ]
+    },
+    {
+      "dst": "out",
+      "kind": "data",
+      "source": {
+        "column": 8,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 102,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 102:8"
+      },
+      "src": "_out_T_1",
+      "statement_ids": [
+        73
+      ]
+    },
+    {
+      "dst": "out",
+      "kind": "data",
+      "source": {
+        "column": 8,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 102,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 102:8"
+      },
+      "src": "adder_out",
+      "statement_ids": [
+        73
+      ]
+    },
+    {
+      "dst": "_wmask_T",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "io.mask",
+      "statement_ids": [
+        74
+      ]
+    },
+    {
+      "dst": "_wmask_T_1",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "io.mask",
+      "statement_ids": [
+        75
+      ]
+    },
+    {
+      "dst": "_wmask_T_2",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "io.mask",
+      "statement_ids": [
+        76
+      ]
+    },
+    {
+      "dst": "_wmask_T_3",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "io.mask",
+      "statement_ids": [
+        77
+      ]
+    },
+    {
+      "dst": "_wmask_T_4",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "io.mask",
+      "statement_ids": [
+        78
+      ]
+    },
+    {
+      "dst": "_wmask_T_5",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "io.mask",
+      "statement_ids": [
+        79
+      ]
+    },
+    {
+      "dst": "_wmask_T_6",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "io.mask",
+      "statement_ids": [
+        80
+      ]
+    },
+    {
+      "dst": "_wmask_T_7",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "io.mask",
+      "statement_ids": [
+        81
+      ]
+    },
+    {
+      "dst": "_wmask_T_8",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "h0",
+      "statement_ids": [
+        82
+      ]
+    },
+    {
+      "dst": "_wmask_T_8",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "hff",
+      "statement_ids": [
+        82
+      ]
+    },
+    {
+      "dst": "_wmask_T_8",
+      "kind": "control",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "_wmask_T",
+      "statement_ids": [
+        82
+      ]
+    },
+    {
+      "dst": "_wmask_T_9",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "h0",
+      "statement_ids": [
+        83
+      ]
+    },
+    {
+      "dst": "_wmask_T_9",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "hff",
+      "statement_ids": [
+        83
+      ]
+    },
+    {
+      "dst": "_wmask_T_9",
+      "kind": "control",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "_wmask_T_1",
+      "statement_ids": [
+        83
+      ]
+    },
+    {
+      "dst": "_wmask_T_10",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "h0",
+      "statement_ids": [
+        84
+      ]
+    },
+    {
+      "dst": "_wmask_T_10",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "hff",
+      "statement_ids": [
+        84
+      ]
+    },
+    {
+      "dst": "_wmask_T_10",
+      "kind": "control",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "_wmask_T_2",
+      "statement_ids": [
+        84
+      ]
+    },
+    {
+      "dst": "_wmask_T_11",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "h0",
+      "statement_ids": [
+        85
+      ]
+    },
+    {
+      "dst": "_wmask_T_11",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "hff",
+      "statement_ids": [
+        85
+      ]
+    },
+    {
+      "dst": "_wmask_T_11",
+      "kind": "control",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "_wmask_T_3",
+      "statement_ids": [
+        85
+      ]
+    },
+    {
+      "dst": "_wmask_T_12",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "h0",
+      "statement_ids": [
+        86
+      ]
+    },
+    {
+      "dst": "_wmask_T_12",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "hff",
+      "statement_ids": [
+        86
+      ]
+    },
+    {
+      "dst": "_wmask_T_12",
+      "kind": "control",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "_wmask_T_4",
+      "statement_ids": [
+        86
+      ]
+    },
+    {
+      "dst": "_wmask_T_13",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "h0",
+      "statement_ids": [
+        87
+      ]
+    },
+    {
+      "dst": "_wmask_T_13",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "hff",
+      "statement_ids": [
+        87
+      ]
+    },
+    {
+      "dst": "_wmask_T_13",
+      "kind": "control",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "_wmask_T_5",
+      "statement_ids": [
+        87
+      ]
+    },
+    {
+      "dst": "_wmask_T_14",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "h0",
+      "statement_ids": [
+        88
+      ]
+    },
+    {
+      "dst": "_wmask_T_14",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "hff",
+      "statement_ids": [
+        88
+      ]
+    },
+    {
+      "dst": "_wmask_T_14",
+      "kind": "control",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "_wmask_T_6",
+      "statement_ids": [
+        88
+      ]
+    },
+    {
+      "dst": "_wmask_T_15",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "h0",
+      "statement_ids": [
+        89
+      ]
+    },
+    {
+      "dst": "_wmask_T_15",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "hff",
+      "statement_ids": [
+        89
+      ]
+    },
+    {
+      "dst": "_wmask_T_15",
+      "kind": "control",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "_wmask_T_7",
+      "statement_ids": [
+        89
+      ]
+    },
+    {
+      "dst": "wmask_lo_lo",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "_wmask_T_8",
+      "statement_ids": [
+        90
+      ]
+    },
+    {
+      "dst": "wmask_lo_lo",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "_wmask_T_9",
+      "statement_ids": [
+        90
+      ]
+    },
+    {
+      "dst": "wmask_lo_hi",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "_wmask_T_10",
+      "statement_ids": [
+        91
+      ]
+    },
+    {
+      "dst": "wmask_lo_hi",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "_wmask_T_11",
+      "statement_ids": [
+        91
+      ]
+    },
+    {
+      "dst": "wmask_lo",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "wmask_lo_hi",
+      "statement_ids": [
+        92
+      ]
+    },
+    {
+      "dst": "wmask_lo",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "wmask_lo_lo",
+      "statement_ids": [
+        92
+      ]
+    },
+    {
+      "dst": "wmask_hi_lo",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "_wmask_T_12",
+      "statement_ids": [
+        93
+      ]
+    },
+    {
+      "dst": "wmask_hi_lo",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "_wmask_T_13",
+      "statement_ids": [
+        93
+      ]
+    },
+    {
+      "dst": "wmask_hi_hi",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "_wmask_T_14",
+      "statement_ids": [
+        94
+      ]
+    },
+    {
+      "dst": "wmask_hi_hi",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "_wmask_T_15",
+      "statement_ids": [
+        94
+      ]
+    },
+    {
+      "dst": "wmask_hi",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "wmask_hi_hi",
+      "statement_ids": [
+        95
+      ]
+    },
+    {
+      "dst": "wmask_hi",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "wmask_hi_lo",
+      "statement_ids": [
+        95
+      ]
+    },
+    {
+      "dst": "wmask",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "wmask_hi",
+      "statement_ids": [
+        96
+      ]
+    },
+    {
+      "dst": "wmask",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "src": "wmask_lo",
+      "statement_ids": [
+        96
+      ]
+    },
+    {
+      "dst": "_io_out_T",
+      "kind": "data",
+      "source": {
+        "column": 19,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 107,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 107:19"
+      },
+      "src": "out",
+      "statement_ids": [
+        97
+      ]
+    },
+    {
+      "dst": "_io_out_T",
+      "kind": "data",
+      "source": {
+        "column": 19,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 107,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 107:19"
+      },
+      "src": "wmask",
+      "statement_ids": [
+        97
+      ]
+    },
+    {
+      "dst": "_io_out_T_1",
+      "kind": "data",
+      "source": {
+        "column": 27,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 107,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 107:27"
+      },
+      "src": "wmask",
+      "statement_ids": [
+        98
+      ]
+    },
+    {
+      "dst": "_io_out_T_2",
+      "kind": "data",
+      "source": {
+        "column": 34,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 107,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 107:34"
+      },
+      "src": "_io_out_T_1",
+      "statement_ids": [
+        99
+      ]
+    },
+    {
+      "dst": "_io_out_T_2",
+      "kind": "data",
+      "source": {
+        "column": 34,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 107,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 107:34"
+      },
+      "src": "io.lhs",
+      "statement_ids": [
+        99
+      ]
+    },
+    {
+      "dst": "_io_out_T_3",
+      "kind": "data",
+      "source": {
+        "column": 25,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 107,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 107:25"
+      },
+      "src": "_io_out_T",
+      "statement_ids": [
+        100
+      ]
+    },
+    {
+      "dst": "_io_out_T_3",
+      "kind": "data",
+      "source": {
+        "column": 25,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 107,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 107:25"
+      },
+      "src": "_io_out_T_2",
+      "statement_ids": [
+        100
+      ]
+    },
+    {
+      "dst": "io.out",
+      "kind": "data",
+      "source": {
+        "column": 10,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 107,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 107:10"
+      },
+      "src": "_io_out_T_3",
+      "statement_ids": [
+        101
+      ]
+    },
+    {
+      "dst": "io.out_unmasked",
+      "kind": "data",
+      "source": {
+        "column": 19,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 108,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 108:19"
+      },
+      "src": "out",
+      "statement_ids": [
+        102
+      ]
+    }
+  ],
+  "events": [],
+  "frontier": [
+    {
+      "id": "io.cmd",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 58,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 58:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.lhs",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 58,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 58:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.mask",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 58,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 58:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.out",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 58,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 58:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.out_unmasked",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 58,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 58:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.rhs",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 58,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 58:14"
+      },
+      "type": null
+    }
+  ],
+  "grounding": {
+    "allowed_physical_event_ids": [],
+    "allowed_state_ids": [],
+    "allowed_statement_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102
+    ],
+    "semantic_labels": []
+  },
+  "memory_state": [],
+  "parent_connection_signals": [
+    "amoalu.clock",
+    "amoalu.io",
+    "amoalu.io.cmd",
+    "amoalu.io.lhs",
+    "amoalu.io.mask",
+    "amoalu.io.out",
+    "amoalu.io.out_unmasked",
+    "amoalu.io.rhs",
+    "amoalu.reset"
+  ],
+  "planner_version": "hierarchical-planner-v11",
+  "replacement_complexity": {
+    "event_state_coupling": 0.0,
+    "events": 0,
+    "logical": {
+      "dependency_edges": 116,
+      "signals": 71,
+      "source_loc": 24,
+      "statements": 25
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 185,
+      "signals": 114,
+      "source_loc": 24,
+      "statements": 103,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 0,
+    "state_regions": 0
+  },
+  "schema_version": "workunit-static-0.1",
+  "semantic_event_cones": [],
+  "source_evidence": {
+    "resolved": [
+      {
+        "end_line": 55,
+        "logical_file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "start_line": 53,
+        "text": "\nclass AMOALU(operandBits: Int)(implicit p: Parameters) extends Module {\n  val minXLen = 32\n"
+      },
+      {
+        "end_line": 59,
+        "logical_file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "start_line": 57,
+        "text": "\n  val io = IO(new Bundle {\n    val mask = Input(UInt((operandBits / 8).W))\n"
+      },
+      {
+        "end_line": 72,
+        "logical_file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "start_line": 66,
+        "text": "\n  val max = io.cmd === M_XA_MAX || io.cmd === M_XA_MAXU\n  val min = io.cmd === M_XA_MIN || io.cmd === M_XA_MINU\n  val add = io.cmd === M_XA_ADD\n  val logic_and = io.cmd === M_XA_OR || io.cmd === M_XA_AND\n  val logic_xor = io.cmd === M_XA_XOR || io.cmd === M_XA_OR\n\n"
+      },
+      {
+        "end_line": 77,
+        "logical_file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "start_line": 74,
+        "text": "    // partition the carry chain to support sub-xLen addition\n    val mask = ~(0.U(operandBits.W) +: widths.init.map(w => !io.mask(w/8-1) << (w-1))).reduce(_|_)\n    (io.lhs & mask) + (io.rhs & mask)\n  }\n"
+      },
+      {
+        "end_line": 84,
+        "logical_file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "start_line": 81,
+        "text": "    def isLessUnsigned(x: UInt, y: UInt, n: Int): Bool = {\n      if (n == minXLen) x(n-1, 0) < y(n-1, 0)\n      else x(n-1, n/2) < y(n-1, n/2) || x(n-1, n/2) === y(n-1, n/2) && isLessUnsigned(x, y, n/2)\n    }\n"
+      },
+      {
+        "end_line": 92,
+        "logical_file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "start_line": 87,
+        "text": "      val signed = {\n        val mask = M_XA_MIN ^ M_XA_MINU\n        (io.cmd & mask) === (M_XA_MIN & mask)\n      }\n      Mux(x(n-1) === y(n-1), isLessUnsigned(x, y, n), Mux(signed, x(n-1), y(n-1)))\n    }\n"
+      },
+      {
+        "end_line": 95,
+        "logical_file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "start_line": 93,
+        "text": "\n    PriorityMux(widths.reverse.map(w => (io.mask(w/8/2), isLess(io.lhs, io.rhs, w))))\n  }\n"
+      },
+      {
+        "end_line": 104,
+        "logical_file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "start_line": 96,
+        "text": "\n  val minmax = Mux(Mux(less, min, max), io.lhs, io.rhs)\n  val logic =\n    Mux(logic_and, io.lhs & io.rhs, 0.U) |\n    Mux(logic_xor, io.lhs ^ io.rhs, 0.U)\n  val out =\n    Mux(add,                    adder_out,\n    Mux(logic_and || logic_xor, logic,\n                                minmax))\n"
+      },
+      {
+        "end_line": 109,
+        "logical_file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "start_line": 105,
+        "text": "\n  val wmask = FillInterleaved(8, io.mask)\n  io.out := wmask & out | ~wmask & io.lhs\n  io.out_unmasked := out\n}\n"
+      }
+    ],
+    "roots": [
+      "/t1/MCM-Agent/tools/chipyard"
+    ],
+    "unresolved": [
+      {
+        "end_line": 50,
+        "error": "Could not resolve source locator 'src/main/scala/chisel3/util/Mux.scala' under roots: /t1/MCM-Agent/tools/chipyard",
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "start_line": 50
+      }
+    ]
+  },
+  "source_spans": [
+    {
+      "end_line": 54,
+      "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+      "start_line": 54
+    },
+    {
+      "end_line": 58,
+      "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+      "start_line": 58
+    },
+    {
+      "end_line": 71,
+      "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+      "start_line": 67
+    },
+    {
+      "end_line": 76,
+      "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+      "start_line": 75
+    },
+    {
+      "end_line": 83,
+      "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+      "start_line": 82
+    },
+    {
+      "end_line": 91,
+      "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+      "start_line": 88
+    },
+    {
+      "end_line": 94,
+      "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+      "start_line": 94
+    },
+    {
+      "end_line": 103,
+      "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+      "start_line": 97
+    },
+    {
+      "end_line": 108,
+      "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+      "start_line": 106
+    },
+    {
+      "end_line": 50,
+      "file": "src/main/scala/chisel3/util/Mux.scala",
+      "start_line": 50
+    }
+  ],
+  "state": [],
+  "statements": [
+    {
+      "control_reads": [],
+      "drives": [],
+      "firrtl_line": 197662,
+      "id": 0,
+      "kind": "structural",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 7,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 54,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 54:7"
+      },
+      "status": "nondriving",
+      "text": "input clock : Clock"
+    },
+    {
+      "control_reads": [],
+      "drives": [],
+      "firrtl_line": 197663,
+      "id": 1,
+      "kind": "structural",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 7,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 54,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 54:7"
+      },
+      "status": "nondriving",
+      "text": "input reset : Reset"
+    },
+    {
+      "control_reads": [],
+      "drives": [],
+      "firrtl_line": 197664,
+      "id": 2,
+      "kind": "structural",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 58,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 58:14"
+      },
+      "status": "nondriving",
+      "text": "output io : { flip mask : UInt<8>, flip cmd : UInt<5>, flip lhs : UInt<64>, flip rhs : UInt<64>, out : UInt<64>, out_unmasked : UInt<64>}"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_max_T"
+      ],
+      "firrtl_line": 197666,
+      "id": 3,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "hd",
+        "io.cmd"
+      ],
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 67,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 67:20"
+      },
+      "status": "supported",
+      "text": "node _max_T = eq(io.cmd, UInt<4>(0hd))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_max_T_1"
+      ],
+      "firrtl_line": 197667,
+      "id": 4,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "hf",
+        "io.cmd"
+      ],
+      "source": {
+        "column": 43,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 67,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 67:43"
+      },
+      "status": "supported",
+      "text": "node _max_T_1 = eq(io.cmd, UInt<4>(0hf))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "max"
+      ],
+      "firrtl_line": 197668,
+      "id": 5,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_max_T",
+        "_max_T_1"
+      ],
+      "source": {
+        "column": 33,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 67,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 67:33"
+      },
+      "status": "supported",
+      "text": "node max = or(_max_T, _max_T_1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_min_T"
+      ],
+      "firrtl_line": 197669,
+      "id": 6,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "hc",
+        "io.cmd"
+      ],
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 68,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 68:20"
+      },
+      "status": "supported",
+      "text": "node _min_T = eq(io.cmd, UInt<4>(0hc))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_min_T_1"
+      ],
+      "firrtl_line": 197670,
+      "id": 7,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "he",
+        "io.cmd"
+      ],
+      "source": {
+        "column": 43,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 68,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 68:43"
+      },
+      "status": "supported",
+      "text": "node _min_T_1 = eq(io.cmd, UInt<4>(0he))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "min"
+      ],
+      "firrtl_line": 197671,
+      "id": 8,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_min_T",
+        "_min_T_1"
+      ],
+      "source": {
+        "column": 33,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 68,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 68:33"
+      },
+      "status": "supported",
+      "text": "node min = or(_min_T, _min_T_1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "add"
+      ],
+      "firrtl_line": 197672,
+      "id": 9,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h8",
+        "io.cmd"
+      ],
+      "source": {
+        "column": 20,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 69,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 69:20"
+      },
+      "status": "supported",
+      "text": "node add = eq(io.cmd, UInt<4>(0h8))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_logic_and_T"
+      ],
+      "firrtl_line": 197673,
+      "id": 10,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "ha",
+        "io.cmd"
+      ],
+      "source": {
+        "column": 26,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 70,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 70:26"
+      },
+      "status": "supported",
+      "text": "node _logic_and_T = eq(io.cmd, UInt<4>(0ha))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_logic_and_T_1"
+      ],
+      "firrtl_line": 197674,
+      "id": 11,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "hb",
+        "io.cmd"
+      ],
+      "source": {
+        "column": 48,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 70,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 70:48"
+      },
+      "status": "supported",
+      "text": "node _logic_and_T_1 = eq(io.cmd, UInt<4>(0hb))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "logic_and"
+      ],
+      "firrtl_line": 197675,
+      "id": 12,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_logic_and_T",
+        "_logic_and_T_1"
+      ],
+      "source": {
+        "column": 38,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 70,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 70:38"
+      },
+      "status": "supported",
+      "text": "node logic_and = or(_logic_and_T, _logic_and_T_1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_logic_xor_T"
+      ],
+      "firrtl_line": 197676,
+      "id": 13,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h9",
+        "io.cmd"
+      ],
+      "source": {
+        "column": 26,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 71,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 71:26"
+      },
+      "status": "supported",
+      "text": "node _logic_xor_T = eq(io.cmd, UInt<4>(0h9))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_logic_xor_T_1"
+      ],
+      "firrtl_line": 197677,
+      "id": 14,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "ha",
+        "io.cmd"
+      ],
+      "source": {
+        "column": 49,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 71,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 71:49"
+      },
+      "status": "supported",
+      "text": "node _logic_xor_T_1 = eq(io.cmd, UInt<4>(0ha))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "logic_xor"
+      ],
+      "firrtl_line": 197678,
+      "id": 15,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_logic_xor_T",
+        "_logic_xor_T_1"
+      ],
+      "source": {
+        "column": 39,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 71,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 71:39"
+      },
+      "status": "supported",
+      "text": "node logic_xor = or(_logic_xor_T, _logic_xor_T_1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_adder_out_mask_T"
+      ],
+      "firrtl_line": 197679,
+      "id": 16,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.mask"
+      ],
+      "source": {
+        "column": 69,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 75,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 75:69"
+      },
+      "status": "supported",
+      "text": "node _adder_out_mask_T = bits(io.mask, 3, 3)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_adder_out_mask_T_1"
+      ],
+      "firrtl_line": 197680,
+      "id": 17,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_adder_out_mask_T",
+        "h0"
+      ],
+      "source": {
+        "column": 61,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 75,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 75:61"
+      },
+      "status": "supported",
+      "text": "node _adder_out_mask_T_1 = eq(_adder_out_mask_T, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_adder_out_mask_T_2"
+      ],
+      "firrtl_line": 197681,
+      "id": 18,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_adder_out_mask_T_1"
+      ],
+      "source": {
+        "column": 77,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 75,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 75:77"
+      },
+      "status": "supported",
+      "text": "node _adder_out_mask_T_2 = shl(_adder_out_mask_T_1, 31)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_adder_out_mask_T_3"
+      ],
+      "firrtl_line": 197682,
+      "id": 19,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_adder_out_mask_T_2",
+        "h0"
+      ],
+      "source": {
+        "column": 96,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 75,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 75:96"
+      },
+      "status": "supported",
+      "text": "node _adder_out_mask_T_3 = or(UInt<64>(0h0), _adder_out_mask_T_2)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "adder_out_mask"
+      ],
+      "firrtl_line": 197683,
+      "id": 20,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_adder_out_mask_T_3"
+      ],
+      "source": {
+        "column": 16,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 75,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 75:16"
+      },
+      "status": "supported",
+      "text": "node adder_out_mask = not(_adder_out_mask_T_3)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_adder_out_T"
+      ],
+      "firrtl_line": 197684,
+      "id": 21,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "adder_out_mask",
+        "io.lhs"
+      ],
+      "source": {
+        "column": 13,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 76,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 76:13"
+      },
+      "status": "supported",
+      "text": "node _adder_out_T = and(io.lhs, adder_out_mask)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_adder_out_T_1"
+      ],
+      "firrtl_line": 197685,
+      "id": 22,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "adder_out_mask",
+        "io.rhs"
+      ],
+      "source": {
+        "column": 31,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 76,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 76:31"
+      },
+      "status": "supported",
+      "text": "node _adder_out_T_1 = and(io.rhs, adder_out_mask)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_adder_out_T_2"
+      ],
+      "firrtl_line": 197686,
+      "id": 23,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_adder_out_T",
+        "_adder_out_T_1"
+      ],
+      "source": {
+        "column": 21,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 76,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 76:21"
+      },
+      "status": "supported",
+      "text": "node _adder_out_T_2 = add(_adder_out_T, _adder_out_T_1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "adder_out"
+      ],
+      "firrtl_line": 197687,
+      "id": 24,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_adder_out_T_2"
+      ],
+      "source": {
+        "column": 21,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 76,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 76:21"
+      },
+      "status": "supported",
+      "text": "node adder_out = tail(_adder_out_T_2, 1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_T"
+      ],
+      "firrtl_line": 197688,
+      "id": 25,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.mask"
+      ],
+      "source": {
+        "column": 49,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 94,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 94:49"
+      },
+      "status": "supported",
+      "text": "node _less_T = bits(io.mask, 4, 4)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "less_signed_mask"
+      ],
+      "firrtl_line": 197689,
+      "id": 26,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "hc",
+        "he"
+      ],
+      "source": {
+        "column": 29,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 88,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 88:29"
+      },
+      "status": "supported",
+      "text": "node less_signed_mask = xor(UInt<4>(0hc), UInt<4>(0he))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_signed_T"
+      ],
+      "firrtl_line": 197690,
+      "id": 27,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.cmd",
+        "less_signed_mask"
+      ],
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 89,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 89:17"
+      },
+      "status": "supported",
+      "text": "node _less_signed_T = and(io.cmd, less_signed_mask)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_signed_T_1"
+      ],
+      "firrtl_line": 197691,
+      "id": 28,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "hc",
+        "less_signed_mask"
+      ],
+      "source": {
+        "column": 39,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 89,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 89:39"
+      },
+      "status": "supported",
+      "text": "node _less_signed_T_1 = and(UInt<4>(0hc), less_signed_mask)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "less_signed"
+      ],
+      "firrtl_line": 197692,
+      "id": 29,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_less_signed_T",
+        "_less_signed_T_1"
+      ],
+      "source": {
+        "column": 25,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 89,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 89:25"
+      },
+      "status": "supported",
+      "text": "node less_signed = eq(_less_signed_T, _less_signed_T_1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_T_1"
+      ],
+      "firrtl_line": 197693,
+      "id": 30,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.lhs"
+      ],
+      "source": {
+        "column": 12,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:12"
+      },
+      "status": "supported",
+      "text": "node _less_T_1 = bits(io.lhs, 63, 63)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_T_2"
+      ],
+      "firrtl_line": 197694,
+      "id": 31,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.rhs"
+      ],
+      "source": {
+        "column": 23,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:23"
+      },
+      "status": "supported",
+      "text": "node _less_T_2 = bits(io.rhs, 63, 63)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_T_3"
+      ],
+      "firrtl_line": 197695,
+      "id": 32,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_less_T_1",
+        "_less_T_2"
+      ],
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:18"
+      },
+      "status": "supported",
+      "text": "node _less_T_3 = eq(_less_T_1, _less_T_2)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_T_4"
+      ],
+      "firrtl_line": 197696,
+      "id": 33,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.lhs"
+      ],
+      "source": {
+        "column": 13,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 83,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 83:13"
+      },
+      "status": "supported",
+      "text": "node _less_T_4 = bits(io.lhs, 63, 32)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_T_5"
+      ],
+      "firrtl_line": 197697,
+      "id": 34,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.rhs"
+      ],
+      "source": {
+        "column": 27,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 83,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 83:27"
+      },
+      "status": "supported",
+      "text": "node _less_T_5 = bits(io.rhs, 63, 32)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_T_6"
+      ],
+      "firrtl_line": 197698,
+      "id": 35,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_less_T_4",
+        "_less_T_5"
+      ],
+      "source": {
+        "column": 24,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 83,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 83:24"
+      },
+      "status": "supported",
+      "text": "node _less_T_6 = lt(_less_T_4, _less_T_5)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_T_7"
+      ],
+      "firrtl_line": 197699,
+      "id": 36,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.lhs"
+      ],
+      "source": {
+        "column": 42,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 83,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 83:42"
+      },
+      "status": "supported",
+      "text": "node _less_T_7 = bits(io.lhs, 63, 32)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_T_8"
+      ],
+      "firrtl_line": 197700,
+      "id": 37,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.rhs"
+      ],
+      "source": {
+        "column": 58,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 83,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 83:58"
+      },
+      "status": "supported",
+      "text": "node _less_T_8 = bits(io.rhs, 63, 32)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_T_9"
+      ],
+      "firrtl_line": 197701,
+      "id": 38,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_less_T_7",
+        "_less_T_8"
+      ],
+      "source": {
+        "column": 53,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 83,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 83:53"
+      },
+      "status": "supported",
+      "text": "node _less_T_9 = eq(_less_T_7, _less_T_8)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_T_10"
+      ],
+      "firrtl_line": 197702,
+      "id": 39,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.lhs"
+      ],
+      "source": {
+        "column": 26,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 82,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 82:26"
+      },
+      "status": "supported",
+      "text": "node _less_T_10 = bits(io.lhs, 31, 0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_T_11"
+      ],
+      "firrtl_line": 197703,
+      "id": 40,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.rhs"
+      ],
+      "source": {
+        "column": 38,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 82,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 82:38"
+      },
+      "status": "supported",
+      "text": "node _less_T_11 = bits(io.rhs, 31, 0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_T_12"
+      ],
+      "firrtl_line": 197704,
+      "id": 41,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_less_T_10",
+        "_less_T_11"
+      ],
+      "source": {
+        "column": 35,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 82,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 82:35"
+      },
+      "status": "supported",
+      "text": "node _less_T_12 = lt(_less_T_10, _less_T_11)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_T_13"
+      ],
+      "firrtl_line": 197705,
+      "id": 42,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_less_T_12",
+        "_less_T_9"
+      ],
+      "source": {
+        "column": 69,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 83,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 83:69"
+      },
+      "status": "supported",
+      "text": "node _less_T_13 = and(_less_T_9, _less_T_12)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_T_14"
+      ],
+      "firrtl_line": 197706,
+      "id": 43,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_less_T_13",
+        "_less_T_6"
+      ],
+      "source": {
+        "column": 38,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 83,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 83:38"
+      },
+      "status": "supported",
+      "text": "node _less_T_14 = or(_less_T_6, _less_T_13)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_T_15"
+      ],
+      "firrtl_line": 197707,
+      "id": 44,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.lhs"
+      ],
+      "source": {
+        "column": 68,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:68"
+      },
+      "status": "supported",
+      "text": "node _less_T_15 = bits(io.lhs, 63, 63)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_T_16"
+      ],
+      "firrtl_line": 197708,
+      "id": 45,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.rhs"
+      ],
+      "source": {
+        "column": 76,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:76"
+      },
+      "status": "supported",
+      "text": "node _less_T_16 = bits(io.rhs, 63, 63)"
+    },
+    {
+      "control_reads": [
+        "less_signed"
+      ],
+      "drives": [
+        "_less_T_17"
+      ],
+      "firrtl_line": 197709,
+      "id": 46,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_less_T_15",
+        "_less_T_16",
+        "less_signed"
+      ],
+      "source": {
+        "column": 58,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:58"
+      },
+      "status": "supported",
+      "text": "node _less_T_17 = mux(less_signed, _less_T_15, _less_T_16)"
+    },
+    {
+      "control_reads": [
+        "_less_T_3"
+      ],
+      "drives": [
+        "_less_T_18"
+      ],
+      "firrtl_line": 197710,
+      "id": 47,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_less_T_14",
+        "_less_T_17",
+        "_less_T_3"
+      ],
+      "source": {
+        "column": 10,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:10"
+      },
+      "status": "supported",
+      "text": "node _less_T_18 = mux(_less_T_3, _less_T_14, _less_T_17)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_T_19"
+      ],
+      "firrtl_line": 197711,
+      "id": 48,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.mask"
+      ],
+      "source": {
+        "column": 49,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 94,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 94:49"
+      },
+      "status": "supported",
+      "text": "node _less_T_19 = bits(io.mask, 2, 2)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "less_signed_mask_1"
+      ],
+      "firrtl_line": 197712,
+      "id": 49,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "hc",
+        "he"
+      ],
+      "source": {
+        "column": 29,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 88,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 88:29"
+      },
+      "status": "supported",
+      "text": "node less_signed_mask_1 = xor(UInt<4>(0hc), UInt<4>(0he))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_signed_T_2"
+      ],
+      "firrtl_line": 197713,
+      "id": 50,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.cmd",
+        "less_signed_mask_1"
+      ],
+      "source": {
+        "column": 17,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 89,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 89:17"
+      },
+      "status": "supported",
+      "text": "node _less_signed_T_2 = and(io.cmd, less_signed_mask_1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_signed_T_3"
+      ],
+      "firrtl_line": 197714,
+      "id": 51,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "hc",
+        "less_signed_mask_1"
+      ],
+      "source": {
+        "column": 39,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 89,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 89:39"
+      },
+      "status": "supported",
+      "text": "node _less_signed_T_3 = and(UInt<4>(0hc), less_signed_mask_1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "less_signed_1"
+      ],
+      "firrtl_line": 197715,
+      "id": 52,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_less_signed_T_2",
+        "_less_signed_T_3"
+      ],
+      "source": {
+        "column": 25,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 89,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 89:25"
+      },
+      "status": "supported",
+      "text": "node less_signed_1 = eq(_less_signed_T_2, _less_signed_T_3)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_T_20"
+      ],
+      "firrtl_line": 197716,
+      "id": 53,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.lhs"
+      ],
+      "source": {
+        "column": 12,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:12"
+      },
+      "status": "supported",
+      "text": "node _less_T_20 = bits(io.lhs, 31, 31)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_T_21"
+      ],
+      "firrtl_line": 197717,
+      "id": 54,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.rhs"
+      ],
+      "source": {
+        "column": 23,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:23"
+      },
+      "status": "supported",
+      "text": "node _less_T_21 = bits(io.rhs, 31, 31)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_T_22"
+      ],
+      "firrtl_line": 197718,
+      "id": 55,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_less_T_20",
+        "_less_T_21"
+      ],
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:18"
+      },
+      "status": "supported",
+      "text": "node _less_T_22 = eq(_less_T_20, _less_T_21)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_T_23"
+      ],
+      "firrtl_line": 197719,
+      "id": 56,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.lhs"
+      ],
+      "source": {
+        "column": 26,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 82,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 82:26"
+      },
+      "status": "supported",
+      "text": "node _less_T_23 = bits(io.lhs, 31, 0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_T_24"
+      ],
+      "firrtl_line": 197720,
+      "id": 57,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.rhs"
+      ],
+      "source": {
+        "column": 38,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 82,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 82:38"
+      },
+      "status": "supported",
+      "text": "node _less_T_24 = bits(io.rhs, 31, 0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_T_25"
+      ],
+      "firrtl_line": 197721,
+      "id": 58,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_less_T_23",
+        "_less_T_24"
+      ],
+      "source": {
+        "column": 35,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 82,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 82:35"
+      },
+      "status": "supported",
+      "text": "node _less_T_25 = lt(_less_T_23, _less_T_24)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_T_26"
+      ],
+      "firrtl_line": 197722,
+      "id": 59,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.lhs"
+      ],
+      "source": {
+        "column": 68,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:68"
+      },
+      "status": "supported",
+      "text": "node _less_T_26 = bits(io.lhs, 31, 31)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_less_T_27"
+      ],
+      "firrtl_line": 197723,
+      "id": 60,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.rhs"
+      ],
+      "source": {
+        "column": 76,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:76"
+      },
+      "status": "supported",
+      "text": "node _less_T_27 = bits(io.rhs, 31, 31)"
+    },
+    {
+      "control_reads": [
+        "less_signed_1"
+      ],
+      "drives": [
+        "_less_T_28"
+      ],
+      "firrtl_line": 197724,
+      "id": 61,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_less_T_26",
+        "_less_T_27",
+        "less_signed_1"
+      ],
+      "source": {
+        "column": 58,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:58"
+      },
+      "status": "supported",
+      "text": "node _less_T_28 = mux(less_signed_1, _less_T_26, _less_T_27)"
+    },
+    {
+      "control_reads": [
+        "_less_T_22"
+      ],
+      "drives": [
+        "_less_T_29"
+      ],
+      "firrtl_line": 197725,
+      "id": 62,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_less_T_22",
+        "_less_T_25",
+        "_less_T_28"
+      ],
+      "source": {
+        "column": 10,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 91,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 91:10"
+      },
+      "status": "supported",
+      "text": "node _less_T_29 = mux(_less_T_22, _less_T_25, _less_T_28)"
+    },
+    {
+      "control_reads": [
+        "_less_T"
+      ],
+      "drives": [
+        "less"
+      ],
+      "firrtl_line": 197726,
+      "id": 63,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_less_T",
+        "_less_T_18",
+        "_less_T_29"
+      ],
+      "source": {
+        "column": 70,
+        "file": "src/main/scala/chisel3/util/Mux.scala",
+        "line": 50,
+        "raw": "src/main/scala/chisel3/util/Mux.scala 50:70"
+      },
+      "status": "supported",
+      "text": "node less = mux(_less_T, _less_T_18, _less_T_29)"
+    },
+    {
+      "control_reads": [
+        "less"
+      ],
+      "drives": [
+        "_minmax_T"
+      ],
+      "firrtl_line": 197727,
+      "id": 64,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "less",
+        "max",
+        "min"
+      ],
+      "source": {
+        "column": 23,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 97,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 97:23"
+      },
+      "status": "supported",
+      "text": "node _minmax_T = mux(less, min, max)"
+    },
+    {
+      "control_reads": [
+        "_minmax_T"
+      ],
+      "drives": [
+        "minmax"
+      ],
+      "firrtl_line": 197728,
+      "id": 65,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_minmax_T",
+        "io.lhs",
+        "io.rhs"
+      ],
+      "source": {
+        "column": 19,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 97,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 97:19"
+      },
+      "status": "supported",
+      "text": "node minmax = mux(_minmax_T, io.lhs, io.rhs)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_logic_T"
+      ],
+      "firrtl_line": 197729,
+      "id": 66,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.lhs",
+        "io.rhs"
+      ],
+      "source": {
+        "column": 27,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 99,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 99:27"
+      },
+      "status": "supported",
+      "text": "node _logic_T = and(io.lhs, io.rhs)"
+    },
+    {
+      "control_reads": [
+        "logic_and"
+      ],
+      "drives": [
+        "_logic_T_1"
+      ],
+      "firrtl_line": 197730,
+      "id": 67,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_logic_T",
+        "h0",
+        "logic_and"
+      ],
+      "source": {
+        "column": 8,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 99,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 99:8"
+      },
+      "status": "supported",
+      "text": "node _logic_T_1 = mux(logic_and, _logic_T, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_logic_T_2"
+      ],
+      "firrtl_line": 197731,
+      "id": 68,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.lhs",
+        "io.rhs"
+      ],
+      "source": {
+        "column": 27,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 100,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 100:27"
+      },
+      "status": "supported",
+      "text": "node _logic_T_2 = xor(io.lhs, io.rhs)"
+    },
+    {
+      "control_reads": [
+        "logic_xor"
+      ],
+      "drives": [
+        "_logic_T_3"
+      ],
+      "firrtl_line": 197732,
+      "id": 69,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_logic_T_2",
+        "h0",
+        "logic_xor"
+      ],
+      "source": {
+        "column": 8,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 100,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 100:8"
+      },
+      "status": "supported",
+      "text": "node _logic_T_3 = mux(logic_xor, _logic_T_2, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "logic"
+      ],
+      "firrtl_line": 197733,
+      "id": 70,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_logic_T_1",
+        "_logic_T_3"
+      ],
+      "source": {
+        "column": 42,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 99,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 99:42"
+      },
+      "status": "supported",
+      "text": "node logic = or(_logic_T_1, _logic_T_3)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_out_T"
+      ],
+      "firrtl_line": 197734,
+      "id": 71,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "logic_and",
+        "logic_xor"
+      ],
+      "source": {
+        "column": 19,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 103,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 103:19"
+      },
+      "status": "supported",
+      "text": "node _out_T = or(logic_and, logic_xor)"
+    },
+    {
+      "control_reads": [
+        "_out_T"
+      ],
+      "drives": [
+        "_out_T_1"
+      ],
+      "firrtl_line": 197735,
+      "id": 72,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_out_T",
+        "logic",
+        "minmax"
+      ],
+      "source": {
+        "column": 8,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 103,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 103:8"
+      },
+      "status": "supported",
+      "text": "node _out_T_1 = mux(_out_T, logic, minmax)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "out"
+      ],
+      "firrtl_line": 197736,
+      "id": 73,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_out_T_1",
+        "adder_out"
+      ],
+      "source": {
+        "column": 8,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 102,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 102:8"
+      },
+      "status": "supported",
+      "text": "node out = mux(add, adder_out, _out_T_1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_wmask_T"
+      ],
+      "firrtl_line": 197737,
+      "id": 74,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.mask"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "status": "supported",
+      "text": "node _wmask_T = bits(io.mask, 0, 0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_wmask_T_1"
+      ],
+      "firrtl_line": 197738,
+      "id": 75,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.mask"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "status": "supported",
+      "text": "node _wmask_T_1 = bits(io.mask, 1, 1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_wmask_T_2"
+      ],
+      "firrtl_line": 197739,
+      "id": 76,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.mask"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "status": "supported",
+      "text": "node _wmask_T_2 = bits(io.mask, 2, 2)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_wmask_T_3"
+      ],
+      "firrtl_line": 197740,
+      "id": 77,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.mask"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "status": "supported",
+      "text": "node _wmask_T_3 = bits(io.mask, 3, 3)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_wmask_T_4"
+      ],
+      "firrtl_line": 197741,
+      "id": 78,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.mask"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "status": "supported",
+      "text": "node _wmask_T_4 = bits(io.mask, 4, 4)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_wmask_T_5"
+      ],
+      "firrtl_line": 197742,
+      "id": 79,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.mask"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "status": "supported",
+      "text": "node _wmask_T_5 = bits(io.mask, 5, 5)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_wmask_T_6"
+      ],
+      "firrtl_line": 197743,
+      "id": 80,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.mask"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "status": "supported",
+      "text": "node _wmask_T_6 = bits(io.mask, 6, 6)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_wmask_T_7"
+      ],
+      "firrtl_line": 197744,
+      "id": 81,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.mask"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "status": "supported",
+      "text": "node _wmask_T_7 = bits(io.mask, 7, 7)"
+    },
+    {
+      "control_reads": [
+        "_wmask_T"
+      ],
+      "drives": [
+        "_wmask_T_8"
+      ],
+      "firrtl_line": 197745,
+      "id": 82,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_wmask_T",
+        "h0",
+        "hff"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "status": "supported",
+      "text": "node _wmask_T_8 = mux(_wmask_T, UInt<8>(0hff), UInt<8>(0h0))"
+    },
+    {
+      "control_reads": [
+        "_wmask_T_1"
+      ],
+      "drives": [
+        "_wmask_T_9"
+      ],
+      "firrtl_line": 197746,
+      "id": 83,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_wmask_T_1",
+        "h0",
+        "hff"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "status": "supported",
+      "text": "node _wmask_T_9 = mux(_wmask_T_1, UInt<8>(0hff), UInt<8>(0h0))"
+    },
+    {
+      "control_reads": [
+        "_wmask_T_2"
+      ],
+      "drives": [
+        "_wmask_T_10"
+      ],
+      "firrtl_line": 197747,
+      "id": 84,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_wmask_T_2",
+        "h0",
+        "hff"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "status": "supported",
+      "text": "node _wmask_T_10 = mux(_wmask_T_2, UInt<8>(0hff), UInt<8>(0h0))"
+    },
+    {
+      "control_reads": [
+        "_wmask_T_3"
+      ],
+      "drives": [
+        "_wmask_T_11"
+      ],
+      "firrtl_line": 197748,
+      "id": 85,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_wmask_T_3",
+        "h0",
+        "hff"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "status": "supported",
+      "text": "node _wmask_T_11 = mux(_wmask_T_3, UInt<8>(0hff), UInt<8>(0h0))"
+    },
+    {
+      "control_reads": [
+        "_wmask_T_4"
+      ],
+      "drives": [
+        "_wmask_T_12"
+      ],
+      "firrtl_line": 197749,
+      "id": 86,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_wmask_T_4",
+        "h0",
+        "hff"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "status": "supported",
+      "text": "node _wmask_T_12 = mux(_wmask_T_4, UInt<8>(0hff), UInt<8>(0h0))"
+    },
+    {
+      "control_reads": [
+        "_wmask_T_5"
+      ],
+      "drives": [
+        "_wmask_T_13"
+      ],
+      "firrtl_line": 197750,
+      "id": 87,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_wmask_T_5",
+        "h0",
+        "hff"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "status": "supported",
+      "text": "node _wmask_T_13 = mux(_wmask_T_5, UInt<8>(0hff), UInt<8>(0h0))"
+    },
+    {
+      "control_reads": [
+        "_wmask_T_6"
+      ],
+      "drives": [
+        "_wmask_T_14"
+      ],
+      "firrtl_line": 197751,
+      "id": 88,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_wmask_T_6",
+        "h0",
+        "hff"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "status": "supported",
+      "text": "node _wmask_T_14 = mux(_wmask_T_6, UInt<8>(0hff), UInt<8>(0h0))"
+    },
+    {
+      "control_reads": [
+        "_wmask_T_7"
+      ],
+      "drives": [
+        "_wmask_T_15"
+      ],
+      "firrtl_line": 197752,
+      "id": 89,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_wmask_T_7",
+        "h0",
+        "hff"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "status": "supported",
+      "text": "node _wmask_T_15 = mux(_wmask_T_7, UInt<8>(0hff), UInt<8>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "wmask_lo_lo"
+      ],
+      "firrtl_line": 197753,
+      "id": 90,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_wmask_T_8",
+        "_wmask_T_9"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "status": "supported",
+      "text": "node wmask_lo_lo = cat(_wmask_T_9, _wmask_T_8)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "wmask_lo_hi"
+      ],
+      "firrtl_line": 197754,
+      "id": 91,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_wmask_T_10",
+        "_wmask_T_11"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "status": "supported",
+      "text": "node wmask_lo_hi = cat(_wmask_T_11, _wmask_T_10)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "wmask_lo"
+      ],
+      "firrtl_line": 197755,
+      "id": 92,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "wmask_lo_hi",
+        "wmask_lo_lo"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "status": "supported",
+      "text": "node wmask_lo = cat(wmask_lo_hi, wmask_lo_lo)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "wmask_hi_lo"
+      ],
+      "firrtl_line": 197756,
+      "id": 93,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_wmask_T_12",
+        "_wmask_T_13"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "status": "supported",
+      "text": "node wmask_hi_lo = cat(_wmask_T_13, _wmask_T_12)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "wmask_hi_hi"
+      ],
+      "firrtl_line": 197757,
+      "id": 94,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_wmask_T_14",
+        "_wmask_T_15"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "status": "supported",
+      "text": "node wmask_hi_hi = cat(_wmask_T_15, _wmask_T_14)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "wmask_hi"
+      ],
+      "firrtl_line": 197758,
+      "id": 95,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "wmask_hi_hi",
+        "wmask_hi_lo"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "status": "supported",
+      "text": "node wmask_hi = cat(wmask_hi_hi, wmask_hi_lo)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "wmask"
+      ],
+      "firrtl_line": 197759,
+      "id": 96,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "wmask_hi",
+        "wmask_lo"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 106,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 106:30"
+      },
+      "status": "supported",
+      "text": "node wmask = cat(wmask_hi, wmask_lo)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_io_out_T"
+      ],
+      "firrtl_line": 197760,
+      "id": 97,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "out",
+        "wmask"
+      ],
+      "source": {
+        "column": 19,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 107,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 107:19"
+      },
+      "status": "supported",
+      "text": "node _io_out_T = and(wmask, out)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_io_out_T_1"
+      ],
+      "firrtl_line": 197761,
+      "id": 98,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "wmask"
+      ],
+      "source": {
+        "column": 27,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 107,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 107:27"
+      },
+      "status": "supported",
+      "text": "node _io_out_T_1 = not(wmask)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_io_out_T_2"
+      ],
+      "firrtl_line": 197762,
+      "id": 99,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_io_out_T_1",
+        "io.lhs"
+      ],
+      "source": {
+        "column": 34,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 107,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 107:34"
+      },
+      "status": "supported",
+      "text": "node _io_out_T_2 = and(_io_out_T_1, io.lhs)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_io_out_T_3"
+      ],
+      "firrtl_line": 197763,
+      "id": 100,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_io_out_T",
+        "_io_out_T_2"
+      ],
+      "source": {
+        "column": 25,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 107,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 107:25"
+      },
+      "status": "supported",
+      "text": "node _io_out_T_3 = or(_io_out_T, _io_out_T_2)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.out"
+      ],
+      "firrtl_line": 197764,
+      "id": 101,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_io_out_T_3"
+      ],
+      "source": {
+        "column": 10,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 107,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 107:10"
+      },
+      "status": "supported",
+      "text": "connect io.out, _io_out_T_3"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.out_unmasked"
+      ],
+      "firrtl_line": 197765,
+      "id": 102,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "out"
+      ],
+      "source": {
+        "column": 19,
+        "file": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala",
+        "line": 108,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/AMOALU.scala 108:19"
+      },
+      "status": "supported",
+      "text": "connect io.out_unmasked, out"
+    }
+  ],
+  "work_unit": {
+    "coverage_complete": true,
+    "decision": "manageable",
+    "depth": 1,
+    "exceeded_limits": [],
+    "id": "BoomNonBlockingDCache.amoalu",
+    "instance_path": "BoomNonBlockingDCache.amoalu",
+    "is_leaf": true,
+    "kind": "module",
+    "module": "AMOALU",
+    "replacement_exceeded_limits": []
+  }
+}

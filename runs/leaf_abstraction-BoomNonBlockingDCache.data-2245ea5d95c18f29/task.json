@@ -1,0 +1,9 @@
+{
+  "kind": "leaf_abstraction",
+  "prompt_version": "leaf-abstraction-prompt-0.11",
+  "provider_mode": "manual_conversation",
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-BoomNonBlockingDCache.data-2245ea5d95c18f29",
+  "work_unit_id": "BoomNonBlockingDCache.data",
+  "workflow_version": "manual-first-workflow-0.9"
+}

@@ -1,0 +1,909 @@
+{
+  "children": [],
+  "complexity": {
+    "event_state_coupling": 0.0,
+    "events": 1,
+    "logical": {
+      "dependency_edges": 12,
+      "signals": 10,
+      "source_loc": 3,
+      "statements": 5
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 26,
+      "signals": 19,
+      "source_loc": 4,
+      "statements": 5,
+      "unmapped_firrtl_loc": 1
+    },
+    "registers": 0,
+    "state_regions": 0
+  },
+  "dependency_edges": [
+    {
+      "dst": "_T_82",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 832,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 832:30"
+      },
+      "src": "h2",
+      "statement_ids": [
+        2507
+      ]
+    },
+    {
+      "dst": "_T_82",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 832,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 832:30"
+      },
+      "src": "nodeOut.d.bits.source",
+      "statement_ids": [
+        2507
+      ]
+    },
+    {
+      "dst": "nodeOut.d.ready",
+      "kind": "data",
+      "source": {
+        "column": 20,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 834,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 834:20"
+      },
+      "src": "h1",
+      "statement_ids": [
+        2508,
+        2509
+      ]
+    },
+    {
+      "dst": "nodeOut.d.ready",
+      "kind": "control",
+      "source": {
+        "column": 20,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 834,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 834:20"
+      },
+      "src": "_T_82",
+      "statement_ids": [
+        2508,
+        2509
+      ]
+    },
+    {
+      "dst": "mshrs.io.mem_grant.valid",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 835,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 835:30"
+      },
+      "src": "h0",
+      "statement_ids": [
+        2508
+      ]
+    },
+    {
+      "dst": "mshrs.io.mem_grant.valid",
+      "kind": "control",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 835,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 835:30"
+      },
+      "src": "_T_82",
+      "statement_ids": [
+        2508
+      ]
+    },
+    {
+      "dst": "mshrs.io.mem_grant.bits.corrupt",
+      "kind": "data",
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 839,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 839:24"
+      },
+      "src": "nodeOut.d.bits.corrupt",
+      "statement_ids": [
+        2519,
+        2520
+      ]
+    },
+    {
+      "dst": "mshrs.io.mem_grant.bits.corrupt",
+      "kind": "control",
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 839,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 839:24"
+      },
+      "src": "_T_82",
+      "statement_ids": [
+        2519,
+        2520
+      ]
+    },
+    {
+      "dst": "mshrs.io.mem_grant.bits.data",
+      "kind": "data",
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 839,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 839:24"
+      },
+      "src": "nodeOut.d.bits.data",
+      "statement_ids": [
+        2519,
+        2520
+      ]
+    },
+    {
+      "dst": "mshrs.io.mem_grant.bits.data",
+      "kind": "control",
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 839,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 839:24"
+      },
+      "src": "_T_82",
+      "statement_ids": [
+        2519,
+        2520
+      ]
+    },
+    {
+      "dst": "mshrs.io.mem_grant.bits.denied",
+      "kind": "data",
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 839,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 839:24"
+      },
+      "src": "nodeOut.d.bits.denied",
+      "statement_ids": [
+        2519,
+        2520
+      ]
+    },
+    {
+      "dst": "mshrs.io.mem_grant.bits.denied",
+      "kind": "control",
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 839,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 839:24"
+      },
+      "src": "_T_82",
+      "statement_ids": [
+        2519,
+        2520
+      ]
+    },
+    {
+      "dst": "mshrs.io.mem_grant.bits.opcode",
+      "kind": "data",
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 839,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 839:24"
+      },
+      "src": "nodeOut.d.bits.opcode",
+      "statement_ids": [
+        2519,
+        2520
+      ]
+    },
+    {
+      "dst": "mshrs.io.mem_grant.bits.opcode",
+      "kind": "control",
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 839,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 839:24"
+      },
+      "src": "_T_82",
+      "statement_ids": [
+        2519,
+        2520
+      ]
+    },
+    {
+      "dst": "mshrs.io.mem_grant.bits.param",
+      "kind": "data",
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 839,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 839:24"
+      },
+      "src": "nodeOut.d.bits.param",
+      "statement_ids": [
+        2519,
+        2520
+      ]
+    },
+    {
+      "dst": "mshrs.io.mem_grant.bits.param",
+      "kind": "control",
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 839,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 839:24"
+      },
+      "src": "_T_82",
+      "statement_ids": [
+        2519,
+        2520
+      ]
+    },
+    {
+      "dst": "mshrs.io.mem_grant.bits.sink",
+      "kind": "data",
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 839,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 839:24"
+      },
+      "src": "nodeOut.d.bits.sink",
+      "statement_ids": [
+        2519,
+        2520
+      ]
+    },
+    {
+      "dst": "mshrs.io.mem_grant.bits.sink",
+      "kind": "control",
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 839,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 839:24"
+      },
+      "src": "_T_82",
+      "statement_ids": [
+        2519,
+        2520
+      ]
+    },
+    {
+      "dst": "mshrs.io.mem_grant.bits.size",
+      "kind": "data",
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 839,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 839:24"
+      },
+      "src": "nodeOut.d.bits.size",
+      "statement_ids": [
+        2519,
+        2520
+      ]
+    },
+    {
+      "dst": "mshrs.io.mem_grant.bits.size",
+      "kind": "control",
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 839,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 839:24"
+      },
+      "src": "_T_82",
+      "statement_ids": [
+        2519,
+        2520
+      ]
+    },
+    {
+      "dst": "mshrs.io.mem_grant.bits.source",
+      "kind": "data",
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 839,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 839:24"
+      },
+      "src": "nodeOut.d.bits.source",
+      "statement_ids": [
+        2519,
+        2520
+      ]
+    },
+    {
+      "dst": "mshrs.io.mem_grant.bits.source",
+      "kind": "control",
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 839,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 839:24"
+      },
+      "src": "_T_82",
+      "statement_ids": [
+        2519,
+        2520
+      ]
+    },
+    {
+      "dst": "nodeOut.d.ready",
+      "kind": "data",
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 839,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 839:24"
+      },
+      "src": "mshrs.io.mem_grant.ready",
+      "statement_ids": [
+        2519,
+        2520
+      ]
+    },
+    {
+      "dst": "nodeOut.d.ready",
+      "kind": "control",
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 839,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 839:24"
+      },
+      "src": "_T_82",
+      "statement_ids": [
+        2519,
+        2520
+      ]
+    },
+    {
+      "dst": "mshrs.io.mem_grant.valid",
+      "kind": "data",
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 839,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 839:24"
+      },
+      "src": "nodeOut.d.valid",
+      "statement_ids": [
+        2519,
+        2520
+      ]
+    },
+    {
+      "dst": "mshrs.io.mem_grant.valid",
+      "kind": "control",
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 839,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 839:24"
+      },
+      "src": "_T_82",
+      "statement_ids": [
+        2519,
+        2520
+      ]
+    }
+  ],
+  "events": [
+    {
+      "channel": "auto.out.d",
+      "direction": "receive",
+      "id": "BoomNonBlockingDCache::auto.out.d.fire",
+      "payload": [
+        "auto.out.d.bits.corrupt",
+        "auto.out.d.bits.data",
+        "auto.out.d.bits.denied",
+        "auto.out.d.bits.opcode",
+        "auto.out.d.bits.param",
+        "auto.out.d.bits.sink",
+        "auto.out.d.bits.size",
+        "auto.out.d.bits.source"
+      ],
+      "predicate": "auto.out.d.valid && auto.out.d.ready",
+      "protocol": "decoupled",
+      "ready": "auto.out.d.ready",
+      "registry_id": "BoomNonBlockingDCache.auto.out.d.fire",
+      "sources": [
+        {
+          "column": 25,
+          "file": "generators/diplomacy/diplomacy/src/diplomacy/lazymodule/LazyModuleImp.scala",
+          "line": 107,
+          "raw": "generators/diplomacy/diplomacy/src/diplomacy/lazymodule/LazyModuleImp.scala 107:25"
+        }
+      ],
+      "valid": "auto.out.d.valid"
+    }
+  ],
+  "frontier": [
+    {
+      "id": "_T_82",
+      "kind": "node",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 832,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 832:30"
+      },
+      "type": null
+    },
+    {
+      "id": "h1",
+      "kind": "unknown",
+      "source": {
+        "column": 28,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 498,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 498:28"
+      },
+      "type": null
+    },
+    {
+      "id": "h2",
+      "kind": "unknown",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 622,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 622:21"
+      },
+      "type": null
+    },
+    {
+      "id": "mshrs.io.mem_grant.bits.corrupt",
+      "kind": "instance_port",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 460,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 460:21"
+      },
+      "type": null
+    },
+    {
+      "id": "mshrs.io.mem_grant.bits.data",
+      "kind": "instance_port",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 460,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 460:21"
+      },
+      "type": null
+    },
+    {
+      "id": "mshrs.io.mem_grant.bits.denied",
+      "kind": "instance_port",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 460,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 460:21"
+      },
+      "type": null
+    },
+    {
+      "id": "mshrs.io.mem_grant.bits.opcode",
+      "kind": "instance_port",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 460,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 460:21"
+      },
+      "type": null
+    },
+    {
+      "id": "mshrs.io.mem_grant.bits.param",
+      "kind": "instance_port",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 460,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 460:21"
+      },
+      "type": null
+    },
+    {
+      "id": "mshrs.io.mem_grant.bits.sink",
+      "kind": "instance_port",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 460,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 460:21"
+      },
+      "type": null
+    },
+    {
+      "id": "mshrs.io.mem_grant.bits.size",
+      "kind": "instance_port",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 460,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 460:21"
+      },
+      "type": null
+    },
+    {
+      "id": "mshrs.io.mem_grant.bits.source",
+      "kind": "instance_port",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 460,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 460:21"
+      },
+      "type": null
+    },
+    {
+      "id": "mshrs.io.mem_grant.ready",
+      "kind": "instance_port",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 460,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 460:21"
+      },
+      "type": null
+    },
+    {
+      "id": "mshrs.io.mem_grant.valid",
+      "kind": "instance_port",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 460,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 460:21"
+      },
+      "type": null
+    },
+    {
+      "id": "nodeOut.d.bits.source",
+      "kind": "wire",
+      "source": {
+        "column": 17,
+        "file": "generators/diplomacy/diplomacy/src/diplomacy/nodes/MixedNode.scala",
+        "line": 543,
+        "raw": "generators/diplomacy/diplomacy/src/diplomacy/nodes/MixedNode.scala 543:17"
+      },
+      "type": null
+    },
+    {
+      "id": "nodeOut.d.ready",
+      "kind": "wire",
+      "source": {
+        "column": 17,
+        "file": "generators/diplomacy/diplomacy/src/diplomacy/nodes/MixedNode.scala",
+        "line": 543,
+        "raw": "generators/diplomacy/diplomacy/src/diplomacy/nodes/MixedNode.scala 543:17"
+      },
+      "type": null
+    }
+  ],
+  "grounding": {
+    "allowed_physical_event_ids": [
+      "BoomNonBlockingDCache::auto.out.d.fire"
+    ],
+    "allowed_state_ids": [],
+    "allowed_statement_ids": [
+      2507,
+      2508,
+      2509,
+      2519,
+      2520
+    ],
+    "semantic_labels": []
+  },
+  "memory_state": [],
+  "parent_connection_signals": [],
+  "planner_version": "hierarchical-planner-v12",
+  "proof_context": {
+    "event_gate_statement_ids": [
+      47
+    ],
+    "event_gate_statements": [
+      {
+        "control_reads": [],
+        "drives": [
+          "auto.out.a.bits.address",
+          "auto.out.a.bits.corrupt",
+          "auto.out.a.bits.data",
+          "auto.out.a.bits.mask",
+          "auto.out.a.bits.opcode",
+          "auto.out.a.bits.param",
+          "auto.out.a.bits.size",
+          "auto.out.a.bits.source",
+          "auto.out.a.ready",
+          "auto.out.a.valid",
+          "auto.out.b.bits.address",
+          "auto.out.b.bits.corrupt",
+          "auto.out.b.bits.data",
+          "auto.out.b.bits.mask",
+          "auto.out.b.bits.opcode",
+          "auto.out.b.bits.param",
+          "auto.out.b.bits.size",
+          "auto.out.b.bits.source",
+          "auto.out.b.ready",
+          "auto.out.b.valid",
+          "auto.out.c.bits.address",
+          "auto.out.c.bits.corrupt",
+          "auto.out.c.bits.data",
+          "auto.out.c.bits.opcode",
+          "auto.out.c.bits.param",
+          "auto.out.c.bits.size",
+          "auto.out.c.bits.source",
+          "auto.out.c.ready",
+          "auto.out.c.valid",
+          "auto.out.d.bits.corrupt",
+          "auto.out.d.bits.data",
+          "auto.out.d.bits.denied",
+          "auto.out.d.bits.opcode",
+          "auto.out.d.bits.param",
+          "auto.out.d.bits.sink",
+          "auto.out.d.bits.size",
+          "auto.out.d.bits.source",
+          "auto.out.d.ready",
+          "auto.out.d.valid",
+          "auto.out.e.bits.sink",
+          "auto.out.e.ready",
+          "auto.out.e.valid"
+        ],
+        "firrtl_line": 197816,
+        "id": 47,
+        "kind": "connect",
+        "note": null,
+        "reads": [
+          "nodeOut"
+        ],
+        "source": {
+          "column": 12,
+          "file": "generators/diplomacy/diplomacy/src/diplomacy/lazymodule/LazyModuleImp.scala",
+          "line": 113,
+          "raw": "generators/diplomacy/diplomacy/src/diplomacy/lazymodule/LazyModuleImp.scala 113:12"
+        },
+        "status": "supported",
+        "text": "connect auto.out, nodeOut"
+      }
+    ],
+    "llm_evidence": false,
+    "policy": "exact-local-event-gate-bridges-v0.1"
+  },
+  "replacement_complexity": {
+    "event_state_coupling": 0.0,
+    "events": 1,
+    "logical": {
+      "dependency_edges": 12,
+      "signals": 10,
+      "source_loc": 3,
+      "statements": 5
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 26,
+      "signals": 19,
+      "source_loc": 4,
+      "statements": 5,
+      "unmapped_firrtl_loc": 1
+    },
+    "registers": 0,
+    "state_regions": 0
+  },
+  "schema_version": "workunit-static-0.2",
+  "semantic_event_cones": [
+    {
+      "complete": true,
+      "event_id": "BoomNonBlockingDCache::auto.out.d.fire",
+      "historical_registers": [],
+      "historical_statement_ids": [
+        2507,
+        2508,
+        2509,
+        2519,
+        2520
+      ],
+      "immediate_frontier": [
+        "auto.out.d.bits.source",
+        "auto.out.d.valid",
+        "h1",
+        "h2",
+        "mshrs.io.mem_grant.ready"
+      ],
+      "immediate_registers": [],
+      "immediate_statement_ids": [
+        2507,
+        2508,
+        2509,
+        2519,
+        2520
+      ]
+    }
+  ],
+  "source_evidence": {
+    "resolved": [
+      {
+        "end_line": 835,
+        "logical_file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "start_line": 831,
+        "text": "  // refills\n  when (tl_out.d.bits.source === cfg.nMSHRs.U) {\n    // This should be ReleaseAck\n    tl_out.d.ready := true.B\n    mshrs.io.mem_grant.valid := false.B\n"
+      },
+      {
+        "end_line": 840,
+        "logical_file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "start_line": 838,
+        "text": "    // This should be GrantData\n    mshrs.io.mem_grant <> tl_out.d\n  }\n"
+      }
+    ],
+    "roots": [
+      "/t1/MCM-Agent/tools/chipyard"
+    ],
+    "unresolved": []
+  },
+  "source_spans": [
+    {
+      "end_line": 834,
+      "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+      "start_line": 832
+    },
+    {
+      "end_line": 839,
+      "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+      "start_line": 839
+    }
+  ],
+  "state": [],
+  "statements": [
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_82"
+      ],
+      "firrtl_line": 200276,
+      "id": 2507,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h2",
+        "nodeOut.d.bits.source"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 832,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 832:30"
+      },
+      "status": "supported",
+      "text": "node _T_82 = eq(nodeOut.d.bits.source, UInt<2>(0h2))"
+    },
+    {
+      "control_reads": [
+        "_T_82"
+      ],
+      "drives": [],
+      "firrtl_line": 200277,
+      "id": 2508,
+      "kind": "when",
+      "note": null,
+      "reads": [
+        "_T_82"
+      ],
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 832,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 832:48"
+      },
+      "status": "supported",
+      "text": "when _T_82 :"
+    },
+    {
+      "control_reads": [
+        "_T_82"
+      ],
+      "drives": [
+        "nodeOut.d.ready"
+      ],
+      "firrtl_line": 200278,
+      "id": 2509,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h1"
+      ],
+      "source": {
+        "column": 20,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 834,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 834:20"
+      },
+      "status": "supported",
+      "text": "connect nodeOut.d.ready, UInt<1>(0h1)"
+    },
+    {
+      "control_reads": [
+        "_T_82"
+      ],
+      "drives": [],
+      "firrtl_line": 200288,
+      "id": 2519,
+      "kind": "else",
+      "note": null,
+      "reads": [
+        "_T_82"
+      ],
+      "source": null,
+      "status": "supported",
+      "text": "else :"
+    },
+    {
+      "control_reads": [
+        "_T_82"
+      ],
+      "drives": [
+        "mshrs.io.mem_grant.bits.corrupt",
+        "mshrs.io.mem_grant.bits.data",
+        "mshrs.io.mem_grant.bits.denied",
+        "mshrs.io.mem_grant.bits.opcode",
+        "mshrs.io.mem_grant.bits.param",
+        "mshrs.io.mem_grant.bits.sink",
+        "mshrs.io.mem_grant.bits.size",
+        "mshrs.io.mem_grant.bits.source",
+        "mshrs.io.mem_grant.ready",
+        "mshrs.io.mem_grant.valid"
+      ],
+      "firrtl_line": 200289,
+      "id": 2520,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "nodeOut.d"
+      ],
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/dcache.scala",
+        "line": 839,
+        "raw": "generators/boom/src/main/scala/v4/lsu/dcache.scala 839:24"
+      },
+      "status": "supported",
+      "text": "connect mshrs.io.mem_grant, nodeOut.d"
+    }
+  ],
+  "work_unit": {
+    "coverage_complete": true,
+    "decision": "manageable",
+    "depth": 1,
+    "exceeded_limits": [],
+    "id": "BoomNonBlockingDCache::region-0-2",
+    "instance_path": "BoomNonBlockingDCache",
+    "is_leaf": true,
+    "kind": "region",
+    "module": "BoomNonBlockingDCache",
+    "replacement_exceeded_limits": []
+  }
+}

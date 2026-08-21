@@ -1,0 +1,610 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [
+        "C1_Input0Selected",
+        "C2_Input1Selected",
+        "C3_Input2Selected"
+      ],
+      "evidence_statement_ids": [
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22
+      ],
+      "formal": {
+        "parts": [
+          "Input0Fire",
+          "Input1Fire",
+          "Input2Fire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "OutputFire"
+      },
+      "id": "A1",
+      "rendered_formula": "OutputFire <=> exactly_one_same_cycle({Input0Fire, Input1Fire, Input2Fire})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_Input1Selected"
+      ],
+      "evidence_statement_ids": [
+        12,
+        16,
+        17
+      ],
+      "formal": {
+        "occurrence": "Input1Fire",
+        "predicate": "Input0Valid",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A2",
+      "rendered_formula": "Input0Valid => !Input1Fire",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_Input2Selected"
+      ],
+      "evidence_statement_ids": [
+        11,
+        13,
+        18,
+        19
+      ],
+      "formal": {
+        "occurrence": "Input2Fire",
+        "predicate": "Higher01Valid",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A3",
+      "rendered_formula": "Higher01Valid => !Input2Fire",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_Input0Selected"
+      ],
+      "evidence_statement_ids": [
+        8,
+        9
+      ],
+      "formal": {
+        "on": "Input0Fire",
+        "scope_identity": null,
+        "source": {
+          "op": "const",
+          "value": 0
+        },
+        "target": "io.chosen",
+        "type": "signal_equality"
+      },
+      "id": "A4",
+      "rendered_formula": "io.chosen = 0 on Input0Fire",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_Input1Selected"
+      ],
+      "evidence_statement_ids": [
+        5,
+        6,
+        8,
+        12,
+        16,
+        17
+      ],
+      "formal": {
+        "on": "Input1Fire",
+        "scope_identity": null,
+        "source": {
+          "op": "const",
+          "value": 1
+        },
+        "target": "io.chosen",
+        "type": "signal_equality"
+      },
+      "id": "A5",
+      "rendered_formula": "io.chosen = 1 on Input1Fire",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_Input2Selected"
+      ],
+      "evidence_statement_ids": [
+        3,
+        5,
+        8,
+        11,
+        13,
+        18,
+        19
+      ],
+      "formal": {
+        "on": "Input2Fire",
+        "scope_identity": null,
+        "source": {
+          "op": "const",
+          "value": 2
+        },
+        "target": "io.chosen",
+        "type": "signal_equality"
+      },
+      "id": "A6",
+      "rendered_formula": "io.chosen = 2 on Input2Fire",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_Input0Selected"
+      ],
+      "evidence_statement_ids": [
+        8,
+        10
+      ],
+      "formal": {
+        "on": "Input0Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[0].bits.req[0].addr",
+          "op": "signal"
+        },
+        "target": "io.out.bits.req[0].addr",
+        "type": "signal_equality"
+      },
+      "id": "A7",
+      "rendered_formula": "io.out.bits.req[0].addr = io.in[0].bits.req[0].addr on Input0Fire",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_Input0Selected"
+      ],
+      "evidence_statement_ids": [
+        8,
+        10
+      ],
+      "formal": {
+        "on": "Input0Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[0].bits.req[0].way_en",
+          "op": "signal"
+        },
+        "target": "io.out.bits.req[0].way_en",
+        "type": "signal_equality"
+      },
+      "id": "A8",
+      "rendered_formula": "io.out.bits.req[0].way_en = io.in[0].bits.req[0].way_en on Input0Fire",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_Input0Selected"
+      ],
+      "evidence_statement_ids": [
+        8,
+        10
+      ],
+      "formal": {
+        "on": "Input0Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[0].bits.valid[0]",
+          "op": "signal"
+        },
+        "target": "io.out.bits.valid[0]",
+        "type": "signal_equality"
+      },
+      "id": "A9",
+      "rendered_formula": "io.out.bits.valid[0] = io.in[0].bits.valid[0] on Input0Fire",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_Input1Selected"
+      ],
+      "evidence_statement_ids": [
+        5,
+        7,
+        8,
+        12,
+        16,
+        17
+      ],
+      "formal": {
+        "on": "Input1Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[1].bits.req[0].addr",
+          "op": "signal"
+        },
+        "target": "io.out.bits.req[0].addr",
+        "type": "signal_equality"
+      },
+      "id": "A10",
+      "rendered_formula": "io.out.bits.req[0].addr = io.in[1].bits.req[0].addr on Input1Fire",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_Input1Selected"
+      ],
+      "evidence_statement_ids": [
+        5,
+        7,
+        8,
+        12,
+        16,
+        17
+      ],
+      "formal": {
+        "on": "Input1Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[1].bits.req[0].way_en",
+          "op": "signal"
+        },
+        "target": "io.out.bits.req[0].way_en",
+        "type": "signal_equality"
+      },
+      "id": "A11",
+      "rendered_formula": "io.out.bits.req[0].way_en = io.in[1].bits.req[0].way_en on Input1Fire",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_Input1Selected"
+      ],
+      "evidence_statement_ids": [
+        5,
+        7,
+        8,
+        12,
+        16,
+        17
+      ],
+      "formal": {
+        "on": "Input1Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[1].bits.valid[0]",
+          "op": "signal"
+        },
+        "target": "io.out.bits.valid[0]",
+        "type": "signal_equality"
+      },
+      "id": "A12",
+      "rendered_formula": "io.out.bits.valid[0] = io.in[1].bits.valid[0] on Input1Fire",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_Input2Selected"
+      ],
+      "evidence_statement_ids": [
+        3,
+        4,
+        5,
+        8,
+        11,
+        13,
+        18,
+        19
+      ],
+      "formal": {
+        "on": "Input2Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[2].bits.req[0].addr",
+          "op": "signal"
+        },
+        "target": "io.out.bits.req[0].addr",
+        "type": "signal_equality"
+      },
+      "id": "A13",
+      "rendered_formula": "io.out.bits.req[0].addr = io.in[2].bits.req[0].addr on Input2Fire",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_Input2Selected"
+      ],
+      "evidence_statement_ids": [
+        3,
+        4,
+        5,
+        8,
+        11,
+        13,
+        18,
+        19
+      ],
+      "formal": {
+        "on": "Input2Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[2].bits.req[0].way_en",
+          "op": "signal"
+        },
+        "target": "io.out.bits.req[0].way_en",
+        "type": "signal_equality"
+      },
+      "id": "A14",
+      "rendered_formula": "io.out.bits.req[0].way_en = io.in[2].bits.req[0].way_en on Input2Fire",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_Input2Selected"
+      ],
+      "evidence_statement_ids": [
+        3,
+        4,
+        5,
+        8,
+        11,
+        13,
+        18,
+        19
+      ],
+      "formal": {
+        "on": "Input2Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[2].bits.valid[0]",
+          "op": "signal"
+        },
+        "target": "io.out.bits.valid[0]",
+        "type": "signal_equality"
+      },
+      "id": "A15",
+      "rendered_formula": "io.out.bits.valid[0] = io.in[2].bits.valid[0] on Input2Fire",
+      "status": "candidate"
+    }
+  ],
+  "cases": [
+    {
+      "confidence": "high",
+      "emits": [
+        "OutputFire"
+      ],
+      "evidence_statement_ids": [
+        8,
+        9,
+        10,
+        14,
+        15,
+        20,
+        21,
+        22
+      ],
+      "guard_predicates": [],
+      "id": "C1_Input0Selected",
+      "relations": [
+        "Input 0 has highest priority. When it fires, the output fires in the same cycle, chosen is 0, and the output read-request payload comes from input 0."
+      ],
+      "trigger_occurrences": [
+        "Input0Fire"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [
+        "OutputFire"
+      ],
+      "evidence_statement_ids": [
+        5,
+        6,
+        7,
+        8,
+        12,
+        16,
+        17,
+        20,
+        21,
+        22
+      ],
+      "guard_predicates": [
+        {
+          "id": "Input0Valid",
+          "positive": false
+        }
+      ],
+      "id": "C2_Input1Selected",
+      "relations": [
+        "Input 1 may fire only when input 0 is not valid; then chosen is 1 and the output payload comes from input 1."
+      ],
+      "trigger_occurrences": [
+        "Input1Fire"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [
+        "OutputFire"
+      ],
+      "evidence_statement_ids": [
+        3,
+        4,
+        5,
+        8,
+        11,
+        13,
+        18,
+        19,
+        20,
+        21,
+        22
+      ],
+      "guard_predicates": [
+        {
+          "id": "Higher01Valid",
+          "positive": false
+        }
+      ],
+      "id": "C3_Input2Selected",
+      "relations": [
+        "Input 2 may fire only when neither input 0 nor input 1 is valid; then chosen remains 2 and the default output payload from input 2 is selected."
+      ],
+      "trigger_occurrences": [
+        "Input2Fire"
+      ]
+    }
+  ],
+  "identity_keys": [],
+  "note": "Only axioms with FORMALLY_PROVED or SPEC_PROVED validation level are included. Grounded/structurally-supported candidate axioms remain outside the trusted abstraction.",
+  "occurrences": [
+    {
+      "definition": "io.in[0].valid && io.in[0].ready",
+      "evidence_statement_ids": [
+        14,
+        15
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "Input0Fire",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache.dataReadArb::io.in[0].fire"
+      ]
+    },
+    {
+      "definition": "io.in[1].valid && io.in[1].ready",
+      "evidence_statement_ids": [
+        12,
+        16,
+        17
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "Input1Fire",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache.dataReadArb::io.in[1].fire"
+      ]
+    },
+    {
+      "definition": "io.in[2].valid && io.in[2].ready",
+      "evidence_statement_ids": [
+        11,
+        13,
+        18,
+        19
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "Input2Fire",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache.dataReadArb::io.in[2].fire"
+      ]
+    },
+    {
+      "definition": "io.out.valid && io.out.ready",
+      "evidence_statement_ids": [
+        20,
+        21,
+        22
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "OutputFire",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache.dataReadArb::io.out.fire"
+      ]
+    }
+  ],
+  "predicates": [
+    {
+      "definition": "io.in[0].valid",
+      "evidence_statement_ids": [
+        8,
+        11,
+        12
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "io.in[0].valid",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "Input0Valid"
+    },
+    {
+      "definition": "io.in[0].valid || io.in[1].valid",
+      "evidence_statement_ids": [
+        11
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "_grant_T",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "Higher01Valid"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-BoomNonBlockingDCache.dataReadArb-8173fddc63391303",
+  "trust_policy": "formal-ast-plus-certified-provenance-v0.3",
+  "trusted_axiom_ids": [
+    "A1",
+    "A10",
+    "A11",
+    "A12",
+    "A13",
+    "A14",
+    "A15",
+    "A2",
+    "A3",
+    "A4",
+    "A5",
+    "A6",
+    "A7",
+    "A8",
+    "A9"
+  ],
+  "work_unit_id": "BoomNonBlockingDCache.dataReadArb"
+}

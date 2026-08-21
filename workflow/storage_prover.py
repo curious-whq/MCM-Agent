@@ -13,7 +13,16 @@ from .semantic import (
     _literal,
     _statement_rhs,
 )
-from .formal_patterns import _and, _bool_refs, _occurrence_condition, _unsat
+from .formal_patterns import (
+    _and,
+    _bool_expr,
+    _bool_refs,
+    _not,
+    _occurrence_condition,
+    _or,
+    _propagate_bool_refs,
+    _unsat,
+)
 
 
 _SMEM_VECTOR_RE = re.compile(
@@ -190,6 +199,91 @@ def _controls_equal_event(
     return expected is not None and _simplify_mode(actual, active, mode) == _simplify_mode(expected, active, mode)
 
 
+def _controls_equal_occurrence(
+    model: HandoffControlModel,
+    candidate: dict[str, Any],
+    statement: dict[str, Any],
+    occurrence: str,
+) -> tuple[bool, int]:
+    refs = _bool_refs(model, candidate)
+    controls = [str(item) for item in statement.get("control_reads", [])]
+    for control in controls:
+        refs.add(control)
+        _propagate_bool_refs(model, control, refs)
+    expected = _occurrence_condition(model, candidate, occurrence, refs)
+    if expected is None or not controls:
+        return False, 0
+    actual: tuple[Any, ...] = ("const", True)
+    for control in controls:
+        value = _bool_expr(model, refs, control)
+        if value is None:
+            return False, 0
+        actual = _and(actual, value)
+    mismatch = _or(_and(actual, _not(expected)), _and(expected, _not(actual)))
+    proved, atoms = _unsat(mismatch)
+    return proved is True, atoms
+
+
+def _read_target_value(
+    model: HandoffControlModel,
+    expr: str,
+    seen: set[str] | None = None,
+) -> tuple[tuple[Any, ...], int] | None:
+    """Resolve aliases while counting explicit register stages after an smem read."""
+
+    text = expr.strip()
+    seen = set() if seen is None else set(seen)
+    value = _literal(text)
+    if value is not None:
+        return ("lit", value), 0
+    if re.fullmatch(r"[A-Za-z_][A-Za-z0-9_$]*(?:(?:\.[A-Za-z_][A-Za-z0-9_$]*)|(?:\[[^\[\]]+\]))*", text):
+        if text in seen:
+            return None
+        rhs = model.rhs(text)
+        if rhs is None:
+            return ("ref", text), 0
+        nested = _read_target_value(model, rhs, seen | {text})
+        if nested is None:
+            return None
+        is_register = any(
+            text == root or text.startswith(root + ".") or text.startswith(root + "[")
+            for root in model.state_roots
+        )
+        return nested[0], nested[1] + int(is_register)
+    call = _call(text)
+    if call is None:
+        return None
+    name, args = call
+    normalized = []
+    stages = 0
+    for arg in args:
+        nested = _read_target_value(model, arg, seen)
+        if nested is None:
+            return None
+        normalized.append(nested[0])
+        stages = max(stages, nested[1])
+    return ("call", name, *normalized), stages
+
+
+def _full_width_equivalent(
+    actual: tuple[Any, ...],
+    expected: tuple[Any, ...],
+    width: int,
+) -> bool:
+    return actual == expected or (
+        len(actual) == 5
+        and actual[:2] == ("call", "bits")
+        and actual[2] == expected
+        and actual[3:] == (("lit", width - 1), ("lit", 0))
+    )
+
+
+def _mask_bit_is_one(mask: tuple[Any, ...], index: int) -> bool:
+    """Return whether one declared lane-mask bit is statically enabled."""
+
+    return mask[0] == "lit" and bool((int(mask[1]) >> index) & 1)
+
+
 def _counter_initialization_certificate(
     model: HandoffControlModel,
     active: tuple[Any, ...],
@@ -256,6 +350,7 @@ def prove_indexed_storage_flow(
     initialization: dict[str, Any],
     resolution: str,
     relations: dict[str, str],
+    read_write_collision: str = "exclusive",
 ) -> dict[str, Any]:
     """Certify rf/co/fr semantics from one exact synchronous indexed memory."""
 
@@ -288,42 +383,76 @@ def prove_indexed_storage_flow(
         return {"status": STRUCTURAL_UNKNOWN, "reason": "prover requires one exact read and write mport"}
     write_port, write_address_actual, write_clock, write_statement = write_ports[0]
     read_port, read_address_actual, read_clock, read_statement = read_ports[0]
-    if write_clock != read_clock or write_clock != "clock" or int(read.get("latency_cycles", -1)) != 1:
-        return {"status": STRUCTURAL_UNKNOWN, "reason": "memory is not a certified one-cycle synchronous RAM"}
+    if write_clock != read_clock or write_clock != "clock" or int(read.get("latency_cycles", -1)) < 1:
+        return {"status": STRUCTURAL_UNKNOWN, "reason": "memory is not a certified synchronous RAM"}
 
-    active = _nf(model, str(initialization["active"]))
-    init_address = _nf(model, str(initialization["address"]))
+    initialization_kind = str(initialization.get("kind", "explicit"))
+    if initialization_kind not in {"explicit", "implicit_unconstrained"}:
+        return {"status": STRUCTURAL_UNKNOWN, "reason": "unsupported initialization kind"}
+    explicit_initialization = initialization_kind == "explicit"
+    active = _nf(model, str(initialization["active"])) if explicit_initialization else None
+    init_address = _nf(model, str(initialization["address"])) if explicit_initialization else None
     write_address = _nf(model, str(write["address"]))
     read_address = _nf(model, str(read["address"]))
     actual_write_address = _nf(model, write_address_actual)
     actual_read_address = _nf(model, read_address_actual)
-    if None in {active, init_address, write_address, read_address, actual_write_address, actual_read_address}:
+    required_expressions = {write_address, read_address, actual_write_address, actual_read_address}
+    if explicit_initialization:
+        required_expressions.update({active, init_address})
+    if None in required_expressions:
         return {"status": STRUCTURAL_UNKNOWN, "reason": "address or initialization expression is unresolved"}
-    assert active is not None and init_address is not None and write_address is not None
-    assert read_address is not None and actual_write_address is not None and actual_read_address is not None
-    if not _equivalent_address(_simplify_mode(actual_write_address, active, False), write_address, domain):
+    assert write_address is not None and read_address is not None
+    assert actual_write_address is not None and actual_read_address is not None
+    normal_write_address = (
+        _simplify_mode(actual_write_address, active, False)
+        if active is not None
+        else actual_write_address
+    )
+    if not _equivalent_address(normal_write_address, write_address, domain):
         return {"status": STRUCTURAL_UNKNOWN, "reason": "normal write address does not match the declared key"}
-    if not _equivalent_address(_simplify_mode(actual_write_address, active, True), init_address, domain):
-        return {"status": STRUCTURAL_UNKNOWN, "reason": "initialization address does not match the declared key"}
+    if explicit_initialization:
+        assert active is not None and init_address is not None
+        if not _equivalent_address(_simplify_mode(actual_write_address, active, True), init_address, domain):
+            return {"status": STRUCTURAL_UNKNOWN, "reason": "initialization address does not match the declared key"}
     if not _equivalent_address(actual_read_address, read_address, domain):
         return {"status": STRUCTURAL_UNKNOWN, "reason": "sampled read address does not match the declared key"}
 
-    write_event = _event(model, candidate, str(write["on"]))
-    read_event = _event(model, candidate, str(read["request"]))
-    if write_event is None or read_event is None:
-        return {"status": STRUCTURAL_UNKNOWN, "reason": "read/write occurrence is not one exact boundary handshake"}
-    if not _controls_equal_event(model, read_statement, read_event, active, False):
+    read_control_proved, read_control_atoms = _controls_equal_occurrence(
+        model, candidate, read_statement, str(read["request"])
+    )
+    if not read_control_proved:
         return {"status": STRUCTURAL_UNKNOWN, "reason": "read mport is not enabled exactly by the read request"}
 
-    write_controls = [_nf(model, str(item)) for item in write_statement.get("control_reads", [])]
-    normal_write = _nf(model, f"and({write_event['valid']}, {write_event['ready']})")
-    if normal_write is None or not any(
-        item is not None
-        and _simplify_mode(item, active, False) == _simplify_mode(normal_write, active, False)
-        and _simplify_mode(item, active, True) == ("lit", 1)
-        for item in write_controls
-    ):
-        return {"status": STRUCTURAL_UNKNOWN, "reason": "shared write mport enable does not match init-or-write behavior"}
+    write_control_atoms = 0
+    write_port_control_proved = False
+    write_occurrence_binding: dict[str, Any]
+    if explicit_initialization:
+        write_event = _event(model, candidate, str(write["on"]))
+        if write_event is None:
+            return {"status": STRUCTURAL_UNKNOWN, "reason": "explicit storage write is not one boundary handshake"}
+        write_controls = [_nf(model, str(item)) for item in write_statement.get("control_reads", [])]
+        valid = write_event.get("valid")
+        ready = write_event.get("ready")
+        if not isinstance(valid, str) or not isinstance(ready, str):
+            return {"status": STRUCTURAL_UNKNOWN, "reason": "explicit storage write boundary is incomplete"}
+        normal_write = _nf(model, f"and({valid}, {ready})")
+        assert active is not None
+        if normal_write is None or not any(
+            item is not None
+            and _simplify_mode(item, active, False) == _simplify_mode(normal_write, active, False)
+            and _simplify_mode(item, active, True) == ("lit", 1)
+            for item in write_controls
+        ):
+            return {"status": STRUCTURAL_UNKNOWN, "reason": "shared write mport enable does not match init-or-write behavior"}
+        write_occurrence_binding = {
+            "kind": "shared-initialization-or-boundary-write",
+            "write_mport_statement_id": int(write_statement["id"]),
+        }
+    else:
+        write_port_control_proved, write_control_atoms = _controls_equal_occurrence(
+            model, candidate, write_statement, str(write["on"])
+        )
+        write_occurrence_binding = {}
 
     lane_writers: dict[int, dict[str, Any]] = {}
     for statement in model.statements.values():
@@ -336,14 +465,16 @@ def prove_indexed_storage_flow(
         return {"status": STRUCTURAL_UNKNOWN, "reason": "not every memory lane has one exact writer"}
 
     external_mask = _nf(model, str(write["lane_mask"]))
-    init_mask = _nf(model, str(initialization["lane_mask"]))
+    init_mask = _nf(model, str(initialization["lane_mask"])) if explicit_initialization else None
     packed_write = _packed_values(model, value_fields, "write_value")
-    packed_init = _packed_values(model, value_fields, "initial_value")
-    if external_mask is None or init_mask is None or packed_write is None or packed_init is None:
+    packed_init = _packed_values(model, value_fields, "initial_value") if explicit_initialization else None
+    if external_mask is None or packed_write is None or (explicit_initialization and (init_mask is None or packed_init is None)):
         return {"status": STRUCTURAL_UNKNOWN, "reason": "mask or packed value expression is unresolved"}
     write_values, layout = packed_write
-    init_values, _ = packed_init
+    init_values = packed_init[0] if packed_init is not None else []
+    ordered_fields = sorted(value_fields, key=lambda item: int(item["storage_bits"]["hi"]), reverse=True)
     lane_certificates = []
+    cell_write_atoms: dict[int, int] = {}
     for index, statement in sorted(lane_writers.items()):
         parsed = _statement_rhs(statement)
         if parsed is None:
@@ -351,68 +482,177 @@ def prove_indexed_storage_flow(
         actual_value = _nf(model, parsed[1])
         if actual_value is None:
             return {"status": STRUCTURAL_UNKNOWN, "reason": "memory lane value cone is unresolved"}
-        normal_parts = _flatten_cat(_simplify_mode(actual_value, active, False))
-        init_parts = _flatten_cat(_simplify_mode(actual_value, active, True))
-        if normal_parts != write_values or init_parts != init_values:
+        normal_value = _simplify_mode(actual_value, active, False) if active is not None else actual_value
+        normal_parts = _flatten_cat(normal_value)
+        normal_matches = len(normal_parts) == len(write_values) and all(
+            _full_width_equivalent(actual, expected, int(field["storage_bits"]["hi"]) - int(field["storage_bits"]["lo"]) + 1)
+            for actual, expected, field in zip(normal_parts, write_values, ordered_fields)
+        )
+        init_parts = _flatten_cat(_simplify_mode(actual_value, active, True)) if active is not None else []
+        if not normal_matches or (explicit_initialization and init_parts != init_values):
             return {"status": STRUCTURAL_UNKNOWN, "reason": f"memory lane {index} value layout mismatch"}
         masks = [_nf(model, str(item)) for item in statement.get("control_reads", [])]
         expected_external = ("call", "bits", external_mask, ("lit", index), ("lit", index))
         expected_init = ("call", "bits", init_mask, ("lit", index), ("lit", index))
-        if not any(
+        if not explicit_initialization and not write_port_control_proved:
+            # The occurrence may denote the physical cell write, with the RTL
+            # lane mask already absorbed into its condition. In that exact
+            # normalization the declared residual mask must be statically one.
+            cell_control_proved, atom_count = _controls_equal_occurrence(
+                model, candidate, statement, str(write["on"])
+            )
+            if not cell_control_proved or not _mask_bit_is_one(external_mask, index):
+                return {
+                    "status": STRUCTURAL_UNKNOWN,
+                    "reason": (
+                        "write occurrence matches neither the write mport plus lane mask "
+                        f"nor exact memory lane {index} activation"
+                    ),
+                }
+            cell_write_atoms[index] = atom_count
+            external_mask_matches = True
+        else:
+            external_mask_matches = any(
+                item is not None
+                and (
+                    _simplify_mode(item, active, False) if active is not None else item
+                ) == (
+                    _simplify_mode(expected_external, active, False) if active is not None else expected_external
+                )
+                for item in masks
+            )
+        init_mask_matches = not explicit_initialization or any(
             item is not None
-            and _simplify_mode(item, active, False) == _simplify_mode(expected_external, active, False)
             and _simplify_mode(item, active, True) == _simplify_mode(expected_init, active, True) == ("lit", 1)
             for item in masks
-        ):
+        )
+        if not external_mask_matches or not init_mask_matches:
             return {"status": STRUCTURAL_UNKNOWN, "reason": f"memory lane {index} mask mismatch"}
         lane_certificates.append({
             "lane": index,
             "statement_id": int(statement["id"]),
             "normal_mask_bit": index,
-            "initialized": True,
+            "initialized": explicit_initialization,
         })
 
+    if not explicit_initialization:
+        if write_port_control_proved:
+            write_occurrence_binding = {
+                "kind": "exact-write-mport-occurrence-with-lane-mask",
+                "write_mport_statement_id": int(write_statement["id"]),
+                "atom_count": write_control_atoms,
+            }
+        else:
+            write_occurrence_binding = {
+                "kind": "exact-cell-write-occurrence",
+                "lane_statement_ids": [
+                    int(lane_writers[index]["id"]) for index in sorted(lane_writers)
+                ],
+                "declared_lane_mask": "statically-enabled",
+                "atom_count_by_lane": {
+                    str(index): cell_write_atoms[index] for index in sorted(cell_write_atoms)
+                },
+            }
+
     read_bindings = []
+    observed_latencies: set[int] = set()
     for field in value_fields:
         hi = int(field["storage_bits"]["hi"])
         lo = int(field["storage_bits"]["lo"])
         for index, target in enumerate(field["read_targets"]):
-            target_nf = _nf(model, str(target))
+            resolved_target = _read_target_value(model, str(target))
+            if resolved_target is None:
+                return {"status": STRUCTURAL_UNKNOWN, "reason": f"read target {target!r} is unresolved"}
+            target_nf, register_stages = resolved_target
             source = ("ref", f"{read_port}[{index}]")
             expected = source if lo == 0 and hi == width - 1 else (
                 "call", "bits", source, ("lit", hi), ("lit", lo)
             )
             if target_nf != expected:
                 return {"status": STRUCTURAL_UNKNOWN, "reason": f"read target {target!r} is not the declared storage slice"}
+            observed_latencies.add(1 + register_stages)
             read_bindings.append({
                 "lane": index,
                 "field": field["name"],
                 "target": target,
                 "storage_bits": {"hi": hi, "lo": lo},
+                "post_memory_register_stages": register_stages,
             })
 
-    init_certificate = _counter_initialization_certificate(model, active, init_address, domain)
-    if init_certificate is None:
-        return {"status": STRUCTURAL_UNKNOWN, "reason": "initialization is not an exact complete counter sweep"}
-    for event in (read_event, write_event):
-        ready = event.get("ready")
-        ready_nf = _nf(model, str(ready)) if isinstance(ready, str) else None
-        if ready_nf is None or _simplify_mode(ready_nf, active, True) != ("lit", 0):
-            return {"status": STRUCTURAL_UNKNOWN, "reason": "external access is not blocked during initialization"}
+    declared_latency = int(read["latency_cycles"])
+    if observed_latencies != {declared_latency}:
+        return {
+            "status": STRUCTURAL_UNKNOWN,
+            "reason": (
+                f"declared read latency {declared_latency} does not match exact paths "
+                f"{sorted(observed_latencies)}"
+            ),
+        }
+
+    if explicit_initialization:
+        assert active is not None and init_address is not None
+        init_certificate = _counter_initialization_certificate(model, active, init_address, domain)
+        if init_certificate is None:
+            return {"status": STRUCTURAL_UNKNOWN, "reason": "initialization is not an exact complete counter sweep"}
+        read_event = _event(model, candidate, str(read["request"]))
+        write_event = _event(model, candidate, str(write["on"]))
+        if read_event is None or write_event is None:
+            return {"status": STRUCTURAL_UNKNOWN, "reason": "explicit storage accesses must be boundary handshakes"}
+        for event in (read_event, write_event):
+            ready = event.get("ready")
+            ready_nf = _nf(model, str(ready)) if isinstance(ready, str) else None
+            if ready_nf is None or _simplify_mode(ready_nf, active, True) != ("lit", 0):
+                return {"status": STRUCTURAL_UNKNOWN, "reason": "external access is not blocked during initialization"}
+    else:
+        init_certificate = {
+            "kind": "implicit-unconstrained-initial-writes",
+            "per_key": True,
+            "value": "fresh unconstrained nu_k",
+            "co_position": "before every real write to the same key",
+        }
 
     bool_refs = _bool_refs(model, candidate)
+    for signal in (
+        *([initialization["active"]] if explicit_initialization else []),
+        *[item for occurrence in (read["request"], write["on"]) for item in (
+            (_event(model, candidate, str(occurrence)) or {}).get("valid"),
+            (_event(model, candidate, str(occurrence)) or {}).get("ready"),
+        )],
+    ):
+        if isinstance(signal, str):
+            bool_refs.add(signal)
+            _propagate_bool_refs(model, signal, bool_refs)
     read_condition = _occurrence_condition(model, candidate, str(read["request"]), bool_refs)
     write_condition = _occurrence_condition(model, candidate, str(write["on"]), bool_refs)
     if read_condition is None or write_condition is None:
         return {"status": STRUCTURAL_UNKNOWN, "reason": "read/write handshake condition is unresolved"}
     collision_free, collision_atoms = _unsat(_and(read_condition, write_condition))
-    if collision_free is not True:
-        return {"status": STRUCTURAL_UNKNOWN, "reason": "same-cycle read/write collision is possible or unresolved"}
+    if read_write_collision == "exclusive":
+        if collision_free is not True:
+            return {"status": STRUCTURAL_UNKNOWN, "reason": "same-cycle read/write collision is possible or unresolved"}
+        collision_certificate = {
+            "kind": "exact-combinational-exclusion",
+            "read": read["request"],
+            "write": write["on"],
+            "atom_count": collision_atoms,
+        }
+    elif read_write_collision == "implicit_unconstrained":
+        collision_certificate = {
+            "kind": "implicit-unconstrained-collision-write",
+            "read": read["request"],
+            "write": write["on"],
+            "possible": collision_free is not True,
+            "value": "fresh unconstrained chi_r",
+            "co_position": "after prior writes and before the colliding real write",
+            "rf_source_for_collision_read": True,
+        }
+    else:
+        return {"status": STRUCTURAL_UNKNOWN, "reason": "unsupported read/write collision semantics"}
 
     return {
         "status": STRUCTURALLY_SUPPORTED,
         "proof": (
-            f"{storage} is one completely initialized synchronous indexed store; "
+            f"{storage} is one {initialization_kind} synchronous indexed store; "
             "each read returns the value of its co-latest prior same-key write"
         ),
         "proof_domain": "exact-indexed-storage-rf-co-fr",
@@ -425,7 +665,7 @@ def prove_indexed_storage_flow(
             "clock": write_clock,
             "write_mport_statement_id": int(write_statement["id"]),
             "read_mport_statement_id": int(read_statement["id"]),
-            "read_latency_cycles": 1,
+            "read_latency_cycles": declared_latency,
         },
         "key": {
             "address_domain": dict(domain),
@@ -433,6 +673,7 @@ def prove_indexed_storage_flow(
         },
         "value_layout": layout,
         "write_lanes": lane_certificates,
+        "write_occurrence_binding": write_occurrence_binding,
         "read_bindings": read_bindings,
         "initialization": init_certificate,
         "relations": {
@@ -440,6 +681,11 @@ def prove_indexed_storage_flow(
                 "id": relations["rf"],
                 "definition": "same-key write selected by the read, with no co-later write before the sampled request",
                 "properties": ["same_key", "same_value", "functional_per_read", "latest_prior"],
+                "initial_source": (
+                    "explicit initialization write"
+                    if explicit_initialization
+                    else "implicit per-key write Init_k(k, nu_k)"
+                ),
             },
             "co": {
                 "id": relations["co"],
@@ -452,12 +698,7 @@ def prove_indexed_storage_flow(
                 "derived_from": [relations["rf"], relations["co"]],
             },
         },
-        "collision_policy": "read_write_exclusive",
-        "collision_exclusion": {
-            "kind": "exact-combinational-exclusion",
-            "read": read["request"],
-            "write": write["on"],
-            "atom_count": collision_atoms,
-        },
+        "collision_policy": read_write_collision,
+        "collision_certificate": collision_certificate,
         "semantic_basis": "FIRRTL smem synchronous read/write semantics",
     }

@@ -239,6 +239,16 @@ class ManualWorkflowTests(unittest.TestCase):
             _is_allowed_signal_reference("other[deq_ptr_value]", allowed)
         )
 
+    def test_aggregate_grounding_authorizes_only_its_leaf_fields(self):
+        allowed = {"nodeOut.d", "other.signal"}
+
+        self.assertTrue(
+            _is_allowed_signal_reference("nodeOut.d.bits.opcode", allowed)
+        )
+        self.assertFalse(
+            _is_allowed_signal_reference("nodeOut.e.bits.opcode", allowed)
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

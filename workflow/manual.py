@@ -34,6 +34,13 @@ def _is_allowed_signal_reference(signal: str, allowed_signals: set[str]) -> bool
 
     if signal in allowed_signals:
         return True
+    # FIRRTL aggregate connects/reads are often preserved in the handoff as an
+    # aggregate root (for example ``connect dst.d, src.d``), while a µMCM
+    # payload axiom necessarily names one of its leaf fields.  An exact
+    # aggregate grounding therefore authorizes its dot-selected descendants;
+    # it does not authorize siblings of that aggregate.
+    if any(signal.startswith(root + ".") for root in allowed_signals):
+        return True
     indices = _INDEX_REF_RE.findall(signal)
     if not indices:
         return False
@@ -291,11 +298,17 @@ def validate_candidate_grounding(
         if kind == "boundary" and not physical:
             errors.append(f"boundary occurrence {occurrence_id!r} has no physical_event_ids")
         if kind == "derived":
-            if physical:
+            grounding = occurrence.get("grounding", {})
+            has_filter = isinstance(grounding, dict) and bool(
+                grounding.get("signals_true")
+                or grounding.get("signals_false")
+                or grounding.get("state_values")
+                or grounding.get("value_tests")
+            )
+            if physical and not has_filter:
                 warnings.append(
                     f"derived occurrence {occurrence_id!r} also references physical events; consider boundary kind if no internal milestone is needed"
                 )
-            grounding = occurrence.get("grounding", {})
             if not occurrence.get("definition"):
                 errors.append(f"derived occurrence {occurrence_id!r} has no definition")
             if not occurrence.get("evidence_statement_ids"):
@@ -590,18 +603,40 @@ def validate_candidate_grounding(
                 )
 
 
-    if not candidate.get("axioms") and not candidate.get("unresolved"):
+    unit = handoff.get("work_unit", {})
+    certified_empty_shape = bool(
+        isinstance(unit, dict)
+        and unit.get("is_leaf")
+        and unit.get("coverage_complete")
+        and not any(
+            candidate.get(field)
+            for field in (
+                "occurrences",
+                "predicates",
+                "identity_keys",
+                "cases",
+                "axioms",
+                "assumptions",
+                "unresolved",
+            )
+        )
+        and any(
+            isinstance(item, str) and item.strip()
+            for item in candidate.get("rationale", [])
+        )
+    )
+    if not candidate.get("axioms") and not candidate.get("unresolved") and not certified_empty_shape:
         warnings.append(
             "candidate has neither axioms nor unresolved questions; likely not useful for semantic validation"
         )
 
     return {
-        "validator": "deterministic-grounding-0.5",
+        "validator": "deterministic-grounding-0.7",
         "valid": not errors,
         "errors": errors,
         "warnings": warnings,
         "semantic_proof_performed": False,
-        "next_validator": "formal-axiom-compiler-0.6/semantic-validator-0.6 + formal-backend-api-0.5",
+        "next_validator": "formal-axiom-compiler-0.9/semantic-validator-0.16 + formal-backend-api-0.15",
     }
 
 
