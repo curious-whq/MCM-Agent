@@ -1,0 +1,687 @@
+{
+  "compiler": "formal-axiom-compiler-0.13",
+  "obligations": [
+    {
+      "arguments": {
+        "parts": [
+          "Input0Fire",
+          "Input1Fire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "OutputFire"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "formal": {
+        "parts": [
+          "Input0Fire",
+          "Input1Fire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "OutputFire"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input0Fire",
+          "Input1Fire",
+          "OutputFire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "OutputFire <=> exactly_one_same_cycle({Input0Fire, Input1Fire})"
+    },
+    {
+      "arguments": {
+        "occurrence": "Input1Fire",
+        "predicate": "Input0Valid"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        8,
+        11,
+        12
+      ],
+      "formal": {
+        "occurrence": "Input1Fire",
+        "predicate": "Input0Valid",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input1Fire"
+        ],
+        "predicates": [
+          "Input0Valid"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "Input0Valid => !Input1Fire"
+    },
+    {
+      "arguments": {
+        "on": "Input0Fire",
+        "source": "0",
+        "target": "io.chosen"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        5,
+        6
+      ],
+      "formal": {
+        "on": "Input0Fire",
+        "scope_identity": null,
+        "source": {
+          "op": "const",
+          "value": 0
+        },
+        "target": "io.chosen",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input0Fire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.chosen"
+        ]
+      },
+      "rendered_formula": "io.chosen = 0 on Input0Fire"
+    },
+    {
+      "arguments": {
+        "on": "Input1Fire",
+        "source": "1",
+        "target": "io.chosen"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        3,
+        5,
+        8,
+        11,
+        12
+      ],
+      "formal": {
+        "on": "Input1Fire",
+        "scope_identity": null,
+        "source": {
+          "op": "const",
+          "value": 1
+        },
+        "target": "io.chosen",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input1Fire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.chosen"
+        ]
+      },
+      "rendered_formula": "io.chosen = 1 on Input1Fire"
+    },
+    {
+      "arguments": {
+        "on": "Input0Fire",
+        "source": "io.in[0].bits.uop.rob_idx",
+        "target": "io.out.bits.uop.rob_idx"
+      },
+      "axiom_id": "A5",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        5,
+        7
+      ],
+      "formal": {
+        "on": "Input0Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[0].bits.uop.rob_idx",
+          "op": "signal"
+        },
+        "target": "io.out.bits.uop.rob_idx",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input0Fire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.in[0].bits.uop.rob_idx",
+          "io.out.bits.uop.rob_idx"
+        ]
+      },
+      "rendered_formula": "io.out.bits.uop.rob_idx = io.in[0].bits.uop.rob_idx on Input0Fire"
+    },
+    {
+      "arguments": {
+        "on": "Input0Fire",
+        "source": "io.in[0].bits.uop.ldq_idx",
+        "target": "io.out.bits.uop.ldq_idx"
+      },
+      "axiom_id": "A6",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        5,
+        7
+      ],
+      "formal": {
+        "on": "Input0Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[0].bits.uop.ldq_idx",
+          "op": "signal"
+        },
+        "target": "io.out.bits.uop.ldq_idx",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input0Fire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.in[0].bits.uop.ldq_idx",
+          "io.out.bits.uop.ldq_idx"
+        ]
+      },
+      "rendered_formula": "io.out.bits.uop.ldq_idx = io.in[0].bits.uop.ldq_idx on Input0Fire"
+    },
+    {
+      "arguments": {
+        "on": "Input0Fire",
+        "source": "io.in[0].bits.uop.stq_idx",
+        "target": "io.out.bits.uop.stq_idx"
+      },
+      "axiom_id": "A7",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        5,
+        7
+      ],
+      "formal": {
+        "on": "Input0Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[0].bits.uop.stq_idx",
+          "op": "signal"
+        },
+        "target": "io.out.bits.uop.stq_idx",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input0Fire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.in[0].bits.uop.stq_idx",
+          "io.out.bits.uop.stq_idx"
+        ]
+      },
+      "rendered_formula": "io.out.bits.uop.stq_idx = io.in[0].bits.uop.stq_idx on Input0Fire"
+    },
+    {
+      "arguments": {
+        "on": "Input0Fire",
+        "source": "io.in[0].bits.uop.pdst",
+        "target": "io.out.bits.uop.pdst"
+      },
+      "axiom_id": "A8",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        5,
+        7
+      ],
+      "formal": {
+        "on": "Input0Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[0].bits.uop.pdst",
+          "op": "signal"
+        },
+        "target": "io.out.bits.uop.pdst",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input0Fire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.in[0].bits.uop.pdst",
+          "io.out.bits.uop.pdst"
+        ]
+      },
+      "rendered_formula": "io.out.bits.uop.pdst = io.in[0].bits.uop.pdst on Input0Fire"
+    },
+    {
+      "arguments": {
+        "on": "Input0Fire",
+        "source": "io.in[0].bits.speculative_mask",
+        "target": "io.out.bits.speculative_mask"
+      },
+      "axiom_id": "A9",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        5,
+        7
+      ],
+      "formal": {
+        "on": "Input0Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[0].bits.speculative_mask",
+          "op": "signal"
+        },
+        "target": "io.out.bits.speculative_mask",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input0Fire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.in[0].bits.speculative_mask",
+          "io.out.bits.speculative_mask"
+        ]
+      },
+      "rendered_formula": "io.out.bits.speculative_mask = io.in[0].bits.speculative_mask on Input0Fire"
+    },
+    {
+      "arguments": {
+        "on": "Input0Fire",
+        "source": "io.in[0].bits.bypassable",
+        "target": "io.out.bits.bypassable"
+      },
+      "axiom_id": "A10",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        5,
+        7
+      ],
+      "formal": {
+        "on": "Input0Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[0].bits.bypassable",
+          "op": "signal"
+        },
+        "target": "io.out.bits.bypassable",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input0Fire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.in[0].bits.bypassable",
+          "io.out.bits.bypassable"
+        ]
+      },
+      "rendered_formula": "io.out.bits.bypassable = io.in[0].bits.bypassable on Input0Fire"
+    },
+    {
+      "arguments": {
+        "on": "Input0Fire",
+        "source": "io.in[0].bits.rebusy",
+        "target": "io.out.bits.rebusy"
+      },
+      "axiom_id": "A11",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        5,
+        7
+      ],
+      "formal": {
+        "on": "Input0Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[0].bits.rebusy",
+          "op": "signal"
+        },
+        "target": "io.out.bits.rebusy",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input0Fire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.in[0].bits.rebusy",
+          "io.out.bits.rebusy"
+        ]
+      },
+      "rendered_formula": "io.out.bits.rebusy = io.in[0].bits.rebusy on Input0Fire"
+    },
+    {
+      "arguments": {
+        "on": "Input1Fire",
+        "source": "io.in[1].bits.uop.rob_idx",
+        "target": "io.out.bits.uop.rob_idx"
+      },
+      "axiom_id": "A12",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        3,
+        4,
+        5,
+        8,
+        11,
+        12
+      ],
+      "formal": {
+        "on": "Input1Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[1].bits.uop.rob_idx",
+          "op": "signal"
+        },
+        "target": "io.out.bits.uop.rob_idx",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input1Fire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.in[1].bits.uop.rob_idx",
+          "io.out.bits.uop.rob_idx"
+        ]
+      },
+      "rendered_formula": "io.out.bits.uop.rob_idx = io.in[1].bits.uop.rob_idx on Input1Fire"
+    },
+    {
+      "arguments": {
+        "on": "Input1Fire",
+        "source": "io.in[1].bits.uop.ldq_idx",
+        "target": "io.out.bits.uop.ldq_idx"
+      },
+      "axiom_id": "A13",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        3,
+        4,
+        5,
+        8,
+        11,
+        12
+      ],
+      "formal": {
+        "on": "Input1Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[1].bits.uop.ldq_idx",
+          "op": "signal"
+        },
+        "target": "io.out.bits.uop.ldq_idx",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input1Fire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.in[1].bits.uop.ldq_idx",
+          "io.out.bits.uop.ldq_idx"
+        ]
+      },
+      "rendered_formula": "io.out.bits.uop.ldq_idx = io.in[1].bits.uop.ldq_idx on Input1Fire"
+    },
+    {
+      "arguments": {
+        "on": "Input1Fire",
+        "source": "io.in[1].bits.uop.stq_idx",
+        "target": "io.out.bits.uop.stq_idx"
+      },
+      "axiom_id": "A14",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        3,
+        4,
+        5,
+        8,
+        11,
+        12
+      ],
+      "formal": {
+        "on": "Input1Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[1].bits.uop.stq_idx",
+          "op": "signal"
+        },
+        "target": "io.out.bits.uop.stq_idx",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input1Fire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.in[1].bits.uop.stq_idx",
+          "io.out.bits.uop.stq_idx"
+        ]
+      },
+      "rendered_formula": "io.out.bits.uop.stq_idx = io.in[1].bits.uop.stq_idx on Input1Fire"
+    },
+    {
+      "arguments": {
+        "on": "Input1Fire",
+        "source": "io.in[1].bits.uop.pdst",
+        "target": "io.out.bits.uop.pdst"
+      },
+      "axiom_id": "A15",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        3,
+        4,
+        5,
+        8,
+        11,
+        12
+      ],
+      "formal": {
+        "on": "Input1Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[1].bits.uop.pdst",
+          "op": "signal"
+        },
+        "target": "io.out.bits.uop.pdst",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input1Fire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.in[1].bits.uop.pdst",
+          "io.out.bits.uop.pdst"
+        ]
+      },
+      "rendered_formula": "io.out.bits.uop.pdst = io.in[1].bits.uop.pdst on Input1Fire"
+    },
+    {
+      "arguments": {
+        "on": "Input1Fire",
+        "source": "io.in[1].bits.speculative_mask",
+        "target": "io.out.bits.speculative_mask"
+      },
+      "axiom_id": "A16",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        3,
+        4,
+        5,
+        8,
+        11,
+        12
+      ],
+      "formal": {
+        "on": "Input1Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[1].bits.speculative_mask",
+          "op": "signal"
+        },
+        "target": "io.out.bits.speculative_mask",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input1Fire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.in[1].bits.speculative_mask",
+          "io.out.bits.speculative_mask"
+        ]
+      },
+      "rendered_formula": "io.out.bits.speculative_mask = io.in[1].bits.speculative_mask on Input1Fire"
+    },
+    {
+      "arguments": {
+        "on": "Input1Fire",
+        "source": "io.in[1].bits.bypassable",
+        "target": "io.out.bits.bypassable"
+      },
+      "axiom_id": "A17",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        3,
+        4,
+        5,
+        8,
+        11,
+        12
+      ],
+      "formal": {
+        "on": "Input1Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[1].bits.bypassable",
+          "op": "signal"
+        },
+        "target": "io.out.bits.bypassable",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input1Fire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.in[1].bits.bypassable",
+          "io.out.bits.bypassable"
+        ]
+      },
+      "rendered_formula": "io.out.bits.bypassable = io.in[1].bits.bypassable on Input1Fire"
+    },
+    {
+      "arguments": {
+        "on": "Input1Fire",
+        "source": "io.in[1].bits.rebusy",
+        "target": "io.out.bits.rebusy"
+      },
+      "axiom_id": "A18",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        3,
+        4,
+        5,
+        8,
+        11,
+        12
+      ],
+      "formal": {
+        "on": "Input1Fire",
+        "scope_identity": null,
+        "source": {
+          "name": "io.in[1].bits.rebusy",
+          "op": "signal"
+        },
+        "target": "io.out.bits.rebusy",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "Input1Fire"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.in[1].bits.rebusy",
+          "io.out.bits.rebusy"
+        ]
+      },
+      "rendered_formula": "io.out.bits.rebusy = io.in[1].bits.rebusy on Input1Fire"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "work_unit_id": "LSU.wakeupArbs_0"
+}

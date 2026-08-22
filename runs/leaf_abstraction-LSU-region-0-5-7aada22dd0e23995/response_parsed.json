@@ -1,0 +1,252 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [
+        "C1_HellaResponse"
+      ],
+      "evidence_statement_ids": [
+        7992
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.hellacache.resp.bits.replay",
+            "op": "signal"
+          }
+        },
+        "on": "HellaResponse",
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "id": "A1",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_HellaResponse"
+      ],
+      "evidence_statement_ids": [
+        7993
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.hellacache.resp.bits.has_data",
+            "op": "signal"
+          }
+        },
+        "on": "HellaResponse",
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 1
+      },
+      "id": "A2",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_HellaResponse"
+      ],
+      "evidence_statement_ids": [
+        7997
+      ],
+      "formal": {
+        "on": "HellaResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "io.ptw.status.prv",
+          "op": "signal"
+        },
+        "target": "io.hellacache.resp.bits.dprv",
+        "type": "signal_equality"
+      },
+      "id": "A3",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_HellaResponse"
+      ],
+      "evidence_statement_ids": [
+        7998
+      ],
+      "formal": {
+        "on": "HellaResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "io.ptw.status.v",
+          "op": "signal"
+        },
+        "target": "io.hellacache.resp.bits.dv",
+        "type": "signal_equality"
+      },
+      "id": "A4",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_HellaResponse"
+      ],
+      "evidence_statement_ids": [
+        7994
+      ],
+      "formal": {
+        "on": "HellaResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "io.dmem.ll_resp.bits.data",
+          "op": "signal"
+        },
+        "target": "io.hellacache.resp.bits.data_word_bypass",
+        "type": "signal_equality"
+      },
+      "id": "A5",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_HellaResponse"
+      ],
+      "evidence_statement_ids": [
+        7995
+      ],
+      "formal": {
+        "on": "HellaResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "io.dmem.ll_resp.bits.data",
+          "op": "signal"
+        },
+        "target": "io.hellacache.resp.bits.data_raw",
+        "type": "signal_equality"
+      },
+      "id": "A6",
+      "status": "candidate"
+    }
+  ],
+  "cases": [
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        7985,
+        7992,
+        7993,
+        7994,
+        7995,
+        7997,
+        7998,
+        7999,
+        8056,
+        8057,
+        8058,
+        8059,
+        8061,
+        8067,
+        8068,
+        8069,
+        8070,
+        8071,
+        8073,
+        8079
+      ],
+      "guard_predicates": [],
+      "id": "C1_HellaResponse",
+      "relations": [
+        "The shim exposes a HellaCache response whose invariant metadata is wired locally; the exact data-source split is intentionally left unconstrained in this leaf abstraction."
+      ],
+      "trigger_occurrences": [
+        "HellaResponse"
+      ]
+    }
+  ],
+  "extensions": {},
+  "identity_keys": [],
+  "occurrences": [
+    {
+      "definition": "grounded boundary occurrence LSU::io.hellacache.req.fire",
+      "evidence_statement_ids": [],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.hellacache.req.valid",
+          "io.hellacache.req.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "HellaRequest",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "LSU::io.hellacache.req.fire"
+      ]
+    },
+    {
+      "definition": "grounded boundary occurrence LSU::io.dmem.ll_resp.fire",
+      "evidence_statement_ids": [
+        8057
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.dmem.ll_resp.valid",
+          "io.dmem.ll_resp.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "LowLatencyResponse",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "LSU::io.dmem.ll_resp.fire"
+      ]
+    },
+    {
+      "definition": "grounded boundary occurrence LSU::io.hellacache.resp.valid",
+      "evidence_statement_ids": [
+        7985,
+        8061,
+        8073
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.hellacache.resp.valid"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "HellaResponse",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "LSU::io.hellacache.resp.valid"
+      ]
+    }
+  ],
+  "predicates": [],
+  "rationale": [
+    "This region owns only the combinational Hella/uncached response shim, not the Hella FSM/request-capture state that orders a request with its eventual response.",
+    "All three physical boundary occurrences owned by the WorkUnit are exported: HellaRequest, LowLatencyResponse, and HellaResponse. Their cross-cycle lifecycle is intentionally left for parent synthesis, where hella_state and hella_req are available.",
+    "A1-A6 preserve exact response metadata and raw/bypass wiring that is invariant across the locally visible response paths.",
+    "The final response data field can be written either from io.dmem.ll_resp.bits.data or, on a later same-cycle override, from io.dmem.resp[0].bits.data. The complete Hella FSM/source-selection history spans parent-owned state, so this first leaf summary deliberately leaves final data-source classification unconstrained rather than inventing a local request-to-response theorem.",
+    "Omitting that source split widens the model safely and is an explicit CEGAR refinement point; no fairness or response-liveness claim is made."
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-LSU-region-0-5-7aada22dd0e23995",
+  "unresolved": [],
+  "work_unit_id": "LSU::region-0-5"
+}

@@ -1,0 +1,176 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        3
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.xcpt_if",
+            "op": "signal"
+          }
+        },
+        "on": null,
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "id": "A1",
+      "rendered_formula": "bits(io.xcpt_if, 0, 0) == 0",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        4
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.xcpt_ld",
+            "op": "signal"
+          }
+        },
+        "on": null,
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "id": "A2",
+      "rendered_formula": "bits(io.xcpt_ld, 0, 0) == 0",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        5
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.xcpt_st",
+            "op": "signal"
+          }
+        },
+        "on": null,
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "id": "A3",
+      "rendered_formula": "bits(io.xcpt_st, 0, 0) == 0",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        6
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.debug_if",
+            "op": "signal"
+          }
+        },
+        "on": null,
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "id": "A4",
+      "rendered_formula": "bits(io.debug_if, 0, 0) == 0",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        7
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.debug_ld",
+            "op": "signal"
+          }
+        },
+        "on": null,
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "id": "A5",
+      "rendered_formula": "bits(io.debug_ld, 0, 0) == 0",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        8
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.debug_st",
+            "op": "signal"
+          }
+        },
+        "on": null,
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "id": "A6",
+      "rendered_formula": "bits(io.debug_st, 0, 0) == 0",
+      "status": "candidate"
+    }
+  ],
+  "cases": [],
+  "freeze": {
+    "candidate_axiom_count": 6,
+    "empty_abstraction": false,
+    "exported_axiom_count": 6,
+    "policy": "all-declared-axioms-trusted-and-no-unresolved-v0.1",
+    "private_axiom_count": 0,
+    "reopen_policy": "This summary may be reopened if later parent/system counterexample validation shows the abstraction is too weak and a missing concrete constraint must be synthesized.",
+    "status": "FROZEN_FOR_COMPOSITION",
+    "trusted_axiom_count": 6
+  },
+  "identity_keys": [],
+  "note": "Only axioms with FORMALLY_PROVED or SPEC_PROVED validation level are included. Grounded/structurally-supported candidate axioms remain outside the trusted abstraction.",
+  "occurrences": [],
+  "predicates": [],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-LSU.bkptu_0-ffd98bc059e3be37",
+  "trust_policy": "formal-ast-plus-certified-provenance-v0.3",
+  "trusted_axiom_ids": [
+    "A1",
+    "A2",
+    "A3",
+    "A4",
+    "A5",
+    "A6"
+  ],
+  "work_unit_id": "LSU.bkptu_0"
+}

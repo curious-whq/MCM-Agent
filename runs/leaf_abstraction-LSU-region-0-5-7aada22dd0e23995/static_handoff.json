@@ -1,0 +1,4524 @@
+{
+  "children": [],
+  "complexity": {
+    "event_state_coupling": 0.282381,
+    "events": 3,
+    "logical": {
+      "dependency_edges": 168,
+      "signals": 30,
+      "source_loc": 17,
+      "statements": 19
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 169,
+      "signals": 42,
+      "source_loc": 17,
+      "statements": 20,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 0,
+    "state_regions": 0
+  },
+  "dependency_edges": [
+    {
+      "dst": "io.hellacache.resp.valid",
+      "kind": "data",
+      "source": {
+        "column": 28,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1830,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1830:28"
+      },
+      "src": "h0",
+      "statement_ids": [
+        7985
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.replay",
+      "kind": "data",
+      "source": {
+        "column": 34,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1837,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1837:34"
+      },
+      "src": "h0",
+      "statement_ids": [
+        7992
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.has_data",
+      "kind": "data",
+      "source": {
+        "column": 36,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1838,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1838:36"
+      },
+      "src": "h1",
+      "statement_ids": [
+        7993
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.data_word_bypass",
+      "kind": "data",
+      "source": {
+        "column": 44,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1839,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1839:44"
+      },
+      "src": "io.dmem.ll_resp.bits.data",
+      "statement_ids": [
+        7994
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.data_raw",
+      "kind": "data",
+      "source": {
+        "column": 36,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1840,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1840:36"
+      },
+      "src": "io.dmem.ll_resp.bits.data",
+      "statement_ids": [
+        7995
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.dprv",
+      "kind": "data",
+      "source": {
+        "column": 36,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1842,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1842:36"
+      },
+      "src": "io.ptw.status.prv",
+      "statement_ids": [
+        7997
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.dv",
+      "kind": "data",
+      "source": {
+        "column": 36,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1843,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1843:36"
+      },
+      "src": "io.ptw.status.v",
+      "statement_ids": [
+        7998
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.data",
+      "kind": "data",
+      "source": {
+        "column": 36,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1844,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1844:36"
+      },
+      "src": "io.dmem.ll_resp.bits.data",
+      "statement_ids": [
+        7999
+      ]
+    },
+    {
+      "dst": "_T_1137",
+      "kind": "data",
+      "source": {
+        "column": 35,
+        "file": "src/main/scala/chisel3/util/Decoupled.scala",
+        "line": 51,
+        "raw": "src/main/scala/chisel3/util/Decoupled.scala 51:35"
+      },
+      "src": "io.dmem.ll_resp.ready",
+      "statement_ids": [
+        8056,
+        8057
+      ]
+    },
+    {
+      "dst": "_T_1137",
+      "kind": "data",
+      "source": {
+        "column": 35,
+        "file": "src/main/scala/chisel3/util/Decoupled.scala",
+        "line": 51,
+        "raw": "src/main/scala/chisel3/util/Decoupled.scala 51:35"
+      },
+      "src": "io.dmem.ll_resp.valid",
+      "statement_ids": [
+        8056,
+        8057
+      ]
+    },
+    {
+      "dst": "_T_1137",
+      "kind": "control",
+      "source": {
+        "column": 35,
+        "file": "src/main/scala/chisel3/util/Decoupled.scala",
+        "line": 51,
+        "raw": "src/main/scala/chisel3/util/Decoupled.scala 51:35"
+      },
+      "src": "_T_1122",
+      "statement_ids": [
+        8056,
+        8057
+      ]
+    },
+    {
+      "dst": "_T_1137",
+      "kind": "control",
+      "source": {
+        "column": 35,
+        "file": "src/main/scala/chisel3/util/Decoupled.scala",
+        "line": 51,
+        "raw": "src/main/scala/chisel3/util/Decoupled.scala 51:35"
+      },
+      "src": "_T_1124",
+      "statement_ids": [
+        8056,
+        8057
+      ]
+    },
+    {
+      "dst": "_T_1137",
+      "kind": "control",
+      "source": {
+        "column": 35,
+        "file": "src/main/scala/chisel3/util/Decoupled.scala",
+        "line": 51,
+        "raw": "src/main/scala/chisel3/util/Decoupled.scala 51:35"
+      },
+      "src": "_T_1127",
+      "statement_ids": [
+        8056,
+        8057
+      ]
+    },
+    {
+      "dst": "_T_1137",
+      "kind": "control",
+      "source": {
+        "column": 35,
+        "file": "src/main/scala/chisel3/util/Decoupled.scala",
+        "line": 51,
+        "raw": "src/main/scala/chisel3/util/Decoupled.scala 51:35"
+      },
+      "src": "_T_1128",
+      "statement_ids": [
+        8056,
+        8057
+      ]
+    },
+    {
+      "dst": "_T_1137",
+      "kind": "control",
+      "source": {
+        "column": 35,
+        "file": "src/main/scala/chisel3/util/Decoupled.scala",
+        "line": 51,
+        "raw": "src/main/scala/chisel3/util/Decoupled.scala 51:35"
+      },
+      "src": "_T_1136",
+      "statement_ids": [
+        8056,
+        8057
+      ]
+    },
+    {
+      "dst": "_T_1138",
+      "kind": "data",
+      "source": {
+        "column": 32,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1880,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1880:32"
+      },
+      "src": "_T_1137",
+      "statement_ids": [
+        8056,
+        8058
+      ]
+    },
+    {
+      "dst": "_T_1138",
+      "kind": "data",
+      "source": {
+        "column": 32,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1880,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1880:32"
+      },
+      "src": "io.dmem.ll_resp.bits.is_hella",
+      "statement_ids": [
+        8056,
+        8058
+      ]
+    },
+    {
+      "dst": "_T_1138",
+      "kind": "control",
+      "source": {
+        "column": 32,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1880,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1880:32"
+      },
+      "src": "_T_1122",
+      "statement_ids": [
+        8056,
+        8058
+      ]
+    },
+    {
+      "dst": "_T_1138",
+      "kind": "control",
+      "source": {
+        "column": 32,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1880,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1880:32"
+      },
+      "src": "_T_1124",
+      "statement_ids": [
+        8056,
+        8058
+      ]
+    },
+    {
+      "dst": "_T_1138",
+      "kind": "control",
+      "source": {
+        "column": 32,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1880,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1880:32"
+      },
+      "src": "_T_1127",
+      "statement_ids": [
+        8056,
+        8058
+      ]
+    },
+    {
+      "dst": "_T_1138",
+      "kind": "control",
+      "source": {
+        "column": 32,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1880,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1880:32"
+      },
+      "src": "_T_1128",
+      "statement_ids": [
+        8056,
+        8058
+      ]
+    },
+    {
+      "dst": "_T_1138",
+      "kind": "control",
+      "source": {
+        "column": 32,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1880,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1880:32"
+      },
+      "src": "_T_1136",
+      "statement_ids": [
+        8056,
+        8058
+      ]
+    },
+    {
+      "dst": "hella_state",
+      "kind": "state",
+      "source": {
+        "column": 19,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1881,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1881:19"
+      },
+      "src": "h0",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "hella_state",
+      "kind": "control",
+      "source": {
+        "column": 19,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1881,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1881:19"
+      },
+      "src": "_T_1122",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "hella_state",
+      "kind": "control",
+      "source": {
+        "column": 19,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1881,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1881:19"
+      },
+      "src": "_T_1124",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "hella_state",
+      "kind": "control",
+      "source": {
+        "column": 19,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1881,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1881:19"
+      },
+      "src": "_T_1127",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "hella_state",
+      "kind": "control",
+      "source": {
+        "column": 19,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1881,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1881:19"
+      },
+      "src": "_T_1128",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "hella_state",
+      "kind": "control",
+      "source": {
+        "column": 19,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1881,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1881:19"
+      },
+      "src": "_T_1136",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "hella_state",
+      "kind": "control",
+      "source": {
+        "column": 19,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1881,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1881:19"
+      },
+      "src": "_T_1138",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.valid",
+      "kind": "data",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1883,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1883:38"
+      },
+      "src": "h1",
+      "statement_ids": [
+        8056,
+        8059,
+        8061
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.valid",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1883,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1883:38"
+      },
+      "src": "_T_1122",
+      "statement_ids": [
+        8056,
+        8059,
+        8061
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.valid",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1883,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1883:38"
+      },
+      "src": "_T_1124",
+      "statement_ids": [
+        8056,
+        8059,
+        8061
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.valid",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1883,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1883:38"
+      },
+      "src": "_T_1127",
+      "statement_ids": [
+        8056,
+        8059,
+        8061
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.valid",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1883,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1883:38"
+      },
+      "src": "_T_1128",
+      "statement_ids": [
+        8056,
+        8059,
+        8061
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.valid",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1883,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1883:38"
+      },
+      "src": "_T_1136",
+      "statement_ids": [
+        8056,
+        8059,
+        8061
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.valid",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1883,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1883:38"
+      },
+      "src": "_T_1138",
+      "statement_ids": [
+        8056,
+        8059,
+        8061
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.addr",
+      "kind": "data",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1884,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1884:38"
+      },
+      "src": "hella_req.addr",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.addr",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1884,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1884:38"
+      },
+      "src": "_T_1122",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.addr",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1884,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1884:38"
+      },
+      "src": "_T_1124",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.addr",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1884,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1884:38"
+      },
+      "src": "_T_1127",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.addr",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1884,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1884:38"
+      },
+      "src": "_T_1128",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.addr",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1884,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1884:38"
+      },
+      "src": "_T_1136",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.addr",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1884,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1884:38"
+      },
+      "src": "_T_1138",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.tag",
+      "kind": "data",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1885,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1885:38"
+      },
+      "src": "hella_req.tag",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.tag",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1885,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1885:38"
+      },
+      "src": "_T_1122",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.tag",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1885,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1885:38"
+      },
+      "src": "_T_1124",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.tag",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1885,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1885:38"
+      },
+      "src": "_T_1127",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.tag",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1885,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1885:38"
+      },
+      "src": "_T_1128",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.tag",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1885,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1885:38"
+      },
+      "src": "_T_1136",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.tag",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1885,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1885:38"
+      },
+      "src": "_T_1138",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.cmd",
+      "kind": "data",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1886,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1886:38"
+      },
+      "src": "hella_req.cmd",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.cmd",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1886,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1886:38"
+      },
+      "src": "_T_1122",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.cmd",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1886,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1886:38"
+      },
+      "src": "_T_1124",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.cmd",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1886,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1886:38"
+      },
+      "src": "_T_1127",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.cmd",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1886,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1886:38"
+      },
+      "src": "_T_1128",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.cmd",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1886,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1886:38"
+      },
+      "src": "_T_1136",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.cmd",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1886,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1886:38"
+      },
+      "src": "_T_1138",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.signed",
+      "kind": "data",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1887,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1887:38"
+      },
+      "src": "hella_req.signed",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.signed",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1887,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1887:38"
+      },
+      "src": "_T_1122",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.signed",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1887,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1887:38"
+      },
+      "src": "_T_1124",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.signed",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1887,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1887:38"
+      },
+      "src": "_T_1127",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.signed",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1887,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1887:38"
+      },
+      "src": "_T_1128",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.signed",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1887,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1887:38"
+      },
+      "src": "_T_1136",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.signed",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1887,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1887:38"
+      },
+      "src": "_T_1138",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.size",
+      "kind": "data",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1888,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1888:38"
+      },
+      "src": "hella_req.size",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.size",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1888,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1888:38"
+      },
+      "src": "_T_1122",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.size",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1888,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1888:38"
+      },
+      "src": "_T_1124",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.size",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1888,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1888:38"
+      },
+      "src": "_T_1127",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.size",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1888,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1888:38"
+      },
+      "src": "_T_1128",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.size",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1888,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1888:38"
+      },
+      "src": "_T_1136",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.size",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1888,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1888:38"
+      },
+      "src": "_T_1138",
+      "statement_ids": [
+        8056,
+        8059
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.data",
+      "kind": "data",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1889,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1889:38"
+      },
+      "src": "io.dmem.ll_resp.bits.data",
+      "statement_ids": [
+        8056,
+        8059,
+        8067
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.data",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1889,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1889:38"
+      },
+      "src": "_T_1122",
+      "statement_ids": [
+        8056,
+        8059,
+        8067
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.data",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1889,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1889:38"
+      },
+      "src": "_T_1124",
+      "statement_ids": [
+        8056,
+        8059,
+        8067
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.data",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1889,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1889:38"
+      },
+      "src": "_T_1127",
+      "statement_ids": [
+        8056,
+        8059,
+        8067
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.data",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1889,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1889:38"
+      },
+      "src": "_T_1128",
+      "statement_ids": [
+        8056,
+        8059,
+        8067
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.data",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1889,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1889:38"
+      },
+      "src": "_T_1136",
+      "statement_ids": [
+        8056,
+        8059,
+        8067
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.data",
+      "kind": "control",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1889,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1889:38"
+      },
+      "src": "_T_1138",
+      "statement_ids": [
+        8056,
+        8059,
+        8067
+      ]
+    },
+    {
+      "dst": "_T_1139",
+      "kind": "data",
+      "source": {
+        "column": 36,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1892,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1892:36"
+      },
+      "src": "io.dmem.resp[0].bits.is_hella",
+      "statement_ids": [
+        8056,
+        8068
+      ]
+    },
+    {
+      "dst": "_T_1139",
+      "kind": "data",
+      "source": {
+        "column": 36,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1892,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1892:36"
+      },
+      "src": "io.dmem.resp[0].valid",
+      "statement_ids": [
+        8056,
+        8068
+      ]
+    },
+    {
+      "dst": "_T_1139",
+      "kind": "control",
+      "source": {
+        "column": 36,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1892,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1892:36"
+      },
+      "src": "_T_1122",
+      "statement_ids": [
+        8056,
+        8068
+      ]
+    },
+    {
+      "dst": "_T_1139",
+      "kind": "control",
+      "source": {
+        "column": 36,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1892,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1892:36"
+      },
+      "src": "_T_1124",
+      "statement_ids": [
+        8056,
+        8068
+      ]
+    },
+    {
+      "dst": "_T_1139",
+      "kind": "control",
+      "source": {
+        "column": 36,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1892,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1892:36"
+      },
+      "src": "_T_1127",
+      "statement_ids": [
+        8056,
+        8068
+      ]
+    },
+    {
+      "dst": "_T_1139",
+      "kind": "control",
+      "source": {
+        "column": 36,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1892,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1892:36"
+      },
+      "src": "_T_1128",
+      "statement_ids": [
+        8056,
+        8068
+      ]
+    },
+    {
+      "dst": "_T_1139",
+      "kind": "control",
+      "source": {
+        "column": 36,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1892,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1892:36"
+      },
+      "src": "_T_1136",
+      "statement_ids": [
+        8056,
+        8068
+      ]
+    },
+    {
+      "dst": "_T_1140",
+      "kind": "data",
+      "source": {
+        "column": 41,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1893,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1893:41"
+      },
+      "src": "io.dmem.store_ack[0].bits.is_hella",
+      "statement_ids": [
+        8056,
+        8069
+      ]
+    },
+    {
+      "dst": "_T_1140",
+      "kind": "data",
+      "source": {
+        "column": 41,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1893,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1893:41"
+      },
+      "src": "io.dmem.store_ack[0].valid",
+      "statement_ids": [
+        8056,
+        8069
+      ]
+    },
+    {
+      "dst": "_T_1140",
+      "kind": "control",
+      "source": {
+        "column": 41,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1893,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1893:41"
+      },
+      "src": "_T_1122",
+      "statement_ids": [
+        8056,
+        8069
+      ]
+    },
+    {
+      "dst": "_T_1140",
+      "kind": "control",
+      "source": {
+        "column": 41,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1893,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1893:41"
+      },
+      "src": "_T_1124",
+      "statement_ids": [
+        8056,
+        8069
+      ]
+    },
+    {
+      "dst": "_T_1140",
+      "kind": "control",
+      "source": {
+        "column": 41,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1893,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1893:41"
+      },
+      "src": "_T_1127",
+      "statement_ids": [
+        8056,
+        8069
+      ]
+    },
+    {
+      "dst": "_T_1140",
+      "kind": "control",
+      "source": {
+        "column": 41,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1893,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1893:41"
+      },
+      "src": "_T_1128",
+      "statement_ids": [
+        8056,
+        8069
+      ]
+    },
+    {
+      "dst": "_T_1140",
+      "kind": "control",
+      "source": {
+        "column": 41,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1893,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1893:41"
+      },
+      "src": "_T_1136",
+      "statement_ids": [
+        8056,
+        8069
+      ]
+    },
+    {
+      "dst": "_T_1141",
+      "kind": "data",
+      "source": {
+        "column": 70,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1892,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1892:70"
+      },
+      "src": "_T_1139",
+      "statement_ids": [
+        8056,
+        8070
+      ]
+    },
+    {
+      "dst": "_T_1141",
+      "kind": "data",
+      "source": {
+        "column": 70,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1892,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1892:70"
+      },
+      "src": "_T_1140",
+      "statement_ids": [
+        8056,
+        8070
+      ]
+    },
+    {
+      "dst": "_T_1141",
+      "kind": "control",
+      "source": {
+        "column": 70,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1892,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1892:70"
+      },
+      "src": "_T_1122",
+      "statement_ids": [
+        8056,
+        8070
+      ]
+    },
+    {
+      "dst": "_T_1141",
+      "kind": "control",
+      "source": {
+        "column": 70,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1892,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1892:70"
+      },
+      "src": "_T_1124",
+      "statement_ids": [
+        8056,
+        8070
+      ]
+    },
+    {
+      "dst": "_T_1141",
+      "kind": "control",
+      "source": {
+        "column": 70,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1892,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1892:70"
+      },
+      "src": "_T_1127",
+      "statement_ids": [
+        8056,
+        8070
+      ]
+    },
+    {
+      "dst": "_T_1141",
+      "kind": "control",
+      "source": {
+        "column": 70,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1892,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1892:70"
+      },
+      "src": "_T_1128",
+      "statement_ids": [
+        8056,
+        8070
+      ]
+    },
+    {
+      "dst": "_T_1141",
+      "kind": "control",
+      "source": {
+        "column": 70,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1892,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1892:70"
+      },
+      "src": "_T_1136",
+      "statement_ids": [
+        8056,
+        8070
+      ]
+    },
+    {
+      "dst": "hella_state",
+      "kind": "state",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1894,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1894:21"
+      },
+      "src": "h0",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "hella_state",
+      "kind": "control",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1894,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1894:21"
+      },
+      "src": "_T_1122",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "hella_state",
+      "kind": "control",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1894,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1894:21"
+      },
+      "src": "_T_1124",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "hella_state",
+      "kind": "control",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1894,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1894:21"
+      },
+      "src": "_T_1127",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "hella_state",
+      "kind": "control",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1894,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1894:21"
+      },
+      "src": "_T_1128",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "hella_state",
+      "kind": "control",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1894,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1894:21"
+      },
+      "src": "_T_1136",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "hella_state",
+      "kind": "control",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1894,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1894:21"
+      },
+      "src": "_T_1141",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.valid",
+      "kind": "data",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1896,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1896:40"
+      },
+      "src": "h1",
+      "statement_ids": [
+        8056,
+        8071,
+        8073
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.valid",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1896,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1896:40"
+      },
+      "src": "_T_1122",
+      "statement_ids": [
+        8056,
+        8071,
+        8073
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.valid",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1896,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1896:40"
+      },
+      "src": "_T_1124",
+      "statement_ids": [
+        8056,
+        8071,
+        8073
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.valid",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1896,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1896:40"
+      },
+      "src": "_T_1127",
+      "statement_ids": [
+        8056,
+        8071,
+        8073
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.valid",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1896,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1896:40"
+      },
+      "src": "_T_1128",
+      "statement_ids": [
+        8056,
+        8071,
+        8073
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.valid",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1896,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1896:40"
+      },
+      "src": "_T_1136",
+      "statement_ids": [
+        8056,
+        8071,
+        8073
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.valid",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1896,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1896:40"
+      },
+      "src": "_T_1141",
+      "statement_ids": [
+        8056,
+        8071,
+        8073
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.addr",
+      "kind": "data",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1897,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1897:40"
+      },
+      "src": "hella_req.addr",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.addr",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1897,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1897:40"
+      },
+      "src": "_T_1122",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.addr",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1897,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1897:40"
+      },
+      "src": "_T_1124",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.addr",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1897,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1897:40"
+      },
+      "src": "_T_1127",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.addr",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1897,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1897:40"
+      },
+      "src": "_T_1128",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.addr",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1897,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1897:40"
+      },
+      "src": "_T_1136",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.addr",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1897,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1897:40"
+      },
+      "src": "_T_1141",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.tag",
+      "kind": "data",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1898,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1898:40"
+      },
+      "src": "hella_req.tag",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.tag",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1898,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1898:40"
+      },
+      "src": "_T_1122",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.tag",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1898,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1898:40"
+      },
+      "src": "_T_1124",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.tag",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1898,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1898:40"
+      },
+      "src": "_T_1127",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.tag",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1898,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1898:40"
+      },
+      "src": "_T_1128",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.tag",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1898,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1898:40"
+      },
+      "src": "_T_1136",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.tag",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1898,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1898:40"
+      },
+      "src": "_T_1141",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.cmd",
+      "kind": "data",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1899,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1899:40"
+      },
+      "src": "hella_req.cmd",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.cmd",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1899,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1899:40"
+      },
+      "src": "_T_1122",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.cmd",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1899,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1899:40"
+      },
+      "src": "_T_1124",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.cmd",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1899,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1899:40"
+      },
+      "src": "_T_1127",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.cmd",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1899,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1899:40"
+      },
+      "src": "_T_1128",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.cmd",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1899,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1899:40"
+      },
+      "src": "_T_1136",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.cmd",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1899,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1899:40"
+      },
+      "src": "_T_1141",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.signed",
+      "kind": "data",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1900,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1900:40"
+      },
+      "src": "hella_req.signed",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.signed",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1900,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1900:40"
+      },
+      "src": "_T_1122",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.signed",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1900,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1900:40"
+      },
+      "src": "_T_1124",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.signed",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1900,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1900:40"
+      },
+      "src": "_T_1127",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.signed",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1900,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1900:40"
+      },
+      "src": "_T_1128",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.signed",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1900,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1900:40"
+      },
+      "src": "_T_1136",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.signed",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1900,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1900:40"
+      },
+      "src": "_T_1141",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.size",
+      "kind": "data",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1901,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1901:40"
+      },
+      "src": "hella_req.size",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.size",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1901,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1901:40"
+      },
+      "src": "_T_1122",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.size",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1901,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1901:40"
+      },
+      "src": "_T_1124",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.size",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1901,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1901:40"
+      },
+      "src": "_T_1127",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.size",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1901,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1901:40"
+      },
+      "src": "_T_1128",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.size",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1901,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1901:40"
+      },
+      "src": "_T_1136",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.size",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1901,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1901:40"
+      },
+      "src": "_T_1141",
+      "statement_ids": [
+        8056,
+        8071
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.data",
+      "kind": "data",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1902,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1902:40"
+      },
+      "src": "io.dmem.resp[0].bits.data",
+      "statement_ids": [
+        8056,
+        8071,
+        8079
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.data",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1902,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1902:40"
+      },
+      "src": "_T_1122",
+      "statement_ids": [
+        8056,
+        8071,
+        8079
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.data",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1902,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1902:40"
+      },
+      "src": "_T_1124",
+      "statement_ids": [
+        8056,
+        8071,
+        8079
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.data",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1902,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1902:40"
+      },
+      "src": "_T_1127",
+      "statement_ids": [
+        8056,
+        8071,
+        8079
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.data",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1902,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1902:40"
+      },
+      "src": "_T_1128",
+      "statement_ids": [
+        8056,
+        8071,
+        8079
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.data",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1902,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1902:40"
+      },
+      "src": "_T_1136",
+      "statement_ids": [
+        8056,
+        8071,
+        8079
+      ]
+    },
+    {
+      "dst": "io.hellacache.resp.bits.data",
+      "kind": "control",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1902,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1902:40"
+      },
+      "src": "_T_1141",
+      "statement_ids": [
+        8056,
+        8071,
+        8079
+      ]
+    },
+    {
+      "dst": "_T_1142",
+      "kind": "data",
+      "source": {
+        "column": 35,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1904,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1904:35"
+      },
+      "src": "io.dmem.nack[0].bits.is_hella",
+      "statement_ids": [
+        8056
+      ]
+    },
+    {
+      "dst": "_T_1142",
+      "kind": "data",
+      "source": {
+        "column": 35,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1904,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1904:35"
+      },
+      "src": "io.dmem.nack[0].valid",
+      "statement_ids": [
+        8056
+      ]
+    },
+    {
+      "dst": "_T_1142",
+      "kind": "control",
+      "source": {
+        "column": 35,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1904,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1904:35"
+      },
+      "src": "_T_1122",
+      "statement_ids": [
+        8056
+      ]
+    },
+    {
+      "dst": "_T_1142",
+      "kind": "control",
+      "source": {
+        "column": 35,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1904,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1904:35"
+      },
+      "src": "_T_1124",
+      "statement_ids": [
+        8056
+      ]
+    },
+    {
+      "dst": "_T_1142",
+      "kind": "control",
+      "source": {
+        "column": 35,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1904,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1904:35"
+      },
+      "src": "_T_1127",
+      "statement_ids": [
+        8056
+      ]
+    },
+    {
+      "dst": "_T_1142",
+      "kind": "control",
+      "source": {
+        "column": 35,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1904,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1904:35"
+      },
+      "src": "_T_1128",
+      "statement_ids": [
+        8056
+      ]
+    },
+    {
+      "dst": "_T_1142",
+      "kind": "control",
+      "source": {
+        "column": 35,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1904,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1904:35"
+      },
+      "src": "_T_1136",
+      "statement_ids": [
+        8056
+      ]
+    },
+    {
+      "dst": "hella_state",
+      "kind": "state",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1905,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1905:21"
+      },
+      "src": "h5",
+      "statement_ids": [
+        8056
+      ]
+    },
+    {
+      "dst": "hella_state",
+      "kind": "control",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1905,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1905:21"
+      },
+      "src": "_T_1122",
+      "statement_ids": [
+        8056
+      ]
+    },
+    {
+      "dst": "hella_state",
+      "kind": "control",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1905,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1905:21"
+      },
+      "src": "_T_1124",
+      "statement_ids": [
+        8056
+      ]
+    },
+    {
+      "dst": "hella_state",
+      "kind": "control",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1905,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1905:21"
+      },
+      "src": "_T_1127",
+      "statement_ids": [
+        8056
+      ]
+    },
+    {
+      "dst": "hella_state",
+      "kind": "control",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1905,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1905:21"
+      },
+      "src": "_T_1128",
+      "statement_ids": [
+        8056
+      ]
+    },
+    {
+      "dst": "hella_state",
+      "kind": "control",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1905,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1905:21"
+      },
+      "src": "_T_1136",
+      "statement_ids": [
+        8056
+      ]
+    },
+    {
+      "dst": "hella_state",
+      "kind": "control",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1905,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1905:21"
+      },
+      "src": "_T_1142",
+      "statement_ids": [
+        8056
+      ]
+    }
+  ],
+  "events": [
+    {
+      "channel": "io.dmem.ll_resp",
+      "direction": "receive",
+      "id": "LSU::io.dmem.ll_resp.fire",
+      "payload": [
+        "io.dmem.ll_resp.bits.data",
+        "io.dmem.ll_resp.bits.is_hella",
+        "io.dmem.ll_resp.bits.uop.bp_debug_if",
+        "io.dmem.ll_resp.bits.uop.bp_xcpt_if",
+        "io.dmem.ll_resp.bits.uop.br_mask",
+        "io.dmem.ll_resp.bits.uop.br_tag",
+        "io.dmem.ll_resp.bits.uop.br_type",
+        "io.dmem.ll_resp.bits.uop.csr_cmd",
+        "io.dmem.ll_resp.bits.uop.debug_fsrc",
+        "io.dmem.ll_resp.bits.uop.debug_inst",
+        "io.dmem.ll_resp.bits.uop.debug_pc",
+        "io.dmem.ll_resp.bits.uop.debug_tsrc",
+        "io.dmem.ll_resp.bits.uop.dis_col_sel",
+        "io.dmem.ll_resp.bits.uop.dst_rtype",
+        "io.dmem.ll_resp.bits.uop.edge_inst",
+        "io.dmem.ll_resp.bits.uop.exc_cause",
+        "io.dmem.ll_resp.bits.uop.exception",
+        "io.dmem.ll_resp.bits.uop.fcn_dw",
+        "io.dmem.ll_resp.bits.uop.fcn_op",
+        "io.dmem.ll_resp.bits.uop.flush_on_commit",
+        "io.dmem.ll_resp.bits.uop.fp_ctrl.div",
+        "io.dmem.ll_resp.bits.uop.fp_ctrl.fastpipe",
+        "io.dmem.ll_resp.bits.uop.fp_ctrl.fma",
+        "io.dmem.ll_resp.bits.uop.fp_ctrl.fromint",
+        "io.dmem.ll_resp.bits.uop.fp_ctrl.ldst",
+        "io.dmem.ll_resp.bits.uop.fp_ctrl.ren1",
+        "io.dmem.ll_resp.bits.uop.fp_ctrl.ren2",
+        "io.dmem.ll_resp.bits.uop.fp_ctrl.ren3",
+        "io.dmem.ll_resp.bits.uop.fp_ctrl.sqrt",
+        "io.dmem.ll_resp.bits.uop.fp_ctrl.swap12",
+        "io.dmem.ll_resp.bits.uop.fp_ctrl.swap23",
+        "io.dmem.ll_resp.bits.uop.fp_ctrl.toint",
+        "io.dmem.ll_resp.bits.uop.fp_ctrl.typeTagIn",
+        "io.dmem.ll_resp.bits.uop.fp_ctrl.typeTagOut",
+        "io.dmem.ll_resp.bits.uop.fp_ctrl.vec",
+        "io.dmem.ll_resp.bits.uop.fp_ctrl.wen",
+        "io.dmem.ll_resp.bits.uop.fp_ctrl.wflags",
+        "io.dmem.ll_resp.bits.uop.fp_rm",
+        "io.dmem.ll_resp.bits.uop.fp_typ",
+        "io.dmem.ll_resp.bits.uop.fp_val",
+        "io.dmem.ll_resp.bits.uop.frs3_en",
+        "io.dmem.ll_resp.bits.uop.ftq_idx",
+        "io.dmem.ll_resp.bits.uop.fu_code[0]",
+        "io.dmem.ll_resp.bits.uop.fu_code[1]",
+        "io.dmem.ll_resp.bits.uop.fu_code[2]",
+        "io.dmem.ll_resp.bits.uop.fu_code[3]",
+        "io.dmem.ll_resp.bits.uop.fu_code[4]",
+        "io.dmem.ll_resp.bits.uop.fu_code[5]",
+        "io.dmem.ll_resp.bits.uop.fu_code[6]",
+        "io.dmem.ll_resp.bits.uop.fu_code[7]",
+        "io.dmem.ll_resp.bits.uop.fu_code[8]",
+        "io.dmem.ll_resp.bits.uop.fu_code[9]",
+        "io.dmem.ll_resp.bits.uop.imm_packed",
+        "io.dmem.ll_resp.bits.uop.imm_rename",
+        "io.dmem.ll_resp.bits.uop.imm_sel",
+        "io.dmem.ll_resp.bits.uop.inst",
+        "io.dmem.ll_resp.bits.uop.iq_type[0]",
+        "io.dmem.ll_resp.bits.uop.iq_type[1]",
+        "io.dmem.ll_resp.bits.uop.iq_type[2]",
+        "io.dmem.ll_resp.bits.uop.iq_type[3]",
+        "io.dmem.ll_resp.bits.uop.is_amo",
+        "io.dmem.ll_resp.bits.uop.is_eret",
+        "io.dmem.ll_resp.bits.uop.is_fence",
+        "io.dmem.ll_resp.bits.uop.is_fencei",
+        "io.dmem.ll_resp.bits.uop.is_mov",
+        "io.dmem.ll_resp.bits.uop.is_rocc",
+        "io.dmem.ll_resp.bits.uop.is_rvc",
+        "io.dmem.ll_resp.bits.uop.is_sfb",
+        "io.dmem.ll_resp.bits.uop.is_sfence",
+        "io.dmem.ll_resp.bits.uop.is_sys_pc2epc",
+        "io.dmem.ll_resp.bits.uop.is_unique",
+        "io.dmem.ll_resp.bits.uop.iw_issued",
+        "io.dmem.ll_resp.bits.uop.iw_issued_partial_agen",
+        "io.dmem.ll_resp.bits.uop.iw_issued_partial_dgen",
+        "io.dmem.ll_resp.bits.uop.iw_p1_bypass_hint",
+        "io.dmem.ll_resp.bits.uop.iw_p1_speculative_child",
+        "io.dmem.ll_resp.bits.uop.iw_p2_bypass_hint",
+        "io.dmem.ll_resp.bits.uop.iw_p2_speculative_child",
+        "io.dmem.ll_resp.bits.uop.iw_p3_bypass_hint",
+        "io.dmem.ll_resp.bits.uop.ldq_idx",
+        "io.dmem.ll_resp.bits.uop.ldst",
+        "io.dmem.ll_resp.bits.uop.ldst_is_rs1",
+        "io.dmem.ll_resp.bits.uop.lrs1",
+        "io.dmem.ll_resp.bits.uop.lrs1_rtype",
+        "io.dmem.ll_resp.bits.uop.lrs2",
+        "io.dmem.ll_resp.bits.uop.lrs2_rtype",
+        "io.dmem.ll_resp.bits.uop.lrs3",
+        "io.dmem.ll_resp.bits.uop.mem_cmd",
+        "io.dmem.ll_resp.bits.uop.mem_signed",
+        "io.dmem.ll_resp.bits.uop.mem_size",
+        "io.dmem.ll_resp.bits.uop.op1_sel",
+        "io.dmem.ll_resp.bits.uop.op2_sel",
+        "io.dmem.ll_resp.bits.uop.pc_lob",
+        "io.dmem.ll_resp.bits.uop.pdst",
+        "io.dmem.ll_resp.bits.uop.pimm",
+        "io.dmem.ll_resp.bits.uop.ppred",
+        "io.dmem.ll_resp.bits.uop.ppred_busy",
+        "io.dmem.ll_resp.bits.uop.prs1",
+        "io.dmem.ll_resp.bits.uop.prs1_busy",
+        "io.dmem.ll_resp.bits.uop.prs2",
+        "io.dmem.ll_resp.bits.uop.prs2_busy",
+        "io.dmem.ll_resp.bits.uop.prs3",
+        "io.dmem.ll_resp.bits.uop.prs3_busy",
+        "io.dmem.ll_resp.bits.uop.rob_idx",
+        "io.dmem.ll_resp.bits.uop.rxq_idx",
+        "io.dmem.ll_resp.bits.uop.stale_pdst",
+        "io.dmem.ll_resp.bits.uop.stq_idx",
+        "io.dmem.ll_resp.bits.uop.taken",
+        "io.dmem.ll_resp.bits.uop.uses_ldq",
+        "io.dmem.ll_resp.bits.uop.uses_stq",
+        "io.dmem.ll_resp.bits.uop.xcpt_ae_if",
+        "io.dmem.ll_resp.bits.uop.xcpt_ma_if",
+        "io.dmem.ll_resp.bits.uop.xcpt_pf_if"
+      ],
+      "predicate": "io.dmem.ll_resp.valid && io.dmem.ll_resp.ready",
+      "protocol": "decoupled",
+      "ready": "io.dmem.ll_resp.ready",
+      "registry_id": "LSU.io.dmem.ll_resp.fire",
+      "sources": [
+        {
+          "column": 14,
+          "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+          "line": 216,
+          "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+        }
+      ],
+      "valid": "io.dmem.ll_resp.valid"
+    },
+    {
+      "channel": "io.hellacache.req",
+      "direction": "receive",
+      "id": "LSU::io.hellacache.req.fire",
+      "payload": [
+        "io.hellacache.req.bits.addr",
+        "io.hellacache.req.bits.cmd",
+        "io.hellacache.req.bits.data",
+        "io.hellacache.req.bits.dprv",
+        "io.hellacache.req.bits.dv",
+        "io.hellacache.req.bits.mask",
+        "io.hellacache.req.bits.no_alloc",
+        "io.hellacache.req.bits.no_resp",
+        "io.hellacache.req.bits.no_xcpt",
+        "io.hellacache.req.bits.phys",
+        "io.hellacache.req.bits.signed",
+        "io.hellacache.req.bits.size",
+        "io.hellacache.req.bits.tag"
+      ],
+      "predicate": "io.hellacache.req.valid && io.hellacache.req.ready",
+      "protocol": "decoupled",
+      "ready": "io.hellacache.req.ready",
+      "registry_id": "LSU.io.hellacache.req.fire",
+      "sources": [
+        {
+          "column": 14,
+          "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+          "line": 216,
+          "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+        }
+      ],
+      "valid": "io.hellacache.req.valid"
+    },
+    {
+      "channel": "io.hellacache.resp",
+      "direction": "send",
+      "id": "LSU::io.hellacache.resp.valid",
+      "payload": [
+        "io.hellacache.resp.bits.addr",
+        "io.hellacache.resp.bits.cmd",
+        "io.hellacache.resp.bits.data",
+        "io.hellacache.resp.bits.data_raw",
+        "io.hellacache.resp.bits.data_word_bypass",
+        "io.hellacache.resp.bits.dprv",
+        "io.hellacache.resp.bits.dv",
+        "io.hellacache.resp.bits.has_data",
+        "io.hellacache.resp.bits.mask",
+        "io.hellacache.resp.bits.replay",
+        "io.hellacache.resp.bits.signed",
+        "io.hellacache.resp.bits.size",
+        "io.hellacache.resp.bits.store_data",
+        "io.hellacache.resp.bits.tag"
+      ],
+      "predicate": "io.hellacache.resp.valid",
+      "protocol": "valid",
+      "ready": null,
+      "registry_id": "LSU.io.hellacache.resp.valid",
+      "sources": [
+        {
+          "column": 14,
+          "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+          "line": 216,
+          "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+        }
+      ],
+      "valid": "io.hellacache.resp.valid"
+    }
+  ],
+  "frontier": [
+    {
+      "id": "_T_1122",
+      "kind": "node",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1846,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1846:21"
+      },
+      "type": "UInt<1>"
+    },
+    {
+      "id": "_T_1124",
+      "kind": "node",
+      "source": {
+        "column": 28,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1852,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1852:28"
+      },
+      "type": "UInt<1>"
+    },
+    {
+      "id": "_T_1127",
+      "kind": "node",
+      "source": {
+        "column": 28,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1869,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1869:28"
+      },
+      "type": "UInt<1>"
+    },
+    {
+      "id": "_T_1128",
+      "kind": "node",
+      "source": {
+        "column": 28,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1872,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1872:28"
+      },
+      "type": "UInt<1>"
+    },
+    {
+      "id": "_T_1136",
+      "kind": "node",
+      "source": {
+        "column": 28,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1879,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1879:28"
+      },
+      "type": "UInt<1>"
+    },
+    {
+      "id": "_T_1138",
+      "kind": "node",
+      "source": {
+        "column": 32,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1880,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1880:32"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_1141",
+      "kind": "node",
+      "source": {
+        "column": 70,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1892,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1892:70"
+      },
+      "type": null
+    },
+    {
+      "id": "h0",
+      "kind": "unknown",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 306,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 306:38"
+      },
+      "type": null
+    },
+    {
+      "id": "h1",
+      "kind": "unknown",
+      "source": {
+        "column": 71,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 353,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 353:71"
+      },
+      "type": null
+    },
+    {
+      "id": "io.dmem.ll_resp.bits.data",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.dmem.ll_resp.bits.is_hella",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.dmem.ll_resp.ready",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.dmem.ll_resp.valid",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.dmem.resp[0].bits.data",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.dmem.resp[0].bits.is_hella",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.dmem.resp[0].valid",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.dmem.store_ack[0].bits.is_hella",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.dmem.store_ack[0].valid",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.hellacache.resp.bits.data",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.hellacache.resp.bits.data_raw",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.hellacache.resp.bits.data_word_bypass",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.hellacache.resp.bits.dprv",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.hellacache.resp.bits.dv",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.hellacache.resp.bits.has_data",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.hellacache.resp.bits.replay",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.hellacache.resp.valid",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.ptw.status.prv",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.ptw.status.v",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    }
+  ],
+  "grounding": {
+    "allowed_physical_event_ids": [
+      "LSU::io.dmem.ll_resp.fire",
+      "LSU::io.hellacache.req.fire",
+      "LSU::io.hellacache.resp.valid"
+    ],
+    "allowed_state_ids": [],
+    "allowed_statement_ids": [
+      7985,
+      7992,
+      7993,
+      7994,
+      7995,
+      7997,
+      7998,
+      7999,
+      8056,
+      8057,
+      8058,
+      8059,
+      8061,
+      8067,
+      8068,
+      8069,
+      8070,
+      8071,
+      8073,
+      8079
+    ],
+    "semantic_labels": []
+  },
+  "memory_state": [],
+  "parent_connection_signals": [],
+  "planner_version": "hierarchical-planner-v14",
+  "proof_context": {
+    "event_gate_statement_ids": [
+      6732,
+      6927,
+      6928,
+      6929,
+      6930,
+      7947,
+      8000,
+      8001,
+      8002,
+      8007,
+      8008,
+      8032,
+      8033,
+      8037,
+      8038,
+      8054,
+      8055
+    ],
+    "event_gate_statements": [
+      {
+        "control_reads": [],
+        "drives": [
+          "wb_spec_wakeups[0].bits.bypassable",
+          "wb_spec_wakeups[0].bits.rebusy",
+          "wb_spec_wakeups[0].bits.speculative_mask",
+          "wb_spec_wakeups[0].bits.uop.bp_debug_if",
+          "wb_spec_wakeups[0].bits.uop.bp_xcpt_if",
+          "wb_spec_wakeups[0].bits.uop.br_mask",
+          "wb_spec_wakeups[0].bits.uop.br_tag",
+          "wb_spec_wakeups[0].bits.uop.br_type",
+          "wb_spec_wakeups[0].bits.uop.csr_cmd",
+          "wb_spec_wakeups[0].bits.uop.debug_fsrc",
+          "wb_spec_wakeups[0].bits.uop.debug_inst",
+          "wb_spec_wakeups[0].bits.uop.debug_pc",
+          "wb_spec_wakeups[0].bits.uop.debug_tsrc",
+          "wb_spec_wakeups[0].bits.uop.dis_col_sel",
+          "wb_spec_wakeups[0].bits.uop.dst_rtype",
+          "wb_spec_wakeups[0].bits.uop.edge_inst",
+          "wb_spec_wakeups[0].bits.uop.exc_cause",
+          "wb_spec_wakeups[0].bits.uop.exception",
+          "wb_spec_wakeups[0].bits.uop.fcn_dw",
+          "wb_spec_wakeups[0].bits.uop.fcn_op",
+          "wb_spec_wakeups[0].bits.uop.flush_on_commit",
+          "wb_spec_wakeups[0].bits.uop.fp_ctrl.div",
+          "wb_spec_wakeups[0].bits.uop.fp_ctrl.fastpipe",
+          "wb_spec_wakeups[0].bits.uop.fp_ctrl.fma",
+          "wb_spec_wakeups[0].bits.uop.fp_ctrl.fromint",
+          "wb_spec_wakeups[0].bits.uop.fp_ctrl.ldst",
+          "wb_spec_wakeups[0].bits.uop.fp_ctrl.ren1",
+          "wb_spec_wakeups[0].bits.uop.fp_ctrl.ren2",
+          "wb_spec_wakeups[0].bits.uop.fp_ctrl.ren3",
+          "wb_spec_wakeups[0].bits.uop.fp_ctrl.sqrt",
+          "wb_spec_wakeups[0].bits.uop.fp_ctrl.swap12",
+          "wb_spec_wakeups[0].bits.uop.fp_ctrl.swap23",
+          "wb_spec_wakeups[0].bits.uop.fp_ctrl.toint",
+          "wb_spec_wakeups[0].bits.uop.fp_ctrl.typeTagIn",
+          "wb_spec_wakeups[0].bits.uop.fp_ctrl.typeTagOut",
+          "wb_spec_wakeups[0].bits.uop.fp_ctrl.vec",
+          "wb_spec_wakeups[0].bits.uop.fp_ctrl.wen",
+          "wb_spec_wakeups[0].bits.uop.fp_ctrl.wflags",
+          "wb_spec_wakeups[0].bits.uop.fp_rm",
+          "wb_spec_wakeups[0].bits.uop.fp_typ",
+          "wb_spec_wakeups[0].bits.uop.fp_val",
+          "wb_spec_wakeups[0].bits.uop.frs3_en",
+          "wb_spec_wakeups[0].bits.uop.ftq_idx",
+          "wb_spec_wakeups[0].bits.uop.fu_code[0]",
+          "wb_spec_wakeups[0].bits.uop.fu_code[1]",
+          "wb_spec_wakeups[0].bits.uop.fu_code[2]",
+          "wb_spec_wakeups[0].bits.uop.fu_code[3]",
+          "wb_spec_wakeups[0].bits.uop.fu_code[4]",
+          "wb_spec_wakeups[0].bits.uop.fu_code[5]",
+          "wb_spec_wakeups[0].bits.uop.fu_code[6]",
+          "wb_spec_wakeups[0].bits.uop.fu_code[7]",
+          "wb_spec_wakeups[0].bits.uop.fu_code[8]",
+          "wb_spec_wakeups[0].bits.uop.fu_code[9]",
+          "wb_spec_wakeups[0].bits.uop.imm_packed",
+          "wb_spec_wakeups[0].bits.uop.imm_rename",
+          "wb_spec_wakeups[0].bits.uop.imm_sel",
+          "wb_spec_wakeups[0].bits.uop.inst",
+          "wb_spec_wakeups[0].bits.uop.iq_type[0]",
+          "wb_spec_wakeups[0].bits.uop.iq_type[1]",
+          "wb_spec_wakeups[0].bits.uop.iq_type[2]",
+          "wb_spec_wakeups[0].bits.uop.iq_type[3]",
+          "wb_spec_wakeups[0].bits.uop.is_amo",
+          "wb_spec_wakeups[0].bits.uop.is_eret",
+          "wb_spec_wakeups[0].bits.uop.is_fence",
+          "wb_spec_wakeups[0].bits.uop.is_fencei",
+          "wb_spec_wakeups[0].bits.uop.is_mov",
+          "wb_spec_wakeups[0].bits.uop.is_rocc",
+          "wb_spec_wakeups[0].bits.uop.is_rvc",
+          "wb_spec_wakeups[0].bits.uop.is_sfb",
+          "wb_spec_wakeups[0].bits.uop.is_sfence",
+          "wb_spec_wakeups[0].bits.uop.is_sys_pc2epc",
+          "wb_spec_wakeups[0].bits.uop.is_unique",
+          "wb_spec_wakeups[0].bits.uop.iw_issued",
+          "wb_spec_wakeups[0].bits.uop.iw_issued_partial_agen",
+          "wb_spec_wakeups[0].bits.uop.iw_issued_partial_dgen",
+          "wb_spec_wakeups[0].bits.uop.iw_p1_bypass_hint",
+          "wb_spec_wakeups[0].bits.uop.iw_p1_speculative_child",
+          "wb_spec_wakeups[0].bits.uop.iw_p2_bypass_hint",
+          "wb_spec_wakeups[0].bits.uop.iw_p2_speculative_child",
+          "wb_spec_wakeups[0].bits.uop.iw_p3_bypass_hint",
+          "wb_spec_wakeups[0].bits.uop.ldq_idx",
+          "wb_spec_wakeups[0].bits.uop.ldst",
+          "wb_spec_wakeups[0].bits.uop.ldst_is_rs1",
+          "wb_spec_wakeups[0].bits.uop.lrs1",
+          "wb_spec_wakeups[0].bits.uop.lrs1_rtype",
+          "wb_spec_wakeups[0].bits.uop.lrs2",
+          "wb_spec_wakeups[0].bits.uop.lrs2_rtype",
+          "wb_spec_wakeups[0].bits.uop.lrs3",
+          "wb_spec_wakeups[0].bits.uop.mem_cmd",
+          "wb_spec_wakeups[0].bits.uop.mem_signed",
+          "wb_spec_wakeups[0].bits.uop.mem_size",
+          "wb_spec_wakeups[0].bits.uop.op1_sel",
+          "wb_spec_wakeups[0].bits.uop.op2_sel",
+          "wb_spec_wakeups[0].bits.uop.pc_lob",
+          "wb_spec_wakeups[0].bits.uop.pdst",
+          "wb_spec_wakeups[0].bits.uop.pimm",
+          "wb_spec_wakeups[0].bits.uop.ppred",
+          "wb_spec_wakeups[0].bits.uop.ppred_busy",
+          "wb_spec_wakeups[0].bits.uop.prs1",
+          "wb_spec_wakeups[0].bits.uop.prs1_busy",
+          "wb_spec_wakeups[0].bits.uop.prs2",
+          "wb_spec_wakeups[0].bits.uop.prs2_busy",
+          "wb_spec_wakeups[0].bits.uop.prs3",
+          "wb_spec_wakeups[0].bits.uop.prs3_busy",
+          "wb_spec_wakeups[0].bits.uop.rob_idx",
+          "wb_spec_wakeups[0].bits.uop.rxq_idx",
+          "wb_spec_wakeups[0].bits.uop.stale_pdst",
+          "wb_spec_wakeups[0].bits.uop.stq_idx",
+          "wb_spec_wakeups[0].bits.uop.taken",
+          "wb_spec_wakeups[0].bits.uop.uses_ldq",
+          "wb_spec_wakeups[0].bits.uop.uses_stq",
+          "wb_spec_wakeups[0].bits.uop.xcpt_ae_if",
+          "wb_spec_wakeups[0].bits.uop.xcpt_ma_if",
+          "wb_spec_wakeups[0].bits.uop.xcpt_pf_if",
+          "wb_spec_wakeups[0].valid"
+        ],
+        "firrtl_line": 373104,
+        "id": 6732,
+        "kind": "connect",
+        "note": null,
+        "reads": [
+          "w1"
+        ],
+        "source": {
+          "column": 24,
+          "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+          "line": 1535,
+          "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1535:24"
+        },
+        "status": "supported",
+        "text": "connect wb_spec_wakeups[0], w1"
+      },
+      {
+        "control_reads": [],
+        "drives": [
+          "_io_dmem_ll_resp_ready_T"
+        ],
+        "firrtl_line": 373299,
+        "id": 6927,
+        "kind": "node",
+        "note": null,
+        "reads": [
+          "h0",
+          "io.dmem.resp[0].valid"
+        ],
+        "source": {
+          "column": 32,
+          "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+          "line": 1561,
+          "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1561:32"
+        },
+        "status": "supported",
+        "text": "node _io_dmem_ll_resp_ready_T = eq(io.dmem.resp[0].valid, UInt<1>(0h0))"
+      },
+      {
+        "control_reads": [],
+        "drives": [
+          "_io_dmem_ll_resp_ready_T_1"
+        ],
+        "firrtl_line": 373300,
+        "id": 6928,
+        "kind": "node",
+        "note": null,
+        "reads": [
+          "h0",
+          "wb_spec_wakeups[0].valid"
+        ],
+        "source": {
+          "column": 58,
+          "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+          "line": 1561,
+          "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1561:58"
+        },
+        "status": "supported",
+        "text": "node _io_dmem_ll_resp_ready_T_1 = eq(wb_spec_wakeups[0].valid, UInt<1>(0h0))"
+      },
+      {
+        "control_reads": [],
+        "drives": [
+          "_io_dmem_ll_resp_ready_T_2"
+        ],
+        "firrtl_line": 373301,
+        "id": 6929,
+        "kind": "node",
+        "note": null,
+        "reads": [
+          "_io_dmem_ll_resp_ready_T",
+          "_io_dmem_ll_resp_ready_T_1"
+        ],
+        "source": {
+          "column": 55,
+          "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+          "line": 1561,
+          "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1561:55"
+        },
+        "status": "supported",
+        "text": "node _io_dmem_ll_resp_ready_T_2 = and(_io_dmem_ll_resp_ready_T, _io_dmem_ll_resp_ready_T_1)"
+      },
+      {
+        "control_reads": [],
+        "drives": [
+          "io.dmem.ll_resp.ready"
+        ],
+        "firrtl_line": 373302,
+        "id": 6930,
+        "kind": "connect",
+        "note": null,
+        "reads": [
+          "_io_dmem_ll_resp_ready_T_2"
+        ],
+        "source": {
+          "column": 29,
+          "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+          "line": 1561,
+          "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1561:29"
+        },
+        "status": "supported",
+        "text": "connect io.dmem.ll_resp.ready, _io_dmem_ll_resp_ready_T_2"
+      },
+      {
+        "control_reads": [],
+        "drives": [
+          "io.hellacache.req.ready"
+        ],
+        "firrtl_line": 374319,
+        "id": 7947,
+        "kind": "connect",
+        "note": null,
+        "reads": [
+          "h0"
+        ],
+        "source": {
+          "column": 27,
+          "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+          "line": 1817,
+          "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1817:27"
+        },
+        "status": "supported",
+        "text": "connect io.hellacache.req.ready, UInt<1>(0h0)"
+      },
+      {
+        "control_reads": [],
+        "drives": [
+          "_T_1122"
+        ],
+        "firrtl_line": 374372,
+        "id": 8000,
+        "kind": "node",
+        "note": null,
+        "reads": [
+          "h0",
+          "hella_state"
+        ],
+        "source": {
+          "column": 21,
+          "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+          "line": 1846,
+          "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1846:21"
+        },
+        "status": "supported",
+        "text": "node _T_1122 = eq(hella_state, UInt<3>(0h0))"
+      },
+      {
+        "control_reads": [
+          "_T_1122"
+        ],
+        "drives": [],
+        "firrtl_line": 374373,
+        "id": 8001,
+        "kind": "when",
+        "note": null,
+        "reads": [
+          "_T_1122"
+        ],
+        "source": {
+          "column": 34,
+          "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+          "line": 1846,
+          "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1846:34"
+        },
+        "status": "supported",
+        "text": "when _T_1122 :"
+      },
+      {
+        "control_reads": [
+          "_T_1122"
+        ],
+        "drives": [
+          "io.hellacache.req.ready"
+        ],
+        "firrtl_line": 374374,
+        "id": 8002,
+        "kind": "connect",
+        "note": null,
+        "reads": [
+          "h1"
+        ],
+        "source": {
+          "column": 29,
+          "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+          "line": 1847,
+          "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1847:29"
+        },
+        "status": "supported",
+        "text": "connect io.hellacache.req.ready, UInt<1>(0h1)"
+      },
+      {
+        "control_reads": [
+          "_T_1122"
+        ],
+        "drives": [],
+        "firrtl_line": 374379,
+        "id": 8007,
+        "kind": "else",
+        "note": null,
+        "reads": [
+          "_T_1122"
+        ],
+        "source": null,
+        "status": "supported",
+        "text": "else :"
+      },
+      {
+        "control_reads": [],
+        "drives": [
+          "_T_1124"
+        ],
+        "firrtl_line": 374380,
+        "id": 8008,
+        "kind": "node",
+        "note": null,
+        "reads": [
+          "h1",
+          "hella_state"
+        ],
+        "source": {
+          "column": 28,
+          "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+          "line": 1852,
+          "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1852:28"
+        },
+        "status": "supported",
+        "text": "node _T_1124 = eq(hella_state, UInt<3>(0h1))"
+      },
+      {
+        "control_reads": [
+          "_T_1124"
+        ],
+        "drives": [],
+        "firrtl_line": 374404,
+        "id": 8032,
+        "kind": "else",
+        "note": null,
+        "reads": [
+          "_T_1124"
+        ],
+        "source": null,
+        "status": "supported",
+        "text": "else :"
+      },
+      {
+        "control_reads": [],
+        "drives": [
+          "_T_1127"
+        ],
+        "firrtl_line": 374405,
+        "id": 8033,
+        "kind": "node",
+        "note": null,
+        "reads": [
+          "h3",
+          "hella_state"
+        ],
+        "source": {
+          "column": 28,
+          "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+          "line": 1869,
+          "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1869:28"
+        },
+        "status": "supported",
+        "text": "node _T_1127 = eq(hella_state, UInt<3>(0h3))"
+      },
+      {
+        "control_reads": [
+          "_T_1127"
+        ],
+        "drives": [],
+        "firrtl_line": 374409,
+        "id": 8037,
+        "kind": "else",
+        "note": null,
+        "reads": [
+          "_T_1127"
+        ],
+        "source": null,
+        "status": "supported",
+        "text": "else :"
+      },
+      {
+        "control_reads": [],
+        "drives": [
+          "_T_1128"
+        ],
+        "firrtl_line": 374410,
+        "id": 8038,
+        "kind": "node",
+        "note": null,
+        "reads": [
+          "h2",
+          "hella_state"
+        ],
+        "source": {
+          "column": 28,
+          "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+          "line": 1872,
+          "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1872:28"
+        },
+        "status": "supported",
+        "text": "node _T_1128 = eq(hella_state, UInt<3>(0h2))"
+      },
+      {
+        "control_reads": [
+          "_T_1128"
+        ],
+        "drives": [],
+        "firrtl_line": 374426,
+        "id": 8054,
+        "kind": "else",
+        "note": null,
+        "reads": [
+          "_T_1128"
+        ],
+        "source": null,
+        "status": "supported",
+        "text": "else :"
+      },
+      {
+        "control_reads": [],
+        "drives": [
+          "_T_1136"
+        ],
+        "firrtl_line": 374427,
+        "id": 8055,
+        "kind": "node",
+        "note": null,
+        "reads": [
+          "h4",
+          "hella_state"
+        ],
+        "source": {
+          "column": 28,
+          "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+          "line": 1879,
+          "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1879:28"
+        },
+        "status": "supported",
+        "text": "node _T_1136 = eq(hella_state, UInt<3>(0h4))"
+      }
+    ],
+    "llm_evidence": false,
+    "policy": "exact-local-proof-context-v0.2",
+    "state_support_statement_ids": [],
+    "state_support_statements": [],
+    "state_writer_control_statement_ids": [],
+    "state_writer_control_statements": []
+  },
+  "replacement_complexity": {
+    "event_state_coupling": 0.282381,
+    "events": 3,
+    "logical": {
+      "dependency_edges": 168,
+      "signals": 30,
+      "source_loc": 17,
+      "statements": 19
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 169,
+      "signals": 42,
+      "source_loc": 17,
+      "statements": 20,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 0,
+    "state_regions": 0
+  },
+  "schema_version": "workunit-static-0.4",
+  "semantic_event_cones": [
+    {
+      "complete": true,
+      "event_id": "LSU::io.dmem.ll_resp.fire",
+      "historical_registers": [
+        "REG_11",
+        "can_fire_load_retry_REG",
+        "can_fire_load_wakeup_REG",
+        "dis_uops",
+        "fired_load_agen_REG",
+        "fired_load_agen_exec_REG",
+        "fired_load_retry_REG",
+        "fired_load_wakeup_REG",
+        "fired_release",
+        "fired_store_agen_REG",
+        "fired_store_retry_REG",
+        "hella_paddr",
+        "hella_req",
+        "hella_state",
+        "hella_xcpt",
+        "lcam_addr_REG",
+        "lcam_addr_REG_1",
+        "lcam_ldq_idx_reg",
+        "lcam_ldq_idx_reg_1",
+        "lcam_stq_idx_reg",
+        "ldq_addr",
+        "ldq_addr_is_uncacheable",
+        "ldq_addr_is_virtual",
+        "ldq_enq_retry_idx",
+        "ldq_executed",
+        "ldq_forward_std_val",
+        "ldq_forward_stq_idx",
+        "ldq_head",
+        "ldq_ld_byte_mask",
+        "ldq_next_stq_idx",
+        "ldq_observed",
+        "ldq_order_fail",
+        "ldq_succeeded",
+        "ldq_tail",
+        "ldq_uop",
+        "ldq_valid",
+        "ldq_wakeup_idx",
+        "mem_incoming_uop",
+        "mem_ldq_incoming_e",
+        "mem_ldq_retry_e",
+        "mem_ldq_wakeup_e",
+        "mem_paddr",
+        "mem_tlb_miss",
+        "mem_tlb_uncacheable",
+        "mem_xcpt_valids",
+        "p1_block_load_mask",
+        "p2_block_load_mask",
+        "s1_executing_loads",
+        "store_blocked_counter",
+        "stq_addr",
+        "stq_addr_is_virtual",
+        "stq_almost_full",
+        "stq_commit_head",
+        "stq_committed",
+        "stq_enq_retry_idx",
+        "stq_head",
+        "stq_succeeded",
+        "stq_tail",
+        "stq_uop",
+        "stq_valid",
+        "w1",
+        "wakeupArbs_0_io_in_1_valid_REG",
+        "wb_ldst_forward_e_REG",
+        "wb_ldst_forward_ld_addr",
+        "wb_ldst_forward_ldq_idx",
+        "wb_ldst_forward_valid_0_REG",
+        "wb_ldst_forward_valid_0_REG_1"
+      ],
+      "historical_statement_ids": [
+        8056,
+        8057,
+        8058,
+        8059,
+        8068,
+        8069,
+        8070,
+        8071
+      ],
+      "immediate_frontier": [
+        "h0",
+        "io.dmem.ll_resp.valid",
+        "io.dmem.resp[0].valid",
+        "w1"
+      ],
+      "immediate_registers": [
+        "w1"
+      ],
+      "immediate_statement_ids": []
+    },
+    {
+      "complete": true,
+      "event_id": "LSU::io.hellacache.req.fire",
+      "historical_registers": [
+        "REG_11",
+        "can_fire_load_retry_REG",
+        "can_fire_load_wakeup_REG",
+        "dis_uops",
+        "fired_load_agen_REG",
+        "fired_load_agen_exec_REG",
+        "fired_load_retry_REG",
+        "fired_load_wakeup_REG",
+        "fired_release",
+        "fired_store_agen_REG",
+        "fired_store_retry_REG",
+        "hella_paddr",
+        "hella_req",
+        "hella_state",
+        "hella_xcpt",
+        "lcam_addr_REG",
+        "lcam_addr_REG_1",
+        "lcam_ldq_idx_reg",
+        "lcam_ldq_idx_reg_1",
+        "lcam_stq_idx_reg",
+        "ldq_addr",
+        "ldq_addr_is_uncacheable",
+        "ldq_addr_is_virtual",
+        "ldq_enq_retry_idx",
+        "ldq_executed",
+        "ldq_forward_std_val",
+        "ldq_forward_stq_idx",
+        "ldq_head",
+        "ldq_ld_byte_mask",
+        "ldq_next_stq_idx",
+        "ldq_observed",
+        "ldq_order_fail",
+        "ldq_succeeded",
+        "ldq_tail",
+        "ldq_uop",
+        "ldq_valid",
+        "ldq_wakeup_idx",
+        "mem_incoming_uop",
+        "mem_ldq_incoming_e",
+        "mem_ldq_retry_e",
+        "mem_ldq_wakeup_e",
+        "mem_paddr",
+        "mem_tlb_miss",
+        "mem_tlb_uncacheable",
+        "mem_xcpt_valids",
+        "p1_block_load_mask",
+        "p2_block_load_mask",
+        "s1_executing_loads",
+        "store_blocked_counter",
+        "stq_addr",
+        "stq_addr_is_virtual",
+        "stq_almost_full",
+        "stq_commit_head",
+        "stq_committed",
+        "stq_enq_retry_idx",
+        "stq_head",
+        "stq_succeeded",
+        "stq_tail",
+        "stq_uop",
+        "stq_valid",
+        "w1",
+        "wakeupArbs_0_io_in_1_valid_REG",
+        "wb_ldst_forward_e_REG",
+        "wb_ldst_forward_ld_addr",
+        "wb_ldst_forward_ldq_idx",
+        "wb_ldst_forward_valid_0_REG",
+        "wb_ldst_forward_valid_0_REG_1"
+      ],
+      "historical_statement_ids": [
+        8056,
+        8057,
+        8058,
+        8059,
+        8068,
+        8069,
+        8070,
+        8071
+      ],
+      "immediate_frontier": [
+        "h0",
+        "h1",
+        "hella_state",
+        "io.hellacache.req.valid"
+      ],
+      "immediate_registers": [
+        "hella_state"
+      ],
+      "immediate_statement_ids": []
+    },
+    {
+      "complete": true,
+      "event_id": "LSU::io.hellacache.resp.valid",
+      "historical_registers": [
+        "REG_11",
+        "can_fire_load_retry_REG",
+        "can_fire_load_wakeup_REG",
+        "dis_uops",
+        "fired_load_agen_REG",
+        "fired_load_agen_exec_REG",
+        "fired_load_retry_REG",
+        "fired_load_wakeup_REG",
+        "fired_release",
+        "fired_store_agen_REG",
+        "fired_store_retry_REG",
+        "hella_paddr",
+        "hella_req",
+        "hella_state",
+        "hella_xcpt",
+        "lcam_addr_REG",
+        "lcam_addr_REG_1",
+        "lcam_ldq_idx_reg",
+        "lcam_ldq_idx_reg_1",
+        "lcam_stq_idx_reg",
+        "ldq_addr",
+        "ldq_addr_is_uncacheable",
+        "ldq_addr_is_virtual",
+        "ldq_enq_retry_idx",
+        "ldq_executed",
+        "ldq_forward_std_val",
+        "ldq_forward_stq_idx",
+        "ldq_head",
+        "ldq_ld_byte_mask",
+        "ldq_next_stq_idx",
+        "ldq_observed",
+        "ldq_order_fail",
+        "ldq_succeeded",
+        "ldq_tail",
+        "ldq_uop",
+        "ldq_valid",
+        "ldq_wakeup_idx",
+        "mem_incoming_uop",
+        "mem_ldq_incoming_e",
+        "mem_ldq_retry_e",
+        "mem_ldq_wakeup_e",
+        "mem_paddr",
+        "mem_tlb_miss",
+        "mem_tlb_uncacheable",
+        "mem_xcpt_valids",
+        "p1_block_load_mask",
+        "p2_block_load_mask",
+        "s1_executing_loads",
+        "store_blocked_counter",
+        "stq_addr",
+        "stq_addr_is_virtual",
+        "stq_almost_full",
+        "stq_commit_head",
+        "stq_committed",
+        "stq_enq_retry_idx",
+        "stq_head",
+        "stq_succeeded",
+        "stq_tail",
+        "stq_uop",
+        "stq_valid",
+        "w1",
+        "wakeupArbs_0_io_in_1_valid_REG",
+        "wb_ldst_forward_e_REG",
+        "wb_ldst_forward_ld_addr",
+        "wb_ldst_forward_ldq_idx",
+        "wb_ldst_forward_valid_0_REG",
+        "wb_ldst_forward_valid_0_REG_1"
+      ],
+      "historical_statement_ids": [
+        7985,
+        7992,
+        7993,
+        7994,
+        7995,
+        7997,
+        7998,
+        7999,
+        8056,
+        8057,
+        8058,
+        8059,
+        8061,
+        8067,
+        8068,
+        8069,
+        8070,
+        8071,
+        8073,
+        8079
+      ],
+      "immediate_frontier": [
+        "h0",
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "hella_state",
+        "io.dmem.ll_resp.bits.is_hella",
+        "io.dmem.ll_resp.valid",
+        "io.dmem.resp[0].bits.is_hella",
+        "io.dmem.resp[0].valid",
+        "io.dmem.store_ack[0].bits.is_hella",
+        "io.dmem.store_ack[0].valid",
+        "w1"
+      ],
+      "immediate_registers": [
+        "hella_state",
+        "w1"
+      ],
+      "immediate_statement_ids": [
+        7985,
+        8056,
+        8057,
+        8058,
+        8059,
+        8061,
+        8068,
+        8069,
+        8070,
+        8071,
+        8073
+      ]
+    }
+  ],
+  "source_evidence": {
+    "resolved": [
+      {
+        "end_line": 1831,
+        "logical_file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "start_line": 1829,
+        "text": "  io.hellacache.store_pending := stq_valid.reduce(_||_)\n  io.hellacache.resp.valid := false.B\n  io.hellacache.resp.bits.addr   := hella_req.addr\n"
+      },
+      {
+        "end_line": 1845,
+        "logical_file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "start_line": 1836,
+        "text": "  io.hellacache.resp.bits.mask   := hella_req.mask\n  io.hellacache.resp.bits.replay := false.B\n  io.hellacache.resp.bits.has_data := true.B\n  io.hellacache.resp.bits.data_word_bypass := io.dmem.ll_resp.bits.data\n  io.hellacache.resp.bits.data_raw := io.dmem.ll_resp.bits.data\n  io.hellacache.resp.bits.store_data := hella_req.data\n  io.hellacache.resp.bits.dprv     := io.ptw.status.prv\n  io.hellacache.resp.bits.dv       := io.ptw.status.v\n  io.hellacache.resp.bits.data     := io.dmem.ll_resp.bits.data\n\n"
+      },
+      {
+        "end_line": 1881,
+        "logical_file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "start_line": 1878,
+        "text": "    }\n  } .elsewhen (hella_state === h_wait) {\n    when (io.dmem.ll_resp.fire && io.dmem.ll_resp.bits.is_hella) {\n      hella_state := h_ready\n"
+      },
+      {
+        "end_line": 1884,
+        "logical_file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "start_line": 1882,
+        "text": "\n      io.hellacache.resp.valid       := true.B\n      io.hellacache.resp.bits.addr   := hella_req.addr\n"
+      },
+      {
+        "end_line": 1890,
+        "logical_file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "start_line": 1888,
+        "text": "      io.hellacache.resp.bits.size   := hella_req.size\n      io.hellacache.resp.bits.data   := io.dmem.ll_resp.bits.data\n    }\n"
+      },
+      {
+        "end_line": 1894,
+        "logical_file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "start_line": 1891,
+        "text": "    for (w <- 0 until lsuWidth) {\n      when ((io.dmem.resp(w).valid && io.dmem.resp(w).bits.is_hella) ||\n            (io.dmem.store_ack(w).valid && io.dmem.store_ack(w).bits.is_hella)) {\n        hella_state := h_ready\n"
+      },
+      {
+        "end_line": 1897,
+        "logical_file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "start_line": 1895,
+        "text": "\n        io.hellacache.resp.valid       := true.B\n        io.hellacache.resp.bits.addr   := hella_req.addr\n"
+      },
+      {
+        "end_line": 1903,
+        "logical_file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "start_line": 1901,
+        "text": "        io.hellacache.resp.bits.size   := hella_req.size\n        io.hellacache.resp.bits.data   := io.dmem.resp(w).bits.data\n      }\n"
+      }
+    ],
+    "roots": [
+      "/t1/MCM-Agent/tools/chipyard"
+    ],
+    "unresolved": [
+      {
+        "end_line": 51,
+        "error": "Could not resolve source locator 'src/main/scala/chisel3/util/Decoupled.scala' under roots: /t1/MCM-Agent/tools/chipyard",
+        "file": "src/main/scala/chisel3/util/Decoupled.scala",
+        "start_line": 51
+      }
+    ]
+  },
+  "source_spans": [
+    {
+      "end_line": 1830,
+      "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+      "start_line": 1830
+    },
+    {
+      "end_line": 1844,
+      "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+      "start_line": 1837
+    },
+    {
+      "end_line": 1880,
+      "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+      "start_line": 1879
+    },
+    {
+      "end_line": 1883,
+      "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+      "start_line": 1883
+    },
+    {
+      "end_line": 1889,
+      "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+      "start_line": 1889
+    },
+    {
+      "end_line": 1893,
+      "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+      "start_line": 1892
+    },
+    {
+      "end_line": 1896,
+      "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+      "start_line": 1896
+    },
+    {
+      "end_line": 1902,
+      "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+      "start_line": 1902
+    },
+    {
+      "end_line": 51,
+      "file": "src/main/scala/chisel3/util/Decoupled.scala",
+      "start_line": 51
+    }
+  ],
+  "state": [],
+  "statements": [
+    {
+      "control_reads": [],
+      "drives": [
+        "io.hellacache.resp.valid"
+      ],
+      "firrtl_line": 374357,
+      "id": 7985,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h0"
+      ],
+      "source": {
+        "column": 28,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1830,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1830:28"
+      },
+      "status": "supported",
+      "text": "connect io.hellacache.resp.valid, UInt<1>(0h0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.hellacache.resp.bits.replay"
+      ],
+      "firrtl_line": 374364,
+      "id": 7992,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h0"
+      ],
+      "source": {
+        "column": 34,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1837,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1837:34"
+      },
+      "status": "supported",
+      "text": "connect io.hellacache.resp.bits.replay, UInt<1>(0h0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.hellacache.resp.bits.has_data"
+      ],
+      "firrtl_line": 374365,
+      "id": 7993,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h1"
+      ],
+      "source": {
+        "column": 36,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1838,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1838:36"
+      },
+      "status": "supported",
+      "text": "connect io.hellacache.resp.bits.has_data, UInt<1>(0h1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.hellacache.resp.bits.data_word_bypass"
+      ],
+      "firrtl_line": 374366,
+      "id": 7994,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "io.dmem.ll_resp.bits.data"
+      ],
+      "source": {
+        "column": 44,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1839,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1839:44"
+      },
+      "status": "supported",
+      "text": "connect io.hellacache.resp.bits.data_word_bypass, io.dmem.ll_resp.bits.data"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.hellacache.resp.bits.data_raw"
+      ],
+      "firrtl_line": 374367,
+      "id": 7995,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "io.dmem.ll_resp.bits.data"
+      ],
+      "source": {
+        "column": 36,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1840,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1840:36"
+      },
+      "status": "supported",
+      "text": "connect io.hellacache.resp.bits.data_raw, io.dmem.ll_resp.bits.data"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.hellacache.resp.bits.dprv"
+      ],
+      "firrtl_line": 374369,
+      "id": 7997,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "io.ptw.status.prv"
+      ],
+      "source": {
+        "column": 36,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1842,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1842:36"
+      },
+      "status": "supported",
+      "text": "connect io.hellacache.resp.bits.dprv, io.ptw.status.prv"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.hellacache.resp.bits.dv"
+      ],
+      "firrtl_line": 374370,
+      "id": 7998,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "io.ptw.status.v"
+      ],
+      "source": {
+        "column": 36,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1843,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1843:36"
+      },
+      "status": "supported",
+      "text": "connect io.hellacache.resp.bits.dv, io.ptw.status.v"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.hellacache.resp.bits.data"
+      ],
+      "firrtl_line": 374371,
+      "id": 7999,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "io.dmem.ll_resp.bits.data"
+      ],
+      "source": {
+        "column": 36,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1844,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1844:36"
+      },
+      "status": "supported",
+      "text": "connect io.hellacache.resp.bits.data, io.dmem.ll_resp.bits.data"
+    },
+    {
+      "control_reads": [
+        "_T_1136"
+      ],
+      "drives": [],
+      "firrtl_line": 374428,
+      "id": 8056,
+      "kind": "when",
+      "note": null,
+      "reads": [
+        "_T_1136"
+      ],
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1879,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1879:40"
+      },
+      "status": "supported",
+      "text": "when _T_1136 :"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_1137"
+      ],
+      "firrtl_line": 374429,
+      "id": 8057,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.dmem.ll_resp.ready",
+        "io.dmem.ll_resp.valid"
+      ],
+      "source": {
+        "column": 35,
+        "file": "src/main/scala/chisel3/util/Decoupled.scala",
+        "line": 51,
+        "raw": "src/main/scala/chisel3/util/Decoupled.scala 51:35"
+      },
+      "status": "supported",
+      "text": "node _T_1137 = and(io.dmem.ll_resp.ready, io.dmem.ll_resp.valid)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_1138"
+      ],
+      "firrtl_line": 374430,
+      "id": 8058,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_T_1137",
+        "io.dmem.ll_resp.bits.is_hella"
+      ],
+      "source": {
+        "column": 32,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1880,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1880:32"
+      },
+      "status": "supported",
+      "text": "node _T_1138 = and(_T_1137, io.dmem.ll_resp.bits.is_hella)"
+    },
+    {
+      "control_reads": [
+        "_T_1138"
+      ],
+      "drives": [],
+      "firrtl_line": 374431,
+      "id": 8059,
+      "kind": "when",
+      "note": null,
+      "reads": [
+        "_T_1138"
+      ],
+      "source": {
+        "column": 66,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1880,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1880:66"
+      },
+      "status": "supported",
+      "text": "when _T_1138 :"
+    },
+    {
+      "control_reads": [
+        "_T_1122",
+        "_T_1124",
+        "_T_1127",
+        "_T_1128",
+        "_T_1136",
+        "_T_1138"
+      ],
+      "drives": [
+        "io.hellacache.resp.valid"
+      ],
+      "firrtl_line": 374433,
+      "id": 8061,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h1"
+      ],
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1883,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1883:38"
+      },
+      "status": "supported",
+      "text": "connect io.hellacache.resp.valid, UInt<1>(0h1)"
+    },
+    {
+      "control_reads": [
+        "_T_1122",
+        "_T_1124",
+        "_T_1127",
+        "_T_1128",
+        "_T_1136",
+        "_T_1138"
+      ],
+      "drives": [
+        "io.hellacache.resp.bits.data"
+      ],
+      "firrtl_line": 374439,
+      "id": 8067,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "io.dmem.ll_resp.bits.data"
+      ],
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1889,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1889:38"
+      },
+      "status": "supported",
+      "text": "connect io.hellacache.resp.bits.data, io.dmem.ll_resp.bits.data"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_1139"
+      ],
+      "firrtl_line": 374440,
+      "id": 8068,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.dmem.resp[0].bits.is_hella",
+        "io.dmem.resp[0].valid"
+      ],
+      "source": {
+        "column": 36,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1892,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1892:36"
+      },
+      "status": "supported",
+      "text": "node _T_1139 = and(io.dmem.resp[0].valid, io.dmem.resp[0].bits.is_hella)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_1140"
+      ],
+      "firrtl_line": 374441,
+      "id": 8069,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.dmem.store_ack[0].bits.is_hella",
+        "io.dmem.store_ack[0].valid"
+      ],
+      "source": {
+        "column": 41,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1893,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1893:41"
+      },
+      "status": "supported",
+      "text": "node _T_1140 = and(io.dmem.store_ack[0].valid, io.dmem.store_ack[0].bits.is_hella)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_1141"
+      ],
+      "firrtl_line": 374442,
+      "id": 8070,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_T_1139",
+        "_T_1140"
+      ],
+      "source": {
+        "column": 70,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1892,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1892:70"
+      },
+      "status": "supported",
+      "text": "node _T_1141 = or(_T_1139, _T_1140)"
+    },
+    {
+      "control_reads": [
+        "_T_1141"
+      ],
+      "drives": [],
+      "firrtl_line": 374443,
+      "id": 8071,
+      "kind": "when",
+      "note": null,
+      "reads": [
+        "_T_1141"
+      ],
+      "source": {
+        "column": 81,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1893,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1893:81"
+      },
+      "status": "supported",
+      "text": "when _T_1141 :"
+    },
+    {
+      "control_reads": [
+        "_T_1122",
+        "_T_1124",
+        "_T_1127",
+        "_T_1128",
+        "_T_1136",
+        "_T_1141"
+      ],
+      "drives": [
+        "io.hellacache.resp.valid"
+      ],
+      "firrtl_line": 374445,
+      "id": 8073,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h1"
+      ],
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1896,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1896:40"
+      },
+      "status": "supported",
+      "text": "connect io.hellacache.resp.valid, UInt<1>(0h1)"
+    },
+    {
+      "control_reads": [
+        "_T_1122",
+        "_T_1124",
+        "_T_1127",
+        "_T_1128",
+        "_T_1136",
+        "_T_1141"
+      ],
+      "drives": [
+        "io.hellacache.resp.bits.data"
+      ],
+      "firrtl_line": 374451,
+      "id": 8079,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "io.dmem.resp[0].bits.data"
+      ],
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1902,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1902:40"
+      },
+      "status": "supported",
+      "text": "connect io.hellacache.resp.bits.data, io.dmem.resp[0].bits.data"
+    }
+  ],
+  "work_unit": {
+    "coverage_complete": true,
+    "decision": "manageable",
+    "depth": 1,
+    "exceeded_limits": [],
+    "id": "LSU::region-0-5",
+    "instance_path": "LSU",
+    "is_leaf": true,
+    "kind": "region",
+    "module": "LSU",
+    "replacement_exceeded_limits": []
+  }
+}

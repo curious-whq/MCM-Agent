@@ -1,0 +1,227 @@
+{
+  "compiler": "formal-axiom-compiler-0.13",
+  "obligations": [
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 0,
+        "on": "HellaResponse",
+        "signal": "io.hellacache.resp.bits.replay"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        7992
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.hellacache.resp.bits.replay",
+            "op": "signal"
+          }
+        },
+        "on": "HellaResponse",
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "HellaResponse"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.hellacache.resp.bits.replay"
+        ]
+      },
+      "rendered_formula": "bits(io.hellacache.resp.bits.replay, 0, 0) == 0 on HellaResponse"
+    },
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 1,
+        "on": "HellaResponse",
+        "signal": "io.hellacache.resp.bits.has_data"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        7993
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.hellacache.resp.bits.has_data",
+            "op": "signal"
+          }
+        },
+        "on": "HellaResponse",
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 1
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "HellaResponse"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.hellacache.resp.bits.has_data"
+        ]
+      },
+      "rendered_formula": "bits(io.hellacache.resp.bits.has_data, 0, 0) == 1 on HellaResponse"
+    },
+    {
+      "arguments": {
+        "on": "HellaResponse",
+        "source": "io.ptw.status.prv",
+        "target": "io.hellacache.resp.bits.dprv"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        7997
+      ],
+      "formal": {
+        "on": "HellaResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "io.ptw.status.prv",
+          "op": "signal"
+        },
+        "target": "io.hellacache.resp.bits.dprv",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "HellaResponse"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.hellacache.resp.bits.dprv",
+          "io.ptw.status.prv"
+        ]
+      },
+      "rendered_formula": "io.hellacache.resp.bits.dprv = io.ptw.status.prv on HellaResponse"
+    },
+    {
+      "arguments": {
+        "on": "HellaResponse",
+        "source": "io.ptw.status.v",
+        "target": "io.hellacache.resp.bits.dv"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        7998
+      ],
+      "formal": {
+        "on": "HellaResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "io.ptw.status.v",
+          "op": "signal"
+        },
+        "target": "io.hellacache.resp.bits.dv",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "HellaResponse"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.hellacache.resp.bits.dv",
+          "io.ptw.status.v"
+        ]
+      },
+      "rendered_formula": "io.hellacache.resp.bits.dv = io.ptw.status.v on HellaResponse"
+    },
+    {
+      "arguments": {
+        "on": "HellaResponse",
+        "source": "io.dmem.ll_resp.bits.data",
+        "target": "io.hellacache.resp.bits.data_word_bypass"
+      },
+      "axiom_id": "A5",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        7994
+      ],
+      "formal": {
+        "on": "HellaResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "io.dmem.ll_resp.bits.data",
+          "op": "signal"
+        },
+        "target": "io.hellacache.resp.bits.data_word_bypass",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "HellaResponse"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.dmem.ll_resp.bits.data",
+          "io.hellacache.resp.bits.data_word_bypass"
+        ]
+      },
+      "rendered_formula": "io.hellacache.resp.bits.data_word_bypass = io.dmem.ll_resp.bits.data on HellaResponse"
+    },
+    {
+      "arguments": {
+        "on": "HellaResponse",
+        "source": "io.dmem.ll_resp.bits.data",
+        "target": "io.hellacache.resp.bits.data_raw"
+      },
+      "axiom_id": "A6",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        7995
+      ],
+      "formal": {
+        "on": "HellaResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "io.dmem.ll_resp.bits.data",
+          "op": "signal"
+        },
+        "target": "io.hellacache.resp.bits.data_raw",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "HellaResponse"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.dmem.ll_resp.bits.data",
+          "io.hellacache.resp.bits.data_raw"
+        ]
+      },
+      "rendered_formula": "io.hellacache.resp.bits.data_raw = io.dmem.ll_resp.bits.data on HellaResponse"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "work_unit_id": "LSU::region-0-5"
+}

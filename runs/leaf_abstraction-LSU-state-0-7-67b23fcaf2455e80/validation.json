@@ -1,0 +1,8 @@
+{
+  "errors": [],
+  "next_validator": "formal-axiom-compiler-0.13/semantic-validator-0.23 + formal-backend-api-0.23",
+  "semantic_proof_performed": false,
+  "valid": true,
+  "validator": "deterministic-grounding-0.8",
+  "warnings": []
+}

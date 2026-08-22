@@ -1,0 +1,1178 @@
+{
+  "all_axioms_formally_proved": true,
+  "all_axioms_structurally_supported": true,
+  "candidate_axiom_count": 3,
+  "control_model": {
+    "known_states": [],
+    "reset_state": null,
+    "state_register": "state",
+    "transitions": []
+  },
+  "counts": {
+    "FORMALLY_PROVED": 3,
+    "GROUNDED": 0,
+    "PARTIALLY_SUPPORTED": 0,
+    "REFUTED": 0,
+    "SPEC_PROVED": 0,
+    "STRUCTURALLY_SUPPORTED": 0
+  },
+  "empty_abstraction_certificate": null,
+  "formal_backend": {
+    "api_version": "formal-backend-api-0.23",
+    "available": true,
+    "name": "explicit-control",
+    "note": "Exhaustive formal proof for certified finite-control/order properties, exact symbolic local/identity facts, exact local Boolean exclusion/conservation, bounded indexed token provenance, and selected finite reference equivalence checks. It is not a general bit-level SMT backend.",
+    "proof_domain": "control + exact symbolic local + exact combinational exclusion/conservation + scalar/indexed token provenance + finite reference equivalence",
+    "supported_checkers": [
+      "forbid_when",
+      "history_order",
+      "history_chain",
+      "history_join",
+      "indexed_coverage",
+      "indexed_storage_flow",
+      "indexed_priority_select",
+      "register_transition",
+      "occurrence_partition",
+      "transaction_exclusion",
+      "signal_alias",
+      "constant_bit",
+      "identity_projection",
+      "tilelink_on_probe_spec"
+    ],
+    "trusted_proof_levels": [
+      "FORMALLY_PROVED",
+      "SPEC_PROVED"
+    ]
+  },
+  "has_counterexample": false,
+  "property_compiler": "formal-axiom-compiler-0.13",
+  "public_interface_validation": null,
+  "results": [
+    {
+      "arguments": {
+        "on": "NoPMPEntryMatches",
+        "source": "default",
+        "target": "io.r"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        3,
+        103,
+        300,
+        497,
+        694,
+        891,
+        1088,
+        1285,
+        1482,
+        1593,
+        1594
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [
+            {
+              "kind": "exact-unconditional-aggregate-alias",
+              "source": "res.cfg.r",
+              "statement_id": 1594,
+              "target": "io.r"
+            }
+          ],
+          "all_driver_statement_ids": [
+            1593
+          ],
+          "on": "NoPMPEntryMatches",
+          "proof": "every last-connect driver of io.r reachable on NoPMPEntryMatches equals default",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "resolved_target": "res.cfg.r",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "exact-unconditional-ssa-node"
+              },
+              "atom_count": 64,
+              "rhs": "mux(res_hit_7, res_cur_7.cfg.r, _res_T_314.cfg.r)",
+              "statement_id": 1593,
+              "value_proof": {
+                "branches": [
+                  {
+                    "branch": "high",
+                    "proof": {
+                      "atom_count": 64,
+                      "kind": "unreachable-branch"
+                    }
+                  },
+                  {
+                    "branch": "low",
+                    "proof": {
+                      "branches": [
+                        {
+                          "branch": "high",
+                          "proof": {
+                            "atom_count": 64,
+                            "kind": "unreachable-branch"
+                          }
+                        },
+                        {
+                          "branch": "low",
+                          "proof": {
+                            "branches": [
+                              {
+                                "branch": "high",
+                                "proof": {
+                                  "atom_count": 64,
+                                  "kind": "unreachable-branch"
+                                }
+                              },
+                              {
+                                "branch": "low",
+                                "proof": {
+                                  "branches": [
+                                    {
+                                      "branch": "high",
+                                      "proof": {
+                                        "atom_count": 64,
+                                        "kind": "unreachable-branch"
+                                      }
+                                    },
+                                    {
+                                      "branch": "low",
+                                      "proof": {
+                                        "branches": [
+                                          {
+                                            "branch": "high",
+                                            "proof": {
+                                              "atom_count": 64,
+                                              "kind": "unreachable-branch"
+                                            }
+                                          },
+                                          {
+                                            "branch": "low",
+                                            "proof": {
+                                              "branches": [
+                                                {
+                                                  "branch": "high",
+                                                  "proof": {
+                                                    "atom_count": 64,
+                                                    "kind": "unreachable-branch"
+                                                  }
+                                                },
+                                                {
+                                                  "branch": "low",
+                                                  "proof": {
+                                                    "branches": [
+                                                      {
+                                                        "branch": "high",
+                                                        "proof": {
+                                                          "atom_count": 64,
+                                                          "kind": "unreachable-branch"
+                                                        }
+                                                      },
+                                                      {
+                                                        "branch": "low",
+                                                        "proof": {
+                                                          "branches": [
+                                                            {
+                                                              "branch": "high",
+                                                              "proof": {
+                                                                "atom_count": 64,
+                                                                "kind": "unreachable-branch"
+                                                              }
+                                                            },
+                                                            {
+                                                              "branch": "low",
+                                                              "proof": {
+                                                                "kind": "symbolic-normal-form-equality"
+                                                              }
+                                                            }
+                                                          ],
+                                                          "kind": "conditional-mux-equality",
+                                                          "select": "res_hit"
+                                                        }
+                                                      }
+                                                    ],
+                                                    "kind": "conditional-mux-equality",
+                                                    "select": "res_hit_1"
+                                                  }
+                                                }
+                                              ],
+                                              "kind": "conditional-mux-equality",
+                                              "select": "res_hit_2"
+                                            }
+                                          }
+                                        ],
+                                        "kind": "conditional-mux-equality",
+                                        "select": "res_hit_3"
+                                      }
+                                    }
+                                  ],
+                                  "kind": "conditional-mux-equality",
+                                  "select": "res_hit_4"
+                                }
+                              }
+                            ],
+                            "kind": "conditional-mux-equality",
+                            "select": "res_hit_5"
+                          }
+                        }
+                      ],
+                      "kind": "conditional-mux-equality",
+                      "select": "res_hit_6"
+                    }
+                  }
+                ],
+                "kind": "conditional-mux-equality",
+                "select": "res_hit_7"
+              }
+            }
+          ],
+          "source": "default",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.r",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.r reachable on NoPMPEntryMatches equals default",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "NoPMPEntryMatches"
+        ],
+        "predicates": [],
+        "signals": [
+          "default",
+          "io.r"
+        ]
+      },
+      "rendered_formula": "io.r = default on NoPMPEntryMatches",
+      "structural": {
+        "alias_chain": [
+          {
+            "kind": "exact-unconditional-aggregate-alias",
+            "source": "res.cfg.r",
+            "statement_id": 1594,
+            "target": "io.r"
+          }
+        ],
+        "all_driver_statement_ids": [
+          1593
+        ],
+        "on": "NoPMPEntryMatches",
+        "proof": "every last-connect driver of io.r reachable on NoPMPEntryMatches equals default",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "resolved_target": "res.cfg.r",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "exact-unconditional-ssa-node"
+            },
+            "atom_count": 64,
+            "rhs": "mux(res_hit_7, res_cur_7.cfg.r, _res_T_314.cfg.r)",
+            "statement_id": 1593,
+            "value_proof": {
+              "branches": [
+                {
+                  "branch": "high",
+                  "proof": {
+                    "atom_count": 64,
+                    "kind": "unreachable-branch"
+                  }
+                },
+                {
+                  "branch": "low",
+                  "proof": {
+                    "branches": [
+                      {
+                        "branch": "high",
+                        "proof": {
+                          "atom_count": 64,
+                          "kind": "unreachable-branch"
+                        }
+                      },
+                      {
+                        "branch": "low",
+                        "proof": {
+                          "branches": [
+                            {
+                              "branch": "high",
+                              "proof": {
+                                "atom_count": 64,
+                                "kind": "unreachable-branch"
+                              }
+                            },
+                            {
+                              "branch": "low",
+                              "proof": {
+                                "branches": [
+                                  {
+                                    "branch": "high",
+                                    "proof": {
+                                      "atom_count": 64,
+                                      "kind": "unreachable-branch"
+                                    }
+                                  },
+                                  {
+                                    "branch": "low",
+                                    "proof": {
+                                      "branches": [
+                                        {
+                                          "branch": "high",
+                                          "proof": {
+                                            "atom_count": 64,
+                                            "kind": "unreachable-branch"
+                                          }
+                                        },
+                                        {
+                                          "branch": "low",
+                                          "proof": {
+                                            "branches": [
+                                              {
+                                                "branch": "high",
+                                                "proof": {
+                                                  "atom_count": 64,
+                                                  "kind": "unreachable-branch"
+                                                }
+                                              },
+                                              {
+                                                "branch": "low",
+                                                "proof": {
+                                                  "branches": [
+                                                    {
+                                                      "branch": "high",
+                                                      "proof": {
+                                                        "atom_count": 64,
+                                                        "kind": "unreachable-branch"
+                                                      }
+                                                    },
+                                                    {
+                                                      "branch": "low",
+                                                      "proof": {
+                                                        "branches": [
+                                                          {
+                                                            "branch": "high",
+                                                            "proof": {
+                                                              "atom_count": 64,
+                                                              "kind": "unreachable-branch"
+                                                            }
+                                                          },
+                                                          {
+                                                            "branch": "low",
+                                                            "proof": {
+                                                              "kind": "symbolic-normal-form-equality"
+                                                            }
+                                                          }
+                                                        ],
+                                                        "kind": "conditional-mux-equality",
+                                                        "select": "res_hit"
+                                                      }
+                                                    }
+                                                  ],
+                                                  "kind": "conditional-mux-equality",
+                                                  "select": "res_hit_1"
+                                                }
+                                              }
+                                            ],
+                                            "kind": "conditional-mux-equality",
+                                            "select": "res_hit_2"
+                                          }
+                                        }
+                                      ],
+                                      "kind": "conditional-mux-equality",
+                                      "select": "res_hit_3"
+                                    }
+                                  }
+                                ],
+                                "kind": "conditional-mux-equality",
+                                "select": "res_hit_4"
+                              }
+                            }
+                          ],
+                          "kind": "conditional-mux-equality",
+                          "select": "res_hit_5"
+                        }
+                      }
+                    ],
+                    "kind": "conditional-mux-equality",
+                    "select": "res_hit_6"
+                  }
+                }
+              ],
+              "kind": "conditional-mux-equality",
+              "select": "res_hit_7"
+            }
+          }
+        ],
+        "source": "default",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.r",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "NoPMPEntryMatches",
+        "source": "default",
+        "target": "io.w"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        3,
+        103,
+        300,
+        497,
+        694,
+        891,
+        1088,
+        1285,
+        1482,
+        1593,
+        1595
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [
+            {
+              "kind": "exact-unconditional-aggregate-alias",
+              "source": "res.cfg.w",
+              "statement_id": 1595,
+              "target": "io.w"
+            }
+          ],
+          "all_driver_statement_ids": [
+            1593
+          ],
+          "on": "NoPMPEntryMatches",
+          "proof": "every last-connect driver of io.w reachable on NoPMPEntryMatches equals default",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "resolved_target": "res.cfg.w",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "exact-unconditional-ssa-node"
+              },
+              "atom_count": 64,
+              "rhs": "mux(res_hit_7, res_cur_7.cfg.w, _res_T_314.cfg.w)",
+              "statement_id": 1593,
+              "value_proof": {
+                "branches": [
+                  {
+                    "branch": "high",
+                    "proof": {
+                      "atom_count": 64,
+                      "kind": "unreachable-branch"
+                    }
+                  },
+                  {
+                    "branch": "low",
+                    "proof": {
+                      "branches": [
+                        {
+                          "branch": "high",
+                          "proof": {
+                            "atom_count": 64,
+                            "kind": "unreachable-branch"
+                          }
+                        },
+                        {
+                          "branch": "low",
+                          "proof": {
+                            "branches": [
+                              {
+                                "branch": "high",
+                                "proof": {
+                                  "atom_count": 64,
+                                  "kind": "unreachable-branch"
+                                }
+                              },
+                              {
+                                "branch": "low",
+                                "proof": {
+                                  "branches": [
+                                    {
+                                      "branch": "high",
+                                      "proof": {
+                                        "atom_count": 64,
+                                        "kind": "unreachable-branch"
+                                      }
+                                    },
+                                    {
+                                      "branch": "low",
+                                      "proof": {
+                                        "branches": [
+                                          {
+                                            "branch": "high",
+                                            "proof": {
+                                              "atom_count": 64,
+                                              "kind": "unreachable-branch"
+                                            }
+                                          },
+                                          {
+                                            "branch": "low",
+                                            "proof": {
+                                              "branches": [
+                                                {
+                                                  "branch": "high",
+                                                  "proof": {
+                                                    "atom_count": 64,
+                                                    "kind": "unreachable-branch"
+                                                  }
+                                                },
+                                                {
+                                                  "branch": "low",
+                                                  "proof": {
+                                                    "branches": [
+                                                      {
+                                                        "branch": "high",
+                                                        "proof": {
+                                                          "atom_count": 64,
+                                                          "kind": "unreachable-branch"
+                                                        }
+                                                      },
+                                                      {
+                                                        "branch": "low",
+                                                        "proof": {
+                                                          "branches": [
+                                                            {
+                                                              "branch": "high",
+                                                              "proof": {
+                                                                "atom_count": 64,
+                                                                "kind": "unreachable-branch"
+                                                              }
+                                                            },
+                                                            {
+                                                              "branch": "low",
+                                                              "proof": {
+                                                                "kind": "symbolic-normal-form-equality"
+                                                              }
+                                                            }
+                                                          ],
+                                                          "kind": "conditional-mux-equality",
+                                                          "select": "res_hit"
+                                                        }
+                                                      }
+                                                    ],
+                                                    "kind": "conditional-mux-equality",
+                                                    "select": "res_hit_1"
+                                                  }
+                                                }
+                                              ],
+                                              "kind": "conditional-mux-equality",
+                                              "select": "res_hit_2"
+                                            }
+                                          }
+                                        ],
+                                        "kind": "conditional-mux-equality",
+                                        "select": "res_hit_3"
+                                      }
+                                    }
+                                  ],
+                                  "kind": "conditional-mux-equality",
+                                  "select": "res_hit_4"
+                                }
+                              }
+                            ],
+                            "kind": "conditional-mux-equality",
+                            "select": "res_hit_5"
+                          }
+                        }
+                      ],
+                      "kind": "conditional-mux-equality",
+                      "select": "res_hit_6"
+                    }
+                  }
+                ],
+                "kind": "conditional-mux-equality",
+                "select": "res_hit_7"
+              }
+            }
+          ],
+          "source": "default",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.w",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.w reachable on NoPMPEntryMatches equals default",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "NoPMPEntryMatches"
+        ],
+        "predicates": [],
+        "signals": [
+          "default",
+          "io.w"
+        ]
+      },
+      "rendered_formula": "io.w = default on NoPMPEntryMatches",
+      "structural": {
+        "alias_chain": [
+          {
+            "kind": "exact-unconditional-aggregate-alias",
+            "source": "res.cfg.w",
+            "statement_id": 1595,
+            "target": "io.w"
+          }
+        ],
+        "all_driver_statement_ids": [
+          1593
+        ],
+        "on": "NoPMPEntryMatches",
+        "proof": "every last-connect driver of io.w reachable on NoPMPEntryMatches equals default",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "resolved_target": "res.cfg.w",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "exact-unconditional-ssa-node"
+            },
+            "atom_count": 64,
+            "rhs": "mux(res_hit_7, res_cur_7.cfg.w, _res_T_314.cfg.w)",
+            "statement_id": 1593,
+            "value_proof": {
+              "branches": [
+                {
+                  "branch": "high",
+                  "proof": {
+                    "atom_count": 64,
+                    "kind": "unreachable-branch"
+                  }
+                },
+                {
+                  "branch": "low",
+                  "proof": {
+                    "branches": [
+                      {
+                        "branch": "high",
+                        "proof": {
+                          "atom_count": 64,
+                          "kind": "unreachable-branch"
+                        }
+                      },
+                      {
+                        "branch": "low",
+                        "proof": {
+                          "branches": [
+                            {
+                              "branch": "high",
+                              "proof": {
+                                "atom_count": 64,
+                                "kind": "unreachable-branch"
+                              }
+                            },
+                            {
+                              "branch": "low",
+                              "proof": {
+                                "branches": [
+                                  {
+                                    "branch": "high",
+                                    "proof": {
+                                      "atom_count": 64,
+                                      "kind": "unreachable-branch"
+                                    }
+                                  },
+                                  {
+                                    "branch": "low",
+                                    "proof": {
+                                      "branches": [
+                                        {
+                                          "branch": "high",
+                                          "proof": {
+                                            "atom_count": 64,
+                                            "kind": "unreachable-branch"
+                                          }
+                                        },
+                                        {
+                                          "branch": "low",
+                                          "proof": {
+                                            "branches": [
+                                              {
+                                                "branch": "high",
+                                                "proof": {
+                                                  "atom_count": 64,
+                                                  "kind": "unreachable-branch"
+                                                }
+                                              },
+                                              {
+                                                "branch": "low",
+                                                "proof": {
+                                                  "branches": [
+                                                    {
+                                                      "branch": "high",
+                                                      "proof": {
+                                                        "atom_count": 64,
+                                                        "kind": "unreachable-branch"
+                                                      }
+                                                    },
+                                                    {
+                                                      "branch": "low",
+                                                      "proof": {
+                                                        "branches": [
+                                                          {
+                                                            "branch": "high",
+                                                            "proof": {
+                                                              "atom_count": 64,
+                                                              "kind": "unreachable-branch"
+                                                            }
+                                                          },
+                                                          {
+                                                            "branch": "low",
+                                                            "proof": {
+                                                              "kind": "symbolic-normal-form-equality"
+                                                            }
+                                                          }
+                                                        ],
+                                                        "kind": "conditional-mux-equality",
+                                                        "select": "res_hit"
+                                                      }
+                                                    }
+                                                  ],
+                                                  "kind": "conditional-mux-equality",
+                                                  "select": "res_hit_1"
+                                                }
+                                              }
+                                            ],
+                                            "kind": "conditional-mux-equality",
+                                            "select": "res_hit_2"
+                                          }
+                                        }
+                                      ],
+                                      "kind": "conditional-mux-equality",
+                                      "select": "res_hit_3"
+                                    }
+                                  }
+                                ],
+                                "kind": "conditional-mux-equality",
+                                "select": "res_hit_4"
+                              }
+                            }
+                          ],
+                          "kind": "conditional-mux-equality",
+                          "select": "res_hit_5"
+                        }
+                      }
+                    ],
+                    "kind": "conditional-mux-equality",
+                    "select": "res_hit_6"
+                  }
+                }
+              ],
+              "kind": "conditional-mux-equality",
+              "select": "res_hit_7"
+            }
+          }
+        ],
+        "source": "default",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.w",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "NoPMPEntryMatches",
+        "source": "default",
+        "target": "io.x"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        3,
+        103,
+        300,
+        497,
+        694,
+        891,
+        1088,
+        1285,
+        1482,
+        1593,
+        1596
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [
+            {
+              "kind": "exact-unconditional-aggregate-alias",
+              "source": "res.cfg.x",
+              "statement_id": 1596,
+              "target": "io.x"
+            }
+          ],
+          "all_driver_statement_ids": [
+            1593
+          ],
+          "on": "NoPMPEntryMatches",
+          "proof": "every last-connect driver of io.x reachable on NoPMPEntryMatches equals default",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "resolved_target": "res.cfg.x",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "exact-unconditional-ssa-node"
+              },
+              "atom_count": 64,
+              "rhs": "mux(res_hit_7, res_cur_7.cfg.x, _res_T_314.cfg.x)",
+              "statement_id": 1593,
+              "value_proof": {
+                "branches": [
+                  {
+                    "branch": "high",
+                    "proof": {
+                      "atom_count": 64,
+                      "kind": "unreachable-branch"
+                    }
+                  },
+                  {
+                    "branch": "low",
+                    "proof": {
+                      "branches": [
+                        {
+                          "branch": "high",
+                          "proof": {
+                            "atom_count": 64,
+                            "kind": "unreachable-branch"
+                          }
+                        },
+                        {
+                          "branch": "low",
+                          "proof": {
+                            "branches": [
+                              {
+                                "branch": "high",
+                                "proof": {
+                                  "atom_count": 64,
+                                  "kind": "unreachable-branch"
+                                }
+                              },
+                              {
+                                "branch": "low",
+                                "proof": {
+                                  "branches": [
+                                    {
+                                      "branch": "high",
+                                      "proof": {
+                                        "atom_count": 64,
+                                        "kind": "unreachable-branch"
+                                      }
+                                    },
+                                    {
+                                      "branch": "low",
+                                      "proof": {
+                                        "branches": [
+                                          {
+                                            "branch": "high",
+                                            "proof": {
+                                              "atom_count": 64,
+                                              "kind": "unreachable-branch"
+                                            }
+                                          },
+                                          {
+                                            "branch": "low",
+                                            "proof": {
+                                              "branches": [
+                                                {
+                                                  "branch": "high",
+                                                  "proof": {
+                                                    "atom_count": 64,
+                                                    "kind": "unreachable-branch"
+                                                  }
+                                                },
+                                                {
+                                                  "branch": "low",
+                                                  "proof": {
+                                                    "branches": [
+                                                      {
+                                                        "branch": "high",
+                                                        "proof": {
+                                                          "atom_count": 64,
+                                                          "kind": "unreachable-branch"
+                                                        }
+                                                      },
+                                                      {
+                                                        "branch": "low",
+                                                        "proof": {
+                                                          "branches": [
+                                                            {
+                                                              "branch": "high",
+                                                              "proof": {
+                                                                "atom_count": 64,
+                                                                "kind": "unreachable-branch"
+                                                              }
+                                                            },
+                                                            {
+                                                              "branch": "low",
+                                                              "proof": {
+                                                                "kind": "symbolic-normal-form-equality"
+                                                              }
+                                                            }
+                                                          ],
+                                                          "kind": "conditional-mux-equality",
+                                                          "select": "res_hit"
+                                                        }
+                                                      }
+                                                    ],
+                                                    "kind": "conditional-mux-equality",
+                                                    "select": "res_hit_1"
+                                                  }
+                                                }
+                                              ],
+                                              "kind": "conditional-mux-equality",
+                                              "select": "res_hit_2"
+                                            }
+                                          }
+                                        ],
+                                        "kind": "conditional-mux-equality",
+                                        "select": "res_hit_3"
+                                      }
+                                    }
+                                  ],
+                                  "kind": "conditional-mux-equality",
+                                  "select": "res_hit_4"
+                                }
+                              }
+                            ],
+                            "kind": "conditional-mux-equality",
+                            "select": "res_hit_5"
+                          }
+                        }
+                      ],
+                      "kind": "conditional-mux-equality",
+                      "select": "res_hit_6"
+                    }
+                  }
+                ],
+                "kind": "conditional-mux-equality",
+                "select": "res_hit_7"
+              }
+            }
+          ],
+          "source": "default",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.x",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.x reachable on NoPMPEntryMatches equals default",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "NoPMPEntryMatches"
+        ],
+        "predicates": [],
+        "signals": [
+          "default",
+          "io.x"
+        ]
+      },
+      "rendered_formula": "io.x = default on NoPMPEntryMatches",
+      "structural": {
+        "alias_chain": [
+          {
+            "kind": "exact-unconditional-aggregate-alias",
+            "source": "res.cfg.x",
+            "statement_id": 1596,
+            "target": "io.x"
+          }
+        ],
+        "all_driver_statement_ids": [
+          1593
+        ],
+        "on": "NoPMPEntryMatches",
+        "proof": "every last-connect driver of io.x reachable on NoPMPEntryMatches equals default",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "resolved_target": "res.cfg.x",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "exact-unconditional-ssa-node"
+            },
+            "atom_count": 64,
+            "rhs": "mux(res_hit_7, res_cur_7.cfg.x, _res_T_314.cfg.x)",
+            "statement_id": 1593,
+            "value_proof": {
+              "branches": [
+                {
+                  "branch": "high",
+                  "proof": {
+                    "atom_count": 64,
+                    "kind": "unreachable-branch"
+                  }
+                },
+                {
+                  "branch": "low",
+                  "proof": {
+                    "branches": [
+                      {
+                        "branch": "high",
+                        "proof": {
+                          "atom_count": 64,
+                          "kind": "unreachable-branch"
+                        }
+                      },
+                      {
+                        "branch": "low",
+                        "proof": {
+                          "branches": [
+                            {
+                              "branch": "high",
+                              "proof": {
+                                "atom_count": 64,
+                                "kind": "unreachable-branch"
+                              }
+                            },
+                            {
+                              "branch": "low",
+                              "proof": {
+                                "branches": [
+                                  {
+                                    "branch": "high",
+                                    "proof": {
+                                      "atom_count": 64,
+                                      "kind": "unreachable-branch"
+                                    }
+                                  },
+                                  {
+                                    "branch": "low",
+                                    "proof": {
+                                      "branches": [
+                                        {
+                                          "branch": "high",
+                                          "proof": {
+                                            "atom_count": 64,
+                                            "kind": "unreachable-branch"
+                                          }
+                                        },
+                                        {
+                                          "branch": "low",
+                                          "proof": {
+                                            "branches": [
+                                              {
+                                                "branch": "high",
+                                                "proof": {
+                                                  "atom_count": 64,
+                                                  "kind": "unreachable-branch"
+                                                }
+                                              },
+                                              {
+                                                "branch": "low",
+                                                "proof": {
+                                                  "branches": [
+                                                    {
+                                                      "branch": "high",
+                                                      "proof": {
+                                                        "atom_count": 64,
+                                                        "kind": "unreachable-branch"
+                                                      }
+                                                    },
+                                                    {
+                                                      "branch": "low",
+                                                      "proof": {
+                                                        "branches": [
+                                                          {
+                                                            "branch": "high",
+                                                            "proof": {
+                                                              "atom_count": 64,
+                                                              "kind": "unreachable-branch"
+                                                            }
+                                                          },
+                                                          {
+                                                            "branch": "low",
+                                                            "proof": {
+                                                              "kind": "symbolic-normal-form-equality"
+                                                            }
+                                                          }
+                                                        ],
+                                                        "kind": "conditional-mux-equality",
+                                                        "select": "res_hit"
+                                                      }
+                                                    }
+                                                  ],
+                                                  "kind": "conditional-mux-equality",
+                                                  "select": "res_hit_1"
+                                                }
+                                              }
+                                            ],
+                                            "kind": "conditional-mux-equality",
+                                            "select": "res_hit_2"
+                                          }
+                                        }
+                                      ],
+                                      "kind": "conditional-mux-equality",
+                                      "select": "res_hit_3"
+                                    }
+                                  }
+                                ],
+                                "kind": "conditional-mux-equality",
+                                "select": "res_hit_4"
+                              }
+                            }
+                          ],
+                          "kind": "conditional-mux-equality",
+                          "select": "res_hit_5"
+                        }
+                      }
+                    ],
+                    "kind": "conditional-mux-equality",
+                    "select": "res_hit_6"
+                  }
+                }
+              ],
+              "kind": "conditional-mux-equality",
+              "select": "res_hit_7"
+            }
+          }
+        ],
+        "source": "default",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.x",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    }
+  ],
+  "trusted_axiom_count": 3,
+  "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
+  "validator": "semantic-validator-0.23",
+  "work_unit_id": "LSU.dtlb.pmp_0"
+}

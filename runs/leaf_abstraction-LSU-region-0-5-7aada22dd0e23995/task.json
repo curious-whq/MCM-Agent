@@ -1,0 +1,9 @@
+{
+  "kind": "leaf_abstraction",
+  "prompt_version": "leaf-abstraction-prompt-0.14",
+  "provider_mode": "manual_conversation",
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-LSU-region-0-5-7aada22dd0e23995",
+  "work_unit_id": "LSU::region-0-5",
+  "workflow_version": "manual-first-workflow-0.9"
+}

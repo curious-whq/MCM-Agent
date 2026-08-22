@@ -37,7 +37,7 @@
 
 ## Axioms
 
-- `A1` [FORMALLY_PROVED] stq_execute_head' = priority guarded next-state (4 updates, first_match)
+- `A1` [FORMALLY_PROVED] next(stq_execute_head) = first_match(if _T_1151: 0; if (io.dmem.nack[0].valid && !(io.dmem.nack[0].bits.is_hella) && !(io.dmem.nack[0].bits.uop.uses_ldq) && _T_921): io.dmem.nack[0].bits.uop.stq_idx; if (!(will_fire_loa…
 
 ## Next action
 

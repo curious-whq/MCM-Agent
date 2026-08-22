@@ -1,0 +1,296 @@
+{
+  "all_axioms_formally_proved": true,
+  "all_axioms_structurally_supported": true,
+  "candidate_axiom_count": 6,
+  "control_model": {
+    "known_states": [],
+    "reset_state": null,
+    "state_register": "state",
+    "transitions": []
+  },
+  "counts": {
+    "FORMALLY_PROVED": 6,
+    "GROUNDED": 0,
+    "PARTIALLY_SUPPORTED": 0,
+    "REFUTED": 0,
+    "SPEC_PROVED": 0,
+    "STRUCTURALLY_SUPPORTED": 0
+  },
+  "empty_abstraction_certificate": null,
+  "formal_backend": {
+    "api_version": "formal-backend-api-0.23",
+    "available": true,
+    "name": "explicit-control",
+    "note": "Exhaustive formal proof for certified finite-control/order properties, exact symbolic local/identity facts, exact local Boolean exclusion/conservation, bounded indexed token provenance, and selected finite reference equivalence checks. It is not a general bit-level SMT backend.",
+    "proof_domain": "control + exact symbolic local + exact combinational exclusion/conservation + scalar/indexed token provenance + finite reference equivalence",
+    "supported_checkers": [
+      "forbid_when",
+      "history_order",
+      "history_chain",
+      "history_join",
+      "indexed_coverage",
+      "indexed_storage_flow",
+      "indexed_priority_select",
+      "register_transition",
+      "occurrence_partition",
+      "transaction_exclusion",
+      "signal_alias",
+      "constant_bit",
+      "identity_projection",
+      "tilelink_on_probe_spec"
+    ],
+    "trusted_proof_levels": [
+      "FORMALLY_PROVED",
+      "SPEC_PROVED"
+    ]
+  },
+  "has_counterexample": false,
+  "property_compiler": "formal-axiom-compiler-0.13",
+  "public_interface_validation": null,
+  "results": [
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 0,
+        "signal": "io.xcpt_if"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        3
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "proof": "bit 0 of io.xcpt_if is statically 0",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "bit 0 of io.xcpt_if is statically 0",
+        "proof_domain": "local-combinational-constant",
+        "proof_method": "exact-constant-propagation",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [],
+        "predicates": [],
+        "signals": [
+          "io.xcpt_if"
+        ]
+      },
+      "rendered_formula": "bits(io.xcpt_if, 0, 0) == 0",
+      "structural": {
+        "proof": "bit 0 of io.xcpt_if is statically 0",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 0,
+        "signal": "io.xcpt_ld"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        4
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "proof": "bit 0 of io.xcpt_ld is statically 0",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "bit 0 of io.xcpt_ld is statically 0",
+        "proof_domain": "local-combinational-constant",
+        "proof_method": "exact-constant-propagation",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [],
+        "predicates": [],
+        "signals": [
+          "io.xcpt_ld"
+        ]
+      },
+      "rendered_formula": "bits(io.xcpt_ld, 0, 0) == 0",
+      "structural": {
+        "proof": "bit 0 of io.xcpt_ld is statically 0",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 0,
+        "signal": "io.xcpt_st"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        5
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "proof": "bit 0 of io.xcpt_st is statically 0",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "bit 0 of io.xcpt_st is statically 0",
+        "proof_domain": "local-combinational-constant",
+        "proof_method": "exact-constant-propagation",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [],
+        "predicates": [],
+        "signals": [
+          "io.xcpt_st"
+        ]
+      },
+      "rendered_formula": "bits(io.xcpt_st, 0, 0) == 0",
+      "structural": {
+        "proof": "bit 0 of io.xcpt_st is statically 0",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 0,
+        "signal": "io.debug_if"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        6
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "proof": "bit 0 of io.debug_if is statically 0",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "bit 0 of io.debug_if is statically 0",
+        "proof_domain": "local-combinational-constant",
+        "proof_method": "exact-constant-propagation",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [],
+        "predicates": [],
+        "signals": [
+          "io.debug_if"
+        ]
+      },
+      "rendered_formula": "bits(io.debug_if, 0, 0) == 0",
+      "structural": {
+        "proof": "bit 0 of io.debug_if is statically 0",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 0,
+        "signal": "io.debug_ld"
+      },
+      "axiom_id": "A5",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        7
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "proof": "bit 0 of io.debug_ld is statically 0",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "bit 0 of io.debug_ld is statically 0",
+        "proof_domain": "local-combinational-constant",
+        "proof_method": "exact-constant-propagation",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [],
+        "predicates": [],
+        "signals": [
+          "io.debug_ld"
+        ]
+      },
+      "rendered_formula": "bits(io.debug_ld, 0, 0) == 0",
+      "structural": {
+        "proof": "bit 0 of io.debug_ld is statically 0",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 0,
+        "signal": "io.debug_st"
+      },
+      "axiom_id": "A6",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        8
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "proof": "bit 0 of io.debug_st is statically 0",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "bit 0 of io.debug_st is statically 0",
+        "proof_domain": "local-combinational-constant",
+        "proof_method": "exact-constant-propagation",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [],
+        "predicates": [],
+        "signals": [
+          "io.debug_st"
+        ]
+      },
+      "rendered_formula": "bits(io.debug_st, 0, 0) == 0",
+      "structural": {
+        "proof": "bit 0 of io.debug_st is statically 0",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    }
+  ],
+  "trusted_axiom_count": 6,
+  "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
+  "validator": "semantic-validator-0.23",
+  "work_unit_id": "LSU.bkptu_0"
+}

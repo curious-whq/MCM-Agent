@@ -1,13 +1,13 @@
-# Run Summary — LSU::state-0-13
+# Run Summary — LSU.dtlb.pmp_0
 
 ## Identity
 
-- task: `leaf_abstraction-LSU-state-0-13-6709bdbe9122e581`
+- task: `leaf_abstraction-LSU.dtlb.pmp_0-751666a56ace25f8`
 - kind: `leaf_abstraction`
 - workflow: `manual-first-workflow-0.9`
 - prompt: `leaf-abstraction-prompt-0.14`
 - schema: `umcm-formal-0.5`
-- workflow status: `FORMALLY_VALIDATED`
+- workflow status: `FROZEN_FOR_COMPOSITION`
 
 ## Grounding
 
@@ -17,11 +17,11 @@
 
 ## Candidate µMCM
 
-- occurrences: 0
-- predicates: 0
+- occurrences: 1
+- predicates: 6
 - identity keys: 0
 - cases: 0
-- candidate axioms: 1
+- candidate axioms: 3
 - unresolved: 0
 
 ## Validation
@@ -29,19 +29,21 @@
 - GROUNDED: 0
 - PARTIALLY_SUPPORTED: 0
 - STRUCTURALLY_SUPPORTED: 0
-- FORMALLY_PROVED: 1
+- FORMALLY_PROVED: 3
 - SPEC_PROVED: 0
 - REFUTED: 0
-- trusted axioms: 1
+- trusted axioms: 3
 - formal backend: `explicit-control`
 
 ## Axioms
 
-- `A1` [FORMALLY_PROVED] next(stq_tail) = first_match(if _T_1151: 0; if _T_1092: io.core.brupdate.b2.uop.stq_idx; if dis_st_val: inc_mod_16(stq_tail); default: stq_tail)
+- `A1` [FORMALLY_PROVED] io.r = default on NoPMPEntryMatches
+- `A2` [FORMALLY_PROVED] io.w = default on NoPMPEntryMatches
+- `A3` [FORMALLY_PROVED] io.x = default on NoPMPEntryMatches
 
 ## Next action
 
-The formally proved axioms may be frozen into the trusted leaf µMCM.
+A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
 
 ## Durable experiment notes
 

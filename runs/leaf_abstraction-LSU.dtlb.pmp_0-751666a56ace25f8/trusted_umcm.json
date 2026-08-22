@@ -1,0 +1,219 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        3,
+        103,
+        300,
+        497,
+        694,
+        891,
+        1088,
+        1285,
+        1482,
+        1593,
+        1594
+      ],
+      "formal": {
+        "on": "NoPMPEntryMatches",
+        "scope_identity": null,
+        "source": {
+          "name": "default",
+          "op": "signal"
+        },
+        "target": "io.r",
+        "type": "signal_equality"
+      },
+      "id": "A1",
+      "rendered_formula": "io.r = default on NoPMPEntryMatches",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        3,
+        103,
+        300,
+        497,
+        694,
+        891,
+        1088,
+        1285,
+        1482,
+        1593,
+        1595
+      ],
+      "formal": {
+        "on": "NoPMPEntryMatches",
+        "scope_identity": null,
+        "source": {
+          "name": "default",
+          "op": "signal"
+        },
+        "target": "io.w",
+        "type": "signal_equality"
+      },
+      "id": "A2",
+      "rendered_formula": "io.w = default on NoPMPEntryMatches",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        3,
+        103,
+        300,
+        497,
+        694,
+        891,
+        1088,
+        1285,
+        1482,
+        1593,
+        1596
+      ],
+      "formal": {
+        "on": "NoPMPEntryMatches",
+        "scope_identity": null,
+        "source": {
+          "name": "default",
+          "op": "signal"
+        },
+        "target": "io.x",
+        "type": "signal_equality"
+      },
+      "id": "A3",
+      "rendered_formula": "io.x = default on NoPMPEntryMatches",
+      "status": "candidate"
+    }
+  ],
+  "cases": [],
+  "identity_keys": [],
+  "note": "Only axioms with FORMALLY_PROVED or SPEC_PROVED validation level are included. Grounded/structurally-supported candidate axioms remain outside the trusted abstraction.",
+  "occurrences": [
+    {
+      "definition": "No configured PMP entry matches the current combinational access check.",
+      "evidence_statement_ids": [
+        103,
+        300,
+        497,
+        694,
+        891,
+        1088,
+        1285,
+        1482
+      ],
+      "grounding": {
+        "signals_false": [
+          "res_hit",
+          "res_hit_1",
+          "res_hit_2",
+          "res_hit_3",
+          "res_hit_4",
+          "res_hit_5",
+          "res_hit_6",
+          "res_hit_7"
+        ],
+        "signals_true": [],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "NoPMPEntryMatches",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    }
+  ],
+  "predicates": [
+    {
+      "definition": "The PMP checker permits the current read access.",
+      "evidence_statement_ids": [
+        1594
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "io.r",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "ReadAllowed"
+    },
+    {
+      "definition": "The PMP checker denies the current read access.",
+      "evidence_statement_ids": [
+        1594
+      ],
+      "grounding": {
+        "negated": true,
+        "source_signal": "io.r",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "ReadDenied"
+    },
+    {
+      "definition": "The PMP checker permits the current write access.",
+      "evidence_statement_ids": [
+        1595
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "io.w",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "WriteAllowed"
+    },
+    {
+      "definition": "The PMP checker denies the current write access.",
+      "evidence_statement_ids": [
+        1595
+      ],
+      "grounding": {
+        "negated": true,
+        "source_signal": "io.w",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "WriteDenied"
+    },
+    {
+      "definition": "The PMP checker permits the current instruction-fetch access.",
+      "evidence_statement_ids": [
+        1596
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "io.x",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "ExecuteAllowed"
+    },
+    {
+      "definition": "The PMP checker denies the current instruction-fetch access.",
+      "evidence_statement_ids": [
+        1596
+      ],
+      "grounding": {
+        "negated": true,
+        "source_signal": "io.x",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "ExecuteDenied"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-LSU.dtlb.pmp_0-751666a56ace25f8",
+  "trust_policy": "formal-ast-plus-certified-provenance-v0.3",
+  "trusted_axiom_ids": [
+    "A1",
+    "A2",
+    "A3"
+  ],
+  "work_unit_id": "LSU.dtlb.pmp_0"
+}

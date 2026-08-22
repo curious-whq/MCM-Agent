@@ -1,0 +1,9 @@
+{
+  "kind": "leaf_abstraction",
+  "prompt_version": "leaf-abstraction-prompt-0.14",
+  "provider_mode": "manual_conversation",
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-OptimizationBarrier_EntryData-c16fb14f08559e09",
+  "work_unit_id": "OptimizationBarrier_EntryData",
+  "workflow_version": "manual-first-workflow-0.9"
+}

@@ -455,6 +455,67 @@ class ParentWorkflowTests(unittest.TestCase):
         self.assertEqual(interface["trust"]["exported_axiom_count"], 1)
         self.assertEqual(interface["trust"]["private_axiom_count"], 1)
 
+    def test_leaf_preserves_and_exports_unreferenced_semantic_declarations(self):
+        candidate = _frozen_child()
+        candidate["occurrences"].append({
+            "id": "ObservedBoundary",
+            "kind": "boundary",
+            "physical_event_ids": ["Parent.child::io.observe.fire"],
+            "definition": "an event-only child boundary observation",
+            "multiplicity": "repeatable",
+            "grounding": {
+                "state_register": None,
+                "state_values": [],
+                "signals_true": [],
+                "signals_false": [],
+            },
+            "evidence_statement_ids": [],
+        })
+        candidate["predicates"].append({
+            "id": "ObservedOnly",
+            "definition": "a grounded observation without a theorem",
+            "grounding": {
+                "source_signal": "observed",
+                "negated": False,
+                "state_register": None,
+                "state_values": [],
+            },
+            "evidence_statement_ids": [9],
+        })
+        results = [{
+            "axiom_id": "CA1",
+            "validation_level": FORMALLY_PROVED,
+        }]
+
+        frozen = _build_trusted_umcm(candidate, results)
+        frozen["freeze"] = candidate["freeze"]
+        self.assertIn("ObservedBoundary", [item["id"] for item in frozen["occurrences"]])
+        self.assertIn("ObservedOnly", [item["id"] for item in frozen["predicates"]])
+
+        summary = {
+            "child_id": "Parent.child",
+            "task_id": "child-task",
+            "summary_ref": "umcm://Parent.child",
+            "boundary_events": [
+                "Parent.child::io.out.fire",
+                "Parent.child::io.observe.fire",
+            ],
+            "frontier_signals": [],
+            "instance_reuse": {"kind": "exact-work-unit"},
+            "frozen_umcm": frozen,
+            "frozen_umcm_sha256": _canonical_sha256(frozen),
+        }
+        interface = build_prompt_interface(summary, parent_work_unit_id="Parent")
+
+        self.assertIn(
+            "Parent.child::ObservedBoundary",
+            interface["exported_ids"]["occurrences"],
+        )
+        self.assertIn(
+            "Parent.child::ObservedOnly",
+            interface["exported_ids"]["predicates"],
+        )
+
     def test_trusted_parent_preserves_explicit_public_objects_and_partition(self):
         candidate = _frozen_child()
         candidate["predicates"].append({

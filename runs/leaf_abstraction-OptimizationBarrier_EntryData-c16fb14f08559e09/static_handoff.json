@@ -1,0 +1,584 @@
+{
+  "children": [],
+  "complexity": {
+    "event_state_coupling": 0.0,
+    "events": 0,
+    "logical": {
+      "dependency_edges": 1,
+      "signals": 5,
+      "source_loc": 3,
+      "statements": 3
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 15,
+      "signals": 33,
+      "source_loc": 3,
+      "statements": 4,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 0,
+    "state_regions": 0
+  },
+  "dependency_edges": [
+    {
+      "dst": "io.y.ae",
+      "kind": "data",
+      "source": {
+        "column": 12,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 273,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 273:12"
+      },
+      "src": "io.x.ae",
+      "statement_ids": [
+        3
+      ]
+    },
+    {
+      "dst": "io.y.c",
+      "kind": "data",
+      "source": {
+        "column": 12,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 273,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 273:12"
+      },
+      "src": "io.x.c",
+      "statement_ids": [
+        3
+      ]
+    },
+    {
+      "dst": "io.y.eff",
+      "kind": "data",
+      "source": {
+        "column": 12,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 273,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 273:12"
+      },
+      "src": "io.x.eff",
+      "statement_ids": [
+        3
+      ]
+    },
+    {
+      "dst": "io.y.fragmented_superpage",
+      "kind": "data",
+      "source": {
+        "column": 12,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 273,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 273:12"
+      },
+      "src": "io.x.fragmented_superpage",
+      "statement_ids": [
+        3
+      ]
+    },
+    {
+      "dst": "io.y.g",
+      "kind": "data",
+      "source": {
+        "column": 12,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 273,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 273:12"
+      },
+      "src": "io.x.g",
+      "statement_ids": [
+        3
+      ]
+    },
+    {
+      "dst": "io.y.paa",
+      "kind": "data",
+      "source": {
+        "column": 12,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 273,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 273:12"
+      },
+      "src": "io.x.paa",
+      "statement_ids": [
+        3
+      ]
+    },
+    {
+      "dst": "io.y.pal",
+      "kind": "data",
+      "source": {
+        "column": 12,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 273,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 273:12"
+      },
+      "src": "io.x.pal",
+      "statement_ids": [
+        3
+      ]
+    },
+    {
+      "dst": "io.y.ppn",
+      "kind": "data",
+      "source": {
+        "column": 12,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 273,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 273:12"
+      },
+      "src": "io.x.ppn",
+      "statement_ids": [
+        3
+      ]
+    },
+    {
+      "dst": "io.y.pr",
+      "kind": "data",
+      "source": {
+        "column": 12,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 273,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 273:12"
+      },
+      "src": "io.x.pr",
+      "statement_ids": [
+        3
+      ]
+    },
+    {
+      "dst": "io.y.pw",
+      "kind": "data",
+      "source": {
+        "column": 12,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 273,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 273:12"
+      },
+      "src": "io.x.pw",
+      "statement_ids": [
+        3
+      ]
+    },
+    {
+      "dst": "io.y.px",
+      "kind": "data",
+      "source": {
+        "column": 12,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 273,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 273:12"
+      },
+      "src": "io.x.px",
+      "statement_ids": [
+        3
+      ]
+    },
+    {
+      "dst": "io.y.sr",
+      "kind": "data",
+      "source": {
+        "column": 12,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 273,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 273:12"
+      },
+      "src": "io.x.sr",
+      "statement_ids": [
+        3
+      ]
+    },
+    {
+      "dst": "io.y.sw",
+      "kind": "data",
+      "source": {
+        "column": 12,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 273,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 273:12"
+      },
+      "src": "io.x.sw",
+      "statement_ids": [
+        3
+      ]
+    },
+    {
+      "dst": "io.y.sx",
+      "kind": "data",
+      "source": {
+        "column": 12,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 273,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 273:12"
+      },
+      "src": "io.x.sx",
+      "statement_ids": [
+        3
+      ]
+    },
+    {
+      "dst": "io.y.u",
+      "kind": "data",
+      "source": {
+        "column": 12,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 273,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 273:12"
+      },
+      "src": "io.x.u",
+      "statement_ids": [
+        3
+      ]
+    }
+  ],
+  "events": [],
+  "frontier": [
+    {
+      "id": "io.y.ae",
+      "kind": "port",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 269,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 269:18"
+      },
+      "type": null
+    },
+    {
+      "id": "io.y.c",
+      "kind": "port",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 269,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 269:18"
+      },
+      "type": null
+    },
+    {
+      "id": "io.y.eff",
+      "kind": "port",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 269,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 269:18"
+      },
+      "type": null
+    },
+    {
+      "id": "io.y.fragmented_superpage",
+      "kind": "port",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 269,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 269:18"
+      },
+      "type": null
+    },
+    {
+      "id": "io.y.g",
+      "kind": "port",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 269,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 269:18"
+      },
+      "type": null
+    },
+    {
+      "id": "io.y.paa",
+      "kind": "port",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 269,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 269:18"
+      },
+      "type": null
+    },
+    {
+      "id": "io.y.pal",
+      "kind": "port",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 269,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 269:18"
+      },
+      "type": null
+    },
+    {
+      "id": "io.y.ppn",
+      "kind": "port",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 269,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 269:18"
+      },
+      "type": null
+    },
+    {
+      "id": "io.y.pr",
+      "kind": "port",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 269,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 269:18"
+      },
+      "type": null
+    },
+    {
+      "id": "io.y.pw",
+      "kind": "port",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 269,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 269:18"
+      },
+      "type": null
+    },
+    {
+      "id": "io.y.px",
+      "kind": "port",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 269,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 269:18"
+      },
+      "type": null
+    },
+    {
+      "id": "io.y.sr",
+      "kind": "port",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 269,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 269:18"
+      },
+      "type": null
+    },
+    {
+      "id": "io.y.sw",
+      "kind": "port",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 269,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 269:18"
+      },
+      "type": null
+    },
+    {
+      "id": "io.y.sx",
+      "kind": "port",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 269,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 269:18"
+      },
+      "type": null
+    },
+    {
+      "id": "io.y.u",
+      "kind": "port",
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 269,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 269:18"
+      },
+      "type": null
+    }
+  ],
+  "grounding": {
+    "allowed_physical_event_ids": [],
+    "allowed_state_ids": [],
+    "allowed_statement_ids": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "semantic_labels": []
+  },
+  "memory_state": [],
+  "parent_connection_signals": [],
+  "planner_version": "hierarchical-planner-v14",
+  "proof_context": {
+    "event_gate_statement_ids": [],
+    "event_gate_statements": [],
+    "llm_evidence": false,
+    "policy": "exact-local-proof-context-v0.2",
+    "state_support_statement_ids": [],
+    "state_support_statements": [],
+    "state_writer_control_statement_ids": [],
+    "state_writer_control_statements": []
+  },
+  "replacement_complexity": {
+    "event_state_coupling": 0.0,
+    "events": 0,
+    "logical": {
+      "dependency_edges": 1,
+      "signals": 2,
+      "source_loc": 3,
+      "statements": 3
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 15,
+      "signals": 16,
+      "source_loc": 3,
+      "statements": 4,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 0,
+    "state_regions": 0
+  },
+  "schema_version": "workunit-static-0.4",
+  "semantic_event_cones": [],
+  "source_evidence": {
+    "resolved": [
+      {
+        "end_line": 270,
+        "logical_file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/util/package.scala",
+        "start_line": 267,
+        "text": "  def OptimizationBarrier[T <: Data](in: T): T = {\n    val barrier = Module(new Module {\n      val io = IO(new Bundle {\n        val x = Input(chiselTypeOf(in))\n"
+      },
+      {
+        "end_line": 274,
+        "logical_file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/util/package.scala",
+        "start_line": 272,
+        "text": "      })\n      io.y := io.x\n      override def desiredName = s\"OptimizationBarrier_${in.typeName}\"\n"
+      }
+    ],
+    "roots": [
+      "/t1/MCM-Agent/tools/chipyard"
+    ],
+    "unresolved": []
+  },
+  "source_spans": [
+    {
+      "end_line": 269,
+      "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+      "start_line": 268
+    },
+    {
+      "end_line": 273,
+      "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+      "start_line": 273
+    }
+  ],
+  "state": [],
+  "statements": [
+    {
+      "control_reads": [],
+      "drives": [],
+      "firrtl_line": 360236,
+      "id": 0,
+      "kind": "structural",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 268,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 268:30"
+      },
+      "status": "nondriving",
+      "text": "input clock : Clock"
+    },
+    {
+      "control_reads": [],
+      "drives": [],
+      "firrtl_line": 360237,
+      "id": 1,
+      "kind": "structural",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 30,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 268,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 268:30"
+      },
+      "status": "nondriving",
+      "text": "input reset : Reset"
+    },
+    {
+      "control_reads": [],
+      "drives": [],
+      "firrtl_line": 360238,
+      "id": 2,
+      "kind": "structural",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 18,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 269,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 269:18"
+      },
+      "status": "nondriving",
+      "text": "output io : { flip x : { ppn : UInt<20>, u : UInt<1>, g : UInt<1>, ae : UInt<1>, sw : UInt<1>, sx : UInt<1>, sr : UInt<1>, pw : UInt<1>, px : UInt<1>, pr : UInt<1>, pal : UInt<1>, paa : UInt<1>, eff : UInt<1>, c : UInt<1>, fragmented_superpage : UInt<1>}, y : { ppn : UInt<20>, u : UInt<1>, g : UInt<1>, ae : UInt<1>, sw : UInt<1>, sx : UInt<1>, sr : UInt<1>, pw : UInt<1>, px : UInt<1>, pr : UInt<1>, pal : UInt<1>, paa : UInt<1>, eff : UInt<1>, c : UInt<1>, fragmented_superpage : UInt<1>}}"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.y.ae",
+        "io.y.c",
+        "io.y.eff",
+        "io.y.fragmented_superpage",
+        "io.y.g",
+        "io.y.paa",
+        "io.y.pal",
+        "io.y.ppn",
+        "io.y.pr",
+        "io.y.pw",
+        "io.y.px",
+        "io.y.sr",
+        "io.y.sw",
+        "io.y.sx",
+        "io.y.u"
+      ],
+      "firrtl_line": 360240,
+      "id": 3,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "io.x"
+      ],
+      "source": {
+        "column": 12,
+        "file": "generators/rocket-chip/src/main/scala/util/package.scala",
+        "line": 273,
+        "raw": "generators/rocket-chip/src/main/scala/util/package.scala 273:12"
+      },
+      "status": "supported",
+      "text": "connect io.y, io.x"
+    }
+  ],
+  "work_unit": {
+    "coverage_complete": true,
+    "decision": "manageable",
+    "depth": 0,
+    "exceeded_limits": [],
+    "id": "OptimizationBarrier_EntryData",
+    "instance_path": "OptimizationBarrier_EntryData",
+    "is_leaf": true,
+    "kind": "module",
+    "module": "OptimizationBarrier_EntryData",
+    "replacement_exceeded_limits": []
+  }
+}

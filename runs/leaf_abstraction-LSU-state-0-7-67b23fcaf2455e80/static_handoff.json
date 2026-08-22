@@ -1,0 +1,471 @@
+{
+  "children": [],
+  "complexity": {
+    "event_state_coupling": 0.0,
+    "events": 0,
+    "logical": {
+      "dependency_edges": 12,
+      "signals": 9,
+      "source_loc": 2,
+      "statements": 2
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 12,
+      "signals": 9,
+      "source_loc": 2,
+      "statements": 4,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 1,
+    "state_regions": 1
+  },
+  "dependency_edges": [
+    {
+      "dst": "_T_126",
+      "kind": "data",
+      "source": {
+        "column": 50,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 840,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 840:50"
+      },
+      "src": "will_fire_load_agen[0]",
+      "statement_ids": [
+        2201
+      ]
+    },
+    {
+      "dst": "_T_126",
+      "kind": "data",
+      "source": {
+        "column": 50,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 840,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 840:50"
+      },
+      "src": "will_fire_load_agen_exec[0]",
+      "statement_ids": [
+        2201
+      ]
+    },
+    {
+      "dst": "_T_126",
+      "kind": "control",
+      "source": {
+        "column": 50,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 840,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 840:50"
+      },
+      "src": "mem_xcpt_valids[0]",
+      "statement_ids": [
+        2201
+      ]
+    },
+    {
+      "dst": "_T_127",
+      "kind": "data",
+      "source": {
+        "column": 76,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 840,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 840:76"
+      },
+      "src": "_T_126",
+      "statement_ids": [
+        2202
+      ]
+    },
+    {
+      "dst": "_T_127",
+      "kind": "data",
+      "source": {
+        "column": 76,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 840,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 840:76"
+      },
+      "src": "will_fire_store_agen[0]",
+      "statement_ids": [
+        2202
+      ]
+    },
+    {
+      "dst": "_T_127",
+      "kind": "control",
+      "source": {
+        "column": 76,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 840,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 840:76"
+      },
+      "src": "mem_xcpt_valids[0]",
+      "statement_ids": [
+        2202
+      ]
+    },
+    {
+      "dst": "_T_128",
+      "kind": "data",
+      "source": {
+        "column": 103,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 840,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 840:103"
+      },
+      "src": "_T_127",
+      "statement_ids": [
+        2203
+      ]
+    },
+    {
+      "dst": "_T_128",
+      "kind": "data",
+      "source": {
+        "column": 103,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 840,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 840:103"
+      },
+      "src": "will_fire_load_retry[0]",
+      "statement_ids": [
+        2203
+      ]
+    },
+    {
+      "dst": "_T_128",
+      "kind": "control",
+      "source": {
+        "column": 103,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 840,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 840:103"
+      },
+      "src": "mem_xcpt_valids[0]",
+      "statement_ids": [
+        2203
+      ]
+    },
+    {
+      "dst": "_T_129",
+      "kind": "data",
+      "source": {
+        "column": 33,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 841,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 841:33"
+      },
+      "src": "_T_128",
+      "statement_ids": [
+        2204
+      ]
+    },
+    {
+      "dst": "_T_129",
+      "kind": "data",
+      "source": {
+        "column": 33,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 841,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 841:33"
+      },
+      "src": "will_fire_store_retry[0]",
+      "statement_ids": [
+        2204
+      ]
+    },
+    {
+      "dst": "_T_129",
+      "kind": "control",
+      "source": {
+        "column": 33,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 841,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 841:33"
+      },
+      "src": "mem_xcpt_valids[0]",
+      "statement_ids": [
+        2204
+      ]
+    }
+  ],
+  "events": [],
+  "frontier": [
+    {
+      "id": "_T_129",
+      "kind": "node",
+      "source": {
+        "column": 33,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 841,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 841:33"
+      },
+      "type": null
+    },
+    {
+      "id": "will_fire_load_agen[0]",
+      "kind": "wire",
+      "source": {
+        "column": 41,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 463,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 463:41"
+      },
+      "type": null
+    },
+    {
+      "id": "will_fire_load_agen_exec[0]",
+      "kind": "wire",
+      "source": {
+        "column": 39,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 462,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 462:39"
+      },
+      "type": null
+    },
+    {
+      "id": "will_fire_load_retry[0]",
+      "kind": "wire",
+      "source": {
+        "column": 41,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 469,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 469:41"
+      },
+      "type": null
+    },
+    {
+      "id": "will_fire_store_agen[0]",
+      "kind": "wire",
+      "source": {
+        "column": 41,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 464,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 464:41"
+      },
+      "type": null
+    },
+    {
+      "id": "will_fire_store_retry[0]",
+      "kind": "wire",
+      "source": {
+        "column": 41,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 470,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 470:41"
+      },
+      "type": null
+    }
+  ],
+  "grounding": {
+    "allowed_physical_event_ids": [],
+    "allowed_state_ids": [
+      "REG"
+    ],
+    "allowed_statement_ids": [
+      2201,
+      2202,
+      2203,
+      2204
+    ],
+    "semantic_labels": []
+  },
+  "memory_state": [],
+  "parent_connection_signals": [],
+  "planner_version": "hierarchical-planner-v14",
+  "proof_context": {
+    "event_gate_statement_ids": [],
+    "event_gate_statements": [],
+    "llm_evidence": false,
+    "policy": "exact-local-proof-context-v0.2",
+    "state_support_statement_ids": [
+      2205
+    ],
+    "state_support_statements": [
+      {
+        "control_reads": [],
+        "drives": [
+          "REG"
+        ],
+        "firrtl_line": 368577,
+        "id": 2205,
+        "kind": "reg",
+        "note": null,
+        "reads": [
+          "clock"
+        ],
+        "source": {
+          "column": 21,
+          "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+          "line": 840,
+          "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 840:21"
+        },
+        "status": "supported",
+        "text": "reg REG : UInt<1>, clock"
+      }
+    ],
+    "state_writer_control_statement_ids": [],
+    "state_writer_control_statements": []
+  },
+  "replacement_complexity": {
+    "event_state_coupling": 0.0,
+    "events": 0,
+    "logical": {
+      "dependency_edges": 12,
+      "signals": 9,
+      "source_loc": 2,
+      "statements": 2
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 12,
+      "signals": 9,
+      "source_loc": 2,
+      "statements": 4,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 1,
+    "state_regions": 1
+  },
+  "schema_version": "workunit-static-0.4",
+  "semantic_event_cones": [],
+  "source_evidence": {
+    "resolved": [
+      {
+        "end_line": 842,
+        "logical_file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "start_line": 839,
+        "text": "    {\n      assert(RegNext(will_fire_load_agen_exec(w) || will_fire_load_agen(w) || will_fire_store_agen(w) ||\n        will_fire_load_retry(w) || will_fire_store_retry(w)))\n      // Technically only faulting AMOs need this\n"
+      }
+    ],
+    "roots": [
+      "/t1/MCM-Agent/tools/chipyard"
+    ],
+    "unresolved": []
+  },
+  "source_spans": [
+    {
+      "end_line": 841,
+      "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+      "start_line": 840
+    }
+  ],
+  "state": [
+    {
+      "id": "REG",
+      "kind": "register",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 840,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 840:21"
+      },
+      "type": "UInt<1>"
+    }
+  ],
+  "statements": [
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_126"
+      ],
+      "firrtl_line": 368573,
+      "id": 2201,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "will_fire_load_agen[0]",
+        "will_fire_load_agen_exec[0]"
+      ],
+      "source": {
+        "column": 50,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 840,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 840:50"
+      },
+      "status": "supported",
+      "text": "node _T_126 = or(will_fire_load_agen_exec[0], will_fire_load_agen[0])"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_127"
+      ],
+      "firrtl_line": 368574,
+      "id": 2202,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_T_126",
+        "will_fire_store_agen[0]"
+      ],
+      "source": {
+        "column": 76,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 840,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 840:76"
+      },
+      "status": "supported",
+      "text": "node _T_127 = or(_T_126, will_fire_store_agen[0])"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_128"
+      ],
+      "firrtl_line": 368575,
+      "id": 2203,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_T_127",
+        "will_fire_load_retry[0]"
+      ],
+      "source": {
+        "column": 103,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 840,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 840:103"
+      },
+      "status": "supported",
+      "text": "node _T_128 = or(_T_127, will_fire_load_retry[0])"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_129"
+      ],
+      "firrtl_line": 368576,
+      "id": 2204,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_T_128",
+        "will_fire_store_retry[0]"
+      ],
+      "source": {
+        "column": 33,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 841,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 841:33"
+      },
+      "status": "supported",
+      "text": "node _T_129 = or(_T_128, will_fire_store_retry[0])"
+    }
+  ],
+  "work_unit": {
+    "coverage_complete": true,
+    "decision": "manageable",
+    "depth": 1,
+    "exceeded_limits": [],
+    "id": "LSU::state-0-7",
+    "instance_path": "LSU",
+    "is_leaf": true,
+    "kind": "region",
+    "module": "LSU",
+    "replacement_exceeded_limits": []
+  }
+}

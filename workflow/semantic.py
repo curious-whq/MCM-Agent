@@ -2396,15 +2396,39 @@ def _build_trusted_umcm(candidate: dict[str, Any], results: list[dict[str, Any]]
     ]
 
     public_interface = _declared_public_interface(candidate)
-    occurrence_ids: set[str] = {
-        str(item) for item in (public_interface or {}).get("exported_occurrence_ids", [])
-    }
-    predicate_ids: set[str] = {
-        str(item) for item in (public_interface or {}).get("exported_predicate_ids", [])
-    }
-    identity_ids: set[str] = {
-        str(item) for item in (public_interface or {}).get("exported_identity_ids", [])
-    }
+    if public_interface is None:
+        # A leaf has no separate public/private contract: every grounded
+        # semantic declaration is part of the compositional interface, even
+        # when it is only an observation point and no axiom mentions it yet.
+        # Dropping such declarations here makes owned boundary events and
+        # useful CEGAR handles silently disappear at freeze time.
+        occurrence_ids = {
+            str(item["id"])
+            for item in candidate.get("occurrences", [])
+            if isinstance(item, dict) and isinstance(item.get("id"), str)
+        }
+        predicate_ids = {
+            str(item["id"])
+            for item in candidate.get("predicates", [])
+            if isinstance(item, dict) and isinstance(item.get("id"), str)
+        }
+        identity_ids = {
+            str(item["id"])
+            for item in candidate.get("identity_keys", [])
+            if isinstance(item, dict) and isinstance(item.get("id"), str)
+        }
+    else:
+        # Parent summaries have an explicit public contract.  Preserve only
+        # the declared exports plus the dependency closure of trusted axioms.
+        occurrence_ids = {
+            str(item) for item in public_interface.get("exported_occurrence_ids", [])
+        }
+        predicate_ids = {
+            str(item) for item in public_interface.get("exported_predicate_ids", [])
+        }
+        identity_ids = {
+            str(item) for item in public_interface.get("exported_identity_ids", [])
+        }
     case_ids: set[str] = set()
     rendered_axioms = []
     for axiom in trusted_axioms:

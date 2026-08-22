@@ -1,0 +1,606 @@
+{
+  "all_axioms_formally_proved": true,
+  "all_axioms_structurally_supported": true,
+  "candidate_axiom_count": 6,
+  "control_model": {
+    "known_states": [],
+    "reset_state": null,
+    "state_register": "state",
+    "transitions": []
+  },
+  "counts": {
+    "FORMALLY_PROVED": 6,
+    "GROUNDED": 0,
+    "PARTIALLY_SUPPORTED": 0,
+    "REFUTED": 0,
+    "SPEC_PROVED": 0,
+    "STRUCTURALLY_SUPPORTED": 0
+  },
+  "empty_abstraction_certificate": null,
+  "formal_backend": {
+    "api_version": "formal-backend-api-0.23",
+    "available": true,
+    "name": "explicit-control",
+    "note": "Exhaustive formal proof for certified finite-control/order properties, exact symbolic local/identity facts, exact local Boolean exclusion/conservation, bounded indexed token provenance, and selected finite reference equivalence checks. It is not a general bit-level SMT backend.",
+    "proof_domain": "control + exact symbolic local + exact combinational exclusion/conservation + scalar/indexed token provenance + finite reference equivalence",
+    "supported_checkers": [
+      "forbid_when",
+      "history_order",
+      "history_chain",
+      "history_join",
+      "indexed_coverage",
+      "indexed_storage_flow",
+      "indexed_priority_select",
+      "register_transition",
+      "occurrence_partition",
+      "transaction_exclusion",
+      "signal_alias",
+      "constant_bit",
+      "identity_projection",
+      "tilelink_on_probe_spec"
+    ],
+    "trusted_proof_levels": [
+      "FORMALLY_PROVED",
+      "SPEC_PROVED"
+    ]
+  },
+  "has_counterexample": false,
+  "property_compiler": "formal-axiom-compiler-0.13",
+  "public_interface_validation": null,
+  "results": [
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 0,
+        "on": "HellaResponse",
+        "signal": "io.hellacache.resp.bits.replay"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        7992
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [],
+          "all_driver_statement_ids": [
+            7992
+          ],
+          "bit": 0,
+          "expected": 0,
+          "on": "HellaResponse",
+          "proof": "every last-connect driver of bit 0 of io.hellacache.resp.bits.replay reachable on HellaResponse equals 0",
+          "proof_domain": "exact-conditional-constant-bit",
+          "reachable_lock_certificates": [],
+          "resolved_signal": "io.hellacache.resp.bits.replay",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "unconditional"
+              },
+              "atom_count": 0,
+              "rhs": "UInt<1>(0h0)",
+              "statement_id": 7992
+            }
+          ],
+          "signal": "io.hellacache.resp.bits.replay",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "every last-connect driver of bit 0 of io.hellacache.resp.bits.replay reachable on HellaResponse equals 0",
+        "proof_method": "exact-conditional-constant-bit",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "HellaResponse"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.hellacache.resp.bits.replay"
+        ]
+      },
+      "rendered_formula": "bits(io.hellacache.resp.bits.replay, 0, 0) == 0 on HellaResponse",
+      "structural": {
+        "alias_chain": [],
+        "all_driver_statement_ids": [
+          7992
+        ],
+        "bit": 0,
+        "expected": 0,
+        "on": "HellaResponse",
+        "proof": "every last-connect driver of bit 0 of io.hellacache.resp.bits.replay reachable on HellaResponse equals 0",
+        "proof_domain": "exact-conditional-constant-bit",
+        "reachable_lock_certificates": [],
+        "resolved_signal": "io.hellacache.resp.bits.replay",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "unconditional"
+            },
+            "atom_count": 0,
+            "rhs": "UInt<1>(0h0)",
+            "statement_id": 7992
+          }
+        ],
+        "signal": "io.hellacache.resp.bits.replay",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 1,
+        "on": "HellaResponse",
+        "signal": "io.hellacache.resp.bits.has_data"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        7993
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [],
+          "all_driver_statement_ids": [
+            7993
+          ],
+          "bit": 0,
+          "expected": 1,
+          "on": "HellaResponse",
+          "proof": "every last-connect driver of bit 0 of io.hellacache.resp.bits.has_data reachable on HellaResponse equals 1",
+          "proof_domain": "exact-conditional-constant-bit",
+          "reachable_lock_certificates": [],
+          "resolved_signal": "io.hellacache.resp.bits.has_data",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "unconditional"
+              },
+              "atom_count": 0,
+              "rhs": "UInt<1>(0h1)",
+              "statement_id": 7993
+            }
+          ],
+          "signal": "io.hellacache.resp.bits.has_data",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "every last-connect driver of bit 0 of io.hellacache.resp.bits.has_data reachable on HellaResponse equals 1",
+        "proof_method": "exact-conditional-constant-bit",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "HellaResponse"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.hellacache.resp.bits.has_data"
+        ]
+      },
+      "rendered_formula": "bits(io.hellacache.resp.bits.has_data, 0, 0) == 1 on HellaResponse",
+      "structural": {
+        "alias_chain": [],
+        "all_driver_statement_ids": [
+          7993
+        ],
+        "bit": 0,
+        "expected": 1,
+        "on": "HellaResponse",
+        "proof": "every last-connect driver of bit 0 of io.hellacache.resp.bits.has_data reachable on HellaResponse equals 1",
+        "proof_domain": "exact-conditional-constant-bit",
+        "reachable_lock_certificates": [],
+        "resolved_signal": "io.hellacache.resp.bits.has_data",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "unconditional"
+            },
+            "atom_count": 0,
+            "rhs": "UInt<1>(0h1)",
+            "statement_id": 7993
+          }
+        ],
+        "signal": "io.hellacache.resp.bits.has_data",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "HellaResponse",
+        "source": "io.ptw.status.prv",
+        "target": "io.hellacache.resp.bits.dprv"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        7997
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [],
+          "all_driver_statement_ids": [
+            7997
+          ],
+          "on": "HellaResponse",
+          "proof": "every last-connect driver of io.hellacache.resp.bits.dprv reachable on HellaResponse equals io.ptw.status.prv",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "resolved_target": "io.hellacache.resp.bits.dprv",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "unconditional"
+              },
+              "atom_count": 0,
+              "rhs": "io.ptw.status.prv",
+              "statement_id": 7997,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "io.ptw.status.prv",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.hellacache.resp.bits.dprv",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.hellacache.resp.bits.dprv reachable on HellaResponse equals io.ptw.status.prv",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "HellaResponse"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.hellacache.resp.bits.dprv",
+          "io.ptw.status.prv"
+        ]
+      },
+      "rendered_formula": "io.hellacache.resp.bits.dprv = io.ptw.status.prv on HellaResponse",
+      "structural": {
+        "alias_chain": [],
+        "all_driver_statement_ids": [
+          7997
+        ],
+        "on": "HellaResponse",
+        "proof": "every last-connect driver of io.hellacache.resp.bits.dprv reachable on HellaResponse equals io.ptw.status.prv",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "resolved_target": "io.hellacache.resp.bits.dprv",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "unconditional"
+            },
+            "atom_count": 0,
+            "rhs": "io.ptw.status.prv",
+            "statement_id": 7997,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "io.ptw.status.prv",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.hellacache.resp.bits.dprv",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "HellaResponse",
+        "source": "io.ptw.status.v",
+        "target": "io.hellacache.resp.bits.dv"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        7998
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [],
+          "all_driver_statement_ids": [
+            7998
+          ],
+          "on": "HellaResponse",
+          "proof": "every last-connect driver of io.hellacache.resp.bits.dv reachable on HellaResponse equals io.ptw.status.v",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "resolved_target": "io.hellacache.resp.bits.dv",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "unconditional"
+              },
+              "atom_count": 0,
+              "rhs": "io.ptw.status.v",
+              "statement_id": 7998,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "io.ptw.status.v",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.hellacache.resp.bits.dv",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.hellacache.resp.bits.dv reachable on HellaResponse equals io.ptw.status.v",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "HellaResponse"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.hellacache.resp.bits.dv",
+          "io.ptw.status.v"
+        ]
+      },
+      "rendered_formula": "io.hellacache.resp.bits.dv = io.ptw.status.v on HellaResponse",
+      "structural": {
+        "alias_chain": [],
+        "all_driver_statement_ids": [
+          7998
+        ],
+        "on": "HellaResponse",
+        "proof": "every last-connect driver of io.hellacache.resp.bits.dv reachable on HellaResponse equals io.ptw.status.v",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "resolved_target": "io.hellacache.resp.bits.dv",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "unconditional"
+            },
+            "atom_count": 0,
+            "rhs": "io.ptw.status.v",
+            "statement_id": 7998,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "io.ptw.status.v",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.hellacache.resp.bits.dv",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "HellaResponse",
+        "source": "io.dmem.ll_resp.bits.data",
+        "target": "io.hellacache.resp.bits.data_word_bypass"
+      },
+      "axiom_id": "A5",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        7994
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [],
+          "all_driver_statement_ids": [
+            7994
+          ],
+          "on": "HellaResponse",
+          "proof": "every last-connect driver of io.hellacache.resp.bits.data_word_bypass reachable on HellaResponse equals io.dmem.ll_resp.bits.data",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "resolved_target": "io.hellacache.resp.bits.data_word_bypass",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "unconditional"
+              },
+              "atom_count": 0,
+              "rhs": "io.dmem.ll_resp.bits.data",
+              "statement_id": 7994,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "io.dmem.ll_resp.bits.data",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.hellacache.resp.bits.data_word_bypass",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.hellacache.resp.bits.data_word_bypass reachable on HellaResponse equals io.dmem.ll_resp.bits.data",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "HellaResponse"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.dmem.ll_resp.bits.data",
+          "io.hellacache.resp.bits.data_word_bypass"
+        ]
+      },
+      "rendered_formula": "io.hellacache.resp.bits.data_word_bypass = io.dmem.ll_resp.bits.data on HellaResponse",
+      "structural": {
+        "alias_chain": [],
+        "all_driver_statement_ids": [
+          7994
+        ],
+        "on": "HellaResponse",
+        "proof": "every last-connect driver of io.hellacache.resp.bits.data_word_bypass reachable on HellaResponse equals io.dmem.ll_resp.bits.data",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "resolved_target": "io.hellacache.resp.bits.data_word_bypass",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "unconditional"
+            },
+            "atom_count": 0,
+            "rhs": "io.dmem.ll_resp.bits.data",
+            "statement_id": 7994,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "io.dmem.ll_resp.bits.data",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.hellacache.resp.bits.data_word_bypass",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "HellaResponse",
+        "source": "io.dmem.ll_resp.bits.data",
+        "target": "io.hellacache.resp.bits.data_raw"
+      },
+      "axiom_id": "A6",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        7995
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [],
+          "all_driver_statement_ids": [
+            7995
+          ],
+          "on": "HellaResponse",
+          "proof": "every last-connect driver of io.hellacache.resp.bits.data_raw reachable on HellaResponse equals io.dmem.ll_resp.bits.data",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "resolved_target": "io.hellacache.resp.bits.data_raw",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "unconditional"
+              },
+              "atom_count": 0,
+              "rhs": "io.dmem.ll_resp.bits.data",
+              "statement_id": 7995,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "io.dmem.ll_resp.bits.data",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.hellacache.resp.bits.data_raw",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.hellacache.resp.bits.data_raw reachable on HellaResponse equals io.dmem.ll_resp.bits.data",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "HellaResponse"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.dmem.ll_resp.bits.data",
+          "io.hellacache.resp.bits.data_raw"
+        ]
+      },
+      "rendered_formula": "io.hellacache.resp.bits.data_raw = io.dmem.ll_resp.bits.data on HellaResponse",
+      "structural": {
+        "alias_chain": [],
+        "all_driver_statement_ids": [
+          7995
+        ],
+        "on": "HellaResponse",
+        "proof": "every last-connect driver of io.hellacache.resp.bits.data_raw reachable on HellaResponse equals io.dmem.ll_resp.bits.data",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "resolved_target": "io.hellacache.resp.bits.data_raw",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "unconditional"
+            },
+            "atom_count": 0,
+            "rhs": "io.dmem.ll_resp.bits.data",
+            "statement_id": 7995,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "io.dmem.ll_resp.bits.data",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.hellacache.resp.bits.data_raw",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    }
+  ],
+  "trusted_axiom_count": 6,
+  "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
+  "validator": "semantic-validator-0.23",
+  "work_unit_id": "LSU::region-0-5"
+}

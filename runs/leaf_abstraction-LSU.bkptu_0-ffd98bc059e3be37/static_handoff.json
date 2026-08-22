@@ -1,0 +1,506 @@
+{
+  "children": [],
+  "complexity": {
+    "event_state_coupling": 0.0,
+    "events": 0,
+    "logical": {
+      "dependency_edges": 6,
+      "signals": 6,
+      "source_loc": 8,
+      "statements": 8
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 6,
+      "signals": 51,
+      "source_loc": 8,
+      "statements": 9,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 0,
+    "state_regions": 0
+  },
+  "dependency_edges": [
+    {
+      "dst": "io.xcpt_if",
+      "kind": "data",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala",
+        "line": 96,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala 96:14"
+      },
+      "src": "h0",
+      "statement_ids": [
+        3
+      ]
+    },
+    {
+      "dst": "io.xcpt_ld",
+      "kind": "data",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala",
+        "line": 97,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala 97:14"
+      },
+      "src": "h0",
+      "statement_ids": [
+        4
+      ]
+    },
+    {
+      "dst": "io.xcpt_st",
+      "kind": "data",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala",
+        "line": 98,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala 98:14"
+      },
+      "src": "h0",
+      "statement_ids": [
+        5
+      ]
+    },
+    {
+      "dst": "io.debug_if",
+      "kind": "data",
+      "source": {
+        "column": 15,
+        "file": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala",
+        "line": 99,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala 99:15"
+      },
+      "src": "h0",
+      "statement_ids": [
+        6
+      ]
+    },
+    {
+      "dst": "io.debug_ld",
+      "kind": "data",
+      "source": {
+        "column": 15,
+        "file": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala",
+        "line": 100,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala 100:15"
+      },
+      "src": "h0",
+      "statement_ids": [
+        7
+      ]
+    },
+    {
+      "dst": "io.debug_st",
+      "kind": "data",
+      "source": {
+        "column": 15,
+        "file": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala",
+        "line": 101,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala 101:15"
+      },
+      "src": "h0",
+      "statement_ids": [
+        8
+      ]
+    }
+  ],
+  "events": [],
+  "frontier": [
+    {
+      "id": "io.debug_if",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala",
+        "line": 80,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala 80:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.debug_ld",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala",
+        "line": 80,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala 80:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.debug_st",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala",
+        "line": 80,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala 80:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.xcpt_if",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala",
+        "line": 80,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala 80:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.xcpt_ld",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala",
+        "line": 80,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala 80:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.xcpt_st",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala",
+        "line": 80,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala 80:14"
+      },
+      "type": null
+    }
+  ],
+  "grounding": {
+    "allowed_physical_event_ids": [],
+    "allowed_state_ids": [],
+    "allowed_statement_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "semantic_labels": []
+  },
+  "memory_state": [],
+  "parent_connection_signals": [
+    "bkptu_0.clock",
+    "bkptu_0.io",
+    "bkptu_0.io.debug_if",
+    "bkptu_0.io.debug_ld",
+    "bkptu_0.io.debug_st",
+    "bkptu_0.io.ea",
+    "bkptu_0.io.mcontext",
+    "bkptu_0.io.pc",
+    "bkptu_0.io.scontext",
+    "bkptu_0.io.status.cease",
+    "bkptu_0.io.status.debug",
+    "bkptu_0.io.status.dprv",
+    "bkptu_0.io.status.dv",
+    "bkptu_0.io.status.fs",
+    "bkptu_0.io.status.gva",
+    "bkptu_0.io.status.hie",
+    "bkptu_0.io.status.isa",
+    "bkptu_0.io.status.mbe",
+    "bkptu_0.io.status.mie",
+    "bkptu_0.io.status.mpie",
+    "bkptu_0.io.status.mpp",
+    "bkptu_0.io.status.mprv",
+    "bkptu_0.io.status.mpv",
+    "bkptu_0.io.status.mxr",
+    "bkptu_0.io.status.prv",
+    "bkptu_0.io.status.sbe",
+    "bkptu_0.io.status.sd",
+    "bkptu_0.io.status.sd_rv32",
+    "bkptu_0.io.status.sie",
+    "bkptu_0.io.status.spie",
+    "bkptu_0.io.status.spp",
+    "bkptu_0.io.status.sum",
+    "bkptu_0.io.status.sxl",
+    "bkptu_0.io.status.tsr",
+    "bkptu_0.io.status.tvm",
+    "bkptu_0.io.status.tw",
+    "bkptu_0.io.status.ube",
+    "bkptu_0.io.status.uie",
+    "bkptu_0.io.status.upie",
+    "bkptu_0.io.status.uxl",
+    "bkptu_0.io.status.v",
+    "bkptu_0.io.status.vs",
+    "bkptu_0.io.status.wfi",
+    "bkptu_0.io.status.xs",
+    "bkptu_0.io.status.zero1",
+    "bkptu_0.io.status.zero2",
+    "bkptu_0.io.xcpt_if",
+    "bkptu_0.io.xcpt_ld",
+    "bkptu_0.io.xcpt_st",
+    "bkptu_0.reset"
+  ],
+  "planner_version": "hierarchical-planner-v14",
+  "proof_context": {
+    "event_gate_statement_ids": [],
+    "event_gate_statements": [],
+    "llm_evidence": false,
+    "policy": "exact-local-proof-context-v0.2",
+    "state_support_statement_ids": [],
+    "state_support_statements": [],
+    "state_writer_control_statement_ids": [],
+    "state_writer_control_statements": []
+  },
+  "replacement_complexity": {
+    "event_state_coupling": 0.0,
+    "events": 0,
+    "logical": {
+      "dependency_edges": 6,
+      "signals": 2,
+      "source_loc": 8,
+      "statements": 8
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 6,
+      "signals": 7,
+      "source_loc": 8,
+      "statements": 9,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 0,
+    "state_regions": 0
+  },
+  "schema_version": "workunit-static-0.4",
+  "semantic_event_cones": [],
+  "source_evidence": {
+    "resolved": [
+      {
+        "end_line": 81,
+        "logical_file": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala",
+        "start_line": 78,
+        "text": "\nclass BreakpointUnit(n: Int)(implicit val p: Parameters) extends Module with HasCoreParameters {\n  val io = IO(new Bundle {\n    val status = Input(new MStatus())\n"
+      },
+      {
+        "end_line": 102,
+        "logical_file": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala",
+        "start_line": 95,
+        "text": "\n  io.xcpt_if := false.B\n  io.xcpt_ld := false.B\n  io.xcpt_st := false.B\n  io.debug_if := false.B\n  io.debug_ld := false.B\n  io.debug_st := false.B\n\n"
+      }
+    ],
+    "roots": [
+      "/t1/MCM-Agent/tools/chipyard"
+    ],
+    "unresolved": []
+  },
+  "source_spans": [
+    {
+      "end_line": 80,
+      "file": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala",
+      "start_line": 79
+    },
+    {
+      "end_line": 101,
+      "file": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala",
+      "start_line": 96
+    }
+  ],
+  "state": [],
+  "statements": [
+    {
+      "control_reads": [],
+      "drives": [],
+      "firrtl_line": 366098,
+      "id": 0,
+      "kind": "structural",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 7,
+        "file": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala",
+        "line": 79,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala 79:7"
+      },
+      "status": "nondriving",
+      "text": "input clock : Clock"
+    },
+    {
+      "control_reads": [],
+      "drives": [],
+      "firrtl_line": 366099,
+      "id": 1,
+      "kind": "structural",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 7,
+        "file": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala",
+        "line": 79,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala 79:7"
+      },
+      "status": "nondriving",
+      "text": "input reset : Reset"
+    },
+    {
+      "control_reads": [],
+      "drives": [],
+      "firrtl_line": 366100,
+      "id": 2,
+      "kind": "structural",
+      "note": null,
+      "reads": [],
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala",
+        "line": 80,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala 80:14"
+      },
+      "status": "nondriving",
+      "text": "output io : { flip status : { debug : UInt<1>, cease : UInt<1>, wfi : UInt<1>, isa : UInt<32>, dprv : UInt<2>, dv : UInt<1>, prv : UInt<2>, v : UInt<1>, sd : UInt<1>, zero2 : UInt<23>, mpv : UInt<1>, gva : UInt<1>, mbe : UInt<1>, sbe : UInt<1>, sxl : UInt<2>, uxl : UInt<2>, sd_rv32 : UInt<1>, zero1 : UInt<8>, tsr : UInt<1>, tw : UInt<1>, tvm : UInt<1>, mxr : UInt<1>, sum : UInt<1>, mprv : UInt<1>, xs : UInt<2>, fs : UInt<2>, mpp : UInt<2>, vs : UInt<2>, spp : UInt<1>, mpie : UInt<1>, ube : UInt<1>, spie : UInt<1>, upie : UInt<1>, mie : UInt<1>, hie : UInt<1>, sie : UInt<1>, uie : UInt<1>}, flip bp : { control : { ttype : UInt<4>, dmode : UInt<1>, maskmax : UInt<6>, reserved : UInt<40>, action : UInt<1>, chain : UInt<1>, zero : UInt<2>, tmatch : UInt<2>, m : UInt<1>, h : UInt<1>, s : UInt<1>, u : UInt<1>, x : UInt<1>, w : UInt<1>, r : UInt<1>}, address : UInt<39>, textra : { mvalue : UInt<0>, mselect : UInt<1>, pad2 : UInt<48>, svalue : UInt<0>, pad1 : UInt<1>, sselect : UInt<1>}}[0], flip pc : UInt<39>, flip ea : UInt<39>, flip mcontext : UInt<0>, flip scontext : UInt<0>, xcpt_if : UInt<1>, xcpt_ld : UInt<1>, xcpt_st : UInt<1>, debug_if : UInt<1>, debug_ld : UInt<1>, debug_st : UInt<1>, bpwatch : { valid : UInt<1>[1], rvalid : UInt<1>[1], wvalid : UInt<1>[1], ivalid : UInt<1>[1], action : UInt<3>}[0]}"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.xcpt_if"
+      ],
+      "firrtl_line": 366102,
+      "id": 3,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h0"
+      ],
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala",
+        "line": 96,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala 96:14"
+      },
+      "status": "supported",
+      "text": "connect io.xcpt_if, UInt<1>(0h0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.xcpt_ld"
+      ],
+      "firrtl_line": 366103,
+      "id": 4,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h0"
+      ],
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala",
+        "line": 97,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala 97:14"
+      },
+      "status": "supported",
+      "text": "connect io.xcpt_ld, UInt<1>(0h0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.xcpt_st"
+      ],
+      "firrtl_line": 366104,
+      "id": 5,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h0"
+      ],
+      "source": {
+        "column": 14,
+        "file": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala",
+        "line": 98,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala 98:14"
+      },
+      "status": "supported",
+      "text": "connect io.xcpt_st, UInt<1>(0h0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.debug_if"
+      ],
+      "firrtl_line": 366105,
+      "id": 6,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h0"
+      ],
+      "source": {
+        "column": 15,
+        "file": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala",
+        "line": 99,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala 99:15"
+      },
+      "status": "supported",
+      "text": "connect io.debug_if, UInt<1>(0h0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.debug_ld"
+      ],
+      "firrtl_line": 366106,
+      "id": 7,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h0"
+      ],
+      "source": {
+        "column": 15,
+        "file": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala",
+        "line": 100,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala 100:15"
+      },
+      "status": "supported",
+      "text": "connect io.debug_ld, UInt<1>(0h0)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.debug_st"
+      ],
+      "firrtl_line": 366107,
+      "id": 8,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h0"
+      ],
+      "source": {
+        "column": 15,
+        "file": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala",
+        "line": 101,
+        "raw": "generators/rocket-chip/src/main/scala/rocket/Breakpoint.scala 101:15"
+      },
+      "status": "supported",
+      "text": "connect io.debug_st, UInt<1>(0h0)"
+    }
+  ],
+  "work_unit": {
+    "coverage_complete": true,
+    "decision": "manageable",
+    "depth": 1,
+    "exceeded_limits": [],
+    "id": "LSU.bkptu_0",
+    "instance_path": "LSU.bkptu_0",
+    "is_leaf": true,
+    "kind": "module",
+    "module": "BreakpointUnit_4",
+    "replacement_exceeded_limits": []
+  }
+}

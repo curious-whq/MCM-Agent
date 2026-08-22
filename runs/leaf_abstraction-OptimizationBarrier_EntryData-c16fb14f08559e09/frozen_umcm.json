@@ -1,0 +1,36 @@
+{
+  "assumptions": [],
+  "axioms": [],
+  "cases": [],
+  "empty_abstraction": {
+    "assumption_count": 0,
+    "coverage_complete": true,
+    "interpretation": "The leaf contributes no \u00b5MCM constraint. Its combinational outputs remain unconstrained as a safe over-approximation and may be reopened by CEGAR.",
+    "owned_event_count": 0,
+    "owned_memory_state_count": 0,
+    "owned_state_count": 0,
+    "policy": "covered-explicit-empty-leaf-overapproximation-v0.1",
+    "semantic_object_count": 0,
+    "unresolved_count": 0,
+    "work_unit_id": "OptimizationBarrier_EntryData"
+  },
+  "freeze": {
+    "candidate_axiom_count": 0,
+    "empty_abstraction": true,
+    "exported_axiom_count": 0,
+    "policy": "all-declared-axioms-trusted-and-no-unresolved-v0.1",
+    "private_axiom_count": 0,
+    "reopen_policy": "This summary may be reopened if later parent/system counterexample validation shows the abstraction is too weak and a missing concrete constraint must be synthesized.",
+    "status": "FROZEN_FOR_COMPOSITION",
+    "trusted_axiom_count": 0
+  },
+  "identity_keys": [],
+  "note": "Only axioms with FORMALLY_PROVED or SPEC_PROVED validation level are included. Grounded/structurally-supported candidate axioms remain outside the trusted abstraction.",
+  "occurrences": [],
+  "predicates": [],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-OptimizationBarrier_EntryData-c16fb14f08559e09",
+  "trust_policy": "formal-ast-plus-certified-provenance-v0.3",
+  "trusted_axiom_ids": [],
+  "work_unit_id": "OptimizationBarrier_EntryData"
+}

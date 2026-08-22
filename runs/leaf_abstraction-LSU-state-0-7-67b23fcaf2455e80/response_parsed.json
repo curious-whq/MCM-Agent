@@ -1,0 +1,17 @@
+{
+  "assumptions": [],
+  "axioms": [],
+  "cases": [],
+  "extensions": {},
+  "identity_keys": [],
+  "occurrences": [],
+  "predicates": [],
+  "rationale": [
+    "REG is a one-cycle helper used only by assertion/debug instrumentation around the memory-exception check; the owned cone does not drive a functional LSU boundary event or memory/coherence state transition.",
+    "This leaf is therefore intentionally an explicit empty \u00b5MCM over-approximation. The concrete helper register remains unconstrained at the parent boundary and can be reopened by CEGAR, but no functional memory-ordering behavior is excluded."
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-LSU-state-0-7-67b23fcaf2455e80",
+  "unresolved": [],
+  "work_unit_id": "LSU::state-0-7"
+}

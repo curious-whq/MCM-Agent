@@ -1,0 +1,157 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        3
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.xcpt_if",
+            "op": "signal"
+          }
+        },
+        "on": null,
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "id": "A1",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        4
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.xcpt_ld",
+            "op": "signal"
+          }
+        },
+        "on": null,
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "id": "A2",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        5
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.xcpt_st",
+            "op": "signal"
+          }
+        },
+        "on": null,
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "id": "A3",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        6
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.debug_if",
+            "op": "signal"
+          }
+        },
+        "on": null,
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "id": "A4",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        7
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.debug_ld",
+            "op": "signal"
+          }
+        },
+        "on": null,
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "id": "A5",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        8
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.debug_st",
+            "op": "signal"
+          }
+        },
+        "on": null,
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "id": "A6",
+      "status": "candidate"
+    }
+  ],
+  "cases": [],
+  "extensions": {},
+  "identity_keys": [],
+  "occurrences": [],
+  "predicates": [],
+  "rationale": [
+    "This SmallBoom configuration instantiates BreakpointUnit with no active breakpoint entries; all six exception/debug outputs are wired to zero.",
+    "The six one-bit constants are preserved because they are cheap exact parent-facing facts and establish that this leaf cannot inject breakpoint exceptions or debug stops into the LSU in this configuration.",
+    "No event, state, ordering, identity, or liveness claim is needed."
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-LSU.bkptu_0-ffd98bc059e3be37",
+  "unresolved": [],
+  "work_unit_id": "LSU.bkptu_0"
+}

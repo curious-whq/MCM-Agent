@@ -347,12 +347,18 @@ def build_prompt_interface(
         }
     else:
         # Leaf summaries and frozen parents produced before public/private
-        # separation remain source-compatible: all trusted theorems are public.
+        # separation remain source-compatible: all trusted theorems and all
+        # grounded semantic declarations are public.  In particular, an
+        # event-only boundary occurrence must remain available to its parent
+        # even when no leaf axiom references it.
         trusted_ids = set(all_trusted_ids)
         explicitly_exported = {
-            "occurrences": set(),
-            "predicates": set(),
-            "identity_keys": set(),
+            field: {
+                str(item["id"])
+                for item in frozen.get(field, [])
+                if isinstance(item, dict) and isinstance(item.get("id"), str)
+            }
+            for field in ("occurrences", "predicates", "identity_keys")
         }
     local_objects = {
         field: {

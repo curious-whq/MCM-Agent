@@ -1,0 +1,142 @@
+{
+  "compiler": "formal-axiom-compiler-0.13",
+  "obligations": [
+    {
+      "arguments": {
+        "on": "NoPMPEntryMatches",
+        "source": "default",
+        "target": "io.r"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        3,
+        103,
+        300,
+        497,
+        694,
+        891,
+        1088,
+        1285,
+        1482,
+        1593,
+        1594
+      ],
+      "formal": {
+        "on": "NoPMPEntryMatches",
+        "scope_identity": null,
+        "source": {
+          "name": "default",
+          "op": "signal"
+        },
+        "target": "io.r",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "NoPMPEntryMatches"
+        ],
+        "predicates": [],
+        "signals": [
+          "default",
+          "io.r"
+        ]
+      },
+      "rendered_formula": "io.r = default on NoPMPEntryMatches"
+    },
+    {
+      "arguments": {
+        "on": "NoPMPEntryMatches",
+        "source": "default",
+        "target": "io.w"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        3,
+        103,
+        300,
+        497,
+        694,
+        891,
+        1088,
+        1285,
+        1482,
+        1593,
+        1595
+      ],
+      "formal": {
+        "on": "NoPMPEntryMatches",
+        "scope_identity": null,
+        "source": {
+          "name": "default",
+          "op": "signal"
+        },
+        "target": "io.w",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "NoPMPEntryMatches"
+        ],
+        "predicates": [],
+        "signals": [
+          "default",
+          "io.w"
+        ]
+      },
+      "rendered_formula": "io.w = default on NoPMPEntryMatches"
+    },
+    {
+      "arguments": {
+        "on": "NoPMPEntryMatches",
+        "source": "default",
+        "target": "io.x"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        3,
+        103,
+        300,
+        497,
+        694,
+        891,
+        1088,
+        1285,
+        1482,
+        1593,
+        1596
+      ],
+      "formal": {
+        "on": "NoPMPEntryMatches",
+        "scope_identity": null,
+        "source": {
+          "name": "default",
+          "op": "signal"
+        },
+        "target": "io.x",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "NoPMPEntryMatches"
+        ],
+        "predicates": [],
+        "signals": [
+          "default",
+          "io.x"
+        ]
+      },
+      "rendered_formula": "io.x = default on NoPMPEntryMatches"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "work_unit_id": "LSU.dtlb.pmp_0"
+}

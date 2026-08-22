@@ -1,0 +1,66 @@
+{
+  "all_axioms_formally_proved": true,
+  "all_axioms_structurally_supported": true,
+  "candidate_axiom_count": 0,
+  "control_model": {
+    "known_states": [],
+    "reset_state": null,
+    "state_register": "state",
+    "transitions": []
+  },
+  "counts": {
+    "FORMALLY_PROVED": 0,
+    "GROUNDED": 0,
+    "PARTIALLY_SUPPORTED": 0,
+    "REFUTED": 0,
+    "SPEC_PROVED": 0,
+    "STRUCTURALLY_SUPPORTED": 0
+  },
+  "empty_abstraction_certificate": {
+    "assumption_count": 0,
+    "coverage_complete": true,
+    "interpretation": "The leaf contributes no \u00b5MCM constraint. Its combinational outputs remain unconstrained as a safe over-approximation and may be reopened by CEGAR.",
+    "owned_event_count": 0,
+    "owned_memory_state_count": 0,
+    "owned_state_count": 0,
+    "policy": "covered-explicit-empty-leaf-overapproximation-v0.1",
+    "semantic_object_count": 0,
+    "unresolved_count": 0,
+    "work_unit_id": "OptimizationBarrier_EntryData_8"
+  },
+  "formal_backend": {
+    "api_version": "formal-backend-api-0.23",
+    "available": true,
+    "name": "explicit-control",
+    "note": "Exhaustive formal proof for certified finite-control/order properties, exact symbolic local/identity facts, exact local Boolean exclusion/conservation, bounded indexed token provenance, and selected finite reference equivalence checks. It is not a general bit-level SMT backend.",
+    "proof_domain": "control + exact symbolic local + exact combinational exclusion/conservation + scalar/indexed token provenance + finite reference equivalence",
+    "supported_checkers": [
+      "forbid_when",
+      "history_order",
+      "history_chain",
+      "history_join",
+      "indexed_coverage",
+      "indexed_storage_flow",
+      "indexed_priority_select",
+      "register_transition",
+      "occurrence_partition",
+      "transaction_exclusion",
+      "signal_alias",
+      "constant_bit",
+      "identity_projection",
+      "tilelink_on_probe_spec"
+    ],
+    "trusted_proof_levels": [
+      "FORMALLY_PROVED",
+      "SPEC_PROVED"
+    ]
+  },
+  "has_counterexample": false,
+  "property_compiler": "formal-axiom-compiler-0.13",
+  "public_interface_validation": null,
+  "results": [],
+  "trusted_axiom_count": 0,
+  "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
+  "validator": "semantic-validator-0.23",
+  "work_unit_id": "OptimizationBarrier_EntryData_8"
+}

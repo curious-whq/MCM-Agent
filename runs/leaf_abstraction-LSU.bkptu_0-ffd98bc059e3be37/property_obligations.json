@@ -1,0 +1,229 @@
+{
+  "compiler": "formal-axiom-compiler-0.13",
+  "obligations": [
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 0,
+        "signal": "io.xcpt_if"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        3
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.xcpt_if",
+            "op": "signal"
+          }
+        },
+        "on": null,
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [],
+        "predicates": [],
+        "signals": [
+          "io.xcpt_if"
+        ]
+      },
+      "rendered_formula": "bits(io.xcpt_if, 0, 0) == 0"
+    },
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 0,
+        "signal": "io.xcpt_ld"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        4
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.xcpt_ld",
+            "op": "signal"
+          }
+        },
+        "on": null,
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [],
+        "predicates": [],
+        "signals": [
+          "io.xcpt_ld"
+        ]
+      },
+      "rendered_formula": "bits(io.xcpt_ld, 0, 0) == 0"
+    },
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 0,
+        "signal": "io.xcpt_st"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        5
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.xcpt_st",
+            "op": "signal"
+          }
+        },
+        "on": null,
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [],
+        "predicates": [],
+        "signals": [
+          "io.xcpt_st"
+        ]
+      },
+      "rendered_formula": "bits(io.xcpt_st, 0, 0) == 0"
+    },
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 0,
+        "signal": "io.debug_if"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        6
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.debug_if",
+            "op": "signal"
+          }
+        },
+        "on": null,
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [],
+        "predicates": [],
+        "signals": [
+          "io.debug_if"
+        ]
+      },
+      "rendered_formula": "bits(io.debug_if, 0, 0) == 0"
+    },
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 0,
+        "signal": "io.debug_ld"
+      },
+      "axiom_id": "A5",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        7
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.debug_ld",
+            "op": "signal"
+          }
+        },
+        "on": null,
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [],
+        "predicates": [],
+        "signals": [
+          "io.debug_ld"
+        ]
+      },
+      "rendered_formula": "bits(io.debug_ld, 0, 0) == 0"
+    },
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 0,
+        "signal": "io.debug_st"
+      },
+      "axiom_id": "A6",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        8
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.debug_st",
+            "op": "signal"
+          }
+        },
+        "on": null,
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [],
+        "predicates": [],
+        "signals": [
+          "io.debug_st"
+        ]
+      },
+      "rendered_formula": "bits(io.debug_st, 0, 0) == 0"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "work_unit_id": "LSU.bkptu_0"
+}

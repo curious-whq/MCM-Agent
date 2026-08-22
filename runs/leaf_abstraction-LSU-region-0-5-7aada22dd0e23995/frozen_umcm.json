@@ -1,0 +1,269 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [
+        "C1_HellaResponse"
+      ],
+      "evidence_statement_ids": [
+        7992
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.hellacache.resp.bits.replay",
+            "op": "signal"
+          }
+        },
+        "on": "HellaResponse",
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "id": "A1",
+      "rendered_formula": "bits(io.hellacache.resp.bits.replay, 0, 0) == 0 on HellaResponse",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_HellaResponse"
+      ],
+      "evidence_statement_ids": [
+        7993
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.hellacache.resp.bits.has_data",
+            "op": "signal"
+          }
+        },
+        "on": "HellaResponse",
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 1
+      },
+      "id": "A2",
+      "rendered_formula": "bits(io.hellacache.resp.bits.has_data, 0, 0) == 1 on HellaResponse",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_HellaResponse"
+      ],
+      "evidence_statement_ids": [
+        7997
+      ],
+      "formal": {
+        "on": "HellaResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "io.ptw.status.prv",
+          "op": "signal"
+        },
+        "target": "io.hellacache.resp.bits.dprv",
+        "type": "signal_equality"
+      },
+      "id": "A3",
+      "rendered_formula": "io.hellacache.resp.bits.dprv = io.ptw.status.prv on HellaResponse",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_HellaResponse"
+      ],
+      "evidence_statement_ids": [
+        7998
+      ],
+      "formal": {
+        "on": "HellaResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "io.ptw.status.v",
+          "op": "signal"
+        },
+        "target": "io.hellacache.resp.bits.dv",
+        "type": "signal_equality"
+      },
+      "id": "A4",
+      "rendered_formula": "io.hellacache.resp.bits.dv = io.ptw.status.v on HellaResponse",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_HellaResponse"
+      ],
+      "evidence_statement_ids": [
+        7994
+      ],
+      "formal": {
+        "on": "HellaResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "io.dmem.ll_resp.bits.data",
+          "op": "signal"
+        },
+        "target": "io.hellacache.resp.bits.data_word_bypass",
+        "type": "signal_equality"
+      },
+      "id": "A5",
+      "rendered_formula": "io.hellacache.resp.bits.data_word_bypass = io.dmem.ll_resp.bits.data on HellaResponse",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_HellaResponse"
+      ],
+      "evidence_statement_ids": [
+        7995
+      ],
+      "formal": {
+        "on": "HellaResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "io.dmem.ll_resp.bits.data",
+          "op": "signal"
+        },
+        "target": "io.hellacache.resp.bits.data_raw",
+        "type": "signal_equality"
+      },
+      "id": "A6",
+      "rendered_formula": "io.hellacache.resp.bits.data_raw = io.dmem.ll_resp.bits.data on HellaResponse",
+      "status": "candidate"
+    }
+  ],
+  "cases": [
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        7985,
+        7992,
+        7993,
+        7994,
+        7995,
+        7997,
+        7998,
+        7999,
+        8056,
+        8057,
+        8058,
+        8059,
+        8061,
+        8067,
+        8068,
+        8069,
+        8070,
+        8071,
+        8073,
+        8079
+      ],
+      "guard_predicates": [],
+      "id": "C1_HellaResponse",
+      "relations": [
+        "The shim exposes a HellaCache response whose invariant metadata is wired locally; the exact data-source split is intentionally left unconstrained in this leaf abstraction."
+      ],
+      "trigger_occurrences": [
+        "HellaResponse"
+      ]
+    }
+  ],
+  "freeze": {
+    "candidate_axiom_count": 6,
+    "empty_abstraction": false,
+    "exported_axiom_count": 6,
+    "policy": "all-declared-axioms-trusted-and-no-unresolved-v0.1",
+    "private_axiom_count": 0,
+    "reopen_policy": "This summary may be reopened if later parent/system counterexample validation shows the abstraction is too weak and a missing concrete constraint must be synthesized.",
+    "status": "FROZEN_FOR_COMPOSITION",
+    "trusted_axiom_count": 6
+  },
+  "identity_keys": [],
+  "note": "Only axioms with FORMALLY_PROVED or SPEC_PROVED validation level are included. Grounded/structurally-supported candidate axioms remain outside the trusted abstraction.",
+  "occurrences": [
+    {
+      "definition": "grounded boundary occurrence LSU::io.hellacache.req.fire",
+      "evidence_statement_ids": [],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.hellacache.req.valid",
+          "io.hellacache.req.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "HellaRequest",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "LSU::io.hellacache.req.fire"
+      ]
+    },
+    {
+      "definition": "grounded boundary occurrence LSU::io.dmem.ll_resp.fire",
+      "evidence_statement_ids": [
+        8057
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.dmem.ll_resp.valid",
+          "io.dmem.ll_resp.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "LowLatencyResponse",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "LSU::io.dmem.ll_resp.fire"
+      ]
+    },
+    {
+      "definition": "grounded boundary occurrence LSU::io.hellacache.resp.valid",
+      "evidence_statement_ids": [
+        7985,
+        8061,
+        8073
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.hellacache.resp.valid"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "HellaResponse",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "LSU::io.hellacache.resp.valid"
+      ]
+    }
+  ],
+  "predicates": [],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-LSU-region-0-5-7aada22dd0e23995",
+  "trust_policy": "formal-ast-plus-certified-provenance-v0.3",
+  "trusted_axiom_ids": [
+    "A1",
+    "A2",
+    "A3",
+    "A4",
+    "A5",
+    "A6"
+  ],
+  "work_unit_id": "LSU::region-0-5"
+}
