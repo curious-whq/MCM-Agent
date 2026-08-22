@@ -7,7 +7,10 @@ import tempfile
 import unittest
 
 from workflow.composition import _canonical_sha256
-from workflow.composition_prover import _prove_onehot0_register_invariant
+from workflow.composition_prover import (
+    _prove_onehot0_register_invariant,
+    prove_composition_obligations,
+)
 from workflow.formal_patterns import (
     STRUCTURALLY_SUPPORTED,
     prove_scalar_valid_token_provenance,
@@ -159,6 +162,140 @@ class MshrRpqCompositionProverRegressionTests(unittest.TestCase):
         self.assertNotEqual(by_id["A4"]["validation_level"], FORMALLY_PROVED, by_id["A4"])
         self.assertNotEqual(by_id["A5"]["validation_level"], FORMALLY_PROVED, by_id["A5"])
 
+
+class PredicateBridgeCompositionRegressionTests(unittest.TestCase):
+    @staticmethod
+    def _fixture() -> tuple[dict, dict, list[dict]]:
+        frozen = {
+            "work_unit_id": "Parent.child",
+            "trusted_axiom_ids": ["CA1"],
+            "occurrences": [{
+                "id": "ChildOut",
+                "kind": "boundary",
+                "physical_event_ids": ["Parent.child::io.out.fire"],
+                "grounding": {
+                    "state_register": None,
+                    "state_values": [],
+                    "signals_true": [],
+                    "signals_false": [],
+                },
+            }],
+            "predicates": [{
+                "id": "ChildBlocked",
+                "grounding": {
+                    "source_signal": "io.blocked",
+                    "negated": False,
+                    "state_register": None,
+                    "state_values": [],
+                },
+            }],
+            "axioms": [{
+                "id": "CA1",
+                "formal": {
+                    "type": "forbid_when",
+                    "predicate": "ChildBlocked",
+                    "occurrence": "ChildOut",
+                    "scope_identity": None,
+                },
+            }],
+            "freeze": {"status": "FROZEN_FOR_COMPOSITION"},
+        }
+        summary = {
+            "child_id": "Parent.child",
+            "boundary_events": ["Parent.child::io.out.fire"],
+            "frontier_signals": ["child.io.blocked"],
+            "frozen_umcm": frozen,
+            "frozen_umcm_sha256": _canonical_sha256(frozen),
+        }
+        handoff = {
+            "work_unit": {"instance_path": "Parent"},
+            "composition": {
+                "mode": "parent_synthesis",
+                "child_summaries": [summary],
+            },
+            "events": [{
+                "id": "Parent.child::io.out.fire",
+                "valid": "child.io.out.valid",
+                "ready": "child.io.out.ready",
+            }],
+            "statements": [{
+                "id": 1,
+                "kind": "connect",
+                "text": "connect parent_blocked, child.io.blocked",
+                "drives": ["parent_blocked"],
+                "reads": ["child.io.blocked"],
+                "control_reads": [],
+            }],
+            "dependency_edges": [
+                {
+                    "kind": "data",
+                    "src": "child.io.blocked",
+                    "dst": "parent_blocked",
+                    "statement_ids": [1],
+                },
+                {
+                    "kind": "data",
+                    "src": "clock",
+                    "dst": "child.clock",
+                    "statement_ids": [2],
+                },
+            ],
+        }
+        candidate = {
+            "occurrences": [{
+                "id": "ParentOut",
+                "kind": "boundary",
+                "physical_event_ids": ["Parent.child::io.out.fire"],
+                "grounding": {
+                    "state_register": None,
+                    "state_values": [],
+                    "signals_true": [],
+                    "signals_false": [],
+                },
+            }],
+            "predicates": [{
+                "id": "ParentBlocked",
+                "grounding": {
+                    "source_signal": "parent_blocked",
+                    "negated": False,
+                    "state_register": None,
+                    "state_values": [],
+                },
+            }],
+            "axioms": [{
+                "id": "A1",
+                "formal": {
+                    "type": "forbid_when",
+                    "predicate": "ParentBlocked",
+                    "occurrence": "ParentOut",
+                    "scope_identity": None,
+                },
+            }],
+        }
+        results = [{"axiom_id": "A1", "formal": {"status": "GROUNDED"}}]
+        return candidate, handoff, results
+
+    def test_forbid_lift_uses_exact_direct_child_predicate_bridge(self):
+        candidate, handoff, results = self._fixture()
+        proved = prove_composition_obligations(candidate, handoff, results)
+        proof = proved["A1"]
+        self.assertEqual(proof["proof_method"], "trusted-child-lift")
+        bridge = proof["certificate"]["predicate_bridge"]
+        self.assertEqual(bridge["kind"], "exact-parent-child-predicate-equivalence")
+        self.assertFalse(bridge["child_rtl_reopened"])
+
+    def test_predicate_bridge_rejects_unexposed_child_signal(self):
+        candidate, handoff, results = self._fixture()
+        handoff["composition"]["child_summaries"][0]["frontier_signals"] = []
+        self.assertNotIn("A1", prove_composition_obligations(candidate, handoff, results))
+
+    def test_predicate_bridge_rejects_non_alias_parent_signal(self):
+        candidate, handoff, results = self._fixture()
+        statement = handoff["statements"][0]
+        statement["text"] = "connect parent_blocked, unrelated"
+        statement["reads"] = ["unrelated"]
+        handoff["dependency_edges"][0]["src"] = "unrelated"
+        self.assertNotIn("A1", prove_composition_obligations(candidate, handoff, results))
 
 class OnehotRegisterInvariantRegressionTests(unittest.TestCase):
     @staticmethod

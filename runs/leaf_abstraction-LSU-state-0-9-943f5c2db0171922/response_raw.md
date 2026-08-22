@@ -1,0 +1,37 @@
+{
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-LSU-state-0-9-943f5c2db0171922",
+  "work_unit_id": "LSU::state-0-9",
+  "occurrences": [],
+  "predicates": [],
+  "identity_keys": [],
+  "cases": [],
+  "axioms": [],
+  "assumptions": [],
+  "unresolved": [
+    {
+      "id": "U1",
+      "question": "Grounding gap: the complete priority-guarded next-state relation for ldq_tail cannot be instantiated because the handoff exposes writer 7874 (ldq_tail := io.core.brupdate.b2.uop.ldq_idx) and writer 8104 (ldq_tail := 0) but does not expose their enclosing control predicates or their priority relative to each other and to the normal writer 312. The frontier signals _T_1092 and _T_1150 are not definition-grounded in this WorkUnit, so they cannot responsibly be assigned as those guards. Regenerate this state WorkUnit with the enclosing guard cones for statements 7874 and 8104 included in the FIRRTL ledger.",
+      "evidence_statement_ids": [
+        312,
+        7874,
+        8104
+      ]
+    }
+  ],
+  "rationale": [
+    "This WorkUnit has no physical boundary events. Its memory-order-relevant semantics are entirely carried by the persistent circular LDQ allocation pointer ldq_tail.",
+    "The normal-path update is fully grounded: _T_48 selects modular increment of ldq_tail when dis_ld_val is asserted and otherwise holds ldq_tail, and statement 312 writes that selected value back to the register.",
+    "For the 16-position LDQ pointer represented by bits [3:0], the normal path could be represented by register_transition with modular_increment(ldq_tail, 16) under dis_ld_val and ldq_tail as the default hold value.",
+    "However, register_transition is defined to describe the complete one-cycle next state of a scalar register and requires every RTL writer to be represented in highest-to-lowest priority order.",
+    "Statements 7874 and 8104 are additional writers to the same ldq_tail register. They respectively redirect the pointer to io.core.brupdate.b2.uop.ldq_idx and force the pointer to zero.",
+    "The supplied source snippets show that these assignments occur inside surrounding control blocks, but the snippets begin inside those blocks and do not expose their opening conditions. The FIRRTL ledger likewise contains the assignments but not the defining guard nodes or when statements.",
+    "_T_1092 and _T_1150 appear only as frontier signal names. There is no statement evidence in this WorkUnit defining either signal or connecting either one to writer 7874 or writer 8104. Treating them as branch-recovery/reset guards would therefore be an unsupported guess.",
+    "Emitting only the normal-path increment/hold register_transition would violate prompt-0.14's complete-writer requirement and would be semantically unsafe: it would exclude concrete branch-recovery or reset transitions.",
+    "Conversely, using unconditional updates for statements 7874 or 8104 would also be incorrect because it would make those assignments happen every cycle and destroy the normal allocation behavior.",
+    "Therefore no partial register_transition axiom is emitted. This is a grounding insufficiency, not a Formal AST language gap and not a prover limitation.",
+    "Once the missing enclosing guards and writer priority are exported, the intended abstraction should be one register_transition axiom for ldq_tail containing all override writers followed by the normal dis_ld_val modular-increment update and exact hold fallback.",
+    "No fairness or liveness property is involved."
+  ],
+  "extensions": {}
+}

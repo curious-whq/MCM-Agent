@@ -1,0 +1,381 @@
+{
+  "all_axioms_formally_proved": true,
+  "all_axioms_structurally_supported": true,
+  "candidate_axiom_count": 4,
+  "control_model": {
+    "known_states": [
+      1
+    ],
+    "reset_state": null,
+    "state_register": "io_core_clr_unsafe_0_valid_REG_3",
+    "transitions": [
+      {
+        "dst": 1,
+        "guard_leaves": [],
+        "labels": [],
+        "src": 1,
+        "statement_id": null
+      }
+    ]
+  },
+  "counts": {
+    "FORMALLY_PROVED": 4,
+    "GROUNDED": 0,
+    "PARTIALLY_SUPPORTED": 0,
+    "REFUTED": 0,
+    "SPEC_PROVED": 0,
+    "STRUCTURALLY_SUPPORTED": 0
+  },
+  "empty_abstraction_certificate": null,
+  "formal_backend": {
+    "api_version": "formal-backend-api-0.16",
+    "available": true,
+    "name": "explicit-control",
+    "note": "Exhaustive formal proof for certified finite-control/order properties, exact symbolic local/identity facts, exact local Boolean exclusion/conservation, bounded indexed token provenance, and selected finite reference equivalence checks. It is not a general bit-level SMT backend.",
+    "proof_domain": "control + exact symbolic local + exact combinational exclusion/conservation + scalar/indexed token provenance + finite reference equivalence",
+    "supported_checkers": [
+      "forbid_when",
+      "history_order",
+      "history_chain",
+      "history_join",
+      "indexed_coverage",
+      "indexed_storage_flow",
+      "occurrence_partition",
+      "transaction_exclusion",
+      "signal_alias",
+      "constant_bit",
+      "identity_projection",
+      "tilelink_on_probe_spec"
+    ],
+    "trusted_proof_levels": [
+      "FORMALLY_PROVED",
+      "SPEC_PROVED"
+    ]
+  },
+  "has_counterexample": false,
+  "property_compiler": "formal-axiom-compiler-0.9",
+  "public_interface_validation": null,
+  "results": [
+    {
+      "arguments": {
+        "parts": [
+          "ClearUnsafeWithStorePending",
+          "ClearUnsafeLoadOnly"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "ClearUnsafe"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        6093,
+        6094,
+        6095,
+        6096,
+        6097,
+        6098,
+        6101,
+        6103,
+        6104,
+        6105,
+        6107,
+        6108,
+        6109,
+        6110
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "mutex_pairs": [
+            [
+              "ClearUnsafeWithStorePending",
+              "ClearUnsafeLoadOnly"
+            ]
+          ],
+          "obligations": [
+            {
+              "atom_count": 4,
+              "kind": "whole_without_part",
+              "unsat": true
+            },
+            {
+              "atom_count": 4,
+              "kind": "part_without_whole",
+              "unsat": true
+            },
+            {
+              "atom_count": 4,
+              "kind": "parts_mutually_exclusive",
+              "parts": [
+                "ClearUnsafeWithStorePending",
+                "ClearUnsafeLoadOnly"
+              ],
+              "unsat": true
+            }
+          ],
+          "parts": [
+            "ClearUnsafeWithStorePending",
+            "ClearUnsafeLoadOnly"
+          ],
+          "proof": "ClearUnsafe is equivalent to the same-cycle disjunction of its parts, and every pair of parts has an unsatisfiable conjunction",
+          "proof_domain": "exact-same-cycle-occurrence-partition",
+          "reachable_lock_certificates": [],
+          "status": "STRUCTURALLY_SUPPORTED",
+          "whole": "ClearUnsafe"
+        },
+        "proof": "ClearUnsafe is equivalent to the same-cycle disjunction of its parts, and every pair of parts has an unsatisfiable conjunction",
+        "proof_method": "exact-same-cycle-occurrence-partition",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ClearUnsafe",
+          "ClearUnsafeLoadOnly",
+          "ClearUnsafeWithStorePending"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "ClearUnsafe <=> exactly_one_same_cycle({ClearUnsafeWithStorePending, ClearUnsafeLoadOnly})",
+      "structural": {
+        "mutex_pairs": [
+          [
+            "ClearUnsafeWithStorePending",
+            "ClearUnsafeLoadOnly"
+          ]
+        ],
+        "obligations": [
+          {
+            "atom_count": 4,
+            "kind": "whole_without_part",
+            "unsat": true
+          },
+          {
+            "atom_count": 4,
+            "kind": "part_without_whole",
+            "unsat": true
+          },
+          {
+            "atom_count": 4,
+            "kind": "parts_mutually_exclusive",
+            "parts": [
+              "ClearUnsafeWithStorePending",
+              "ClearUnsafeLoadOnly"
+            ],
+            "unsat": true
+          }
+        ],
+        "parts": [
+          "ClearUnsafeWithStorePending",
+          "ClearUnsafeLoadOnly"
+        ],
+        "proof": "ClearUnsafe is equivalent to the same-cycle disjunction of its parts, and every pair of parts has an unsatisfiable conjunction",
+        "proof_domain": "exact-same-cycle-occurrence-partition",
+        "reachable_lock_certificates": [],
+        "status": "STRUCTURALLY_SUPPORTED",
+        "whole": "ClearUnsafe"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "ClearUnsafe",
+        "predicate": "DelayedFailedLoad"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        6107,
+        6108,
+        6109,
+        6110
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 4,
+          "event_gate_bridge_statement_ids": [
+            6092,
+            6102,
+            6106
+          ],
+          "proof": "ClearUnsafe and DelayedFailedLoad have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "ClearUnsafe and DelayedFailedLoad have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ClearUnsafe"
+        ],
+        "predicates": [
+          "DelayedFailedLoad"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "DelayedFailedLoad => !ClearUnsafe",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "ClearUnsafeLoadOnly",
+        "predicate": "DCacheNack"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        6094,
+        6104,
+        6105,
+        6109,
+        6110
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 4,
+          "event_gate_bridge_statement_ids": [
+            6092,
+            6102,
+            6106
+          ],
+          "proof": "ClearUnsafeLoadOnly and DCacheNack have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "ClearUnsafeLoadOnly and DCacheNack have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ClearUnsafeLoadOnly"
+        ],
+        "predicates": [
+          "DCacheNack"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "DCacheNack => !ClearUnsafeLoadOnly",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "ClearUnsafe",
+        "source": "io_core_clr_unsafe_0_bits_REG",
+        "target": "io.core.clr_unsafe[0].bits"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        6113
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "all_driver_statement_ids": [
+            6113
+          ],
+          "on": "ClearUnsafe",
+          "proof": "every last-connect driver of io.core.clr_unsafe[0].bits reachable on ClearUnsafe equals io_core_clr_unsafe_0_bits_REG",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "unconditional"
+              },
+              "atom_count": 4,
+              "rhs": "io_core_clr_unsafe_0_bits_REG",
+              "statement_id": 6113,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "io_core_clr_unsafe_0_bits_REG",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.core.clr_unsafe[0].bits",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.core.clr_unsafe[0].bits reachable on ClearUnsafe equals io_core_clr_unsafe_0_bits_REG",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ClearUnsafe"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.core.clr_unsafe[0].bits",
+          "io_core_clr_unsafe_0_bits_REG"
+        ]
+      },
+      "rendered_formula": "io.core.clr_unsafe[0].bits = io_core_clr_unsafe_0_bits_REG on ClearUnsafe",
+      "structural": {
+        "all_driver_statement_ids": [
+          6113
+        ],
+        "on": "ClearUnsafe",
+        "proof": "every last-connect driver of io.core.clr_unsafe[0].bits reachable on ClearUnsafe equals io_core_clr_unsafe_0_bits_REG",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "unconditional"
+            },
+            "atom_count": 4,
+            "rhs": "io_core_clr_unsafe_0_bits_REG",
+            "statement_id": 6113,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "io_core_clr_unsafe_0_bits_REG",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.core.clr_unsafe[0].bits",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    }
+  ],
+  "trusted_axiom_count": 4,
+  "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
+  "validator": "semantic-validator-0.19",
+  "work_unit_id": "LSU::region-0-1"
+}

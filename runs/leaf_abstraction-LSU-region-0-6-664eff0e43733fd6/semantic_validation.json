@@ -1,0 +1,3558 @@
+{
+  "all_axioms_formally_proved": true,
+  "all_axioms_structurally_supported": true,
+  "candidate_axiom_count": 20,
+  "control_model": {
+    "known_states": [
+      1
+    ],
+    "reset_state": null,
+    "state_register": "can_fire_load_retry_REG",
+    "transitions": [
+      {
+        "dst": 1,
+        "guard_leaves": [],
+        "labels": [],
+        "src": 1,
+        "statement_id": null
+      }
+    ]
+  },
+  "counts": {
+    "FORMALLY_PROVED": 20,
+    "GROUNDED": 0,
+    "PARTIALLY_SUPPORTED": 0,
+    "REFUTED": 0,
+    "SPEC_PROVED": 0,
+    "STRUCTURALLY_SUPPORTED": 0
+  },
+  "empty_abstraction_certificate": null,
+  "formal_backend": {
+    "api_version": "formal-backend-api-0.17",
+    "available": true,
+    "name": "explicit-control",
+    "note": "Exhaustive formal proof for certified finite-control/order properties, exact symbolic local/identity facts, exact local Boolean exclusion/conservation, bounded indexed token provenance, and selected finite reference equivalence checks. It is not a general bit-level SMT backend.",
+    "proof_domain": "control + exact symbolic local + exact combinational exclusion/conservation + scalar/indexed token provenance + finite reference equivalence",
+    "supported_checkers": [
+      "forbid_when",
+      "history_order",
+      "history_chain",
+      "history_join",
+      "indexed_coverage",
+      "indexed_storage_flow",
+      "occurrence_partition",
+      "transaction_exclusion",
+      "signal_alias",
+      "constant_bit",
+      "identity_projection",
+      "tilelink_on_probe_spec"
+    ],
+    "trusted_proof_levels": [
+      "FORMALLY_PROVED",
+      "SPEC_PROVED"
+    ]
+  },
+  "has_counterexample": false,
+  "property_compiler": "formal-axiom-compiler-0.10",
+  "public_interface_validation": null,
+  "results": [
+    {
+      "arguments": {
+        "parts": [
+          "LoadExecuteRequest",
+          "LoadRetryRequest",
+          "StoreCommitRequest",
+          "LoadWakeupRequest",
+          "HellaIncomingRequest",
+          "HellaWakeupRequest"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "DCacheRequest"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        2238,
+        2239,
+        2256,
+        2378,
+        2379,
+        2399,
+        2400,
+        2401,
+        2413,
+        2414,
+        2415,
+        2416,
+        2443,
+        2444,
+        2445,
+        2460,
+        2461,
+        2470,
+        2471,
+        2472,
+        2473,
+        2474,
+        2499,
+        2500,
+        2509
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "mutex_pairs": [
+            [
+              "LoadExecuteRequest",
+              "LoadRetryRequest"
+            ],
+            [
+              "LoadExecuteRequest",
+              "StoreCommitRequest"
+            ],
+            [
+              "LoadExecuteRequest",
+              "LoadWakeupRequest"
+            ],
+            [
+              "LoadExecuteRequest",
+              "HellaIncomingRequest"
+            ],
+            [
+              "LoadExecuteRequest",
+              "HellaWakeupRequest"
+            ],
+            [
+              "LoadRetryRequest",
+              "StoreCommitRequest"
+            ],
+            [
+              "LoadRetryRequest",
+              "LoadWakeupRequest"
+            ],
+            [
+              "LoadRetryRequest",
+              "HellaIncomingRequest"
+            ],
+            [
+              "LoadRetryRequest",
+              "HellaWakeupRequest"
+            ],
+            [
+              "StoreCommitRequest",
+              "LoadWakeupRequest"
+            ],
+            [
+              "StoreCommitRequest",
+              "HellaIncomingRequest"
+            ],
+            [
+              "StoreCommitRequest",
+              "HellaWakeupRequest"
+            ],
+            [
+              "LoadWakeupRequest",
+              "HellaIncomingRequest"
+            ],
+            [
+              "LoadWakeupRequest",
+              "HellaWakeupRequest"
+            ],
+            [
+              "HellaIncomingRequest",
+              "HellaWakeupRequest"
+            ]
+          ],
+          "obligations": [
+            {
+              "atom_count": 8,
+              "kind": "whole_without_part",
+              "unsat": true
+            },
+            {
+              "atom_count": 8,
+              "kind": "part_without_whole",
+              "unsat": true
+            },
+            {
+              "atom_count": 8,
+              "kind": "parts_mutually_exclusive",
+              "parts": [
+                "LoadExecuteRequest",
+                "LoadRetryRequest"
+              ],
+              "unsat": true
+            },
+            {
+              "atom_count": 8,
+              "kind": "parts_mutually_exclusive",
+              "parts": [
+                "LoadExecuteRequest",
+                "StoreCommitRequest"
+              ],
+              "unsat": true
+            },
+            {
+              "atom_count": 8,
+              "kind": "parts_mutually_exclusive",
+              "parts": [
+                "LoadExecuteRequest",
+                "LoadWakeupRequest"
+              ],
+              "unsat": true
+            },
+            {
+              "atom_count": 8,
+              "kind": "parts_mutually_exclusive",
+              "parts": [
+                "LoadExecuteRequest",
+                "HellaIncomingRequest"
+              ],
+              "unsat": true
+            },
+            {
+              "atom_count": 8,
+              "kind": "parts_mutually_exclusive",
+              "parts": [
+                "LoadExecuteRequest",
+                "HellaWakeupRequest"
+              ],
+              "unsat": true
+            },
+            {
+              "atom_count": 8,
+              "kind": "parts_mutually_exclusive",
+              "parts": [
+                "LoadRetryRequest",
+                "StoreCommitRequest"
+              ],
+              "unsat": true
+            },
+            {
+              "atom_count": 8,
+              "kind": "parts_mutually_exclusive",
+              "parts": [
+                "LoadRetryRequest",
+                "LoadWakeupRequest"
+              ],
+              "unsat": true
+            },
+            {
+              "atom_count": 8,
+              "kind": "parts_mutually_exclusive",
+              "parts": [
+                "LoadRetryRequest",
+                "HellaIncomingRequest"
+              ],
+              "unsat": true
+            },
+            {
+              "atom_count": 8,
+              "kind": "parts_mutually_exclusive",
+              "parts": [
+                "LoadRetryRequest",
+                "HellaWakeupRequest"
+              ],
+              "unsat": true
+            },
+            {
+              "atom_count": 8,
+              "kind": "parts_mutually_exclusive",
+              "parts": [
+                "StoreCommitRequest",
+                "LoadWakeupRequest"
+              ],
+              "unsat": true
+            },
+            {
+              "atom_count": 8,
+              "kind": "parts_mutually_exclusive",
+              "parts": [
+                "StoreCommitRequest",
+                "HellaIncomingRequest"
+              ],
+              "unsat": true
+            },
+            {
+              "atom_count": 8,
+              "kind": "parts_mutually_exclusive",
+              "parts": [
+                "StoreCommitRequest",
+                "HellaWakeupRequest"
+              ],
+              "unsat": true
+            },
+            {
+              "atom_count": 8,
+              "kind": "parts_mutually_exclusive",
+              "parts": [
+                "LoadWakeupRequest",
+                "HellaIncomingRequest"
+              ],
+              "unsat": true
+            },
+            {
+              "atom_count": 8,
+              "kind": "parts_mutually_exclusive",
+              "parts": [
+                "LoadWakeupRequest",
+                "HellaWakeupRequest"
+              ],
+              "unsat": true
+            },
+            {
+              "atom_count": 8,
+              "kind": "parts_mutually_exclusive",
+              "parts": [
+                "HellaIncomingRequest",
+                "HellaWakeupRequest"
+              ],
+              "unsat": true
+            }
+          ],
+          "parts": [
+            "LoadExecuteRequest",
+            "LoadRetryRequest",
+            "StoreCommitRequest",
+            "LoadWakeupRequest",
+            "HellaIncomingRequest",
+            "HellaWakeupRequest"
+          ],
+          "proof": "DCacheRequest is equivalent to the same-cycle disjunction of its parts, and every pair of parts has an unsatisfiable conjunction",
+          "proof_domain": "exact-same-cycle-occurrence-partition",
+          "reachable_lock_certificates": [],
+          "status": "STRUCTURALLY_SUPPORTED",
+          "whole": "DCacheRequest"
+        },
+        "proof": "DCacheRequest is equivalent to the same-cycle disjunction of its parts, and every pair of parts has an unsatisfiable conjunction",
+        "proof_method": "exact-same-cycle-occurrence-partition",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "DCacheRequest",
+          "HellaIncomingRequest",
+          "HellaWakeupRequest",
+          "LoadExecuteRequest",
+          "LoadRetryRequest",
+          "LoadWakeupRequest",
+          "StoreCommitRequest"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "DCacheRequest <=> exactly_one_same_cycle({LoadExecuteRequest, LoadRetryRequest, StoreCommitRequest, LoadWakeupRequest, HellaIncomingRequest, HellaWakeupRequest})",
+      "structural": {
+        "mutex_pairs": [
+          [
+            "LoadExecuteRequest",
+            "LoadRetryRequest"
+          ],
+          [
+            "LoadExecuteRequest",
+            "StoreCommitRequest"
+          ],
+          [
+            "LoadExecuteRequest",
+            "LoadWakeupRequest"
+          ],
+          [
+            "LoadExecuteRequest",
+            "HellaIncomingRequest"
+          ],
+          [
+            "LoadExecuteRequest",
+            "HellaWakeupRequest"
+          ],
+          [
+            "LoadRetryRequest",
+            "StoreCommitRequest"
+          ],
+          [
+            "LoadRetryRequest",
+            "LoadWakeupRequest"
+          ],
+          [
+            "LoadRetryRequest",
+            "HellaIncomingRequest"
+          ],
+          [
+            "LoadRetryRequest",
+            "HellaWakeupRequest"
+          ],
+          [
+            "StoreCommitRequest",
+            "LoadWakeupRequest"
+          ],
+          [
+            "StoreCommitRequest",
+            "HellaIncomingRequest"
+          ],
+          [
+            "StoreCommitRequest",
+            "HellaWakeupRequest"
+          ],
+          [
+            "LoadWakeupRequest",
+            "HellaIncomingRequest"
+          ],
+          [
+            "LoadWakeupRequest",
+            "HellaWakeupRequest"
+          ],
+          [
+            "HellaIncomingRequest",
+            "HellaWakeupRequest"
+          ]
+        ],
+        "obligations": [
+          {
+            "atom_count": 8,
+            "kind": "whole_without_part",
+            "unsat": true
+          },
+          {
+            "atom_count": 8,
+            "kind": "part_without_whole",
+            "unsat": true
+          },
+          {
+            "atom_count": 8,
+            "kind": "parts_mutually_exclusive",
+            "parts": [
+              "LoadExecuteRequest",
+              "LoadRetryRequest"
+            ],
+            "unsat": true
+          },
+          {
+            "atom_count": 8,
+            "kind": "parts_mutually_exclusive",
+            "parts": [
+              "LoadExecuteRequest",
+              "StoreCommitRequest"
+            ],
+            "unsat": true
+          },
+          {
+            "atom_count": 8,
+            "kind": "parts_mutually_exclusive",
+            "parts": [
+              "LoadExecuteRequest",
+              "LoadWakeupRequest"
+            ],
+            "unsat": true
+          },
+          {
+            "atom_count": 8,
+            "kind": "parts_mutually_exclusive",
+            "parts": [
+              "LoadExecuteRequest",
+              "HellaIncomingRequest"
+            ],
+            "unsat": true
+          },
+          {
+            "atom_count": 8,
+            "kind": "parts_mutually_exclusive",
+            "parts": [
+              "LoadExecuteRequest",
+              "HellaWakeupRequest"
+            ],
+            "unsat": true
+          },
+          {
+            "atom_count": 8,
+            "kind": "parts_mutually_exclusive",
+            "parts": [
+              "LoadRetryRequest",
+              "StoreCommitRequest"
+            ],
+            "unsat": true
+          },
+          {
+            "atom_count": 8,
+            "kind": "parts_mutually_exclusive",
+            "parts": [
+              "LoadRetryRequest",
+              "LoadWakeupRequest"
+            ],
+            "unsat": true
+          },
+          {
+            "atom_count": 8,
+            "kind": "parts_mutually_exclusive",
+            "parts": [
+              "LoadRetryRequest",
+              "HellaIncomingRequest"
+            ],
+            "unsat": true
+          },
+          {
+            "atom_count": 8,
+            "kind": "parts_mutually_exclusive",
+            "parts": [
+              "LoadRetryRequest",
+              "HellaWakeupRequest"
+            ],
+            "unsat": true
+          },
+          {
+            "atom_count": 8,
+            "kind": "parts_mutually_exclusive",
+            "parts": [
+              "StoreCommitRequest",
+              "LoadWakeupRequest"
+            ],
+            "unsat": true
+          },
+          {
+            "atom_count": 8,
+            "kind": "parts_mutually_exclusive",
+            "parts": [
+              "StoreCommitRequest",
+              "HellaIncomingRequest"
+            ],
+            "unsat": true
+          },
+          {
+            "atom_count": 8,
+            "kind": "parts_mutually_exclusive",
+            "parts": [
+              "StoreCommitRequest",
+              "HellaWakeupRequest"
+            ],
+            "unsat": true
+          },
+          {
+            "atom_count": 8,
+            "kind": "parts_mutually_exclusive",
+            "parts": [
+              "LoadWakeupRequest",
+              "HellaIncomingRequest"
+            ],
+            "unsat": true
+          },
+          {
+            "atom_count": 8,
+            "kind": "parts_mutually_exclusive",
+            "parts": [
+              "LoadWakeupRequest",
+              "HellaWakeupRequest"
+            ],
+            "unsat": true
+          },
+          {
+            "atom_count": 8,
+            "kind": "parts_mutually_exclusive",
+            "parts": [
+              "HellaIncomingRequest",
+              "HellaWakeupRequest"
+            ],
+            "unsat": true
+          }
+        ],
+        "parts": [
+          "LoadExecuteRequest",
+          "LoadRetryRequest",
+          "StoreCommitRequest",
+          "LoadWakeupRequest",
+          "HellaIncomingRequest",
+          "HellaWakeupRequest"
+        ],
+        "proof": "DCacheRequest is equivalent to the same-cycle disjunction of its parts, and every pair of parts has an unsatisfiable conjunction",
+        "proof_domain": "exact-same-cycle-occurrence-partition",
+        "reachable_lock_certificates": [],
+        "status": "STRUCTURALLY_SUPPORTED",
+        "whole": "DCacheRequest"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "LoadExecuteRequest",
+        "source": "exe_tlb_paddr[0]",
+        "target": "io.dmem.req.bits[0].bits.addr"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2239,
+        2378,
+        2380
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [
+            {
+              "kind": "exact-unconditional-aggregate-alias",
+              "source": "dmem_req[0].bits.addr",
+              "statement_id": 2239,
+              "target": "io.dmem.req.bits[0].bits.addr"
+            }
+          ],
+          "all_driver_statement_ids": [
+            2370,
+            2380,
+            2402,
+            2417,
+            2446,
+            2475,
+            2510
+          ],
+          "on": "LoadExecuteRequest",
+          "proof": "every last-connect driver of io.dmem.req.bits[0].bits.addr reachable on LoadExecuteRequest equals exe_tlb_paddr[0]",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "resolved_target": "dmem_req[0].bits.addr",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_polarities": {
+                  "will_fire_load_agen_exec[0]": "positive"
+                },
+                "control_signals": [
+                  "will_fire_load_agen_exec[0]"
+                ],
+                "control_statement_ids": [
+                  2378
+                ],
+                "kind": "exact-branch-conjunction"
+              },
+              "atom_count": 8,
+              "rhs": "exe_tlb_paddr[0]",
+              "statement_id": 2380,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "exe_tlb_paddr[0]",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.dmem.req.bits[0].bits.addr",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.dmem.req.bits[0].bits.addr reachable on LoadExecuteRequest equals exe_tlb_paddr[0]",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "LoadExecuteRequest"
+        ],
+        "predicates": [],
+        "signals": [
+          "exe_tlb_paddr[0]",
+          "io.dmem.req.bits[0].bits.addr"
+        ]
+      },
+      "rendered_formula": "io.dmem.req.bits[0].bits.addr = exe_tlb_paddr[0] on LoadExecuteRequest",
+      "structural": {
+        "alias_chain": [
+          {
+            "kind": "exact-unconditional-aggregate-alias",
+            "source": "dmem_req[0].bits.addr",
+            "statement_id": 2239,
+            "target": "io.dmem.req.bits[0].bits.addr"
+          }
+        ],
+        "all_driver_statement_ids": [
+          2370,
+          2380,
+          2402,
+          2417,
+          2446,
+          2475,
+          2510
+        ],
+        "on": "LoadExecuteRequest",
+        "proof": "every last-connect driver of io.dmem.req.bits[0].bits.addr reachable on LoadExecuteRequest equals exe_tlb_paddr[0]",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "resolved_target": "dmem_req[0].bits.addr",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_polarities": {
+                "will_fire_load_agen_exec[0]": "positive"
+              },
+              "control_signals": [
+                "will_fire_load_agen_exec[0]"
+              ],
+              "control_statement_ids": [
+                2378
+              ],
+              "kind": "exact-branch-conjunction"
+            },
+            "atom_count": 8,
+            "rhs": "exe_tlb_paddr[0]",
+            "statement_id": 2380,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "exe_tlb_paddr[0]",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.dmem.req.bits[0].bits.addr",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "LoadRetryRequest",
+        "source": "exe_tlb_paddr[0]",
+        "target": "io.dmem.req.bits[0].bits.addr"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2239,
+        2400,
+        2402
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [
+            {
+              "kind": "exact-unconditional-aggregate-alias",
+              "source": "dmem_req[0].bits.addr",
+              "statement_id": 2239,
+              "target": "io.dmem.req.bits[0].bits.addr"
+            }
+          ],
+          "all_driver_statement_ids": [
+            2370,
+            2380,
+            2402,
+            2417,
+            2446,
+            2475,
+            2510
+          ],
+          "on": "LoadRetryRequest",
+          "proof": "every last-connect driver of io.dmem.req.bits[0].bits.addr reachable on LoadRetryRequest equals exe_tlb_paddr[0]",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "resolved_target": "dmem_req[0].bits.addr",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_polarities": {
+                  "will_fire_load_agen_exec[0]": "negative",
+                  "will_fire_load_retry[0]": "positive"
+                },
+                "control_signals": [
+                  "will_fire_load_agen_exec[0]",
+                  "will_fire_load_retry[0]"
+                ],
+                "control_statement_ids": [
+                  2399,
+                  2400
+                ],
+                "kind": "exact-branch-conjunction"
+              },
+              "atom_count": 8,
+              "rhs": "exe_tlb_paddr[0]",
+              "statement_id": 2402,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "exe_tlb_paddr[0]",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.dmem.req.bits[0].bits.addr",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.dmem.req.bits[0].bits.addr reachable on LoadRetryRequest equals exe_tlb_paddr[0]",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "LoadRetryRequest"
+        ],
+        "predicates": [],
+        "signals": [
+          "exe_tlb_paddr[0]",
+          "io.dmem.req.bits[0].bits.addr"
+        ]
+      },
+      "rendered_formula": "io.dmem.req.bits[0].bits.addr = exe_tlb_paddr[0] on LoadRetryRequest",
+      "structural": {
+        "alias_chain": [
+          {
+            "kind": "exact-unconditional-aggregate-alias",
+            "source": "dmem_req[0].bits.addr",
+            "statement_id": 2239,
+            "target": "io.dmem.req.bits[0].bits.addr"
+          }
+        ],
+        "all_driver_statement_ids": [
+          2370,
+          2380,
+          2402,
+          2417,
+          2446,
+          2475,
+          2510
+        ],
+        "on": "LoadRetryRequest",
+        "proof": "every last-connect driver of io.dmem.req.bits[0].bits.addr reachable on LoadRetryRequest equals exe_tlb_paddr[0]",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "resolved_target": "dmem_req[0].bits.addr",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_polarities": {
+                "will_fire_load_agen_exec[0]": "negative",
+                "will_fire_load_retry[0]": "positive"
+              },
+              "control_signals": [
+                "will_fire_load_agen_exec[0]",
+                "will_fire_load_retry[0]"
+              ],
+              "control_statement_ids": [
+                2399,
+                2400
+              ],
+              "kind": "exact-branch-conjunction"
+            },
+            "atom_count": 8,
+            "rhs": "exe_tlb_paddr[0]",
+            "statement_id": 2402,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "exe_tlb_paddr[0]",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.dmem.req.bits[0].bits.addr",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "StoreCommitRequest",
+        "source": "stq_execute_queue.io.deq.bits.addr.bits",
+        "target": "io.dmem.req.bits[0].bits.addr"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2239,
+        2414,
+        2415,
+        2417
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [
+            {
+              "kind": "exact-unconditional-aggregate-alias",
+              "source": "dmem_req[0].bits.addr",
+              "statement_id": 2239,
+              "target": "io.dmem.req.bits[0].bits.addr"
+            }
+          ],
+          "all_driver_statement_ids": [
+            2370,
+            2380,
+            2402,
+            2417,
+            2446,
+            2475,
+            2510
+          ],
+          "on": "StoreCommitRequest",
+          "proof": "every last-connect driver of io.dmem.req.bits[0].bits.addr reachable on StoreCommitRequest equals stq_execute_queue.io.deq.bits.addr.bits",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "resolved_target": "dmem_req[0].bits.addr",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_polarities": {
+                  "_T_145": "positive",
+                  "will_fire_load_agen_exec[0]": "negative",
+                  "will_fire_load_retry[0]": "negative"
+                },
+                "control_signals": [
+                  "_T_145",
+                  "will_fire_load_agen_exec[0]",
+                  "will_fire_load_retry[0]"
+                ],
+                "control_statement_ids": [
+                  2399,
+                  2413,
+                  2415
+                ],
+                "kind": "exact-branch-conjunction"
+              },
+              "atom_count": 8,
+              "rhs": "stq_execute_queue.io.deq.bits.addr.bits",
+              "statement_id": 2417,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "stq_execute_queue.io.deq.bits.addr.bits",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.dmem.req.bits[0].bits.addr",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.dmem.req.bits[0].bits.addr reachable on StoreCommitRequest equals stq_execute_queue.io.deq.bits.addr.bits",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "StoreCommitRequest"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.dmem.req.bits[0].bits.addr",
+          "stq_execute_queue.io.deq.bits.addr.bits"
+        ]
+      },
+      "rendered_formula": "io.dmem.req.bits[0].bits.addr = stq_execute_queue.io.deq.bits.addr.bits on StoreCommitRequest",
+      "structural": {
+        "alias_chain": [
+          {
+            "kind": "exact-unconditional-aggregate-alias",
+            "source": "dmem_req[0].bits.addr",
+            "statement_id": 2239,
+            "target": "io.dmem.req.bits[0].bits.addr"
+          }
+        ],
+        "all_driver_statement_ids": [
+          2370,
+          2380,
+          2402,
+          2417,
+          2446,
+          2475,
+          2510
+        ],
+        "on": "StoreCommitRequest",
+        "proof": "every last-connect driver of io.dmem.req.bits[0].bits.addr reachable on StoreCommitRequest equals stq_execute_queue.io.deq.bits.addr.bits",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "resolved_target": "dmem_req[0].bits.addr",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_polarities": {
+                "_T_145": "positive",
+                "will_fire_load_agen_exec[0]": "negative",
+                "will_fire_load_retry[0]": "negative"
+              },
+              "control_signals": [
+                "_T_145",
+                "will_fire_load_agen_exec[0]",
+                "will_fire_load_retry[0]"
+              ],
+              "control_statement_ids": [
+                2399,
+                2413,
+                2415
+              ],
+              "kind": "exact-branch-conjunction"
+            },
+            "atom_count": 8,
+            "rhs": "stq_execute_queue.io.deq.bits.addr.bits",
+            "statement_id": 2417,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "stq_execute_queue.io.deq.bits.addr.bits",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.dmem.req.bits[0].bits.addr",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "LoadWakeupRequest",
+        "source": "ldq_wakeup_e.bits.addr.bits",
+        "target": "io.dmem.req.bits[0].bits.addr"
+      },
+      "axiom_id": "A5",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2239,
+        2444,
+        2446
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [
+            {
+              "kind": "exact-unconditional-aggregate-alias",
+              "source": "dmem_req[0].bits.addr",
+              "statement_id": 2239,
+              "target": "io.dmem.req.bits[0].bits.addr"
+            }
+          ],
+          "all_driver_statement_ids": [
+            2370,
+            2380,
+            2402,
+            2417,
+            2446,
+            2475,
+            2510
+          ],
+          "on": "LoadWakeupRequest",
+          "proof": "every last-connect driver of io.dmem.req.bits[0].bits.addr reachable on LoadWakeupRequest equals ldq_wakeup_e.bits.addr.bits",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "resolved_target": "dmem_req[0].bits.addr",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_polarities": {
+                  "_T_145": "negative",
+                  "will_fire_load_agen_exec[0]": "negative",
+                  "will_fire_load_retry[0]": "negative",
+                  "will_fire_load_wakeup[0]": "positive"
+                },
+                "control_signals": [
+                  "_T_145",
+                  "will_fire_load_agen_exec[0]",
+                  "will_fire_load_retry[0]",
+                  "will_fire_load_wakeup[0]"
+                ],
+                "control_statement_ids": [
+                  2399,
+                  2413,
+                  2443,
+                  2444
+                ],
+                "kind": "exact-branch-conjunction"
+              },
+              "atom_count": 8,
+              "rhs": "ldq_wakeup_e.bits.addr.bits",
+              "statement_id": 2446,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "ldq_wakeup_e.bits.addr.bits",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.dmem.req.bits[0].bits.addr",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.dmem.req.bits[0].bits.addr reachable on LoadWakeupRequest equals ldq_wakeup_e.bits.addr.bits",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "LoadWakeupRequest"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.dmem.req.bits[0].bits.addr",
+          "ldq_wakeup_e.bits.addr.bits"
+        ]
+      },
+      "rendered_formula": "io.dmem.req.bits[0].bits.addr = ldq_wakeup_e.bits.addr.bits on LoadWakeupRequest",
+      "structural": {
+        "alias_chain": [
+          {
+            "kind": "exact-unconditional-aggregate-alias",
+            "source": "dmem_req[0].bits.addr",
+            "statement_id": 2239,
+            "target": "io.dmem.req.bits[0].bits.addr"
+          }
+        ],
+        "all_driver_statement_ids": [
+          2370,
+          2380,
+          2402,
+          2417,
+          2446,
+          2475,
+          2510
+        ],
+        "on": "LoadWakeupRequest",
+        "proof": "every last-connect driver of io.dmem.req.bits[0].bits.addr reachable on LoadWakeupRequest equals ldq_wakeup_e.bits.addr.bits",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "resolved_target": "dmem_req[0].bits.addr",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_polarities": {
+                "_T_145": "negative",
+                "will_fire_load_agen_exec[0]": "negative",
+                "will_fire_load_retry[0]": "negative",
+                "will_fire_load_wakeup[0]": "positive"
+              },
+              "control_signals": [
+                "_T_145",
+                "will_fire_load_agen_exec[0]",
+                "will_fire_load_retry[0]",
+                "will_fire_load_wakeup[0]"
+              ],
+              "control_statement_ids": [
+                2399,
+                2413,
+                2443,
+                2444
+              ],
+              "kind": "exact-branch-conjunction"
+            },
+            "atom_count": 8,
+            "rhs": "ldq_wakeup_e.bits.addr.bits",
+            "statement_id": 2446,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "ldq_wakeup_e.bits.addr.bits",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.dmem.req.bits[0].bits.addr",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "HellaIncomingRequest",
+        "source": "exe_tlb_paddr[0]",
+        "target": "io.dmem.req.bits[0].bits.addr"
+      },
+      "axiom_id": "A6",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2239,
+        2461,
+        2475
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [
+            {
+              "kind": "exact-unconditional-aggregate-alias",
+              "source": "dmem_req[0].bits.addr",
+              "statement_id": 2239,
+              "target": "io.dmem.req.bits[0].bits.addr"
+            }
+          ],
+          "all_driver_statement_ids": [
+            2370,
+            2380,
+            2402,
+            2417,
+            2446,
+            2475,
+            2510
+          ],
+          "on": "HellaIncomingRequest",
+          "proof": "every last-connect driver of io.dmem.req.bits[0].bits.addr reachable on HellaIncomingRequest equals exe_tlb_paddr[0]",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "resolved_target": "dmem_req[0].bits.addr",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_polarities": {
+                  "_T_145": "negative",
+                  "will_fire_hella_incoming[0]": "positive",
+                  "will_fire_load_agen_exec[0]": "negative",
+                  "will_fire_load_retry[0]": "negative",
+                  "will_fire_load_wakeup[0]": "negative"
+                },
+                "control_signals": [
+                  "_T_145",
+                  "will_fire_hella_incoming[0]",
+                  "will_fire_load_agen_exec[0]",
+                  "will_fire_load_retry[0]",
+                  "will_fire_load_wakeup[0]"
+                ],
+                "control_statement_ids": [
+                  2399,
+                  2413,
+                  2443,
+                  2460,
+                  2461
+                ],
+                "kind": "exact-branch-conjunction"
+              },
+              "atom_count": 8,
+              "rhs": "exe_tlb_paddr[0]",
+              "statement_id": 2475,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "exe_tlb_paddr[0]",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.dmem.req.bits[0].bits.addr",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.dmem.req.bits[0].bits.addr reachable on HellaIncomingRequest equals exe_tlb_paddr[0]",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "HellaIncomingRequest"
+        ],
+        "predicates": [],
+        "signals": [
+          "exe_tlb_paddr[0]",
+          "io.dmem.req.bits[0].bits.addr"
+        ]
+      },
+      "rendered_formula": "io.dmem.req.bits[0].bits.addr = exe_tlb_paddr[0] on HellaIncomingRequest",
+      "structural": {
+        "alias_chain": [
+          {
+            "kind": "exact-unconditional-aggregate-alias",
+            "source": "dmem_req[0].bits.addr",
+            "statement_id": 2239,
+            "target": "io.dmem.req.bits[0].bits.addr"
+          }
+        ],
+        "all_driver_statement_ids": [
+          2370,
+          2380,
+          2402,
+          2417,
+          2446,
+          2475,
+          2510
+        ],
+        "on": "HellaIncomingRequest",
+        "proof": "every last-connect driver of io.dmem.req.bits[0].bits.addr reachable on HellaIncomingRequest equals exe_tlb_paddr[0]",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "resolved_target": "dmem_req[0].bits.addr",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_polarities": {
+                "_T_145": "negative",
+                "will_fire_hella_incoming[0]": "positive",
+                "will_fire_load_agen_exec[0]": "negative",
+                "will_fire_load_retry[0]": "negative",
+                "will_fire_load_wakeup[0]": "negative"
+              },
+              "control_signals": [
+                "_T_145",
+                "will_fire_hella_incoming[0]",
+                "will_fire_load_agen_exec[0]",
+                "will_fire_load_retry[0]",
+                "will_fire_load_wakeup[0]"
+              ],
+              "control_statement_ids": [
+                2399,
+                2413,
+                2443,
+                2460,
+                2461
+              ],
+              "kind": "exact-branch-conjunction"
+            },
+            "atom_count": 8,
+            "rhs": "exe_tlb_paddr[0]",
+            "statement_id": 2475,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "exe_tlb_paddr[0]",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.dmem.req.bits[0].bits.addr",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "HellaWakeupRequest",
+        "source": "hella_paddr",
+        "target": "io.dmem.req.bits[0].bits.addr"
+      },
+      "axiom_id": "A7",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2239,
+        2500,
+        2510
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [
+            {
+              "kind": "exact-unconditional-aggregate-alias",
+              "source": "dmem_req[0].bits.addr",
+              "statement_id": 2239,
+              "target": "io.dmem.req.bits[0].bits.addr"
+            }
+          ],
+          "all_driver_statement_ids": [
+            2370,
+            2380,
+            2402,
+            2417,
+            2446,
+            2475,
+            2510
+          ],
+          "on": "HellaWakeupRequest",
+          "proof": "every last-connect driver of io.dmem.req.bits[0].bits.addr reachable on HellaWakeupRequest equals hella_paddr",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "resolved_target": "dmem_req[0].bits.addr",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_polarities": {
+                  "_T_145": "negative",
+                  "will_fire_hella_incoming[0]": "negative",
+                  "will_fire_hella_wakeup[0]": "positive",
+                  "will_fire_load_agen_exec[0]": "negative",
+                  "will_fire_load_retry[0]": "negative",
+                  "will_fire_load_wakeup[0]": "negative"
+                },
+                "control_signals": [
+                  "_T_145",
+                  "will_fire_hella_incoming[0]",
+                  "will_fire_hella_wakeup[0]",
+                  "will_fire_load_agen_exec[0]",
+                  "will_fire_load_retry[0]",
+                  "will_fire_load_wakeup[0]"
+                ],
+                "control_statement_ids": [
+                  2399,
+                  2413,
+                  2443,
+                  2460,
+                  2499,
+                  2500
+                ],
+                "kind": "exact-branch-conjunction"
+              },
+              "atom_count": 8,
+              "rhs": "hella_paddr",
+              "statement_id": 2510,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "hella_paddr",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.dmem.req.bits[0].bits.addr",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.dmem.req.bits[0].bits.addr reachable on HellaWakeupRequest equals hella_paddr",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "HellaWakeupRequest"
+        ],
+        "predicates": [],
+        "signals": [
+          "hella_paddr",
+          "io.dmem.req.bits[0].bits.addr"
+        ]
+      },
+      "rendered_formula": "io.dmem.req.bits[0].bits.addr = hella_paddr on HellaWakeupRequest",
+      "structural": {
+        "alias_chain": [
+          {
+            "kind": "exact-unconditional-aggregate-alias",
+            "source": "dmem_req[0].bits.addr",
+            "statement_id": 2239,
+            "target": "io.dmem.req.bits[0].bits.addr"
+          }
+        ],
+        "all_driver_statement_ids": [
+          2370,
+          2380,
+          2402,
+          2417,
+          2446,
+          2475,
+          2510
+        ],
+        "on": "HellaWakeupRequest",
+        "proof": "every last-connect driver of io.dmem.req.bits[0].bits.addr reachable on HellaWakeupRequest equals hella_paddr",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "resolved_target": "dmem_req[0].bits.addr",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_polarities": {
+                "_T_145": "negative",
+                "will_fire_hella_incoming[0]": "negative",
+                "will_fire_hella_wakeup[0]": "positive",
+                "will_fire_load_agen_exec[0]": "negative",
+                "will_fire_load_retry[0]": "negative",
+                "will_fire_load_wakeup[0]": "negative"
+              },
+              "control_signals": [
+                "_T_145",
+                "will_fire_hella_incoming[0]",
+                "will_fire_hella_wakeup[0]",
+                "will_fire_load_agen_exec[0]",
+                "will_fire_load_retry[0]",
+                "will_fire_load_wakeup[0]"
+              ],
+              "control_statement_ids": [
+                2399,
+                2413,
+                2443,
+                2460,
+                2499,
+                2500
+              ],
+              "kind": "exact-branch-conjunction"
+            },
+            "atom_count": 8,
+            "rhs": "hella_paddr",
+            "statement_id": 2510,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "hella_paddr",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.dmem.req.bits[0].bits.addr",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 0,
+        "on": "LoadExecuteRequest",
+        "signal": "io.dmem.req.bits[0].bits.is_hella"
+      },
+      "axiom_id": "A8",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        2239,
+        2372,
+        2378,
+        2379
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [
+            {
+              "kind": "exact-unconditional-aggregate-alias",
+              "source": "dmem_req[0].bits.is_hella",
+              "statement_id": 2239,
+              "target": "io.dmem.req.bits[0].bits.is_hella"
+            }
+          ],
+          "all_driver_statement_ids": [
+            2372,
+            2497,
+            2532
+          ],
+          "bit": 0,
+          "expected": 0,
+          "on": "LoadExecuteRequest",
+          "proof": "every last-connect driver of bit 0 of io.dmem.req.bits[0].bits.is_hella reachable on LoadExecuteRequest equals 0",
+          "proof_domain": "exact-conditional-constant-bit",
+          "reachable_lock_certificates": [],
+          "resolved_signal": "dmem_req[0].bits.is_hella",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "unconditional"
+              },
+              "atom_count": 0,
+              "rhs": "UInt<1>(0h0)",
+              "statement_id": 2372
+            }
+          ],
+          "signal": "io.dmem.req.bits[0].bits.is_hella",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "every last-connect driver of bit 0 of io.dmem.req.bits[0].bits.is_hella reachable on LoadExecuteRequest equals 0",
+        "proof_method": "exact-conditional-constant-bit",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "LoadExecuteRequest"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.dmem.req.bits[0].bits.is_hella"
+        ]
+      },
+      "rendered_formula": "bits(io.dmem.req.bits[0].bits.is_hella, 0, 0) == 0 on LoadExecuteRequest",
+      "structural": {
+        "alias_chain": [
+          {
+            "kind": "exact-unconditional-aggregate-alias",
+            "source": "dmem_req[0].bits.is_hella",
+            "statement_id": 2239,
+            "target": "io.dmem.req.bits[0].bits.is_hella"
+          }
+        ],
+        "all_driver_statement_ids": [
+          2372,
+          2497,
+          2532
+        ],
+        "bit": 0,
+        "expected": 0,
+        "on": "LoadExecuteRequest",
+        "proof": "every last-connect driver of bit 0 of io.dmem.req.bits[0].bits.is_hella reachable on LoadExecuteRequest equals 0",
+        "proof_domain": "exact-conditional-constant-bit",
+        "reachable_lock_certificates": [],
+        "resolved_signal": "dmem_req[0].bits.is_hella",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "unconditional"
+            },
+            "atom_count": 0,
+            "rhs": "UInt<1>(0h0)",
+            "statement_id": 2372
+          }
+        ],
+        "signal": "io.dmem.req.bits[0].bits.is_hella",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 0,
+        "on": "LoadRetryRequest",
+        "signal": "io.dmem.req.bits[0].bits.is_hella"
+      },
+      "axiom_id": "A9",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        2239,
+        2372,
+        2400,
+        2401
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [
+            {
+              "kind": "exact-unconditional-aggregate-alias",
+              "source": "dmem_req[0].bits.is_hella",
+              "statement_id": 2239,
+              "target": "io.dmem.req.bits[0].bits.is_hella"
+            }
+          ],
+          "all_driver_statement_ids": [
+            2372,
+            2497,
+            2532
+          ],
+          "bit": 0,
+          "expected": 0,
+          "on": "LoadRetryRequest",
+          "proof": "every last-connect driver of bit 0 of io.dmem.req.bits[0].bits.is_hella reachable on LoadRetryRequest equals 0",
+          "proof_domain": "exact-conditional-constant-bit",
+          "reachable_lock_certificates": [],
+          "resolved_signal": "dmem_req[0].bits.is_hella",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "unconditional"
+              },
+              "atom_count": 0,
+              "rhs": "UInt<1>(0h0)",
+              "statement_id": 2372
+            }
+          ],
+          "signal": "io.dmem.req.bits[0].bits.is_hella",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "every last-connect driver of bit 0 of io.dmem.req.bits[0].bits.is_hella reachable on LoadRetryRequest equals 0",
+        "proof_method": "exact-conditional-constant-bit",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "LoadRetryRequest"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.dmem.req.bits[0].bits.is_hella"
+        ]
+      },
+      "rendered_formula": "bits(io.dmem.req.bits[0].bits.is_hella, 0, 0) == 0 on LoadRetryRequest",
+      "structural": {
+        "alias_chain": [
+          {
+            "kind": "exact-unconditional-aggregate-alias",
+            "source": "dmem_req[0].bits.is_hella",
+            "statement_id": 2239,
+            "target": "io.dmem.req.bits[0].bits.is_hella"
+          }
+        ],
+        "all_driver_statement_ids": [
+          2372,
+          2497,
+          2532
+        ],
+        "bit": 0,
+        "expected": 0,
+        "on": "LoadRetryRequest",
+        "proof": "every last-connect driver of bit 0 of io.dmem.req.bits[0].bits.is_hella reachable on LoadRetryRequest equals 0",
+        "proof_domain": "exact-conditional-constant-bit",
+        "reachable_lock_certificates": [],
+        "resolved_signal": "dmem_req[0].bits.is_hella",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "unconditional"
+            },
+            "atom_count": 0,
+            "rhs": "UInt<1>(0h0)",
+            "statement_id": 2372
+          }
+        ],
+        "signal": "io.dmem.req.bits[0].bits.is_hella",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 0,
+        "on": "StoreCommitRequest",
+        "signal": "io.dmem.req.bits[0].bits.is_hella"
+      },
+      "axiom_id": "A10",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        2239,
+        2372,
+        2415,
+        2416
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [
+            {
+              "kind": "exact-unconditional-aggregate-alias",
+              "source": "dmem_req[0].bits.is_hella",
+              "statement_id": 2239,
+              "target": "io.dmem.req.bits[0].bits.is_hella"
+            }
+          ],
+          "all_driver_statement_ids": [
+            2372,
+            2497,
+            2532
+          ],
+          "bit": 0,
+          "expected": 0,
+          "on": "StoreCommitRequest",
+          "proof": "every last-connect driver of bit 0 of io.dmem.req.bits[0].bits.is_hella reachable on StoreCommitRequest equals 0",
+          "proof_domain": "exact-conditional-constant-bit",
+          "reachable_lock_certificates": [],
+          "resolved_signal": "dmem_req[0].bits.is_hella",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "unconditional"
+              },
+              "atom_count": 0,
+              "rhs": "UInt<1>(0h0)",
+              "statement_id": 2372
+            }
+          ],
+          "signal": "io.dmem.req.bits[0].bits.is_hella",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "every last-connect driver of bit 0 of io.dmem.req.bits[0].bits.is_hella reachable on StoreCommitRequest equals 0",
+        "proof_method": "exact-conditional-constant-bit",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "StoreCommitRequest"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.dmem.req.bits[0].bits.is_hella"
+        ]
+      },
+      "rendered_formula": "bits(io.dmem.req.bits[0].bits.is_hella, 0, 0) == 0 on StoreCommitRequest",
+      "structural": {
+        "alias_chain": [
+          {
+            "kind": "exact-unconditional-aggregate-alias",
+            "source": "dmem_req[0].bits.is_hella",
+            "statement_id": 2239,
+            "target": "io.dmem.req.bits[0].bits.is_hella"
+          }
+        ],
+        "all_driver_statement_ids": [
+          2372,
+          2497,
+          2532
+        ],
+        "bit": 0,
+        "expected": 0,
+        "on": "StoreCommitRequest",
+        "proof": "every last-connect driver of bit 0 of io.dmem.req.bits[0].bits.is_hella reachable on StoreCommitRequest equals 0",
+        "proof_domain": "exact-conditional-constant-bit",
+        "reachable_lock_certificates": [],
+        "resolved_signal": "dmem_req[0].bits.is_hella",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "unconditional"
+            },
+            "atom_count": 0,
+            "rhs": "UInt<1>(0h0)",
+            "statement_id": 2372
+          }
+        ],
+        "signal": "io.dmem.req.bits[0].bits.is_hella",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 0,
+        "on": "LoadWakeupRequest",
+        "signal": "io.dmem.req.bits[0].bits.is_hella"
+      },
+      "axiom_id": "A11",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        2239,
+        2372,
+        2444,
+        2445
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [
+            {
+              "kind": "exact-unconditional-aggregate-alias",
+              "source": "dmem_req[0].bits.is_hella",
+              "statement_id": 2239,
+              "target": "io.dmem.req.bits[0].bits.is_hella"
+            }
+          ],
+          "all_driver_statement_ids": [
+            2372,
+            2497,
+            2532
+          ],
+          "bit": 0,
+          "expected": 0,
+          "on": "LoadWakeupRequest",
+          "proof": "every last-connect driver of bit 0 of io.dmem.req.bits[0].bits.is_hella reachable on LoadWakeupRequest equals 0",
+          "proof_domain": "exact-conditional-constant-bit",
+          "reachable_lock_certificates": [],
+          "resolved_signal": "dmem_req[0].bits.is_hella",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "unconditional"
+              },
+              "atom_count": 0,
+              "rhs": "UInt<1>(0h0)",
+              "statement_id": 2372
+            }
+          ],
+          "signal": "io.dmem.req.bits[0].bits.is_hella",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "every last-connect driver of bit 0 of io.dmem.req.bits[0].bits.is_hella reachable on LoadWakeupRequest equals 0",
+        "proof_method": "exact-conditional-constant-bit",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "LoadWakeupRequest"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.dmem.req.bits[0].bits.is_hella"
+        ]
+      },
+      "rendered_formula": "bits(io.dmem.req.bits[0].bits.is_hella, 0, 0) == 0 on LoadWakeupRequest",
+      "structural": {
+        "alias_chain": [
+          {
+            "kind": "exact-unconditional-aggregate-alias",
+            "source": "dmem_req[0].bits.is_hella",
+            "statement_id": 2239,
+            "target": "io.dmem.req.bits[0].bits.is_hella"
+          }
+        ],
+        "all_driver_statement_ids": [
+          2372,
+          2497,
+          2532
+        ],
+        "bit": 0,
+        "expected": 0,
+        "on": "LoadWakeupRequest",
+        "proof": "every last-connect driver of bit 0 of io.dmem.req.bits[0].bits.is_hella reachable on LoadWakeupRequest equals 0",
+        "proof_domain": "exact-conditional-constant-bit",
+        "reachable_lock_certificates": [],
+        "resolved_signal": "dmem_req[0].bits.is_hella",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "unconditional"
+            },
+            "atom_count": 0,
+            "rhs": "UInt<1>(0h0)",
+            "statement_id": 2372
+          }
+        ],
+        "signal": "io.dmem.req.bits[0].bits.is_hella",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 1,
+        "on": "HellaIncomingRequest",
+        "signal": "io.dmem.req.bits[0].bits.is_hella"
+      },
+      "axiom_id": "A12",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        2239,
+        2461,
+        2497
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [
+            {
+              "kind": "exact-unconditional-aggregate-alias",
+              "source": "dmem_req[0].bits.is_hella",
+              "statement_id": 2239,
+              "target": "io.dmem.req.bits[0].bits.is_hella"
+            }
+          ],
+          "all_driver_statement_ids": [
+            2372,
+            2497,
+            2532
+          ],
+          "bit": 0,
+          "expected": 1,
+          "on": "HellaIncomingRequest",
+          "proof": "every last-connect driver of bit 0 of io.dmem.req.bits[0].bits.is_hella reachable on HellaIncomingRequest equals 1",
+          "proof_domain": "exact-conditional-constant-bit",
+          "reachable_lock_certificates": [],
+          "resolved_signal": "dmem_req[0].bits.is_hella",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_polarities": {
+                  "_T_145": "negative",
+                  "will_fire_hella_incoming[0]": "positive",
+                  "will_fire_load_agen_exec[0]": "negative",
+                  "will_fire_load_retry[0]": "negative",
+                  "will_fire_load_wakeup[0]": "negative"
+                },
+                "control_signals": [
+                  "_T_145",
+                  "will_fire_hella_incoming[0]",
+                  "will_fire_load_agen_exec[0]",
+                  "will_fire_load_retry[0]",
+                  "will_fire_load_wakeup[0]"
+                ],
+                "control_statement_ids": [
+                  2399,
+                  2413,
+                  2443,
+                  2460,
+                  2461
+                ],
+                "kind": "exact-branch-conjunction"
+              },
+              "atom_count": 0,
+              "rhs": "UInt<1>(0h1)",
+              "statement_id": 2497
+            }
+          ],
+          "signal": "io.dmem.req.bits[0].bits.is_hella",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "every last-connect driver of bit 0 of io.dmem.req.bits[0].bits.is_hella reachable on HellaIncomingRequest equals 1",
+        "proof_method": "exact-conditional-constant-bit",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "HellaIncomingRequest"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.dmem.req.bits[0].bits.is_hella"
+        ]
+      },
+      "rendered_formula": "bits(io.dmem.req.bits[0].bits.is_hella, 0, 0) == 1 on HellaIncomingRequest",
+      "structural": {
+        "alias_chain": [
+          {
+            "kind": "exact-unconditional-aggregate-alias",
+            "source": "dmem_req[0].bits.is_hella",
+            "statement_id": 2239,
+            "target": "io.dmem.req.bits[0].bits.is_hella"
+          }
+        ],
+        "all_driver_statement_ids": [
+          2372,
+          2497,
+          2532
+        ],
+        "bit": 0,
+        "expected": 1,
+        "on": "HellaIncomingRequest",
+        "proof": "every last-connect driver of bit 0 of io.dmem.req.bits[0].bits.is_hella reachable on HellaIncomingRequest equals 1",
+        "proof_domain": "exact-conditional-constant-bit",
+        "reachable_lock_certificates": [],
+        "resolved_signal": "dmem_req[0].bits.is_hella",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_polarities": {
+                "_T_145": "negative",
+                "will_fire_hella_incoming[0]": "positive",
+                "will_fire_load_agen_exec[0]": "negative",
+                "will_fire_load_retry[0]": "negative",
+                "will_fire_load_wakeup[0]": "negative"
+              },
+              "control_signals": [
+                "_T_145",
+                "will_fire_hella_incoming[0]",
+                "will_fire_load_agen_exec[0]",
+                "will_fire_load_retry[0]",
+                "will_fire_load_wakeup[0]"
+              ],
+              "control_statement_ids": [
+                2399,
+                2413,
+                2443,
+                2460,
+                2461
+              ],
+              "kind": "exact-branch-conjunction"
+            },
+            "atom_count": 0,
+            "rhs": "UInt<1>(0h1)",
+            "statement_id": 2497
+          }
+        ],
+        "signal": "io.dmem.req.bits[0].bits.is_hella",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 1,
+        "on": "HellaWakeupRequest",
+        "signal": "io.dmem.req.bits[0].bits.is_hella"
+      },
+      "axiom_id": "A13",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        2239,
+        2500,
+        2532
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [
+            {
+              "kind": "exact-unconditional-aggregate-alias",
+              "source": "dmem_req[0].bits.is_hella",
+              "statement_id": 2239,
+              "target": "io.dmem.req.bits[0].bits.is_hella"
+            }
+          ],
+          "all_driver_statement_ids": [
+            2372,
+            2497,
+            2532
+          ],
+          "bit": 0,
+          "expected": 1,
+          "on": "HellaWakeupRequest",
+          "proof": "every last-connect driver of bit 0 of io.dmem.req.bits[0].bits.is_hella reachable on HellaWakeupRequest equals 1",
+          "proof_domain": "exact-conditional-constant-bit",
+          "reachable_lock_certificates": [],
+          "resolved_signal": "dmem_req[0].bits.is_hella",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_polarities": {
+                  "_T_145": "negative",
+                  "will_fire_hella_incoming[0]": "negative",
+                  "will_fire_hella_wakeup[0]": "positive",
+                  "will_fire_load_agen_exec[0]": "negative",
+                  "will_fire_load_retry[0]": "negative",
+                  "will_fire_load_wakeup[0]": "negative"
+                },
+                "control_signals": [
+                  "_T_145",
+                  "will_fire_hella_incoming[0]",
+                  "will_fire_hella_wakeup[0]",
+                  "will_fire_load_agen_exec[0]",
+                  "will_fire_load_retry[0]",
+                  "will_fire_load_wakeup[0]"
+                ],
+                "control_statement_ids": [
+                  2399,
+                  2413,
+                  2443,
+                  2460,
+                  2499,
+                  2500
+                ],
+                "kind": "exact-branch-conjunction"
+              },
+              "atom_count": 0,
+              "rhs": "UInt<1>(0h1)",
+              "statement_id": 2532
+            }
+          ],
+          "signal": "io.dmem.req.bits[0].bits.is_hella",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "every last-connect driver of bit 0 of io.dmem.req.bits[0].bits.is_hella reachable on HellaWakeupRequest equals 1",
+        "proof_method": "exact-conditional-constant-bit",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "HellaWakeupRequest"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.dmem.req.bits[0].bits.is_hella"
+        ]
+      },
+      "rendered_formula": "bits(io.dmem.req.bits[0].bits.is_hella, 0, 0) == 1 on HellaWakeupRequest",
+      "structural": {
+        "alias_chain": [
+          {
+            "kind": "exact-unconditional-aggregate-alias",
+            "source": "dmem_req[0].bits.is_hella",
+            "statement_id": 2239,
+            "target": "io.dmem.req.bits[0].bits.is_hella"
+          }
+        ],
+        "all_driver_statement_ids": [
+          2372,
+          2497,
+          2532
+        ],
+        "bit": 0,
+        "expected": 1,
+        "on": "HellaWakeupRequest",
+        "proof": "every last-connect driver of bit 0 of io.dmem.req.bits[0].bits.is_hella reachable on HellaWakeupRequest equals 1",
+        "proof_domain": "exact-conditional-constant-bit",
+        "reachable_lock_certificates": [],
+        "resolved_signal": "dmem_req[0].bits.is_hella",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_polarities": {
+                "_T_145": "negative",
+                "will_fire_hella_incoming[0]": "negative",
+                "will_fire_hella_wakeup[0]": "positive",
+                "will_fire_load_agen_exec[0]": "negative",
+                "will_fire_load_retry[0]": "negative",
+                "will_fire_load_wakeup[0]": "negative"
+              },
+              "control_signals": [
+                "_T_145",
+                "will_fire_hella_incoming[0]",
+                "will_fire_hella_wakeup[0]",
+                "will_fire_load_agen_exec[0]",
+                "will_fire_load_retry[0]",
+                "will_fire_load_wakeup[0]"
+              ],
+              "control_statement_ids": [
+                2399,
+                2413,
+                2443,
+                2460,
+                2499,
+                2500
+              ],
+              "kind": "exact-branch-conjunction"
+            },
+            "atom_count": 0,
+            "rhs": "UInt<1>(0h1)",
+            "statement_id": 2532
+          }
+        ],
+        "signal": "io.dmem.req.bits[0].bits.is_hella",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "HellaIncomingRequest",
+        "source": "hella_req.cmd",
+        "target": "io.dmem.req.bits[0].bits.uop.mem_cmd"
+      },
+      "axiom_id": "A14",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2239,
+        2461,
+        2494
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [
+            {
+              "kind": "exact-unconditional-aggregate-alias",
+              "source": "dmem_req[0].bits.uop.mem_cmd",
+              "statement_id": 2239,
+              "target": "io.dmem.req.bits[0].bits.uop.mem_cmd"
+            }
+          ],
+          "all_driver_statement_ids": [
+            2369,
+            2381,
+            2403,
+            2436,
+            2447,
+            2494,
+            2529
+          ],
+          "on": "HellaIncomingRequest",
+          "proof": "every last-connect driver of io.dmem.req.bits[0].bits.uop.mem_cmd reachable on HellaIncomingRequest equals hella_req.cmd",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "resolved_target": "dmem_req[0].bits.uop.mem_cmd",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_polarities": {
+                  "_T_145": "negative",
+                  "will_fire_hella_incoming[0]": "positive",
+                  "will_fire_load_agen_exec[0]": "negative",
+                  "will_fire_load_retry[0]": "negative",
+                  "will_fire_load_wakeup[0]": "negative"
+                },
+                "control_signals": [
+                  "_T_145",
+                  "will_fire_hella_incoming[0]",
+                  "will_fire_load_agen_exec[0]",
+                  "will_fire_load_retry[0]",
+                  "will_fire_load_wakeup[0]"
+                ],
+                "control_statement_ids": [
+                  2399,
+                  2413,
+                  2443,
+                  2460,
+                  2461
+                ],
+                "kind": "exact-branch-conjunction"
+              },
+              "atom_count": 8,
+              "rhs": "hella_req.cmd",
+              "statement_id": 2494,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "hella_req.cmd",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.dmem.req.bits[0].bits.uop.mem_cmd",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.dmem.req.bits[0].bits.uop.mem_cmd reachable on HellaIncomingRequest equals hella_req.cmd",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "HellaIncomingRequest"
+        ],
+        "predicates": [],
+        "signals": [
+          "hella_req.cmd",
+          "io.dmem.req.bits[0].bits.uop.mem_cmd"
+        ]
+      },
+      "rendered_formula": "io.dmem.req.bits[0].bits.uop.mem_cmd = hella_req.cmd on HellaIncomingRequest",
+      "structural": {
+        "alias_chain": [
+          {
+            "kind": "exact-unconditional-aggregate-alias",
+            "source": "dmem_req[0].bits.uop.mem_cmd",
+            "statement_id": 2239,
+            "target": "io.dmem.req.bits[0].bits.uop.mem_cmd"
+          }
+        ],
+        "all_driver_statement_ids": [
+          2369,
+          2381,
+          2403,
+          2436,
+          2447,
+          2494,
+          2529
+        ],
+        "on": "HellaIncomingRequest",
+        "proof": "every last-connect driver of io.dmem.req.bits[0].bits.uop.mem_cmd reachable on HellaIncomingRequest equals hella_req.cmd",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "resolved_target": "dmem_req[0].bits.uop.mem_cmd",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_polarities": {
+                "_T_145": "negative",
+                "will_fire_hella_incoming[0]": "positive",
+                "will_fire_load_agen_exec[0]": "negative",
+                "will_fire_load_retry[0]": "negative",
+                "will_fire_load_wakeup[0]": "negative"
+              },
+              "control_signals": [
+                "_T_145",
+                "will_fire_hella_incoming[0]",
+                "will_fire_load_agen_exec[0]",
+                "will_fire_load_retry[0]",
+                "will_fire_load_wakeup[0]"
+              ],
+              "control_statement_ids": [
+                2399,
+                2413,
+                2443,
+                2460,
+                2461
+              ],
+              "kind": "exact-branch-conjunction"
+            },
+            "atom_count": 8,
+            "rhs": "hella_req.cmd",
+            "statement_id": 2494,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "hella_req.cmd",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.dmem.req.bits[0].bits.uop.mem_cmd",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "HellaWakeupRequest",
+        "source": "hella_req.cmd",
+        "target": "io.dmem.req.bits[0].bits.uop.mem_cmd"
+      },
+      "axiom_id": "A15",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2239,
+        2500,
+        2529
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [
+            {
+              "kind": "exact-unconditional-aggregate-alias",
+              "source": "dmem_req[0].bits.uop.mem_cmd",
+              "statement_id": 2239,
+              "target": "io.dmem.req.bits[0].bits.uop.mem_cmd"
+            }
+          ],
+          "all_driver_statement_ids": [
+            2369,
+            2381,
+            2403,
+            2436,
+            2447,
+            2494,
+            2529
+          ],
+          "on": "HellaWakeupRequest",
+          "proof": "every last-connect driver of io.dmem.req.bits[0].bits.uop.mem_cmd reachable on HellaWakeupRequest equals hella_req.cmd",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "resolved_target": "dmem_req[0].bits.uop.mem_cmd",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_polarities": {
+                  "_T_145": "negative",
+                  "will_fire_hella_incoming[0]": "negative",
+                  "will_fire_hella_wakeup[0]": "positive",
+                  "will_fire_load_agen_exec[0]": "negative",
+                  "will_fire_load_retry[0]": "negative",
+                  "will_fire_load_wakeup[0]": "negative"
+                },
+                "control_signals": [
+                  "_T_145",
+                  "will_fire_hella_incoming[0]",
+                  "will_fire_hella_wakeup[0]",
+                  "will_fire_load_agen_exec[0]",
+                  "will_fire_load_retry[0]",
+                  "will_fire_load_wakeup[0]"
+                ],
+                "control_statement_ids": [
+                  2399,
+                  2413,
+                  2443,
+                  2460,
+                  2499,
+                  2500
+                ],
+                "kind": "exact-branch-conjunction"
+              },
+              "atom_count": 8,
+              "rhs": "hella_req.cmd",
+              "statement_id": 2529,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "hella_req.cmd",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.dmem.req.bits[0].bits.uop.mem_cmd",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.dmem.req.bits[0].bits.uop.mem_cmd reachable on HellaWakeupRequest equals hella_req.cmd",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "HellaWakeupRequest"
+        ],
+        "predicates": [],
+        "signals": [
+          "hella_req.cmd",
+          "io.dmem.req.bits[0].bits.uop.mem_cmd"
+        ]
+      },
+      "rendered_formula": "io.dmem.req.bits[0].bits.uop.mem_cmd = hella_req.cmd on HellaWakeupRequest",
+      "structural": {
+        "alias_chain": [
+          {
+            "kind": "exact-unconditional-aggregate-alias",
+            "source": "dmem_req[0].bits.uop.mem_cmd",
+            "statement_id": 2239,
+            "target": "io.dmem.req.bits[0].bits.uop.mem_cmd"
+          }
+        ],
+        "all_driver_statement_ids": [
+          2369,
+          2381,
+          2403,
+          2436,
+          2447,
+          2494,
+          2529
+        ],
+        "on": "HellaWakeupRequest",
+        "proof": "every last-connect driver of io.dmem.req.bits[0].bits.uop.mem_cmd reachable on HellaWakeupRequest equals hella_req.cmd",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "resolved_target": "dmem_req[0].bits.uop.mem_cmd",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_polarities": {
+                "_T_145": "negative",
+                "will_fire_hella_incoming[0]": "negative",
+                "will_fire_hella_wakeup[0]": "positive",
+                "will_fire_load_agen_exec[0]": "negative",
+                "will_fire_load_retry[0]": "negative",
+                "will_fire_load_wakeup[0]": "negative"
+              },
+              "control_signals": [
+                "_T_145",
+                "will_fire_hella_incoming[0]",
+                "will_fire_hella_wakeup[0]",
+                "will_fire_load_agen_exec[0]",
+                "will_fire_load_retry[0]",
+                "will_fire_load_wakeup[0]"
+              ],
+              "control_statement_ids": [
+                2399,
+                2413,
+                2443,
+                2460,
+                2499,
+                2500
+              ],
+              "kind": "exact-branch-conjunction"
+            },
+            "atom_count": 8,
+            "rhs": "hella_req.cmd",
+            "statement_id": 2529,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "hella_req.cmd",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.dmem.req.bits[0].bits.uop.mem_cmd",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "HellaIncomingRequest",
+        "source": "hella_req.size",
+        "target": "io.dmem.req.bits[0].bits.uop.mem_size"
+      },
+      "axiom_id": "A16",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2239,
+        2461,
+        2495
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [
+            {
+              "kind": "exact-unconditional-aggregate-alias",
+              "source": "dmem_req[0].bits.uop.mem_size",
+              "statement_id": 2239,
+              "target": "io.dmem.req.bits[0].bits.uop.mem_size"
+            }
+          ],
+          "all_driver_statement_ids": [
+            2369,
+            2381,
+            2403,
+            2436,
+            2447,
+            2495,
+            2530
+          ],
+          "on": "HellaIncomingRequest",
+          "proof": "every last-connect driver of io.dmem.req.bits[0].bits.uop.mem_size reachable on HellaIncomingRequest equals hella_req.size",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "resolved_target": "dmem_req[0].bits.uop.mem_size",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_polarities": {
+                  "_T_145": "negative",
+                  "will_fire_hella_incoming[0]": "positive",
+                  "will_fire_load_agen_exec[0]": "negative",
+                  "will_fire_load_retry[0]": "negative",
+                  "will_fire_load_wakeup[0]": "negative"
+                },
+                "control_signals": [
+                  "_T_145",
+                  "will_fire_hella_incoming[0]",
+                  "will_fire_load_agen_exec[0]",
+                  "will_fire_load_retry[0]",
+                  "will_fire_load_wakeup[0]"
+                ],
+                "control_statement_ids": [
+                  2399,
+                  2413,
+                  2443,
+                  2460,
+                  2461
+                ],
+                "kind": "exact-branch-conjunction"
+              },
+              "atom_count": 8,
+              "rhs": "hella_req.size",
+              "statement_id": 2495,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "hella_req.size",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.dmem.req.bits[0].bits.uop.mem_size",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.dmem.req.bits[0].bits.uop.mem_size reachable on HellaIncomingRequest equals hella_req.size",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "HellaIncomingRequest"
+        ],
+        "predicates": [],
+        "signals": [
+          "hella_req.size",
+          "io.dmem.req.bits[0].bits.uop.mem_size"
+        ]
+      },
+      "rendered_formula": "io.dmem.req.bits[0].bits.uop.mem_size = hella_req.size on HellaIncomingRequest",
+      "structural": {
+        "alias_chain": [
+          {
+            "kind": "exact-unconditional-aggregate-alias",
+            "source": "dmem_req[0].bits.uop.mem_size",
+            "statement_id": 2239,
+            "target": "io.dmem.req.bits[0].bits.uop.mem_size"
+          }
+        ],
+        "all_driver_statement_ids": [
+          2369,
+          2381,
+          2403,
+          2436,
+          2447,
+          2495,
+          2530
+        ],
+        "on": "HellaIncomingRequest",
+        "proof": "every last-connect driver of io.dmem.req.bits[0].bits.uop.mem_size reachable on HellaIncomingRequest equals hella_req.size",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "resolved_target": "dmem_req[0].bits.uop.mem_size",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_polarities": {
+                "_T_145": "negative",
+                "will_fire_hella_incoming[0]": "positive",
+                "will_fire_load_agen_exec[0]": "negative",
+                "will_fire_load_retry[0]": "negative",
+                "will_fire_load_wakeup[0]": "negative"
+              },
+              "control_signals": [
+                "_T_145",
+                "will_fire_hella_incoming[0]",
+                "will_fire_load_agen_exec[0]",
+                "will_fire_load_retry[0]",
+                "will_fire_load_wakeup[0]"
+              ],
+              "control_statement_ids": [
+                2399,
+                2413,
+                2443,
+                2460,
+                2461
+              ],
+              "kind": "exact-branch-conjunction"
+            },
+            "atom_count": 8,
+            "rhs": "hella_req.size",
+            "statement_id": 2495,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "hella_req.size",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.dmem.req.bits[0].bits.uop.mem_size",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "HellaWakeupRequest",
+        "source": "hella_req.size",
+        "target": "io.dmem.req.bits[0].bits.uop.mem_size"
+      },
+      "axiom_id": "A17",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2239,
+        2500,
+        2530
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [
+            {
+              "kind": "exact-unconditional-aggregate-alias",
+              "source": "dmem_req[0].bits.uop.mem_size",
+              "statement_id": 2239,
+              "target": "io.dmem.req.bits[0].bits.uop.mem_size"
+            }
+          ],
+          "all_driver_statement_ids": [
+            2369,
+            2381,
+            2403,
+            2436,
+            2447,
+            2495,
+            2530
+          ],
+          "on": "HellaWakeupRequest",
+          "proof": "every last-connect driver of io.dmem.req.bits[0].bits.uop.mem_size reachable on HellaWakeupRequest equals hella_req.size",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "resolved_target": "dmem_req[0].bits.uop.mem_size",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_polarities": {
+                  "_T_145": "negative",
+                  "will_fire_hella_incoming[0]": "negative",
+                  "will_fire_hella_wakeup[0]": "positive",
+                  "will_fire_load_agen_exec[0]": "negative",
+                  "will_fire_load_retry[0]": "negative",
+                  "will_fire_load_wakeup[0]": "negative"
+                },
+                "control_signals": [
+                  "_T_145",
+                  "will_fire_hella_incoming[0]",
+                  "will_fire_hella_wakeup[0]",
+                  "will_fire_load_agen_exec[0]",
+                  "will_fire_load_retry[0]",
+                  "will_fire_load_wakeup[0]"
+                ],
+                "control_statement_ids": [
+                  2399,
+                  2413,
+                  2443,
+                  2460,
+                  2499,
+                  2500
+                ],
+                "kind": "exact-branch-conjunction"
+              },
+              "atom_count": 8,
+              "rhs": "hella_req.size",
+              "statement_id": 2530,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "hella_req.size",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.dmem.req.bits[0].bits.uop.mem_size",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.dmem.req.bits[0].bits.uop.mem_size reachable on HellaWakeupRequest equals hella_req.size",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "HellaWakeupRequest"
+        ],
+        "predicates": [],
+        "signals": [
+          "hella_req.size",
+          "io.dmem.req.bits[0].bits.uop.mem_size"
+        ]
+      },
+      "rendered_formula": "io.dmem.req.bits[0].bits.uop.mem_size = hella_req.size on HellaWakeupRequest",
+      "structural": {
+        "alias_chain": [
+          {
+            "kind": "exact-unconditional-aggregate-alias",
+            "source": "dmem_req[0].bits.uop.mem_size",
+            "statement_id": 2239,
+            "target": "io.dmem.req.bits[0].bits.uop.mem_size"
+          }
+        ],
+        "all_driver_statement_ids": [
+          2369,
+          2381,
+          2403,
+          2436,
+          2447,
+          2495,
+          2530
+        ],
+        "on": "HellaWakeupRequest",
+        "proof": "every last-connect driver of io.dmem.req.bits[0].bits.uop.mem_size reachable on HellaWakeupRequest equals hella_req.size",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "resolved_target": "dmem_req[0].bits.uop.mem_size",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_polarities": {
+                "_T_145": "negative",
+                "will_fire_hella_incoming[0]": "negative",
+                "will_fire_hella_wakeup[0]": "positive",
+                "will_fire_load_agen_exec[0]": "negative",
+                "will_fire_load_retry[0]": "negative",
+                "will_fire_load_wakeup[0]": "negative"
+              },
+              "control_signals": [
+                "_T_145",
+                "will_fire_hella_incoming[0]",
+                "will_fire_hella_wakeup[0]",
+                "will_fire_load_agen_exec[0]",
+                "will_fire_load_retry[0]",
+                "will_fire_load_wakeup[0]"
+              ],
+              "control_statement_ids": [
+                2399,
+                2413,
+                2443,
+                2460,
+                2499,
+                2500
+              ],
+              "kind": "exact-branch-conjunction"
+            },
+            "atom_count": 8,
+            "rhs": "hella_req.size",
+            "statement_id": 2530,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "hella_req.size",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.dmem.req.bits[0].bits.uop.mem_size",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "LoadRetryRequest",
+        "predicate": "RetryOrderBlock"
+      },
+      "axiom_id": "A18",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        1367,
+        1368,
+        1369,
+        1370,
+        1646,
+        1654,
+        1664,
+        2400,
+        2401
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 0,
+          "event_gate_bridge_statement_ids": [
+            3,
+            5,
+            7,
+            8,
+            9,
+            10,
+            11,
+            13,
+            29,
+            31,
+            36,
+            345,
+            347,
+            571,
+            1353,
+            1355,
+            1356,
+            1358,
+            1360,
+            1361,
+            1363,
+            1366,
+            1377,
+            1378,
+            1379,
+            1381,
+            1382,
+            1384,
+            1402,
+            1445,
+            1446,
+            1447,
+            1448,
+            1449,
+            1450,
+            1451,
+            1452,
+            1453,
+            1454,
+            1455,
+            1456,
+            1457,
+            1458,
+            1459,
+            1460,
+            1461,
+            1462,
+            1463,
+            1464,
+            1465,
+            1467,
+            1468,
+            1469,
+            1470,
+            1471,
+            1472,
+            1473,
+            1474,
+            1475,
+            1476,
+            1477,
+            1478,
+            1479,
+            1480,
+            1481,
+            1482,
+            1483,
+            1484,
+            1485,
+            1486,
+            1487,
+            1489,
+            1490,
+            1491,
+            1492,
+            1493,
+            1494,
+            1495,
+            1496,
+            1497,
+            1498,
+            1499,
+            1500,
+            1501,
+            1502,
+            1503,
+            1504,
+            1505,
+            1506,
+            1507,
+            1508,
+            1509,
+            1511,
+            1512,
+            1513,
+            1514,
+            1515,
+            1516,
+            1517,
+            1518,
+            1519,
+            1520,
+            1521,
+            1522,
+            1523,
+            1524,
+            1525,
+            1526,
+            1527,
+            1528,
+            1529,
+            1530,
+            1531,
+            1533,
+            1534,
+            1535,
+            1536,
+            1537,
+            1538,
+            1539,
+            1540,
+            1541,
+            1542,
+            1543,
+            1544,
+            1545,
+            1546,
+            1547,
+            1548,
+            1549,
+            1550,
+            1551,
+            1552,
+            1553,
+            1555,
+            1556,
+            1557,
+            1558,
+            1559,
+            1560,
+            1561,
+            1562,
+            1563,
+            1564,
+            1565,
+            1566,
+            2175,
+            5996,
+            5997,
+            5998,
+            6004,
+            6010,
+            6011,
+            6012,
+            6014,
+            6020,
+            8000,
+            8007,
+            8008,
+            8032,
+            8033,
+            8037,
+            8038,
+            8054,
+            8055
+          ],
+          "proof": "LoadRetryRequest and RetryOrderBlock have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "LoadRetryRequest and RetryOrderBlock have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "LoadRetryRequest"
+        ],
+        "predicates": [
+          "RetryOrderBlock"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "RetryOrderBlock => !LoadRetryRequest",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "LoadWakeupRequest",
+        "predicate": "WakeupOrderBlock"
+      },
+      "axiom_id": "A19",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        1403,
+        1404,
+        1405,
+        1435,
+        1668,
+        1676,
+        1686,
+        2444,
+        2445
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 0,
+          "event_gate_bridge_statement_ids": [
+            3,
+            5,
+            7,
+            8,
+            9,
+            10,
+            11,
+            13,
+            29,
+            31,
+            36,
+            345,
+            347,
+            571,
+            1353,
+            1355,
+            1356,
+            1358,
+            1360,
+            1361,
+            1363,
+            1366,
+            1377,
+            1378,
+            1379,
+            1381,
+            1382,
+            1384,
+            1402,
+            1445,
+            1446,
+            1447,
+            1448,
+            1449,
+            1450,
+            1451,
+            1452,
+            1453,
+            1454,
+            1455,
+            1456,
+            1457,
+            1458,
+            1459,
+            1460,
+            1461,
+            1462,
+            1463,
+            1464,
+            1465,
+            1467,
+            1468,
+            1469,
+            1470,
+            1471,
+            1472,
+            1473,
+            1474,
+            1475,
+            1476,
+            1477,
+            1478,
+            1479,
+            1480,
+            1481,
+            1482,
+            1483,
+            1484,
+            1485,
+            1486,
+            1487,
+            1489,
+            1490,
+            1491,
+            1492,
+            1493,
+            1494,
+            1495,
+            1496,
+            1497,
+            1498,
+            1499,
+            1500,
+            1501,
+            1502,
+            1503,
+            1504,
+            1505,
+            1506,
+            1507,
+            1508,
+            1509,
+            1511,
+            1512,
+            1513,
+            1514,
+            1515,
+            1516,
+            1517,
+            1518,
+            1519,
+            1520,
+            1521,
+            1522,
+            1523,
+            1524,
+            1525,
+            1526,
+            1527,
+            1528,
+            1529,
+            1530,
+            1531,
+            1533,
+            1534,
+            1535,
+            1536,
+            1537,
+            1538,
+            1539,
+            1540,
+            1541,
+            1542,
+            1543,
+            1544,
+            1545,
+            1546,
+            1547,
+            1548,
+            1549,
+            1550,
+            1551,
+            1552,
+            1553,
+            1555,
+            1556,
+            1557,
+            1558,
+            1559,
+            1560,
+            1561,
+            1562,
+            1563,
+            1564,
+            1565,
+            1566,
+            2175,
+            5996,
+            5997,
+            5998,
+            6004,
+            6010,
+            6011,
+            6012,
+            6014,
+            6020,
+            8000,
+            8007,
+            8008,
+            8032,
+            8033,
+            8037,
+            8038,
+            8054,
+            8055
+          ],
+          "proof": "LoadWakeupRequest and WakeupOrderBlock have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "LoadWakeupRequest and WakeupOrderBlock have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "LoadWakeupRequest"
+        ],
+        "predicates": [
+          "WakeupOrderBlock"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "WakeupOrderBlock => !LoadWakeupRequest",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "LoadWakeupRequest",
+        "predicate": "UncacheableWakeupOrderBlocked"
+      },
+      "axiom_id": "A20",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        1409,
+        1410,
+        1411,
+        1416,
+        1417,
+        1418,
+        1419,
+        1420,
+        1421,
+        1422,
+        1424,
+        1427,
+        1428,
+        1429,
+        1430,
+        1431,
+        1432,
+        1433,
+        1435,
+        1668,
+        1676,
+        1686,
+        2444,
+        2445
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 0,
+          "event_gate_bridge_statement_ids": [
+            3,
+            5,
+            7,
+            8,
+            9,
+            10,
+            11,
+            13,
+            29,
+            31,
+            36,
+            345,
+            347,
+            571,
+            1353,
+            1355,
+            1356,
+            1358,
+            1360,
+            1361,
+            1363,
+            1366,
+            1377,
+            1378,
+            1379,
+            1381,
+            1382,
+            1384,
+            1402,
+            1445,
+            1446,
+            1447,
+            1448,
+            1449,
+            1450,
+            1451,
+            1452,
+            1453,
+            1454,
+            1455,
+            1456,
+            1457,
+            1458,
+            1459,
+            1460,
+            1461,
+            1462,
+            1463,
+            1464,
+            1465,
+            1467,
+            1468,
+            1469,
+            1470,
+            1471,
+            1472,
+            1473,
+            1474,
+            1475,
+            1476,
+            1477,
+            1478,
+            1479,
+            1480,
+            1481,
+            1482,
+            1483,
+            1484,
+            1485,
+            1486,
+            1487,
+            1489,
+            1490,
+            1491,
+            1492,
+            1493,
+            1494,
+            1495,
+            1496,
+            1497,
+            1498,
+            1499,
+            1500,
+            1501,
+            1502,
+            1503,
+            1504,
+            1505,
+            1506,
+            1507,
+            1508,
+            1509,
+            1511,
+            1512,
+            1513,
+            1514,
+            1515,
+            1516,
+            1517,
+            1518,
+            1519,
+            1520,
+            1521,
+            1522,
+            1523,
+            1524,
+            1525,
+            1526,
+            1527,
+            1528,
+            1529,
+            1530,
+            1531,
+            1533,
+            1534,
+            1535,
+            1536,
+            1537,
+            1538,
+            1539,
+            1540,
+            1541,
+            1542,
+            1543,
+            1544,
+            1545,
+            1546,
+            1547,
+            1548,
+            1549,
+            1550,
+            1551,
+            1552,
+            1553,
+            1555,
+            1556,
+            1557,
+            1558,
+            1559,
+            1560,
+            1561,
+            1562,
+            1563,
+            1564,
+            1565,
+            1566,
+            2175,
+            5996,
+            5997,
+            5998,
+            6004,
+            6010,
+            6011,
+            6012,
+            6014,
+            6020,
+            8000,
+            8007,
+            8008,
+            8032,
+            8033,
+            8037,
+            8038,
+            8054,
+            8055
+          ],
+          "proof": "LoadWakeupRequest and UncacheableWakeupOrderBlocked have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "LoadWakeupRequest and UncacheableWakeupOrderBlocked have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "LoadWakeupRequest"
+        ],
+        "predicates": [
+          "UncacheableWakeupOrderBlocked"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "UncacheableWakeupOrderBlocked => !LoadWakeupRequest",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    }
+  ],
+  "trusted_axiom_count": 20,
+  "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
+  "validator": "semantic-validator-0.19",
+  "work_unit_id": "LSU::region-0-6"
+}

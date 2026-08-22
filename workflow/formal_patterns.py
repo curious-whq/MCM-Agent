@@ -19,12 +19,20 @@ _REF_RE = re.compile(
 
 def _under_state(model: Any, ref: str) -> bool:
     text = ref.strip()
-    return any(
+    cache = getattr(model, "_formal_under_state_cache", None)
+    if not isinstance(cache, dict):
+        cache = {}
+        setattr(model, "_formal_under_state_cache", cache)
+    if text in cache:
+        return bool(cache[text])
+    result = any(
         text == str(root)
         or text.startswith(str(root) + ".")
         or text.startswith(str(root) + "[")
         for root in getattr(model, "state_roots", set())
     )
+    cache[text] = result
+    return result
 
 
 def _rhs(model: Any, ref: str) -> str | None:
@@ -48,26 +56,39 @@ def _value_key(
     lit = _literal(text)
     if lit is not None:
         return ("lit", int(lit))
+    cache = getattr(model, "_formal_value_key_cache", None)
+    if not isinstance(cache, dict):
+        cache = {}
+        setattr(model, "_formal_value_key_cache", cache)
+    cache_key = (text, tuple(sorted(opaque)))
+    if cache_key in cache:
+        return cache[cache_key]
     if _REF_RE.fullmatch(text):
         if text in opaque or text in seen or _under_state(model, text):
             return ("ref", text)
         nested = _rhs(model, text)
         if nested is None:
             return ("ref", text)
-        return _value_key(model, nested, opaque=opaque, seen=seen | {text})
-    call = _call(text)
-    if call is None:
-        return ("raw", text)
-    arguments = tuple(
-        _value_key(model, arg, opaque=opaque, seen=seen) for arg in call[1]
-    )
-    if call[0] in {"eq", "neq"} and len(arguments) == 2:
-        arguments = tuple(sorted(arguments, key=repr))
-    return (
-        "call",
-        call[0],
-        arguments,
-    )
+        result = _value_key(model, nested, opaque=opaque, seen=seen | {text})
+    else:
+        call = _call(text)
+        if call is None:
+            result = ("raw", text)
+        else:
+            arguments = tuple(
+                _value_key(model, arg, opaque=opaque, seen=seen) for arg in call[1]
+            )
+            if call[0] in {"eq", "neq"} and len(arguments) == 2:
+                # Equality is commutative.  A frozenset avoids repeatedly
+                # materializing enormous repr strings for shared LSU DAGs.
+                arguments = frozenset(arguments)
+            result = (
+                "call",
+                call[0],
+                arguments,
+            )
+    cache[cache_key] = result
+    return result
 
 
 def _initial_bool_refs(model: Any, candidate: dict[str, Any]) -> set[str]:
@@ -88,6 +109,47 @@ def _initial_bool_refs(model: Any, candidate: dict[str, Any]) -> set[str]:
         if isinstance(source, str):
             refs.add(source)
     return refs
+
+
+def _candidate_grounding_cache_key(candidate: dict[str, Any]) -> tuple[Any, ...]:
+    """Return the candidate fragment that determines shared Boolean cones.
+
+    A semantic-validation pass never mutates its candidate, but tests and API
+    callers may reuse a model with a refined candidate.  Keying by grounding
+    content instead of object identity keeps that reuse safe.
+    """
+
+    occurrences = tuple(
+        (
+            str(item.get("id")),
+            str(item.get("kind")),
+            tuple(str(value) for value in item.get("physical_event_ids", [])),
+            tuple(str(value) for value in item.get("grounding", {}).get("signals_true", [])),
+            tuple(str(value) for value in item.get("grounding", {}).get("signals_false", [])),
+            item.get("grounding", {}).get("state_register"),
+            tuple(item.get("grounding", {}).get("state_values", [])),
+        )
+        for item in candidate.get("occurrences", [])
+    )
+    predicates = tuple(
+        (
+            str(item.get("id")),
+            item.get("grounding", {}).get("source_signal"),
+            bool(item.get("grounding", {}).get("negated")),
+            item.get("grounding", {}).get("state_register"),
+            tuple(item.get("grounding", {}).get("state_values", [])),
+        )
+        for item in candidate.get("predicates", [])
+    )
+    return occurrences, predicates
+
+
+def _model_pattern_cache(model: Any) -> dict[tuple[Any, ...], Any]:
+    cache = getattr(model, "_formal_pattern_cache", None)
+    if not isinstance(cache, dict):
+        cache = {}
+        setattr(model, "_formal_pattern_cache", cache)
+    return cache
 
 
 def _is_bool_expr(
@@ -136,12 +198,13 @@ def _propagate_bool_refs(
     if _REF_RE.fullmatch(text):
         if text in seen:
             return
+        seen.add(text)
         bool_refs.add(text)
         if _under_state(model, text):
             return
         nested = _rhs(model, text)
         if nested is not None:
-            _propagate_bool_refs(model, nested, bool_refs, seen | {text})
+            _propagate_bool_refs(model, nested, bool_refs, seen)
         return
     call = _call(text)
     if call is None:
@@ -165,17 +228,57 @@ def _propagate_bool_refs(
 
 
 def _bool_refs(model: Any, candidate: dict[str, Any]) -> set[str]:
+    cache = _model_pattern_cache(model)
+    cache_key = ("bool_refs", _candidate_grounding_cache_key(candidate))
+    cached = cache.get(cache_key)
+    if isinstance(cached, frozenset):
+        # Several proof rules add local refs, so never expose the cached set as
+        # mutable state.
+        setattr(model, "_formal_grounded_bool_refs", frozenset(_initial_bool_refs(model, candidate)))
+        return set(cached)
+
     refs = _initial_bool_refs(model, candidate)
-    while True:
-        before = len(refs)
-        for root in list(refs):
-            if _under_state(model, root):
-                continue
-            nested = _rhs(model, root)
-            if nested is not None:
-                _propagate_bool_refs(model, nested, refs, {root})
-        if len(refs) == before:
-            return refs
+    setattr(model, "_formal_grounded_bool_refs", frozenset(refs))
+    # _propagate_bool_refs already follows the complete Boolean-context cone.
+    # Re-running every previously discovered root after each set growth made
+    # large LSU candidates revisit shared subgraphs hundreds of thousands of
+    # times without discovering additional semantics.
+    for root in list(refs):
+        if _under_state(model, root):
+            continue
+        nested = _rhs(model, root)
+        if nested is not None:
+            _propagate_bool_refs(model, nested, refs, {root})
+    cache[cache_key] = frozenset(refs)
+    return refs
+
+
+def _opaque_high_fanout_grounded_controls(model: Any) -> set[str]:
+    """Choose safe abstraction cuts for exceptionally broad control cones.
+
+    Treating one candidate-grounded Boolean as an unconstrained atom is a
+    conservative over-approximation.  We use that cut only for high-fanout
+    control sources, where recursively expanding the same LSU selector through
+    hundreds of controlled statements is needlessly expensive.  Small alias
+    cones remain expanded, preserving correlations such as winner -> muxState.
+    """
+
+    grounded = frozenset(getattr(model, "_formal_grounded_bool_refs", frozenset()))
+    cache = _model_pattern_cache(model)
+    cache_key = ("opaque_high_fanout_grounded_controls", grounded)
+    cached = cache.get(cache_key)
+    if isinstance(cached, frozenset):
+        return set(cached)
+    handoff = getattr(model, "handoff", {})
+    counts: dict[str, int] = {}
+    if isinstance(handoff, dict):
+        for edge in handoff.get("dependency_edges", []):
+            source = str(edge.get("src", ""))
+            if edge.get("kind") == "control" and source in grounded:
+                counts[source] = counts.get(source, 0) + 1
+    result = frozenset(source for source, count in counts.items() if count > 16)
+    cache[cache_key] = result
+    return set(result)
 
 
 def _const(value: bool) -> tuple[Any, ...]:
@@ -510,7 +613,14 @@ def _bool_expr(
             return _not(value) if name == "eq" else value
         if value_expr is not None and literal == 1:
             value = None
-            if value_expr.strip() in bool_refs:
+            declared_width = (
+                _declared_signal_width(model, value_expr.strip())
+                if _REF_RE.fullmatch(value_expr.strip())
+                else None
+            )
+            if declared_width not in {None, 1}:
+                value = None
+            elif value_expr.strip() in bool_refs:
                 value = _bool_expr(model, bool_refs, value_expr, opaque=opaque, seen=seen)
             else:
                 bits = _bit_vector_expr(
@@ -602,9 +712,24 @@ def _unsat(
     max_atoms: int = 64,
     max_search_nodes: int = 20_000,
 ) -> tuple[bool | None, int]:
-    atoms = sorted(_atoms(expr), key=repr)
+    atoms: list[tuple[Any, ...]] = []
+    atom_set: set[tuple[Any, ...]] = set()
+
+    def collect_atoms(current: tuple[Any, ...]) -> None:
+        if current[0] == "atom":
+            if current[1] not in atom_set:
+                atom_set.add(current[1])
+                atoms.append(current[1])
+        elif current[0] == "not":
+            collect_atoms(current[1])
+        elif current[0] in {"and", "or"}:
+            collect_atoms(current[1])
+            collect_atoms(current[2])
+
+    collect_atoms(expr)
     if len(atoms) > max_atoms:
         return None, len(atoms)
+    atom_rank = {atom: index for index, atom in enumerate(atoms)}
 
     # Exact Shannon expansion with simplification and memoization.  Unlike the
     # old flat truth-table loop, this closes large but highly structured mux and
@@ -636,7 +761,7 @@ def _unsat(
             return cached
         counts: dict[tuple[Any, ...], int] = {}
         frequencies(current, counts)
-        selected = min(counts, key=lambda item: (-counts[item], repr(item)))
+        selected = min(counts, key=lambda item: (-counts[item], atom_rank[item]))
         result = visit(_restrict(current, selected, False)) and visit(
             _restrict(current, selected, True)
         )
@@ -795,6 +920,270 @@ def prove_unconditional_signal_equality(
     }
 
 
+def _projected_driver_rhs(
+    model: Any,
+    statement: dict[str, Any],
+    target: str,
+) -> str | None:
+    parsed = _statement_rhs(statement)
+    if parsed is None and statement.get("kind") == "node":
+        node = re.match(
+            r"^node\s+([^\s=]+)\s*=\s*(.*)$",
+            str(statement.get("text", "")).strip(),
+        )
+        if node is not None:
+            parsed = (node.group(1).strip(), node.group(2).strip())
+    if parsed is None:
+        invalid = re.match(r"^invalidate\s+([^\s]+)\s*$", str(statement.get("text", "")).strip())
+        if invalid is not None:
+            lhs = invalid.group(1)
+            if target == lhs or target.startswith(lhs + ".") or target.startswith(lhs + "["):
+                safe_target = re.sub(r"[^A-Za-z0-9_$]", "_", target)
+                return f"__invalid_{int(statement.get('id', -1))}_{safe_target}"
+        return None
+    lhs, rhs = parsed
+    if target == lhs:
+        return rhs
+    if not (target.startswith(lhs + ".") or target.startswith(lhs + "[")):
+        return None
+    suffix = target[len(lhs):]
+    if _REF_RE.fullmatch(rhs):
+        return rhs + suffix
+    projector = getattr(model, "_project_aggregate_rhs", None)
+    if callable(projector):
+        projected = projector(rhs, suffix)
+        if isinstance(projected, str):
+            return projected
+    return None
+
+
+def _priority_driver_records(
+    model: Any,
+    candidate: dict[str, Any],
+    target: str,
+    refs: set[str],
+    *,
+    seen: set[str] | None = None,
+) -> tuple[str, list[dict[str, Any]], list[dict[str, Any]]] | None:
+    """Resolve aggregate aliases and collect exact last-connect writers."""
+
+    seen = set() if seen is None else set(seen)
+    if target in seen or _under_state(model, target):
+        return None
+    writers: list[dict[str, Any]] = []
+    for statement in sorted(model.statements.values(), key=lambda item: int(item.get("id", -1))):
+        drives = {str(item) for item in statement.get("drives", [])}
+        parsed_assignment = _statement_rhs(statement)
+        flattened_aggregate_connect = bool(
+            parsed_assignment is not None
+            and parsed_assignment[0] == target
+            and any(
+                drive.startswith(target + ".") or drive.startswith(target + "[")
+                for drive in drives
+            )
+        )
+        if not flattened_aggregate_connect and not any(
+            target == drive
+            or target.startswith(drive + ".")
+            or target.startswith(drive + "[")
+            for drive in drives
+        ):
+            continue
+        if statement.get("kind") in {"infer_mport", "reg", "regreset", "when", "else"}:
+            continue
+        rhs = _projected_driver_rhs(model, statement, target)
+        if rhs is None:
+            return None
+        if statement.get("kind") == "node":
+            activation = _const(True)
+            activation_certificate = {
+                "kind": "exact-unconditional-ssa-node",
+                "control_signals": [],
+            }
+        else:
+            activation_info = _writer_activation(model, target, statement, refs)
+            if activation_info is None:
+                return None
+            activation, activation_certificate = activation_info
+        writers.append({
+            "statement_id": int(statement.get("id", -1)),
+            "rhs": rhs,
+            "activation": activation,
+            "activation_certificate": activation_certificate,
+        })
+    if not writers:
+        return None
+
+    # A single unconditional aggregate connect is a transparent parent-local
+    # alias.  Follow it only when the projected source itself has visible
+    # writers; otherwise retain the current direct driver.
+    if (
+        len(writers) == 1
+        and writers[0]["activation"] == _const(True)
+        and _REF_RE.fullmatch(str(writers[0]["rhs"]))
+    ):
+        source = str(writers[0]["rhs"])
+        nested = _priority_driver_records(
+            model,
+            candidate,
+            source,
+            refs,
+            seen=seen | {target},
+        )
+        if nested is not None:
+            resolved, nested_writers, aliases = nested
+            return resolved, nested_writers, [{
+                "target": target,
+                "source": source,
+                "statement_id": writers[0]["statement_id"],
+                "kind": "exact-unconditional-aggregate-alias",
+            }, *aliases]
+    return target, writers, []
+
+
+def _effective_priority_drivers(
+    writers: list[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], tuple[Any, ...]]:
+    effective_writers: list[dict[str, Any]] = []
+    any_selected = _const(False)
+    for index, writer in enumerate(writers):
+        effective = writer["activation"]
+        for later in writers[index + 1:]:
+            effective = _and(effective, _not(later["activation"]))
+        any_selected = _or(any_selected, effective)
+        effective_writers.append({**writer, "effective": effective})
+    return effective_writers, any_selected
+
+
+def _exact_priority_signal_condition(
+    model: Any,
+    candidate: dict[str, Any],
+    signal: str,
+    refs: set[str],
+    *,
+    prefer_opaque: bool = False,
+) -> tuple[Any, ...] | None:
+    cache = _model_pattern_cache(model)
+    cache_key = (
+        "exact_priority_signal_condition",
+        _candidate_grounding_cache_key(candidate),
+        signal,
+        prefer_opaque,
+    )
+    if cache_key in cache:
+        return cache[cache_key]
+    if prefer_opaque:
+        value = _bool_expr(model, {signal}, signal, opaque={signal})
+        cache[cache_key] = value
+        return value
+
+    resolved = _priority_driver_records(model, candidate, signal, refs)
+    if resolved is None:
+        value = _bool_expr(model, refs, signal)
+        cache[cache_key] = value
+        return value
+    _, writers, _ = resolved
+    effective_writers, any_selected = _effective_priority_drivers(writers)
+    covered = True if any(
+        writer["activation"] == _const(True) for writer in writers
+    ) else _unsat(_not(any_selected))[0]
+    if covered is not True:
+        cache[cache_key] = None
+        return None
+    value = _const(False)
+    for writer in effective_writers:
+        writer_value = _bool_expr(model, refs, str(writer["rhs"]))
+        if writer_value is None:
+            cache[cache_key] = None
+            return None
+        value = _or(value, _and(writer["effective"], writer_value))
+    cache[cache_key] = value
+    return value
+
+
+def _exact_grounded_occurrence_condition(
+    model: Any,
+    candidate: dict[str, Any],
+    occurrence: dict[str, Any],
+    refs: set[str],
+) -> tuple[Any, ...] | None:
+    grounding = occurrence.get("grounding", {})
+    positive = [str(item) for item in grounding.get("signals_true", [])]
+    negative = [str(item) for item in grounding.get("signals_false", [])]
+    physical_signals: set[str] = set()
+    physical = occurrence.get("physical_event_ids", [])
+    event_fn = getattr(model, "_event_info", None)
+    event = event_fn(physical[0]) if len(physical) == 1 and callable(event_fn) else None
+    if isinstance(event, dict):
+        physical_signals = {
+            str(event[key]) for key in ("valid", "ready")
+            if isinstance(event.get(key), str)
+        }
+    if occurrence.get("kind") == "boundary":
+        if not isinstance(event, dict) or not isinstance(event.get("valid"), str):
+            return None
+        positive = [str(event["valid"])]
+        if isinstance(event.get("ready"), str):
+            positive.append(str(event["ready"]))
+        negative = []
+    elif not positive and not negative:
+        # A derived occurrence may partition one physical event by payload
+        # value tests alone.  Preserve the physical event gates as its base.
+        if isinstance(event, dict) and isinstance(event.get("valid"), str):
+            positive = [str(event["valid"])]
+            if isinstance(event.get("ready"), str):
+                positive.append(str(event["ready"]))
+    if not positive and not negative:
+        return None
+    result = _const(True)
+
+    def preserve_selector(signal: str) -> bool:
+        return (
+            occurrence.get("kind") != "boundary"
+            and signal not in physical_signals
+            and signal in _opaque_high_fanout_grounded_controls(model)
+        )
+
+    for signal in positive:
+        value = _exact_priority_signal_condition(
+            model,
+            candidate,
+            signal,
+            refs,
+            prefer_opaque=preserve_selector(signal),
+        )
+        if value is None:
+            return None
+        result = _and(result, value)
+    for signal in negative:
+        value = _exact_priority_signal_condition(
+            model,
+            candidate,
+            signal,
+            refs,
+            prefer_opaque=preserve_selector(signal),
+        )
+        if value is None:
+            return None
+        result = _and(result, _not(value))
+    for test in grounding.get("value_tests", []):
+        if not isinstance(test, dict) or not isinstance(test.get("expr"), dict):
+            return None
+        try:
+            symbolic = expr_to_symbolic(test["expr"])
+        except (KeyError, TypeError, ValueError):
+            return None
+        expected = test.get("value")
+        relation = test.get("relation")
+        if not isinstance(expected, int) or relation not in {"eq", "neq"}:
+            return None
+        comparison = _bool_expr(model, refs, f"eq({symbolic}, UInt({expected}))")
+        if comparison is None:
+            return None
+        result = _and(result, comparison if relation == "eq" else _not(comparison))
+    return result
+
+
 def _exact_boundary_or_derived_occurrence_condition(
     model: Any,
     candidate: dict[str, Any],
@@ -809,30 +1198,12 @@ def _exact_boundary_or_derived_occurrence_condition(
     )
     if occurrence is None:
         return None
-    if occurrence.get("kind") != "boundary":
-        return _occurrence_condition(model, candidate, occurrence_id, bool_refs)
-    physical = occurrence.get("physical_event_ids", [])
-    event_fn = getattr(model, "_event_info", None)
-    event = event_fn(physical[0]) if len(physical) == 1 and callable(event_fn) else None
-    if not isinstance(event, dict):
-        return None
-    valid = event.get("valid")
-    if not isinstance(valid, str) or not valid:
-        return None
-    # Some physical boundaries are valid-only notification interfaces rather
-    # than ready/valid handshakes.  Their exact occurrence gate is simply
-    # `valid`; ready is conjoined only when the registry exposes one.
-    signals = [valid]
-    ready = event.get("ready")
-    if isinstance(ready, str) and ready:
-        signals.append(ready)
-    result = _const(True)
-    for signal in signals:
-        value = _bool_expr(model, bool_refs, signal)
-        if value is None:
-            return None
-        result = _and(result, value)
-    return result
+    return _exact_grounded_occurrence_condition(
+        model,
+        candidate,
+        occurrence,
+        bool_refs,
+    )
 
 
 def _resolve_ref_expr(model: Any, expr: str, seen: set[str] | None = None) -> str:
@@ -1019,6 +1390,12 @@ def prove_locked_owner_provenance(
 
 
 def _locked_invariants(model: Any, candidate: dict[str, Any]) -> tuple[tuple[Any, ...], list[dict[str, Any]]]:
+    cache = _model_pattern_cache(model)
+    cache_key = ("locked_invariants", _candidate_grounding_cache_key(candidate))
+    cached = cache.get(cache_key)
+    if isinstance(cached, tuple) and len(cached) == 2:
+        return cached
+
     combined = _const(True)
     certificates: list[dict[str, Any]] = []
     occurrences = candidate.get("occurrences", [])
@@ -1042,7 +1419,9 @@ def _locked_invariants(model: Any, candidate: dict[str, Any]) -> tuple[tuple[Any
                 continue
             combined = _and(combined, certificate["invariant"])
             certificates.append(certificate)
-    return combined, certificates
+    result = (combined, certificates)
+    cache[cache_key] = result
+    return result
 
 
 def prove_same_cycle_occurrence_partition(
@@ -1178,28 +1557,68 @@ def _bundle_field_type(type_text: str, field_name: str) -> str | None:
                 depth -= 1
             elif char == ":" and depth == 0:
                 name = field[:index].strip()
+                if name.startswith("flip "):
+                    name = name[len("flip "):].strip()
                 if name == field_name:
                     return field[index + 1:].strip()
                 break
     return None
 
 
-def _declared_signal_width(model: Any, signal: str) -> int | None:
-    """Recover a leaf width from FIRRTL state/wire declarations when available."""
+def _array_element_type(type_text: str) -> str | None:
+    match = re.match(r"^(.*\S)\s*\[\d+\]\s*$", type_text.strip())
+    return match.group(1).strip() if match else None
+
+
+def declared_signal_type_from_handoff(
+    handoff: dict[str, Any],
+    signal: str,
+) -> str | None:
+    """Resolve scalar or aggregate FIRRTL types without relying on flattened drives.
+
+    Lowered aggregate connects often record only leaf `drives`, even though the
+    original connect and the IO/memory declaration still name the aggregate.
+    This resolver is used only to establish that a referenced path exists and
+    to enumerate a complete bundle field set; it does not itself prove values.
+    """
 
     root_types: dict[str, str] = {
         str(item.get("id")): str(item.get("type"))
-        for item in getattr(model, "handoff", {}).get("state", [])
+        for item in [*handoff.get("state", []), *handoff.get("frontier", [])]
         if item.get("id") and item.get("type")
     }
-    for statement in getattr(model, "statements", {}).values():
-        match = re.match(r"^wire\s+([^\s:]+)\s*:\s*(.+)$", str(statement.get("text", "")).strip())
-        if match:
-            root_types[match.group(1)] = match.group(2).strip()
+    mport_sources: dict[str, str] = {}
+    for statement in handoff.get("statements", []):
+        text = str(statement.get("text", "")).strip()
+        declaration = re.match(
+            r"^(?:wire|input|output)\s+([^\s:]+)\s*:\s*(.+)$",
+            text,
+        )
+        if declaration:
+            root_types[declaration.group(1)] = declaration.group(2).strip()
+            continue
+        memory = re.match(
+            r"^(?:memory\s+)?(?:cmem|smem|mem)\s+([^\s:]+)\s*:\s*(.+)$",
+            text,
+        )
+        if memory:
+            root_types[memory.group(1)] = memory.group(2).strip()
+            continue
+        mport = re.match(r"^infer\s+mport\s+([^\s=]+)\s*=\s*([^\s\[]+)\[", text)
+        if mport:
+            mport_sources[mport.group(1)] = mport.group(2)
+
+    for port, storage in mport_sources.items():
+        storage_type = root_types.get(storage)
+        if storage_type is not None:
+            element = _array_element_type(storage_type)
+            if element is not None:
+                root_types[port] = element
 
     root = next(
         (
-            name for name in sorted(root_types, key=len, reverse=True)
+            name
+            for name in sorted(root_types, key=len, reverse=True)
             if signal == name or signal.startswith(name + ".") or signal.startswith(name + "[")
         ),
         None,
@@ -1208,11 +1627,56 @@ def _declared_signal_width(model: Any, signal: str) -> int | None:
         return None
     current = root_types[root]
     suffix = signal[len(root):]
-    for component in [item for item in suffix.split(".") if item]:
-        name = component.split("[", 1)[0]
-        current = _bundle_field_type(current, name) or ""
-        if not current:
-            return None
+    while suffix:
+        if suffix.startswith("."):
+            match = re.match(r"^\.([A-Za-z_][A-Za-z0-9_$]*)", suffix)
+            if match is None:
+                return None
+            current = _bundle_field_type(current, match.group(1)) or ""
+            if not current:
+                return None
+            suffix = suffix[match.end():]
+            continue
+        if suffix.startswith("["):
+            close = suffix.find("]")
+            if close < 0:
+                return None
+            current = _array_element_type(current) or ""
+            if not current:
+                return None
+            suffix = suffix[close + 1:]
+            continue
+        return None
+    return current.strip()
+
+
+def _bundle_field_names(type_text: str) -> list[str]:
+    names: list[str] = []
+    for field in _split_bundle_fields(type_text):
+        depth = 0
+        for index, char in enumerate(field):
+            if char in "{[(":
+                depth += 1
+            elif char in "}])":
+                depth -= 1
+            elif char == ":" and depth == 0:
+                name = field[:index].strip()
+                if name.startswith("flip "):
+                    name = name[len("flip "):].strip()
+                if name:
+                    names.append(name)
+                break
+    return names
+
+
+def _declared_signal_width(model: Any, signal: str) -> int | None:
+    """Recover a leaf width from FIRRTL state/wire declarations when available."""
+
+    current = declared_signal_type_from_handoff(
+        getattr(model, "handoff", {}), signal
+    )
+    if current is None:
+        return None
     match = re.match(r"^(?:U|S)Int<(\d+)>", current.strip())
     return int(match.group(1)) if match else None
 
@@ -1465,59 +1929,52 @@ def prove_conditional_signal_equality(
     reachable_invariant, lock_certificates = _locked_invariants(model, candidate)
     on_expr = _and(reachable_invariant, on_expr)
 
-    drivers: list[dict[str, Any]] = []
-    for statement in sorted(model.statements.values(), key=lambda item: int(item.get("id", -1))):
-        if target not in {str(item) for item in statement.get("drives", [])}:
-            continue
-        if statement.get("kind") == "infer_mport":
-            # FIRRTL memory-port inference declares the selected storage/index;
-            # the following connect is the actual payload writer.
-            continue
-        parsed = _statement_rhs(statement)
-        if parsed is None:
-            return {
-                "status": STRUCTURAL_UNKNOWN,
-                "reason": f"unparsed driver for {target!r}",
-                "statement_id": int(statement.get("id", -1)),
-            }
-        lhs, rhs = parsed
-        if target == lhs:
-            projected_rhs = rhs
-        elif target.startswith(lhs + ".") and _REF_RE.fullmatch(rhs):
-            projected_rhs = rhs + target[len(lhs):]
-        else:
-            return {
-                "status": STRUCTURAL_UNKNOWN,
-                "reason": f"could not project aggregate driver for {target!r}",
-                "statement_id": int(statement.get("id", -1)),
-            }
-        activation_info = _writer_activation(model, target, statement, refs)
-        if activation_info is None:
-            return {
-                "status": STRUCTURAL_UNKNOWN,
-                "reason": f"driver activation is not exact for {target!r}",
-                "statement_id": int(statement.get("id", -1)),
-            }
-        activation, activation_certificate = activation_info
-        drivers.append({
-            "statement_id": int(statement.get("id", -1)),
-            "rhs": projected_rhs,
-            "activation": activation,
-            "activation_certificate": activation_certificate,
-        })
-
-    if not drivers:
-        return {"status": STRUCTURAL_UNKNOWN, "reason": f"no drivers for {target!r}"}
+    resolved = _priority_driver_records(model, candidate, target, refs)
+    if resolved is None:
+        target_type = declared_signal_type_from_handoff(model.handoff, target)
+        source_type = declared_signal_type_from_handoff(model.handoff, source)
+        target_fields = _bundle_field_names(target_type or "")
+        source_fields = _bundle_field_names(source_type or "")
+        if not target_fields or target_fields != source_fields:
+            return {"status": STRUCTURAL_UNKNOWN, "reason": f"no drivers for {target!r}"}
+        field_certificates: list[dict[str, Any]] = []
+        for field in target_fields:
+            field_result = prove_conditional_signal_equality(
+                model,
+                candidate,
+                target=f"{target}.{field}",
+                source=f"{source}.{field}",
+                on=on,
+            )
+            if field_result.get("status") != STRUCTURALLY_SUPPORTED:
+                return {
+                    "status": STRUCTURAL_UNKNOWN,
+                    "reason": (
+                        f"aggregate equality could not prove field {field!r} of {target!r}"
+                    ),
+                    "field": field,
+                    "field_result": field_result,
+                }
+            field_certificates.append({"field": field, "certificate": field_result})
+        return {
+            "status": STRUCTURALLY_SUPPORTED,
+            "proof": (
+                f"every declared field of aggregate {target} equals the corresponding "
+                f"field of {source} while {on} holds"
+            ),
+            "proof_domain": "exact-conditional-aggregate-equality",
+            "target_type": target_type,
+            "source_type": source_type,
+            "fields": field_certificates,
+        }
+    resolved_target, drivers, alias_chain = resolved
+    effective_drivers, any_selected = _effective_priority_drivers(drivers)
 
     state_roots = {str(root) for root in getattr(model, "state_roots", set())}
     source_expr = _canonical_expr(model, source, cut_roots=state_roots)
     selected: list[dict[str, Any]] = []
-    any_selected = _const(False)
-    for index, driver in enumerate(drivers):
-        effective = driver["activation"]
-        for later in drivers[index + 1:]:
-            effective = _and(effective, _not(later["activation"]))
-        any_selected = _or(any_selected, effective)
+    for driver in effective_drivers:
+        effective = driver["effective"]
         reachable, atoms = _unsat(_and(on_expr, effective))
         if reachable is None:
             return {
@@ -1574,8 +2031,114 @@ def prove_conditional_signal_equality(
         "proof_domain": "exact-conditional-symbolic-driver-equality",
         "on": on,
         "target": target,
+        "resolved_target": resolved_target,
         "source": source,
         "unconditional_strengthening": unconditional_strengthening,
+        "alias_chain": alias_chain,
+        "selected_drivers": selected,
+        "all_driver_statement_ids": [driver["statement_id"] for driver in drivers],
+        "reachable_lock_certificates": lock_certificates,
+    }
+
+
+def prove_conditional_constant_bit(
+    model: Any,
+    candidate: dict[str, Any],
+    *,
+    signal: str,
+    bit: int,
+    expected: int,
+    on: str,
+) -> dict[str, Any]:
+    """Prove one payload bit under an exact occurrence and last-connect cone."""
+
+    if bit < 0 or expected not in {0, 1}:
+        return {"status": STRUCTURAL_UNKNOWN, "reason": "invalid constant-bit arguments"}
+    refs = _bool_refs(model, candidate)
+    on_expr = _exact_boundary_or_derived_occurrence_condition(model, candidate, on, refs)
+    if on_expr is None:
+        return {
+            "status": STRUCTURAL_UNKNOWN,
+            "reason": f"no exact combinational condition for occurrence {on!r}",
+        }
+    reachable_invariant, lock_certificates = _locked_invariants(model, candidate)
+    on_expr = _and(reachable_invariant, on_expr)
+
+    resolved = _priority_driver_records(model, candidate, signal, refs)
+    if resolved is None:
+        return {"status": STRUCTURAL_UNKNOWN, "reason": f"no exact drivers for {signal!r}"}
+    resolved_signal, drivers, alias_chain = resolved
+    effective_drivers, any_selected = _effective_priority_drivers(drivers)
+    selected: list[dict[str, Any]] = []
+    for driver in effective_drivers:
+        condition = _and(on_expr, driver["effective"])
+        unreachable, atoms = _unsat(condition)
+        if unreachable is True:
+            continue
+        if unreachable is None:
+            return {
+                "status": STRUCTURAL_UNKNOWN,
+                "reason": f"conditional constant Boolean cone exceeds atom limit ({atoms})",
+            }
+        value = _selected_bit_expr(
+            model,
+            refs,
+            str(driver["rhs"]),
+            bit,
+            opaque=set(),
+            seen=set(),
+        )
+        if value is None:
+            return {
+                "status": STRUCTURAL_UNKNOWN,
+                "reason": f"could not resolve bit {bit} of driver {driver['rhs']!r}",
+                "statement_id": driver["statement_id"],
+            }
+        mismatch = value if expected == 0 else _not(value)
+        disproved, mismatch_atoms = _unsat(_and(condition, mismatch))
+        if disproved is not True:
+            return {
+                "status": STRUCTURAL_UNKNOWN,
+                "reason": (
+                    f"reachable driver does not establish bit {bit} == {expected} "
+                    f"on {on!r}"
+                ),
+                "statement_id": driver["statement_id"],
+                "driver_rhs": driver["rhs"],
+                "atom_count": mismatch_atoms,
+            }
+        selected.append({
+            "statement_id": driver["statement_id"],
+            "rhs": driver["rhs"],
+            "activation": driver["activation_certificate"],
+            "atom_count": mismatch_atoms,
+        })
+
+    uncovered, atoms = _unsat(_and(on_expr, _not(any_selected)))
+    if uncovered is not True:
+        return {
+            "status": STRUCTURAL_UNKNOWN,
+            "reason": f"{signal!r} has no exact active driver for every {on!r} occurrence",
+            "atom_count": atoms,
+        }
+    if not selected:
+        return {
+            "status": STRUCTURAL_UNKNOWN,
+            "reason": f"no reachable driver of {signal!r} while {on!r} holds",
+        }
+    return {
+        "status": STRUCTURALLY_SUPPORTED,
+        "proof": (
+            f"every last-connect driver of bit {bit} of {signal} reachable on {on} "
+            f"equals {expected}"
+        ),
+        "proof_domain": "exact-conditional-constant-bit",
+        "on": on,
+        "signal": signal,
+        "resolved_signal": resolved_signal,
+        "bit": bit,
+        "expected": expected,
+        "alias_chain": alias_chain,
         "selected_drivers": selected,
         "all_driver_statement_ids": [driver["statement_id"] for driver in drivers],
         "reachable_lock_certificates": lock_certificates,
@@ -1858,10 +2421,15 @@ def _writer_activation(
             polarity = "negative"
         else:
             return None
+        # Expand through aliases, but stop at candidate-grounded Boolean wires.
+        # This correlates a derived control such as ``muxState[0]`` with the
+        # grounded ``winner[0]`` atom without exploding the surrounding LSU
+        # datapath cone.
+        grounded_refs = _opaque_high_fanout_grounded_controls(model)
         local_bool_refs = set(bool_refs)
         if _is_bool_expr(model, control, local_bool_refs):
             _propagate_bool_refs(model, control, local_bool_refs)
-        expr = _bool_expr(model, local_bool_refs, control)
+        expr = _bool_expr(model, local_bool_refs, control, opaque=grounded_refs)
         if expr is None:
             return None
         activation = _and(activation, expr if polarity == "positive" else _not(expr))

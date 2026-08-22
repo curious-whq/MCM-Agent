@@ -1,0 +1,1241 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        47,
+        2480,
+        2481,
+        2482
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.mshrs::MemAcquire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "MemAcquire"
+      },
+      "id": "A1",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        47,
+        2523,
+        2524,
+        2525
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.mshrs::MemFinish"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "MemFinish"
+      },
+      "id": "A2",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2804,
+        2805,
+        2806
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.mshrs::RespHandshake"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "LongLatencyResp"
+      },
+      "id": "A3",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2541,
+        2542,
+        2543
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.lsu_release_arb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "LSURelease"
+      },
+      "id": "A4",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2544
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.wb::LSURelease"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomNonBlockingDCache.lsu_release_arb::Input0Fire"
+      },
+      "id": "A5",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2545
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.prober::LSURelease"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomNonBlockingDCache.lsu_release_arb::Input1Fire"
+      },
+      "id": "A6",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2531
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.wbArb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomNonBlockingDCache.wb::WritebackReq"
+      },
+      "id": "A7",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2529
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.prober::WBReq"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomNonBlockingDCache.wbArb::Input0Fire"
+      },
+      "id": "A8",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2530
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.mshrs::WBReq"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomNonBlockingDCache.wbArb::Input1Fire"
+      },
+      "id": "A9",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        221,
+        222,
+        233
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.metaWriteArb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomNonBlockingDCache.meta_0::MetadataWrite"
+      },
+      "id": "A10",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2522
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.mshrs::MetaWrite"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomNonBlockingDCache.metaWriteArb::Input0Fire"
+      },
+      "id": "A11",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2499
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.prober::MetaWrite"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomNonBlockingDCache.metaWriteArb::Input1Fire"
+      },
+      "id": "A12",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        228,
+        232
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.metaReadArb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomNonBlockingDCache.meta_0::ReadRequest"
+      },
+      "id": "A13",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        661,
+        665
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.mshrs::MetaRead"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomNonBlockingDCache.metaReadArb::Input3Fire"
+      },
+      "id": "A14",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        1168,
+        1172
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.prober::MetaRead"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomNonBlockingDCache.metaReadArb::Input1Fire"
+      },
+      "id": "A15",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2477
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.mshrs::RequestAccept"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomNonBlockingDCache::region-0-3::MSHRReqFire"
+      },
+      "id": "A16",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2521
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.mshrs::Refill"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomNonBlockingDCache.dataWriteArb::Input1Fire"
+      },
+      "id": "A17",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        47,
+        2483,
+        2484,
+        2485
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache::region-0-0::ProbeFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "ProbeFire"
+      },
+      "id": "A18",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        3
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache::region-0-3::StoreAckValid"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "StoreAckValid"
+      },
+      "id": "A19",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        3,
+        1767
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache::region-0-3::HitStoreAck"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "HitStoreAck"
+      },
+      "id": "A20",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        3,
+        1767,
+        2477
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache::region-0-3::MissAllocatedStoreAck"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "MissAllocatedStoreAck"
+      },
+      "id": "A21",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        3,
+        1296
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache::region-0-4::RequestAccept"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "RequestAccept"
+      },
+      "id": "A22",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        1795,
+        1796,
+        2483,
+        2484,
+        2485
+      ],
+      "formal": {
+        "occurrence": "ProbeFire",
+        "predicate": "LRSCValid",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A23",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        47,
+        2534,
+        2535,
+        2536,
+        2537
+      ],
+      "formal": {
+        "parts": [
+          "ReleaseAck",
+          "MemGrant"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "DBeat"
+      },
+      "id": "A28",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        3,
+        1767,
+        2477
+      ],
+      "formal": {
+        "parts": [
+          "HitStoreAck",
+          "MissAllocatedStoreAck"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "StoreAckValid"
+      },
+      "id": "A29",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        1296,
+        2805
+      ],
+      "formal": {
+        "occurrence": "RequestAccept",
+        "predicate": "LongLatencyRespPending",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A30",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        1465
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.lsu.s1_nack_advisory[0]",
+            "op": "signal"
+          }
+        },
+        "on": null,
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "id": "A31",
+      "status": "candidate"
+    }
+  ],
+  "cases": [],
+  "extensions": {
+    "parent_synthesis": {
+      "axiom_provenance": {
+        "A1": {
+          "kind": "parent_local",
+          "note": "Exact A-channel Decoupled bridge from the parent boundary to the frozen MSHR-file MemAcquire occurrence.",
+          "source_axioms": []
+        },
+        "A10": {
+          "kind": "parent_local",
+          "note": "The accepted metaWriteArb output is exactly the metadata-array MetadataWrite event.",
+          "source_axioms": []
+        },
+        "A11": {
+          "kind": "parent_local",
+          "note": "metaWriteArb input 0 is exactly the MSHR-file MetaWrite handshake.",
+          "source_axioms": []
+        },
+        "A12": {
+          "kind": "parent_local",
+          "note": "metaWriteArb input 1 is exactly the ProbeUnit MetaWrite handshake.",
+          "source_axioms": []
+        },
+        "A13": {
+          "kind": "parent_local",
+          "note": "The accepted metaReadArb output is exactly the metadata-array ReadRequest event.",
+          "source_axioms": []
+        },
+        "A14": {
+          "kind": "parent_local",
+          "note": "metaReadArb input 3 is exactly the MSHR-file MetaRead handshake.",
+          "source_axioms": []
+        },
+        "A15": {
+          "kind": "parent_local",
+          "note": "metaReadArb input 1 is exactly the ProbeUnit MetaRead handshake.",
+          "source_axioms": []
+        },
+        "A16": {
+          "kind": "parent_local",
+          "note": "Both imported occurrences denote the same mshrs.io.req[0] ready/valid handshake.",
+          "source_axioms": []
+        },
+        "A17": {
+          "kind": "parent_local",
+          "note": "dataWriteArb input 1 is exactly the MSHR refill handshake.",
+          "source_axioms": []
+        },
+        "A18": {
+          "kind": "parent_local",
+          "note": "The local public ProbeFire and the frozen region ProbeFire denote the same parent B-channel physical event.",
+          "source_axioms": []
+        },
+        "A19": {
+          "kind": "parent_local",
+          "note": "The local public StoreAckValid and the frozen region StoreAckValid denote the same LSU store-ack valid event.",
+          "source_axioms": []
+        },
+        "A2": {
+          "kind": "parent_local",
+          "note": "Exact E-channel Decoupled bridge from the parent boundary to the frozen MSHR-file MemFinish occurrence.",
+          "source_axioms": []
+        },
+        "A20": {
+          "kind": "parent_local",
+          "note": "The local HitStoreAck uses the same store-ack/hit classification as the frozen region occurrence.",
+          "source_axioms": []
+        },
+        "A21": {
+          "kind": "parent_local",
+          "note": "The local MissAllocatedStoreAck uses the same miss plus MSHR-admission classification as the frozen region occurrence.",
+          "source_axioms": []
+        },
+        "A22": {
+          "kind": "parent_local",
+          "note": "The local public RequestAccept and the frozen admission-region RequestAccept denote the same io.lsu.req.fire event.",
+          "source_axioms": []
+        },
+        "A23": {
+          "kind": "lifted",
+          "note": "Lift the frozen LR/SC probe exclusion to parent-local public IDs; A18 bridges the boundary occurrence and lrsc_valid is parent-local.",
+          "source_axioms": [
+            "BoomNonBlockingDCache::region-0-0::A1"
+          ]
+        },
+        "A28": {
+          "kind": "parent_local",
+          "note": "Classify every accepted D beat by the exact source==2 discriminator into ReleaseAck or miss-machinery grant traffic.",
+          "source_axioms": []
+        },
+        "A29": {
+          "kind": "emergent",
+          "note": "Re-export the trusted store-ack hit-versus-miss-admission partition through local public occurrences; A19-A21 are private bridges.",
+          "source_axioms": [
+            "BoomNonBlockingDCache::region-0-3::A9"
+          ]
+        },
+        "A3": {
+          "kind": "parent_local",
+          "note": "io.lsu.ll_resp is bulk-connected to mshrs.io.resp, giving an exact same-cycle handshake bridge.",
+          "source_axioms": []
+        },
+        "A30": {
+          "kind": "lifted",
+          "note": "Lift MSHR-response admission blocking to the public ll_resp.valid predicate using the exact ll_resp/mshrs.resp wiring and A22.",
+          "source_axioms": [
+            "BoomNonBlockingDCache::region-0-4::A1"
+          ]
+        },
+        "A31": {
+          "kind": "lifted",
+          "note": "Lift the duplicated-data-array constant s1_nacks[0]==0 through the exact LSU advisory wiring.",
+          "source_axioms": [
+            "BoomNonBlockingDCache.data::A5"
+          ]
+        },
+        "A4": {
+          "kind": "parent_local",
+          "note": "The LSU-visible release interface is exactly the output handshake of lsu_release_arb.",
+          "source_axioms": []
+        },
+        "A5": {
+          "kind": "parent_local",
+          "note": "lsu_release_arb input 0 is exactly the WritebackUnit LSURelease interface.",
+          "source_axioms": []
+        },
+        "A6": {
+          "kind": "parent_local",
+          "note": "lsu_release_arb input 1 is exactly the ProbeUnit LSURelease interface.",
+          "source_axioms": []
+        },
+        "A7": {
+          "kind": "parent_local",
+          "note": "WritebackUnit WritebackReq is exactly the wbArb output handshake.",
+          "source_axioms": []
+        },
+        "A8": {
+          "kind": "parent_local",
+          "note": "wbArb input 0 is exactly the ProbeUnit WBReq handshake.",
+          "source_axioms": []
+        },
+        "A9": {
+          "kind": "parent_local",
+          "note": "wbArb input 1 is exactly the MSHR-file WBReq handshake.",
+          "source_axioms": []
+        }
+      },
+      "public_interface": {
+        "boundary_coverage": [
+          {
+            "axiom_ids": [],
+            "note": "Export the memory-acquire handshake; its exact bridge to the MSHR hierarchy is private A1.",
+            "occurrence_ids": [
+              "MemAcquire"
+            ],
+            "physical_event_id": "BoomNonBlockingDCache::auto.out.a.fire",
+            "status": "event_only"
+          },
+          {
+            "axiom_ids": [
+              "A23"
+            ],
+            "note": "Incoming probes are publicly constrained by the LR/SC reservation exclusion.",
+            "occurrence_ids": [
+              "ProbeFire"
+            ],
+            "physical_event_id": "BoomNonBlockingDCache::auto.out.b.fire",
+            "status": "constrained"
+          },
+          {
+            "axiom_ids": [],
+            "note": "Export the accepted C-channel beat. Stateful source selection and continuation locking remain trusted in frozen child region-0-1 and are not reconstructed from hidden child RTL at this parent.",
+            "occurrence_ids": [
+              "CBeat"
+            ],
+            "physical_event_id": "BoomNonBlockingDCache::auto.out.c.fire",
+            "status": "event_only"
+          },
+          {
+            "axiom_ids": [
+              "A28"
+            ],
+            "note": "Expose the exact source-based D-channel split between ReleaseAck and miss-machinery grant traffic.",
+            "occurrence_ids": [
+              "DBeat"
+            ],
+            "physical_event_id": "BoomNonBlockingDCache::auto.out.d.fire",
+            "status": "constrained"
+          },
+          {
+            "axiom_ids": [],
+            "note": "Export the finish handshake; its exact MSHR bridge is private A2.",
+            "occurrence_ids": [
+              "MemFinish"
+            ],
+            "physical_event_id": "BoomNonBlockingDCache::auto.out.e.fire",
+            "status": "event_only"
+          },
+          {
+            "axiom_ids": [],
+            "note": "The parent RTL invalidates/DontCares this error output, so no grounded memory/coherence guarantee is available.",
+            "occurrence_ids": [],
+            "physical_event_id": "BoomNonBlockingDCache::io.errors.bus.valid",
+            "status": "intentionally_omitted"
+          },
+          {
+            "axiom_ids": [],
+            "note": "Export the accepted long-latency response; exact MSHR response wiring is private A3.",
+            "occurrence_ids": [
+              "LongLatencyResp"
+            ],
+            "physical_event_id": "BoomNonBlockingDCache::io.lsu.ll_resp.fire",
+            "status": "event_only"
+          },
+          {
+            "axiom_ids": [],
+            "note": "Export the LSU nack observation; detailed stage-2 nack conditions remain in the frozen child contract.",
+            "occurrence_ids": [
+              "NackValid"
+            ],
+            "physical_event_id": "BoomNonBlockingDCache::io.lsu.nack[0].valid",
+            "status": "event_only"
+          },
+          {
+            "axiom_ids": [],
+            "note": "Export the LSU-visible release; private A4-A6 preserve routing from writeback/probe sources.",
+            "occurrence_ids": [
+              "LSURelease"
+            ],
+            "physical_event_id": "BoomNonBlockingDCache::io.lsu.release.fire",
+            "status": "event_only"
+          },
+          {
+            "axiom_ids": [],
+            "note": "This is only per-lane request offer validity, not request acceptance; RequestAccept is the semantic admission event.",
+            "occurrence_ids": [],
+            "physical_event_id": "BoomNonBlockingDCache::io.lsu.req.bits[0].valid",
+            "status": "intentionally_omitted"
+          },
+          {
+            "axiom_ids": [
+              "A30"
+            ],
+            "note": "A pending long-latency response blocks acceptance of a new LSU request.",
+            "occurrence_ids": [
+              "RequestAccept"
+            ],
+            "physical_event_id": "BoomNonBlockingDCache::io.lsu.req.fire",
+            "status": "constrained"
+          },
+          {
+            "axiom_ids": [],
+            "note": "Export the direct LSU response observation; detailed hit/forwarding semantics remain in the frozen region contract.",
+            "occurrence_ids": [
+              "RespValid"
+            ],
+            "physical_event_id": "BoomNonBlockingDCache::io.lsu.resp[0].valid",
+            "status": "event_only"
+          },
+          {
+            "axiom_ids": [
+              "A29"
+            ],
+            "note": "Expose that a store ack is either a hit ack or a miss ack coincident with MSHR admission, not necessarily memory completion.",
+            "occurrence_ids": [
+              "StoreAckValid"
+            ],
+            "physical_event_id": "BoomNonBlockingDCache::io.lsu.store_ack[0].valid",
+            "status": "constrained"
+          }
+        ],
+        "exported_axiom_ids": [
+          "A23",
+          "A28",
+          "A29",
+          "A30",
+          "A31"
+        ],
+        "exported_identity_ids": [],
+        "exported_occurrence_ids": [
+          "MemAcquire",
+          "ProbeFire",
+          "CBeat",
+          "DBeat",
+          "MemFinish",
+          "LongLatencyResp",
+          "NackValid",
+          "LSURelease",
+          "RequestAccept",
+          "RespValid",
+          "StoreAckValid",
+          "MemGrant",
+          "ReleaseAck",
+          "HitStoreAck",
+          "MissAllocatedStoreAck"
+        ],
+        "exported_predicate_ids": [
+          "LRSCValid",
+          "LongLatencyRespPending",
+          "Ordered"
+        ],
+        "policy": "explicit-public-contract-v0.1"
+      }
+    }
+  },
+  "identity_keys": [],
+  "occurrences": [
+    {
+      "definition": "auto.out.a.valid && auto.out.a.ready; one accepted outgoing TileLink A-channel acquire/request",
+      "evidence_statement_ids": [
+        47,
+        2480,
+        2481,
+        2482
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "auto.out.a.valid",
+          "auto.out.a.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "MemAcquire",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::auto.out.a.fire"
+      ]
+    },
+    {
+      "definition": "auto.out.b.valid && auto.out.b.ready; one accepted incoming TileLink B probe",
+      "evidence_statement_ids": [
+        47,
+        2483,
+        2484,
+        2485
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "auto.out.b.valid",
+          "auto.out.b.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "ProbeFire",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::auto.out.b.fire"
+      ]
+    },
+    {
+      "definition": "auto.out.c.valid && auto.out.c.ready; one accepted outgoing TileLink C beat",
+      "evidence_statement_ids": [
+        47,
+        2687
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "auto.out.c.valid",
+          "auto.out.c.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "CBeat",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::auto.out.c.fire"
+      ]
+    },
+    {
+      "definition": "auto.out.d.valid && auto.out.d.ready; one accepted incoming TileLink D beat",
+      "evidence_statement_ids": [
+        47,
+        2534
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "auto.out.d.valid",
+          "auto.out.d.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "DBeat",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::auto.out.d.fire"
+      ]
+    },
+    {
+      "definition": "auto.out.e.valid && auto.out.e.ready; one accepted outgoing TileLink E-channel finish",
+      "evidence_statement_ids": [
+        47,
+        2523,
+        2524,
+        2525
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "auto.out.e.valid",
+          "auto.out.e.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "MemFinish",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::auto.out.e.fire"
+      ]
+    },
+    {
+      "definition": "io.lsu.ll_resp.valid && io.lsu.ll_resp.ready; one accepted long-latency LSU response",
+      "evidence_statement_ids": [
+        2804,
+        2805,
+        2806
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.lsu.ll_resp.valid",
+          "io.lsu.ll_resp.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "LongLatencyResp",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::io.lsu.ll_resp.fire"
+      ]
+    },
+    {
+      "definition": "io.lsu.nack[0].valid; an LSU request is reported as nacked",
+      "evidence_statement_ids": [
+        3
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.lsu.nack[0].valid"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "NackValid",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::io.lsu.nack[0].valid"
+      ]
+    },
+    {
+      "definition": "io.lsu.release.valid && io.lsu.release.ready; one LSU-visible release message is accepted",
+      "evidence_statement_ids": [
+        2541,
+        2542,
+        2543
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.lsu.release.valid",
+          "io.lsu.release.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "LSURelease",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::io.lsu.release.fire"
+      ]
+    },
+    {
+      "definition": "io.lsu.req.valid && io.lsu.req.ready; one LSU request is accepted by the DCache",
+      "evidence_statement_ids": [
+        3,
+        1296
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.lsu.req.valid",
+          "io.lsu.req.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "RequestAccept",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::io.lsu.req.fire"
+      ]
+    },
+    {
+      "definition": "io.lsu.resp[0].valid; one direct LSU response is produced",
+      "evidence_statement_ids": [
+        3
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.lsu.resp[0].valid"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "RespValid",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::io.lsu.resp[0].valid"
+      ]
+    },
+    {
+      "definition": "io.lsu.store_ack[0].valid; one LSU store acknowledgement is produced",
+      "evidence_statement_ids": [
+        3
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.lsu.store_ack[0].valid"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "StoreAckValid",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::io.lsu.store_ack[0].valid"
+      ]
+    },
+    {
+      "definition": "DBeat with auto.out.d.bits.source != 2; accepted D traffic routed toward the miss machinery",
+      "evidence_statement_ids": [
+        47,
+        2534,
+        2535
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "auto.out.d.valid",
+          "auto.out.d.ready"
+        ],
+        "state_register": null,
+        "state_values": [],
+        "value_tests": [
+          {
+            "expr": {
+              "name": "auto.out.d.bits.source",
+              "op": "signal"
+            },
+            "relation": "neq",
+            "value": 2
+          }
+        ]
+      },
+      "id": "MemGrant",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "DBeat with auto.out.d.bits.source == 2; accepted D traffic used as the writeback ReleaseAck path",
+      "evidence_statement_ids": [
+        47,
+        2534,
+        2535,
+        2536,
+        2537
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "auto.out.d.valid",
+          "auto.out.d.ready"
+        ],
+        "state_register": null,
+        "state_values": [],
+        "value_tests": [
+          {
+            "expr": {
+              "name": "auto.out.d.bits.source",
+              "op": "signal"
+            },
+            "relation": "eq",
+            "value": 2
+          }
+        ]
+      },
+      "id": "ReleaseAck",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "StoreAckValid && s2_hit[0]; store acknowledgement produced on the cache-hit path",
+      "evidence_statement_ids": [
+        3,
+        1767
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.lsu.store_ack[0].valid",
+          "s2_hit[0]"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "HitStoreAck",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "StoreAckValid && !s2_hit[0] && mshrs.io.req[0].valid && mshrs.io.req[0].ready; store miss acknowledged when admitted to the miss machinery",
+      "evidence_statement_ids": [
+        3,
+        1767,
+        2477
+      ],
+      "grounding": {
+        "signals_false": [
+          "s2_hit[0]"
+        ],
+        "signals_true": [
+          "io.lsu.store_ack[0].valid",
+          "mshrs.io.req[0].valid",
+          "mshrs.io.req[0].ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "MissAllocatedStoreAck",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    }
+  ],
+  "predicates": [
+    {
+      "definition": "the DCache LR/SC reservation-valid condition is asserted (lrsc_count > 3)",
+      "evidence_statement_ids": [
+        1795,
+        1796
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "lrsc_valid",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "LRSCValid"
+    },
+    {
+      "definition": "a long-latency MSHR response is currently valid at the LSU interface",
+      "evidence_statement_ids": [
+        2805
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "io.lsu.ll_resp.valid",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "LongLatencyRespPending"
+    },
+    {
+      "definition": "the DCache reports ordered: MSHRs are fence-ready and neither s1 nor s2 contains a valid local request",
+      "evidence_statement_ids": [
+        2919,
+        2920,
+        2921,
+        2922,
+        2923
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "io.lsu.ordered",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "Ordered"
+    }
+  ],
+  "rationale": [
+    "The parent candidate separates private composition lemmas from the public contract as required by parent-synthesis-prompt-0.4. Exact child-interface routing is retained privately, while only interface-closed parent IDs are exported.",
+    "A1-A17 are exact same-cycle wiring bridges for A/E, long-latency response, LSU release routing, writeback requests, metadata reads/writes, the stage-2 MSHR request, and refill traffic. They preserve composition paths without leaking qualified child IDs into the public interface.",
+    "A23 preserves the LR/SC coherence exclusion at the DCache boundary: an accepted B-channel probe is impossible while the local reservation-valid condition holds.",
+    "The stateful TileLink C arbiter semantics remain trusted in frozen child BoomNonBlockingDCache::region-0-1. This parent does not reconstruct its hidden idle/winner/state signals; CBeat is exported conservatively as an event-only boundary and may be refined when a certified semantic-alias export is available.",
+    "A28 exposes the D-channel source discriminator. Source 2 is the writeback ReleaseAck path; every other accepted D beat is classified as miss-machinery grant traffic. No stronger public claim equates MemGrant with BoomNonBlockingDCache.mshrs::MemGrant because the retained parent-local ledger does not contain the non-source-2 ready/valid bridge needed for that handshake theorem.",
+    "A29 is deliberately public because StoreAckValid is not a memory-completion event. A store hit may be acknowledged locally, while a store miss may be acknowledged in the same cycle that the miss request is admitted to the MSHR machinery.",
+    "A30 publishes the request/long-latency-response serialization that is visible at the LSU boundary. It does not claim eventual acceptance or eventual response.",
+    "A31 lifts the concrete data-array fact that s1_nacks[0] is permanently zero to the LSU-visible s1_nack_advisory signal.",
+    "Ordered is exported as a predicate with the exact parent-local definition mshrs.io.fence_rdy && !s1_valid[0] && !s2_valid[0]. It is an observation of current quiescence/order readiness, not a liveness guarantee.",
+    "The top-level A and E handshakes, long-latency response, direct response, nack, and LSU release remain event_only publicly when there is no additional interface-closed theorem worth exposing; their exact child bridges remain private.",
+    "io.errors.bus.valid is intentionally omitted because the implementation invalidates that output. io.lsu.req.bits[0].valid is intentionally omitted because it is a lane offer rather than the accepted request event.",
+    "No exact parent bridge is asserted from the B-channel ProbeFire to ProbeUnit::ProbeReq because the retained parent-local ledger does not include the required B ready relation. The frozen region theorem still supplies the LR/SC exclusion used by A23.",
+    "Replay and WritebackUnit read paths are not equated to individual metaReadArb/dataReadArb input fires: producer readiness is a conjunction of both downstream readies, so one arbiter may perform a speculative read without a producer-level handshake.",
+    "No fairness, eventual grant, eventual release, eventual response, or eventual request-acceptance property is claimed."
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "parent_synthesis-BoomNonBlockingDCache-2688416596b82ea2",
+  "unresolved": [],
+  "work_unit_id": "BoomNonBlockingDCache"
+}

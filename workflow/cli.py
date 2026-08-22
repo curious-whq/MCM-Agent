@@ -4,7 +4,9 @@ import argparse
 import json
 from pathlib import Path
 import sys
-from typing import Sequence
+import threading
+import time
+from typing import Any, Sequence, TextIO
 
 from frontend.pipeline import StaticFrontend
 from frontend.workunit import (
@@ -213,9 +215,126 @@ def _manual_import(args: argparse.Namespace) -> dict:
     }
 
 
+class _SemanticProgress:
+    """Render semantic validation progress on stderr without polluting JSON stdout."""
+
+    def __init__(self, *, enabled: bool, stream: TextIO | None = None) -> None:
+        self.enabled = enabled
+        self.stream = stream or sys.stderr
+        self._lock = threading.Lock()
+        self._stop = threading.Event()
+        self._thread: threading.Thread | None = None
+        self._started_at = time.monotonic()
+        self._total = 0
+        self._completed = 0
+        self._current_index = 0
+        self._axiom_id = ""
+        self._checker = ""
+        self._phase = "starting"
+        self._last_width = 0
+        self._counts: dict[str, int] = {}
+
+    @staticmethod
+    def _elapsed(seconds: float) -> str:
+        elapsed = max(0, int(seconds))
+        hours, remainder = divmod(elapsed, 3600)
+        minutes, secs = divmod(remainder, 60)
+        return f"{hours:02d}:{minutes:02d}:{secs:02d}"
+
+    def _render_locked(self) -> None:
+        if not self.enabled:
+            return
+        total = self._total
+        completed = min(self._completed, total) if total else 0
+        ratio = completed / total if total else 0.0
+        width = 24
+        filled = min(width, int(ratio * width))
+        bar = "#" * filled + "-" * (width - filled)
+        current = self._axiom_id or "-"
+        checker = f"/{self._checker}" if self._checker else ""
+        elapsed = self._elapsed(time.monotonic() - self._started_at)
+        trusted = self._counts.get("FORMALLY_PROVED", 0) + self._counts.get("SPEC_PROVED", 0)
+        line = (
+            f"semantic-validate [{bar}] done={completed}/{total} "
+            f"{ratio * 100:5.1f}%  {self._phase}  {current}{checker}  "
+            f"current={self._current_index}/{total}  "
+            f"trusted={trusted}  elapsed={elapsed}"
+        )
+        padding = " " * max(0, self._last_width - len(line))
+        self.stream.write("\r" + line + padding)
+        self.stream.flush()
+        self._last_width = len(line)
+
+    def _heartbeat(self) -> None:
+        while not self._stop.wait(1.0):
+            with self._lock:
+                self._render_locked()
+
+    def __call__(self, event: dict[str, Any]) -> None:
+        if not self.enabled:
+            return
+        with self._lock:
+            stage = str(event.get("stage", ""))
+            if stage == "validation_started":
+                self._total = int(event.get("total", 0))
+                self._phase = "starting"
+                if self._thread is None:
+                    self._thread = threading.Thread(
+                        target=self._heartbeat,
+                        name="semantic-progress",
+                        daemon=True,
+                    )
+                    self._thread.start()
+            elif stage in {"obligation_started", "phase_started"}:
+                self._axiom_id = str(event.get("axiom_id", ""))
+                self._checker = str(event.get("checker", ""))
+                self._current_index = int(event.get("index", 0))
+                self._completed = max(0, int(event.get("index", 1)) - 1)
+                self._phase = str(event.get("phase", "queued"))
+            elif stage == "obligation_completed":
+                self._completed = int(event.get("index", self._completed))
+                level = str(event.get("validation_level", ""))
+                self._counts[level] = self._counts.get(level, 0) + 1
+                self._phase = "completed"
+            elif stage == "composition_started":
+                self._phase = "composition"
+                self._axiom_id = "parent"
+                self._checker = ""
+            elif stage == "composition_completed":
+                self._phase = "composition-done"
+            elif stage == "validation_completed":
+                self._completed = self._total
+                self._current_index = self._total
+                self._phase = "done"
+                counts = event.get("counts")
+                if isinstance(counts, dict):
+                    self._counts = {str(key): int(value) for key, value in counts.items()}
+            self._render_locked()
+
+    def close(self) -> None:
+        if not self.enabled:
+            return
+        self._stop.set()
+        if self._thread is not None:
+            self._thread.join(timeout=2.0)
+        with self._lock:
+            self._render_locked()
+            self.stream.write("\n")
+            self.stream.flush()
+
+
 
 def _semantic_validate(args: argparse.Namespace) -> dict:
-    semantic = validate_task_dir(args.task_dir, formal_backend=args.formal_backend)
+    enabled = args.progress if args.progress is not None else sys.stderr.isatty()
+    progress = _SemanticProgress(enabled=enabled)
+    try:
+        semantic = validate_task_dir(
+            args.task_dir,
+            formal_backend=args.formal_backend,
+            progress_callback=progress if enabled else None,
+        )
+    finally:
+        progress.close()
     status_path = Path(args.task_dir) / "status.json"
     workflow_status = json.loads(status_path.read_text(encoding="utf-8"))["status"]
     return {
@@ -226,6 +345,7 @@ def _semantic_validate(args: argparse.Namespace) -> dict:
         "all_axioms_structurally_supported": semantic["all_axioms_structurally_supported"],
         "all_axioms_formally_proved": semantic["all_axioms_formally_proved"],
         "has_counterexample": semantic["has_counterexample"],
+        "public_interface_validation": semantic.get("public_interface_validation"),
         "semantic_validation": str(Path(args.task_dir) / "semantic_validation.json"),
         "property_obligations": str(Path(args.task_dir) / "property_obligations.json"),
         "trusted_umcm": str(Path(args.task_dir) / "trusted_umcm.json"),
@@ -238,6 +358,8 @@ def _freeze(args: argparse.Namespace) -> dict:
     return {
         "status": "FROZEN_FOR_COMPOSITION",
         "trusted_axiom_count": len(frozen.get("axioms", [])),
+        "exported_axiom_count": frozen.get("freeze", {}).get("exported_axiom_count"),
+        "private_axiom_count": frozen.get("freeze", {}).get("private_axiom_count"),
         "frozen_umcm": str(Path(args.task_dir) / "frozen_umcm.json"),
     }
 
@@ -335,6 +457,20 @@ def build_parser() -> argparse.ArgumentParser:
         default="none",
         help="formal backend; bundled values: none, explicit-control",
     )
+    progress = semantic.add_mutually_exclusive_group()
+    progress.add_argument(
+        "--progress",
+        dest="progress",
+        action="store_true",
+        help="force a live per-axiom progress bar on stderr",
+    )
+    progress.add_argument(
+        "--no-progress",
+        dest="progress",
+        action="store_false",
+        help="disable the live progress bar",
+    )
+    semantic.set_defaults(progress=None)
 
 
     freeze = sub.add_parser(

@@ -1,0 +1,3960 @@
+{
+  "all_axioms_formally_proved": true,
+  "all_axioms_structurally_supported": true,
+  "candidate_axiom_count": 27,
+  "control_model": {
+    "known_states": [],
+    "reset_state": null,
+    "state_register": "state",
+    "transitions": []
+  },
+  "counts": {
+    "FORMALLY_PROVED": 27,
+    "GROUNDED": 0,
+    "PARTIALLY_SUPPORTED": 0,
+    "REFUTED": 0,
+    "SPEC_PROVED": 0,
+    "STRUCTURALLY_SUPPORTED": 0
+  },
+  "empty_abstraction_certificate": null,
+  "formal_backend": {
+    "api_version": "formal-backend-api-0.16",
+    "available": true,
+    "name": "explicit-control",
+    "note": "Exhaustive formal proof for certified finite-control/order properties, exact symbolic local/identity facts, exact local Boolean exclusion/conservation, bounded indexed token provenance, and selected finite reference equivalence checks. It is not a general bit-level SMT backend.",
+    "proof_domain": "control + exact symbolic local + exact combinational exclusion/conservation + scalar/indexed token provenance + finite reference equivalence",
+    "supported_checkers": [
+      "forbid_when",
+      "history_order",
+      "history_chain",
+      "history_join",
+      "indexed_coverage",
+      "indexed_storage_flow",
+      "occurrence_partition",
+      "transaction_exclusion",
+      "signal_alias",
+      "constant_bit",
+      "identity_projection",
+      "tilelink_on_probe_spec"
+    ],
+    "trusted_proof_levels": [
+      "FORMALLY_PROVED",
+      "SPEC_PROVED"
+    ]
+  },
+  "has_counterexample": false,
+  "property_compiler": "formal-axiom-compiler-0.9",
+  "public_interface_validation": {
+    "all_exported_axioms_trusted": true,
+    "boundary_coverage_count": 13,
+    "exported_axiom_count": 5,
+    "policy": "explicit-public-contract-v0.1",
+    "private_axiom_count": 22,
+    "trusted_exported_axiom_count": 5
+  },
+  "results": [
+    {
+      "arguments": {
+        "parts": [
+          "BoomNonBlockingDCache.mshrs::MemAcquire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "MemAcquire"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        47,
+        2480,
+        2481,
+        2482
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "finite_value_consistency": null,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomNonBlockingDCache.mshrs::MemAcquire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "mshrs.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      57
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.mshrs::io.mem_acquire.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.mshrs::MemAcquire",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      2481
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "mshrs.io.mem_acquire.valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "mshrs.io.mem_acquire.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "nodeOut.a.ready",
+                        "statement_id": 2482
+                      }
+                    ]
+                  }
+                ]
+              },
+              "MemAcquire": {
+                "kind": "exact-parent-local-occurrence-condition",
+                "occurrence": "MemAcquire",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "auto.out.a.valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "nodeOut.a.valid",
+                        "statement_id": 47
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "auto.out.a.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "nodeOut.a.ready",
+                        "statement_id": 47
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomNonBlockingDCache.mshrs::MemAcquire"
+            ],
+            "trusted_signal_equalities": [],
+            "whole": "MemAcquire"
+          },
+          "prover": "composition-prover-0.6"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomNonBlockingDCache.mshrs::MemAcquire",
+          "MemAcquire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "MemAcquire <=> exactly_one_same_cycle({BoomNonBlockingDCache.mshrs::MemAcquire})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomNonBlockingDCache.mshrs::MemFinish"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "MemFinish"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        47,
+        2523,
+        2524,
+        2525
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "finite_value_consistency": null,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomNonBlockingDCache.mshrs::MemFinish": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "mshrs.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      57
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.mshrs::io.mem_finish.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.mshrs::MemFinish",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      2524
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "mshrs.io.mem_finish.valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "mshrs.io.mem_finish.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "nodeOut.e.ready",
+                        "statement_id": 2525
+                      }
+                    ]
+                  }
+                ]
+              },
+              "MemFinish": {
+                "kind": "exact-parent-local-occurrence-condition",
+                "occurrence": "MemFinish",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "auto.out.e.valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "nodeOut.e.valid",
+                        "statement_id": 47
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "auto.out.e.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "nodeOut.e.ready",
+                        "statement_id": 47
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomNonBlockingDCache.mshrs::MemFinish"
+            ],
+            "trusted_signal_equalities": [],
+            "whole": "MemFinish"
+          },
+          "prover": "composition-prover-0.6"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomNonBlockingDCache.mshrs::MemFinish",
+          "MemFinish"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "MemFinish <=> exactly_one_same_cycle({BoomNonBlockingDCache.mshrs::MemFinish})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomNonBlockingDCache.mshrs::RespHandshake"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "LongLatencyResp"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        2804,
+        2805,
+        2806
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "finite_value_consistency": null,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomNonBlockingDCache.mshrs::RespHandshake": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "mshrs.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      57
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.mshrs::io.resp.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.mshrs::RespHandshake",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      2805
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "mshrs.io.resp.valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "mshrs.io.resp.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "io.lsu.ll_resp.ready",
+                        "statement_id": 2806
+                      }
+                    ]
+                  }
+                ]
+              },
+              "LongLatencyResp": {
+                "kind": "exact-parent-local-occurrence-condition",
+                "occurrence": "LongLatencyResp",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "io.lsu.ll_resp.valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "mshrs.io.resp.valid",
+                        "statement_id": 2805
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "frontier-input",
+                    "signal": "io.lsu.ll_resp.ready"
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomNonBlockingDCache.mshrs::RespHandshake"
+            ],
+            "trusted_signal_equalities": [],
+            "whole": "LongLatencyResp"
+          },
+          "prover": "composition-prover-0.6"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomNonBlockingDCache.mshrs::RespHandshake",
+          "LongLatencyResp"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "LongLatencyResp <=> exactly_one_same_cycle({BoomNonBlockingDCache.mshrs::RespHandshake})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomNonBlockingDCache.lsu_release_arb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "LSURelease"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        2541,
+        2542,
+        2543
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "finite_value_consistency": null,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomNonBlockingDCache.lsu_release_arb::OutputFire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "lsu_release_arb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      2539
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.lsu_release_arb::io.out.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.lsu_release_arb::OutputFire",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      2542
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "lsu_release_arb.io.out.valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "lsu_release_arb.io.out.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "io.lsu.release.ready",
+                        "statement_id": 2543
+                      }
+                    ]
+                  }
+                ]
+              },
+              "LSURelease": {
+                "kind": "exact-parent-local-occurrence-condition",
+                "occurrence": "LSURelease",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "io.lsu.release.valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "lsu_release_arb.io.out.valid",
+                        "statement_id": 2542
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "frontier-input",
+                    "signal": "io.lsu.release.ready"
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomNonBlockingDCache.lsu_release_arb::OutputFire"
+            ],
+            "trusted_signal_equalities": [],
+            "whole": "LSURelease"
+          },
+          "prover": "composition-prover-0.6"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomNonBlockingDCache.lsu_release_arb::OutputFire",
+          "LSURelease"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "LSURelease <=> exactly_one_same_cycle({BoomNonBlockingDCache.lsu_release_arb::OutputFire})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomNonBlockingDCache.wb::LSURelease"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomNonBlockingDCache.lsu_release_arb::Input0Fire"
+      },
+      "axiom_id": "A5",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        2544
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "finite_value_consistency": null,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomNonBlockingDCache.lsu_release_arb::Input0Fire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "lsu_release_arb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      2539
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.lsu_release_arb::io.in[0].fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.lsu_release_arb::Input0Fire",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "lsu_release_arb.io.in[0].valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "wb.io.lsu_release.valid",
+                        "statement_id": 2544
+                      }
+                    ]
+                  },
+                  {
+                    "dependency_statement_ids": [
+                      2544
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "lsu_release_arb.io.in[0].ready"
+                  }
+                ]
+              },
+              "BoomNonBlockingDCache.wb::LSURelease": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "wb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      51
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.wb::io.lsu_release.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.wb::LSURelease",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      2544
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "wb.io.lsu_release.valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "wb.io.lsu_release.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "lsu_release_arb.io.in[0].ready",
+                        "statement_id": 2544
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomNonBlockingDCache.wb::LSURelease"
+            ],
+            "trusted_signal_equalities": [],
+            "whole": "BoomNonBlockingDCache.lsu_release_arb::Input0Fire"
+          },
+          "prover": "composition-prover-0.6"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomNonBlockingDCache.lsu_release_arb::Input0Fire",
+          "BoomNonBlockingDCache.wb::LSURelease"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomNonBlockingDCache.lsu_release_arb::Input0Fire <=> exactly_one_same_cycle({BoomNonBlockingDCache.wb::LSURelease})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomNonBlockingDCache.prober::LSURelease"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomNonBlockingDCache.lsu_release_arb::Input1Fire"
+      },
+      "axiom_id": "A6",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        2545
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "finite_value_consistency": null,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomNonBlockingDCache.lsu_release_arb::Input1Fire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "lsu_release_arb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      2539
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.lsu_release_arb::io.in[1].fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.lsu_release_arb::Input1Fire",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "lsu_release_arb.io.in[1].valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "prober.io.lsu_release.valid",
+                        "statement_id": 2545
+                      }
+                    ]
+                  },
+                  {
+                    "dependency_statement_ids": [
+                      2545
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "lsu_release_arb.io.in[1].ready"
+                  }
+                ]
+              },
+              "BoomNonBlockingDCache.prober::LSURelease": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "prober.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      54
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.prober::io.lsu_release.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.prober::LSURelease",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      2545
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "prober.io.lsu_release.valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "prober.io.lsu_release.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "lsu_release_arb.io.in[1].ready",
+                        "statement_id": 2545
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomNonBlockingDCache.prober::LSURelease"
+            ],
+            "trusted_signal_equalities": [],
+            "whole": "BoomNonBlockingDCache.lsu_release_arb::Input1Fire"
+          },
+          "prover": "composition-prover-0.6"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomNonBlockingDCache.lsu_release_arb::Input1Fire",
+          "BoomNonBlockingDCache.prober::LSURelease"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomNonBlockingDCache.lsu_release_arb::Input1Fire <=> exactly_one_same_cycle({BoomNonBlockingDCache.prober::LSURelease})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomNonBlockingDCache.wbArb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomNonBlockingDCache.wb::WritebackReq"
+      },
+      "axiom_id": "A7",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        2531
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "finite_value_consistency": null,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomNonBlockingDCache.wb::WritebackReq": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "wb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      51
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.wb::io.req.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.wb::WritebackReq",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "wb.io.req.valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "wbArb.io.out.valid",
+                        "statement_id": 2531
+                      }
+                    ]
+                  },
+                  {
+                    "dependency_statement_ids": [
+                      2531
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "wb.io.req.ready"
+                  }
+                ]
+              },
+              "BoomNonBlockingDCache.wbArb::OutputFire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "wbArb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      2527
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.wbArb::io.out.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.wbArb::OutputFire",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      2531
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "wbArb.io.out.valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "wbArb.io.out.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "wb.io.req.ready",
+                        "statement_id": 2531
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomNonBlockingDCache.wbArb::OutputFire"
+            ],
+            "trusted_signal_equalities": [],
+            "whole": "BoomNonBlockingDCache.wb::WritebackReq"
+          },
+          "prover": "composition-prover-0.6"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomNonBlockingDCache.wb::WritebackReq",
+          "BoomNonBlockingDCache.wbArb::OutputFire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomNonBlockingDCache.wb::WritebackReq <=> exactly_one_same_cycle({BoomNonBlockingDCache.wbArb::OutputFire})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomNonBlockingDCache.prober::WBReq"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomNonBlockingDCache.wbArb::Input0Fire"
+      },
+      "axiom_id": "A8",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        2529
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "finite_value_consistency": null,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomNonBlockingDCache.prober::WBReq": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "prober.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      54
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.prober::io.wb_req.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.prober::WBReq",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      2529
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "prober.io.wb_req.valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "prober.io.wb_req.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "wbArb.io.in[0].ready",
+                        "statement_id": 2529
+                      }
+                    ]
+                  }
+                ]
+              },
+              "BoomNonBlockingDCache.wbArb::Input0Fire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "wbArb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      2527
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.wbArb::io.in[0].fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.wbArb::Input0Fire",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "wbArb.io.in[0].valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "prober.io.wb_req.valid",
+                        "statement_id": 2529
+                      }
+                    ]
+                  },
+                  {
+                    "dependency_statement_ids": [
+                      2529
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "wbArb.io.in[0].ready"
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomNonBlockingDCache.prober::WBReq"
+            ],
+            "trusted_signal_equalities": [],
+            "whole": "BoomNonBlockingDCache.wbArb::Input0Fire"
+          },
+          "prover": "composition-prover-0.6"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomNonBlockingDCache.prober::WBReq",
+          "BoomNonBlockingDCache.wbArb::Input0Fire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomNonBlockingDCache.wbArb::Input0Fire <=> exactly_one_same_cycle({BoomNonBlockingDCache.prober::WBReq})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomNonBlockingDCache.mshrs::WBReq"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomNonBlockingDCache.wbArb::Input1Fire"
+      },
+      "axiom_id": "A9",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        2530
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "finite_value_consistency": null,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomNonBlockingDCache.mshrs::WBReq": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "mshrs.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      57
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.mshrs::io.wb_req.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.mshrs::WBReq",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      2530
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "mshrs.io.wb_req.valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "mshrs.io.wb_req.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "wbArb.io.in[1].ready",
+                        "statement_id": 2530
+                      }
+                    ]
+                  }
+                ]
+              },
+              "BoomNonBlockingDCache.wbArb::Input1Fire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "wbArb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      2527
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.wbArb::io.in[1].fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.wbArb::Input1Fire",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "wbArb.io.in[1].valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "mshrs.io.wb_req.valid",
+                        "statement_id": 2530
+                      }
+                    ]
+                  },
+                  {
+                    "dependency_statement_ids": [
+                      2530
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "wbArb.io.in[1].ready"
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomNonBlockingDCache.mshrs::WBReq"
+            ],
+            "trusted_signal_equalities": [],
+            "whole": "BoomNonBlockingDCache.wbArb::Input1Fire"
+          },
+          "prover": "composition-prover-0.6"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomNonBlockingDCache.mshrs::WBReq",
+          "BoomNonBlockingDCache.wbArb::Input1Fire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomNonBlockingDCache.wbArb::Input1Fire <=> exactly_one_same_cycle({BoomNonBlockingDCache.mshrs::WBReq})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomNonBlockingDCache.metaWriteArb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomNonBlockingDCache.meta_0::MetadataWrite"
+      },
+      "axiom_id": "A10",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        221,
+        222,
+        233
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "finite_value_consistency": null,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 2,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 2,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomNonBlockingDCache.metaWriteArb::OutputFire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "metaWriteArb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      186
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.metaWriteArb::io.out.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.metaWriteArb::OutputFire",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      221
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "metaWriteArb.io.out.valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "metaWriteArb.io.out.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "meta_0.io.write.ready",
+                        "statement_id": 233
+                      }
+                    ]
+                  }
+                ]
+              },
+              "BoomNonBlockingDCache.meta_0::MetadataWrite": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "meta_0.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      183
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.meta_0::io.write.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.meta_0::MetadataWrite",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "meta_0.io.write.valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "_meta_0_io_write_valid_T",
+                        "statement_id": 222
+                      }
+                    ]
+                  },
+                  {
+                    "dependency_statement_ids": [
+                      233
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "meta_0.io.write.ready"
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomNonBlockingDCache.metaWriteArb::OutputFire"
+            ],
+            "trusted_signal_equalities": [],
+            "whole": "BoomNonBlockingDCache.meta_0::MetadataWrite"
+          },
+          "prover": "composition-prover-0.6"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomNonBlockingDCache.metaWriteArb::OutputFire",
+          "BoomNonBlockingDCache.meta_0::MetadataWrite"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomNonBlockingDCache.meta_0::MetadataWrite <=> exactly_one_same_cycle({BoomNonBlockingDCache.metaWriteArb::OutputFire})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomNonBlockingDCache.mshrs::MetaWrite"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomNonBlockingDCache.metaWriteArb::Input0Fire"
+      },
+      "axiom_id": "A11",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        2522
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "finite_value_consistency": null,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomNonBlockingDCache.metaWriteArb::Input0Fire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "metaWriteArb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      186
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.metaWriteArb::io.in[0].fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.metaWriteArb::Input0Fire",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "metaWriteArb.io.in[0].valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "mshrs.io.meta_write.valid",
+                        "statement_id": 2522
+                      }
+                    ]
+                  },
+                  {
+                    "dependency_statement_ids": [
+                      2522
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "metaWriteArb.io.in[0].ready"
+                  }
+                ]
+              },
+              "BoomNonBlockingDCache.mshrs::MetaWrite": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "mshrs.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      57
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.mshrs::io.meta_write.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.mshrs::MetaWrite",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      2522
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "mshrs.io.meta_write.valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "mshrs.io.meta_write.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "metaWriteArb.io.in[0].ready",
+                        "statement_id": 2522
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomNonBlockingDCache.mshrs::MetaWrite"
+            ],
+            "trusted_signal_equalities": [],
+            "whole": "BoomNonBlockingDCache.metaWriteArb::Input0Fire"
+          },
+          "prover": "composition-prover-0.6"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomNonBlockingDCache.metaWriteArb::Input0Fire",
+          "BoomNonBlockingDCache.mshrs::MetaWrite"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomNonBlockingDCache.metaWriteArb::Input0Fire <=> exactly_one_same_cycle({BoomNonBlockingDCache.mshrs::MetaWrite})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomNonBlockingDCache.prober::MetaWrite"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomNonBlockingDCache.metaWriteArb::Input1Fire"
+      },
+      "axiom_id": "A12",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        2499
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "finite_value_consistency": null,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomNonBlockingDCache.metaWriteArb::Input1Fire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "metaWriteArb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      186
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.metaWriteArb::io.in[1].fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.metaWriteArb::Input1Fire",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "metaWriteArb.io.in[1].valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "prober.io.meta_write.valid",
+                        "statement_id": 2499
+                      }
+                    ]
+                  },
+                  {
+                    "dependency_statement_ids": [
+                      2499
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "metaWriteArb.io.in[1].ready"
+                  }
+                ]
+              },
+              "BoomNonBlockingDCache.prober::MetaWrite": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "prober.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      54
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.prober::io.meta_write.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.prober::MetaWrite",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      2499
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "prober.io.meta_write.valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "prober.io.meta_write.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "metaWriteArb.io.in[1].ready",
+                        "statement_id": 2499
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomNonBlockingDCache.prober::MetaWrite"
+            ],
+            "trusted_signal_equalities": [],
+            "whole": "BoomNonBlockingDCache.metaWriteArb::Input1Fire"
+          },
+          "prover": "composition-prover-0.6"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomNonBlockingDCache.metaWriteArb::Input1Fire",
+          "BoomNonBlockingDCache.prober::MetaWrite"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomNonBlockingDCache.metaWriteArb::Input1Fire <=> exactly_one_same_cycle({BoomNonBlockingDCache.prober::MetaWrite})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomNonBlockingDCache.metaReadArb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomNonBlockingDCache.meta_0::ReadRequest"
+      },
+      "axiom_id": "A13",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        228,
+        232
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "finite_value_consistency": null,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomNonBlockingDCache.metaReadArb::OutputFire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "metaReadArb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      189
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.metaReadArb::io.out.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.metaReadArb::OutputFire",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      228
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "metaReadArb.io.out.valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "metaReadArb.io.out.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "meta_0.io.read.ready",
+                        "statement_id": 232
+                      }
+                    ]
+                  }
+                ]
+              },
+              "BoomNonBlockingDCache.meta_0::ReadRequest": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "meta_0.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      183
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.meta_0::io.read.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.meta_0::ReadRequest",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "meta_0.io.read.valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "metaReadArb.io.out.valid",
+                        "statement_id": 228
+                      }
+                    ]
+                  },
+                  {
+                    "dependency_statement_ids": [
+                      232
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "meta_0.io.read.ready"
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomNonBlockingDCache.metaReadArb::OutputFire"
+            ],
+            "trusted_signal_equalities": [],
+            "whole": "BoomNonBlockingDCache.meta_0::ReadRequest"
+          },
+          "prover": "composition-prover-0.6"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomNonBlockingDCache.metaReadArb::OutputFire",
+          "BoomNonBlockingDCache.meta_0::ReadRequest"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomNonBlockingDCache.meta_0::ReadRequest <=> exactly_one_same_cycle({BoomNonBlockingDCache.metaReadArb::OutputFire})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomNonBlockingDCache.mshrs::MetaRead"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomNonBlockingDCache.metaReadArb::Input3Fire"
+      },
+      "axiom_id": "A14",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        661,
+        665
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "finite_value_consistency": null,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomNonBlockingDCache.metaReadArb::Input3Fire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "metaReadArb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      189
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.metaReadArb::io.in[3].fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.metaReadArb::Input3Fire",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "metaReadArb.io.in[3].valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "mshrs.io.meta_read.valid",
+                        "statement_id": 661
+                      }
+                    ]
+                  },
+                  {
+                    "dependency_statement_ids": [
+                      665
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "metaReadArb.io.in[3].ready"
+                  }
+                ]
+              },
+              "BoomNonBlockingDCache.mshrs::MetaRead": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "mshrs.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      57
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.mshrs::io.meta_read.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.mshrs::MetaRead",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      661,
+                      1303,
+                      1314,
+                      1321
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "mshrs.io.meta_read.valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "mshrs.io.meta_read.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "metaReadArb.io.in[3].ready",
+                        "statement_id": 665
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomNonBlockingDCache.mshrs::MetaRead"
+            ],
+            "trusted_signal_equalities": [],
+            "whole": "BoomNonBlockingDCache.metaReadArb::Input3Fire"
+          },
+          "prover": "composition-prover-0.6"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomNonBlockingDCache.metaReadArb::Input3Fire",
+          "BoomNonBlockingDCache.mshrs::MetaRead"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomNonBlockingDCache.metaReadArb::Input3Fire <=> exactly_one_same_cycle({BoomNonBlockingDCache.mshrs::MetaRead})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomNonBlockingDCache.prober::MetaRead"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomNonBlockingDCache.metaReadArb::Input1Fire"
+      },
+      "axiom_id": "A15",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        1168,
+        1172
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "finite_value_consistency": null,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomNonBlockingDCache.metaReadArb::Input1Fire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "metaReadArb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      189
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.metaReadArb::io.in[1].fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.metaReadArb::Input1Fire",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "metaReadArb.io.in[1].valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "prober.io.meta_read.valid",
+                        "statement_id": 1168
+                      }
+                    ]
+                  },
+                  {
+                    "dependency_statement_ids": [
+                      1172
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "metaReadArb.io.in[1].ready"
+                  }
+                ]
+              },
+              "BoomNonBlockingDCache.prober::MetaRead": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "prober.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      54
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.prober::io.meta_read.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.prober::MetaRead",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      934,
+                      1168
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "prober.io.meta_read.valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "prober.io.meta_read.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "metaReadArb.io.in[1].ready",
+                        "statement_id": 1172
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomNonBlockingDCache.prober::MetaRead"
+            ],
+            "trusted_signal_equalities": [],
+            "whole": "BoomNonBlockingDCache.metaReadArb::Input1Fire"
+          },
+          "prover": "composition-prover-0.6"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomNonBlockingDCache.metaReadArb::Input1Fire",
+          "BoomNonBlockingDCache.prober::MetaRead"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomNonBlockingDCache.metaReadArb::Input1Fire <=> exactly_one_same_cycle({BoomNonBlockingDCache.prober::MetaRead})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomNonBlockingDCache.mshrs::RequestAccept"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomNonBlockingDCache::region-0-3::MSHRReqFire"
+      },
+      "axiom_id": "A16",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        2477
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "finite_value_consistency": null,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomNonBlockingDCache.mshrs::RequestAccept": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "mshrs.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      57
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.mshrs::io.req[0].fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.mshrs::RequestAccept",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      2189,
+                      2477
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "mshrs.io.req[0].valid"
+                  },
+                  {
+                    "dependency_statement_ids": [
+                      1993,
+                      2477
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "mshrs.io.req[0].ready"
+                  }
+                ]
+              },
+              "BoomNonBlockingDCache::region-0-3::MSHRReqFire": {
+                "child_rtl_reopened": false,
+                "frontier_signals": [
+                  "mshrs.io.req[0].ready",
+                  "mshrs.io.req[0].valid"
+                ],
+                "frozen_umcm_sha256": "7477976310893d3af104cb033a9483269c2823e48b73b3e712f9be660b75ff22",
+                "kind": "exact-imported-derived-parent-frontier-condition",
+                "occurrence": "BoomNonBlockingDCache::region-0-3::MSHRReqFire",
+                "signal_proofs": [
+                  {
+                    "kind": "frontier-input",
+                    "signal": "mshrs.io.req[0].valid"
+                  },
+                  {
+                    "kind": "frontier-input",
+                    "signal": "mshrs.io.req[0].ready"
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomNonBlockingDCache.mshrs::RequestAccept"
+            ],
+            "trusted_signal_equalities": [],
+            "whole": "BoomNonBlockingDCache::region-0-3::MSHRReqFire"
+          },
+          "prover": "composition-prover-0.6"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomNonBlockingDCache.mshrs::RequestAccept",
+          "BoomNonBlockingDCache::region-0-3::MSHRReqFire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomNonBlockingDCache::region-0-3::MSHRReqFire <=> exactly_one_same_cycle({BoomNonBlockingDCache.mshrs::RequestAccept})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomNonBlockingDCache.mshrs::Refill"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "BoomNonBlockingDCache.dataWriteArb::Input1Fire"
+      },
+      "axiom_id": "A17",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        2521
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "finite_value_consistency": null,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomNonBlockingDCache.dataWriteArb::Input1Fire": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "dataWriteArb.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      238
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.dataWriteArb::io.in[1].fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.dataWriteArb::Input1Fire",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "dataWriteArb.io.in[1].valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "mshrs.io.refill.valid",
+                        "statement_id": 2521
+                      }
+                    ]
+                  },
+                  {
+                    "dependency_statement_ids": [
+                      2521
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "dataWriteArb.io.in[1].ready"
+                  }
+                ]
+              },
+              "BoomNonBlockingDCache.mshrs::Refill": {
+                "boundary": {
+                  "clock": {
+                    "child_clock": "mshrs.clock",
+                    "parent_clock": "clock",
+                    "statement_ids": [
+                      57
+                    ]
+                  },
+                  "physical_event_id": "BoomNonBlockingDCache.mshrs::io.refill.fire"
+                },
+                "child_rtl_reopened": false,
+                "kind": "exact-imported-boundary-occurrence-condition",
+                "occurrence": "BoomNonBlockingDCache.mshrs::Refill",
+                "signal_proofs": [
+                  {
+                    "dependency_statement_ids": [
+                      2521
+                    ],
+                    "kind": "exposed-child-frontier-output",
+                    "signal": "mshrs.io.refill.valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "mshrs.io.refill.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "dataWriteArb.io.in[1].ready",
+                        "statement_id": 2521
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomNonBlockingDCache.mshrs::Refill"
+            ],
+            "trusted_signal_equalities": [],
+            "whole": "BoomNonBlockingDCache.dataWriteArb::Input1Fire"
+          },
+          "prover": "composition-prover-0.6"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomNonBlockingDCache.dataWriteArb::Input1Fire",
+          "BoomNonBlockingDCache.mshrs::Refill"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "BoomNonBlockingDCache.dataWriteArb::Input1Fire <=> exactly_one_same_cycle({BoomNonBlockingDCache.mshrs::Refill})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomNonBlockingDCache::region-0-0::ProbeFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "ProbeFire"
+      },
+      "axiom_id": "A18",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        47,
+        2483,
+        2484,
+        2485
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "finite_value_consistency": null,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomNonBlockingDCache::region-0-0::ProbeFire": {
+                "child_rtl_reopened": false,
+                "frozen_umcm_sha256": "9cdbc62f6095c3802a56764179b8069f5f24f05d51520d8e6c801b402fe95074",
+                "kind": "exact-shared-physical-event-alias",
+                "local_condition": {
+                  "kind": "exact-parent-local-occurrence-condition",
+                  "occurrence": "ProbeFire",
+                  "signal_proofs": [
+                    {
+                      "kind": "exact-priority-writer-cone",
+                      "signal": "auto.out.b.valid",
+                      "writers": [
+                        {
+                          "activation": {
+                            "control_signals": [],
+                            "kind": "unconditional"
+                          },
+                          "rhs": "nodeOut.b.valid",
+                          "statement_id": 47
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "exact-priority-writer-cone",
+                      "signal": "auto.out.b.ready",
+                      "writers": [
+                        {
+                          "activation": {
+                            "control_signals": [],
+                            "kind": "unconditional"
+                          },
+                          "rhs": "nodeOut.b.ready",
+                          "statement_id": 47
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "local_occurrence": "ProbeFire",
+                "occurrence": "BoomNonBlockingDCache::region-0-0::ProbeFire",
+                "physical_event_id": "BoomNonBlockingDCache::auto.out.b.fire"
+              },
+              "ProbeFire": {
+                "kind": "exact-parent-local-occurrence-condition",
+                "occurrence": "ProbeFire",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "auto.out.b.valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "nodeOut.b.valid",
+                        "statement_id": 47
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "auto.out.b.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "nodeOut.b.ready",
+                        "statement_id": 47
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomNonBlockingDCache::region-0-0::ProbeFire"
+            ],
+            "trusted_signal_equalities": [],
+            "whole": "ProbeFire"
+          },
+          "prover": "composition-prover-0.6"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomNonBlockingDCache::region-0-0::ProbeFire",
+          "ProbeFire"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "ProbeFire <=> exactly_one_same_cycle({BoomNonBlockingDCache::region-0-0::ProbeFire})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomNonBlockingDCache::region-0-3::StoreAckValid"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "StoreAckValid"
+      },
+      "axiom_id": "A19",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        3
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "finite_value_consistency": null,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomNonBlockingDCache::region-0-3::StoreAckValid": {
+                "child_rtl_reopened": false,
+                "frozen_umcm_sha256": "7477976310893d3af104cb033a9483269c2823e48b73b3e712f9be660b75ff22",
+                "kind": "exact-shared-physical-event-alias",
+                "local_condition": {
+                  "kind": "exact-parent-local-occurrence-condition",
+                  "occurrence": "StoreAckValid",
+                  "signal_proofs": [
+                    {
+                      "kind": "frontier-input",
+                      "signal": "io.lsu.store_ack[0].valid"
+                    }
+                  ]
+                },
+                "local_occurrence": "StoreAckValid",
+                "occurrence": "BoomNonBlockingDCache::region-0-3::StoreAckValid",
+                "physical_event_id": "BoomNonBlockingDCache::io.lsu.store_ack[0].valid"
+              },
+              "StoreAckValid": {
+                "kind": "exact-parent-local-occurrence-condition",
+                "occurrence": "StoreAckValid",
+                "signal_proofs": [
+                  {
+                    "kind": "frontier-input",
+                    "signal": "io.lsu.store_ack[0].valid"
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomNonBlockingDCache::region-0-3::StoreAckValid"
+            ],
+            "trusted_signal_equalities": [],
+            "whole": "StoreAckValid"
+          },
+          "prover": "composition-prover-0.6"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomNonBlockingDCache::region-0-3::StoreAckValid",
+          "StoreAckValid"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "StoreAckValid <=> exactly_one_same_cycle({BoomNonBlockingDCache::region-0-3::StoreAckValid})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomNonBlockingDCache::region-0-3::HitStoreAck"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "HitStoreAck"
+      },
+      "axiom_id": "A20",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        3,
+        1767
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "finite_value_consistency": {
+              "kind": "exact-finite-value-atom-consistency",
+              "lemmas": [
+                {
+                  "kind": "equality-nonzero-consistency",
+                  "value": 2,
+                  "value_expr": "('ref', 's2_type')"
+                }
+              ]
+            },
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomNonBlockingDCache::region-0-3::HitStoreAck": {
+                "child_rtl_reopened": false,
+                "frontier_signals": [
+                  "io.lsu.store_ack[0].valid",
+                  "s2_hit[0]"
+                ],
+                "frozen_umcm_sha256": "7477976310893d3af104cb033a9483269c2823e48b73b3e712f9be660b75ff22",
+                "kind": "exact-imported-derived-parent-frontier-condition",
+                "occurrence": "BoomNonBlockingDCache::region-0-3::HitStoreAck",
+                "signal_proofs": [
+                  {
+                    "kind": "frontier-input",
+                    "signal": "io.lsu.store_ack[0].valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "s2_hit[0]",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "_s2_hit_T_8",
+                        "statement_id": 1767
+                      }
+                    ]
+                  }
+                ]
+              },
+              "HitStoreAck": {
+                "kind": "exact-parent-local-occurrence-condition",
+                "occurrence": "HitStoreAck",
+                "signal_proofs": [
+                  {
+                    "kind": "frontier-input",
+                    "signal": "io.lsu.store_ack[0].valid"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "s2_hit[0]",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "_s2_hit_T_8",
+                        "statement_id": 1767
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomNonBlockingDCache::region-0-3::HitStoreAck"
+            ],
+            "trusted_signal_equalities": [],
+            "whole": "HitStoreAck"
+          },
+          "prover": "composition-prover-0.6"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomNonBlockingDCache::region-0-3::HitStoreAck",
+          "HitStoreAck"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "HitStoreAck <=> exactly_one_same_cycle({BoomNonBlockingDCache::region-0-3::HitStoreAck})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomNonBlockingDCache::region-0-3::MissAllocatedStoreAck"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "MissAllocatedStoreAck"
+      },
+      "axiom_id": "A21",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        3,
+        1767,
+        2477
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "finite_value_consistency": {
+              "kind": "exact-finite-value-atom-consistency",
+              "lemmas": [
+                {
+                  "kind": "equality-nonzero-consistency",
+                  "value": 2,
+                  "value_expr": "('ref', 's2_type')"
+                }
+              ]
+            },
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomNonBlockingDCache::region-0-3::MissAllocatedStoreAck": {
+                "child_rtl_reopened": false,
+                "frontier_signals": [
+                  "io.lsu.store_ack[0].valid",
+                  "mshrs.io.req[0].ready",
+                  "mshrs.io.req[0].valid",
+                  "s2_hit[0]"
+                ],
+                "frozen_umcm_sha256": "7477976310893d3af104cb033a9483269c2823e48b73b3e712f9be660b75ff22",
+                "kind": "exact-imported-derived-parent-frontier-condition",
+                "occurrence": "BoomNonBlockingDCache::region-0-3::MissAllocatedStoreAck",
+                "signal_proofs": [
+                  {
+                    "kind": "frontier-input",
+                    "signal": "io.lsu.store_ack[0].valid"
+                  },
+                  {
+                    "kind": "frontier-input",
+                    "signal": "mshrs.io.req[0].valid"
+                  },
+                  {
+                    "kind": "frontier-input",
+                    "signal": "mshrs.io.req[0].ready"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "s2_hit[0]",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "_s2_hit_T_8",
+                        "statement_id": 1767
+                      }
+                    ]
+                  }
+                ]
+              },
+              "MissAllocatedStoreAck": {
+                "kind": "exact-parent-local-occurrence-condition",
+                "occurrence": "MissAllocatedStoreAck",
+                "signal_proofs": [
+                  {
+                    "kind": "frontier-input",
+                    "signal": "io.lsu.store_ack[0].valid"
+                  },
+                  {
+                    "kind": "frontier-input",
+                    "signal": "mshrs.io.req[0].valid"
+                  },
+                  {
+                    "kind": "frontier-input",
+                    "signal": "mshrs.io.req[0].ready"
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "s2_hit[0]",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "_s2_hit_T_8",
+                        "statement_id": 1767
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomNonBlockingDCache::region-0-3::MissAllocatedStoreAck"
+            ],
+            "trusted_signal_equalities": [],
+            "whole": "MissAllocatedStoreAck"
+          },
+          "prover": "composition-prover-0.6"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomNonBlockingDCache::region-0-3::MissAllocatedStoreAck",
+          "MissAllocatedStoreAck"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "MissAllocatedStoreAck <=> exactly_one_same_cycle({BoomNonBlockingDCache::region-0-3::MissAllocatedStoreAck})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "BoomNonBlockingDCache::region-0-4::RequestAccept"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "RequestAccept"
+      },
+      "axiom_id": "A22",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        3,
+        1296
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "finite_value_consistency": null,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 0,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 0,
+                "kind": "part_without_whole",
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "BoomNonBlockingDCache::region-0-4::RequestAccept": {
+                "child_rtl_reopened": false,
+                "frozen_umcm_sha256": "2ff1a22d672f9f1f6f6f06609efae7cc5f81f0084c6a34edcffed1b86bb0ef95",
+                "kind": "exact-shared-physical-event-alias",
+                "local_condition": {
+                  "kind": "exact-parent-local-occurrence-condition",
+                  "occurrence": "RequestAccept",
+                  "signal_proofs": [
+                    {
+                      "kind": "frontier-input",
+                      "signal": "io.lsu.req.valid"
+                    },
+                    {
+                      "kind": "frontier-input",
+                      "signal": "io.lsu.req.ready"
+                    }
+                  ]
+                },
+                "local_occurrence": "RequestAccept",
+                "occurrence": "BoomNonBlockingDCache::region-0-4::RequestAccept",
+                "physical_event_id": "BoomNonBlockingDCache::io.lsu.req.fire"
+              },
+              "RequestAccept": {
+                "kind": "exact-parent-local-occurrence-condition",
+                "occurrence": "RequestAccept",
+                "signal_proofs": [
+                  {
+                    "kind": "frontier-input",
+                    "signal": "io.lsu.req.valid"
+                  },
+                  {
+                    "kind": "frontier-input",
+                    "signal": "io.lsu.req.ready"
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "BoomNonBlockingDCache::region-0-4::RequestAccept"
+            ],
+            "trusted_signal_equalities": [],
+            "whole": "RequestAccept"
+          },
+          "prover": "composition-prover-0.6"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "BoomNonBlockingDCache::region-0-4::RequestAccept",
+          "RequestAccept"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "RequestAccept <=> exactly_one_same_cycle({BoomNonBlockingDCache::region-0-4::RequestAccept})",
+      "structural": {
+        "proof_domain": "composition-summary-boundary",
+        "reason": "obligation references frozen child semantic objects; parent-local RTL checkers must not reopen child RTL",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "ProbeFire",
+        "predicate": "LRSCValid"
+      },
+      "axiom_id": "A23",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        1795,
+        1796,
+        2483,
+        2484,
+        2485
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "occurrence_bridge": {
+            "boundary": {
+              "clock": {
+                "child_clock": "clock",
+                "parent_clock": "clock",
+                "statement_ids": []
+              },
+              "physical_event_id": "BoomNonBlockingDCache::auto.out.b.fire"
+            },
+            "kind": "exact-occurrence-bridge",
+            "local_rtl_only": true,
+            "relation": "occurrence-inclusion",
+            "signal_proofs": [
+              {
+                "kind": "exact-priority-writer-cone",
+                "signal": "auto.out.b.valid",
+                "writers": [
+                  {
+                    "activation": {
+                      "control_signals": [],
+                      "kind": "unconditional"
+                    },
+                    "rhs": "nodeOut.b.valid",
+                    "statement_id": 47
+                  }
+                ]
+              },
+              {
+                "kind": "exact-priority-writer-cone",
+                "signal": "auto.out.b.ready",
+                "writers": [
+                  {
+                    "activation": {
+                      "control_signals": [],
+                      "kind": "unconditional"
+                    },
+                    "rhs": "nodeOut.b.ready",
+                    "statement_id": 47
+                  }
+                ]
+              }
+            ],
+            "subset": "ProbeFire",
+            "superset": "BoomNonBlockingDCache::region-0-0::ProbeFire"
+          },
+          "predicate_bridge": {
+            "atom_count": 0,
+            "child_rtl_reopened": false,
+            "kind": "exact-parent-child-predicate-equivalence",
+            "left": "LRSCValid",
+            "left_condition": {
+              "kind": "parent-local-predicate",
+              "negated": false,
+              "parent_signal": "lrsc_valid",
+              "predicate": "LRSCValid",
+              "signal_condition": {
+                "kind": "frontier-input",
+                "signal": "lrsc_valid"
+              },
+              "source_signal": "lrsc_valid"
+            },
+            "right": "BoomNonBlockingDCache::region-0-0::LRSCValid",
+            "right_condition": {
+              "child_rtl_reopened": false,
+              "frozen_umcm_sha256": "9cdbc62f6095c3802a56764179b8069f5f24f05d51520d8e6c801b402fe95074",
+              "kind": "frozen-direct-child-predicate",
+              "negated": false,
+              "parent_signal": "lrsc_valid",
+              "predicate": "BoomNonBlockingDCache::region-0-0::LRSCValid",
+              "signal_condition": {
+                "kind": "frontier-input",
+                "signal": "lrsc_valid"
+              },
+              "source_signal": "lrsc_valid",
+              "work_unit_id": "BoomNonBlockingDCache::region-0-0"
+            }
+          },
+          "prover": "composition-prover-0.6",
+          "source_theorem": {
+            "axiom_id": "A1",
+            "frozen_umcm_sha256": "9cdbc62f6095c3802a56764179b8069f5f24f05d51520d8e6c801b402fe95074",
+            "kind": "frozen-theorem",
+            "work_unit_id": "BoomNonBlockingDCache::region-0-0"
+          }
+        },
+        "proof": "trusted forbid theorem lifted across exact parent-local predicate and occurrence bridges",
+        "proof_method": "trusted-child-lift",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "lifted",
+          "proof_method": "trusted-child-lift",
+          "source_axioms": [
+            "BoomNonBlockingDCache::region-0-0::A1"
+          ]
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ProbeFire"
+        ],
+        "predicates": [
+          "LRSCValid"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "LRSCValid => !ProbeFire",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "ReleaseAck",
+          "MemGrant"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "DBeat"
+      },
+      "axiom_id": "A28",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        47,
+        2534,
+        2535,
+        2536,
+        2537
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition": {
+            "child_rtl_reopened": false,
+            "finite_value_consistency": null,
+            "inductive_invariants": [],
+            "kind": "exact-parent-child-occurrence-partition",
+            "obligations": [
+              {
+                "atom_count": 3,
+                "kind": "whole_without_part",
+                "unsat": true
+              },
+              {
+                "atom_count": 3,
+                "kind": "part_without_whole",
+                "unsat": true
+              },
+              {
+                "atom_count": 3,
+                "kind": "parts_mutually_exclusive",
+                "parts": [
+                  "ReleaseAck",
+                  "MemGrant"
+                ],
+                "unsat": true
+              }
+            ],
+            "occurrence_conditions": {
+              "DBeat": {
+                "kind": "exact-parent-local-occurrence-condition",
+                "occurrence": "DBeat",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "auto.out.d.valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "nodeOut.d.valid",
+                        "statement_id": 47
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "auto.out.d.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "nodeOut.d.ready",
+                        "statement_id": 47
+                      }
+                    ]
+                  }
+                ]
+              },
+              "MemGrant": {
+                "kind": "exact-parent-local-occurrence-condition",
+                "occurrence": "MemGrant",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "auto.out.d.valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "nodeOut.d.valid",
+                        "statement_id": 47
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "auto.out.d.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "nodeOut.d.ready",
+                        "statement_id": 47
+                      }
+                    ]
+                  }
+                ]
+              },
+              "ReleaseAck": {
+                "kind": "exact-parent-local-occurrence-condition",
+                "occurrence": "ReleaseAck",
+                "signal_proofs": [
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "auto.out.d.valid",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "nodeOut.d.valid",
+                        "statement_id": 47
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "exact-priority-writer-cone",
+                    "signal": "auto.out.d.ready",
+                    "writers": [
+                      {
+                        "activation": {
+                          "control_signals": [],
+                          "kind": "unconditional"
+                        },
+                        "rhs": "nodeOut.d.ready",
+                        "statement_id": 47
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "parts": [
+              "ReleaseAck",
+              "MemGrant"
+            ],
+            "trusted_signal_equalities": [],
+            "whole": "DBeat"
+          },
+          "prover": "composition-prover-0.6"
+        },
+        "proof": "same-cycle occurrence partition proved from exact parent-local and exposed child-boundary conditions",
+        "proof_method": "exact-parent-child-occurrence-partition",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "parent_local",
+          "proof_method": "exact-parent-child-occurrence-partition",
+          "source_axioms": []
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "DBeat",
+          "MemGrant",
+          "ReleaseAck"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "DBeat <=> exactly_one_same_cycle({ReleaseAck, MemGrant})",
+      "structural": {
+        "missing_occurrences": [
+          "DBeat"
+        ],
+        "reason": "no exact combinational condition for every partition occurrence",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "HitStoreAck",
+          "MissAllocatedStoreAck"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "StoreAckValid"
+      },
+      "axiom_id": "A29",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        3,
+        1767,
+        2477
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "partition_substitution": {
+            "kind": "trusted-occurrence-partition-substitution",
+            "orientation": "preserved",
+            "part_bridges": [
+              {
+                "atom_count": 0,
+                "kind": "exact-parent-boundary-occurrence-equivalence",
+                "left": "HitStoreAck",
+                "left_condition": {
+                  "kind": "exact-parent-local-occurrence-condition",
+                  "occurrence": "HitStoreAck",
+                  "signal_proofs": [
+                    {
+                      "kind": "frontier-input",
+                      "signal": "io.lsu.store_ack[0].valid"
+                    },
+                    {
+                      "kind": "exact-priority-writer-cone",
+                      "signal": "s2_hit[0]",
+                      "writers": [
+                        {
+                          "activation": {
+                            "control_signals": [],
+                            "kind": "unconditional"
+                          },
+                          "rhs": "_s2_hit_T_8",
+                          "statement_id": 1767
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "right": "BoomNonBlockingDCache::region-0-3::HitStoreAck",
+                "right_condition": {
+                  "child_rtl_reopened": false,
+                  "frontier_signals": [
+                    "io.lsu.store_ack[0].valid",
+                    "s2_hit[0]"
+                  ],
+                  "frozen_umcm_sha256": "7477976310893d3af104cb033a9483269c2823e48b73b3e712f9be660b75ff22",
+                  "kind": "exact-imported-derived-parent-frontier-condition",
+                  "occurrence": "BoomNonBlockingDCache::region-0-3::HitStoreAck",
+                  "signal_proofs": [
+                    {
+                      "kind": "frontier-input",
+                      "signal": "io.lsu.store_ack[0].valid"
+                    },
+                    {
+                      "kind": "exact-priority-writer-cone",
+                      "signal": "s2_hit[0]",
+                      "writers": [
+                        {
+                          "activation": {
+                            "control_signals": [],
+                            "kind": "unconditional"
+                          },
+                          "rhs": "_s2_hit_T_8",
+                          "statement_id": 1767
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                "atom_count": 0,
+                "kind": "exact-parent-boundary-occurrence-equivalence",
+                "left": "MissAllocatedStoreAck",
+                "left_condition": {
+                  "kind": "exact-parent-local-occurrence-condition",
+                  "occurrence": "MissAllocatedStoreAck",
+                  "signal_proofs": [
+                    {
+                      "kind": "frontier-input",
+                      "signal": "io.lsu.store_ack[0].valid"
+                    },
+                    {
+                      "kind": "frontier-input",
+                      "signal": "mshrs.io.req[0].valid"
+                    },
+                    {
+                      "kind": "frontier-input",
+                      "signal": "mshrs.io.req[0].ready"
+                    },
+                    {
+                      "kind": "exact-priority-writer-cone",
+                      "signal": "s2_hit[0]",
+                      "writers": [
+                        {
+                          "activation": {
+                            "control_signals": [],
+                            "kind": "unconditional"
+                          },
+                          "rhs": "_s2_hit_T_8",
+                          "statement_id": 1767
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "right": "BoomNonBlockingDCache::region-0-3::MissAllocatedStoreAck",
+                "right_condition": {
+                  "child_rtl_reopened": false,
+                  "frontier_signals": [
+                    "io.lsu.store_ack[0].valid",
+                    "mshrs.io.req[0].ready",
+                    "mshrs.io.req[0].valid",
+                    "s2_hit[0]"
+                  ],
+                  "frozen_umcm_sha256": "7477976310893d3af104cb033a9483269c2823e48b73b3e712f9be660b75ff22",
+                  "kind": "exact-imported-derived-parent-frontier-condition",
+                  "occurrence": "BoomNonBlockingDCache::region-0-3::MissAllocatedStoreAck",
+                  "signal_proofs": [
+                    {
+                      "kind": "frontier-input",
+                      "signal": "io.lsu.store_ack[0].valid"
+                    },
+                    {
+                      "kind": "frontier-input",
+                      "signal": "mshrs.io.req[0].valid"
+                    },
+                    {
+                      "kind": "frontier-input",
+                      "signal": "mshrs.io.req[0].ready"
+                    },
+                    {
+                      "kind": "exact-priority-writer-cone",
+                      "signal": "s2_hit[0]",
+                      "writers": [
+                        {
+                          "activation": {
+                            "control_signals": [],
+                            "kind": "unconditional"
+                          },
+                          "rhs": "_s2_hit_T_8",
+                          "statement_id": 1767
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            ],
+            "source_theorem": {
+              "axiom_id": "A9",
+              "frozen_umcm_sha256": "7477976310893d3af104cb033a9483269c2823e48b73b3e712f9be660b75ff22",
+              "kind": "frozen-theorem",
+              "work_unit_id": "BoomNonBlockingDCache::region-0-3"
+            },
+            "whole_bridge": {
+              "atom_count": 0,
+              "kind": "exact-parent-boundary-occurrence-equivalence",
+              "left": "StoreAckValid",
+              "left_condition": {
+                "kind": "exact-parent-local-occurrence-condition",
+                "occurrence": "StoreAckValid",
+                "signal_proofs": [
+                  {
+                    "kind": "frontier-input",
+                    "signal": "io.lsu.store_ack[0].valid"
+                  }
+                ]
+              },
+              "right": "BoomNonBlockingDCache::region-0-3::StoreAckValid",
+              "right_condition": {
+                "child_rtl_reopened": false,
+                "frozen_umcm_sha256": "7477976310893d3af104cb033a9483269c2823e48b73b3e712f9be660b75ff22",
+                "kind": "exact-shared-physical-event-alias",
+                "local_condition": {
+                  "kind": "exact-parent-local-occurrence-condition",
+                  "occurrence": "StoreAckValid",
+                  "signal_proofs": [
+                    {
+                      "kind": "frontier-input",
+                      "signal": "io.lsu.store_ack[0].valid"
+                    }
+                  ]
+                },
+                "local_occurrence": "StoreAckValid",
+                "occurrence": "BoomNonBlockingDCache::region-0-3::StoreAckValid",
+                "physical_event_id": "BoomNonBlockingDCache::io.lsu.store_ack[0].valid"
+              }
+            }
+          },
+          "prover": "composition-prover-0.6"
+        },
+        "proof": "trusted occurrence partition transported through exact parent-boundary occurrence equivalences",
+        "proof_method": "trusted-occurrence-partition-substitution",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "emergent",
+          "proof_method": "trusted-occurrence-partition-substitution",
+          "source_axioms": [
+            "BoomNonBlockingDCache::region-0-3::A9"
+          ]
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "HitStoreAck",
+          "MissAllocatedStoreAck",
+          "StoreAckValid"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "StoreAckValid <=> exactly_one_same_cycle({HitStoreAck, MissAllocatedStoreAck})",
+      "structural": {
+        "missing_occurrences": [
+          "StoreAckValid"
+        ],
+        "reason": "no exact combinational condition for every partition occurrence",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "RequestAccept",
+        "predicate": "LongLatencyRespPending"
+      },
+      "axiom_id": "A30",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        1296,
+        2805
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "occurrence_bridge": {
+            "boundary": {
+              "clock": {
+                "child_clock": "clock",
+                "parent_clock": "clock",
+                "statement_ids": []
+              },
+              "physical_event_id": "BoomNonBlockingDCache::io.lsu.req.fire"
+            },
+            "kind": "exact-occurrence-bridge",
+            "local_rtl_only": true,
+            "relation": "occurrence-inclusion",
+            "signal_proofs": [
+              {
+                "kind": "frontier-input",
+                "signal": "io.lsu.req.valid"
+              },
+              {
+                "kind": "frontier-input",
+                "signal": "io.lsu.req.ready"
+              }
+            ],
+            "subset": "RequestAccept",
+            "superset": "BoomNonBlockingDCache::region-0-4::RequestAccept"
+          },
+          "predicate_bridge": {
+            "atom_count": 0,
+            "child_rtl_reopened": false,
+            "kind": "exact-parent-child-predicate-equivalence",
+            "left": "LongLatencyRespPending",
+            "left_condition": {
+              "kind": "parent-local-predicate",
+              "negated": false,
+              "parent_signal": "io.lsu.ll_resp.valid",
+              "predicate": "LongLatencyRespPending",
+              "signal_condition": {
+                "kind": "exact-priority-writer-cone",
+                "signal": "io.lsu.ll_resp.valid",
+                "writers": [
+                  {
+                    "activation": {
+                      "control_signals": [],
+                      "kind": "unconditional"
+                    },
+                    "rhs": "mshrs.io.resp.valid",
+                    "statement_id": 2805
+                  }
+                ]
+              },
+              "source_signal": "io.lsu.ll_resp.valid"
+            },
+            "right": "BoomNonBlockingDCache::region-0-4::MSHRResponsePending",
+            "right_condition": {
+              "child_rtl_reopened": false,
+              "frozen_umcm_sha256": "2ff1a22d672f9f1f6f6f06609efae7cc5f81f0084c6a34edcffed1b86bb0ef95",
+              "kind": "frozen-direct-child-predicate",
+              "negated": false,
+              "parent_signal": "mshrs.io.resp.valid",
+              "predicate": "BoomNonBlockingDCache::region-0-4::MSHRResponsePending",
+              "signal_condition": {
+                "kind": "frontier-input",
+                "signal": "mshrs.io.resp.valid"
+              },
+              "source_signal": "mshrs.io.resp.valid",
+              "work_unit_id": "BoomNonBlockingDCache::region-0-4"
+            }
+          },
+          "prover": "composition-prover-0.6",
+          "source_theorem": {
+            "axiom_id": "A1",
+            "frozen_umcm_sha256": "2ff1a22d672f9f1f6f6f06609efae7cc5f81f0084c6a34edcffed1b86bb0ef95",
+            "kind": "frozen-theorem",
+            "work_unit_id": "BoomNonBlockingDCache::region-0-4"
+          }
+        },
+        "proof": "trusted forbid theorem lifted across exact parent-local predicate and occurrence bridges",
+        "proof_method": "trusted-child-lift",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "lifted",
+          "proof_method": "trusted-child-lift",
+          "source_axioms": [
+            "BoomNonBlockingDCache::region-0-4::A1"
+          ]
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "RequestAccept"
+        ],
+        "predicates": [
+          "LongLatencyRespPending"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "LongLatencyRespPending => !RequestAccept",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 0,
+        "signal": "io.lsu.s1_nack_advisory[0]"
+      },
+      "axiom_id": "A31",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        1465
+      ],
+      "formal": {
+        "backend": "composition-prover",
+        "certificate": {
+          "prover": "composition-prover-0.6",
+          "value_lift": {
+            "child_rtl_reopened": false,
+            "kind": "trusted-child-value-lift",
+            "signal_bridge": {
+              "child_frontier_signal": "data.io.s1_nacks[0]",
+              "kind": "exact-parent-local-signal-alias",
+              "normal_form": "('ref', 'data.io.s1_nacks[0]')",
+              "target_signal": "io.lsu.s1_nack_advisory[0]"
+            },
+            "source_theorem": {
+              "axiom_id": "A5",
+              "frozen_umcm_sha256": "fc97cfb35907c609be09edb13f062b529bd975e0906ecddf6e5c68c0f0d257ea",
+              "kind": "frozen-theorem",
+              "work_unit_id": "BoomNonBlockingDCache.data"
+            }
+          }
+        },
+        "proof": "trusted child value constraint lifted through an exact parent-local signal alias",
+        "proof_method": "trusted-child-value-lift",
+        "provenance": {
+          "derivation": "formal-certificate-v0.1",
+          "kind": "lifted",
+          "proof_method": "trusted-child-value-lift",
+          "source_axioms": [
+            "BoomNonBlockingDCache.data::A5"
+          ]
+        },
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [],
+        "predicates": [],
+        "signals": [
+          "io.lsu.s1_nack_advisory[0]"
+        ]
+      },
+      "rendered_formula": "bits(io.lsu.s1_nack_advisory[0], 0, 0) == 0",
+      "structural": {
+        "reason": "could not constant-propagate io.lsu.s1_nack_advisory[0]",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    }
+  ],
+  "trusted_axiom_count": 27,
+  "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
+  "validator": "semantic-validator-0.18",
+  "work_unit_id": "BoomNonBlockingDCache"
+}

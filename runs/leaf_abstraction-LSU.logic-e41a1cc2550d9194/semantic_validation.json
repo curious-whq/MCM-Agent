@@ -1,0 +1,387 @@
+{
+  "all_axioms_formally_proved": true,
+  "all_axioms_structurally_supported": true,
+  "candidate_axiom_count": 1,
+  "control_model": {
+    "known_states": [],
+    "reset_state": null,
+    "state_register": "state",
+    "transitions": []
+  },
+  "counts": {
+    "FORMALLY_PROVED": 1,
+    "GROUNDED": 0,
+    "PARTIALLY_SUPPORTED": 0,
+    "REFUTED": 0,
+    "SPEC_PROVED": 0,
+    "STRUCTURALLY_SUPPORTED": 0
+  },
+  "empty_abstraction_certificate": null,
+  "formal_backend": {
+    "api_version": "formal-backend-api-0.18",
+    "available": true,
+    "name": "explicit-control",
+    "note": "Exhaustive formal proof for certified finite-control/order properties, exact symbolic local/identity facts, exact local Boolean exclusion/conservation, bounded indexed token provenance, and selected finite reference equivalence checks. It is not a general bit-level SMT backend.",
+    "proof_domain": "control + exact symbolic local + exact combinational exclusion/conservation + scalar/indexed token provenance + finite reference equivalence",
+    "supported_checkers": [
+      "forbid_when",
+      "history_order",
+      "history_chain",
+      "history_join",
+      "indexed_coverage",
+      "indexed_storage_flow",
+      "indexed_priority_select",
+      "occurrence_partition",
+      "transaction_exclusion",
+      "signal_alias",
+      "constant_bit",
+      "identity_projection",
+      "tilelink_on_probe_spec"
+    ],
+    "trusted_proof_levels": [
+      "FORMALLY_PROVED",
+      "SPEC_PROVED"
+    ]
+  },
+  "has_counterexample": false,
+  "property_compiler": "formal-axiom-compiler-0.11",
+  "public_interface_validation": null,
+  "results": [
+    {
+      "arguments": {
+        "candidate": {
+          "index": {
+            "name": "i",
+            "op": "index_var"
+          },
+          "op": "bit",
+          "value": {
+            "name": "io.matches",
+            "op": "signal"
+          }
+        },
+        "index": {
+          "count": 8,
+          "name": "i"
+        },
+        "initialization": {
+          "kind": "implicit_unconstrained"
+        },
+        "latency_cycles": 1,
+        "priority": {
+          "kind": "cyclic_predecessor",
+          "pivot": {
+            "name": "io.youngest",
+            "op": "signal"
+          }
+        },
+        "result": {
+          "found": "io.found",
+          "index": "io.found_idx"
+        }
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "selection",
+      "checker": "indexed_priority_select",
+      "evidence_statement_ids": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "candidate_signal": "io.matches",
+          "checked_rows": 2048,
+          "found_writer_statement_ids": [
+            49,
+            55,
+            59,
+            63,
+            67,
+            71,
+            75,
+            79,
+            83,
+            87,
+            91,
+            95,
+            99,
+            103,
+            107,
+            111
+          ],
+          "index": {
+            "count": 8,
+            "name": "i"
+          },
+          "index_writer_statement_ids": [
+            50,
+            56,
+            60,
+            64,
+            68,
+            72,
+            76,
+            80,
+            84,
+            88,
+            92,
+            96,
+            100,
+            104,
+            108,
+            112
+          ],
+          "initialization": {
+            "kind": "implicit_unconstrained"
+          },
+          "latency_cycles": 1,
+          "priority": {
+            "kind": "cyclic_predecessor",
+            "pivot": {
+              "name": "io.youngest",
+              "op": "signal"
+            }
+          },
+          "proof": "exhaustive finite equivalence proves the 8-candidate cyclic_predecessor selector; the selected found/index pair is captured by unreset registers and exposed one cycle later",
+          "proof_domain": "exact-registered-indexed-priority-select",
+          "result": {
+            "found_alias_chain": [
+              {
+                "source": "found_match",
+                "statement_id": 52,
+                "target": "io.found"
+              }
+            ],
+            "found_signal": "io.found",
+            "found_state": "found_match",
+            "index_alias_chain": [
+              {
+                "source": "found_idx",
+                "statement_id": 51,
+                "target": "io.found_idx"
+              }
+            ],
+            "index_signal": "io.found_idx",
+            "index_state": "found_idx"
+          },
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "exhaustive finite equivalence proves the 8-candidate cyclic_predecessor selector; the selected found/index pair is captured by unreset registers and exposed one cycle later",
+        "proof_method": "exact-registered-indexed-priority-select",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [],
+        "predicates": [],
+        "signals": [
+          "io.found",
+          "io.found_idx",
+          "io.matches",
+          "io.youngest"
+        ]
+      },
+      "rendered_formula": "after 1 cycle(s), {io.found, io.found_idx} = select_cyclic_predecessor(io.youngest)(bits(io.matches, i, i), i in [0, 8))",
+      "structural": {
+        "candidate_signal": "io.matches",
+        "checked_rows": 2048,
+        "found_writer_statement_ids": [
+          49,
+          55,
+          59,
+          63,
+          67,
+          71,
+          75,
+          79,
+          83,
+          87,
+          91,
+          95,
+          99,
+          103,
+          107,
+          111
+        ],
+        "index": {
+          "count": 8,
+          "name": "i"
+        },
+        "index_writer_statement_ids": [
+          50,
+          56,
+          60,
+          64,
+          68,
+          72,
+          76,
+          80,
+          84,
+          88,
+          92,
+          96,
+          100,
+          104,
+          108,
+          112
+        ],
+        "initialization": {
+          "kind": "implicit_unconstrained"
+        },
+        "latency_cycles": 1,
+        "priority": {
+          "kind": "cyclic_predecessor",
+          "pivot": {
+            "name": "io.youngest",
+            "op": "signal"
+          }
+        },
+        "proof": "exhaustive finite equivalence proves the 8-candidate cyclic_predecessor selector; the selected found/index pair is captured by unreset registers and exposed one cycle later",
+        "proof_domain": "exact-registered-indexed-priority-select",
+        "result": {
+          "found_alias_chain": [
+            {
+              "source": "found_match",
+              "statement_id": 52,
+              "target": "io.found"
+            }
+          ],
+          "found_signal": "io.found",
+          "found_state": "found_match",
+          "index_alias_chain": [
+            {
+              "source": "found_idx",
+              "statement_id": 51,
+              "target": "io.found_idx"
+            }
+          ],
+          "index_signal": "io.found_idx",
+          "index_state": "found_idx"
+        },
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    }
+  ],
+  "trusted_axiom_count": 1,
+  "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
+  "validator": "semantic-validator-0.20",
+  "work_unit_id": "LSU.logic"
+}

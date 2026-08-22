@@ -1,18 +1,19 @@
 from __future__ import annotations
 
 from collections import deque
+from copy import deepcopy
 from dataclasses import dataclass
 import json
 import re
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any, Callable, Iterable
 
 from .research_memory import write_run_summary
 from .axiom_ir import compile_formal_axiom, render_formal_axiom
 
 
-SEMANTIC_VALIDATOR_VERSION = "semantic-validator-0.16"
-PROPERTY_COMPILER_VERSION = "formal-axiom-compiler-0.9"
+SEMANTIC_VALIDATOR_VERSION = "semantic-validator-0.23"
+PROPERTY_COMPILER_VERSION = "formal-axiom-compiler-0.13"
 
 # Structural/static checker outcomes. These deliberately do NOT use the word
 # "proved": they are evidence about an extracted control/dataflow abstraction,
@@ -123,6 +124,11 @@ class HandoffControlModel:
             if isinstance(proof_context, dict)
             else []
         )
+        state_writer_control_statements = (
+            proof_context.get("state_writer_control_statements", [])
+            if isinstance(proof_context, dict)
+            else []
+        )
         visible_statements = list(handoff.get("statements", []))
         visible_ids = {
             int(statement["id"])
@@ -131,7 +137,11 @@ class HandoffControlModel:
         }
         self.proof_context_statement_ids = {
             int(statement["id"])
-            for statement in [*bridge_statements, *state_support_statements]
+            for statement in [
+                *bridge_statements,
+                *state_support_statements,
+                *state_writer_control_statements,
+            ]
             if isinstance(statement, dict) and "id" in statement
         } - visible_ids
         self.statements = {
@@ -140,10 +150,12 @@ class HandoffControlModel:
                 *visible_statements,
                 *bridge_statements,
                 *state_support_statements,
+                *state_writer_control_statements,
             ]
         }
         self.driver: dict[str, tuple[int, str]] = {}
         self.definition_statement: dict[str, int] = {}
+        self._rhs_projection_cache: dict[str, str | None] = {}
         self._build_drivers()
         self.reset_state = self._find_reset_state()
         self.known_states = self._find_known_states()
@@ -201,23 +213,27 @@ class HandoffControlModel:
         entry = self.driver.get(signal)
         if entry:
             return entry[1]
+        if signal in self._rhs_projection_cache:
+            return self._rhs_projection_cache[signal]
         # Recover leaf projections through a driven aggregate temporary.
         # A projection may cross both record fields and nested vector indices,
         # e.g. ``allowed[0]`` or ``foo[1].bar[2]``.
-        prefixes = sorted(
-            (
-                base for base in self.driver
-                if signal.startswith(base + ".") or signal.startswith(base + "[")
-            ),
-            key=len,
-            reverse=True,
-        )
+        # Enumerate only syntactic path prefixes of this signal.  Scanning and
+        # sorting every driver made Boolean-cone discovery quadratic on large
+        # LSU handoffs, where rhs() is queried tens of thousands of times.
+        prefixes = list(reversed([
+            signal[:index]
+            for index, char in enumerate(signal)
+            if char in ".[" and signal[:index] in self.driver
+        ]))
         for base in prefixes:
             entry = self.driver[base]
             suffix = signal[len(base):]
             projected = self._project_aggregate_rhs(entry[1], suffix)
             if projected is not None:
+                self._rhs_projection_cache[signal] = projected
                 return projected
+        self._rhs_projection_cache[signal] = None
         return None
 
     def _possible_ints(self, expr: str, seen: set[str] | None = None) -> set[int] | None:
@@ -1851,7 +1867,11 @@ def _constant_bit(model: HandoffControlModel, *, signal: str, bit: int, expected
 
 
 def _under_root(signal: str, root: str) -> bool:
-    return signal == root or signal.startswith(root + ".")
+    return (
+        signal == root
+        or signal.startswith(root + ".")
+        or signal.startswith(root + "[")
+    )
 
 
 def _canonical_expr(
@@ -1871,11 +1891,34 @@ def _canonical_expr(
 
     text = expr.strip()
     cut_roots = cut_roots or set()
-    if any(_under_root(text, root) for root in cut_roots):
-        return ("ref", text)
+    cut_key = tuple(sorted(str(root) for root in cut_roots))
+    cache = getattr(model, "_canonical_expr_cache", None)
+    if not isinstance(cache, dict):
+        cache = {}
+        setattr(model, "_canonical_expr_cache", cache)
+    cache_key = (text, cut_key)
+    cached = cache.get(cache_key)
+    if cached is not None:
+        return cached
+
+    cut_cache = getattr(model, "_canonical_cut_cache", None)
+    if not isinstance(cut_cache, dict):
+        cut_cache = {}
+        setattr(model, "_canonical_cut_cache", cut_cache)
+    under_cut = cut_cache.get(cache_key)
+    if under_cut is None:
+        under_cut = any(_under_root(text, root) for root in cut_key)
+        cut_cache[cache_key] = under_cut
+    if under_cut:
+        result = ("ref", text)
+        cache[cache_key] = result
+        return result
+
     value = _literal(text)
     if value is not None:
-        return ("lit", value)
+        result = ("lit", value)
+        cache[cache_key] = result
+        return result
     if seen is None:
         seen = set()
     if _SIMPLE_REF_RE.fullmatch(text):
@@ -1883,8 +1926,14 @@ def _canonical_expr(
             return None
         rhs = model.rhs(text)
         if rhs is None:
-            return ("ref", text)
-        return _canonical_expr(model, rhs, cut_roots=cut_roots, seen=seen | {text})
+            result = ("ref", text)
+        else:
+            result = _canonical_expr(model, rhs, cut_roots=cut_roots, seen=seen | {text})
+        # Do not cache cycle-dependent failures.  Successful normalization is
+        # path independent and safely shares large FIRRTL expression DAGs.
+        if result is not None:
+            cache[cache_key] = result
+        return result
     call = _call(text)
     if call is None:
         return None
@@ -1895,7 +1944,9 @@ def _canonical_expr(
         if item is None:
             return None
         normalized.append(item)
-    return ("call", name, *normalized)
+    result = ("call", name, *normalized)
+    cache[cache_key] = result
+    return result
 
 
 def _identity_projection(
@@ -2222,6 +2273,14 @@ def _run_structural_checker(
             from .storage_prover import prove_indexed_storage_flow
 
             return prove_indexed_storage_flow(model, candidate, **args)
+        if checker == "indexed_priority_select":
+            from .priority_select_prover import prove_indexed_priority_select
+
+            return prove_indexed_priority_select(model, candidate, **args)
+        if checker == "register_transition":
+            from .register_transition_prover import prove_register_transition
+
+            return prove_register_transition(model, candidate, **args)
         if checker == "transaction_exclusion":
             return _transaction_exclusion(model, **args)
         if checker == "identity_carrier":
@@ -2237,6 +2296,10 @@ def _run_structural_checker(
                 return prove_conditional_signal_equality(model, candidate, **args)
             return _signal_alias(model, **args)
         if checker == "constant_bit":
+            if args.get("on"):
+                from .formal_patterns import prove_conditional_constant_bit
+
+                return prove_conditional_constant_bit(model, candidate, **args)
             return _constant_bit(model, **args)
         if checker == "external_formal":
             return {
@@ -2315,6 +2378,13 @@ def _trusted_parent_provenance(
     return certified
 
 
+def _declared_public_interface(candidate: dict[str, Any]) -> dict[str, Any] | None:
+    extensions = candidate.get("extensions")
+    parent = extensions.get("parent_synthesis") if isinstance(extensions, dict) else None
+    interface = parent.get("public_interface") if isinstance(parent, dict) else None
+    return deepcopy(interface) if isinstance(interface, dict) else None
+
+
 def _build_trusted_umcm(candidate: dict[str, Any], results: list[dict[str, Any]]) -> dict[str, Any]:
     trusted_ids = {
         result["axiom_id"]
@@ -2325,9 +2395,16 @@ def _build_trusted_umcm(candidate: dict[str, Any], results: list[dict[str, Any]]
         axiom for axiom in candidate.get("axioms", []) if axiom.get("id") in trusted_ids
     ]
 
-    occurrence_ids: set[str] = set()
-    predicate_ids: set[str] = set()
-    identity_ids: set[str] = set()
+    public_interface = _declared_public_interface(candidate)
+    occurrence_ids: set[str] = {
+        str(item) for item in (public_interface or {}).get("exported_occurrence_ids", [])
+    }
+    predicate_ids: set[str] = {
+        str(item) for item in (public_interface or {}).get("exported_predicate_ids", [])
+    }
+    identity_ids: set[str] = {
+        str(item) for item in (public_interface or {}).get("exported_identity_ids", [])
+    }
     case_ids: set[str] = set()
     rendered_axioms = []
     for axiom in trusted_axioms:
@@ -2370,6 +2447,21 @@ def _build_trusted_umcm(candidate: dict[str, Any], results: list[dict[str, Any]]
     provenance = _trusted_parent_provenance(candidate, results, trusted_ids)
     if provenance is not None:
         trusted["provenance"] = provenance
+    if public_interface is not None:
+        declared_public_axioms = {
+            str(item) for item in public_interface.get("exported_axiom_ids", [])
+        }
+        trusted_public_axioms = sorted(declared_public_axioms & trusted_ids)
+        trusted["public_interface"] = {
+            "policy": public_interface.get("policy"),
+            "exported_axiom_ids": trusted_public_axioms,
+            "private_axiom_ids": sorted(trusted_ids - set(trusted_public_axioms)),
+            "exported_occurrence_ids": sorted(occurrence_ids),
+            "exported_predicate_ids": sorted(predicate_ids),
+            "exported_identity_ids": sorted(identity_ids),
+            "boundary_coverage": deepcopy(public_interface.get("boundary_coverage", [])),
+            "all_exported_axioms_trusted": declared_public_axioms <= trusted_ids,
+        }
     return trusted
 
 
@@ -2430,6 +2522,7 @@ def run_semantic_validation(
     handoff: dict[str, Any],
     *,
     formal_backend: str = "none",
+    progress_callback: Callable[[dict[str, Any]], None] | None = None,
 ) -> dict[str, Any]:
     from .formal import get_formal_backend
 
@@ -2439,11 +2532,29 @@ def run_semantic_validation(
         if register:
             state_register = register
             break
+    else:
+        for predicate in candidate.get("predicates", []):
+            register = predicate.get("grounding", {}).get("state_register")
+            if register:
+                state_register = register
+                break
 
     model = HandoffControlModel(handoff, state_register=state_register)
     model.label_occurrences(candidate.get("occurrences", []))
     compiled = compile_candidate_properties(candidate)
     backend = get_formal_backend(formal_backend)
+    obligations = compiled["obligations"]
+
+    def report(stage: str, **details: Any) -> None:
+        if progress_callback is not None:
+            progress_callback({"stage": stage, **details})
+
+    report(
+        "validation_started",
+        total=len(obligations),
+        backend=backend.name,
+        work_unit_id=candidate.get("work_unit_id"),
+    )
 
     imported_refs = {
         "occurrences": set(handoff.get("grounding", {}).get("imported_occurrence_ids", [])),
@@ -2452,13 +2563,21 @@ def run_semantic_validation(
     }
 
     results: list[dict[str, Any]] = []
-    for obligation in compiled["obligations"]:
+    for index, obligation in enumerate(obligations, start=1):
+        progress_details = {
+            "index": index,
+            "total": len(obligations),
+            "axiom_id": str(obligation.get("axiom_id", "")),
+            "checker": str(obligation.get("checker", "")),
+        }
+        report("obligation_started", **progress_details)
         references = obligation.get("references", {})
         uses_imported = any(
             set(references.get(kind, [])) & imported_refs[kind]
             for kind in ("occurrences", "predicates", "identities")
         )
         if uses_imported:
+            report("phase_started", phase="imported-deferred", **progress_details)
             structural = {
                 "status": STRUCTURAL_UNKNOWN,
                 "reason": (
@@ -2476,11 +2595,19 @@ def run_semantic_validation(
                 ),
             }
         else:
+            report("phase_started", phase="structural", **progress_details)
             structural = _run_structural_checker(model, candidate, obligation)
             # Structural control/dataflow checkers are conservative abstractions.
             # Their counterexamples may therefore be spurious; an exact formal
             # proof is allowed to discharge the concrete obligation.
-            formal = backend.prove(obligation, candidate=candidate, handoff=handoff)
+            report("phase_started", phase="formal", **progress_details)
+            formal = backend.prove(
+                obligation,
+                candidate=candidate,
+                handoff=handoff,
+                model=model,
+                structural=structural,
+            )
 
         level = _validation_level(structural.get("status", STRUCTURAL_UNKNOWN), formal.get("status", "NOT_RUN"))
         results.append(
@@ -2493,10 +2620,17 @@ def run_semantic_validation(
                 "trusted": level in {FORMALLY_PROVED, SPEC_PROVED},
             }
         )
+        report(
+            "obligation_completed",
+            validation_level=level,
+            formal_status=str(formal.get("status", "NOT_RUN")),
+            **progress_details,
+        )
 
     if backend.name != "none" and handoff.get("composition", {}).get("mode") == "parent_synthesis":
         from .composition_prover import prove_composition_obligations
 
+        report("composition_started", total=len(obligations))
         composed = prove_composition_obligations(candidate, handoff, results)
         for result in results:
             proof = composed.get(str(result.get("axiom_id")))
@@ -2509,6 +2643,11 @@ def run_semantic_validation(
             )
             result["validation_level"] = level
             result["trusted"] = level in {FORMALLY_PROVED, SPEC_PROVED}
+        report(
+            "composition_completed",
+            total=len(obligations),
+            proved_axiom_ids=sorted(composed),
+        )
 
     level_order = [GROUNDED, PARTIALLY_SUPPORTED, STRUCTURALLY_SUPPORTED, FORMALLY_PROVED, SPEC_PROVED, REFUTED]
     counts = {
@@ -2533,6 +2672,30 @@ def run_semantic_validation(
             for result in results
         )
     )
+    declared_public = _declared_public_interface(candidate)
+    public_validation = None
+    if declared_public is not None:
+        exported = {
+            str(item) for item in declared_public.get("exported_axiom_ids", [])
+        }
+        trusted_result_ids = {
+            str(result.get("axiom_id")) for result in results if result.get("trusted")
+        }
+        public_validation = {
+            "policy": declared_public.get("policy"),
+            "exported_axiom_count": len(exported),
+            "trusted_exported_axiom_count": len(exported & trusted_result_ids),
+            "private_axiom_count": len(results) - len(exported),
+            "all_exported_axioms_trusted": exported <= trusted_result_ids,
+            "boundary_coverage_count": len(declared_public.get("boundary_coverage", [])),
+        }
+
+    report(
+        "validation_completed",
+        total=len(obligations),
+        counts=counts,
+        trusted_axiom_count=sum(1 for result in results if result.get("trusted")),
+    )
 
     return {
         "validator": SEMANTIC_VALIDATOR_VERSION,
@@ -2553,6 +2716,7 @@ def run_semantic_validation(
         "all_axioms_formally_proved": all_formal,
         "has_counterexample": has_counterexample,
         "empty_abstraction_certificate": empty_leaf_certificate,
+        "public_interface_validation": public_validation,
         "validation_policy": (
             "Grounding and deterministic finite-control/dataflow checks provide evidence only. "
             "They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms "
@@ -2561,7 +2725,12 @@ def run_semantic_validation(
     }
 
 
-def validate_task_dir(task_dir: str | Path, *, formal_backend: str = "none") -> dict[str, Any]:
+def validate_task_dir(
+    task_dir: str | Path,
+    *,
+    formal_backend: str = "none",
+    progress_callback: Callable[[dict[str, Any]], None] | None = None,
+) -> dict[str, Any]:
     directory = Path(task_dir)
     task = json.loads((directory / "task.json").read_text(encoding="utf-8"))
     candidate = json.loads((directory / "response_parsed.json").read_text(encoding="utf-8"))
@@ -2570,7 +2739,12 @@ def validate_task_dir(task_dir: str | Path, *, formal_backend: str = "none") -> 
         raise ValueError("candidate grounding is invalid; semantic validation is fail-closed")
     handoff = json.loads((directory / "static_handoff.json").read_text(encoding="utf-8"))
     compiled = compile_candidate_properties(candidate)
-    semantic = run_semantic_validation(candidate, handoff, formal_backend=formal_backend)
+    semantic = run_semantic_validation(
+        candidate,
+        handoff,
+        formal_backend=formal_backend,
+        progress_callback=progress_callback,
+    )
     trusted = _build_trusted_umcm(candidate, semantic["results"])
     if semantic.get("empty_abstraction_certificate") is not None:
         trusted["empty_abstraction"] = semantic["empty_abstraction_certificate"]
@@ -2670,6 +2844,18 @@ def freeze_task_dir(task_dir: str | Path) -> dict[str, Any]:
     if len(trusted.get("axioms", [])) != len(candidate.get("axioms", [])):
         raise ValueError("trusted µMCM does not contain every declared candidate axiom")
 
+    if task.get("kind") == "parent_synthesis":
+        prompt_match = re.fullmatch(
+            r"parent-synthesis-prompt-0\.(\d+)",
+            str(task.get("prompt_version", "")),
+        )
+        prompt_minor = int(prompt_match.group(1)) if prompt_match else None
+        if prompt_minor is not None and prompt_minor >= 3 and _declared_public_interface(candidate) is None:
+            raise ValueError(
+                "cannot freeze a compact parent task without an explicit public interface; "
+                "regenerate it with parent-synthesis-prompt-0.4 or newer"
+            )
+
     empty_leaf_certificate = _certified_empty_leaf_abstraction(candidate, handoff)
     if task.get("kind") != "parent_synthesis" and not candidate.get("axioms"):
         if empty_leaf_certificate is None:
@@ -2689,6 +2875,10 @@ def freeze_task_dir(task_dir: str | Path) -> dict[str, Any]:
         if trusted.get("provenance") != expected_trusted.get("provenance"):
             raise ValueError(
                 "trusted parent provenance is missing or stale; rerun semantic validation before freezing"
+            )
+        if trusted.get("public_interface") != expected_trusted.get("public_interface"):
+            raise ValueError(
+                "trusted parent public interface is missing or stale; rerun semantic validation before freezing"
             )
 
     frozen = dict(trusted)
@@ -2749,9 +2939,23 @@ def freeze_task_dir(task_dir: str | Path) -> dict[str, Any]:
 
     frozen["freeze"] = {
         "status": "FROZEN_FOR_COMPOSITION",
-        "policy": "all-declared-axioms-trusted-and-no-unresolved-v0.1",
+        "policy": (
+            "all-declared-axioms-trusted-plus-explicit-public-interface-v0.2"
+            if isinstance(trusted.get("public_interface"), dict)
+            else "all-declared-axioms-trusted-and-no-unresolved-v0.1"
+        ),
         "candidate_axiom_count": len(candidate.get("axioms", [])),
         "trusted_axiom_count": len(trusted.get("axioms", [])),
+        "exported_axiom_count": len(
+            trusted.get("public_interface", {}).get("exported_axiom_ids", [])
+            if isinstance(trusted.get("public_interface"), dict)
+            else trusted.get("trusted_axiom_ids", [])
+        ),
+        "private_axiom_count": len(
+            trusted.get("public_interface", {}).get("private_axiom_ids", [])
+            if isinstance(trusted.get("public_interface"), dict)
+            else []
+        ),
         "empty_abstraction": empty_leaf_certificate is not None,
         "reopen_policy": (
             "This summary may be reopened if later parent/system counterexample validation "

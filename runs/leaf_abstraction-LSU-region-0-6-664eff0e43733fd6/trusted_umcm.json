@@ -1,0 +1,817 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2238,
+        2239,
+        2256,
+        2378,
+        2379,
+        2399,
+        2400,
+        2401,
+        2413,
+        2414,
+        2415,
+        2416,
+        2443,
+        2444,
+        2445,
+        2460,
+        2461,
+        2470,
+        2471,
+        2472,
+        2473,
+        2474,
+        2499,
+        2500,
+        2509
+      ],
+      "formal": {
+        "parts": [
+          "LoadExecuteRequest",
+          "LoadRetryRequest",
+          "StoreCommitRequest",
+          "LoadWakeupRequest",
+          "HellaIncomingRequest",
+          "HellaWakeupRequest"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "DCacheRequest"
+      },
+      "id": "A1",
+      "rendered_formula": "DCacheRequest <=> exactly_one_same_cycle({LoadExecuteRequest, LoadRetryRequest, StoreCommitRequest, LoadWakeupRequest, HellaIncomingRequest, HellaWakeupRequest})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2239,
+        2378,
+        2380
+      ],
+      "formal": {
+        "on": "LoadExecuteRequest",
+        "scope_identity": null,
+        "source": {
+          "name": "exe_tlb_paddr[0]",
+          "op": "signal"
+        },
+        "target": "io.dmem.req.bits[0].bits.addr",
+        "type": "signal_equality"
+      },
+      "id": "A2",
+      "rendered_formula": "io.dmem.req.bits[0].bits.addr = exe_tlb_paddr[0] on LoadExecuteRequest",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2239,
+        2400,
+        2402
+      ],
+      "formal": {
+        "on": "LoadRetryRequest",
+        "scope_identity": null,
+        "source": {
+          "name": "exe_tlb_paddr[0]",
+          "op": "signal"
+        },
+        "target": "io.dmem.req.bits[0].bits.addr",
+        "type": "signal_equality"
+      },
+      "id": "A3",
+      "rendered_formula": "io.dmem.req.bits[0].bits.addr = exe_tlb_paddr[0] on LoadRetryRequest",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2239,
+        2414,
+        2415,
+        2417
+      ],
+      "formal": {
+        "on": "StoreCommitRequest",
+        "scope_identity": null,
+        "source": {
+          "name": "stq_execute_queue.io.deq.bits.addr.bits",
+          "op": "signal"
+        },
+        "target": "io.dmem.req.bits[0].bits.addr",
+        "type": "signal_equality"
+      },
+      "id": "A4",
+      "rendered_formula": "io.dmem.req.bits[0].bits.addr = stq_execute_queue.io.deq.bits.addr.bits on StoreCommitRequest",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2239,
+        2444,
+        2446
+      ],
+      "formal": {
+        "on": "LoadWakeupRequest",
+        "scope_identity": null,
+        "source": {
+          "name": "ldq_wakeup_e.bits.addr.bits",
+          "op": "signal"
+        },
+        "target": "io.dmem.req.bits[0].bits.addr",
+        "type": "signal_equality"
+      },
+      "id": "A5",
+      "rendered_formula": "io.dmem.req.bits[0].bits.addr = ldq_wakeup_e.bits.addr.bits on LoadWakeupRequest",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2239,
+        2461,
+        2475
+      ],
+      "formal": {
+        "on": "HellaIncomingRequest",
+        "scope_identity": null,
+        "source": {
+          "name": "exe_tlb_paddr[0]",
+          "op": "signal"
+        },
+        "target": "io.dmem.req.bits[0].bits.addr",
+        "type": "signal_equality"
+      },
+      "id": "A6",
+      "rendered_formula": "io.dmem.req.bits[0].bits.addr = exe_tlb_paddr[0] on HellaIncomingRequest",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2239,
+        2500,
+        2510
+      ],
+      "formal": {
+        "on": "HellaWakeupRequest",
+        "scope_identity": null,
+        "source": {
+          "name": "hella_paddr",
+          "op": "signal"
+        },
+        "target": "io.dmem.req.bits[0].bits.addr",
+        "type": "signal_equality"
+      },
+      "id": "A7",
+      "rendered_formula": "io.dmem.req.bits[0].bits.addr = hella_paddr on HellaWakeupRequest",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2239,
+        2372,
+        2378,
+        2379
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.dmem.req.bits[0].bits.is_hella",
+            "op": "signal"
+          }
+        },
+        "on": "LoadExecuteRequest",
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "id": "A8",
+      "rendered_formula": "bits(io.dmem.req.bits[0].bits.is_hella, 0, 0) == 0 on LoadExecuteRequest",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2239,
+        2372,
+        2400,
+        2401
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.dmem.req.bits[0].bits.is_hella",
+            "op": "signal"
+          }
+        },
+        "on": "LoadRetryRequest",
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "id": "A9",
+      "rendered_formula": "bits(io.dmem.req.bits[0].bits.is_hella, 0, 0) == 0 on LoadRetryRequest",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2239,
+        2372,
+        2415,
+        2416
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.dmem.req.bits[0].bits.is_hella",
+            "op": "signal"
+          }
+        },
+        "on": "StoreCommitRequest",
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "id": "A10",
+      "rendered_formula": "bits(io.dmem.req.bits[0].bits.is_hella, 0, 0) == 0 on StoreCommitRequest",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2239,
+        2372,
+        2444,
+        2445
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.dmem.req.bits[0].bits.is_hella",
+            "op": "signal"
+          }
+        },
+        "on": "LoadWakeupRequest",
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "id": "A11",
+      "rendered_formula": "bits(io.dmem.req.bits[0].bits.is_hella, 0, 0) == 0 on LoadWakeupRequest",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2239,
+        2461,
+        2497
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.dmem.req.bits[0].bits.is_hella",
+            "op": "signal"
+          }
+        },
+        "on": "HellaIncomingRequest",
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 1
+      },
+      "id": "A12",
+      "rendered_formula": "bits(io.dmem.req.bits[0].bits.is_hella, 0, 0) == 1 on HellaIncomingRequest",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2239,
+        2500,
+        2532
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.dmem.req.bits[0].bits.is_hella",
+            "op": "signal"
+          }
+        },
+        "on": "HellaWakeupRequest",
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 1
+      },
+      "id": "A13",
+      "rendered_formula": "bits(io.dmem.req.bits[0].bits.is_hella, 0, 0) == 1 on HellaWakeupRequest",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2239,
+        2461,
+        2494
+      ],
+      "formal": {
+        "on": "HellaIncomingRequest",
+        "scope_identity": null,
+        "source": {
+          "name": "hella_req.cmd",
+          "op": "signal"
+        },
+        "target": "io.dmem.req.bits[0].bits.uop.mem_cmd",
+        "type": "signal_equality"
+      },
+      "id": "A14",
+      "rendered_formula": "io.dmem.req.bits[0].bits.uop.mem_cmd = hella_req.cmd on HellaIncomingRequest",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2239,
+        2500,
+        2529
+      ],
+      "formal": {
+        "on": "HellaWakeupRequest",
+        "scope_identity": null,
+        "source": {
+          "name": "hella_req.cmd",
+          "op": "signal"
+        },
+        "target": "io.dmem.req.bits[0].bits.uop.mem_cmd",
+        "type": "signal_equality"
+      },
+      "id": "A15",
+      "rendered_formula": "io.dmem.req.bits[0].bits.uop.mem_cmd = hella_req.cmd on HellaWakeupRequest",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2239,
+        2461,
+        2495
+      ],
+      "formal": {
+        "on": "HellaIncomingRequest",
+        "scope_identity": null,
+        "source": {
+          "name": "hella_req.size",
+          "op": "signal"
+        },
+        "target": "io.dmem.req.bits[0].bits.uop.mem_size",
+        "type": "signal_equality"
+      },
+      "id": "A16",
+      "rendered_formula": "io.dmem.req.bits[0].bits.uop.mem_size = hella_req.size on HellaIncomingRequest",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2239,
+        2500,
+        2530
+      ],
+      "formal": {
+        "on": "HellaWakeupRequest",
+        "scope_identity": null,
+        "source": {
+          "name": "hella_req.size",
+          "op": "signal"
+        },
+        "target": "io.dmem.req.bits[0].bits.uop.mem_size",
+        "type": "signal_equality"
+      },
+      "id": "A17",
+      "rendered_formula": "io.dmem.req.bits[0].bits.uop.mem_size = hella_req.size on HellaWakeupRequest",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        1367,
+        1368,
+        1369,
+        1370,
+        1646,
+        1654,
+        1664,
+        2400,
+        2401
+      ],
+      "formal": {
+        "occurrence": "LoadRetryRequest",
+        "predicate": "RetryOrderBlock",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A18",
+      "rendered_formula": "RetryOrderBlock => !LoadRetryRequest",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        1403,
+        1404,
+        1405,
+        1435,
+        1668,
+        1676,
+        1686,
+        2444,
+        2445
+      ],
+      "formal": {
+        "occurrence": "LoadWakeupRequest",
+        "predicate": "WakeupOrderBlock",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A19",
+      "rendered_formula": "WakeupOrderBlock => !LoadWakeupRequest",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        1409,
+        1410,
+        1411,
+        1416,
+        1417,
+        1418,
+        1419,
+        1420,
+        1421,
+        1422,
+        1424,
+        1427,
+        1428,
+        1429,
+        1430,
+        1431,
+        1432,
+        1433,
+        1435,
+        1668,
+        1676,
+        1686,
+        2444,
+        2445
+      ],
+      "formal": {
+        "occurrence": "LoadWakeupRequest",
+        "predicate": "UncacheableWakeupOrderBlocked",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A20",
+      "rendered_formula": "UncacheableWakeupOrderBlocked => !LoadWakeupRequest",
+      "status": "candidate"
+    }
+  ],
+  "cases": [],
+  "identity_keys": [],
+  "note": "Only axioms with FORMALLY_PROVED or SPEC_PROVED validation level are included. Grounded/structurally-supported candidate axioms remain outside the trusted abstraction.",
+  "occurrences": [
+    {
+      "definition": "io.dmem.req.valid && io.dmem.req.ready; one LSU request is accepted by the DCache request interface",
+      "evidence_statement_ids": [
+        2238,
+        2239
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.dmem.req.valid",
+          "io.dmem.req.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "DCacheRequest",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "LSU::io.dmem.req.fire"
+      ]
+    },
+    {
+      "definition": "io.dmem.req.fire && will_fire_load_agen_exec[0]; an accepted DCache request generated by the initial load execute path",
+      "evidence_statement_ids": [
+        2238,
+        2239,
+        2378,
+        2379
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.dmem.req.valid",
+          "io.dmem.req.ready",
+          "will_fire_load_agen_exec[0]"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "LoadExecuteRequest",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "LSU::io.dmem.req.fire"
+      ]
+    },
+    {
+      "definition": "io.dmem.req.fire && !will_fire_load_agen_exec[0] && will_fire_load_retry[0]; an accepted request from the load retry path",
+      "evidence_statement_ids": [
+        2238,
+        2239,
+        2399,
+        2400,
+        2401
+      ],
+      "grounding": {
+        "signals_false": [
+          "will_fire_load_agen_exec[0]"
+        ],
+        "signals_true": [
+          "io.dmem.req.valid",
+          "io.dmem.req.ready",
+          "will_fire_load_retry[0]"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "LoadRetryRequest",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "LSU::io.dmem.req.fire"
+      ]
+    },
+    {
+      "definition": "io.dmem.req.fire && !will_fire_load_agen_exec[0] && !will_fire_load_retry[0] && (will_fire_store_commit_slow[0] || will_fire_store_commit_fast[0]); an accepted committed-store request",
+      "evidence_statement_ids": [
+        2238,
+        2239,
+        2413,
+        2414,
+        2415,
+        2416
+      ],
+      "grounding": {
+        "signals_false": [
+          "will_fire_load_agen_exec[0]",
+          "will_fire_load_retry[0]"
+        ],
+        "signals_true": [
+          "io.dmem.req.valid",
+          "io.dmem.req.ready",
+          "_T_145"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "StoreCommitRequest",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "LSU::io.dmem.req.fire"
+      ]
+    },
+    {
+      "definition": "io.dmem.req.fire && !will_fire_load_agen_exec[0] && !will_fire_load_retry[0] && !_T_145 && will_fire_load_wakeup[0]; an accepted re-execution request for a previously blocked or nacked load",
+      "evidence_statement_ids": [
+        2238,
+        2239,
+        2443,
+        2444,
+        2445
+      ],
+      "grounding": {
+        "signals_false": [
+          "will_fire_load_agen_exec[0]",
+          "will_fire_load_retry[0]",
+          "_T_145"
+        ],
+        "signals_true": [
+          "io.dmem.req.valid",
+          "io.dmem.req.ready",
+          "will_fire_load_wakeup[0]"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "LoadWakeupRequest",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "LSU::io.dmem.req.fire"
+      ]
+    },
+    {
+      "definition": "io.dmem.req.fire && !will_fire_load_agen_exec[0] && !will_fire_load_retry[0] && !_T_145 && !will_fire_load_wakeup[0] && will_fire_hella_incoming[0]; an accepted newly issued HellaCache request",
+      "evidence_statement_ids": [
+        2238,
+        2239,
+        2460,
+        2461,
+        2470,
+        2471,
+        2472,
+        2473,
+        2474
+      ],
+      "grounding": {
+        "signals_false": [
+          "will_fire_load_agen_exec[0]",
+          "will_fire_load_retry[0]",
+          "_T_145",
+          "will_fire_load_wakeup[0]"
+        ],
+        "signals_true": [
+          "io.dmem.req.valid",
+          "io.dmem.req.ready",
+          "will_fire_hella_incoming[0]"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "HellaIncomingRequest",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "LSU::io.dmem.req.fire"
+      ]
+    },
+    {
+      "definition": "io.dmem.req.fire && !will_fire_load_agen_exec[0] && !will_fire_load_retry[0] && !_T_145 && !will_fire_load_wakeup[0] && !will_fire_hella_incoming[0] && will_fire_hella_wakeup[0]; an accepted replay of a HellaCache request",
+      "evidence_statement_ids": [
+        2238,
+        2239,
+        2499,
+        2500,
+        2509
+      ],
+      "grounding": {
+        "signals_false": [
+          "will_fire_load_agen_exec[0]",
+          "will_fire_load_retry[0]",
+          "_T_145",
+          "will_fire_load_wakeup[0]",
+          "will_fire_hella_incoming[0]"
+        ],
+        "signals_true": [
+          "io.dmem.req.valid",
+          "io.dmem.req.ready",
+          "will_fire_hella_wakeup[0]"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "HellaWakeupRequest",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "LSU::io.dmem.req.fire"
+      ]
+    }
+  ],
+  "predicates": [
+    {
+      "definition": "can_fire_load_retry_REG is the registered store_needs_order condition that blocks load retry scheduling",
+      "evidence_statement_ids": [
+        1367,
+        1368,
+        1369,
+        1370
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "can_fire_load_retry_REG",
+        "state_register": "can_fire_load_retry_REG",
+        "state_values": [
+          1
+        ]
+      },
+      "id": "RetryOrderBlock"
+    },
+    {
+      "definition": "can_fire_load_wakeup_REG is the registered store_needs_order condition that blocks load wakeup scheduling",
+      "evidence_statement_ids": [
+        1403,
+        1404,
+        1405
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "can_fire_load_wakeup_REG",
+        "state_register": "can_fire_load_wakeup_REG",
+        "state_values": [
+          1
+        ]
+      },
+      "id": "WakeupOrderBlock"
+    },
+    {
+      "definition": "the selected load-wakeup candidate is uncacheable and does not satisfy the required ROB-head, LDQ-head, and older-store age condition",
+      "evidence_statement_ids": [
+        1409,
+        1410,
+        1411,
+        1412,
+        1413,
+        1414,
+        1415,
+        1416,
+        1417,
+        1418,
+        1419,
+        1420,
+        1421,
+        1422,
+        1424,
+        1427,
+        1428,
+        1429,
+        1430,
+        1431,
+        1432
+      ],
+      "grounding": {
+        "negated": true,
+        "source_signal": "_can_fire_load_wakeup_T_33",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "UncacheableWakeupOrderBlocked"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-LSU-region-0-6-664eff0e43733fd6",
+  "trust_policy": "formal-ast-plus-certified-provenance-v0.3",
+  "trusted_axiom_ids": [
+    "A1",
+    "A10",
+    "A11",
+    "A12",
+    "A13",
+    "A14",
+    "A15",
+    "A16",
+    "A17",
+    "A18",
+    "A19",
+    "A2",
+    "A20",
+    "A3",
+    "A4",
+    "A5",
+    "A6",
+    "A7",
+    "A8",
+    "A9"
+  ],
+  "work_unit_id": "LSU::region-0-6"
+}

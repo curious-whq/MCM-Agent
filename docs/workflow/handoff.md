@@ -5,8 +5,8 @@
 把一个已完成静态 ownership 的 `HierarchicalWorkUnit` 转成自包含 semantic task input。当前：
 
 ```text
-HANDOFF_SCHEMA_VERSION = workunit-static-0.1
-PLANNER_VERSION        = hierarchical-planner-v11
+HANDOFF_SCHEMA_VERSION = workunit-static-0.4
+PLANNER_VERSION        = hierarchical-planner-v14
 ```
 
 `build_work_unit_static_handoff()` 只接受 `coverage.complete == true` 的 WorkUnit。

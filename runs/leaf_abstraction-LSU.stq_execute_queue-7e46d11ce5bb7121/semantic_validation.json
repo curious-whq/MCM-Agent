@@ -1,0 +1,1389 @@
+{
+  "all_axioms_formally_proved": true,
+  "all_axioms_structurally_supported": true,
+  "candidate_axiom_count": 6,
+  "control_model": {
+    "known_states": [],
+    "reset_state": null,
+    "state_register": "state",
+    "transitions": []
+  },
+  "counts": {
+    "FORMALLY_PROVED": 6,
+    "GROUNDED": 0,
+    "PARTIALLY_SUPPORTED": 0,
+    "REFUTED": 0,
+    "SPEC_PROVED": 0,
+    "STRUCTURALLY_SUPPORTED": 0
+  },
+  "empty_abstraction_certificate": null,
+  "formal_backend": {
+    "api_version": "formal-backend-api-0.21",
+    "available": true,
+    "name": "explicit-control",
+    "note": "Exhaustive formal proof for certified finite-control/order properties, exact symbolic local/identity facts, exact local Boolean exclusion/conservation, bounded indexed token provenance, and selected finite reference equivalence checks. It is not a general bit-level SMT backend.",
+    "proof_domain": "control + exact symbolic local + exact combinational exclusion/conservation + scalar/indexed token provenance + finite reference equivalence",
+    "supported_checkers": [
+      "forbid_when",
+      "history_order",
+      "history_chain",
+      "history_join",
+      "indexed_coverage",
+      "indexed_storage_flow",
+      "indexed_priority_select",
+      "occurrence_partition",
+      "transaction_exclusion",
+      "signal_alias",
+      "constant_bit",
+      "identity_projection",
+      "tilelink_on_probe_spec"
+    ],
+    "trusted_proof_levels": [
+      "FORMALLY_PROVED",
+      "SPEC_PROVED"
+    ]
+  },
+  "has_counterexample": false,
+  "property_compiler": "formal-axiom-compiler-0.11",
+  "public_interface_validation": null,
+  "results": [
+    {
+      "arguments": {
+        "occurrence": "EnqHandshake",
+        "predicate": "QueueFull"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        7,
+        10,
+        11,
+        12,
+        13,
+        47,
+        48
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 3,
+          "event_gate_bridge_statement_ids": [],
+          "proof": "EnqHandshake and QueueFull have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "EnqHandshake and QueueFull have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "EnqHandshake"
+        ],
+        "predicates": [
+          "QueueFull"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "QueueFull => !EnqHandshake",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "DeqHandshake",
+        "predicate": "QueueEmpty"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        7,
+        8,
+        9,
+        14,
+        15,
+        16,
+        45,
+        46
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 3,
+          "event_gate_bridge_statement_ids": [],
+          "proof": "DeqHandshake and QueueEmpty have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "DeqHandshake and QueueEmpty have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "DeqHandshake"
+        ],
+        "predicates": [
+          "QueueEmpty"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "QueueEmpty => !DeqHandshake",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "parts": [
+          "QueueInsert"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "EnqHandshake"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        11,
+        12,
+        13,
+        17
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "mutex_pairs": [],
+          "obligations": [
+            {
+              "atom_count": 3,
+              "kind": "whole_without_part",
+              "unsat": true
+            },
+            {
+              "atom_count": 3,
+              "kind": "part_without_whole",
+              "unsat": true
+            }
+          ],
+          "parts": [
+            "QueueInsert"
+          ],
+          "proof": "EnqHandshake is equivalent to the same-cycle disjunction of its parts, and every pair of parts has an unsatisfiable conjunction",
+          "proof_domain": "exact-same-cycle-occurrence-partition",
+          "reachable_lock_certificates": [],
+          "status": "STRUCTURALLY_SUPPORTED",
+          "whole": "EnqHandshake"
+        },
+        "proof": "EnqHandshake is equivalent to the same-cycle disjunction of its parts, and every pair of parts has an unsatisfiable conjunction",
+        "proof_method": "exact-same-cycle-occurrence-partition",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "EnqHandshake",
+          "QueueInsert"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "EnqHandshake <=> exactly_one_same_cycle({QueueInsert})",
+      "structural": {
+        "mutex_pairs": [],
+        "obligations": [
+          {
+            "atom_count": 3,
+            "kind": "whole_without_part",
+            "unsat": true
+          },
+          {
+            "atom_count": 3,
+            "kind": "part_without_whole",
+            "unsat": true
+          }
+        ],
+        "parts": [
+          "QueueInsert"
+        ],
+        "proof": "EnqHandshake is equivalent to the same-cycle disjunction of its parts, and every pair of parts has an unsatisfiable conjunction",
+        "proof_domain": "exact-same-cycle-occurrence-partition",
+        "reachable_lock_certificates": [],
+        "status": "STRUCTURALLY_SUPPORTED",
+        "whole": "EnqHandshake"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "QueueInsert",
+        "source": "io.enq.bits",
+        "target": "MPORT"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "fields": [
+            {
+              "certificate": {
+                "alias_chain": [],
+                "all_driver_statement_ids": [
+                  28
+                ],
+                "on": "QueueInsert",
+                "proof": "every last-connect driver of MPORT.uop reachable on QueueInsert equals io.enq.bits.uop",
+                "proof_domain": "exact-conditional-symbolic-driver-equality",
+                "reachable_lock_certificates": [],
+                "resolved_target": "MPORT.uop",
+                "selected_drivers": [
+                  {
+                    "activation": {
+                      "control_polarities": {
+                        "do_enq": "positive"
+                      },
+                      "control_signals": [
+                        "do_enq"
+                      ],
+                      "control_statement_ids": [
+                        17
+                      ],
+                      "kind": "exact-branch-conjunction"
+                    },
+                    "atom_count": 3,
+                    "rhs": "io.enq.bits.uop",
+                    "statement_id": 28,
+                    "value_proof": {
+                      "kind": "symbolic-normal-form-equality"
+                    }
+                  }
+                ],
+                "source": "io.enq.bits.uop",
+                "status": "STRUCTURALLY_SUPPORTED",
+                "target": "MPORT.uop",
+                "unconditional_strengthening": false
+              },
+              "field": "uop"
+            },
+            {
+              "certificate": {
+                "alias_chain": [],
+                "all_driver_statement_ids": [
+                  27
+                ],
+                "on": "QueueInsert",
+                "proof": "every last-connect driver of MPORT.addr reachable on QueueInsert equals io.enq.bits.addr",
+                "proof_domain": "exact-conditional-symbolic-driver-equality",
+                "reachable_lock_certificates": [],
+                "resolved_target": "MPORT.addr",
+                "selected_drivers": [
+                  {
+                    "activation": {
+                      "control_polarities": {
+                        "do_enq": "positive"
+                      },
+                      "control_signals": [
+                        "do_enq"
+                      ],
+                      "control_statement_ids": [
+                        17
+                      ],
+                      "kind": "exact-branch-conjunction"
+                    },
+                    "atom_count": 3,
+                    "rhs": "io.enq.bits.addr",
+                    "statement_id": 27,
+                    "value_proof": {
+                      "kind": "symbolic-normal-form-equality"
+                    }
+                  }
+                ],
+                "source": "io.enq.bits.addr",
+                "status": "STRUCTURALLY_SUPPORTED",
+                "target": "MPORT.addr",
+                "unconditional_strengthening": false
+              },
+              "field": "addr"
+            },
+            {
+              "certificate": {
+                "alias_chain": [],
+                "all_driver_statement_ids": [
+                  26
+                ],
+                "on": "QueueInsert",
+                "proof": "every last-connect driver of MPORT.addr_is_virtual reachable on QueueInsert equals io.enq.bits.addr_is_virtual",
+                "proof_domain": "exact-conditional-symbolic-driver-equality",
+                "reachable_lock_certificates": [],
+                "resolved_target": "MPORT.addr_is_virtual",
+                "selected_drivers": [
+                  {
+                    "activation": {
+                      "control_polarities": {
+                        "do_enq": "positive"
+                      },
+                      "control_signals": [
+                        "do_enq"
+                      ],
+                      "control_statement_ids": [
+                        17
+                      ],
+                      "kind": "exact-branch-conjunction"
+                    },
+                    "atom_count": 3,
+                    "rhs": "io.enq.bits.addr_is_virtual",
+                    "statement_id": 26,
+                    "value_proof": {
+                      "kind": "symbolic-normal-form-equality"
+                    }
+                  }
+                ],
+                "source": "io.enq.bits.addr_is_virtual",
+                "status": "STRUCTURALLY_SUPPORTED",
+                "target": "MPORT.addr_is_virtual",
+                "unconditional_strengthening": false
+              },
+              "field": "addr_is_virtual"
+            },
+            {
+              "certificate": {
+                "alias_chain": [],
+                "all_driver_statement_ids": [
+                  25
+                ],
+                "on": "QueueInsert",
+                "proof": "every last-connect driver of MPORT.data reachable on QueueInsert equals io.enq.bits.data",
+                "proof_domain": "exact-conditional-symbolic-driver-equality",
+                "reachable_lock_certificates": [],
+                "resolved_target": "MPORT.data",
+                "selected_drivers": [
+                  {
+                    "activation": {
+                      "control_polarities": {
+                        "do_enq": "positive"
+                      },
+                      "control_signals": [
+                        "do_enq"
+                      ],
+                      "control_statement_ids": [
+                        17
+                      ],
+                      "kind": "exact-branch-conjunction"
+                    },
+                    "atom_count": 3,
+                    "rhs": "io.enq.bits.data",
+                    "statement_id": 25,
+                    "value_proof": {
+                      "kind": "symbolic-normal-form-equality"
+                    }
+                  }
+                ],
+                "source": "io.enq.bits.data",
+                "status": "STRUCTURALLY_SUPPORTED",
+                "target": "MPORT.data",
+                "unconditional_strengthening": false
+              },
+              "field": "data"
+            },
+            {
+              "certificate": {
+                "alias_chain": [],
+                "all_driver_statement_ids": [
+                  24
+                ],
+                "on": "QueueInsert",
+                "proof": "every last-connect driver of MPORT.committed reachable on QueueInsert equals io.enq.bits.committed",
+                "proof_domain": "exact-conditional-symbolic-driver-equality",
+                "reachable_lock_certificates": [],
+                "resolved_target": "MPORT.committed",
+                "selected_drivers": [
+                  {
+                    "activation": {
+                      "control_polarities": {
+                        "do_enq": "positive"
+                      },
+                      "control_signals": [
+                        "do_enq"
+                      ],
+                      "control_statement_ids": [
+                        17
+                      ],
+                      "kind": "exact-branch-conjunction"
+                    },
+                    "atom_count": 3,
+                    "rhs": "io.enq.bits.committed",
+                    "statement_id": 24,
+                    "value_proof": {
+                      "kind": "symbolic-normal-form-equality"
+                    }
+                  }
+                ],
+                "source": "io.enq.bits.committed",
+                "status": "STRUCTURALLY_SUPPORTED",
+                "target": "MPORT.committed",
+                "unconditional_strengthening": false
+              },
+              "field": "committed"
+            },
+            {
+              "certificate": {
+                "alias_chain": [],
+                "all_driver_statement_ids": [
+                  23
+                ],
+                "on": "QueueInsert",
+                "proof": "every last-connect driver of MPORT.succeeded reachable on QueueInsert equals io.enq.bits.succeeded",
+                "proof_domain": "exact-conditional-symbolic-driver-equality",
+                "reachable_lock_certificates": [],
+                "resolved_target": "MPORT.succeeded",
+                "selected_drivers": [
+                  {
+                    "activation": {
+                      "control_polarities": {
+                        "do_enq": "positive"
+                      },
+                      "control_signals": [
+                        "do_enq"
+                      ],
+                      "control_statement_ids": [
+                        17
+                      ],
+                      "kind": "exact-branch-conjunction"
+                    },
+                    "atom_count": 3,
+                    "rhs": "io.enq.bits.succeeded",
+                    "statement_id": 23,
+                    "value_proof": {
+                      "kind": "symbolic-normal-form-equality"
+                    }
+                  }
+                ],
+                "source": "io.enq.bits.succeeded",
+                "status": "STRUCTURALLY_SUPPORTED",
+                "target": "MPORT.succeeded",
+                "unconditional_strengthening": false
+              },
+              "field": "succeeded"
+            },
+            {
+              "certificate": {
+                "alias_chain": [],
+                "all_driver_statement_ids": [
+                  22
+                ],
+                "on": "QueueInsert",
+                "proof": "every last-connect driver of MPORT.can_execute reachable on QueueInsert equals io.enq.bits.can_execute",
+                "proof_domain": "exact-conditional-symbolic-driver-equality",
+                "reachable_lock_certificates": [],
+                "resolved_target": "MPORT.can_execute",
+                "selected_drivers": [
+                  {
+                    "activation": {
+                      "control_polarities": {
+                        "do_enq": "positive"
+                      },
+                      "control_signals": [
+                        "do_enq"
+                      ],
+                      "control_statement_ids": [
+                        17
+                      ],
+                      "kind": "exact-branch-conjunction"
+                    },
+                    "atom_count": 3,
+                    "rhs": "io.enq.bits.can_execute",
+                    "statement_id": 22,
+                    "value_proof": {
+                      "kind": "symbolic-normal-form-equality"
+                    }
+                  }
+                ],
+                "source": "io.enq.bits.can_execute",
+                "status": "STRUCTURALLY_SUPPORTED",
+                "target": "MPORT.can_execute",
+                "unconditional_strengthening": false
+              },
+              "field": "can_execute"
+            },
+            {
+              "certificate": {
+                "alias_chain": [],
+                "all_driver_statement_ids": [
+                  21
+                ],
+                "on": "QueueInsert",
+                "proof": "every last-connect driver of MPORT.cleared reachable on QueueInsert equals io.enq.bits.cleared",
+                "proof_domain": "exact-conditional-symbolic-driver-equality",
+                "reachable_lock_certificates": [],
+                "resolved_target": "MPORT.cleared",
+                "selected_drivers": [
+                  {
+                    "activation": {
+                      "control_polarities": {
+                        "do_enq": "positive"
+                      },
+                      "control_signals": [
+                        "do_enq"
+                      ],
+                      "control_statement_ids": [
+                        17
+                      ],
+                      "kind": "exact-branch-conjunction"
+                    },
+                    "atom_count": 3,
+                    "rhs": "io.enq.bits.cleared",
+                    "statement_id": 21,
+                    "value_proof": {
+                      "kind": "symbolic-normal-form-equality"
+                    }
+                  }
+                ],
+                "source": "io.enq.bits.cleared",
+                "status": "STRUCTURALLY_SUPPORTED",
+                "target": "MPORT.cleared",
+                "unconditional_strengthening": false
+              },
+              "field": "cleared"
+            },
+            {
+              "certificate": {
+                "alias_chain": [],
+                "all_driver_statement_ids": [
+                  20
+                ],
+                "on": "QueueInsert",
+                "proof": "every last-connect driver of MPORT.next_ldq_idx reachable on QueueInsert equals io.enq.bits.next_ldq_idx",
+                "proof_domain": "exact-conditional-symbolic-driver-equality",
+                "reachable_lock_certificates": [],
+                "resolved_target": "MPORT.next_ldq_idx",
+                "selected_drivers": [
+                  {
+                    "activation": {
+                      "control_polarities": {
+                        "do_enq": "positive"
+                      },
+                      "control_signals": [
+                        "do_enq"
+                      ],
+                      "control_statement_ids": [
+                        17
+                      ],
+                      "kind": "exact-branch-conjunction"
+                    },
+                    "atom_count": 3,
+                    "rhs": "io.enq.bits.next_ldq_idx",
+                    "statement_id": 20,
+                    "value_proof": {
+                      "kind": "symbolic-normal-form-equality"
+                    }
+                  }
+                ],
+                "source": "io.enq.bits.next_ldq_idx",
+                "status": "STRUCTURALLY_SUPPORTED",
+                "target": "MPORT.next_ldq_idx",
+                "unconditional_strengthening": false
+              },
+              "field": "next_ldq_idx"
+            },
+            {
+              "certificate": {
+                "alias_chain": [],
+                "all_driver_statement_ids": [
+                  19
+                ],
+                "on": "QueueInsert",
+                "proof": "every last-connect driver of MPORT.debug_wb_data reachable on QueueInsert equals io.enq.bits.debug_wb_data",
+                "proof_domain": "exact-conditional-symbolic-driver-equality",
+                "reachable_lock_certificates": [],
+                "resolved_target": "MPORT.debug_wb_data",
+                "selected_drivers": [
+                  {
+                    "activation": {
+                      "control_polarities": {
+                        "do_enq": "positive"
+                      },
+                      "control_signals": [
+                        "do_enq"
+                      ],
+                      "control_statement_ids": [
+                        17
+                      ],
+                      "kind": "exact-branch-conjunction"
+                    },
+                    "atom_count": 3,
+                    "rhs": "io.enq.bits.debug_wb_data",
+                    "statement_id": 19,
+                    "value_proof": {
+                      "kind": "symbolic-normal-form-equality"
+                    }
+                  }
+                ],
+                "source": "io.enq.bits.debug_wb_data",
+                "status": "STRUCTURALLY_SUPPORTED",
+                "target": "MPORT.debug_wb_data",
+                "unconditional_strengthening": false
+              },
+              "field": "debug_wb_data"
+            }
+          ],
+          "proof": "every declared field of aggregate MPORT equals the corresponding field of io.enq.bits while QueueInsert holds",
+          "proof_domain": "exact-conditional-aggregate-equality",
+          "source_type": "{ uop : { inst : UInt<32>, debug_inst : UInt<32>, is_rvc : UInt<1>, debug_pc : UInt<40>, iq_type : UInt<1>[4], fu_code : UInt<1>[10], iw_issued : UInt<1>, iw_issued_partial_agen : UInt<1>, iw_issued_partial_dgen : UInt<1>, iw_p1_speculative_child : UInt<1>, iw_p2_speculative_child : UInt<1>, iw_p1_bypass_hint : UInt<1>, iw_p2_bypass_hint : UInt<1>, iw_p3_bypass_hint : UInt<1>, dis_col_sel : UInt<1>, br_mask : UInt<8>, br_tag : UInt<3>, br_type : UInt<4>, is_sfb : UInt<1>, is_fence : UInt<1>, is_fencei : UInt<1>, is_sfence : UInt<1>, is_amo : UInt<1>, is_eret : UInt<1>, is_sys_pc2epc : UInt<1>, is_rocc : UInt<1>, is_mov : UInt<1>, ftq_idx : UInt<4>, edge_inst : UInt<1>, pc_lob : UInt<6>, taken : UInt<1>, imm_rename : UInt<1>, imm_sel : UInt<3>, pimm : UInt<5>, imm_packed : UInt<20>, op1_sel : UInt<2>, op2_sel : UInt<3>, fp_ctrl : { ldst : UInt<1>, wen : UInt<1>, ren1 : UInt<1>, ren2 : UInt<1>, ren3 : UInt<1>, swap12 : UInt<1>, swap23 : UInt<1>, typeTagIn : UInt<2>, typeTagOut : UInt<2>, fromint : UInt<1>, toint : UInt<1>, fastpipe : UInt<1>, fma : UInt<1>, div : UInt<1>, sqrt : UInt<1>, wflags : UInt<1>, vec : UInt<1>}, rob_idx : UInt<5>, ldq_idx : UInt<4>, stq_idx : UInt<4>, rxq_idx : UInt<2>, pdst : UInt<6>, prs1 : UInt<6>, prs2 : UInt<6>, prs3 : UInt<6>, ppred : UInt<4>, prs1_busy : UInt<1>, prs2_busy : UInt<1>, prs3_busy : UInt<1>, ppred_busy : UInt<1>, stale_pdst : UInt<6>, exception : UInt<1>, exc_cause : UInt<64>, mem_cmd : UInt<5>, mem_size : UInt<2>, mem_signed : UInt<1>, uses_ldq : UInt<1>, uses_stq : UInt<1>, is_unique : UInt<1>, flush_on_commit : UInt<1>, csr_cmd : UInt<3>, ldst_is_rs1 : UInt<1>, ldst : UInt<6>, lrs1 : UInt<6>, lrs2 : UInt<6>, lrs3 : UInt<6>, dst_rtype : UInt<2>, lrs1_rtype : UInt<2>, lrs2_rtype : UInt<2>, frs3_en : UInt<1>, fcn_dw : UInt<1>, fcn_op : UInt<5>, fp_val : UInt<1>, fp_rm : UInt<3>, fp_typ : UInt<2>, xcpt_pf_if : UInt<1>, xcpt_ae_if : UInt<1>, xcpt_ma_if : UInt<1>, bp_debug_if : UInt<1>, bp_xcpt_if : UInt<1>, debug_fsrc : UInt<3>, debug_tsrc : UInt<3>}, addr : { valid : UInt<1>, bits : UInt<40>}, addr_is_virtual : UInt<1>, data : { valid : UInt<1>, bits : UInt<64>}, committed : UInt<1>, succeeded : UInt<1>, can_execute : UInt<1>, cleared : UInt<1>, next_ldq_idx : UInt<4>, debug_wb_data : UInt<64>}",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target_type": "{ uop : { inst : UInt<32>, debug_inst : UInt<32>, is_rvc : UInt<1>, debug_pc : UInt<40>, iq_type : UInt<1>[4], fu_code : UInt<1>[10], iw_issued : UInt<1>, iw_issued_partial_agen : UInt<1>, iw_issued_partial_dgen : UInt<1>, iw_p1_speculative_child : UInt<1>, iw_p2_speculative_child : UInt<1>, iw_p1_bypass_hint : UInt<1>, iw_p2_bypass_hint : UInt<1>, iw_p3_bypass_hint : UInt<1>, dis_col_sel : UInt<1>, br_mask : UInt<8>, br_tag : UInt<3>, br_type : UInt<4>, is_sfb : UInt<1>, is_fence : UInt<1>, is_fencei : UInt<1>, is_sfence : UInt<1>, is_amo : UInt<1>, is_eret : UInt<1>, is_sys_pc2epc : UInt<1>, is_rocc : UInt<1>, is_mov : UInt<1>, ftq_idx : UInt<4>, edge_inst : UInt<1>, pc_lob : UInt<6>, taken : UInt<1>, imm_rename : UInt<1>, imm_sel : UInt<3>, pimm : UInt<5>, imm_packed : UInt<20>, op1_sel : UInt<2>, op2_sel : UInt<3>, fp_ctrl : { ldst : UInt<1>, wen : UInt<1>, ren1 : UInt<1>, ren2 : UInt<1>, ren3 : UInt<1>, swap12 : UInt<1>, swap23 : UInt<1>, typeTagIn : UInt<2>, typeTagOut : UInt<2>, fromint : UInt<1>, toint : UInt<1>, fastpipe : UInt<1>, fma : UInt<1>, div : UInt<1>, sqrt : UInt<1>, wflags : UInt<1>, vec : UInt<1>}, rob_idx : UInt<5>, ldq_idx : UInt<4>, stq_idx : UInt<4>, rxq_idx : UInt<2>, pdst : UInt<6>, prs1 : UInt<6>, prs2 : UInt<6>, prs3 : UInt<6>, ppred : UInt<4>, prs1_busy : UInt<1>, prs2_busy : UInt<1>, prs3_busy : UInt<1>, ppred_busy : UInt<1>, stale_pdst : UInt<6>, exception : UInt<1>, exc_cause : UInt<64>, mem_cmd : UInt<5>, mem_size : UInt<2>, mem_signed : UInt<1>, uses_ldq : UInt<1>, uses_stq : UInt<1>, is_unique : UInt<1>, flush_on_commit : UInt<1>, csr_cmd : UInt<3>, ldst_is_rs1 : UInt<1>, ldst : UInt<6>, lrs1 : UInt<6>, lrs2 : UInt<6>, lrs3 : UInt<6>, dst_rtype : UInt<2>, lrs1_rtype : UInt<2>, lrs2_rtype : UInt<2>, frs3_en : UInt<1>, fcn_dw : UInt<1>, fcn_op : UInt<5>, fp_val : UInt<1>, fp_rm : UInt<3>, fp_typ : UInt<2>, xcpt_pf_if : UInt<1>, xcpt_ae_if : UInt<1>, xcpt_ma_if : UInt<1>, bp_debug_if : UInt<1>, bp_xcpt_if : UInt<1>, debug_fsrc : UInt<3>, debug_tsrc : UInt<3>}, addr : { valid : UInt<1>, bits : UInt<40>}, addr_is_virtual : UInt<1>, data : { valid : UInt<1>, bits : UInt<64>}, committed : UInt<1>, succeeded : UInt<1>, can_execute : UInt<1>, cleared : UInt<1>, next_ldq_idx : UInt<4>, debug_wb_data : UInt<64>}"
+        },
+        "proof": "every declared field of aggregate MPORT equals the corresponding field of io.enq.bits while QueueInsert holds",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-aggregate-equality",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "QueueInsert"
+        ],
+        "predicates": [],
+        "signals": [
+          "MPORT",
+          "io.enq.bits"
+        ]
+      },
+      "rendered_formula": "MPORT = io.enq.bits on QueueInsert",
+      "structural": {
+        "fields": [
+          {
+            "certificate": {
+              "alias_chain": [],
+              "all_driver_statement_ids": [
+                28
+              ],
+              "on": "QueueInsert",
+              "proof": "every last-connect driver of MPORT.uop reachable on QueueInsert equals io.enq.bits.uop",
+              "proof_domain": "exact-conditional-symbolic-driver-equality",
+              "reachable_lock_certificates": [],
+              "resolved_target": "MPORT.uop",
+              "selected_drivers": [
+                {
+                  "activation": {
+                    "control_polarities": {
+                      "do_enq": "positive"
+                    },
+                    "control_signals": [
+                      "do_enq"
+                    ],
+                    "control_statement_ids": [
+                      17
+                    ],
+                    "kind": "exact-branch-conjunction"
+                  },
+                  "atom_count": 3,
+                  "rhs": "io.enq.bits.uop",
+                  "statement_id": 28,
+                  "value_proof": {
+                    "kind": "symbolic-normal-form-equality"
+                  }
+                }
+              ],
+              "source": "io.enq.bits.uop",
+              "status": "STRUCTURALLY_SUPPORTED",
+              "target": "MPORT.uop",
+              "unconditional_strengthening": false
+            },
+            "field": "uop"
+          },
+          {
+            "certificate": {
+              "alias_chain": [],
+              "all_driver_statement_ids": [
+                27
+              ],
+              "on": "QueueInsert",
+              "proof": "every last-connect driver of MPORT.addr reachable on QueueInsert equals io.enq.bits.addr",
+              "proof_domain": "exact-conditional-symbolic-driver-equality",
+              "reachable_lock_certificates": [],
+              "resolved_target": "MPORT.addr",
+              "selected_drivers": [
+                {
+                  "activation": {
+                    "control_polarities": {
+                      "do_enq": "positive"
+                    },
+                    "control_signals": [
+                      "do_enq"
+                    ],
+                    "control_statement_ids": [
+                      17
+                    ],
+                    "kind": "exact-branch-conjunction"
+                  },
+                  "atom_count": 3,
+                  "rhs": "io.enq.bits.addr",
+                  "statement_id": 27,
+                  "value_proof": {
+                    "kind": "symbolic-normal-form-equality"
+                  }
+                }
+              ],
+              "source": "io.enq.bits.addr",
+              "status": "STRUCTURALLY_SUPPORTED",
+              "target": "MPORT.addr",
+              "unconditional_strengthening": false
+            },
+            "field": "addr"
+          },
+          {
+            "certificate": {
+              "alias_chain": [],
+              "all_driver_statement_ids": [
+                26
+              ],
+              "on": "QueueInsert",
+              "proof": "every last-connect driver of MPORT.addr_is_virtual reachable on QueueInsert equals io.enq.bits.addr_is_virtual",
+              "proof_domain": "exact-conditional-symbolic-driver-equality",
+              "reachable_lock_certificates": [],
+              "resolved_target": "MPORT.addr_is_virtual",
+              "selected_drivers": [
+                {
+                  "activation": {
+                    "control_polarities": {
+                      "do_enq": "positive"
+                    },
+                    "control_signals": [
+                      "do_enq"
+                    ],
+                    "control_statement_ids": [
+                      17
+                    ],
+                    "kind": "exact-branch-conjunction"
+                  },
+                  "atom_count": 3,
+                  "rhs": "io.enq.bits.addr_is_virtual",
+                  "statement_id": 26,
+                  "value_proof": {
+                    "kind": "symbolic-normal-form-equality"
+                  }
+                }
+              ],
+              "source": "io.enq.bits.addr_is_virtual",
+              "status": "STRUCTURALLY_SUPPORTED",
+              "target": "MPORT.addr_is_virtual",
+              "unconditional_strengthening": false
+            },
+            "field": "addr_is_virtual"
+          },
+          {
+            "certificate": {
+              "alias_chain": [],
+              "all_driver_statement_ids": [
+                25
+              ],
+              "on": "QueueInsert",
+              "proof": "every last-connect driver of MPORT.data reachable on QueueInsert equals io.enq.bits.data",
+              "proof_domain": "exact-conditional-symbolic-driver-equality",
+              "reachable_lock_certificates": [],
+              "resolved_target": "MPORT.data",
+              "selected_drivers": [
+                {
+                  "activation": {
+                    "control_polarities": {
+                      "do_enq": "positive"
+                    },
+                    "control_signals": [
+                      "do_enq"
+                    ],
+                    "control_statement_ids": [
+                      17
+                    ],
+                    "kind": "exact-branch-conjunction"
+                  },
+                  "atom_count": 3,
+                  "rhs": "io.enq.bits.data",
+                  "statement_id": 25,
+                  "value_proof": {
+                    "kind": "symbolic-normal-form-equality"
+                  }
+                }
+              ],
+              "source": "io.enq.bits.data",
+              "status": "STRUCTURALLY_SUPPORTED",
+              "target": "MPORT.data",
+              "unconditional_strengthening": false
+            },
+            "field": "data"
+          },
+          {
+            "certificate": {
+              "alias_chain": [],
+              "all_driver_statement_ids": [
+                24
+              ],
+              "on": "QueueInsert",
+              "proof": "every last-connect driver of MPORT.committed reachable on QueueInsert equals io.enq.bits.committed",
+              "proof_domain": "exact-conditional-symbolic-driver-equality",
+              "reachable_lock_certificates": [],
+              "resolved_target": "MPORT.committed",
+              "selected_drivers": [
+                {
+                  "activation": {
+                    "control_polarities": {
+                      "do_enq": "positive"
+                    },
+                    "control_signals": [
+                      "do_enq"
+                    ],
+                    "control_statement_ids": [
+                      17
+                    ],
+                    "kind": "exact-branch-conjunction"
+                  },
+                  "atom_count": 3,
+                  "rhs": "io.enq.bits.committed",
+                  "statement_id": 24,
+                  "value_proof": {
+                    "kind": "symbolic-normal-form-equality"
+                  }
+                }
+              ],
+              "source": "io.enq.bits.committed",
+              "status": "STRUCTURALLY_SUPPORTED",
+              "target": "MPORT.committed",
+              "unconditional_strengthening": false
+            },
+            "field": "committed"
+          },
+          {
+            "certificate": {
+              "alias_chain": [],
+              "all_driver_statement_ids": [
+                23
+              ],
+              "on": "QueueInsert",
+              "proof": "every last-connect driver of MPORT.succeeded reachable on QueueInsert equals io.enq.bits.succeeded",
+              "proof_domain": "exact-conditional-symbolic-driver-equality",
+              "reachable_lock_certificates": [],
+              "resolved_target": "MPORT.succeeded",
+              "selected_drivers": [
+                {
+                  "activation": {
+                    "control_polarities": {
+                      "do_enq": "positive"
+                    },
+                    "control_signals": [
+                      "do_enq"
+                    ],
+                    "control_statement_ids": [
+                      17
+                    ],
+                    "kind": "exact-branch-conjunction"
+                  },
+                  "atom_count": 3,
+                  "rhs": "io.enq.bits.succeeded",
+                  "statement_id": 23,
+                  "value_proof": {
+                    "kind": "symbolic-normal-form-equality"
+                  }
+                }
+              ],
+              "source": "io.enq.bits.succeeded",
+              "status": "STRUCTURALLY_SUPPORTED",
+              "target": "MPORT.succeeded",
+              "unconditional_strengthening": false
+            },
+            "field": "succeeded"
+          },
+          {
+            "certificate": {
+              "alias_chain": [],
+              "all_driver_statement_ids": [
+                22
+              ],
+              "on": "QueueInsert",
+              "proof": "every last-connect driver of MPORT.can_execute reachable on QueueInsert equals io.enq.bits.can_execute",
+              "proof_domain": "exact-conditional-symbolic-driver-equality",
+              "reachable_lock_certificates": [],
+              "resolved_target": "MPORT.can_execute",
+              "selected_drivers": [
+                {
+                  "activation": {
+                    "control_polarities": {
+                      "do_enq": "positive"
+                    },
+                    "control_signals": [
+                      "do_enq"
+                    ],
+                    "control_statement_ids": [
+                      17
+                    ],
+                    "kind": "exact-branch-conjunction"
+                  },
+                  "atom_count": 3,
+                  "rhs": "io.enq.bits.can_execute",
+                  "statement_id": 22,
+                  "value_proof": {
+                    "kind": "symbolic-normal-form-equality"
+                  }
+                }
+              ],
+              "source": "io.enq.bits.can_execute",
+              "status": "STRUCTURALLY_SUPPORTED",
+              "target": "MPORT.can_execute",
+              "unconditional_strengthening": false
+            },
+            "field": "can_execute"
+          },
+          {
+            "certificate": {
+              "alias_chain": [],
+              "all_driver_statement_ids": [
+                21
+              ],
+              "on": "QueueInsert",
+              "proof": "every last-connect driver of MPORT.cleared reachable on QueueInsert equals io.enq.bits.cleared",
+              "proof_domain": "exact-conditional-symbolic-driver-equality",
+              "reachable_lock_certificates": [],
+              "resolved_target": "MPORT.cleared",
+              "selected_drivers": [
+                {
+                  "activation": {
+                    "control_polarities": {
+                      "do_enq": "positive"
+                    },
+                    "control_signals": [
+                      "do_enq"
+                    ],
+                    "control_statement_ids": [
+                      17
+                    ],
+                    "kind": "exact-branch-conjunction"
+                  },
+                  "atom_count": 3,
+                  "rhs": "io.enq.bits.cleared",
+                  "statement_id": 21,
+                  "value_proof": {
+                    "kind": "symbolic-normal-form-equality"
+                  }
+                }
+              ],
+              "source": "io.enq.bits.cleared",
+              "status": "STRUCTURALLY_SUPPORTED",
+              "target": "MPORT.cleared",
+              "unconditional_strengthening": false
+            },
+            "field": "cleared"
+          },
+          {
+            "certificate": {
+              "alias_chain": [],
+              "all_driver_statement_ids": [
+                20
+              ],
+              "on": "QueueInsert",
+              "proof": "every last-connect driver of MPORT.next_ldq_idx reachable on QueueInsert equals io.enq.bits.next_ldq_idx",
+              "proof_domain": "exact-conditional-symbolic-driver-equality",
+              "reachable_lock_certificates": [],
+              "resolved_target": "MPORT.next_ldq_idx",
+              "selected_drivers": [
+                {
+                  "activation": {
+                    "control_polarities": {
+                      "do_enq": "positive"
+                    },
+                    "control_signals": [
+                      "do_enq"
+                    ],
+                    "control_statement_ids": [
+                      17
+                    ],
+                    "kind": "exact-branch-conjunction"
+                  },
+                  "atom_count": 3,
+                  "rhs": "io.enq.bits.next_ldq_idx",
+                  "statement_id": 20,
+                  "value_proof": {
+                    "kind": "symbolic-normal-form-equality"
+                  }
+                }
+              ],
+              "source": "io.enq.bits.next_ldq_idx",
+              "status": "STRUCTURALLY_SUPPORTED",
+              "target": "MPORT.next_ldq_idx",
+              "unconditional_strengthening": false
+            },
+            "field": "next_ldq_idx"
+          },
+          {
+            "certificate": {
+              "alias_chain": [],
+              "all_driver_statement_ids": [
+                19
+              ],
+              "on": "QueueInsert",
+              "proof": "every last-connect driver of MPORT.debug_wb_data reachable on QueueInsert equals io.enq.bits.debug_wb_data",
+              "proof_domain": "exact-conditional-symbolic-driver-equality",
+              "reachable_lock_certificates": [],
+              "resolved_target": "MPORT.debug_wb_data",
+              "selected_drivers": [
+                {
+                  "activation": {
+                    "control_polarities": {
+                      "do_enq": "positive"
+                    },
+                    "control_signals": [
+                      "do_enq"
+                    ],
+                    "control_statement_ids": [
+                      17
+                    ],
+                    "kind": "exact-branch-conjunction"
+                  },
+                  "atom_count": 3,
+                  "rhs": "io.enq.bits.debug_wb_data",
+                  "statement_id": 19,
+                  "value_proof": {
+                    "kind": "symbolic-normal-form-equality"
+                  }
+                }
+              ],
+              "source": "io.enq.bits.debug_wb_data",
+              "status": "STRUCTURALLY_SUPPORTED",
+              "target": "MPORT.debug_wb_data",
+              "unconditional_strengthening": false
+            },
+            "field": "debug_wb_data"
+          }
+        ],
+        "proof": "every declared field of aggregate MPORT equals the corresponding field of io.enq.bits while QueueInsert holds",
+        "proof_domain": "exact-conditional-aggregate-equality",
+        "source_type": "{ uop : { inst : UInt<32>, debug_inst : UInt<32>, is_rvc : UInt<1>, debug_pc : UInt<40>, iq_type : UInt<1>[4], fu_code : UInt<1>[10], iw_issued : UInt<1>, iw_issued_partial_agen : UInt<1>, iw_issued_partial_dgen : UInt<1>, iw_p1_speculative_child : UInt<1>, iw_p2_speculative_child : UInt<1>, iw_p1_bypass_hint : UInt<1>, iw_p2_bypass_hint : UInt<1>, iw_p3_bypass_hint : UInt<1>, dis_col_sel : UInt<1>, br_mask : UInt<8>, br_tag : UInt<3>, br_type : UInt<4>, is_sfb : UInt<1>, is_fence : UInt<1>, is_fencei : UInt<1>, is_sfence : UInt<1>, is_amo : UInt<1>, is_eret : UInt<1>, is_sys_pc2epc : UInt<1>, is_rocc : UInt<1>, is_mov : UInt<1>, ftq_idx : UInt<4>, edge_inst : UInt<1>, pc_lob : UInt<6>, taken : UInt<1>, imm_rename : UInt<1>, imm_sel : UInt<3>, pimm : UInt<5>, imm_packed : UInt<20>, op1_sel : UInt<2>, op2_sel : UInt<3>, fp_ctrl : { ldst : UInt<1>, wen : UInt<1>, ren1 : UInt<1>, ren2 : UInt<1>, ren3 : UInt<1>, swap12 : UInt<1>, swap23 : UInt<1>, typeTagIn : UInt<2>, typeTagOut : UInt<2>, fromint : UInt<1>, toint : UInt<1>, fastpipe : UInt<1>, fma : UInt<1>, div : UInt<1>, sqrt : UInt<1>, wflags : UInt<1>, vec : UInt<1>}, rob_idx : UInt<5>, ldq_idx : UInt<4>, stq_idx : UInt<4>, rxq_idx : UInt<2>, pdst : UInt<6>, prs1 : UInt<6>, prs2 : UInt<6>, prs3 : UInt<6>, ppred : UInt<4>, prs1_busy : UInt<1>, prs2_busy : UInt<1>, prs3_busy : UInt<1>, ppred_busy : UInt<1>, stale_pdst : UInt<6>, exception : UInt<1>, exc_cause : UInt<64>, mem_cmd : UInt<5>, mem_size : UInt<2>, mem_signed : UInt<1>, uses_ldq : UInt<1>, uses_stq : UInt<1>, is_unique : UInt<1>, flush_on_commit : UInt<1>, csr_cmd : UInt<3>, ldst_is_rs1 : UInt<1>, ldst : UInt<6>, lrs1 : UInt<6>, lrs2 : UInt<6>, lrs3 : UInt<6>, dst_rtype : UInt<2>, lrs1_rtype : UInt<2>, lrs2_rtype : UInt<2>, frs3_en : UInt<1>, fcn_dw : UInt<1>, fcn_op : UInt<5>, fp_val : UInt<1>, fp_rm : UInt<3>, fp_typ : UInt<2>, xcpt_pf_if : UInt<1>, xcpt_ae_if : UInt<1>, xcpt_ma_if : UInt<1>, bp_debug_if : UInt<1>, bp_xcpt_if : UInt<1>, debug_fsrc : UInt<3>, debug_tsrc : UInt<3>}, addr : { valid : UInt<1>, bits : UInt<40>}, addr_is_virtual : UInt<1>, data : { valid : UInt<1>, bits : UInt<64>}, committed : UInt<1>, succeeded : UInt<1>, can_execute : UInt<1>, cleared : UInt<1>, next_ldq_idx : UInt<4>, debug_wb_data : UInt<64>}",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target_type": "{ uop : { inst : UInt<32>, debug_inst : UInt<32>, is_rvc : UInt<1>, debug_pc : UInt<40>, iq_type : UInt<1>[4], fu_code : UInt<1>[10], iw_issued : UInt<1>, iw_issued_partial_agen : UInt<1>, iw_issued_partial_dgen : UInt<1>, iw_p1_speculative_child : UInt<1>, iw_p2_speculative_child : UInt<1>, iw_p1_bypass_hint : UInt<1>, iw_p2_bypass_hint : UInt<1>, iw_p3_bypass_hint : UInt<1>, dis_col_sel : UInt<1>, br_mask : UInt<8>, br_tag : UInt<3>, br_type : UInt<4>, is_sfb : UInt<1>, is_fence : UInt<1>, is_fencei : UInt<1>, is_sfence : UInt<1>, is_amo : UInt<1>, is_eret : UInt<1>, is_sys_pc2epc : UInt<1>, is_rocc : UInt<1>, is_mov : UInt<1>, ftq_idx : UInt<4>, edge_inst : UInt<1>, pc_lob : UInt<6>, taken : UInt<1>, imm_rename : UInt<1>, imm_sel : UInt<3>, pimm : UInt<5>, imm_packed : UInt<20>, op1_sel : UInt<2>, op2_sel : UInt<3>, fp_ctrl : { ldst : UInt<1>, wen : UInt<1>, ren1 : UInt<1>, ren2 : UInt<1>, ren3 : UInt<1>, swap12 : UInt<1>, swap23 : UInt<1>, typeTagIn : UInt<2>, typeTagOut : UInt<2>, fromint : UInt<1>, toint : UInt<1>, fastpipe : UInt<1>, fma : UInt<1>, div : UInt<1>, sqrt : UInt<1>, wflags : UInt<1>, vec : UInt<1>}, rob_idx : UInt<5>, ldq_idx : UInt<4>, stq_idx : UInt<4>, rxq_idx : UInt<2>, pdst : UInt<6>, prs1 : UInt<6>, prs2 : UInt<6>, prs3 : UInt<6>, ppred : UInt<4>, prs1_busy : UInt<1>, prs2_busy : UInt<1>, prs3_busy : UInt<1>, ppred_busy : UInt<1>, stale_pdst : UInt<6>, exception : UInt<1>, exc_cause : UInt<64>, mem_cmd : UInt<5>, mem_size : UInt<2>, mem_signed : UInt<1>, uses_ldq : UInt<1>, uses_stq : UInt<1>, is_unique : UInt<1>, flush_on_commit : UInt<1>, csr_cmd : UInt<3>, ldst_is_rs1 : UInt<1>, ldst : UInt<6>, lrs1 : UInt<6>, lrs2 : UInt<6>, lrs3 : UInt<6>, dst_rtype : UInt<2>, lrs1_rtype : UInt<2>, lrs2_rtype : UInt<2>, frs3_en : UInt<1>, fcn_dw : UInt<1>, fcn_op : UInt<5>, fp_val : UInt<1>, fp_rm : UInt<3>, fp_typ : UInt<2>, xcpt_pf_if : UInt<1>, xcpt_ae_if : UInt<1>, xcpt_ma_if : UInt<1>, bp_debug_if : UInt<1>, bp_xcpt_if : UInt<1>, debug_fsrc : UInt<3>, debug_tsrc : UInt<3>}, addr : { valid : UInt<1>, bits : UInt<40>}, addr_is_virtual : UInt<1>, data : { valid : UInt<1>, bits : UInt<64>}, committed : UInt<1>, succeeded : UInt<1>, can_execute : UInt<1>, cleared : UInt<1>, next_ldq_idx : UInt<4>, debug_wb_data : UInt<64>}"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "after": "DeqHandshake",
+        "before": "QueueInsert",
+        "scope_index": {
+          "name": "slot",
+          "relation": "same"
+        }
+      },
+      "axiom_id": "A5",
+      "axiom_kind": "ordering",
+      "checker": "history_order",
+      "evidence_statement_ids": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        17,
+        18,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "after": "DeqHandshake",
+          "after_action": "do_deq",
+          "after_action_occurrence": "DeqHandshake",
+          "after_action_relation": {
+            "action_cut": false,
+            "action_implies_occurrence": true,
+            "action_implies_occurrence_atoms": 3,
+            "occurrence_implies_action": true,
+            "occurrence_implies_action_atoms": 3
+          },
+          "after_gate_certificates": [
+            {
+              "certificate": {
+                "atom_count": 3,
+                "event_gate_bridge_statement_ids": [],
+                "proof": "DeqHandshake and QueueEmpty have an unsatisfiable local Boolean conjunction",
+                "proof_domain": "exact-combinational-exclusion",
+                "status": "STRUCTURALLY_SUPPORTED"
+              },
+              "predicate": {
+                "definition": "empty; enqueue and dequeue pointers match while maybe_full is clear",
+                "evidence_statement_ids": [
+                  7,
+                  8,
+                  9,
+                  45,
+                  46
+                ],
+                "grounding": {
+                  "negated": false,
+                  "source_signal": "empty",
+                  "state_register": null,
+                  "state_values": []
+                },
+                "id": "QueueEmpty"
+              }
+            }
+          ],
+          "after_index_signal": "deq_ptr_value",
+          "before": "QueueInsert",
+          "before_action": "do_enq",
+          "before_action_occurrence": "QueueInsert",
+          "before_action_relation": {
+            "action_cut": true,
+            "action_implies_occurrence": true,
+            "action_implies_occurrence_atoms": 0,
+            "occurrence_implies_action": true,
+            "occurrence_implies_action_atoms": 0
+          },
+          "before_gate_certificates": [
+            {
+              "certificate": {
+                "atom_count": 3,
+                "event_gate_bridge_statement_ids": [],
+                "proof": "QueueInsert and QueueFull have an unsatisfiable local Boolean conjunction",
+                "proof_domain": "exact-combinational-exclusion",
+                "status": "STRUCTURALLY_SUPPORTED"
+              },
+              "predicate": {
+                "definition": "full; enqueue and dequeue pointers match while maybe_full is asserted",
+                "evidence_statement_ids": [
+                  7,
+                  10,
+                  47,
+                  48
+                ],
+                "grounding": {
+                  "negated": false,
+                  "source_signal": "full",
+                  "state_register": null,
+                  "state_values": []
+                },
+                "id": "QueueFull"
+              }
+            }
+          ],
+          "before_index_signal": "enq_ptr_value",
+          "checked_transitions": 112,
+          "frontier_inputs": [
+            "do_deq",
+            "do_enq"
+          ],
+          "index": {
+            "domain": {
+              "end_exclusive": 4,
+              "start": 0
+            },
+            "name": "slot"
+          },
+          "proof": "exhaustive post-reset reachability proves every DeqHandshake(slot) consumes a ghost token created by a strictly prior QueueInsert(slot)",
+          "proof_domain": "exact-circular-queue-slot-provenance",
+          "reachable_ghost_states": 32,
+          "rtl_state": [
+            {
+              "reset": 0,
+              "signal": "deq_ptr_value",
+              "width": 2,
+              "writer_statement_ids": [
+                37
+              ]
+            },
+            {
+              "reset": 0,
+              "signal": "enq_ptr_value",
+              "width": 2,
+              "writer_statement_ids": [
+                32
+              ]
+            },
+            {
+              "reset": 0,
+              "signal": "maybe_full",
+              "width": 1,
+              "writer_statement_ids": [
+                40
+              ]
+            }
+          ],
+          "status": "STRUCTURALLY_SUPPORTED",
+          "strict_same_cycle_rule": "consume-old-token-before-create-new-token"
+        },
+        "proof": "exhaustive post-reset reachability proves every DeqHandshake(slot) consumes a ghost token created by a strictly prior QueueInsert(slot)",
+        "proof_method": "exact-circular-queue-slot-provenance",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "DeqHandshake",
+          "QueueInsert"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "QueueInsert <mu DeqHandshake [same index slot]",
+      "structural": {
+        "reason": "same-index relation is formally represented but requires an index-aware backend; scalar structural checkers intentionally do not erase the index scope",
+        "scope_index": {
+          "name": "slot",
+          "relation": "same"
+        },
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "DeqHandshake",
+        "source": "io_deq_bits_MPORT",
+        "target": "io.deq.bits"
+      },
+      "axiom_id": "A6",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        49,
+        50
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [],
+          "all_driver_statement_ids": [
+            50
+          ],
+          "on": "DeqHandshake",
+          "proof": "every last-connect driver of io.deq.bits reachable on DeqHandshake equals io_deq_bits_MPORT",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "resolved_target": "io.deq.bits",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "unconditional"
+              },
+              "atom_count": 3,
+              "rhs": "io_deq_bits_MPORT",
+              "statement_id": 50,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "io_deq_bits_MPORT",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.deq.bits",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.deq.bits reachable on DeqHandshake equals io_deq_bits_MPORT",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "DeqHandshake"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.deq.bits",
+          "io_deq_bits_MPORT"
+        ]
+      },
+      "rendered_formula": "io.deq.bits = io_deq_bits_MPORT on DeqHandshake",
+      "structural": {
+        "alias_chain": [],
+        "all_driver_statement_ids": [
+          50
+        ],
+        "on": "DeqHandshake",
+        "proof": "every last-connect driver of io.deq.bits reachable on DeqHandshake equals io_deq_bits_MPORT",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "resolved_target": "io.deq.bits",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "unconditional"
+            },
+            "atom_count": 3,
+            "rhs": "io_deq_bits_MPORT",
+            "statement_id": 50,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "io_deq_bits_MPORT",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.deq.bits",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    }
+  ],
+  "trusted_axiom_count": 6,
+  "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
+  "validator": "semantic-validator-0.21",
+  "work_unit_id": "LSU.stq_execute_queue"
+}

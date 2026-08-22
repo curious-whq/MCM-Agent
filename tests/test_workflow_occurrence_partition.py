@@ -4,6 +4,7 @@ import copy
 import json
 from pathlib import Path
 import unittest
+from unittest.mock import patch
 
 from workflow.axiom_ir import (
     compile_formal_axiom,
@@ -138,14 +139,25 @@ class OccurrencePartitionTests(unittest.TestCase):
         )
 
     def test_real_priority_arbiter_partition_is_formally_proved(self):
-        result = run_semantic_validation(
-            _candidate(),
-            self.handoff,
-            formal_backend="explicit-control",
-        )
+        with (
+            patch(
+                "workflow.formal.HandoffControlModel",
+                side_effect=AssertionError("formal backend rebuilt the shared model"),
+            ),
+            patch(
+                "workflow.formal.prove_same_cycle_occurrence_partition",
+                side_effect=AssertionError("formal backend repeated the structural proof"),
+            ),
+        ):
+            result = run_semantic_validation(
+                _candidate(),
+                self.handoff,
+                formal_backend="explicit-control",
+            )
         axiom = result["results"][0]
 
         self.assertEqual(axiom["validation_level"], FORMALLY_PROVED, axiom)
+        self.assertTrue(axiom["formal"]["reused_structural_certificate"])
         self.assertEqual(
             axiom["formal"]["proof_method"],
             "exact-same-cycle-occurrence-partition",
@@ -161,11 +173,15 @@ class OccurrencePartitionTests(unittest.TestCase):
         grounding = validate_candidate_grounding(candidate, task, self.handoff)
 
         self.assertTrue(grounding["valid"], grounding)
-        result = run_semantic_validation(
-            candidate,
-            self.handoff,
-            formal_backend="explicit-control",
-        )
+        with patch(
+            "workflow.formal.prove_conditional_signal_equality",
+            side_effect=AssertionError("formal backend repeated the structural proof"),
+        ):
+            result = run_semantic_validation(
+                candidate,
+                self.handoff,
+                formal_backend="explicit-control",
+            )
         self.assertEqual(result["trusted_axiom_count"], 12, result)
         self.assertTrue(result["all_axioms_formally_proved"], result)
         by_id = {item["axiom_id"]: item for item in result["results"]}
@@ -177,6 +193,10 @@ class OccurrencePartitionTests(unittest.TestCase):
             self.assertEqual(
                 by_id[axiom_id]["formal"]["proof_method"],
                 "exact-conditional-symbolic-driver-equality",
+                by_id[axiom_id],
+            )
+            self.assertTrue(
+                by_id[axiom_id]["formal"]["reused_structural_certificate"],
                 by_id[axiom_id],
             )
 

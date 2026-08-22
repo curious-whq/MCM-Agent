@@ -1,9 +1,10 @@
 from __future__ import annotations
 
+from copy import deepcopy
 from typing import Any
 
 
-FORMAL_AXIOM_IR_VERSION = "formal-axiom-ir-0.10"
+FORMAL_AXIOM_IR_VERSION = "formal-axiom-ir-0.13"
 
 
 def _string_list(*, min_items: int = 0) -> dict[str, Any]:
@@ -59,7 +60,12 @@ def expression_schema() -> dict[str, Any]:
                 "properties": {
                     "op": {"const": "bit"},
                     "value": {"$ref": "#/$defs/formal_expr"},
-                    "index": {"type": "integer", "minimum": 0},
+                    "index": {
+                        "oneOf": [
+                            {"type": "integer", "minimum": 0},
+                            {"$ref": "#/$defs/formal_expr"},
+                        ]
+                    },
                 },
             },
             {
@@ -88,6 +94,52 @@ def expression_schema() -> dict[str, Any]:
                     "op": {"const": "lookup"},
                     "value": {"$ref": "#/$defs/formal_expr"},
                     "index": {"$ref": "#/$defs/formal_expr"},
+                },
+            },
+            {
+                "type": "object",
+                "additionalProperties": False,
+                "required": ["op", "value"],
+                "properties": {
+                    "op": {"const": "not"},
+                    "value": {"$ref": "#/$defs/formal_expr"},
+                },
+            },
+            {
+                "type": "object",
+                "additionalProperties": False,
+                "required": ["op", "args"],
+                "properties": {
+                    "op": {"enum": ["and", "or"]},
+                    "args": {
+                        "type": "array",
+                        "minItems": 2,
+                        "items": {"$ref": "#/$defs/formal_expr"},
+                    },
+                },
+            },
+            {
+                "type": "object",
+                "additionalProperties": False,
+                "required": ["op", "index", "values"],
+                "properties": {
+                    "op": {"const": "indexed_cases"},
+                    "index": {"$ref": "#/$defs/formal_expr"},
+                    "values": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {"$ref": "#/$defs/formal_expr"},
+                    },
+                },
+            },
+            {
+                "type": "object",
+                "additionalProperties": False,
+                "required": ["op", "value", "modulus"],
+                "properties": {
+                    "op": {"const": "modular_increment"},
+                    "value": {"$ref": "#/$defs/formal_expr"},
+                    "modulus": {"type": "integer", "minimum": 2},
                 },
             },
         ]
@@ -277,6 +329,106 @@ def formal_axiom_schema() -> dict[str, Any]:
             {
                 "type": "object",
                 "additionalProperties": False,
+                "required": [
+                    "type", "index", "candidate", "priority", "result",
+                    "latency_cycles", "initialization", "scope_identity"
+                ],
+                "properties": {
+                    "type": {"const": "indexed_priority_select"},
+                    "index": {
+                        "type": "object",
+                        "additionalProperties": False,
+                        "required": ["name", "count"],
+                        "properties": {
+                            "name": {"type": "string", "minLength": 1},
+                            "count": {"type": "integer", "minimum": 1},
+                        },
+                    },
+                    "candidate": {"$ref": "#/$defs/formal_expr"},
+                    "priority": {
+                        "oneOf": [
+                            {
+                                "type": "object",
+                                "additionalProperties": False,
+                                "required": ["kind"],
+                                "properties": {
+                                    "kind": {"enum": ["linear_min", "linear_max"]},
+                                },
+                            },
+                            {
+                                "type": "object",
+                                "additionalProperties": False,
+                                "required": ["kind", "pivot"],
+                                "properties": {
+                                    "kind": {
+                                        "enum": ["cyclic_predecessor", "cyclic_successor"]
+                                    },
+                                    "pivot": {"$ref": "#/$defs/formal_expr"},
+                                    "pivot_position": {
+                                        "enum": ["first", "last"]
+                                    },
+                                },
+                            },
+                        ]
+                    },
+                    "result": {
+                        "type": "object",
+                        "additionalProperties": False,
+                        "required": ["index"],
+                        "properties": {
+                            "found": {"type": "string", "minLength": 1},
+                            "index": {
+                                "oneOf": [
+                                    {"type": "string", "minLength": 1},
+                                    {"$ref": "#/$defs/formal_expr"},
+                                ]
+                            },
+                        },
+                    },
+                    "latency_cycles": {"type": "integer", "minimum": 0},
+                    "initialization": {
+                        "type": "object",
+                        "additionalProperties": False,
+                        "required": ["kind"],
+                        "properties": {
+                            "kind": {"const": "implicit_unconstrained"},
+                        },
+                    },
+                    "scope_identity": {"type": "null"},
+                },
+            },
+            {
+                "type": "object",
+                "additionalProperties": False,
+                "required": [
+                    "type", "register", "width", "updates", "priority",
+                    "default", "scope_identity"
+                ],
+                "properties": {
+                    "type": {"const": "register_transition"},
+                    "register": {"type": "string", "minLength": 1},
+                    "width": {"type": "integer", "minimum": 1},
+                    "updates": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                            "type": "object",
+                            "additionalProperties": False,
+                            "required": ["guard", "next"],
+                            "properties": {
+                                "guard": {"$ref": "#/$defs/formal_expr"},
+                                "next": {"$ref": "#/$defs/formal_expr"},
+                            },
+                        },
+                    },
+                    "priority": {"const": "first_match"},
+                    "default": {"$ref": "#/$defs/formal_expr"},
+                    "scope_identity": {"type": "null"},
+                },
+            },
+            {
+                "type": "object",
+                "additionalProperties": False,
                 "required": ["type", "on", "spec", "bindings", "scope_identity"],
                 "properties": {
                     "type": {"const": "spec_relation"},
@@ -453,13 +605,30 @@ def expr_to_symbolic(expr: dict[str, Any]) -> str:
     if op == "shr":
         return f"shr({expr_to_symbolic(expr['value'])}, {int(expr['amount'])})"
     if op == "bit":
-        return f"bits({expr_to_symbolic(expr['value'])}, {int(expr['index'])}, {int(expr['index'])})"
+        index = expr["index"]
+        rendered_index = (
+            expr_to_symbolic(index) if isinstance(index, dict) else str(int(index))
+        )
+        return f"bits({expr_to_symbolic(expr['value'])}, {rendered_index}, {rendered_index})"
     if op == "const":
         return str(int(expr["value"]))
     if op == "index_var":
         return str(expr["name"])
     if op == "lookup":
         return f"{expr_to_symbolic(expr['value'])}[{expr_to_symbolic(expr['index'])}]"
+    if op == "not":
+        return f"!({expr_to_symbolic(expr['value'])})"
+    if op in {"and", "or"}:
+        operator = " && " if op == "and" else " || "
+        return "(" + operator.join(expr_to_symbolic(item) for item in expr["args"]) + ")"
+    if op == "indexed_cases":
+        values = ", ".join(expr_to_symbolic(item) for item in expr["values"])
+        return f"index_cases({expr_to_symbolic(expr['index'])}; {values})"
+    if op == "modular_increment":
+        return (
+            f"inc_mod_{int(expr['modulus'])}"
+            f"({expr_to_symbolic(expr['value'])})"
+        )
     raise ValueError(f"unsupported formal expression operator: {op!r}")
 
 
@@ -467,14 +636,29 @@ def expr_signals(expr: dict[str, Any]) -> set[str]:
     op = expr.get("op")
     if op == "signal":
         return {str(expr["name"])}
-    if op in {"slice", "shr", "bit"}:
+    if op in {"slice", "shr"}:
         return expr_signals(expr["value"])
+    if op == "bit":
+        index = expr.get("index")
+        return expr_signals(expr["value"]) | (
+            expr_signals(index) if isinstance(index, dict) else set()
+        )
     if op == "const":
         return set()
     if op == "index_var":
         return set()
     if op == "lookup":
         return expr_signals(expr["value"]) | expr_signals(expr["index"])
+    if op == "not":
+        return expr_signals(expr["value"])
+    if op in {"and", "or"}:
+        return set().union(*(expr_signals(item) for item in expr["args"]))
+    if op == "indexed_cases":
+        return expr_signals(expr["index"]) | set().union(
+            *(expr_signals(item) for item in expr["values"])
+        )
+    if op == "modular_increment":
+        return expr_signals(expr["value"])
     raise ValueError(f"unsupported formal expression operator: {op!r}")
 
 
@@ -484,10 +668,25 @@ def expr_index_vars(expr: dict[str, Any]) -> set[str]:
         return {str(expr["name"])}
     if op in {"signal", "const"}:
         return set()
-    if op in {"slice", "shr", "bit"}:
+    if op in {"slice", "shr"}:
         return expr_index_vars(expr["value"])
+    if op == "bit":
+        index = expr.get("index")
+        return expr_index_vars(expr["value"]) | (
+            expr_index_vars(index) if isinstance(index, dict) else set()
+        )
     if op == "lookup":
         return expr_index_vars(expr["value"]) | expr_index_vars(expr["index"])
+    if op == "not":
+        return expr_index_vars(expr["value"])
+    if op in {"and", "or"}:
+        return set().union(*(expr_index_vars(item) for item in expr["args"]))
+    if op == "indexed_cases":
+        return expr_index_vars(expr["index"]) | set().union(
+            *(expr_index_vars(item) for item in expr["values"])
+        )
+    if op == "modular_increment":
+        return expr_index_vars(expr["value"])
     raise ValueError(f"unsupported formal expression operator: {op!r}")
 
 
@@ -625,7 +824,12 @@ def compile_formal_axiom(formal: dict[str, Any]) -> dict[str, Any]:
         add_scope()
         expr = formal["expr"]
         signals.update(expr_signals(expr))
-        if formal["relation"] != "eq" or expr.get("op") != "bit" or expr["value"].get("op") != "signal":
+        if (
+            formal["relation"] != "eq"
+            or expr.get("op") != "bit"
+            or expr["value"].get("op") != "signal"
+            or not isinstance(expr.get("index"), int)
+        ):
             raise ValueError("value_constraint currently supports equality on one bit of one signal")
         return {
             "checker": "constant_bit",
@@ -633,6 +837,7 @@ def compile_formal_axiom(formal: dict[str, Any]) -> dict[str, Any]:
                 "signal": expr["value"]["name"],
                 "bit": int(expr["index"]),
                 "expected": int(formal["value"]),
+                **({"on": formal["on"]} if formal.get("on") else {}),
             }),
             "references": _refs(occurrences, predicates, identities, signals),
             "kind": "payload_constraint",
@@ -681,6 +886,55 @@ def compile_formal_axiom(formal: dict[str, Any]) -> dict[str, Any]:
             }),
             "references": _refs(occurrences, predicates, identities, signals),
             "kind": "conservation",
+        }
+
+    if axiom_type == "indexed_priority_select":
+        candidate_expr = formal["candidate"]
+        priority = formal["priority"]
+        signals.update(expr_signals(candidate_expr))
+        if isinstance(priority.get("pivot"), dict):
+            signals.update(expr_signals(priority["pivot"]))
+        if formal["result"].get("found"):
+            signals.add(formal["result"]["found"])
+        result_index = formal["result"]["index"]
+        if isinstance(result_index, dict):
+            signals.update(expr_signals(result_index))
+        else:
+            signals.add(result_index)
+        add_scope()
+        return {
+            "checker": "indexed_priority_select",
+            "arguments": {
+                "index": dict(formal["index"]),
+                "candidate": deepcopy(candidate_expr),
+                "priority": deepcopy(priority),
+                "result": dict(formal["result"]),
+                "latency_cycles": int(formal["latency_cycles"]),
+                "initialization": dict(formal["initialization"]),
+            },
+            "references": _refs(occurrences, predicates, identities, signals),
+            "kind": "selection",
+        }
+
+    if axiom_type == "register_transition":
+        register = str(formal["register"])
+        signals.add(register)
+        for update in formal["updates"]:
+            signals.update(expr_signals(update["guard"]))
+            signals.update(expr_signals(update["next"]))
+        signals.update(expr_signals(formal["default"]))
+        add_scope()
+        return {
+            "checker": "register_transition",
+            "arguments": {
+                "register": register,
+                "width": int(formal["width"]),
+                "updates": deepcopy(formal["updates"]),
+                "priority": str(formal["priority"]),
+                "default": deepcopy(formal["default"]),
+            },
+            "references": _refs(occurrences, predicates, identities, signals),
+            "kind": "state_transition",
         }
 
     if axiom_type == "spec_relation":
@@ -832,6 +1086,47 @@ def render_formal_axiom(formal: dict[str, Any]) -> str:
             f"[{domain['start']}, {domain['end_exclusive']}): "
             f"count({formal['occurrence']}({formal['index']})) = 1{suffix}"
         )
+    if t == "indexed_priority_select":
+        index = formal["index"]
+        priority = formal["priority"]
+        pivot = (
+            f"({expr_to_symbolic(priority['pivot'])})"
+            if isinstance(priority.get("pivot"), dict)
+            else ""
+        )
+        result = formal["result"]
+        result_names = (
+            f"{{{result['found']}, {expr_to_symbolic(result['index']) if isinstance(result['index'], dict) else result['index']}}}"
+            if result.get("found")
+            else (
+                expr_to_symbolic(result["index"])
+                if isinstance(result["index"], dict)
+                else str(result["index"])
+            )
+        )
+        pivot_position = (
+            f", pivot={priority.get('pivot_position', 'last')}"
+            if priority.get("kind", "").startswith("cyclic_")
+            else ""
+        )
+        return (
+            f"after {formal['latency_cycles']} cycle(s), "
+            f"{result_names} = "
+            f"select_{priority['kind']}{pivot}"
+            f"{pivot_position}"
+            f"({expr_to_symbolic(formal['candidate'])}, "
+            f"{index['name']} in [0, {index['count']})){suffix}"
+        )
+    if t == "register_transition":
+        branches = "; ".join(
+            f"if {expr_to_symbolic(update['guard'])}: "
+            f"{expr_to_symbolic(update['next'])}"
+            for update in formal["updates"]
+        )
+        return (
+            f"next({formal['register']}) = first_match({branches}; "
+            f"default: {expr_to_symbolic(formal['default'])}){suffix}"
+        )
     if t == "spec_relation":
         on = f" on {formal['on']}" if formal.get("on") else ""
         return f"bindings satisfy {formal['spec']}{on}{suffix}"
@@ -859,6 +1154,17 @@ def validate_formal_expr_shape(expr: Any, path: str = "expr") -> list[str]:
         "const": ({"op", "value"}, {"op", "value"}),
         "index_var": ({"op", "name"}, {"op", "name"}),
         "lookup": ({"op", "value", "index"}, {"op", "value", "index"}),
+        "not": ({"op", "value"}, {"op", "value"}),
+        "and": ({"op", "args"}, {"op", "args"}),
+        "or": ({"op", "args"}, {"op", "args"}),
+        "indexed_cases": (
+            {"op", "index", "values"},
+            {"op", "index", "values"},
+        ),
+        "modular_increment": (
+            {"op", "value", "modulus"},
+            {"op", "value", "modulus"},
+        ),
     }
     if op not in specs:
         return [f"{path}.op {op!r} is unsupported"]
@@ -867,12 +1173,88 @@ def validate_formal_expr_shape(expr: Any, path: str = "expr") -> list[str]:
     errors.extend(f"{path} has unsupported field {key!r}" for key in sorted(set(expr) - allowed))
     if op in {"slice", "shr", "bit"} and "value" in expr:
         errors.extend(validate_formal_expr_shape(expr["value"], f"{path}.value"))
+    if op == "bit" and "index" in expr:
+        index = expr["index"]
+        if isinstance(index, dict):
+            errors.extend(validate_formal_expr_shape(index, f"{path}.index"))
+        elif not isinstance(index, int) or isinstance(index, bool) or index < 0:
+            errors.append(f"{path}.index must be a non-negative integer or expression")
     if op == "lookup":
         if "value" in expr:
             errors.extend(validate_formal_expr_shape(expr["value"], f"{path}.value"))
         if "index" in expr:
             errors.extend(validate_formal_expr_shape(expr["index"], f"{path}.index"))
+    if op == "not" and "value" in expr:
+        errors.extend(validate_formal_expr_shape(expr["value"], f"{path}.value"))
+    if op in {"and", "or"}:
+        args = expr.get("args")
+        if not isinstance(args, list) or len(args) < 2:
+            errors.append(f"{path}.args must contain at least two expressions")
+        else:
+            for index, item in enumerate(args):
+                errors.extend(validate_formal_expr_shape(item, f"{path}.args[{index}]"))
+    if op == "indexed_cases":
+        if "index" in expr:
+            errors.extend(validate_formal_expr_shape(expr["index"], f"{path}.index"))
+        values = expr.get("values")
+        if not isinstance(values, list) or not values:
+            errors.append(f"{path}.values must contain at least one expression")
+        else:
+            for index, item in enumerate(values):
+                errors.extend(validate_formal_expr_shape(item, f"{path}.values[{index}]"))
+    if op == "modular_increment":
+        if "value" in expr:
+            errors.extend(validate_formal_expr_shape(expr["value"], f"{path}.value"))
+        modulus = expr.get("modulus")
+        if not isinstance(modulus, int) or isinstance(modulus, bool) or modulus < 2:
+            errors.append(f"{path}.modulus must be an integer >= 2")
     return errors
+
+
+def _is_indexed_boolean_expr(expr: Any) -> bool:
+    """Return whether ``expr`` is a Boolean expression parameterized by an index.
+
+    This is intentionally syntactic.  The deterministic selector prover later
+    checks the referenced packed vectors / indexed arrays against the handoff.
+    """
+
+    if not isinstance(expr, dict):
+        return False
+    op = expr.get("op")
+    if op in {"bit", "lookup"}:
+        return True
+    if op == "not":
+        return _is_indexed_boolean_expr(expr.get("value"))
+    if op in {"and", "or"}:
+        args = expr.get("args")
+        return bool(args) and all(_is_indexed_boolean_expr(item) for item in args)
+    if op == "indexed_cases":
+        return (
+            isinstance(expr.get("index"), dict)
+            and expr["index"].get("op") == "index_var"
+            and isinstance(expr.get("values"), list)
+            and bool(expr["values"])
+            and all(_is_boolean_scalar_expr(item) for item in expr["values"])
+        )
+    return False
+
+
+def _is_boolean_scalar_expr(expr: Any) -> bool:
+    if not isinstance(expr, dict):
+        return False
+    op = expr.get("op")
+    if op == "signal":
+        return True
+    if op in {"bit", "lookup"}:
+        return not expr_index_vars(expr)
+    if op == "const":
+        return expr.get("value") in {0, 1}
+    if op == "not":
+        return _is_boolean_scalar_expr(expr.get("value"))
+    if op in {"and", "or"}:
+        args = expr.get("args")
+        return bool(args) and all(_is_boolean_scalar_expr(item) for item in args)
+    return False
 
 
 def validate_formal_axiom_shape(formal: Any) -> list[str]:
@@ -919,6 +1301,26 @@ def validate_formal_axiom_shape(formal: Any) -> list[str]:
         "indexed_complete": (
             {"type", "occurrence", "completion", "index", "domain", "cardinality", "scope_identity"},
             {"type", "occurrence", "completion", "index", "domain", "cardinality", "scope_identity", "scope_index"},
+        ),
+        "indexed_priority_select": (
+            {
+                "type", "index", "candidate", "priority", "result",
+                "latency_cycles", "initialization", "scope_identity"
+            },
+            {
+                "type", "index", "candidate", "priority", "result",
+                "latency_cycles", "initialization", "scope_identity"
+            },
+        ),
+        "register_transition": (
+            {
+                "type", "register", "width", "updates", "priority",
+                "default", "scope_identity"
+            },
+            {
+                "type", "register", "width", "updates", "priority",
+                "default", "scope_identity"
+            },
         ),
         "spec_relation": (
             {"type", "on", "spec", "bindings", "scope_identity"},
@@ -992,6 +1394,16 @@ def validate_formal_axiom_shape(formal: Any) -> list[str]:
         errors.extend(validate_formal_expr_shape(formal["source"], "signal_equality.source"))
     elif t == "value_constraint" and "expr" in formal:
         errors.extend(validate_formal_expr_shape(formal["expr"], "value_constraint.expr"))
+        expr = formal["expr"]
+        if (
+            isinstance(expr, dict)
+            and expr.get("op") == "bit"
+            and not isinstance(expr.get("index"), int)
+        ):
+            errors.append(
+                "value_constraint.expr bit index must be a nonnegative integer; "
+                "indexed expressions require a dedicated quantified axiom"
+            )
     elif t == "join":
         prerequisites = formal.get("prerequisites")
         if not isinstance(prerequisites, list) or len(prerequisites) < 2:
@@ -1030,6 +1442,134 @@ def validate_formal_axiom_shape(formal: Any) -> list[str]:
                 end = domain.get("end_exclusive")
                 if not isinstance(start, int) or not isinstance(end, int) or start < 0 or end <= start:
                     errors.append("indexed_complete.domain must satisfy 0 <= start < end_exclusive")
+    elif t == "indexed_priority_select":
+        if formal.get("scope_identity") is not None:
+            errors.append("indexed_priority_select.scope_identity is currently required to be null")
+        index = formal.get("index")
+        if not isinstance(index, dict) or set(index) != {"name", "count"}:
+            errors.append("indexed_priority_select.index must contain exactly name/count")
+            index_name = None
+        else:
+            index_name = index.get("name")
+            if not isinstance(index_name, str) or not index_name:
+                errors.append("indexed_priority_select.index.name must be a non-empty string")
+            count = index.get("count")
+            if not isinstance(count, int) or isinstance(count, bool) or count < 1:
+                errors.append("indexed_priority_select.index.count must be a positive integer")
+
+        candidate_expr = formal.get("candidate")
+        errors.extend(validate_formal_expr_shape(candidate_expr, "indexed_priority_select.candidate"))
+        if isinstance(candidate_expr, dict):
+            variables = expr_index_vars(candidate_expr)
+            if index_name and variables != {index_name}:
+                errors.append(
+                    "indexed_priority_select.candidate must use exactly its declared index variable"
+                )
+            if not _is_indexed_boolean_expr(candidate_expr):
+                errors.append(
+                    "indexed_priority_select.candidate must be an indexed Boolean expression"
+                )
+            if (
+                candidate_expr.get("op") == "indexed_cases"
+                and isinstance(index, dict)
+                and len(candidate_expr.get("values", [])) != index.get("count")
+            ):
+                errors.append(
+                    "indexed_priority_select indexed_cases must contain index.count values"
+                )
+
+        priority = formal.get("priority")
+        priority_kinds = {
+            "linear_min", "linear_max", "cyclic_predecessor", "cyclic_successor"
+        }
+        if not isinstance(priority, dict) or priority.get("kind") not in priority_kinds:
+            errors.append("indexed_priority_select.priority.kind is unsupported")
+        elif priority["kind"].startswith("cyclic_"):
+            if not {"kind", "pivot"} <= set(priority) or set(priority) - {
+                "kind", "pivot", "pivot_position"
+            }:
+                errors.append(
+                    "cyclic indexed priority requires kind/pivot and optional pivot_position"
+                )
+            else:
+                errors.extend(
+                    validate_formal_expr_shape(
+                        priority.get("pivot"), "indexed_priority_select.priority.pivot"
+                    )
+                )
+                if isinstance(priority.get("pivot"), dict) and expr_index_vars(priority["pivot"]):
+                    errors.append("indexed_priority_select.priority.pivot must not use index_var")
+                if priority.get("pivot_position", "last") not in {"first", "last"}:
+                    errors.append(
+                        "indexed_priority_select.priority.pivot_position must be first or last"
+                    )
+        elif set(priority) != {"kind"}:
+            errors.append("linear indexed priority contains only kind")
+
+        result = formal.get("result")
+        if (
+            not isinstance(result, dict)
+            or "index" not in result
+            or set(result) - {"found", "index"}
+        ):
+            errors.append("indexed_priority_select.result must contain index and optional found")
+        else:
+            if "found" in result and (
+                not isinstance(result.get("found"), str) or not result.get("found")
+            ):
+                errors.append("indexed_priority_select result.found must be a non-empty string")
+            result_index = result.get("index")
+            if isinstance(result_index, dict):
+                errors.extend(
+                    validate_formal_expr_shape(
+                        result_index, "indexed_priority_select.result.index"
+                    )
+                )
+                if expr_index_vars(result_index):
+                    errors.append(
+                        "indexed_priority_select.result.index must not use index_var"
+                    )
+            elif not isinstance(result_index, str) or not result_index:
+                errors.append(
+                    "indexed_priority_select.result.index must be a signal or expression"
+                )
+        latency = formal.get("latency_cycles")
+        if not isinstance(latency, int) or isinstance(latency, bool) or latency < 0:
+            errors.append("indexed_priority_select.latency_cycles must be a non-negative integer")
+        initialization = formal.get("initialization")
+        if initialization != {"kind": "implicit_unconstrained"}:
+            errors.append(
+                "indexed_priority_select.initialization currently supports only implicit_unconstrained"
+            )
+    elif t == "register_transition":
+        if formal.get("scope_identity") is not None:
+            errors.append("register_transition.scope_identity is currently required to be null")
+        if not isinstance(formal.get("register"), str) or not formal.get("register"):
+            errors.append("register_transition.register must be a non-empty string")
+        width = formal.get("width")
+        if not isinstance(width, int) or isinstance(width, bool) or width < 1:
+            errors.append("register_transition.width must be a positive integer")
+        if formal.get("priority") != "first_match":
+            errors.append("register_transition.priority currently supports only first_match")
+        updates = formal.get("updates")
+        if not isinstance(updates, list) or not updates:
+            errors.append("register_transition.updates must contain at least one update")
+        else:
+            for update_index, update in enumerate(updates):
+                path = f"register_transition.updates[{update_index}]"
+                if not isinstance(update, dict) or set(update) != {"guard", "next"}:
+                    errors.append(f"{path} must contain exactly guard/next")
+                    continue
+                errors.extend(validate_formal_expr_shape(update["guard"], f"{path}.guard"))
+                errors.extend(validate_formal_expr_shape(update["next"], f"{path}.next"))
+                if not _is_boolean_scalar_expr(update["guard"]):
+                    errors.append(f"{path}.guard must be a scalar Boolean expression")
+                if expr_index_vars(update["guard"]) or expr_index_vars(update["next"]):
+                    errors.append(f"{path} must not use index_var")
+        default = formal.get("default")
+        errors.extend(validate_formal_expr_shape(default, "register_transition.default"))
+        if isinstance(default, dict) and expr_index_vars(default):
+            errors.append("register_transition.default must not use index_var")
     elif t == "spec_relation":
         bindings = formal.get("bindings")
         required_bindings = {"param", "current_state", "dirty", "report", "next_state"}

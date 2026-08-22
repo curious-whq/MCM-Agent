@@ -988,7 +988,10 @@
   ],
   "freeze": {
     "candidate_axiom_count": 30,
+    "empty_abstraction": false,
+    "exported_axiom_count": 30,
     "policy": "all-declared-axioms-trusted-and-no-unresolved-v0.1",
+    "private_axiom_count": 0,
     "reopen_policy": "This summary may be reopened if later parent/system counterexample validation shows the abstraction is too weak and a missing concrete constraint must be synthesized.",
     "status": "FROZEN_FOR_COMPOSITION",
     "trusted_axiom_count": 30

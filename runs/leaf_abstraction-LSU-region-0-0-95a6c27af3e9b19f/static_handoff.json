@@ -1,0 +1,4615 @@
+{
+  "children": [],
+  "complexity": {
+    "event_state_coupling": 0.0,
+    "events": 1,
+    "logical": {
+      "dependency_edges": 30,
+      "signals": 22,
+      "source_loc": 9,
+      "statements": 11
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 249,
+      "signals": 245,
+      "source_loc": 9,
+      "statements": 18,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 2,
+    "state_regions": 2
+  },
+  "dependency_edges": [
+    {
+      "dst": "_clr_valid_1_T",
+      "kind": "data",
+      "source": {
+        "column": 51,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 126,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 126:51"
+      },
+      "src": "clr_uop.br_mask",
+      "statement_ids": [
+        3410
+      ]
+    },
+    {
+      "dst": "_clr_valid_1_T",
+      "kind": "data",
+      "source": {
+        "column": 51,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 126,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 126:51"
+      },
+      "src": "io.core.brupdate.b1.mispredict_mask",
+      "statement_ids": [
+        3410
+      ]
+    },
+    {
+      "dst": "_clr_valid_1_T_1",
+      "kind": "data",
+      "source": {
+        "column": 59,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 126,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 126:59"
+      },
+      "src": "_clr_valid_1_T",
+      "statement_ids": [
+        3411
+      ]
+    },
+    {
+      "dst": "_clr_valid_1_T_1",
+      "kind": "data",
+      "source": {
+        "column": 59,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 126,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 126:59"
+      },
+      "src": "h0",
+      "statement_ids": [
+        3411
+      ]
+    },
+    {
+      "dst": "_clr_valid_1_T_2",
+      "kind": "data",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 61,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 61:61"
+      },
+      "src": "_clr_valid_1_T_1",
+      "statement_ids": [
+        3412
+      ]
+    },
+    {
+      "dst": "_clr_valid_1_T_2",
+      "kind": "data",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 61,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 61:61"
+      },
+      "src": "io.core.exception",
+      "statement_ids": [
+        3412
+      ]
+    },
+    {
+      "dst": "_clr_valid_1_T_3",
+      "kind": "data",
+      "source": {
+        "column": 44,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1083,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1083:44"
+      },
+      "src": "_clr_valid_1_T_2",
+      "statement_ids": [
+        3413
+      ]
+    },
+    {
+      "dst": "_clr_valid_1_T_3",
+      "kind": "data",
+      "source": {
+        "column": 44,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1083,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1083:44"
+      },
+      "src": "h0",
+      "statement_ids": [
+        3413
+      ]
+    },
+    {
+      "dst": "_clr_valid_1_T_4",
+      "kind": "data",
+      "source": {
+        "column": 41,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1083,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1083:41"
+      },
+      "src": "_clr_valid_1_T_3",
+      "statement_ids": [
+        3414
+      ]
+    },
+    {
+      "dst": "_clr_valid_1_T_4",
+      "kind": "data",
+      "source": {
+        "column": 41,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1083,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1083:41"
+      },
+      "src": "clr_valid",
+      "statement_ids": [
+        3414
+      ]
+    },
+    {
+      "dst": "clr_valid_1",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1083,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1083:30"
+      },
+      "src": "_clr_valid_1_T_4",
+      "statement_ids": [
+        3416
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.bp_debug_if",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.bp_debug_if",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.bp_xcpt_if",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.bp_xcpt_if",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.br_mask",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.br_mask",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.br_tag",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.br_tag",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.br_type",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.br_type",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.csr_cmd",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.csr_cmd",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.debug_fsrc",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.debug_fsrc",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.debug_inst",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.debug_inst",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.debug_pc",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.debug_pc",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.debug_tsrc",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.debug_tsrc",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.dis_col_sel",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.dis_col_sel",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.dst_rtype",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.dst_rtype",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.edge_inst",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.edge_inst",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.exc_cause",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.exc_cause",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.exception",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.exception",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fcn_dw",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fcn_dw",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fcn_op",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fcn_op",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.flush_on_commit",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.flush_on_commit",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fp_ctrl.div",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fp_ctrl.div",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fp_ctrl.fastpipe",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fp_ctrl.fastpipe",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fp_ctrl.fma",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fp_ctrl.fma",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fp_ctrl.fromint",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fp_ctrl.fromint",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fp_ctrl.ldst",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fp_ctrl.ldst",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fp_ctrl.ren1",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fp_ctrl.ren1",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fp_ctrl.ren2",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fp_ctrl.ren2",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fp_ctrl.ren3",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fp_ctrl.ren3",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fp_ctrl.sqrt",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fp_ctrl.sqrt",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fp_ctrl.swap12",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fp_ctrl.swap12",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fp_ctrl.swap23",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fp_ctrl.swap23",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fp_ctrl.toint",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fp_ctrl.toint",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fp_ctrl.typeTagIn",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fp_ctrl.typeTagIn",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fp_ctrl.typeTagOut",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fp_ctrl.typeTagOut",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fp_ctrl.vec",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fp_ctrl.vec",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fp_ctrl.wen",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fp_ctrl.wen",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fp_ctrl.wflags",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fp_ctrl.wflags",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fp_rm",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fp_rm",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fp_typ",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fp_typ",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fp_val",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fp_val",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.frs3_en",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.frs3_en",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.ftq_idx",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.ftq_idx",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fu_code[0]",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fu_code[0]",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fu_code[1]",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fu_code[1]",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fu_code[2]",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fu_code[2]",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fu_code[3]",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fu_code[3]",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fu_code[4]",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fu_code[4]",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fu_code[5]",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fu_code[5]",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fu_code[6]",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fu_code[6]",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fu_code[7]",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fu_code[7]",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fu_code[8]",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fu_code[8]",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.fu_code[9]",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.fu_code[9]",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.imm_packed",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.imm_packed",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.imm_rename",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.imm_rename",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.imm_sel",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.imm_sel",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.inst",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.inst",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.iq_type[0]",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.iq_type[0]",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.iq_type[1]",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.iq_type[1]",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.iq_type[2]",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.iq_type[2]",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.iq_type[3]",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.iq_type[3]",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.is_amo",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.is_amo",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.is_eret",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.is_eret",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.is_fence",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.is_fence",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.is_fencei",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.is_fencei",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.is_mov",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.is_mov",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.is_rocc",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.is_rocc",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.is_rvc",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.is_rvc",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.is_sfb",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.is_sfb",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.is_sfence",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.is_sfence",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.is_sys_pc2epc",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.is_sys_pc2epc",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.is_unique",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.is_unique",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.iw_issued",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.iw_issued",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.iw_issued_partial_agen",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.iw_issued_partial_agen",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.iw_issued_partial_dgen",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.iw_issued_partial_dgen",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.iw_p1_bypass_hint",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.iw_p1_bypass_hint",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.iw_p1_speculative_child",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.iw_p1_speculative_child",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.iw_p2_bypass_hint",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.iw_p2_bypass_hint",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.iw_p2_speculative_child",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.iw_p2_speculative_child",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.iw_p3_bypass_hint",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.iw_p3_bypass_hint",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.ldq_idx",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.ldq_idx",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.ldst",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.ldst",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.ldst_is_rs1",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.ldst_is_rs1",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.lrs1",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.lrs1",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.lrs1_rtype",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.lrs1_rtype",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.lrs2",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.lrs2",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.lrs2_rtype",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.lrs2_rtype",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.lrs3",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.lrs3",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.mem_cmd",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.mem_cmd",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.mem_signed",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.mem_signed",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.mem_size",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.mem_size",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.op1_sel",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.op1_sel",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.op2_sel",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.op2_sel",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.pc_lob",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.pc_lob",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.pdst",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.pdst",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.pimm",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.pimm",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.ppred",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.ppred",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.ppred_busy",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.ppred_busy",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.prs1",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.prs1",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.prs1_busy",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.prs1_busy",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.prs2",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.prs2",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.prs2_busy",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.prs2_busy",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.prs3",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.prs3",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.prs3_busy",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.prs3_busy",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.rob_idx",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.rob_idx",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.rxq_idx",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.rxq_idx",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.stale_pdst",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.stale_pdst",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.stq_idx",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.stq_idx",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.taken",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.taken",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.uses_ldq",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.uses_ldq",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.uses_stq",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.uses_stq",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.xcpt_ae_if",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.xcpt_ae_if",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.xcpt_ma_if",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.xcpt_ma_if",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.xcpt_pf_if",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "src": "clr_uop.xcpt_pf_if",
+      "statement_ids": [
+        3418
+      ]
+    },
+    {
+      "dst": "_clr_uop_1_out_br_mask_T",
+      "kind": "data",
+      "source": {
+        "column": 27,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 93,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 93:27"
+      },
+      "src": "io.core.brupdate.b1.resolve_mask",
+      "statement_ids": [
+        3419
+      ]
+    },
+    {
+      "dst": "_clr_uop_1_out_br_mask_T_1",
+      "kind": "data",
+      "source": {
+        "column": 25,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 93,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 93:25"
+      },
+      "src": "_clr_uop_1_out_br_mask_T",
+      "statement_ids": [
+        3420
+      ]
+    },
+    {
+      "dst": "_clr_uop_1_out_br_mask_T_1",
+      "kind": "data",
+      "source": {
+        "column": 25,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 93,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 93:25"
+      },
+      "src": "clr_uop.br_mask",
+      "statement_ids": [
+        3420
+      ]
+    },
+    {
+      "dst": "clr_uop_1_out.br_mask",
+      "kind": "data",
+      "source": {
+        "column": 17,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 105,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 105:17"
+      },
+      "src": "_clr_uop_1_out_br_mask_T_1",
+      "statement_ids": [
+        3421
+      ]
+    },
+    {
+      "dst": "clr_uop_1.bp_debug_if",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.bp_debug_if",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.bp_xcpt_if",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.bp_xcpt_if",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.br_mask",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.br_mask",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.br_tag",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.br_tag",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.br_type",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.br_type",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.csr_cmd",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.csr_cmd",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.debug_fsrc",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.debug_fsrc",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.debug_inst",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.debug_inst",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.debug_pc",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.debug_pc",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.debug_tsrc",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.debug_tsrc",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.dis_col_sel",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.dis_col_sel",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.dst_rtype",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.dst_rtype",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.edge_inst",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.edge_inst",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.exc_cause",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.exc_cause",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.exception",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.exception",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fcn_dw",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fcn_dw",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fcn_op",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fcn_op",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.flush_on_commit",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.flush_on_commit",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fp_ctrl.div",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fp_ctrl.div",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fp_ctrl.fastpipe",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fp_ctrl.fastpipe",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fp_ctrl.fma",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fp_ctrl.fma",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fp_ctrl.fromint",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fp_ctrl.fromint",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fp_ctrl.ldst",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fp_ctrl.ldst",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fp_ctrl.ren1",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fp_ctrl.ren1",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fp_ctrl.ren2",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fp_ctrl.ren2",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fp_ctrl.ren3",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fp_ctrl.ren3",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fp_ctrl.sqrt",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fp_ctrl.sqrt",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fp_ctrl.swap12",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fp_ctrl.swap12",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fp_ctrl.swap23",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fp_ctrl.swap23",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fp_ctrl.toint",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fp_ctrl.toint",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fp_ctrl.typeTagIn",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fp_ctrl.typeTagIn",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fp_ctrl.typeTagOut",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fp_ctrl.typeTagOut",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fp_ctrl.vec",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fp_ctrl.vec",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fp_ctrl.wen",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fp_ctrl.wen",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fp_ctrl.wflags",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fp_ctrl.wflags",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fp_rm",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fp_rm",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fp_typ",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fp_typ",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fp_val",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fp_val",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.frs3_en",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.frs3_en",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.ftq_idx",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.ftq_idx",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fu_code[0]",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fu_code[0]",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fu_code[1]",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fu_code[1]",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fu_code[2]",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fu_code[2]",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fu_code[3]",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fu_code[3]",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fu_code[4]",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fu_code[4]",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fu_code[5]",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fu_code[5]",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fu_code[6]",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fu_code[6]",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fu_code[7]",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fu_code[7]",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fu_code[8]",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fu_code[8]",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.fu_code[9]",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.fu_code[9]",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.imm_packed",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.imm_packed",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.imm_rename",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.imm_rename",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.imm_sel",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.imm_sel",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.inst",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.inst",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.iq_type[0]",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.iq_type[0]",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.iq_type[1]",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.iq_type[1]",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.iq_type[2]",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.iq_type[2]",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.iq_type[3]",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.iq_type[3]",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.is_amo",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.is_amo",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.is_eret",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.is_eret",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.is_fence",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.is_fence",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.is_fencei",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.is_fencei",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.is_mov",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.is_mov",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.is_rocc",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.is_rocc",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.is_rvc",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.is_rvc",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.is_sfb",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.is_sfb",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.is_sfence",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.is_sfence",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.is_sys_pc2epc",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.is_sys_pc2epc",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.is_unique",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.is_unique",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.iw_issued",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.iw_issued",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.iw_issued_partial_agen",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.iw_issued_partial_agen",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.iw_issued_partial_dgen",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.iw_issued_partial_dgen",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.iw_p1_bypass_hint",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.iw_p1_bypass_hint",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.iw_p1_speculative_child",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.iw_p1_speculative_child",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.iw_p2_bypass_hint",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.iw_p2_bypass_hint",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.iw_p2_speculative_child",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.iw_p2_speculative_child",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.iw_p3_bypass_hint",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.iw_p3_bypass_hint",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.ldq_idx",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.ldq_idx",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.ldst",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.ldst",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.ldst_is_rs1",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.ldst_is_rs1",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.lrs1",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.lrs1",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.lrs1_rtype",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.lrs1_rtype",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.lrs2",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.lrs2",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.lrs2_rtype",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.lrs2_rtype",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.lrs3",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.lrs3",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.mem_cmd",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.mem_cmd",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.mem_signed",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.mem_signed",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.mem_size",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.mem_size",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.op1_sel",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.op1_sel",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.op2_sel",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.op2_sel",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.pc_lob",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.pc_lob",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.pdst",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.pdst",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.pimm",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.pimm",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.ppred",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.ppred",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.ppred_busy",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.ppred_busy",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.prs1",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.prs1",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.prs1_busy",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.prs1_busy",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.prs2",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.prs2",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.prs2_busy",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.prs2_busy",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.prs3",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.prs3",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.prs3_busy",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.prs3_busy",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.rob_idx",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.rob_idx",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.rxq_idx",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.rxq_idx",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.stale_pdst",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.stale_pdst",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.stq_idx",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.stq_idx",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.taken",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.taken",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.uses_ldq",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.uses_ldq",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.uses_stq",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.uses_stq",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.xcpt_ae_if",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.xcpt_ae_if",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.xcpt_ma_if",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.xcpt_ma_if",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "clr_uop_1.xcpt_pf_if",
+      "kind": "state",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "src": "clr_uop_1_out.xcpt_pf_if",
+      "statement_ids": [
+        3423
+      ]
+    },
+    {
+      "dst": "_io_core_clr_bsy_0_valid_T",
+      "kind": "data",
+      "source": {
+        "column": 51,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 126,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 126:51"
+      },
+      "src": "clr_uop_1.br_mask",
+      "statement_ids": [
+        3455
+      ]
+    },
+    {
+      "dst": "_io_core_clr_bsy_0_valid_T",
+      "kind": "data",
+      "source": {
+        "column": 51,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 126,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 126:51"
+      },
+      "src": "io.core.brupdate.b1.mispredict_mask",
+      "statement_ids": [
+        3455
+      ]
+    },
+    {
+      "dst": "_io_core_clr_bsy_0_valid_T_1",
+      "kind": "data",
+      "source": {
+        "column": 59,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 126,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 126:59"
+      },
+      "src": "_io_core_clr_bsy_0_valid_T",
+      "statement_ids": [
+        3456
+      ]
+    },
+    {
+      "dst": "_io_core_clr_bsy_0_valid_T_1",
+      "kind": "data",
+      "source": {
+        "column": 59,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 126,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 126:59"
+      },
+      "src": "h0",
+      "statement_ids": [
+        3456
+      ]
+    },
+    {
+      "dst": "_io_core_clr_bsy_0_valid_T_2",
+      "kind": "data",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 61,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 61:61"
+      },
+      "src": "_io_core_clr_bsy_0_valid_T_1",
+      "statement_ids": [
+        3457
+      ]
+    },
+    {
+      "dst": "_io_core_clr_bsy_0_valid_T_2",
+      "kind": "data",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 61,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 61:61"
+      },
+      "src": "io.core.exception",
+      "statement_ids": [
+        3457
+      ]
+    },
+    {
+      "dst": "_io_core_clr_bsy_0_valid_T_3",
+      "kind": "data",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1102,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1102:48"
+      },
+      "src": "_io_core_clr_bsy_0_valid_T_2",
+      "statement_ids": [
+        3458
+      ]
+    },
+    {
+      "dst": "_io_core_clr_bsy_0_valid_T_3",
+      "kind": "data",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1102,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1102:48"
+      },
+      "src": "h0",
+      "statement_ids": [
+        3458
+      ]
+    },
+    {
+      "dst": "_io_core_clr_bsy_0_valid_T_4",
+      "kind": "data",
+      "source": {
+        "column": 45,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1102,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1102:45"
+      },
+      "src": "_io_core_clr_bsy_0_valid_T_3",
+      "statement_ids": [
+        3459
+      ]
+    },
+    {
+      "dst": "_io_core_clr_bsy_0_valid_T_4",
+      "kind": "data",
+      "source": {
+        "column": 45,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1102,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1102:45"
+      },
+      "src": "clr_valid_1",
+      "statement_ids": [
+        3459
+      ]
+    },
+    {
+      "dst": "io.core.clr_bsy[0].valid",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1102,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1102:30"
+      },
+      "src": "_io_core_clr_bsy_0_valid_T_4",
+      "statement_ids": [
+        3460
+      ]
+    },
+    {
+      "dst": "io.core.clr_bsy[0].bits",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1103,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1103:30"
+      },
+      "src": "clr_uop_1.rob_idx",
+      "statement_ids": [
+        3461
+      ]
+    }
+  ],
+  "events": [
+    {
+      "channel": "io.core.clr_bsy[0]",
+      "direction": "send",
+      "id": "LSU::io.core.clr_bsy[0].valid",
+      "payload": [
+        "io.core.clr_bsy[0].bits"
+      ],
+      "predicate": "io.core.clr_bsy[0].valid",
+      "protocol": "valid",
+      "ready": null,
+      "registry_id": "LSU.io.core.clr_bsy[0].valid",
+      "sources": [
+        {
+          "column": 14,
+          "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+          "line": 216,
+          "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+        }
+      ],
+      "valid": "io.core.clr_bsy[0].valid"
+    }
+  ],
+  "frontier": [
+    {
+      "id": "clr_uop",
+      "kind": "register",
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1081,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1081:24"
+      },
+      "type": "{ inst : UInt<32>, debug_inst : UInt<32>, is_rvc : UInt<1>, debug_pc : UInt<40>, iq_type : UInt<1>[4], fu_code : UInt<1>[10], iw_issued : UInt<1>, iw_issued_partial_agen : UInt<1>, iw_issued_partial_dgen : UInt<1>, iw_p1_speculative_child : UInt<1>, iw_p2_speculative_child : UInt<1>, iw_p1_bypass_hint : UInt<1>, iw_p2_bypass_hint : UInt<1>, iw_p3_bypass_hint : UInt<1>, dis_col_sel : UInt<1>, br_mask : UInt<8>, br_tag : UInt<3>, br_type : UInt<4>, is_sfb : UInt<1>, is_fence : UInt<1>, is_fencei : UInt<1>, is_sfence : UInt<1>, is_amo : UInt<1>, is_eret : UInt<1>, is_sys_pc2epc : UInt<1>, is_rocc : UInt<1>, is_mov : UInt<1>, ftq_idx : UInt<4>, edge_inst : UInt<1>, pc_lob : UInt<6>, taken : UInt<1>, imm_rename : UInt<1>, imm_sel : UInt<3>, pimm : UInt<5>, imm_packed : UInt<20>, op1_sel : UInt<2>, op2_sel : UInt<3>, fp_ctrl : { ldst : UInt<1>, wen : UInt<1>, ren1 : UInt<1>, ren2 : UInt<1>, ren3 : UInt<1>, swap12 : UInt<1>, swap23 : UInt<1>, typeTagIn : UInt<2>, typeTagOut : UInt<2>, fromint : UInt<1>, toint : UInt<1>, fastpipe : UInt<1>, fma : UInt<1>, div : UInt<1>, sqrt : UInt<1>, wflags : UInt<1>, vec : UInt<1>}, rob_idx : UInt<5>, ldq_idx : UInt<4>, stq_idx : UInt<4>, rxq_idx : UInt<2>, pdst : UInt<6>, prs1 : UInt<6>, prs2 : UInt<6>, prs3 : UInt<6>, ppred : UInt<4>, prs1_busy : UInt<1>, prs2_busy : UInt<1>, prs3_busy : UInt<1>, ppred_busy : UInt<1>, stale_pdst : UInt<6>, exception : UInt<1>, exc_cause : UInt<64>, mem_cmd : UInt<5>, mem_size : UInt<2>, mem_signed : UInt<1>, uses_ldq : UInt<1>, uses_stq : UInt<1>, is_unique : UInt<1>, flush_on_commit : UInt<1>, csr_cmd : UInt<3>, ldst_is_rs1 : UInt<1>, ldst : UInt<6>, lrs1 : UInt<6>, lrs2 : UInt<6>, lrs3 : UInt<6>, dst_rtype : UInt<2>, lrs1_rtype : UInt<2>, lrs2_rtype : UInt<2>, frs3_en : UInt<1>, fcn_dw : UInt<1>, fcn_op : UInt<5>, fp_val : UInt<1>, fp_rm : UInt<3>, fp_typ : UInt<2>, xcpt_pf_if : UInt<1>, xcpt_ae_if : UInt<1>, xcpt_ma_if : UInt<1>, bp_debug_if : UInt<1>, bp_xcpt_if : UInt<1>, debug_fsrc : UInt<3>, debug_tsrc : UInt<3>}"
+    },
+    {
+      "id": "clr_uop.br_mask",
+      "kind": "register",
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1081,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1081:24"
+      },
+      "type": null
+    },
+    {
+      "id": "clr_uop_1_out",
+      "kind": "wire",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "type": "{ inst : UInt<32>, debug_inst : UInt<32>, is_rvc : UInt<1>, debug_pc : UInt<40>, iq_type : UInt<1>[4], fu_code : UInt<1>[10], iw_issued : UInt<1>, iw_issued_partial_agen : UInt<1>, iw_issued_partial_dgen : UInt<1>, iw_p1_speculative_child : UInt<1>, iw_p2_speculative_child : UInt<1>, iw_p1_bypass_hint : UInt<1>, iw_p2_bypass_hint : UInt<1>, iw_p3_bypass_hint : UInt<1>, dis_col_sel : UInt<1>, br_mask : UInt<8>, br_tag : UInt<3>, br_type : UInt<4>, is_sfb : UInt<1>, is_fence : UInt<1>, is_fencei : UInt<1>, is_sfence : UInt<1>, is_amo : UInt<1>, is_eret : UInt<1>, is_sys_pc2epc : UInt<1>, is_rocc : UInt<1>, is_mov : UInt<1>, ftq_idx : UInt<4>, edge_inst : UInt<1>, pc_lob : UInt<6>, taken : UInt<1>, imm_rename : UInt<1>, imm_sel : UInt<3>, pimm : UInt<5>, imm_packed : UInt<20>, op1_sel : UInt<2>, op2_sel : UInt<3>, fp_ctrl : { ldst : UInt<1>, wen : UInt<1>, ren1 : UInt<1>, ren2 : UInt<1>, ren3 : UInt<1>, swap12 : UInt<1>, swap23 : UInt<1>, typeTagIn : UInt<2>, typeTagOut : UInt<2>, fromint : UInt<1>, toint : UInt<1>, fastpipe : UInt<1>, fma : UInt<1>, div : UInt<1>, sqrt : UInt<1>, wflags : UInt<1>, vec : UInt<1>}, rob_idx : UInt<5>, ldq_idx : UInt<4>, stq_idx : UInt<4>, rxq_idx : UInt<2>, pdst : UInt<6>, prs1 : UInt<6>, prs2 : UInt<6>, prs3 : UInt<6>, ppred : UInt<4>, prs1_busy : UInt<1>, prs2_busy : UInt<1>, prs3_busy : UInt<1>, ppred_busy : UInt<1>, stale_pdst : UInt<6>, exception : UInt<1>, exc_cause : UInt<64>, mem_cmd : UInt<5>, mem_size : UInt<2>, mem_signed : UInt<1>, uses_ldq : UInt<1>, uses_stq : UInt<1>, is_unique : UInt<1>, flush_on_commit : UInt<1>, csr_cmd : UInt<3>, ldst_is_rs1 : UInt<1>, ldst : UInt<6>, lrs1 : UInt<6>, lrs2 : UInt<6>, lrs3 : UInt<6>, dst_rtype : UInt<2>, lrs1_rtype : UInt<2>, lrs2_rtype : UInt<2>, frs3_en : UInt<1>, fcn_dw : UInt<1>, fcn_op : UInt<5>, fp_val : UInt<1>, fp_rm : UInt<3>, fp_typ : UInt<2>, xcpt_pf_if : UInt<1>, xcpt_ae_if : UInt<1>, xcpt_ma_if : UInt<1>, bp_debug_if : UInt<1>, bp_xcpt_if : UInt<1>, debug_fsrc : UInt<3>, debug_tsrc : UInt<3>}"
+    },
+    {
+      "id": "clr_valid",
+      "kind": "register",
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1079,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1079:24"
+      },
+      "type": "UInt<1>"
+    },
+    {
+      "id": "clr_valid_1",
+      "kind": "register",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1083,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1083:30"
+      },
+      "type": "UInt<1>"
+    },
+    {
+      "id": "h0",
+      "kind": "unknown",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 306,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 306:38"
+      },
+      "type": null
+    },
+    {
+      "id": "io.core.brupdate.b1.mispredict_mask",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.core.brupdate.b1.resolve_mask",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.core.clr_bsy[0].bits",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.core.clr_bsy[0].valid",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.core.exception",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    }
+  ],
+  "grounding": {
+    "allowed_physical_event_ids": [
+      "LSU::io.core.clr_bsy[0].valid"
+    ],
+    "allowed_state_ids": [
+      "clr_uop_1",
+      "clr_valid_1"
+    ],
+    "allowed_statement_ids": [
+      3410,
+      3411,
+      3412,
+      3413,
+      3414,
+      3416,
+      3418,
+      3419,
+      3420,
+      3421,
+      3423,
+      3455,
+      3456,
+      3457,
+      3458,
+      3459,
+      3460,
+      3461
+    ],
+    "semantic_labels": []
+  },
+  "memory_state": [],
+  "parent_connection_signals": [],
+  "planner_version": "hierarchical-planner-v12",
+  "proof_context": {
+    "event_gate_statement_ids": [],
+    "event_gate_statements": [],
+    "llm_evidence": false,
+    "policy": "exact-local-event-gate-bridges-v0.1",
+    "state_support_statement_ids": [
+      3415,
+      3422
+    ],
+    "state_support_statements": [
+      {
+        "control_reads": [],
+        "drives": [
+          "clr_valid_1"
+        ],
+        "firrtl_line": 369787,
+        "id": 3415,
+        "kind": "reg",
+        "note": null,
+        "reads": [
+          "clock"
+        ],
+        "source": {
+          "column": 30,
+          "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+          "line": 1083,
+          "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1083:30"
+        },
+        "status": "supported",
+        "text": "reg clr_valid_1 : UInt<1>, clock"
+      },
+      {
+        "control_reads": [],
+        "drives": [
+          "clr_uop_1"
+        ],
+        "firrtl_line": 369794,
+        "id": 3422,
+        "kind": "reg",
+        "note": null,
+        "reads": [
+          "clock"
+        ],
+        "source": {
+          "column": 30,
+          "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+          "line": 1084,
+          "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+        },
+        "status": "supported",
+        "text": "reg clr_uop_1 : { inst : UInt<32>, debug_inst : UInt<32>, is_rvc : UInt<1>, debug_pc : UInt<40>, iq_type : UInt<1>[4], fu_code : UInt<1>[10], iw_issued : UInt<1>, iw_issued_partial_agen : UInt<1>, iw_issued_partial_dgen : UInt<1>, iw_p1_speculative_child : UInt<1>, iw_p2_speculative_child : UInt<1>, iw_p1_bypass_hint : UInt<1>, iw_p2_bypass_hint : UInt<1>, iw_p3_bypass_hint : UInt<1>, dis_col_sel : UInt<1>, br_mask : UInt<8>, br_tag : UInt<3>, br_type : UInt<4>, is_sfb : UInt<1>, is_fence : UInt<1>, is_fencei : UInt<1>, is_sfence : UInt<1>, is_amo : UInt<1>, is_eret : UInt<1>, is_sys_pc2epc : UInt<1>, is_rocc : UInt<1>, is_mov : UInt<1>, ftq_idx : UInt<4>, edge_inst : UInt<1>, pc_lob : UInt<6>, taken : UInt<1>, imm_rename : UInt<1>, imm_sel : UInt<3>, pimm : UInt<5>, imm_packed : UInt<20>, op1_sel : UInt<2>, op2_sel : UInt<3>, fp_ctrl : { ldst : UInt<1>, wen : UInt<1>, ren1 : UInt<1>, ren2 : UInt<1>, ren3 : UInt<1>, swap12 : UInt<1>, swap23 : UInt<1>, typeTagIn : UInt<2>, typeTagOut : UInt<2>, fromint : UInt<1>, toint : UInt<1>, fastpipe : UInt<1>, fma : UInt<1>, div : UInt<1>, sqrt : UInt<1>, wflags : UInt<1>, vec : UInt<1>}, rob_idx : UInt<5>, ldq_idx : UInt<4>, stq_idx : UInt<4>, rxq_idx : UInt<2>, pdst : UInt<6>, prs1 : UInt<6>, prs2 : UInt<6>, prs3 : UInt<6>, ppred : UInt<4>, prs1_busy : UInt<1>, prs2_busy : UInt<1>, prs3_busy : UInt<1>, ppred_busy : UInt<1>, stale_pdst : UInt<6>, exception : UInt<1>, exc_cause : UInt<64>, mem_cmd : UInt<5>, mem_size : UInt<2>, mem_signed : UInt<1>, uses_ldq : UInt<1>, uses_stq : UInt<1>, is_unique : UInt<1>, flush_on_commit : UInt<1>, csr_cmd : UInt<3>, ldst_is_rs1 : UInt<1>, ldst : UInt<6>, lrs1 : UInt<6>, lrs2 : UInt<6>, lrs3 : UInt<6>, dst_rtype : UInt<2>, lrs1_rtype : UInt<2>, lrs2_rtype : UInt<2>, frs3_en : UInt<1>, fcn_dw : UInt<1>, fcn_op : UInt<5>, fp_val : UInt<1>, fp_rm : UInt<3>, fp_typ : UInt<2>, xcpt_pf_if : UInt<1>, xcpt_ae_if : UInt<1>, xcpt_ma_if : UInt<1>, bp_debug_if : UInt<1>, bp_xcpt_if : UInt<1>, debug_fsrc : UInt<3>, debug_tsrc : UInt<3>}, clock"
+      }
+    ]
+  },
+  "replacement_complexity": {
+    "event_state_coupling": 0.0,
+    "events": 1,
+    "logical": {
+      "dependency_edges": 30,
+      "signals": 22,
+      "source_loc": 9,
+      "statements": 11
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 249,
+      "signals": 245,
+      "source_loc": 9,
+      "statements": 18,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 2,
+    "state_regions": 2
+  },
+  "schema_version": "workunit-static-0.2",
+  "semantic_event_cones": [
+    {
+      "complete": true,
+      "event_id": "LSU::io.core.clr_bsy[0].valid",
+      "historical_registers": [
+        "REG_11",
+        "can_fire_load_retry_REG",
+        "can_fire_load_wakeup_REG",
+        "clr_uop",
+        "clr_uop_1",
+        "clr_valid",
+        "clr_valid_1",
+        "dis_uops",
+        "fired_load_agen_REG",
+        "fired_load_agen_exec_REG",
+        "fired_load_retry_REG",
+        "fired_load_wakeup_REG",
+        "fired_release",
+        "fired_store_agen_REG",
+        "fired_store_retry_REG",
+        "hella_paddr",
+        "hella_req",
+        "hella_state",
+        "hella_xcpt",
+        "lcam_addr_REG",
+        "lcam_addr_REG_1",
+        "lcam_ldq_idx_reg",
+        "lcam_ldq_idx_reg_1",
+        "lcam_stq_idx_reg",
+        "ldq_addr",
+        "ldq_addr_is_uncacheable",
+        "ldq_addr_is_virtual",
+        "ldq_enq_retry_idx",
+        "ldq_executed",
+        "ldq_forward_std_val",
+        "ldq_forward_stq_idx",
+        "ldq_head",
+        "ldq_ld_byte_mask",
+        "ldq_next_stq_idx",
+        "ldq_observed",
+        "ldq_order_fail",
+        "ldq_succeeded",
+        "ldq_tail",
+        "ldq_uop",
+        "ldq_valid",
+        "ldq_wakeup_idx",
+        "mem_incoming_uop",
+        "mem_ldq_incoming_e",
+        "mem_ldq_retry_e",
+        "mem_ldq_wakeup_e",
+        "mem_paddr",
+        "mem_tlb_miss",
+        "mem_tlb_uncacheable",
+        "mem_xcpt_valids",
+        "p1_block_load_mask",
+        "p2_block_load_mask",
+        "s1_executing_loads",
+        "store_blocked_counter",
+        "stq_addr",
+        "stq_addr_is_virtual",
+        "stq_almost_full",
+        "stq_cleared",
+        "stq_clr_head_idx",
+        "stq_commit_head",
+        "stq_committed",
+        "stq_data",
+        "stq_enq_retry_idx",
+        "stq_head",
+        "stq_succeeded",
+        "stq_tail",
+        "stq_uop",
+        "stq_valid",
+        "w1",
+        "wakeupArbs_0_io_in_1_valid_REG",
+        "wb_ldst_forward_e_REG",
+        "wb_ldst_forward_ld_addr",
+        "wb_ldst_forward_ldq_idx",
+        "wb_ldst_forward_valid_0_REG",
+        "wb_ldst_forward_valid_0_REG_1"
+      ],
+      "historical_statement_ids": [
+        3410,
+        3411,
+        3412,
+        3413,
+        3414,
+        3416,
+        3418,
+        3419,
+        3420,
+        3421,
+        3423,
+        3455,
+        3456,
+        3457,
+        3458,
+        3459,
+        3460,
+        3461
+      ],
+      "immediate_frontier": [
+        "clr_uop_1",
+        "clr_valid_1",
+        "h0",
+        "io.core.brupdate.b1.mispredict_mask",
+        "io.core.exception"
+      ],
+      "immediate_registers": [
+        "clr_uop_1",
+        "clr_valid_1"
+      ],
+      "immediate_statement_ids": [
+        3455,
+        3456,
+        3457,
+        3458,
+        3459,
+        3460
+      ]
+    }
+  ],
+  "source_evidence": {
+    "resolved": [
+      {
+        "end_line": 1085,
+        "logical_file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "start_line": 1082,
+        "text": "\n    val clr_valid_1 = RegNext(clr_valid && !IsKilledByBranch(io.core.brupdate, io.core.exception, clr_uop))\n    val clr_uop_1   = RegNext(UpdateBrMask(io.core.brupdate, clr_uop))\n\n"
+      },
+      {
+        "end_line": 1104,
+        "logical_file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "start_line": 1101,
+        "text": "\n    io.core.clr_bsy(i).valid := clr_valid_1 && !IsKilledByBranch(io.core.brupdate, io.core.exception, clr_uop_1)\n    io.core.clr_bsy(i).bits  := clr_uop_1.rob_idx\n\n"
+      },
+      {
+        "end_line": 62,
+        "logical_file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/boom/src/main/scala/v4/util/util.scala",
+        "start_line": 60,
+        "text": "  def apply(brupdate: BrUpdateInfo, flush: Bool, uop_mask: UInt): Bool = {\n    return maskMatch(brupdate.b1.mispredict_mask, uop_mask) || flush\n  }\n"
+      },
+      {
+        "end_line": 94,
+        "logical_file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/boom/src/main/scala/v4/util/util.scala",
+        "start_line": 92,
+        "text": "   def apply(brupdate: BrUpdateInfo, uop: MicroOp): UInt = {\n     return uop.br_mask & ~brupdate.b1.resolve_mask\n   }\n"
+      },
+      {
+        "end_line": 106,
+        "logical_file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/boom/src/main/scala/v4/util/util.scala",
+        "start_line": 103,
+        "text": "  def apply(brupdate: BrUpdateInfo, uop: MicroOp): MicroOp = {\n    val out = WireInit(uop)\n    out.br_mask := GetNewBrMask(brupdate, uop)\n    out\n"
+      },
+      {
+        "end_line": 127,
+        "logical_file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "resolved_file": "/t1/MCM-Agent/tools/chipyard/generators/boom/src/main/scala/v4/util/util.scala",
+        "start_line": 125,
+        "text": "{\n  def apply(msk1: UInt, msk2: UInt): Bool = (msk1 & msk2) =/= 0.U\n}\n"
+      }
+    ],
+    "roots": [
+      "/t1/MCM-Agent/tools/chipyard"
+    ],
+    "unresolved": []
+  },
+  "source_spans": [
+    {
+      "end_line": 1084,
+      "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+      "start_line": 1083
+    },
+    {
+      "end_line": 1103,
+      "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+      "start_line": 1102
+    },
+    {
+      "end_line": 61,
+      "file": "generators/boom/src/main/scala/v4/util/util.scala",
+      "start_line": 61
+    },
+    {
+      "end_line": 93,
+      "file": "generators/boom/src/main/scala/v4/util/util.scala",
+      "start_line": 93
+    },
+    {
+      "end_line": 105,
+      "file": "generators/boom/src/main/scala/v4/util/util.scala",
+      "start_line": 104
+    },
+    {
+      "end_line": 126,
+      "file": "generators/boom/src/main/scala/v4/util/util.scala",
+      "start_line": 126
+    }
+  ],
+  "state": [
+    {
+      "id": "clr_uop_1",
+      "kind": "register",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "type": "{ inst : UInt<32>, debug_inst : UInt<32>, is_rvc : UInt<1>, debug_pc : UInt<40>, iq_type : UInt<1>[4], fu_code : UInt<1>[10], iw_issued : UInt<1>, iw_issued_partial_agen : UInt<1>, iw_issued_partial_dgen : UInt<1>, iw_p1_speculative_child : UInt<1>, iw_p2_speculative_child : UInt<1>, iw_p1_bypass_hint : UInt<1>, iw_p2_bypass_hint : UInt<1>, iw_p3_bypass_hint : UInt<1>, dis_col_sel : UInt<1>, br_mask : UInt<8>, br_tag : UInt<3>, br_type : UInt<4>, is_sfb : UInt<1>, is_fence : UInt<1>, is_fencei : UInt<1>, is_sfence : UInt<1>, is_amo : UInt<1>, is_eret : UInt<1>, is_sys_pc2epc : UInt<1>, is_rocc : UInt<1>, is_mov : UInt<1>, ftq_idx : UInt<4>, edge_inst : UInt<1>, pc_lob : UInt<6>, taken : UInt<1>, imm_rename : UInt<1>, imm_sel : UInt<3>, pimm : UInt<5>, imm_packed : UInt<20>, op1_sel : UInt<2>, op2_sel : UInt<3>, fp_ctrl : { ldst : UInt<1>, wen : UInt<1>, ren1 : UInt<1>, ren2 : UInt<1>, ren3 : UInt<1>, swap12 : UInt<1>, swap23 : UInt<1>, typeTagIn : UInt<2>, typeTagOut : UInt<2>, fromint : UInt<1>, toint : UInt<1>, fastpipe : UInt<1>, fma : UInt<1>, div : UInt<1>, sqrt : UInt<1>, wflags : UInt<1>, vec : UInt<1>}, rob_idx : UInt<5>, ldq_idx : UInt<4>, stq_idx : UInt<4>, rxq_idx : UInt<2>, pdst : UInt<6>, prs1 : UInt<6>, prs2 : UInt<6>, prs3 : UInt<6>, ppred : UInt<4>, prs1_busy : UInt<1>, prs2_busy : UInt<1>, prs3_busy : UInt<1>, ppred_busy : UInt<1>, stale_pdst : UInt<6>, exception : UInt<1>, exc_cause : UInt<64>, mem_cmd : UInt<5>, mem_size : UInt<2>, mem_signed : UInt<1>, uses_ldq : UInt<1>, uses_stq : UInt<1>, is_unique : UInt<1>, flush_on_commit : UInt<1>, csr_cmd : UInt<3>, ldst_is_rs1 : UInt<1>, ldst : UInt<6>, lrs1 : UInt<6>, lrs2 : UInt<6>, lrs3 : UInt<6>, dst_rtype : UInt<2>, lrs1_rtype : UInt<2>, lrs2_rtype : UInt<2>, frs3_en : UInt<1>, fcn_dw : UInt<1>, fcn_op : UInt<5>, fp_val : UInt<1>, fp_rm : UInt<3>, fp_typ : UInt<2>, xcpt_pf_if : UInt<1>, xcpt_ae_if : UInt<1>, xcpt_ma_if : UInt<1>, bp_debug_if : UInt<1>, bp_xcpt_if : UInt<1>, debug_fsrc : UInt<3>, debug_tsrc : UInt<3>}"
+    },
+    {
+      "id": "clr_valid_1",
+      "kind": "register",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1083,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1083:30"
+      },
+      "type": "UInt<1>"
+    }
+  ],
+  "statements": [
+    {
+      "control_reads": [],
+      "drives": [
+        "_clr_valid_1_T"
+      ],
+      "firrtl_line": 369782,
+      "id": 3410,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "clr_uop.br_mask",
+        "io.core.brupdate.b1.mispredict_mask"
+      ],
+      "source": {
+        "column": 51,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 126,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 126:51"
+      },
+      "status": "supported",
+      "text": "node _clr_valid_1_T = and(io.core.brupdate.b1.mispredict_mask, clr_uop.br_mask)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_clr_valid_1_T_1"
+      ],
+      "firrtl_line": 369783,
+      "id": 3411,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_clr_valid_1_T",
+        "h0"
+      ],
+      "source": {
+        "column": 59,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 126,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 126:59"
+      },
+      "status": "supported",
+      "text": "node _clr_valid_1_T_1 = neq(_clr_valid_1_T, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_clr_valid_1_T_2"
+      ],
+      "firrtl_line": 369784,
+      "id": 3412,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_clr_valid_1_T_1",
+        "io.core.exception"
+      ],
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 61,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 61:61"
+      },
+      "status": "supported",
+      "text": "node _clr_valid_1_T_2 = or(_clr_valid_1_T_1, io.core.exception)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_clr_valid_1_T_3"
+      ],
+      "firrtl_line": 369785,
+      "id": 3413,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_clr_valid_1_T_2",
+        "h0"
+      ],
+      "source": {
+        "column": 44,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1083,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1083:44"
+      },
+      "status": "supported",
+      "text": "node _clr_valid_1_T_3 = eq(_clr_valid_1_T_2, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_clr_valid_1_T_4"
+      ],
+      "firrtl_line": 369786,
+      "id": 3414,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_clr_valid_1_T_3",
+        "clr_valid"
+      ],
+      "source": {
+        "column": 41,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1083,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1083:41"
+      },
+      "status": "supported",
+      "text": "node _clr_valid_1_T_4 = and(clr_valid, _clr_valid_1_T_3)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "clr_valid_1"
+      ],
+      "firrtl_line": 369788,
+      "id": 3416,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_clr_valid_1_T_4"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1083,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1083:30"
+      },
+      "status": "supported",
+      "text": "connect clr_valid_1, _clr_valid_1_T_4"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "clr_uop_1_out.bp_debug_if",
+        "clr_uop_1_out.bp_xcpt_if",
+        "clr_uop_1_out.br_mask",
+        "clr_uop_1_out.br_tag",
+        "clr_uop_1_out.br_type",
+        "clr_uop_1_out.csr_cmd",
+        "clr_uop_1_out.debug_fsrc",
+        "clr_uop_1_out.debug_inst",
+        "clr_uop_1_out.debug_pc",
+        "clr_uop_1_out.debug_tsrc",
+        "clr_uop_1_out.dis_col_sel",
+        "clr_uop_1_out.dst_rtype",
+        "clr_uop_1_out.edge_inst",
+        "clr_uop_1_out.exc_cause",
+        "clr_uop_1_out.exception",
+        "clr_uop_1_out.fcn_dw",
+        "clr_uop_1_out.fcn_op",
+        "clr_uop_1_out.flush_on_commit",
+        "clr_uop_1_out.fp_ctrl.div",
+        "clr_uop_1_out.fp_ctrl.fastpipe",
+        "clr_uop_1_out.fp_ctrl.fma",
+        "clr_uop_1_out.fp_ctrl.fromint",
+        "clr_uop_1_out.fp_ctrl.ldst",
+        "clr_uop_1_out.fp_ctrl.ren1",
+        "clr_uop_1_out.fp_ctrl.ren2",
+        "clr_uop_1_out.fp_ctrl.ren3",
+        "clr_uop_1_out.fp_ctrl.sqrt",
+        "clr_uop_1_out.fp_ctrl.swap12",
+        "clr_uop_1_out.fp_ctrl.swap23",
+        "clr_uop_1_out.fp_ctrl.toint",
+        "clr_uop_1_out.fp_ctrl.typeTagIn",
+        "clr_uop_1_out.fp_ctrl.typeTagOut",
+        "clr_uop_1_out.fp_ctrl.vec",
+        "clr_uop_1_out.fp_ctrl.wen",
+        "clr_uop_1_out.fp_ctrl.wflags",
+        "clr_uop_1_out.fp_rm",
+        "clr_uop_1_out.fp_typ",
+        "clr_uop_1_out.fp_val",
+        "clr_uop_1_out.frs3_en",
+        "clr_uop_1_out.ftq_idx",
+        "clr_uop_1_out.fu_code[0]",
+        "clr_uop_1_out.fu_code[1]",
+        "clr_uop_1_out.fu_code[2]",
+        "clr_uop_1_out.fu_code[3]",
+        "clr_uop_1_out.fu_code[4]",
+        "clr_uop_1_out.fu_code[5]",
+        "clr_uop_1_out.fu_code[6]",
+        "clr_uop_1_out.fu_code[7]",
+        "clr_uop_1_out.fu_code[8]",
+        "clr_uop_1_out.fu_code[9]",
+        "clr_uop_1_out.imm_packed",
+        "clr_uop_1_out.imm_rename",
+        "clr_uop_1_out.imm_sel",
+        "clr_uop_1_out.inst",
+        "clr_uop_1_out.iq_type[0]",
+        "clr_uop_1_out.iq_type[1]",
+        "clr_uop_1_out.iq_type[2]",
+        "clr_uop_1_out.iq_type[3]",
+        "clr_uop_1_out.is_amo",
+        "clr_uop_1_out.is_eret",
+        "clr_uop_1_out.is_fence",
+        "clr_uop_1_out.is_fencei",
+        "clr_uop_1_out.is_mov",
+        "clr_uop_1_out.is_rocc",
+        "clr_uop_1_out.is_rvc",
+        "clr_uop_1_out.is_sfb",
+        "clr_uop_1_out.is_sfence",
+        "clr_uop_1_out.is_sys_pc2epc",
+        "clr_uop_1_out.is_unique",
+        "clr_uop_1_out.iw_issued",
+        "clr_uop_1_out.iw_issued_partial_agen",
+        "clr_uop_1_out.iw_issued_partial_dgen",
+        "clr_uop_1_out.iw_p1_bypass_hint",
+        "clr_uop_1_out.iw_p1_speculative_child",
+        "clr_uop_1_out.iw_p2_bypass_hint",
+        "clr_uop_1_out.iw_p2_speculative_child",
+        "clr_uop_1_out.iw_p3_bypass_hint",
+        "clr_uop_1_out.ldq_idx",
+        "clr_uop_1_out.ldst",
+        "clr_uop_1_out.ldst_is_rs1",
+        "clr_uop_1_out.lrs1",
+        "clr_uop_1_out.lrs1_rtype",
+        "clr_uop_1_out.lrs2",
+        "clr_uop_1_out.lrs2_rtype",
+        "clr_uop_1_out.lrs3",
+        "clr_uop_1_out.mem_cmd",
+        "clr_uop_1_out.mem_signed",
+        "clr_uop_1_out.mem_size",
+        "clr_uop_1_out.op1_sel",
+        "clr_uop_1_out.op2_sel",
+        "clr_uop_1_out.pc_lob",
+        "clr_uop_1_out.pdst",
+        "clr_uop_1_out.pimm",
+        "clr_uop_1_out.ppred",
+        "clr_uop_1_out.ppred_busy",
+        "clr_uop_1_out.prs1",
+        "clr_uop_1_out.prs1_busy",
+        "clr_uop_1_out.prs2",
+        "clr_uop_1_out.prs2_busy",
+        "clr_uop_1_out.prs3",
+        "clr_uop_1_out.prs3_busy",
+        "clr_uop_1_out.rob_idx",
+        "clr_uop_1_out.rxq_idx",
+        "clr_uop_1_out.stale_pdst",
+        "clr_uop_1_out.stq_idx",
+        "clr_uop_1_out.taken",
+        "clr_uop_1_out.uses_ldq",
+        "clr_uop_1_out.uses_stq",
+        "clr_uop_1_out.xcpt_ae_if",
+        "clr_uop_1_out.xcpt_ma_if",
+        "clr_uop_1_out.xcpt_pf_if"
+      ],
+      "firrtl_line": 369790,
+      "id": 3418,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "clr_uop"
+      ],
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 104,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 104:23"
+      },
+      "status": "supported",
+      "text": "connect clr_uop_1_out, clr_uop"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_clr_uop_1_out_br_mask_T"
+      ],
+      "firrtl_line": 369791,
+      "id": 3419,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.core.brupdate.b1.resolve_mask"
+      ],
+      "source": {
+        "column": 27,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 93,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 93:27"
+      },
+      "status": "supported",
+      "text": "node _clr_uop_1_out_br_mask_T = not(io.core.brupdate.b1.resolve_mask)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_clr_uop_1_out_br_mask_T_1"
+      ],
+      "firrtl_line": 369792,
+      "id": 3420,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_clr_uop_1_out_br_mask_T",
+        "clr_uop.br_mask"
+      ],
+      "source": {
+        "column": 25,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 93,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 93:25"
+      },
+      "status": "supported",
+      "text": "node _clr_uop_1_out_br_mask_T_1 = and(clr_uop.br_mask, _clr_uop_1_out_br_mask_T)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "clr_uop_1_out.br_mask"
+      ],
+      "firrtl_line": 369793,
+      "id": 3421,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_clr_uop_1_out_br_mask_T_1"
+      ],
+      "source": {
+        "column": 17,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 105,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 105:17"
+      },
+      "status": "supported",
+      "text": "connect clr_uop_1_out.br_mask, _clr_uop_1_out_br_mask_T_1"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "clr_uop_1.bp_debug_if",
+        "clr_uop_1.bp_xcpt_if",
+        "clr_uop_1.br_mask",
+        "clr_uop_1.br_tag",
+        "clr_uop_1.br_type",
+        "clr_uop_1.csr_cmd",
+        "clr_uop_1.debug_fsrc",
+        "clr_uop_1.debug_inst",
+        "clr_uop_1.debug_pc",
+        "clr_uop_1.debug_tsrc",
+        "clr_uop_1.dis_col_sel",
+        "clr_uop_1.dst_rtype",
+        "clr_uop_1.edge_inst",
+        "clr_uop_1.exc_cause",
+        "clr_uop_1.exception",
+        "clr_uop_1.fcn_dw",
+        "clr_uop_1.fcn_op",
+        "clr_uop_1.flush_on_commit",
+        "clr_uop_1.fp_ctrl.div",
+        "clr_uop_1.fp_ctrl.fastpipe",
+        "clr_uop_1.fp_ctrl.fma",
+        "clr_uop_1.fp_ctrl.fromint",
+        "clr_uop_1.fp_ctrl.ldst",
+        "clr_uop_1.fp_ctrl.ren1",
+        "clr_uop_1.fp_ctrl.ren2",
+        "clr_uop_1.fp_ctrl.ren3",
+        "clr_uop_1.fp_ctrl.sqrt",
+        "clr_uop_1.fp_ctrl.swap12",
+        "clr_uop_1.fp_ctrl.swap23",
+        "clr_uop_1.fp_ctrl.toint",
+        "clr_uop_1.fp_ctrl.typeTagIn",
+        "clr_uop_1.fp_ctrl.typeTagOut",
+        "clr_uop_1.fp_ctrl.vec",
+        "clr_uop_1.fp_ctrl.wen",
+        "clr_uop_1.fp_ctrl.wflags",
+        "clr_uop_1.fp_rm",
+        "clr_uop_1.fp_typ",
+        "clr_uop_1.fp_val",
+        "clr_uop_1.frs3_en",
+        "clr_uop_1.ftq_idx",
+        "clr_uop_1.fu_code[0]",
+        "clr_uop_1.fu_code[1]",
+        "clr_uop_1.fu_code[2]",
+        "clr_uop_1.fu_code[3]",
+        "clr_uop_1.fu_code[4]",
+        "clr_uop_1.fu_code[5]",
+        "clr_uop_1.fu_code[6]",
+        "clr_uop_1.fu_code[7]",
+        "clr_uop_1.fu_code[8]",
+        "clr_uop_1.fu_code[9]",
+        "clr_uop_1.imm_packed",
+        "clr_uop_1.imm_rename",
+        "clr_uop_1.imm_sel",
+        "clr_uop_1.inst",
+        "clr_uop_1.iq_type[0]",
+        "clr_uop_1.iq_type[1]",
+        "clr_uop_1.iq_type[2]",
+        "clr_uop_1.iq_type[3]",
+        "clr_uop_1.is_amo",
+        "clr_uop_1.is_eret",
+        "clr_uop_1.is_fence",
+        "clr_uop_1.is_fencei",
+        "clr_uop_1.is_mov",
+        "clr_uop_1.is_rocc",
+        "clr_uop_1.is_rvc",
+        "clr_uop_1.is_sfb",
+        "clr_uop_1.is_sfence",
+        "clr_uop_1.is_sys_pc2epc",
+        "clr_uop_1.is_unique",
+        "clr_uop_1.iw_issued",
+        "clr_uop_1.iw_issued_partial_agen",
+        "clr_uop_1.iw_issued_partial_dgen",
+        "clr_uop_1.iw_p1_bypass_hint",
+        "clr_uop_1.iw_p1_speculative_child",
+        "clr_uop_1.iw_p2_bypass_hint",
+        "clr_uop_1.iw_p2_speculative_child",
+        "clr_uop_1.iw_p3_bypass_hint",
+        "clr_uop_1.ldq_idx",
+        "clr_uop_1.ldst",
+        "clr_uop_1.ldst_is_rs1",
+        "clr_uop_1.lrs1",
+        "clr_uop_1.lrs1_rtype",
+        "clr_uop_1.lrs2",
+        "clr_uop_1.lrs2_rtype",
+        "clr_uop_1.lrs3",
+        "clr_uop_1.mem_cmd",
+        "clr_uop_1.mem_signed",
+        "clr_uop_1.mem_size",
+        "clr_uop_1.op1_sel",
+        "clr_uop_1.op2_sel",
+        "clr_uop_1.pc_lob",
+        "clr_uop_1.pdst",
+        "clr_uop_1.pimm",
+        "clr_uop_1.ppred",
+        "clr_uop_1.ppred_busy",
+        "clr_uop_1.prs1",
+        "clr_uop_1.prs1_busy",
+        "clr_uop_1.prs2",
+        "clr_uop_1.prs2_busy",
+        "clr_uop_1.prs3",
+        "clr_uop_1.prs3_busy",
+        "clr_uop_1.rob_idx",
+        "clr_uop_1.rxq_idx",
+        "clr_uop_1.stale_pdst",
+        "clr_uop_1.stq_idx",
+        "clr_uop_1.taken",
+        "clr_uop_1.uses_ldq",
+        "clr_uop_1.uses_stq",
+        "clr_uop_1.xcpt_ae_if",
+        "clr_uop_1.xcpt_ma_if",
+        "clr_uop_1.xcpt_pf_if"
+      ],
+      "firrtl_line": 369795,
+      "id": 3423,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "clr_uop_1_out"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1084,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1084:30"
+      },
+      "status": "supported",
+      "text": "connect clr_uop_1, clr_uop_1_out"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_io_core_clr_bsy_0_valid_T"
+      ],
+      "firrtl_line": 369827,
+      "id": 3455,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "clr_uop_1.br_mask",
+        "io.core.brupdate.b1.mispredict_mask"
+      ],
+      "source": {
+        "column": 51,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 126,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 126:51"
+      },
+      "status": "supported",
+      "text": "node _io_core_clr_bsy_0_valid_T = and(io.core.brupdate.b1.mispredict_mask, clr_uop_1.br_mask)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_io_core_clr_bsy_0_valid_T_1"
+      ],
+      "firrtl_line": 369828,
+      "id": 3456,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_io_core_clr_bsy_0_valid_T",
+        "h0"
+      ],
+      "source": {
+        "column": 59,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 126,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 126:59"
+      },
+      "status": "supported",
+      "text": "node _io_core_clr_bsy_0_valid_T_1 = neq(_io_core_clr_bsy_0_valid_T, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_io_core_clr_bsy_0_valid_T_2"
+      ],
+      "firrtl_line": 369829,
+      "id": 3457,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_io_core_clr_bsy_0_valid_T_1",
+        "io.core.exception"
+      ],
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 61,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 61:61"
+      },
+      "status": "supported",
+      "text": "node _io_core_clr_bsy_0_valid_T_2 = or(_io_core_clr_bsy_0_valid_T_1, io.core.exception)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_io_core_clr_bsy_0_valid_T_3"
+      ],
+      "firrtl_line": 369830,
+      "id": 3458,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_io_core_clr_bsy_0_valid_T_2",
+        "h0"
+      ],
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1102,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1102:48"
+      },
+      "status": "supported",
+      "text": "node _io_core_clr_bsy_0_valid_T_3 = eq(_io_core_clr_bsy_0_valid_T_2, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_io_core_clr_bsy_0_valid_T_4"
+      ],
+      "firrtl_line": 369831,
+      "id": 3459,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_io_core_clr_bsy_0_valid_T_3",
+        "clr_valid_1"
+      ],
+      "source": {
+        "column": 45,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1102,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1102:45"
+      },
+      "status": "supported",
+      "text": "node _io_core_clr_bsy_0_valid_T_4 = and(clr_valid_1, _io_core_clr_bsy_0_valid_T_3)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.core.clr_bsy[0].valid"
+      ],
+      "firrtl_line": 369832,
+      "id": 3460,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_io_core_clr_bsy_0_valid_T_4"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1102,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1102:30"
+      },
+      "status": "supported",
+      "text": "connect io.core.clr_bsy[0].valid, _io_core_clr_bsy_0_valid_T_4"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.core.clr_bsy[0].bits"
+      ],
+      "firrtl_line": 369833,
+      "id": 3461,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "clr_uop_1.rob_idx"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1103,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1103:30"
+      },
+      "status": "supported",
+      "text": "connect io.core.clr_bsy[0].bits, clr_uop_1.rob_idx"
+    }
+  ],
+  "work_unit": {
+    "coverage_complete": true,
+    "decision": "manageable",
+    "depth": 1,
+    "exceeded_limits": [],
+    "id": "LSU::region-0-0",
+    "instance_path": "LSU",
+    "is_leaf": true,
+    "kind": "region",
+    "module": "LSU",
+    "replacement_exceeded_limits": []
+  }
+}

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import json
 from pathlib import Path
 import tempfile
@@ -21,7 +22,7 @@ from workflow.manual import (
     validate_candidate_grounding,
 )
 from workflow.schema import UMCM_SCHEMA_VERSION
-from workflow.semantic import freeze_task_dir, validate_task_dir
+from workflow.semantic import FORMALLY_PROVED, _build_trusted_umcm, freeze_task_dir, validate_task_dir
 from workflow.tasks import build_parent_synthesis_task
 from workflow.cli import _implementation_fingerprint_cache_key
 
@@ -75,6 +76,17 @@ def _complexity(statements: int = 1):
         "events": 0,
         "state_regions": 0,
         "event_state_coupling": 0.0,
+    }
+
+
+def _empty_public_interface():
+    return {
+        "policy": "explicit-public-contract-v0.1",
+        "exported_axiom_ids": [],
+        "exported_occurrence_ids": [],
+        "exported_predicate_ids": [],
+        "exported_identity_ids": [],
+        "boundary_coverage": [],
     }
 
 
@@ -406,6 +418,193 @@ class ParentWorkflowTests(unittest.TestCase):
             {"Parent.child::ChildOut", "Parent.child.inner::Done"},
         )
 
+    def test_prompt_interface_hides_private_trusted_axioms(self):
+        frozen = _frozen_child()
+        private_axiom = copy.deepcopy(frozen["axioms"][0])
+        private_axiom["id"] = "CA2"
+        frozen["axioms"].append(private_axiom)
+        frozen["trusted_axiom_ids"].append("CA2")
+        frozen["public_interface"] = {
+            "policy": "explicit-public-contract-v0.1",
+            "exported_axiom_ids": ["CA1"],
+            "private_axiom_ids": ["CA2"],
+            "exported_occurrence_ids": ["ChildOut"],
+            "exported_predicate_ids": ["ChildActive"],
+            "exported_identity_ids": [],
+            "boundary_coverage": [],
+            "all_exported_axioms_trusted": True,
+        }
+        summary = {
+            "child_id": "Parent.child",
+            "task_id": "child-task",
+            "summary_ref": "umcm://Parent.child",
+            "boundary_events": ["Parent.child::io.out.fire"],
+            "frontier_signals": [],
+            "instance_reuse": {"kind": "exact-work-unit"},
+            "frozen_umcm": frozen,
+            "frozen_umcm_sha256": _canonical_sha256(frozen),
+        }
+
+        interface = build_prompt_interface(summary, parent_work_unit_id="Parent")
+
+        self.assertEqual(
+            [axiom["id"] for axiom in interface["trusted_axioms"]],
+            ["CA1"],
+        )
+        self.assertEqual(interface["trust"]["trusted_axiom_count"], 2)
+        self.assertEqual(interface["trust"]["exported_axiom_count"], 1)
+        self.assertEqual(interface["trust"]["private_axiom_count"], 1)
+
+    def test_trusted_parent_preserves_explicit_public_objects_and_partition(self):
+        candidate = _frozen_child()
+        candidate["predicates"].append({
+            "id": "ObservedOnly",
+            "definition": "public observation without a theorem",
+            "grounding": {
+                "source_signal": "observed",
+                "negated": False,
+                "state_register": None,
+                "state_values": [],
+            },
+            "evidence_statement_ids": [9],
+        })
+        candidate["extensions"] = {"parent_synthesis": {
+            "axiom_provenance": {
+                "CA1": {"kind": "parent_local", "source_axioms": [], "note": "local"}
+            },
+            "public_interface": {
+                "policy": "explicit-public-contract-v0.1",
+                "exported_axiom_ids": ["CA1"],
+                "exported_occurrence_ids": ["ChildOut"],
+                "exported_predicate_ids": ["ChildActive", "ObservedOnly"],
+                "exported_identity_ids": [],
+                "boundary_coverage": [],
+            },
+        }}
+        results = [{
+            "axiom_id": "CA1",
+            "validation_level": FORMALLY_PROVED,
+            "formal": {
+                "status": FORMALLY_PROVED,
+                "backend": "explicit-control",
+                "proof_method": "test-local-proof",
+                "certificate": {},
+            },
+        }]
+
+        trusted = _build_trusted_umcm(candidate, results)
+
+        self.assertEqual(trusted["public_interface"]["exported_axiom_ids"], ["CA1"])
+        self.assertEqual(trusted["public_interface"]["private_axiom_ids"], [])
+        self.assertEqual(
+            trusted["public_interface"]["exported_predicate_ids"],
+            ["ChildActive", "ObservedOnly"],
+        )
+        self.assertIn("ObservedOnly", [item["id"] for item in trusted["predicates"]])
+
+    def test_public_interface_requires_closed_axioms_and_boundary_coverage(self):
+        handoff = _parent_handoff()
+        public_event = {
+            "id": "Parent::io.out.fire",
+            "registry_id": "ParentModule.io.out.fire",
+            "channel": "io.out",
+            "direction": "send",
+            "protocol": "decoupled",
+            "predicate": "io.out.valid && io.out.ready",
+            "valid": "io.out.valid",
+            "ready": "io.out.ready",
+            "payload": [],
+        }
+        handoff["events"].append(public_event)
+        handoff["grounding"]["allowed_physical_event_ids"].append(public_event["id"])
+        child_dir = None
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            child_dir = self._child_run(root)
+            handoff = attach_frozen_child_summaries(
+                handoff,
+                run_roots=[root],
+                child_task_dirs=[child_dir],
+            )
+            package = build_parent_synthesis_task(handoff)
+            candidate = {
+                "schema_version": UMCM_SCHEMA_VERSION,
+                "task_id": package.task.task_id,
+                "work_unit_id": "Parent",
+                "occurrences": [{
+                    "id": "PublicOut",
+                    "kind": "boundary",
+                    "physical_event_ids": [public_event["id"]],
+                    "definition": "io.out.valid && io.out.ready",
+                    "multiplicity": "repeatable",
+                    "index": None,
+                    "grounding": {
+                        "state_register": None,
+                        "state_values": [],
+                        "signals_true": [],
+                        "signals_false": [],
+                    },
+                    "evidence_statement_ids": [],
+                }],
+                "predicates": [{
+                    "id": "Blocked",
+                    "definition": "state == 1",
+                    "grounding": {
+                        "source_signal": None,
+                        "negated": False,
+                        "state_register": "state",
+                        "state_values": [1],
+                    },
+                    "evidence_statement_ids": [0],
+                }],
+                "identity_keys": [],
+                "cases": [],
+                "axioms": [{
+                    "id": "A1",
+                    "formal": {
+                        "type": "forbid_when",
+                        "occurrence": "PublicOut",
+                        "predicate": "Blocked",
+                        "scope_identity": None,
+                    },
+                    "derived_from_case_ids": [],
+                    "evidence_statement_ids": [0],
+                    "status": "candidate",
+                }],
+                "assumptions": [],
+                "unresolved": [],
+                "rationale": [],
+                "extensions": {"parent_synthesis": {
+                    "axiom_provenance": {
+                        "A1": {"kind": "parent_local", "source_axioms": [], "note": "local"}
+                    },
+                    "public_interface": {
+                        "policy": "explicit-public-contract-v0.1",
+                        "exported_axiom_ids": ["A1"],
+                        "exported_occurrence_ids": ["PublicOut"],
+                        "exported_predicate_ids": ["Blocked"],
+                        "exported_identity_ids": [],
+                        "boundary_coverage": [{
+                            "physical_event_id": public_event["id"],
+                            "status": "constrained",
+                            "occurrence_ids": ["PublicOut"],
+                            "axiom_ids": ["A1"],
+                            "note": "public output is constrained while blocked",
+                        }],
+                    },
+                }},
+            }
+
+            valid = validate_candidate_grounding(candidate, package.task.to_dict(), handoff)
+            self.assertTrue(valid["valid"], valid)
+
+            candidate["extensions"]["parent_synthesis"]["public_interface"][
+                "exported_occurrence_ids"
+            ] = []
+            invalid = validate_candidate_grounding(candidate, package.task.to_dict(), handoff)
+            self.assertFalse(invalid["valid"])
+            self.assertIn("not interface-closed", json.dumps(invalid["errors"]))
+
     def test_prompt_catalog_exports_only_direct_axioms(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -448,13 +647,16 @@ class ParentWorkflowTests(unittest.TestCase):
                 "assumptions": [],
                 "unresolved": [],
                 "rationale": [],
-                "extensions": {"parent_synthesis": {"axiom_provenance": {
-                    "A1": {
-                        "kind": "lifted",
-                        "source_axioms": ["Parent.child.inner::HiddenA"],
-                        "note": "must be rejected because it was not exported",
-                    }
-                }}},
+                "extensions": {"parent_synthesis": {
+                    "axiom_provenance": {
+                        "A1": {
+                            "kind": "lifted",
+                            "source_axioms": ["Parent.child.inner::HiddenA"],
+                            "note": "must be rejected because it was not exported",
+                        }
+                    },
+                    "public_interface": _empty_public_interface(),
+                }},
             }
             validation = validate_candidate_grounding(
                 candidate,
@@ -511,7 +713,8 @@ class ParentWorkflowTests(unittest.TestCase):
                                 "source_axioms": ["Parent.child::CA1"],
                                 "note": "explicit re-export test",
                             }
-                        }
+                        },
+                        "public_interface": _empty_public_interface(),
                     }
                 },
             }
@@ -546,7 +749,8 @@ class ParentWorkflowTests(unittest.TestCase):
                 ],
                 "extensions": {
                     "parent_synthesis": {
-                        "axiom_provenance": {}
+                        "axiom_provenance": {},
+                        "public_interface": _empty_public_interface(),
                     }
                 },
             }
@@ -561,6 +765,12 @@ class ParentWorkflowTests(unittest.TestCase):
                 frozen["freeze"]["status"],
                 "FROZEN_FOR_COMPOSITION",
             )
+            self.assertEqual(
+                frozen["freeze"]["policy"],
+                "all-declared-axioms-trusted-plus-explicit-public-interface-v0.2",
+            )
+            self.assertEqual(frozen["freeze"]["exported_axiom_count"], 0)
+            self.assertEqual(frozen["freeze"]["private_axiom_count"], 0)
             imports = frozen["composition"]["imports"]
             self.assertEqual(len(imports), 1)
             self.assertEqual(frozen["provenance"], {})

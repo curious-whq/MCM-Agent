@@ -1,0 +1,284 @@
+# MCM-Agent manual semantic task: leaf µMCM abstraction
+
+You are performing one experimental semantic-abstraction step in MCM-Agent.
+This prompt is self-contained and may be used in a fresh conversation.
+
+## Research status
+
+The static hierarchical planner is already complete. Do **not** repartition RTL.
+This is a manual-first experiment, but "manual" only means that a human transports
+the exported prompt and returned result between the workflow and the LLM. The
+human is **not** expected to co-design each leaf abstraction. Analyze this WorkUnit
+autonomously and derive the most conservative grounded candidate abstraction that
+preserves information potentially relevant to microarchitectural memory ordering.
+The µMCM language remains experimental and may be revised when new RTL/formal
+evidence exposes a real reusable gap.
+
+Task ID: `leaf_abstraction-LSU-region-0-0-95a6c27af3e9b19f`
+Workflow version: `manual-first-workflow-0.9`
+Prompt version: `leaf-abstraction-prompt-0.12`
+Output schema version: `umcm-formal-0.5`
+
+## WorkUnit
+
+- id: `LSU::region-0-0`
+- module: `LSU`
+- kind: `region`
+- instance path: `LSU`
+- leaf: `True`
+- coverage complete: `True`
+- raw statements: 18
+- logical statements: 11
+- mapped/logical source lines: 9
+- registers: 2
+- physical boundary events: 1
+
+## Non-negotiable grounding rules
+
+1. Distinguish occurrences from persistent predicates. A boundary occurrence
+   must reference one or more physical event IDs listed below. A derived
+   occurrence may have no physical event ID only when it has an exact RTL
+   definition, concrete grounding, and statement evidence. If one semantic
+   occurrence depends on a multi-bit comparison, record it in grounding as
+   `value_tests`, for example
+   `{"expr":{"op":"signal","name":"io.source"},"relation":"eq","value":3}`;
+   prose in `definition` is not formal grounding.
+   occurrence repeats over a finite hardware index (beat/entry/bank/etc.), use
+   the optional occurrence `index` metadata instead of inventing N separate IDs. Do not turn ordinary
+   FSM staging states into milestones unless deleting the milestone would lose
+   memory/coherence ordering, path, visibility, identity, or exclusion facts.
+2. Persistent predicates describe facts that can remain true across cycles. They
+   must have a grounded RTL definition/source signal or explicit state set.
+3. Every candidate case/axiom/predicate/identity claim must cite supporting
+   FIRRTL statement IDs from the ledger. If evidence is insufficient, put the
+   issue in `unresolved` rather than guessing.
+4. Distinguish an RTL guarantee from an environment assumption. In particular,
+   do not claim eventual progress from a ready/valid interface without stating
+   the fairness/readiness assumption required for it.
+5. Preserve transaction/object identity when an ordering claim is only true for
+   the same request/cache line/source/transaction.
+6. Do not dump every FSM transition. Keep predicates/cases only when they affect which
+   memory/coherence event can occur, object identity, exclusion/conservation, or
+   ordering/visibility-relevant paths.
+7. Every axiom must be expressed in the structured `formal` AST defined by
+   `expected_output_schema.json`. The formal AST is the only semantic source of
+   truth. Do **not** provide a separate natural-language `formula` or an LLM-authored
+   `validation` program; both the human rendering and proof obligations are
+   generated deterministically from the AST.
+8. Use only formal axiom forms supported by the schema. The language includes
+   generic `join` and `indexed_complete` forms for unordered prerequisites and
+   finite indexed occurrence sets. For exact same-cycle event routing or merging,
+   use `occurrence_partition`: `whole` is equivalent to the disjunction of `parts`,
+   and the parts are pairwise mutually exclusive in that cycle. Its exact shape is:
+   `{"type":"occurrence_partition","whole":"OutputFire","parts":["Input0Fire","Input1Fire"],"relation":"same_cycle_exactly_one","scope_identity":null}`.
+   The `relation` field is required and must not be omitted. `parts` may contain
+   one occurrence for an exact 1-to-1 passthrough; pairwise exclusion is then
+   vacuous and the relation reduces to same-cycle equivalence. Existing relation axioms may additionally use
+   `scope_index: {name: <index>, relation: same}` to state that the relation is
+   pointwise over the same finite index (beat/entry/bank/etc.). Formal expressions
+   may use `index_var` and `lookup` to refer to the bound index and an indexed
+   storage element. These constructs are protocol-agnostic and must not be
+   specialized to a particular module. For a synchronous mutable array whose
+   read returns the latest prior same-key write, use `indexed_storage_flow`.
+   It binds address/lane keys, masked writes, sampled reads, initialization, and
+   the stored value layout, and exports the standard relations: `rf` selects the
+   co-latest prior same-key write, `co` is a strict total order over writes to
+   each key, and `fr` is derived as `rf^-1 ; co`. Relation names must be distinct;
+   do not state `rf`, `co`, and `fr` as unrelated ordering approximations.
+   Use `initialization.kind: explicit` only for a grounded initialization sweep,
+   with `initial_value` on every value field. For RAM without a specified
+   power-up/reset value, use `initialization: {"kind":"implicit_unconstrained"}`
+   and omit every `initial_value`; this creates one fresh unconstrained initial
+   write per key while preserving the same `rf/co/fr` definitions. The optional
+   `read_write_collision` is `exclusive` by default; use
+   `implicit_unconstrained` only when same-key synchronous read/write collision
+   is possible and the RAM result is unspecified. This introduces a transient
+   unconstrained abstract write as the collision read's `rf` source, immediately
+   before the colliding real write in `co`. For a finite candidate vector whose unique winner is chosen by an indexed
+   linear or rotated order and exposed after a fixed register delay, use
+   `indexed_priority_select`. Its `candidate` binds `bit(signal, index_var)`;
+   `priority.kind` is `linear_min`, `linear_max`, `cyclic_predecessor`, or
+   `cyclic_successor`, with a `pivot` expression on cyclic forms. The cyclic
+   forms are strict around the pivot: predecessor visits `pivot-1` downward and
+   wraps, while successor visits `pivot+1` upward and wraps, leaving the pivot
+   last. `result` names the found/index outputs, `latency_cycles` records the
+   exact sampling delay, and unreset result registers use
+   `initialization: {"kind":"implicit_unconstrained"}`.
+   If a semantic property that you judge **necessary** for a sound/useful
+   parent-facing abstraction cannot be faithfully
+   represented by the current Formal AST, do not approximate it with a different
+   or weaker axiom. Report a `MCM-AGENT LANGUAGE GAP` using the procedure below.
+   A limitation of the current formal prover is **not** a language gap: if the AST
+   can express the property, emit the candidate axiom and let `semantic-validate`
+   determine whether the backend can certify it.
+9. This stage proposes **candidate** axioms. Do not assert that formal validation
+   has already proved them.
+10. Do not treat every potentially useful strengthening as a blocker. If omitting
+    a constraint merely makes the candidate µMCM a safer over-approximation, you
+    may omit it and record the deliberate omission in `rationale` as a possible
+    later CEGAR refinement. Reserve `unresolved` for genuine grounding/semantic
+    uncertainty that prevents you from making a responsible candidate claim.
+
+## Physical boundary events
+
+- `LSU::io.core.clr_bsy[0].valid`
+  - predicate: `io.core.clr_bsy[0].valid`
+  - direction/protocol: `send` / `valid`
+  - payload leaves: ['io.core.clr_bsy[0].bits']
+  - immediate registers: ['clr_uop_1', 'clr_valid_1']
+  - historical registers: ['REG_11', 'can_fire_load_retry_REG', 'can_fire_load_wakeup_REG', 'clr_uop', 'clr_uop_1', 'clr_valid', 'clr_valid_1', 'dis_uops', 'fired_load_agen_REG', 'fired_load_agen_exec_REG', 'fired_load_retry_REG', 'fired_load_wakeup_REG', 'fired_release', 'fired_store_agen_REG', 'fired_store_retry_REG', 'hella_paddr', 'hella_req', 'hella_state', 'hella_xcpt', 'lcam_addr_REG', 'lcam_addr_REG_1', 'lcam_ldq_idx_reg', 'lcam_ldq_idx_reg_1', 'lcam_stq_idx_reg', 'ldq_addr', 'ldq_addr_is_uncacheable', 'ldq_addr_is_virtual', 'ldq_enq_retry_idx', 'ldq_executed', 'ldq_forward_std_val', 'ldq_forward_stq_idx', 'ldq_head', 'ldq_ld_byte_mask', 'ldq_next_stq_idx', 'ldq_observed', 'ldq_order_fail', 'ldq_succeeded', 'ldq_tail', 'ldq_uop', 'ldq_valid', 'ldq_wakeup_idx', 'mem_incoming_uop', 'mem_ldq_incoming_e', 'mem_ldq_retry_e', 'mem_ldq_wakeup_e', 'mem_paddr', 'mem_tlb_miss', 'mem_tlb_uncacheable', 'mem_xcpt_valids', 'p1_block_load_mask', 'p2_block_load_mask', 's1_executing_loads', 'store_blocked_counter', 'stq_addr', 'stq_addr_is_virtual', 'stq_almost_full', 'stq_cleared', 'stq_clr_head_idx', 'stq_commit_head', 'stq_committed', 'stq_data', 'stq_enq_retry_idx', 'stq_head', 'stq_succeeded', 'stq_tail', 'stq_uop', 'stq_valid', 'w1', 'wakeupArbs_0_io_in_1_valid_REG', 'wb_ldst_forward_e_REG', 'wb_ldst_forward_ld_addr', 'wb_ldst_forward_ldq_idx', 'wb_ldst_forward_valid_0_REG', 'wb_ldst_forward_valid_0_REG_1']
+
+## Concrete local state
+
+['clr_uop_1', 'clr_valid_1']
+
+## Environment/frontier signals
+
+['clr_uop', 'clr_uop.br_mask', 'clr_uop_1_out', 'clr_valid', 'clr_valid_1', 'h0', 'io.core.brupdate.b1.mispredict_mask', 'io.core.brupdate.b1.resolve_mask', 'io.core.clr_bsy[0].bits', 'io.core.clr_bsy[0].valid', 'io.core.exception']
+
+## Source evidence
+
+### generators/boom/src/main/scala/v4/lsu/lsu.scala:1082-1085
+```scala
+
+    val clr_valid_1 = RegNext(clr_valid && !IsKilledByBranch(io.core.brupdate, io.core.exception, clr_uop))
+    val clr_uop_1   = RegNext(UpdateBrMask(io.core.brupdate, clr_uop))
+```
+
+### generators/boom/src/main/scala/v4/lsu/lsu.scala:1101-1104
+```scala
+
+    io.core.clr_bsy(i).valid := clr_valid_1 && !IsKilledByBranch(io.core.brupdate, io.core.exception, clr_uop_1)
+    io.core.clr_bsy(i).bits  := clr_uop_1.rob_idx
+```
+
+### generators/boom/src/main/scala/v4/util/util.scala:60-62
+```scala
+  def apply(brupdate: BrUpdateInfo, flush: Bool, uop_mask: UInt): Bool = {
+    return maskMatch(brupdate.b1.mispredict_mask, uop_mask) || flush
+  }
+```
+
+### generators/boom/src/main/scala/v4/util/util.scala:92-94
+```scala
+   def apply(brupdate: BrUpdateInfo, uop: MicroOp): UInt = {
+     return uop.br_mask & ~brupdate.b1.resolve_mask
+   }
+```
+
+### generators/boom/src/main/scala/v4/util/util.scala:103-106
+```scala
+  def apply(brupdate: BrUpdateInfo, uop: MicroOp): MicroOp = {
+    val out = WireInit(uop)
+    out.br_mask := GetNewBrMask(brupdate, uop)
+    out
+```
+
+### generators/boom/src/main/scala/v4/util/util.scala:125-127
+```scala
+{
+  def apply(msk1: UInt, msk2: UInt): Bool = (msk1 & msk2) =/= 0.U
+}
+```
+
+## Grounded FIRRTL statement ledger
+
+Every statement ID below is allowed evidence for this WorkUnit. Statements not
+in this ledger must not be cited.
+
+```text
+[3410] FIRRTL:369782 SRC:generators/boom/src/main/scala/v4/util/util.scala:126:51 KIND:node :: node _clr_valid_1_T = and(io.core.brupdate.b1.mispredict_mask, clr_uop.br_mask)
+[3411] FIRRTL:369783 SRC:generators/boom/src/main/scala/v4/util/util.scala:126:59 KIND:node :: node _clr_valid_1_T_1 = neq(_clr_valid_1_T, UInt<1>(0h0))
+[3412] FIRRTL:369784 SRC:generators/boom/src/main/scala/v4/util/util.scala:61:61 KIND:node :: node _clr_valid_1_T_2 = or(_clr_valid_1_T_1, io.core.exception)
+[3413] FIRRTL:369785 SRC:generators/boom/src/main/scala/v4/lsu/lsu.scala:1083:44 KIND:node :: node _clr_valid_1_T_3 = eq(_clr_valid_1_T_2, UInt<1>(0h0))
+[3414] FIRRTL:369786 SRC:generators/boom/src/main/scala/v4/lsu/lsu.scala:1083:41 KIND:node :: node _clr_valid_1_T_4 = and(clr_valid, _clr_valid_1_T_3)
+[3416] FIRRTL:369788 SRC:generators/boom/src/main/scala/v4/lsu/lsu.scala:1083:30 KIND:connect :: connect clr_valid_1, _clr_valid_1_T_4
+[3418] FIRRTL:369790 SRC:generators/boom/src/main/scala/v4/util/util.scala:104:23 KIND:connect :: connect clr_uop_1_out, clr_uop
+[3419] FIRRTL:369791 SRC:generators/boom/src/main/scala/v4/util/util.scala:93:27 KIND:node :: node _clr_uop_1_out_br_mask_T = not(io.core.brupdate.b1.resolve_mask)
+[3420] FIRRTL:369792 SRC:generators/boom/src/main/scala/v4/util/util.scala:93:25 KIND:node :: node _clr_uop_1_out_br_mask_T_1 = and(clr_uop.br_mask, _clr_uop_1_out_br_mask_T)
+[3421] FIRRTL:369793 SRC:generators/boom/src/main/scala/v4/util/util.scala:105:17 KIND:connect :: connect clr_uop_1_out.br_mask, _clr_uop_1_out_br_mask_T_1
+[3423] FIRRTL:369795 SRC:generators/boom/src/main/scala/v4/lsu/lsu.scala:1084:30 KIND:connect :: connect clr_uop_1, clr_uop_1_out
+[3455] FIRRTL:369827 SRC:generators/boom/src/main/scala/v4/util/util.scala:126:51 KIND:node :: node _io_core_clr_bsy_0_valid_T = and(io.core.brupdate.b1.mispredict_mask, clr_uop_1.br_mask)
+[3456] FIRRTL:369828 SRC:generators/boom/src/main/scala/v4/util/util.scala:126:59 KIND:node :: node _io_core_clr_bsy_0_valid_T_1 = neq(_io_core_clr_bsy_0_valid_T, UInt<1>(0h0))
+[3457] FIRRTL:369829 SRC:generators/boom/src/main/scala/v4/util/util.scala:61:61 KIND:node :: node _io_core_clr_bsy_0_valid_T_2 = or(_io_core_clr_bsy_0_valid_T_1, io.core.exception)
+[3458] FIRRTL:369830 SRC:generators/boom/src/main/scala/v4/lsu/lsu.scala:1102:48 KIND:node :: node _io_core_clr_bsy_0_valid_T_3 = eq(_io_core_clr_bsy_0_valid_T_2, UInt<1>(0h0))
+[3459] FIRRTL:369831 SRC:generators/boom/src/main/scala/v4/lsu/lsu.scala:1102:45 KIND:node :: node _io_core_clr_bsy_0_valid_T_4 = and(clr_valid_1, _io_core_clr_bsy_0_valid_T_3)
+[3460] FIRRTL:369832 SRC:generators/boom/src/main/scala/v4/lsu/lsu.scala:1102:30 KIND:connect :: connect io.core.clr_bsy[0].valid, _io_core_clr_bsy_0_valid_T_4
+[3461] FIRRTL:369833 SRC:generators/boom/src/main/scala/v4/lsu/lsu.scala:1103:30 KIND:connect :: connect io.core.clr_bsy[0].bits, clr_uop_1.rob_idx
+```
+
+## Autonomous decision procedure
+
+Analyze the entire WorkUnit autonomously. Do **not** stop after proposing a
+semantic decomposition, and do **not** ask the human to choose occurrences,
+predicates, identities, cases, axioms, or assumptions. When several abstractions
+are plausible, choose the most conservative one that is grounded by the supplied
+RTL evidence.
+
+There are exactly two expected outcomes for this task:
+
+1. **Current language is sufficient.** Build the complete candidate with the
+   current schema and emit `FINAL MCM-AGENT RESULT` in this same response. Do this
+   even when you are unsure whether the current prover can certify every candidate
+   axiom; prover capability is decided later by `semantic-validate`.
+2. **Current language has a real gap.** Use this outcome only when a
+   memory/coherence-relevant semantic property is necessary for the abstraction
+   but cannot be faithfully expressed by any current Formal AST form. Emit a
+   section named `MCM-AGENT LANGUAGE GAP` and state:
+   - the missing semantic concept;
+   - the grounded RTL behavior that requires it;
+   - why the current AST cannot express it without changing meaning;
+   - the minimal **generic/reusable** extension you propose;
+   - representative other hardware patterns that could reuse the extension.
+   Do not emit an approximate candidate axiom just to avoid reporting the gap.
+
+While analyzing, answer questions such as:
+
+- Which physical events correspond to meaningful boundary occurrences, and is
+  any RTL-grounded internal milestone needed to preserve an ordering fact?
+- Which facts are persistent predicates rather than instantaneous occurrences?
+- What stored state carries request/cache-line/transaction identity across cycles?
+- Which case distinctions change the event path or ordering constraints?
+- Which ordering, exclusion, flow, or conservation properties are actually
+  supported by RTL?
+- Which apparent liveness properties require environment assumptions?
+- Which RTL details can be dropped without losing bug-relevant behavior?
+
+## Formal axiom rule
+
+Each `axioms[].formal` object is the axiom itself. The workflow derives its
+human-readable formula, references, checker, and proof obligation from that AST.
+This prevents a prose axiom from silently diverging from what the verifier proves.
+Consult `expected_output_schema.json` for the exact allowed AST variants.
+
+## Final machine result
+
+If the current language is sufficient, this response **must** include a final
+section named `FINAL MCM-AGENT RESULT` followed by one fenced JSON object. Do not
+wait for another human turn before emitting it. The object must match
+`expected_output_schema.json`. Use this exact envelope as the starting shape.
+
+If and only if the current language has a necessary semantic gap, emit
+`MCM-AGENT LANGUAGE GAP` instead of fabricating an approximate final JSON. A
+formal-backend proof limitation alone never selects this path.
+
+```json
+{
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-LSU-region-0-0-95a6c27af3e9b19f",
+  "work_unit_id": "LSU::region-0-0",
+  "occurrences": [],
+  "predicates": [],
+  "identity_keys": [],
+  "cases": [],
+  "axioms": [],
+  "assumptions": [],
+  "unresolved": [],
+  "rationale": [],
+  "extensions": {}
+}
+```
+
+IDs inside each list must be unique and stable within this result. Physical
+references must use the exact IDs from this prompt. Evidence must use integer
+statement IDs from the ledger.

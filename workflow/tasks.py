@@ -6,13 +6,13 @@ import hashlib
 import json
 from typing import Any
 
-from .composition import build_prompt_interface
+from .composition import build_prompt_interface, public_boundary_event_ids
 from .schema import UMCM_SCHEMA_VERSION, candidate_output_schema
 
 
 WORKFLOW_VERSION = "manual-first-workflow-0.9"
-PROMPT_VERSION = "leaf-abstraction-prompt-0.11"
-PARENT_PROMPT_VERSION = "parent-synthesis-prompt-0.3"
+PROMPT_VERSION = "leaf-abstraction-prompt-0.14"
+PARENT_PROMPT_VERSION = "parent-synthesis-prompt-0.4"
 
 
 class TaskKind(str, Enum):
@@ -297,8 +297,39 @@ Output schema version: `{task.schema_version}`
    `implicit_unconstrained` only when same-key synchronous read/write collision
    is possible and the RAM result is unspecified. This introduces a transient
    unconstrained abstract write as the collision read's `rf` source, immediately
-   before the colliding real write in `co`. If a semantic property that you judge
-   **necessary** for a sound/useful parent-facing abstraction cannot be faithfully
+   before the colliding real write in `co`. For a finite candidate vector whose unique winner is chosen by an indexed
+   linear or rotated order and exposed after a fixed register delay, use
+   `indexed_priority_select`. Its `candidate` is an indexed Boolean expression:
+   use `bit(vector, index_var)` for a packed candidate vector, or compose
+   `lookup(array, index_var)` terms with `and` / `or` / `not` when eligibility
+   is computed from several indexed arrays. If lowering exposes the finite
+   candidate vector as separate scalar frontier signals, use
+   `indexed_cases(index_var; [candidate_0, ..., candidate_n])`; its value count
+   must equal `index.count`. Do not reference a source-level array that is not
+   listed in this WorkUnit's state/frontier; preserve the partition boundary by
+   using the exposed scalar frontier candidates and leave their parent-local
+   construction to composition;
+   `priority.kind` is `linear_min`, `linear_max`, `cyclic_predecessor`, or
+   `cyclic_successor`, with a `pivot` expression on cyclic forms. The cyclic
+   forms use optional `pivot_position`: `last` (the backward-compatible default)
+   is strict around the pivot, while `first` visits the pivot itself before
+   moving in the predecessor/successor direction. `result.index` names the
+   selected-index output, or uses a constant `bit`/`slice` projection when a
+   register also carries an epoch bit; `result.found` is optional when RTL exposes a separate
+   nonempty flag. `latency_cycles` records the
+   exact sampling delay, and unreset result registers use
+   `initialization: {{"kind":"implicit_unconstrained"}}`.
+   For a scalar register whose complete one-cycle next state is selected from
+   priority guarded writers, use `register_transition`. List updates in
+   highest-to-lowest priority order with `priority: "first_match"`, then give
+   the exact hold/fallback expression in `default`. Guards may use scalar
+   Boolean `signal`/`and`/`or`/`not` expressions. For a circular pointer increment
+   use `modular_increment(value, modulus)`; this means the selected expression
+   is sampled at cycle t and assigned to the register at t+1, never a same-cycle
+   equality. Include every RTL writer: if a writer's enclosing control is not
+   grounded in the handoff, report a grounding gap rather than omitting it.
+   If a semantic property that you judge **necessary** for a sound/useful
+   parent-facing abstraction cannot be faithfully
    represented by the current Formal AST, do not approximate it with a different
    or weaker axiom. Report a `MCM-AGENT LANGUAGE GAP` using the procedure below.
    A limitation of the current formal prover is **not** a language gap: if the AST
@@ -411,7 +442,22 @@ def render_parent_synthesis_prompt(
     complexity = handoff["replacement_complexity"]
     state_ids = [state["id"] for state in handoff["state"]]
     frontier_ids = [entry["id"] for entry in handoff["frontier"]]
-    template = json.dumps(_output_template(task), indent=2, sort_keys=False)
+    public_events = public_boundary_event_ids(handoff)
+    template_value = _output_template(task)
+    template_value["extensions"] = {
+        "parent_synthesis": {
+            "axiom_provenance": {},
+            "public_interface": {
+                "policy": "explicit-public-contract-v0.1",
+                "exported_axiom_ids": [],
+                "exported_occurrence_ids": [],
+                "exported_predicate_ids": [],
+                "exported_identity_ids": [],
+                "boundary_coverage": [],
+            },
+        }
+    }
+    template = json.dumps(template_value, indent=2, sort_keys=False)
 
     return f"""# MCM-Agent manual semantic task: parent µMCM synthesis
 
@@ -458,7 +504,7 @@ Output schema version: `{task.schema_version}`
    parent candidate. Grounding signals/state/evidence stored inside a frozen child
    summary are provenance only: do not treat them as parent-local RTL evidence or
    infer new child behavior beyond the trusted frozen semantics.
-2. Child semantic objects may be referenced only by the exact qualified IDs in
+2. Private parent lemmas may reference child semantic objects only by the exact qualified IDs in
    each compact child interface's `exported_ids`. A direct theorem's Formal AST
    uses child-local IDs for local declarations; use their `qualified_id` from the
    interface when referencing them in the parent candidate. Opaque imports are
@@ -487,10 +533,38 @@ Output schema version: `{task.schema_version}`
    `rationale` for later CEGAR refinement.
 8. Do not claim liveness without an explicit environment assumption.
 9. Candidate axioms remain candidates until deterministic/formal validation.
+10. Separate proof lemmas from the public parent contract. Every candidate axiom
+    is trusted only after proof, but only IDs listed in
+    `extensions.parent_synthesis.public_interface.exported_axiom_ids` are shown
+    to the next-level LLM. Bridge/routing axioms that mention qualified child IDs
+    normally remain private lemmas.
+11. Every exported axiom must be interface-closed: its occurrence, predicate and
+    identity references must all be parent-local IDs explicitly listed in the
+    corresponding `exported_*_ids`. It must not mention `child::Object` IDs.
+    Compose through private bridge lemmas and frozen child theorems instead.
+12. Classify every public physical boundary event exactly once in
+    `boundary_coverage` as:
+    - `constrained`: cite exported occurrences grounded in that event and public
+      axioms that constrain them;
+    - `event_only`: export the occurrence without a theorem and explain why;
+    - `intentionally_omitted`: cite no objects and explain the safe omission.
+13. Work goal-first from the public contract. If a public theorem needs a long
+    proof chain, declare the necessary intermediate bridge/history statements as
+    private candidate axioms too; the composition prover closes candidates
+    iteratively and records the resulting proof DAG.
 
 ## Parent-local physical events
 
 {_render_event_table(handoff)}
+
+## Required public boundary coverage
+
+These events include parent-level boundaries owned by region children. Every ID
+must have exactly one `boundary_coverage` entry.
+
+```json
+{json.dumps(public_events, indent=2, ensure_ascii=False)}
+```
 
 ## Parent-local concrete state
 
@@ -538,7 +612,7 @@ For the normal JSON outcome, use this exact envelope:
 {template}
 ```
 
-For a parent result, `extensions` should normally have this shape:
+For a parent result, `extensions` must have this shape:
 
 ```json
 {{
@@ -549,6 +623,22 @@ For a parent result, `extensions` should normally have this shape:
         "source_axioms": [],
         "note": "..."
       }}
+    }},
+    "public_interface": {{
+      "policy": "explicit-public-contract-v0.1",
+      "exported_axiom_ids": ["A_public_1"],
+      "exported_occurrence_ids": ["ParentBoundaryOccurrence"],
+      "exported_predicate_ids": [],
+      "exported_identity_ids": [],
+      "boundary_coverage": [
+        {{
+          "physical_event_id": "<exact public event ID>",
+          "status": "constrained",
+          "occurrence_ids": ["ParentBoundaryOccurrence"],
+          "axiom_ids": ["A_public_1"],
+          "note": "..."
+        }}
+      ]
     }}
   }}
 }}

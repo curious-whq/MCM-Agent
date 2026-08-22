@@ -1,0 +1,171 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [
+        "C1_ClearBusyVisible"
+      ],
+      "evidence_statement_ids": [
+        3459,
+        3460
+      ],
+      "formal": {
+        "occurrence": "ClearBusy",
+        "predicate": "NoRegisteredClear",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A1",
+      "rendered_formula": "NoRegisteredClear => !ClearBusy",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_ClearBusyVisible"
+      ],
+      "evidence_statement_ids": [
+        3455,
+        3456,
+        3457,
+        3458,
+        3459,
+        3460
+      ],
+      "formal": {
+        "occurrence": "ClearBusy",
+        "predicate": "OutputControlBlocked",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A2",
+      "rendered_formula": "OutputControlBlocked => !ClearBusy",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_ClearBusyVisible"
+      ],
+      "evidence_statement_ids": [
+        3461
+      ],
+      "formal": {
+        "on": "ClearBusy",
+        "scope_identity": null,
+        "source": {
+          "name": "clr_uop_1.rob_idx",
+          "op": "signal"
+        },
+        "target": "io.core.clr_bsy[0].bits",
+        "type": "signal_equality"
+      },
+      "id": "A3",
+      "rendered_formula": "io.core.clr_bsy[0].bits = clr_uop_1.rob_idx on ClearBusy",
+      "status": "candidate"
+    }
+  ],
+  "cases": [
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        3455,
+        3456,
+        3457,
+        3458,
+        3459,
+        3460,
+        3461
+      ],
+      "guard_predicates": [
+        {
+          "id": "NoRegisteredClear",
+          "positive": false
+        },
+        {
+          "id": "OutputControlBlocked",
+          "positive": false
+        }
+      ],
+      "id": "C1_ClearBusyVisible",
+      "relations": [
+        "A core-visible clear-busy notification requires the registered clear candidate to remain valid after the current branch-mispredict/core-exception filter, and its payload identifies clr_uop_1.rob_idx."
+      ],
+      "trigger_occurrences": [
+        "ClearBusy"
+      ]
+    }
+  ],
+  "identity_keys": [],
+  "note": "Only axioms with FORMALLY_PROVED or SPEC_PROVED validation level are included. Grounded/structurally-supported candidate axioms remain outside the trusted abstraction.",
+  "occurrences": [
+    {
+      "definition": "io.core.clr_bsy[0].valid; the LSU tells the core that the ROB entry carried in bits may clear its busy state",
+      "evidence_statement_ids": [
+        3459,
+        3460,
+        3461
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.core.clr_bsy[0].valid"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "ClearBusy",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "LSU::io.core.clr_bsy[0].valid"
+      ]
+    }
+  ],
+  "predicates": [
+    {
+      "definition": "clr_valid_1 is false; there is no registered clear-busy candidate in the current cycle",
+      "evidence_statement_ids": [
+        3416,
+        3459,
+        3460
+      ],
+      "grounding": {
+        "negated": true,
+        "source_signal": "clr_valid_1",
+        "state_register": "clr_valid_1",
+        "state_values": [
+          0
+        ]
+      },
+      "id": "NoRegisteredClear"
+    },
+    {
+      "definition": "the registered clear-busy uop is killed in the current cycle because its branch mask intersects the mispredict mask or io.core.exception is asserted",
+      "evidence_statement_ids": [
+        3455,
+        3456,
+        3457,
+        3458,
+        3459,
+        3460
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "_io_core_clr_bsy_0_valid_T_2",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "OutputControlBlocked"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-LSU-region-0-0-95a6c27af3e9b19f",
+  "trust_policy": "formal-ast-plus-certified-provenance-v0.3",
+  "trusted_axiom_ids": [
+    "A1",
+    "A2",
+    "A3"
+  ],
+  "work_unit_id": "LSU::region-0-0"
+}

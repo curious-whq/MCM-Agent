@@ -24,6 +24,7 @@ from .semantic import (
 from .formal_patterns import (
     prove_combinational_forbid_when,
     prove_locked_owner_provenance,
+    prove_conditional_constant_bit,
     prove_conditional_signal_equality,
     prove_unconditional_signal_equality,
     prove_same_cycle_occurrence_partition,
@@ -31,9 +32,12 @@ from .formal_patterns import (
     prove_same_index_valid_token_provenance,
 )
 from .storage_prover import prove_indexed_storage_flow
+from .priority_select_prover import prove_indexed_priority_select
+from .register_transition_prover import prove_register_transition
+from .circular_queue_prover import prove_same_index_circular_queue_provenance
 
 
-FORMAL_BACKEND_API_VERSION = "formal-backend-api-0.15"
+FORMAL_BACKEND_API_VERSION = "formal-backend-api-0.23"
 FORMAL_UNKNOWN = "FORMAL_UNKNOWN"
 FORMAL_COUNTEREXAMPLE = "FORMAL_COUNTEREXAMPLE"
 
@@ -49,6 +53,8 @@ class FormalBackend(Protocol):
         *,
         candidate: dict[str, Any],
         handoff: dict[str, Any],
+        model: HandoffControlModel | None = None,
+        structural: dict[str, Any] | None = None,
     ) -> dict[str, Any]: ...
 
 
@@ -76,6 +82,8 @@ class NoFormalBackend:
         *,
         candidate: dict[str, Any],
         handoff: dict[str, Any],
+        model: HandoffControlModel | None = None,
+        structural: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         return {
             "status": FORMAL_UNKNOWN,
@@ -250,6 +258,8 @@ class ExplicitControlFormalBackend:
                 "history_join",
                 "indexed_coverage",
                 "indexed_storage_flow",
+                "indexed_priority_select",
+                "register_transition",
                 "occurrence_partition",
                 "transaction_exclusion",
                 "signal_alias",
@@ -270,6 +280,8 @@ class ExplicitControlFormalBackend:
         *,
         candidate: dict[str, Any],
         handoff: dict[str, Any],
+        model: HandoffControlModel | None = None,
+        structural: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         checker = obligation.get("checker")
         args = obligation.get("arguments", {})
@@ -284,8 +296,53 @@ class ExplicitControlFormalBackend:
                 "required_backend_capability": "same-index-relation",
             }
         state_register = _state_register_for(candidate)
-        model = HandoffControlModel(handoff, state_register=state_register)
-        model.label_occurrences(candidate.get("occurrences", []))
+        if (
+            model is None
+            or model.handoff is not handoff
+            or model.state_register != state_register
+        ):
+            model = HandoffControlModel(handoff, state_register=state_register)
+            model.label_occurrences(candidate.get("occurrences", []))
+
+        # The structural pass invokes these exact deterministic procedures too.
+        # Reuse its certificate instead of rebuilding the same Boolean cones and
+        # solving the same obligations a second time.  The whitelist is narrow on
+        # purpose: conservative structural support must never be promoted here.
+        structural_domain = (
+            structural.get("proof_domain") if isinstance(structural, dict) else None
+        )
+        if (
+            isinstance(structural, dict)
+            and structural.get("status") == STRUCTURALLY_SUPPORTED
+            and (
+                (checker == "occurrence_partition" and structural_domain == "exact-same-cycle-occurrence-partition")
+                or (
+                    checker == "indexed_priority_select"
+                    and structural_domain == "exact-registered-indexed-priority-select"
+                )
+                or (
+                    checker == "signal_alias"
+                    and args.get("on")
+                    and structural_domain == "exact-conditional-symbolic-driver-equality"
+                )
+                or (
+                    checker == "constant_bit"
+                    and args.get("on")
+                    and structural_domain == "exact-conditional-constant-bit"
+                )
+            )
+        ):
+            result = {
+                "status": FORMALLY_PROVED,
+                "backend": self.name,
+                "proof_method": structural_domain,
+                "proof": structural.get("proof"),
+                "certificate": structural,
+                "reused_structural_certificate": True,
+            }
+            if checker == "signal_alias":
+                result["proof_domain"] = "local-combinational-equality"
+            return result
 
         # Some leaves (queues, arbiters, kill/flush gates) have no single FSM
         # state register.  Prove purely local forbid_when obligations directly
@@ -342,6 +399,58 @@ class ExplicitControlFormalBackend:
                 "required_backend_capability": "exact-indexed-storage-rf-co-fr",
             }
 
+        if checker == "indexed_priority_select":
+            result = prove_indexed_priority_select(model, candidate, **args)
+            if result.get("status") == STRUCTURALLY_SUPPORTED:
+                return {
+                    "status": FORMALLY_PROVED,
+                    "backend": self.name,
+                    "proof_method": result.get("proof_domain"),
+                    "proof": result.get("proof"),
+                    "certificate": result,
+                }
+            if result.get("status") == "COUNTEREXAMPLE":
+                return {
+                    "status": FORMAL_COUNTEREXAMPLE,
+                    "backend": self.name,
+                    "reason": result.get("reason"),
+                    "counterexample": result.get("counterexample"),
+                    "certificate": result,
+                }
+            return {
+                "status": FORMAL_UNKNOWN,
+                "backend": self.name,
+                "reason": result.get("reason", "indexed priority selection unresolved"),
+                "certificate": result,
+                "required_backend_capability": "exact-registered-indexed-priority-select",
+            }
+
+        if checker == "register_transition":
+            result = prove_register_transition(model, candidate, **args)
+            if result.get("status") == STRUCTURALLY_SUPPORTED:
+                return {
+                    "status": FORMALLY_PROVED,
+                    "backend": self.name,
+                    "proof_method": result.get("proof_domain"),
+                    "proof": result.get("proof"),
+                    "certificate": result,
+                }
+            if result.get("status") == "COUNTEREXAMPLE":
+                return {
+                    "status": FORMAL_COUNTEREXAMPLE,
+                    "backend": self.name,
+                    "reason": result.get("reason"),
+                    "counterexample": result.get("counterexample"),
+                    "certificate": result,
+                }
+            return {
+                "status": FORMAL_UNKNOWN,
+                "backend": self.name,
+                "reason": result.get("reason", "register transition unresolved"),
+                "certificate": result,
+                "required_backend_capability": "exact-guarded-register-transition",
+            }
+
         # A same-index order can also be proved without an FSM when a bounded
         # valid/token array establishes exact provenance: reset invalid, one
         # token creator, all other writes clear/preserve false, and after(i)
@@ -360,6 +469,27 @@ class ExplicitControlFormalBackend:
                     "proof_method": provenance.get("proof_domain"),
                     "proof": provenance.get("proof"),
                     "certificate": provenance,
+                }
+            queue_provenance = prove_same_index_circular_queue_provenance(
+                model,
+                candidate,
+                **args,
+            )
+            if queue_provenance.get("status") == STRUCTURALLY_SUPPORTED:
+                return {
+                    "status": FORMALLY_PROVED,
+                    "backend": self.name,
+                    "proof_method": queue_provenance.get("proof_domain"),
+                    "proof": queue_provenance.get("proof"),
+                    "certificate": queue_provenance,
+                }
+            if queue_provenance.get("status") == "COUNTEREXAMPLE":
+                return {
+                    "status": FORMAL_COUNTEREXAMPLE,
+                    "backend": self.name,
+                    "reason": queue_provenance.get("reason"),
+                    "counterexample": queue_provenance.get("counterexample"),
+                    "certificate": queue_provenance,
                 }
 
         if checker == "history_order" and not args.get("scope_index"):
@@ -544,14 +674,19 @@ class ExplicitControlFormalBackend:
             }
 
         if checker == "constant_bit":
-            result = _constant_bit(model, **args)
+            result = (
+                prove_conditional_constant_bit(model, candidate, **args)
+                if args.get("on")
+                else _constant_bit(model, **args)
+            )
             if result.get("status") == STRUCTURALLY_SUPPORTED:
                 return {
                     "status": FORMALLY_PROVED,
                     "backend": self.name,
-                    "proof_method": "exact-constant-propagation",
+                    "proof_method": result.get("proof_domain", "exact-constant-propagation"),
                     "proof": result.get("proof"),
                     "proof_domain": "local-combinational-constant",
+                    "certificate": result,
                 }
             if result.get("status") == "COUNTEREXAMPLE":
                 return {

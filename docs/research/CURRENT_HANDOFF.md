@@ -335,493 +335,16 @@ Next Action: audit direct-child freeze readiness for `BoomMSHRFile`, freeze any 
 
 ## Recent WorkUnit Runs
 
-### Run: `leaf_abstraction-BoomNonBlockingDCache-region-0-4-f13601df6f3c1120`
+### Run: `leaf_abstraction-LSU-state-0-9-943f5c2db0171922`
 
-# Run Summary — BoomNonBlockingDCache::region-0-4
-
-## Identity
-
-- task: `leaf_abstraction-BoomNonBlockingDCache-region-0-4-f13601df6f3c1120`
-- kind: `leaf_abstraction`
-- workflow: `manual-first-workflow-0.9`
-- prompt: `leaf-abstraction-prompt-0.11`
-- schema: `umcm-formal-0.5`
-- workflow status: `FROZEN_FOR_COMPOSITION`
-
-## Grounding
-
-- valid: `True`
-- errors: 0
-- warnings: 0
-
-## Candidate µMCM
-
-- occurrences: 1
-- predicates: 3
-- identity keys: 0
-- cases: 1
-- candidate axioms: 3
-- unresolved: 0
-
-## Validation
-
-- GROUNDED: 0
-- PARTIALLY_SUPPORTED: 0
-- STRUCTURALLY_SUPPORTED: 0
-- FORMALLY_PROVED: 3
-- SPEC_PROVED: 0
-- REFUTED: 0
-- trusted axioms: 3
-- formal backend: `explicit-control`
-
-## Axioms
-
-- `A1` [FORMALLY_PROVED] MSHRResponsePending => !RequestAccept
-- `A2` [FORMALLY_PROVED] MetaReadUnavailable => !RequestAccept
-- `A3` [FORMALLY_PROVED] DataReadUnavailable => !RequestAccept
-
-## Next action
-
-A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
-
-## Durable experiment notes
-
-See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
-
-### Experiment experience
-
-# Experiment Experience
-
-Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
-
-## INPUT_NEEDED
-
--
-
-## PROMPT_RULE
-
--
-
-## SCHEMA_CHANGE
-
--
-
-## VALIDATOR_CHANGE
-
--
-
-## MODEL_FAILURE
-
--
-
-## GENERALIZATION
-
--
-
-### Run: `leaf_abstraction-BoomNonBlockingDCache-region-0-3-311dc24763e402d9`
-
-# Run Summary — BoomNonBlockingDCache::region-0-3
+# Run Summary — LSU::state-0-9
 
 ## Identity
 
-- task: `leaf_abstraction-BoomNonBlockingDCache-region-0-3-311dc24763e402d9`
+- task: `leaf_abstraction-LSU-state-0-9-943f5c2db0171922`
 - kind: `leaf_abstraction`
 - workflow: `manual-first-workflow-0.9`
-- prompt: `leaf-abstraction-prompt-0.11`
-- schema: `umcm-formal-0.5`
-- workflow status: `FROZEN_FOR_COMPOSITION`
-
-## Grounding
-
-- valid: `True`
-- errors: 0
-- warnings: 0
-
-## Candidate µMCM
-
-- occurrences: 11
-- predicates: 5
-- identity keys: 0
-- cases: 10
-- candidate axioms: 30
-- unresolved: 0
-
-## Validation
-
-- GROUNDED: 0
-- PARTIALLY_SUPPORTED: 0
-- STRUCTURALLY_SUPPORTED: 0
-- FORMALLY_PROVED: 30
-- SPEC_PROVED: 0
-- REFUTED: 0
-- trusted axioms: 30
-- formal backend: `explicit-control`
-
-## Axioms
-
-- `A1` [FORMALLY_PROVED] S2Invalid => !RespValid
-- `A2` [FORMALLY_PROVED] S2Invalid => !NackValid
-- `A3` [FORMALLY_PROVED] S2Invalid => !StoreAckValid
-- `A4` [FORMALLY_PROVED] S2Invalid => !MSHRReqFire
-- `A5` [FORMALLY_PROVED] S2Miss => !RespValid
-- `A6` [FORMALLY_PROVED] S2NoNack => !NackValid
-- `A7` [FORMALLY_PROVED] S2Nack => !StoreAckValid
-- `A8` [FORMALLY_PROVED] S2Hit => !MSHRReqFire
-- `A9` [FORMALLY_PROVED] StoreAckValid <=> exactly_one_same_cycle({HitStoreAck, MissAllocatedStoreAck})
-- `A10` [FORMALLY_PROVED] RespValid <=> exactly_one_same_cycle({RespFromS3, RespFromS4, RespFromS5, RespFromArray})
-- `A11` [FORMALLY_PROVED] s2_data_word[0] = s3_req.data on RespFromS3
-- `A12` [FORMALLY_PROVED] s2_data_word[0] = s4_req.data on RespFromS4
-- `A13` [FORMALLY_PROVED] s2_data_word[0] = s5_req.data on RespFromS5
-- `A14` [FORMALLY_PROVED] s2_data_word[0] = s2_data_word_prebypass[0] on RespFromArray
-- `A15` [FORMALLY_PROVED] io.lsu.resp[0].bits.data = s2_sc_fail on SCResponse
-- `A16` [FORMALLY_PROVED] io.lsu.nack[0].bits.addr = s2_req[0].addr on NackValid
-- `A17` [FORMALLY_PROVED] io.lsu.nack[0].bits.data = s2_req[0].data on NackValid
-- `A18` [FORMALLY_PROVED] io.lsu.nack[0].bits.uop.mem_cmd = s2_req[0].uop.mem_cmd on NackValid
-- `A19` [FORMALLY_PROVED] io.lsu.nack[0].bits.uop.rob_idx = s2_req[0].uop.rob_idx on NackValid
-- `A20` [FORMALLY_PROVED] io.lsu.nack[0].bits.uop.ldq_idx = s2_req[0].uop.ldq_idx on NackValid
-- `A21` [FORMALLY_PROVED] io.lsu.nack[0].bits.uop.stq_idx = s2_req[0].uop.stq_idx on NackValid
-- `A22` [FORMALLY_PROVED] io.lsu.store_ack[0].bits.addr = s2_req[0].addr on StoreAckValid
-- `A23` [FORMALLY_PROVED] io.lsu.store_ack[0].bits.uop.mem_cmd = s2_req[0].uop.mem_cmd on StoreAckValid
-- `A24` [FORMALLY_PROVED] io.lsu.store_ack[0].bits.uop.rob_idx = s2_req[0].uop.rob_idx on StoreAckValid
-- `A25` [FORMALLY_PROVED] io.lsu.store_ack[0].bits.uop.stq_idx = s2_req[0].uop.stq_idx on StoreAckValid
-- `A26` [FORMALLY_PROVED] io.lsu.resp[0].bits.uop.mem_cmd = s2_req[0].uop.mem_cmd on RespValid
-- `A27` [FORMALLY_PROVED] io.lsu.resp[0].bits.uop.mem_size = s2_req[0].uop.mem_size on RespValid
-- `A28` [FORMALLY_PROVED] io.lsu.resp[0].bits.uop.rob_idx = s2_req[0].uop.rob_idx on RespValid
-- `A29` [FORMALLY_PROVED] io.lsu.resp[0].bits.uop.ldq_idx = s2_req[0].uop.ldq_idx on RespValid
-- `A30` [FORMALLY_PROVED] io.lsu.resp[0].bits.uop.stq_idx = s2_req[0].uop.stq_idx on RespValid
-
-## Next action
-
-A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
-
-## Durable experiment notes
-
-See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
-
-### Experiment experience
-
-# Experiment Experience
-
-Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
-
-## INPUT_NEEDED
-
--
-
-## PROMPT_RULE
-
--
-
-## SCHEMA_CHANGE
-
--
-
-## VALIDATOR_CHANGE
-
--
-
-## MODEL_FAILURE
-
--
-
-## GENERALIZATION
-
--
-
-### Run: `leaf_abstraction-BoomNonBlockingDCache-region-0-2-05c1013f696ad6ab`
-
-# Run Summary — BoomNonBlockingDCache::region-0-2
-
-## Identity
-
-- task: `leaf_abstraction-BoomNonBlockingDCache-region-0-2-05c1013f696ad6ab`
-- kind: `leaf_abstraction`
-- workflow: `manual-first-workflow-0.9`
-- prompt: `leaf-abstraction-prompt-0.11`
-- schema: `umcm-formal-0.5`
-- workflow status: `FROZEN_FOR_COMPOSITION`
-
-## Grounding
-
-- valid: `True`
-- errors: 0
-- warnings: 0
-
-## Candidate µMCM
-
-- occurrences: 3
-- predicates: 2
-- identity keys: 0
-- cases: 2
-- candidate axioms: 11
-- unresolved: 0
-
-## Validation
-
-- GROUNDED: 0
-- PARTIALLY_SUPPORTED: 0
-- STRUCTURALLY_SUPPORTED: 0
-- FORMALLY_PROVED: 11
-- SPEC_PROVED: 0
-- REFUTED: 0
-- trusted axioms: 11
-- formal backend: `explicit-control`
-
-## Axioms
-
-- `A1` [FORMALLY_PROVED] DFire <=> exactly_one_same_cycle({ReleaseAckFire, MSHRGrantFire})
-- `A2` [FORMALLY_PROVED] NonReleaseAckSource => !ReleaseAckFire
-- `A3` [FORMALLY_PROVED] ReleaseAckSource => !MSHRGrantFire
-- `A4` [FORMALLY_PROVED] mshrs.io.mem_grant.bits.opcode = nodeOut.d.bits.opcode on MSHRGrantFire
-- `A5` [FORMALLY_PROVED] mshrs.io.mem_grant.bits.param = nodeOut.d.bits.param on MSHRGrantFire
-- `A6` [FORMALLY_PROVED] mshrs.io.mem_grant.bits.size = nodeOut.d.bits.size on MSHRGrantFire
-- `A7` [FORMALLY_PROVED] mshrs.io.mem_grant.bits.source = nodeOut.d.bits.source on MSHRGrantFire
-- `A8` [FORMALLY_PROVED] mshrs.io.mem_grant.bits.sink = nodeOut.d.bits.sink on MSHRGrantFire
-- `A9` [FORMALLY_PROVED] mshrs.io.mem_grant.bits.denied = nodeOut.d.bits.denied on MSHRGrantFire
-- `A10` [FORMALLY_PROVED] mshrs.io.mem_grant.bits.data = nodeOut.d.bits.data on MSHRGrantFire
-- `A11` [FORMALLY_PROVED] mshrs.io.mem_grant.bits.corrupt = nodeOut.d.bits.corrupt on MSHRGrantFire
-
-## Next action
-
-A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
-
-## Durable experiment notes
-
-See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
-
-### Experiment experience
-
-# Experiment Experience
-
-Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
-
-## INPUT_NEEDED
-
--
-
-## PROMPT_RULE
-
--
-
-## SCHEMA_CHANGE
-
--
-
-## VALIDATOR_CHANGE
-
--
-
-## MODEL_FAILURE
-
--
-
-## GENERALIZATION
-
--
-
-### Run: `leaf_abstraction-BoomNonBlockingDCache-region-0-1-c55829ccfa5917c8`
-
-# Run Summary — BoomNonBlockingDCache::region-0-1
-
-## Identity
-
-- task: `leaf_abstraction-BoomNonBlockingDCache-region-0-1-c55829ccfa5917c8`
-- kind: `leaf_abstraction`
-- workflow: `manual-first-workflow-0.9`
-- prompt: `leaf-abstraction-prompt-0.11`
-- schema: `umcm-formal-0.5`
-- workflow status: `FORMALLY_VALIDATED`
-
-## Grounding
-
-- valid: `True`
-- errors: 0
-- warnings: 0
-
-## Candidate µMCM
-
-- occurrences: 5
-- predicates: 1
-- identity keys: 0
-- cases: 4
-- candidate axioms: 32
-- unresolved: 0
-
-## Validation
-
-- GROUNDED: 0
-- PARTIALLY_SUPPORTED: 0
-- STRUCTURALLY_SUPPORTED: 0
-- FORMALLY_PROVED: 32
-- SPEC_PROVED: 0
-- REFUTED: 0
-- trusted axioms: 32
-- formal backend: `explicit-control`
-
-## Axioms
-
-- `A1` [FORMALLY_PROVED] OutputCFire <=> exactly_one_same_cycle({WBStartBeat, ProbeStartBeat, WBContinuationBeat, ProbeContinuationBeat})
-- `A2` [FORMALLY_PROVED] WBReleaseValid => !ProbeStartBeat
-- `A3` [FORMALLY_PROVED] WBStartBeat <mu WBContinuationBeat
-- `A4` [FORMALLY_PROVED] ProbeStartBeat <mu ProbeContinuationBeat
-- `A5` [FORMALLY_PROVED] nodeOut.c.bits.address = wb.io.release.bits.address on WBStartBeat
-- `A6` [FORMALLY_PROVED] nodeOut.c.bits.source = wb.io.release.bits.source on WBStartBeat
-- `A7` [FORMALLY_PROVED] nodeOut.c.bits.size = wb.io.release.bits.size on WBStartBeat
-- `A8` [FORMALLY_PROVED] nodeOut.c.bits.param = wb.io.release.bits.param on WBStartBeat
-- `A9` [FORMALLY_PROVED] nodeOut.c.bits.opcode = wb.io.release.bits.opcode on WBStartBeat
-- `A10` [FORMALLY_PROVED] nodeOut.c.bits.data = wb.io.release.bits.data on WBStartBeat
-- `A11` [FORMALLY_PROVED] nodeOut.c.bits.corrupt = wb.io.release.bits.corrupt on WBStartBeat
-- `A12` [FORMALLY_PROVED] nodeOut.c.bits.address = wb.io.release.bits.address on WBContinuationBeat
-- `A13` [FORMALLY_PROVED] nodeOut.c.bits.source = wb.io.release.bits.source on WBContinuationBeat
-- `A14` [FORMALLY_PROVED] nodeOut.c.bits.size = wb.io.release.bits.size on WBContinuationBeat
-- `A15` [FORMALLY_PROVED] nodeOut.c.bits.param = wb.io.release.bits.param on WBContinuationBeat
-- `A16` [FORMALLY_PROVED] nodeOut.c.bits.opcode = wb.io.release.bits.opcode on WBContinuationBeat
-- `A17` [FORMALLY_PROVED] nodeOut.c.bits.data = wb.io.release.bits.data on WBContinuationBeat
-- `A18` [FORMALLY_PROVED] nodeOut.c.bits.corrupt = wb.io.release.bits.corrupt on WBContinuationBeat
-- `A19` [FORMALLY_PROVED] nodeOut.c.bits.address = prober.io.rep.bits.address on ProbeStartBeat
-- `A20` [FORMALLY_PROVED] nodeOut.c.bits.source = prober.io.rep.bits.source on ProbeStartBeat
-- `A21` [FORMALLY_PROVED] nodeOut.c.bits.size = prober.io.rep.bits.size on ProbeStartBeat
-- `A22` [FORMALLY_PROVED] nodeOut.c.bits.param = prober.io.rep.bits.param on ProbeStartBeat
-- `A23` [FORMALLY_PROVED] nodeOut.c.bits.opcode = prober.io.rep.bits.opcode on ProbeStartBeat
-- `A24` [FORMALLY_PROVED] nodeOut.c.bits.data = prober.io.rep.bits.data on ProbeStartBeat
-- `A25` [FORMALLY_PROVED] nodeOut.c.bits.corrupt = prober.io.rep.bits.corrupt on ProbeStartBeat
-- `A26` [FORMALLY_PROVED] nodeOut.c.bits.address = prober.io.rep.bits.address on ProbeContinuationBeat
-- `A27` [FORMALLY_PROVED] nodeOut.c.bits.source = prober.io.rep.bits.source on ProbeContinuationBeat
-- `A28` [FORMALLY_PROVED] nodeOut.c.bits.size = prober.io.rep.bits.size on ProbeContinuationBeat
-- `A29` [FORMALLY_PROVED] nodeOut.c.bits.param = prober.io.rep.bits.param on ProbeContinuationBeat
-- `A30` [FORMALLY_PROVED] nodeOut.c.bits.opcode = prober.io.rep.bits.opcode on ProbeContinuationBeat
-- `A31` [FORMALLY_PROVED] nodeOut.c.bits.data = prober.io.rep.bits.data on ProbeContinuationBeat
-- `A32` [FORMALLY_PROVED] nodeOut.c.bits.corrupt = prober.io.rep.bits.corrupt on ProbeContinuationBeat
-
-## Next action
-
-The formally proved axioms may be frozen into the trusted leaf µMCM.
-
-## Durable experiment notes
-
-See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
-
-### Experiment experience
-
-# Experiment Experience
-
-Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
-
-## INPUT_NEEDED
-
--
-
-## PROMPT_RULE
-
--
-
-## SCHEMA_CHANGE
-
--
-
-## VALIDATOR_CHANGE
-
--
-
-## MODEL_FAILURE
-
--
-
-## GENERALIZATION
-
--
-
-### Run: `leaf_abstraction-BoomNonBlockingDCache-region-0-0-f5fc51c32c6c6ed8`
-
-# Run Summary — BoomNonBlockingDCache::region-0-0
-
-## Identity
-
-- task: `leaf_abstraction-BoomNonBlockingDCache-region-0-0-f5fc51c32c6c6ed8`
-- kind: `leaf_abstraction`
-- workflow: `manual-first-workflow-0.9`
-- prompt: `leaf-abstraction-prompt-0.11`
-- schema: `umcm-formal-0.5`
-- workflow status: `FROZEN_FOR_COMPOSITION`
-
-## Grounding
-
-- valid: `True`
-- errors: 0
-- warnings: 0
-
-## Candidate µMCM
-
-- occurrences: 1
-- predicates: 1
-- identity keys: 0
-- cases: 1
-- candidate axioms: 1
-- unresolved: 0
-
-## Validation
-
-- GROUNDED: 0
-- PARTIALLY_SUPPORTED: 0
-- STRUCTURALLY_SUPPORTED: 0
-- FORMALLY_PROVED: 1
-- SPEC_PROVED: 0
-- REFUTED: 0
-- trusted axioms: 1
-- formal backend: `explicit-control`
-
-## Axioms
-
-- `A1` [FORMALLY_PROVED] LRSCValid => !ProbeFire
-
-## Next action
-
-A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
-
-## Durable experiment notes
-
-See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
-
-### Experiment experience
-
-# Experiment Experience
-
-Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
-
-## INPUT_NEEDED
-
--
-
-## PROMPT_RULE
-
--
-
-## SCHEMA_CHANGE
-
--
-
-## VALIDATOR_CHANGE
-
--
-
-## MODEL_FAILURE
-
--
-
-## GENERALIZATION
-
--
-
-### Run: `leaf_abstraction-BoomNonBlockingDCache.lfsr_prng-80cbcb83351fc3e0`
-
-# Run Summary — BoomNonBlockingDCache.lfsr_prng
-
-## Identity
-
-- task: `leaf_abstraction-BoomNonBlockingDCache.lfsr_prng-80cbcb83351fc3e0`
-- kind: `leaf_abstraction`
-- workflow: `manual-first-workflow-0.9`
-- prompt: `leaf-abstraction-prompt-0.11`
+- prompt: `leaf-abstraction-prompt-0.14`
 - schema: `umcm-formal-0.5`
 - workflow status: `VALIDATION_INCOMPLETE`
 
@@ -829,7 +352,7 @@ Keep only lessons that should survive this conversation. Delete empty bullets in
 
 - valid: `True`
 - errors: 0
-- warnings: 1
+- warnings: 0
 
 ## Candidate µMCM
 
@@ -838,7 +361,7 @@ Keep only lessons that should survive this conversation. Delete empty bullets in
 - identity keys: 0
 - cases: 0
 - candidate axioms: 0
-- unresolved: 0
+- unresolved: 1
 
 ## Validation
 
@@ -850,6 +373,10 @@ Keep only lessons that should survive this conversation. Delete empty bullets in
 - REFUTED: 0
 - trusted axioms: 0
 - formal backend: `explicit-control`
+
+## Unresolved
+
+- `U1` Grounding gap: the complete priority-guarded next-state relation for ldq_tail cannot be instantiated because the handoff exposes writer 7874 (ldq_tail := io.core.brupdate.b2.uop.ldq_idx) and writer 8104 (ldq_tail := 0) …
 
 ## Next action
 
@@ -889,206 +416,16 @@ Keep only lessons that should survive this conversation. Delete empty bullets in
 
 -
 
-### Run: `leaf_abstraction-BoomNonBlockingDCache.wbArb-351ef42d13b9ab57`
+### Run: `leaf_abstraction-LSU-state-0-10-75fa875f7278b61a`
 
-# Run Summary — BoomNonBlockingDCache.wbArb
-
-## Identity
-
-- task: `leaf_abstraction-BoomNonBlockingDCache.wbArb-351ef42d13b9ab57`
-- kind: `leaf_abstraction`
-- workflow: `manual-first-workflow-0.9`
-- prompt: `leaf-abstraction-prompt-0.11`
-- schema: `umcm-formal-0.5`
-- workflow status: `FROZEN_FOR_COMPOSITION`
-
-## Grounding
-
-- valid: `True`
-- errors: 0
-- warnings: 0
-
-## Candidate µMCM
-
-- occurrences: 3
-- predicates: 1
-- identity keys: 0
-- cases: 2
-- candidate axioms: 16
-- unresolved: 0
-
-## Validation
-
-- GROUNDED: 0
-- PARTIALLY_SUPPORTED: 0
-- STRUCTURALLY_SUPPORTED: 0
-- FORMALLY_PROVED: 16
-- SPEC_PROVED: 0
-- REFUTED: 0
-- trusted axioms: 16
-- formal backend: `explicit-control`
-
-## Axioms
-
-- `A1` [FORMALLY_PROVED] OutputFire <=> exactly_one_same_cycle({Input0Fire, Input1Fire})
-- `A2` [FORMALLY_PROVED] Input0Valid => !Input1Fire
-- `A3` [FORMALLY_PROVED] io.chosen = 0 on Input0Fire
-- `A4` [FORMALLY_PROVED] io.out.bits.tag = io.in[0].bits.tag on Input0Fire
-- `A5` [FORMALLY_PROVED] io.out.bits.idx = io.in[0].bits.idx on Input0Fire
-- `A6` [FORMALLY_PROVED] io.out.bits.source = io.in[0].bits.source on Input0Fire
-- `A7` [FORMALLY_PROVED] io.out.bits.param = io.in[0].bits.param on Input0Fire
-- `A8` [FORMALLY_PROVED] io.out.bits.way_en = io.in[0].bits.way_en on Input0Fire
-- `A9` [FORMALLY_PROVED] io.out.bits.voluntary = io.in[0].bits.voluntary on Input0Fire
-- `A10` [FORMALLY_PROVED] io.chosen = 1 on Input1Fire
-- `A11` [FORMALLY_PROVED] io.out.bits.tag = io.in[1].bits.tag on Input1Fire
-- `A12` [FORMALLY_PROVED] io.out.bits.idx = io.in[1].bits.idx on Input1Fire
-- `A13` [FORMALLY_PROVED] io.out.bits.source = io.in[1].bits.source on Input1Fire
-- `A14` [FORMALLY_PROVED] io.out.bits.param = io.in[1].bits.param on Input1Fire
-- `A15` [FORMALLY_PROVED] io.out.bits.way_en = io.in[1].bits.way_en on Input1Fire
-- `A16` [FORMALLY_PROVED] io.out.bits.voluntary = io.in[1].bits.voluntary on Input1Fire
-
-## Next action
-
-A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
-
-## Durable experiment notes
-
-See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
-
-### Experiment experience
-
-# Experiment Experience
-
-Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
-
-## INPUT_NEEDED
-
--
-
-## PROMPT_RULE
-
--
-
-## SCHEMA_CHANGE
-
--
-
-## VALIDATOR_CHANGE
-
--
-
-## MODEL_FAILURE
-
--
-
-## GENERALIZATION
-
--
-
-### Run: `leaf_abstraction-BoomNonBlockingDCache.metaWriteArb-e1b0f852adc22811`
-
-# Run Summary — BoomNonBlockingDCache.metaWriteArb
+# Run Summary — LSU::state-0-10
 
 ## Identity
 
-- task: `leaf_abstraction-BoomNonBlockingDCache.metaWriteArb-e1b0f852adc22811`
+- task: `leaf_abstraction-LSU-state-0-10-75fa875f7278b61a`
 - kind: `leaf_abstraction`
 - workflow: `manual-first-workflow-0.9`
-- prompt: `leaf-abstraction-prompt-0.11`
-- schema: `umcm-formal-0.5`
-- workflow status: `FROZEN_FOR_COMPOSITION`
-
-## Grounding
-
-- valid: `True`
-- errors: 0
-- warnings: 0
-
-## Candidate µMCM
-
-- occurrences: 3
-- predicates: 1
-- identity keys: 0
-- cases: 2
-- candidate axioms: 14
-- unresolved: 0
-
-## Validation
-
-- GROUNDED: 0
-- PARTIALLY_SUPPORTED: 0
-- STRUCTURALLY_SUPPORTED: 0
-- FORMALLY_PROVED: 14
-- SPEC_PROVED: 0
-- REFUTED: 0
-- trusted axioms: 14
-- formal backend: `explicit-control`
-
-## Axioms
-
-- `A1` [FORMALLY_PROVED] OutputFire <=> exactly_one_same_cycle({Input0Fire, Input1Fire})
-- `A2` [FORMALLY_PROVED] Input0Valid => !Input1Fire
-- `A3` [FORMALLY_PROVED] io.chosen = 0 on Input0Fire
-- `A4` [FORMALLY_PROVED] io.out.bits.idx = io.in[0].bits.idx on Input0Fire
-- `A5` [FORMALLY_PROVED] io.out.bits.way_en = io.in[0].bits.way_en on Input0Fire
-- `A6` [FORMALLY_PROVED] io.out.bits.tag = io.in[0].bits.tag on Input0Fire
-- `A7` [FORMALLY_PROVED] io.out.bits.data.tag = io.in[0].bits.data.tag on Input0Fire
-- `A8` [FORMALLY_PROVED] io.out.bits.data.coh.state = io.in[0].bits.data.coh.state on Input0Fire
-- `A9` [FORMALLY_PROVED] io.chosen = 1 on Input1Fire
-- `A10` [FORMALLY_PROVED] io.out.bits.idx = io.in[1].bits.idx on Input1Fire
-- `A11` [FORMALLY_PROVED] io.out.bits.way_en = io.in[1].bits.way_en on Input1Fire
-- `A12` [FORMALLY_PROVED] io.out.bits.tag = io.in[1].bits.tag on Input1Fire
-- `A13` [FORMALLY_PROVED] io.out.bits.data.tag = io.in[1].bits.data.tag on Input1Fire
-- `A14` [FORMALLY_PROVED] io.out.bits.data.coh.state = io.in[1].bits.data.coh.state on Input1Fire
-
-## Next action
-
-A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
-
-## Durable experiment notes
-
-See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
-
-### Experiment experience
-
-# Experiment Experience
-
-Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
-
-## INPUT_NEEDED
-
--
-
-## PROMPT_RULE
-
--
-
-## SCHEMA_CHANGE
-
--
-
-## VALIDATOR_CHANGE
-
--
-
-## MODEL_FAILURE
-
--
-
-## GENERALIZATION
-
--
-
-### Run: `leaf_abstraction-BoomNonBlockingDCache.metaReadArb-c0e75040fe953858`
-
-# Run Summary — BoomNonBlockingDCache.metaReadArb
-
-## Identity
-
-- task: `leaf_abstraction-BoomNonBlockingDCache.metaReadArb-c0e75040fe953858`
-- kind: `leaf_abstraction`
-- workflow: `manual-first-workflow-0.9`
-- prompt: `leaf-abstraction-prompt-0.11`
+- prompt: `leaf-abstraction-prompt-0.13`
 - schema: `umcm-formal-0.5`
 - workflow status: `FORMALLY_VALIDATED`
 
@@ -1100,11 +437,11 @@ Keep only lessons that should survive this conversation. Delete empty bullets in
 
 ## Candidate µMCM
 
-- occurrences: 7
-- predicates: 5
+- occurrences: 1
+- predicates: 4
 - identity keys: 0
-- cases: 6
-- candidate axioms: 30
+- cases: 1
+- candidate axioms: 5
 - unresolved: 0
 
 ## Validation
@@ -1112,44 +449,19 @@ Keep only lessons that should survive this conversation. Delete empty bullets in
 - GROUNDED: 0
 - PARTIALLY_SUPPORTED: 0
 - STRUCTURALLY_SUPPORTED: 0
-- FORMALLY_PROVED: 30
+- FORMALLY_PROVED: 5
 - SPEC_PROVED: 0
 - REFUTED: 0
-- trusted axioms: 30
+- trusted axioms: 5
 - formal backend: `explicit-control`
 
 ## Axioms
 
-- `A1` [FORMALLY_PROVED] OutputFire <=> exactly_one_same_cycle({Input0Fire, Input1Fire, Input2Fire, Input3Fire, Input4Fire, Input5Fire})
-- `A2` [FORMALLY_PROVED] Input0Valid => !Input1Fire
-- `A3` [FORMALLY_PROVED] Higher01Valid => !Input2Fire
-- `A4` [FORMALLY_PROVED] Higher012Valid => !Input3Fire
-- `A5` [FORMALLY_PROVED] Higher0123Valid => !Input4Fire
-- `A6` [FORMALLY_PROVED] Higher01234Valid => !Input5Fire
-- `A7` [FORMALLY_PROVED] io.chosen = 0 on Input0Fire
-- `A8` [FORMALLY_PROVED] io.chosen = 1 on Input1Fire
-- `A9` [FORMALLY_PROVED] io.chosen = 2 on Input2Fire
-- `A10` [FORMALLY_PROVED] io.chosen = 3 on Input3Fire
-- `A11` [FORMALLY_PROVED] io.chosen = 4 on Input4Fire
-- `A12` [FORMALLY_PROVED] io.chosen = 5 on Input5Fire
-- `A13` [FORMALLY_PROVED] io.out.bits.req[0].idx = io.in[0].bits.req[0].idx on Input0Fire
-- `A14` [FORMALLY_PROVED] io.out.bits.req[0].tag = io.in[0].bits.req[0].tag on Input0Fire
-- `A15` [FORMALLY_PROVED] io.out.bits.req[0].way_en = io.in[0].bits.req[0].way_en on Input0Fire
-- `A16` [FORMALLY_PROVED] io.out.bits.req[0].idx = io.in[1].bits.req[0].idx on Input1Fire
-- `A17` [FORMALLY_PROVED] io.out.bits.req[0].tag = io.in[1].bits.req[0].tag on Input1Fire
-- `A18` [FORMALLY_PROVED] io.out.bits.req[0].way_en = io.in[1].bits.req[0].way_en on Input1Fire
-- `A19` [FORMALLY_PROVED] io.out.bits.req[0].idx = io.in[2].bits.req[0].idx on Input2Fire
-- `A20` [FORMALLY_PROVED] io.out.bits.req[0].tag = io.in[2].bits.req[0].tag on Input2Fire
-- `A21` [FORMALLY_PROVED] io.out.bits.req[0].way_en = io.in[2].bits.req[0].way_en on Input2Fire
-- `A22` [FORMALLY_PROVED] io.out.bits.req[0].idx = io.in[3].bits.req[0].idx on Input3Fire
-- `A23` [FORMALLY_PROVED] io.out.bits.req[0].tag = io.in[3].bits.req[0].tag on Input3Fire
-- `A24` [FORMALLY_PROVED] io.out.bits.req[0].way_en = io.in[3].bits.req[0].way_en on Input3Fire
-- `A25` [FORMALLY_PROVED] io.out.bits.req[0].idx = io.in[4].bits.req[0].idx on Input4Fire
-- `A26` [FORMALLY_PROVED] io.out.bits.req[0].tag = io.in[4].bits.req[0].tag on Input4Fire
-- `A27` [FORMALLY_PROVED] io.out.bits.req[0].way_en = io.in[4].bits.req[0].way_en on Input4Fire
-- `A28` [FORMALLY_PROVED] io.out.bits.req[0].idx = io.in[5].bits.req[0].idx on Input5Fire
-- `A29` [FORMALLY_PROVED] io.out.bits.req[0].tag = io.in[5].bits.req[0].tag on Input5Fire
-- `A30` [FORMALLY_PROVED] io.out.bits.req[0].way_en = io.in[5].bits.req[0].way_en on Input5Fire
+- `A1` [FORMALLY_PROVED] after 1 cycle(s), bits(stq_clr_head_idx, 2, 0) = select_cyclic_successor(stq_clr_head_idx_head_base), pivot=first(index_cases(i; _stq_clr_head_idx_T_1, _stq_clr_head_idx_T_3, _stq_clr_head_idx_T_5, _stq_clr_head_idx_T_7…
+- `A2` [FORMALLY_PROVED] ClearGateClosed => !StoreClear
+- `A3` [FORMALLY_PROVED] SelectedIsAMO => !StoreClear
+- `A4` [FORMALLY_PROVED] SelectedAlreadyCleared => !StoreClear
+- `A5` [FORMALLY_PROVED] SelectedControlBlocked => !StoreClear
 
 ## Next action
 
@@ -1189,16 +501,16 @@ Keep only lessons that should survive this conversation. Delete empty bullets in
 
 -
 
-### Run: `leaf_abstraction-BoomNonBlockingDCache.lsu_release_arb-92d18ec47fe4f8de`
+### Run: `leaf_abstraction-LSU-region-0-0-95a6c27af3e9b19f`
 
-# Run Summary — BoomNonBlockingDCache.lsu_release_arb
+# Run Summary — LSU::region-0-0
 
 ## Identity
 
-- task: `leaf_abstraction-BoomNonBlockingDCache.lsu_release_arb-92d18ec47fe4f8de`
+- task: `leaf_abstraction-LSU-region-0-0-95a6c27af3e9b19f`
 - kind: `leaf_abstraction`
 - workflow: `manual-first-workflow-0.9`
-- prompt: `leaf-abstraction-prompt-0.11`
+- prompt: `leaf-abstraction-prompt-0.12`
 - schema: `umcm-formal-0.5`
 - workflow status: `FROZEN_FOR_COMPOSITION`
 
@@ -1210,11 +522,11 @@ Keep only lessons that should survive this conversation. Delete empty bullets in
 
 ## Candidate µMCM
 
-- occurrences: 3
-- predicates: 1
+- occurrences: 1
+- predicates: 2
 - identity keys: 0
-- cases: 2
-- candidate axioms: 18
+- cases: 1
+- candidate axioms: 3
 - unresolved: 0
 
 ## Validation
@@ -1222,32 +534,17 @@ Keep only lessons that should survive this conversation. Delete empty bullets in
 - GROUNDED: 0
 - PARTIALLY_SUPPORTED: 0
 - STRUCTURALLY_SUPPORTED: 0
-- FORMALLY_PROVED: 18
+- FORMALLY_PROVED: 3
 - SPEC_PROVED: 0
 - REFUTED: 0
-- trusted axioms: 18
+- trusted axioms: 3
 - formal backend: `explicit-control`
 
 ## Axioms
 
-- `A1` [FORMALLY_PROVED] OutputFire <=> exactly_one_same_cycle({Input0Fire, Input1Fire})
-- `A2` [FORMALLY_PROVED] Input0Valid => !Input1Fire
-- `A3` [FORMALLY_PROVED] io.chosen = 0 on Input0Fire
-- `A4` [FORMALLY_PROVED] io.out.bits.opcode = io.in[0].bits.opcode on Input0Fire
-- `A5` [FORMALLY_PROVED] io.out.bits.param = io.in[0].bits.param on Input0Fire
-- `A6` [FORMALLY_PROVED] io.out.bits.size = io.in[0].bits.size on Input0Fire
-- `A7` [FORMALLY_PROVED] io.out.bits.source = io.in[0].bits.source on Input0Fire
-- `A8` [FORMALLY_PROVED] io.out.bits.address = io.in[0].bits.address on Input0Fire
-- `A9` [FORMALLY_PROVED] io.out.bits.data = io.in[0].bits.data on Input0Fire
-- `A10` [FORMALLY_PROVED] io.out.bits.corrupt = io.in[0].bits.corrupt on Input0Fire
-- `A11` [FORMALLY_PROVED] io.chosen = 1 on Input1Fire
-- `A12` [FORMALLY_PROVED] io.out.bits.opcode = io.in[1].bits.opcode on Input1Fire
-- `A13` [FORMALLY_PROVED] io.out.bits.param = io.in[1].bits.param on Input1Fire
-- `A14` [FORMALLY_PROVED] io.out.bits.size = io.in[1].bits.size on Input1Fire
-- `A15` [FORMALLY_PROVED] io.out.bits.source = io.in[1].bits.source on Input1Fire
-- `A16` [FORMALLY_PROVED] io.out.bits.address = io.in[1].bits.address on Input1Fire
-- `A17` [FORMALLY_PROVED] io.out.bits.data = io.in[1].bits.data on Input1Fire
-- `A18` [FORMALLY_PROVED] io.out.bits.corrupt = io.in[1].bits.corrupt on Input1Fire
+- `A1` [FORMALLY_PROVED] NoRegisteredClear => !ClearBusy
+- `A2` [FORMALLY_PROVED] OutputControlBlocked => !ClearBusy
+- `A3` [FORMALLY_PROVED] io.core.clr_bsy[0].bits = clr_uop_1.rob_idx on ClearBusy
 
 ## Next action
 
@@ -1287,16 +584,67 @@ Keep only lessons that should survive this conversation. Delete empty bullets in
 
 -
 
-### Run: `leaf_abstraction-BoomNonBlockingDCache.dataWriteArb-0f7f2a170c31ec11`
+### Run: `leaf_abstraction-LSU-region-0-3-085cd341e222b4b9`
 
-# Run Summary — BoomNonBlockingDCache.dataWriteArb
+# Run Summary — LSU::region-0-3
 
 ## Identity
 
-- task: `leaf_abstraction-BoomNonBlockingDCache.dataWriteArb-0f7f2a170c31ec11`
+- task: `leaf_abstraction-LSU-region-0-3-085cd341e222b4b9`
 - kind: `leaf_abstraction`
 - workflow: `manual-first-workflow-0.9`
-- prompt: `leaf-abstraction-prompt-0.11`
+- prompt: `leaf-abstraction-prompt-0.12`
+- schema: `umcm-formal-0.5`
+- workflow status: `PENDING_MANUAL_LLM`
+
+## Next action
+
+Send prompt.md to a ChatGPT conversation, converge on a candidate, then import the final response.
+
+## Durable experiment notes
+
+See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
+
+### Experiment experience
+
+# Experiment Experience
+
+Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
+
+## INPUT_NEEDED
+
+-
+
+## PROMPT_RULE
+
+-
+
+## SCHEMA_CHANGE
+
+-
+
+## VALIDATOR_CHANGE
+
+-
+
+## MODEL_FAILURE
+
+-
+
+## GENERALIZATION
+
+-
+
+### Run: `leaf_abstraction-LSU-region-0-2-960be9077011ec48`
+
+# Run Summary — LSU::region-0-2
+
+## Identity
+
+- task: `leaf_abstraction-LSU-region-0-2-960be9077011ec48`
+- kind: `leaf_abstraction`
+- workflow: `manual-first-workflow-0.9`
+- prompt: `leaf-abstraction-prompt-0.12`
 - schema: `umcm-formal-0.5`
 - workflow status: `FROZEN_FOR_COMPOSITION`
 
@@ -1308,10 +656,98 @@ Keep only lessons that should survive this conversation. Delete empty bullets in
 
 ## Candidate µMCM
 
-- occurrences: 3
-- predicates: 1
+- occurrences: 1
+- predicates: 0
 - identity keys: 0
-- cases: 2
+- cases: 1
+- candidate axioms: 8
+- unresolved: 0
+
+## Validation
+
+- GROUNDED: 0
+- PARTIALLY_SUPPORTED: 0
+- STRUCTURALLY_SUPPORTED: 0
+- FORMALLY_PROVED: 8
+- SPEC_PROVED: 0
+- REFUTED: 0
+- trusted axioms: 8
+- formal backend: `explicit-control`
+
+## Axioms
+
+- `A1` [FORMALLY_PROVED] io.core.fresp[0].bits.data = fresp[0].bits.data on FPResponse
+- `A2` [FORMALLY_PROVED] io.core.fresp[0].bits.uop.rob_idx = fresp[0].bits.uop.rob_idx on FPResponse
+- `A3` [FORMALLY_PROVED] io.core.fresp[0].bits.uop.ldq_idx = fresp[0].bits.uop.ldq_idx on FPResponse
+- `A4` [FORMALLY_PROVED] io.core.fresp[0].bits.uop.stq_idx = fresp[0].bits.uop.stq_idx on FPResponse
+- `A5` [FORMALLY_PROVED] io.core.fresp[0].bits.uop.mem_cmd = fresp[0].bits.uop.mem_cmd on FPResponse
+- `A6` [FORMALLY_PROVED] io.core.fresp[0].bits.uop.mem_size = fresp[0].bits.uop.mem_size on FPResponse
+- `A7` [FORMALLY_PROVED] io.core.fresp[0].bits.uop.mem_signed = fresp[0].bits.uop.mem_signed on FPResponse
+- `A8` [FORMALLY_PROVED] io.core.fresp[0].bits.uop.br_mask = fresp[0].bits.uop.br_mask on FPResponse
+
+## Next action
+
+A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
+
+## Durable experiment notes
+
+See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
+
+### Experiment experience
+
+# Experiment Experience
+
+Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
+
+## INPUT_NEEDED
+
+-
+
+## PROMPT_RULE
+
+-
+
+## SCHEMA_CHANGE
+
+-
+
+## VALIDATOR_CHANGE
+
+-
+
+## MODEL_FAILURE
+
+-
+
+## GENERALIZATION
+
+-
+
+### Run: `leaf_abstraction-LSU.retry_queue-4e9eb249feec6033`
+
+# Run Summary — LSU.retry_queue
+
+## Identity
+
+- task: `leaf_abstraction-LSU.retry_queue-4e9eb249feec6033`
+- kind: `leaf_abstraction`
+- workflow: `manual-first-workflow-0.9`
+- prompt: `leaf-abstraction-prompt-0.12`
+- schema: `umcm-formal-0.5`
+- workflow status: `FROZEN_FOR_COMPOSITION`
+
+## Grounding
+
+- valid: `True`
+- errors: 0
+- warnings: 0
+
+## Candidate µMCM
+
+- occurrences: 7
+- predicates: 6
+- identity keys: 0
+- cases: 5
 - candidate axioms: 12
 - unresolved: 0
 
@@ -1328,18 +764,18 @@ Keep only lessons that should survive this conversation. Delete empty bullets in
 
 ## Axioms
 
-- `A1` [FORMALLY_PROVED] OutputFire <=> exactly_one_same_cycle({Input0Fire, Input1Fire})
-- `A2` [FORMALLY_PROVED] Input0Valid => !Input1Fire
-- `A3` [FORMALLY_PROVED] io.chosen = 0 on Input0Fire
-- `A4` [FORMALLY_PROVED] io.out.bits.addr = io.in[0].bits.addr on Input0Fire
-- `A5` [FORMALLY_PROVED] io.out.bits.data = io.in[0].bits.data on Input0Fire
-- `A6` [FORMALLY_PROVED] io.out.bits.way_en = io.in[0].bits.way_en on Input0Fire
-- `A7` [FORMALLY_PROVED] io.out.bits.wmask = io.in[0].bits.wmask on Input0Fire
-- `A8` [FORMALLY_PROVED] io.chosen = 1 on Input1Fire
-- `A9` [FORMALLY_PROVED] io.out.bits.addr = io.in[1].bits.addr on Input1Fire
-- `A10` [FORMALLY_PROVED] io.out.bits.data = io.in[1].bits.data on Input1Fire
-- `A11` [FORMALLY_PROVED] io.out.bits.way_en = io.in[1].bits.way_en on Input1Fire
-- `A12` [FORMALLY_PROVED] io.out.bits.wmask = io.in[1].bits.wmask on Input1Fire
+- `A1` [FORMALLY_PROVED] QueueFull => !EnqHandshake
+- `A2` [FORMALLY_PROVED] EnqHandshake <=> exactly_one_same_cycle({QueueInsert, BranchKilledEnqueue, FlushKilledEnqueue})
+- `A3` [FORMALLY_PROVED] IncomingBranchKilled => !QueueInsert
+- `A4` [FORMALLY_PROVED] IncomingFlushKilled => !QueueInsert
+- `A5` [FORMALLY_PROVED] QueueEmpty => !HeadAdvance
+- `A6` [FORMALLY_PROVED] HeadAdvance <=> exactly_one_same_cycle({DeqHandshake, InvalidHeadSkip})
+- `A7` [FORMALLY_PROVED] HeadInvalid => !DeqHandshake
+- `A8` [FORMALLY_PROVED] HeadValid => !InvalidHeadSkip
+- `A9` [FORMALLY_PROVED] MPORT = io.enq.bits on QueueInsert
+- `A10` [FORMALLY_PROVED] QueueInsert <mu DeqHandshake [same index slot]
+- `A11` [FORMALLY_PROVED] QueueInsert <mu InvalidHeadSkip [same index slot]
+- `A12` [FORMALLY_PROVED] io.deq.bits = out on DeqHandshake
 
 ## Next action
 
@@ -1379,13 +815,180 @@ Keep only lessons that should survive this conversation. Delete empty bullets in
 
 -
 
-### Run: `leaf_abstraction-BoomNonBlockingDCache.dataReadArb-8173fddc63391303`
+### Run: `leaf_abstraction-LSU.stq_execute_queue-7e46d11ce5bb7121`
 
-# Run Summary — BoomNonBlockingDCache.dataReadArb
+# Run Summary — LSU.stq_execute_queue
 
 ## Identity
 
-- task: `leaf_abstraction-BoomNonBlockingDCache.dataReadArb-8173fddc63391303`
+- task: `leaf_abstraction-LSU.stq_execute_queue-7e46d11ce5bb7121`
+- kind: `leaf_abstraction`
+- workflow: `manual-first-workflow-0.9`
+- prompt: `leaf-abstraction-prompt-0.12`
+- schema: `umcm-formal-0.5`
+- workflow status: `FORMALLY_VALIDATED`
+
+## Grounding
+
+- valid: `True`
+- errors: 0
+- warnings: 0
+
+## Candidate µMCM
+
+- occurrences: 3
+- predicates: 2
+- identity keys: 0
+- cases: 2
+- candidate axioms: 6
+- unresolved: 0
+
+## Validation
+
+- GROUNDED: 0
+- PARTIALLY_SUPPORTED: 0
+- STRUCTURALLY_SUPPORTED: 0
+- FORMALLY_PROVED: 6
+- SPEC_PROVED: 0
+- REFUTED: 0
+- trusted axioms: 6
+- formal backend: `explicit-control`
+
+## Axioms
+
+- `A1` [FORMALLY_PROVED] QueueFull => !EnqHandshake
+- `A2` [FORMALLY_PROVED] QueueEmpty => !DeqHandshake
+- `A3` [FORMALLY_PROVED] EnqHandshake <=> exactly_one_same_cycle({QueueInsert})
+- `A4` [FORMALLY_PROVED] MPORT = io.enq.bits on QueueInsert
+- `A5` [FORMALLY_PROVED] QueueInsert <mu DeqHandshake [same index slot]
+- `A6` [FORMALLY_PROVED] io.deq.bits = io_deq_bits_MPORT on DeqHandshake
+
+## Next action
+
+The formally proved axioms may be frozen into the trusted leaf µMCM.
+
+## Durable experiment notes
+
+See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
+
+### Experiment experience
+
+# Experiment Experience
+
+Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
+
+## INPUT_NEEDED
+
+-
+
+## PROMPT_RULE
+
+-
+
+## SCHEMA_CHANGE
+
+-
+
+## VALIDATOR_CHANGE
+
+-
+
+## MODEL_FAILURE
+
+-
+
+## GENERALIZATION
+
+-
+
+### Run: `leaf_abstraction-LSU.logic-e41a1cc2550d9194`
+
+# Run Summary — LSU.logic
+
+## Identity
+
+- task: `leaf_abstraction-LSU.logic-e41a1cc2550d9194`
+- kind: `leaf_abstraction`
+- workflow: `manual-first-workflow-0.9`
+- prompt: `leaf-abstraction-prompt-0.12`
+- schema: `umcm-formal-0.5`
+- workflow status: `FROZEN_FOR_COMPOSITION`
+
+## Grounding
+
+- valid: `True`
+- errors: 0
+- warnings: 0
+
+## Candidate µMCM
+
+- occurrences: 0
+- predicates: 0
+- identity keys: 0
+- cases: 0
+- candidate axioms: 1
+- unresolved: 0
+
+## Validation
+
+- GROUNDED: 0
+- PARTIALLY_SUPPORTED: 0
+- STRUCTURALLY_SUPPORTED: 0
+- FORMALLY_PROVED: 1
+- SPEC_PROVED: 0
+- REFUTED: 0
+- trusted axioms: 1
+- formal backend: `explicit-control`
+
+## Axioms
+
+- `A1` [FORMALLY_PROVED] after 1 cycle(s), {io.found, io.found_idx} = select_cyclic_predecessor(io.youngest), pivot=last(bits(io.matches, i, i), i in [0, 8))
+
+## Next action
+
+A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
+
+## Durable experiment notes
+
+See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
+
+### Experiment experience
+
+# Experiment Experience
+
+Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
+
+## INPUT_NEEDED
+
+-
+
+## PROMPT_RULE
+
+-
+
+## SCHEMA_CHANGE
+
+-
+
+## VALIDATOR_CHANGE
+
+-
+
+## MODEL_FAILURE
+
+-
+
+## GENERALIZATION
+
+-
+
+### Run: `leaf_abstraction-LSU-region-0-4-9d9375b011581ad1`
+
+# Run Summary — LSU::region-0-4
+
+## Identity
+
+- task: `leaf_abstraction-LSU-region-0-4-9d9375b011581ad1`
 - kind: `leaf_abstraction`
 - workflow: `manual-first-workflow-0.9`
 - prompt: `leaf-abstraction-prompt-0.11`
@@ -1401,10 +1004,10 @@ Keep only lessons that should survive this conversation. Delete empty bullets in
 ## Candidate µMCM
 
 - occurrences: 4
-- predicates: 2
+- predicates: 5
 - identity keys: 0
 - cases: 3
-- candidate axioms: 15
+- candidate axioms: 20
 - unresolved: 0
 
 ## Validation
@@ -1412,33 +1015,307 @@ Keep only lessons that should survive this conversation. Delete empty bullets in
 - GROUNDED: 0
 - PARTIALLY_SUPPORTED: 0
 - STRUCTURALLY_SUPPORTED: 0
-- FORMALLY_PROVED: 15
+- FORMALLY_PROVED: 20
 - SPEC_PROVED: 0
 - REFUTED: 0
-- trusted axioms: 15
+- trusted axioms: 20
 - formal backend: `explicit-control`
 
 ## Axioms
 
-- `A1` [FORMALLY_PROVED] OutputFire <=> exactly_one_same_cycle({Input0Fire, Input1Fire, Input2Fire})
-- `A2` [FORMALLY_PROVED] Input0Valid => !Input1Fire
-- `A3` [FORMALLY_PROVED] Higher01Valid => !Input2Fire
-- `A4` [FORMALLY_PROVED] io.chosen = 0 on Input0Fire
-- `A5` [FORMALLY_PROVED] io.chosen = 1 on Input1Fire
-- `A6` [FORMALLY_PROVED] io.chosen = 2 on Input2Fire
-- `A7` [FORMALLY_PROVED] io.out.bits.req[0].addr = io.in[0].bits.req[0].addr on Input0Fire
-- `A8` [FORMALLY_PROVED] io.out.bits.req[0].way_en = io.in[0].bits.req[0].way_en on Input0Fire
-- `A9` [FORMALLY_PROVED] io.out.bits.valid[0] = io.in[0].bits.valid[0] on Input0Fire
-- `A10` [FORMALLY_PROVED] io.out.bits.req[0].addr = io.in[1].bits.req[0].addr on Input1Fire
-- `A11` [FORMALLY_PROVED] io.out.bits.req[0].way_en = io.in[1].bits.req[0].way_en on Input1Fire
-- `A12` [FORMALLY_PROVED] io.out.bits.valid[0] = io.in[1].bits.valid[0] on Input1Fire
-- `A13` [FORMALLY_PROVED] io.out.bits.req[0].addr = io.in[2].bits.req[0].addr on Input2Fire
-- `A14` [FORMALLY_PROVED] io.out.bits.req[0].way_en = io.in[2].bits.req[0].way_en on Input2Fire
-- `A15` [FORMALLY_PROVED] io.out.bits.valid[0] = io.in[2].bits.valid[0] on Input2Fire
+- `A1` [FORMALLY_PROVED] ExceptionRegister <=> exactly_one_same_cycle({MemExceptionRegister, LoadExceptionRegister})
+- `A2` [FORMALLY_PROVED] RegisterControlBlocked => !ExceptionRegister
+- `A3` [FORMALLY_PROVED] NoMemExceptionPending => !MemExceptionRegister
+- `A4` [FORMALLY_PROVED] NoLoadExceptionPending => !LoadExceptionRegister
+- `A5` [FORMALLY_PROVED] xcpt_uop.rob_idx = mem_xcpt_uop.rob_idx on MemExceptionRegister
+- `A6` [FORMALLY_PROVED] xcpt_uop.rob_idx = ld_xcpt_uop.rob_idx on LoadExceptionRegister
+- `A7` [FORMALLY_PROVED] _r_xcpt_cause_T = mem_xcpt_cause on MemExceptionRegister
+- `A8` [FORMALLY_PROVED] bits(_r_xcpt_cause_T, 4, 4) == 1 on LoadExceptionRegister
+- `A8b` [FORMALLY_PROVED] bits(_r_xcpt_cause_T, 3, 3) == 0 on LoadExceptionRegister
+- `A8c` [FORMALLY_PROVED] bits(_r_xcpt_cause_T, 2, 2) == 0 on LoadExceptionRegister
+- `A8d` [FORMALLY_PROVED] bits(_r_xcpt_cause_T, 1, 1) == 0 on LoadExceptionRegister
+- `A8e` [FORMALLY_PROVED] bits(_r_xcpt_cause_T, 0, 0) == 0 on LoadExceptionRegister
+- `A9` [FORMALLY_PROVED] NoRegisteredException => !LoadExceptionVisible
+- `A10` [FORMALLY_PROVED] OutputControlBlocked => !LoadExceptionVisible
+- `A11` [FORMALLY_PROVED] io.core.lxcpt.bits.cause = r_xcpt.cause on LoadExceptionVisible
+- `A12` [FORMALLY_PROVED] io.core.lxcpt.bits.badvaddr = r_xcpt.badvaddr on LoadExceptionVisible
+- `A13` [FORMALLY_PROVED] io.core.lxcpt.bits.uop.rob_idx = r_xcpt.uop.rob_idx on LoadExceptionVisible
+- `A14` [FORMALLY_PROVED] io.core.lxcpt.bits.uop.ldq_idx = r_xcpt.uop.ldq_idx on LoadExceptionVisible
+- `A15` [FORMALLY_PROVED] io.core.lxcpt.bits.uop.stq_idx = r_xcpt.uop.stq_idx on LoadExceptionVisible
+- `A16` [FORMALLY_PROVED] io.core.lxcpt.bits.uop.mem_cmd = r_xcpt.uop.mem_cmd on LoadExceptionVisible
 
 ## Next action
 
 A higher parent synthesis step may consume frozen_umcm.json; reopen only through counterexample-guided refinement.
+
+## Durable experiment notes
+
+See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
+
+### Experiment experience
+
+# Experiment Experience
+
+Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
+
+## INPUT_NEEDED
+
+-
+
+## PROMPT_RULE
+
+-
+
+## SCHEMA_CHANGE
+
+-
+
+## VALIDATOR_CHANGE
+
+-
+
+## MODEL_FAILURE
+
+-
+
+## GENERALIZATION
+
+-
+
+### Run: `leaf_abstraction-LSU-state-0-8-75c1d44ef5da10a6`
+
+# Run Summary — LSU::state-0-8
+
+## Identity
+
+- task: `leaf_abstraction-LSU-state-0-8-75c1d44ef5da10a6`
+- kind: `leaf_abstraction`
+- workflow: `manual-first-workflow-0.9`
+- prompt: `leaf-abstraction-prompt-0.11`
+- schema: `umcm-formal-0.5`
+- workflow status: `FORMALLY_VALIDATED`
+
+## Grounding
+
+- valid: `True`
+- errors: 0
+- warnings: 0
+
+## Candidate µMCM
+
+- occurrences: 5
+- predicates: 5
+- identity keys: 0
+- cases: 4
+- candidate axioms: 5
+- unresolved: 0
+
+## Validation
+
+- GROUNDED: 0
+- PARTIALLY_SUPPORTED: 0
+- STRUCTURALLY_SUPPORTED: 0
+- FORMALLY_PROVED: 5
+- SPEC_PROVED: 0
+- REFUTED: 0
+- trusted axioms: 5
+- formal backend: `explicit-control`
+
+## Axioms
+
+- `A1` [FORMALLY_PROVED] LoadSearch <=> exactly_one_same_cycle({LoadSearchPass, LoadSearchNonForwardable, LoadSearchConflictBlocked})
+- `A2` [FORMALLY_PROVED] ForwardingKilled => !LoadSearchPass
+- `A3` [FORMALLY_PROVED] ForwardingDisallowed => !LoadSearchPass
+- `A4` [FORMALLY_PROVED] HasOlderAMOOrFence => !LoadSearchPass
+- `A5` [FORMALLY_PROVED] NackOrderingConflict => !LoadSearchPass
+
+## Next action
+
+The formally proved axioms may be frozen into the trusted leaf µMCM.
+
+## Durable experiment notes
+
+See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
+
+### Experiment experience
+
+# Experiment Experience
+
+Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
+
+## INPUT_NEEDED
+
+-
+
+## PROMPT_RULE
+
+-
+
+## SCHEMA_CHANGE
+
+-
+
+## VALIDATOR_CHANGE
+
+-
+
+## MODEL_FAILURE
+
+-
+
+## GENERALIZATION
+
+-
+
+### Run: `leaf_abstraction-LSU-region-0-6-664eff0e43733fd6`
+
+# Run Summary — LSU::region-0-6
+
+## Identity
+
+- task: `leaf_abstraction-LSU-region-0-6-664eff0e43733fd6`
+- kind: `leaf_abstraction`
+- workflow: `manual-first-workflow-0.9`
+- prompt: `leaf-abstraction-prompt-0.11`
+- schema: `umcm-formal-0.5`
+- workflow status: `FORMALLY_VALIDATED`
+
+## Grounding
+
+- valid: `True`
+- errors: 0
+- warnings: 0
+
+## Candidate µMCM
+
+- occurrences: 7
+- predicates: 5
+- identity keys: 0
+- cases: 0
+- candidate axioms: 20
+- unresolved: 0
+
+## Validation
+
+- GROUNDED: 0
+- PARTIALLY_SUPPORTED: 0
+- STRUCTURALLY_SUPPORTED: 0
+- FORMALLY_PROVED: 20
+- SPEC_PROVED: 0
+- REFUTED: 0
+- trusted axioms: 20
+- formal backend: `explicit-control`
+
+## Axioms
+
+- `A1` [FORMALLY_PROVED] DCacheRequest <=> exactly_one_same_cycle({LoadExecuteRequest, LoadRetryRequest, StoreCommitRequest, LoadWakeupRequest, HellaIncomingRequest, HellaWakeupRequest})
+- `A2` [FORMALLY_PROVED] io.dmem.req.bits[0].bits.addr = exe_tlb_paddr[0] on LoadExecuteRequest
+- `A3` [FORMALLY_PROVED] io.dmem.req.bits[0].bits.addr = exe_tlb_paddr[0] on LoadRetryRequest
+- `A4` [FORMALLY_PROVED] io.dmem.req.bits[0].bits.addr = stq_execute_queue.io.deq.bits.addr.bits on StoreCommitRequest
+- `A5` [FORMALLY_PROVED] io.dmem.req.bits[0].bits.addr = ldq_wakeup_e.bits.addr.bits on LoadWakeupRequest
+- `A6` [FORMALLY_PROVED] io.dmem.req.bits[0].bits.addr = exe_tlb_paddr[0] on HellaIncomingRequest
+- `A7` [FORMALLY_PROVED] io.dmem.req.bits[0].bits.addr = hella_paddr on HellaWakeupRequest
+- `A8` [FORMALLY_PROVED] bits(io.dmem.req.bits[0].bits.is_hella, 0, 0) == 0 on LoadExecuteRequest
+- `A9` [FORMALLY_PROVED] bits(io.dmem.req.bits[0].bits.is_hella, 0, 0) == 0 on LoadRetryRequest
+- `A10` [FORMALLY_PROVED] bits(io.dmem.req.bits[0].bits.is_hella, 0, 0) == 0 on StoreCommitRequest
+- `A11` [FORMALLY_PROVED] bits(io.dmem.req.bits[0].bits.is_hella, 0, 0) == 0 on LoadWakeupRequest
+- `A12` [FORMALLY_PROVED] bits(io.dmem.req.bits[0].bits.is_hella, 0, 0) == 1 on HellaIncomingRequest
+- `A13` [FORMALLY_PROVED] bits(io.dmem.req.bits[0].bits.is_hella, 0, 0) == 1 on HellaWakeupRequest
+- `A14` [FORMALLY_PROVED] io.dmem.req.bits[0].bits.uop.mem_cmd = hella_req.cmd on HellaIncomingRequest
+- `A15` [FORMALLY_PROVED] io.dmem.req.bits[0].bits.uop.mem_cmd = hella_req.cmd on HellaWakeupRequest
+- `A16` [FORMALLY_PROVED] io.dmem.req.bits[0].bits.uop.mem_size = hella_req.size on HellaIncomingRequest
+- `A17` [FORMALLY_PROVED] io.dmem.req.bits[0].bits.uop.mem_size = hella_req.size on HellaWakeupRequest
+- `A18` [FORMALLY_PROVED] RetryOrderBlock => !LoadRetryRequest
+- `A19` [FORMALLY_PROVED] WakeupOrderBlock => !LoadWakeupRequest
+- `A20` [FORMALLY_PROVED] UncacheableWakeupOrderBlocked => !LoadWakeupRequest
+
+## Next action
+
+The formally proved axioms may be frozen into the trusted leaf µMCM.
+
+## Durable experiment notes
+
+See `EXPERIENCE.md` in this run directory. Keep only lessons that should influence future prompts/schema/validators/synthesis.
+
+### Experiment experience
+
+# Experiment Experience
+
+Keep only lessons that should survive this conversation. Delete empty bullets instead of inventing content.
+
+## INPUT_NEEDED
+
+-
+
+## PROMPT_RULE
+
+-
+
+## SCHEMA_CHANGE
+
+-
+
+## VALIDATOR_CHANGE
+
+-
+
+## MODEL_FAILURE
+
+-
+
+## GENERALIZATION
+
+-
+
+### Run: `leaf_abstraction-LSU-region-0-1-5c5dc0e312bfb510`
+
+# Run Summary — LSU::region-0-1
+
+## Identity
+
+- task: `leaf_abstraction-LSU-region-0-1-5c5dc0e312bfb510`
+- kind: `leaf_abstraction`
+- workflow: `manual-first-workflow-0.9`
+- prompt: `leaf-abstraction-prompt-0.11`
+- schema: `umcm-formal-0.5`
+- workflow status: `FORMALLY_VALIDATED`
+
+## Grounding
+
+- valid: `True`
+- errors: 0
+- warnings: 0
+
+## Candidate µMCM
+
+- occurrences: 4
+- predicates: 2
+- identity keys: 0
+- cases: 2
+- candidate axioms: 4
+- unresolved: 0
+
+## Validation
+
+- GROUNDED: 0
+- PARTIALLY_SUPPORTED: 0
+- STRUCTURALLY_SUPPORTED: 0
+- FORMALLY_PROVED: 4
+- SPEC_PROVED: 0
+- REFUTED: 0
+- trusted axioms: 4
+- formal backend: `explicit-control`
+
+## Axioms
+
+- `A1` [FORMALLY_PROVED] ClearUnsafe <=> exactly_one_same_cycle({ClearUnsafeWithStorePending, ClearUnsafeLoadOnly})
+- `A2` [FORMALLY_PROVED] DelayedFailedLoad => !ClearUnsafe
+- `A3` [FORMALLY_PROVED] DCacheNack => !ClearUnsafeLoadOnly
+- `A4` [FORMALLY_PROVED] io.core.clr_unsafe[0].bits = io_core_clr_unsafe_0_bits_REG on ClearUnsafe
+
+## Next action
+
+The formally proved axioms may be frozen into the trusted leaf µMCM.
 
 ## Durable experiment notes
 

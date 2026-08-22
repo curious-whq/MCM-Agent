@@ -1,0 +1,6037 @@
+{
+  "children": [],
+  "complexity": {
+    "event_state_coupling": 0.0,
+    "events": 1,
+    "logical": {
+      "dependency_edges": 77,
+      "signals": 51,
+      "source_loc": 16,
+      "statements": 22
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 217,
+      "signals": 108,
+      "source_loc": 16,
+      "statements": 67,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 3,
+    "state_regions": 3
+  },
+  "dependency_edges": [
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "data",
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 888,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 888:24"
+      },
+      "src": "io_dmem_s1_kill_0_REG",
+      "statement_ids": [
+        2377
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "data",
+      "source": {
+        "column": 29,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1181,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1181:29"
+      },
+      "src": "h0",
+      "statement_ids": [
+        3839
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "src": "h1",
+      "statement_ids": [
+        3946
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "control",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "src": "_T_258",
+      "statement_ids": [
+        3946
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "control",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "src": "_T_266",
+      "statement_ids": [
+        3946
+      ]
+    },
+    {
+      "dst": "_T_288",
+      "kind": "data",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "fired_load_agen[0]",
+      "statement_ids": [
+        3981
+      ]
+    },
+    {
+      "dst": "_T_288",
+      "kind": "data",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "h0",
+      "statement_ids": [
+        3981
+      ]
+    },
+    {
+      "dst": "_T_288",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "_T_272",
+      "statement_ids": [
+        3981
+      ]
+    },
+    {
+      "dst": "_T_288",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "_T_281",
+      "statement_ids": [
+        3981
+      ]
+    },
+    {
+      "dst": "_T_288",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "_T_284",
+      "statement_ids": [
+        3981
+      ]
+    },
+    {
+      "dst": "_T_288",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "lcam_younger_load_mask[0][0]",
+      "statement_ids": [
+        3981
+      ]
+    },
+    {
+      "dst": "_T_289",
+      "kind": "data",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "REG_1",
+      "statement_ids": [
+        3982
+      ]
+    },
+    {
+      "dst": "_T_289",
+      "kind": "data",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_288",
+      "statement_ids": [
+        3982
+      ]
+    },
+    {
+      "dst": "_T_289",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_272",
+      "statement_ids": [
+        3982
+      ]
+    },
+    {
+      "dst": "_T_289",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_281",
+      "statement_ids": [
+        3982
+      ]
+    },
+    {
+      "dst": "_T_289",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_284",
+      "statement_ids": [
+        3982
+      ]
+    },
+    {
+      "dst": "_T_289",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "lcam_younger_load_mask[0][0]",
+      "statement_ids": [
+        3982
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "data",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "h1",
+      "statement_ids": [
+        3983,
+        3984
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_272",
+      "statement_ids": [
+        3983,
+        3984
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_281",
+      "statement_ids": [
+        3983,
+        3984
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_284",
+      "statement_ids": [
+        3983,
+        3984
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_289",
+      "statement_ids": [
+        3983,
+        3984
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "lcam_younger_load_mask[0][0]",
+      "statement_ids": [
+        3983,
+        3984
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "src": "h1",
+      "statement_ids": [
+        4092
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "control",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "src": "_T_310",
+      "statement_ids": [
+        4092
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "control",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "src": "_T_318",
+      "statement_ids": [
+        4092
+      ]
+    },
+    {
+      "dst": "_T_340",
+      "kind": "data",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "fired_load_agen[0]",
+      "statement_ids": [
+        4127
+      ]
+    },
+    {
+      "dst": "_T_340",
+      "kind": "data",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "h0",
+      "statement_ids": [
+        4127
+      ]
+    },
+    {
+      "dst": "_T_340",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "_T_324",
+      "statement_ids": [
+        4127
+      ]
+    },
+    {
+      "dst": "_T_340",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "_T_333",
+      "statement_ids": [
+        4127
+      ]
+    },
+    {
+      "dst": "_T_340",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "_T_336",
+      "statement_ids": [
+        4127
+      ]
+    },
+    {
+      "dst": "_T_340",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "lcam_younger_load_mask[0][1]",
+      "statement_ids": [
+        4127
+      ]
+    },
+    {
+      "dst": "_T_341",
+      "kind": "data",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "REG_2",
+      "statement_ids": [
+        4128
+      ]
+    },
+    {
+      "dst": "_T_341",
+      "kind": "data",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_340",
+      "statement_ids": [
+        4128
+      ]
+    },
+    {
+      "dst": "_T_341",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_324",
+      "statement_ids": [
+        4128
+      ]
+    },
+    {
+      "dst": "_T_341",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_333",
+      "statement_ids": [
+        4128
+      ]
+    },
+    {
+      "dst": "_T_341",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_336",
+      "statement_ids": [
+        4128
+      ]
+    },
+    {
+      "dst": "_T_341",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "lcam_younger_load_mask[0][1]",
+      "statement_ids": [
+        4128
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "data",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "h1",
+      "statement_ids": [
+        4129,
+        4130
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_324",
+      "statement_ids": [
+        4129,
+        4130
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_333",
+      "statement_ids": [
+        4129,
+        4130
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_336",
+      "statement_ids": [
+        4129,
+        4130
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_341",
+      "statement_ids": [
+        4129,
+        4130
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "lcam_younger_load_mask[0][1]",
+      "statement_ids": [
+        4129,
+        4130
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "src": "h1",
+      "statement_ids": [
+        4238
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "control",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "src": "_T_362",
+      "statement_ids": [
+        4238
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "control",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "src": "_T_370",
+      "statement_ids": [
+        4238
+      ]
+    },
+    {
+      "dst": "_T_392",
+      "kind": "data",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "fired_load_agen[0]",
+      "statement_ids": [
+        4273
+      ]
+    },
+    {
+      "dst": "_T_392",
+      "kind": "data",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "h0",
+      "statement_ids": [
+        4273
+      ]
+    },
+    {
+      "dst": "_T_392",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "_T_376",
+      "statement_ids": [
+        4273
+      ]
+    },
+    {
+      "dst": "_T_392",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "_T_385",
+      "statement_ids": [
+        4273
+      ]
+    },
+    {
+      "dst": "_T_392",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "_T_388",
+      "statement_ids": [
+        4273
+      ]
+    },
+    {
+      "dst": "_T_392",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "lcam_younger_load_mask[0][2]",
+      "statement_ids": [
+        4273
+      ]
+    },
+    {
+      "dst": "_T_393",
+      "kind": "data",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "REG_3",
+      "statement_ids": [
+        4274
+      ]
+    },
+    {
+      "dst": "_T_393",
+      "kind": "data",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_392",
+      "statement_ids": [
+        4274
+      ]
+    },
+    {
+      "dst": "_T_393",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_376",
+      "statement_ids": [
+        4274
+      ]
+    },
+    {
+      "dst": "_T_393",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_385",
+      "statement_ids": [
+        4274
+      ]
+    },
+    {
+      "dst": "_T_393",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_388",
+      "statement_ids": [
+        4274
+      ]
+    },
+    {
+      "dst": "_T_393",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "lcam_younger_load_mask[0][2]",
+      "statement_ids": [
+        4274
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "data",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "h1",
+      "statement_ids": [
+        4275,
+        4276
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_376",
+      "statement_ids": [
+        4275,
+        4276
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_385",
+      "statement_ids": [
+        4275,
+        4276
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_388",
+      "statement_ids": [
+        4275,
+        4276
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_393",
+      "statement_ids": [
+        4275,
+        4276
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "lcam_younger_load_mask[0][2]",
+      "statement_ids": [
+        4275,
+        4276
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "src": "h1",
+      "statement_ids": [
+        4384
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "control",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "src": "_T_414",
+      "statement_ids": [
+        4384
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "control",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "src": "_T_422",
+      "statement_ids": [
+        4384
+      ]
+    },
+    {
+      "dst": "_T_444",
+      "kind": "data",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "fired_load_agen[0]",
+      "statement_ids": [
+        4419
+      ]
+    },
+    {
+      "dst": "_T_444",
+      "kind": "data",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "h0",
+      "statement_ids": [
+        4419
+      ]
+    },
+    {
+      "dst": "_T_444",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "_T_428",
+      "statement_ids": [
+        4419
+      ]
+    },
+    {
+      "dst": "_T_444",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "_T_437",
+      "statement_ids": [
+        4419
+      ]
+    },
+    {
+      "dst": "_T_444",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "_T_440",
+      "statement_ids": [
+        4419
+      ]
+    },
+    {
+      "dst": "_T_444",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "lcam_younger_load_mask[0][3]",
+      "statement_ids": [
+        4419
+      ]
+    },
+    {
+      "dst": "_T_445",
+      "kind": "data",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "REG_4",
+      "statement_ids": [
+        4420
+      ]
+    },
+    {
+      "dst": "_T_445",
+      "kind": "data",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_444",
+      "statement_ids": [
+        4420
+      ]
+    },
+    {
+      "dst": "_T_445",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_428",
+      "statement_ids": [
+        4420
+      ]
+    },
+    {
+      "dst": "_T_445",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_437",
+      "statement_ids": [
+        4420
+      ]
+    },
+    {
+      "dst": "_T_445",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_440",
+      "statement_ids": [
+        4420
+      ]
+    },
+    {
+      "dst": "_T_445",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "lcam_younger_load_mask[0][3]",
+      "statement_ids": [
+        4420
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "data",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "h1",
+      "statement_ids": [
+        4421,
+        4422
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_428",
+      "statement_ids": [
+        4421,
+        4422
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_437",
+      "statement_ids": [
+        4421,
+        4422
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_440",
+      "statement_ids": [
+        4421,
+        4422
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_445",
+      "statement_ids": [
+        4421,
+        4422
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "lcam_younger_load_mask[0][3]",
+      "statement_ids": [
+        4421,
+        4422
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "src": "h1",
+      "statement_ids": [
+        4530
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "control",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "src": "_T_466",
+      "statement_ids": [
+        4530
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "control",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "src": "_T_474",
+      "statement_ids": [
+        4530
+      ]
+    },
+    {
+      "dst": "_T_496",
+      "kind": "data",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "fired_load_agen[0]",
+      "statement_ids": [
+        4565
+      ]
+    },
+    {
+      "dst": "_T_496",
+      "kind": "data",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "h0",
+      "statement_ids": [
+        4565
+      ]
+    },
+    {
+      "dst": "_T_496",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "_T_480",
+      "statement_ids": [
+        4565
+      ]
+    },
+    {
+      "dst": "_T_496",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "_T_489",
+      "statement_ids": [
+        4565
+      ]
+    },
+    {
+      "dst": "_T_496",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "_T_492",
+      "statement_ids": [
+        4565
+      ]
+    },
+    {
+      "dst": "_T_496",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "lcam_younger_load_mask[0][4]",
+      "statement_ids": [
+        4565
+      ]
+    },
+    {
+      "dst": "_T_497",
+      "kind": "data",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "REG_5",
+      "statement_ids": [
+        4566
+      ]
+    },
+    {
+      "dst": "_T_497",
+      "kind": "data",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_496",
+      "statement_ids": [
+        4566
+      ]
+    },
+    {
+      "dst": "_T_497",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_480",
+      "statement_ids": [
+        4566
+      ]
+    },
+    {
+      "dst": "_T_497",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_489",
+      "statement_ids": [
+        4566
+      ]
+    },
+    {
+      "dst": "_T_497",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_492",
+      "statement_ids": [
+        4566
+      ]
+    },
+    {
+      "dst": "_T_497",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "lcam_younger_load_mask[0][4]",
+      "statement_ids": [
+        4566
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "data",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "h1",
+      "statement_ids": [
+        4567,
+        4568
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_480",
+      "statement_ids": [
+        4567,
+        4568
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_489",
+      "statement_ids": [
+        4567,
+        4568
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_492",
+      "statement_ids": [
+        4567,
+        4568
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_497",
+      "statement_ids": [
+        4567,
+        4568
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "lcam_younger_load_mask[0][4]",
+      "statement_ids": [
+        4567,
+        4568
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "src": "h1",
+      "statement_ids": [
+        4676
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "control",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "src": "_T_518",
+      "statement_ids": [
+        4676
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "control",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "src": "_T_526",
+      "statement_ids": [
+        4676
+      ]
+    },
+    {
+      "dst": "_T_548",
+      "kind": "data",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "fired_load_agen[0]",
+      "statement_ids": [
+        4711
+      ]
+    },
+    {
+      "dst": "_T_548",
+      "kind": "data",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "h0",
+      "statement_ids": [
+        4711
+      ]
+    },
+    {
+      "dst": "_T_548",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "_T_532",
+      "statement_ids": [
+        4711
+      ]
+    },
+    {
+      "dst": "_T_548",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "_T_541",
+      "statement_ids": [
+        4711
+      ]
+    },
+    {
+      "dst": "_T_548",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "_T_544",
+      "statement_ids": [
+        4711
+      ]
+    },
+    {
+      "dst": "_T_548",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "lcam_younger_load_mask[0][5]",
+      "statement_ids": [
+        4711
+      ]
+    },
+    {
+      "dst": "_T_549",
+      "kind": "data",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "REG_6",
+      "statement_ids": [
+        4712
+      ]
+    },
+    {
+      "dst": "_T_549",
+      "kind": "data",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_548",
+      "statement_ids": [
+        4712
+      ]
+    },
+    {
+      "dst": "_T_549",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_532",
+      "statement_ids": [
+        4712
+      ]
+    },
+    {
+      "dst": "_T_549",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_541",
+      "statement_ids": [
+        4712
+      ]
+    },
+    {
+      "dst": "_T_549",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_544",
+      "statement_ids": [
+        4712
+      ]
+    },
+    {
+      "dst": "_T_549",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "lcam_younger_load_mask[0][5]",
+      "statement_ids": [
+        4712
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "data",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "h1",
+      "statement_ids": [
+        4713,
+        4714
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_532",
+      "statement_ids": [
+        4713,
+        4714
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_541",
+      "statement_ids": [
+        4713,
+        4714
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_544",
+      "statement_ids": [
+        4713,
+        4714
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_549",
+      "statement_ids": [
+        4713,
+        4714
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "lcam_younger_load_mask[0][5]",
+      "statement_ids": [
+        4713,
+        4714
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "src": "h1",
+      "statement_ids": [
+        4822
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "control",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "src": "_T_570",
+      "statement_ids": [
+        4822
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "control",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "src": "_T_578",
+      "statement_ids": [
+        4822
+      ]
+    },
+    {
+      "dst": "_T_600",
+      "kind": "data",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "fired_load_agen[0]",
+      "statement_ids": [
+        4857
+      ]
+    },
+    {
+      "dst": "_T_600",
+      "kind": "data",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "h0",
+      "statement_ids": [
+        4857
+      ]
+    },
+    {
+      "dst": "_T_600",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "_T_584",
+      "statement_ids": [
+        4857
+      ]
+    },
+    {
+      "dst": "_T_600",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "_T_593",
+      "statement_ids": [
+        4857
+      ]
+    },
+    {
+      "dst": "_T_600",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "_T_596",
+      "statement_ids": [
+        4857
+      ]
+    },
+    {
+      "dst": "_T_600",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "lcam_younger_load_mask[0][6]",
+      "statement_ids": [
+        4857
+      ]
+    },
+    {
+      "dst": "_T_601",
+      "kind": "data",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "REG_7",
+      "statement_ids": [
+        4858
+      ]
+    },
+    {
+      "dst": "_T_601",
+      "kind": "data",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_600",
+      "statement_ids": [
+        4858
+      ]
+    },
+    {
+      "dst": "_T_601",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_584",
+      "statement_ids": [
+        4858
+      ]
+    },
+    {
+      "dst": "_T_601",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_593",
+      "statement_ids": [
+        4858
+      ]
+    },
+    {
+      "dst": "_T_601",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_596",
+      "statement_ids": [
+        4858
+      ]
+    },
+    {
+      "dst": "_T_601",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "lcam_younger_load_mask[0][6]",
+      "statement_ids": [
+        4858
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "data",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "h1",
+      "statement_ids": [
+        4859,
+        4860
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_584",
+      "statement_ids": [
+        4859,
+        4860
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_593",
+      "statement_ids": [
+        4859,
+        4860
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_596",
+      "statement_ids": [
+        4859,
+        4860
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_601",
+      "statement_ids": [
+        4859,
+        4860
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "lcam_younger_load_mask[0][6]",
+      "statement_ids": [
+        4859,
+        4860
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "data",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "src": "h1",
+      "statement_ids": [
+        4968
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "control",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "src": "_T_622",
+      "statement_ids": [
+        4968
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "control",
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "src": "_T_630",
+      "statement_ids": [
+        4968
+      ]
+    },
+    {
+      "dst": "_T_652",
+      "kind": "data",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "fired_load_agen[0]",
+      "statement_ids": [
+        5003
+      ]
+    },
+    {
+      "dst": "_T_652",
+      "kind": "data",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "h0",
+      "statement_ids": [
+        5003
+      ]
+    },
+    {
+      "dst": "_T_652",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "_T_636",
+      "statement_ids": [
+        5003
+      ]
+    },
+    {
+      "dst": "_T_652",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "_T_645",
+      "statement_ids": [
+        5003
+      ]
+    },
+    {
+      "dst": "_T_652",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "_T_648",
+      "statement_ids": [
+        5003
+      ]
+    },
+    {
+      "dst": "_T_652",
+      "kind": "control",
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "src": "lcam_younger_load_mask[0][7]",
+      "statement_ids": [
+        5003
+      ]
+    },
+    {
+      "dst": "_T_653",
+      "kind": "data",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "REG_8",
+      "statement_ids": [
+        5004
+      ]
+    },
+    {
+      "dst": "_T_653",
+      "kind": "data",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_652",
+      "statement_ids": [
+        5004
+      ]
+    },
+    {
+      "dst": "_T_653",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_636",
+      "statement_ids": [
+        5004
+      ]
+    },
+    {
+      "dst": "_T_653",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_645",
+      "statement_ids": [
+        5004
+      ]
+    },
+    {
+      "dst": "_T_653",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "_T_648",
+      "statement_ids": [
+        5004
+      ]
+    },
+    {
+      "dst": "_T_653",
+      "kind": "control",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "src": "lcam_younger_load_mask[0][7]",
+      "statement_ids": [
+        5004
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "data",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "h1",
+      "statement_ids": [
+        5005,
+        5006
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_636",
+      "statement_ids": [
+        5005,
+        5006
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_645",
+      "statement_ids": [
+        5005,
+        5006
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_648",
+      "statement_ids": [
+        5005,
+        5006
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "_T_653",
+      "statement_ids": [
+        5005,
+        5006
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "src": "lcam_younger_load_mask[0][7]",
+      "statement_ids": [
+        5005,
+        5006
+      ]
+    },
+    {
+      "dst": "_T_685",
+      "kind": "data",
+      "source": {
+        "column": 60,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1288,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1288:60"
+      },
+      "src": "fired_load_agen[0]",
+      "statement_ids": [
+        5083
+      ]
+    },
+    {
+      "dst": "_T_685",
+      "kind": "data",
+      "source": {
+        "column": 60,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1288,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1288:60"
+      },
+      "src": "h0",
+      "statement_ids": [
+        5083
+      ]
+    },
+    {
+      "dst": "_T_685",
+      "kind": "control",
+      "source": {
+        "column": 60,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1288,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1288:60"
+      },
+      "src": "_T_681",
+      "statement_ids": [
+        5083
+      ]
+    },
+    {
+      "dst": "_T_686",
+      "kind": "data",
+      "source": {
+        "column": 57,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1288,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1288:57"
+      },
+      "src": "REG_9",
+      "statement_ids": [
+        5084
+      ]
+    },
+    {
+      "dst": "_T_686",
+      "kind": "data",
+      "source": {
+        "column": 57,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1288,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1288:57"
+      },
+      "src": "_T_685",
+      "statement_ids": [
+        5084
+      ]
+    },
+    {
+      "dst": "_T_686",
+      "kind": "control",
+      "source": {
+        "column": 57,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1288,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1288:57"
+      },
+      "src": "_T_681",
+      "statement_ids": [
+        5084
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "data",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1289,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1289:30"
+      },
+      "src": "h1",
+      "statement_ids": [
+        5085,
+        5086
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1289,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1289:30"
+      },
+      "src": "_T_681",
+      "statement_ids": [
+        5085,
+        5086
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1289,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1289:30"
+      },
+      "src": "_T_686",
+      "statement_ids": [
+        5085,
+        5086
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "data",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1307,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1307:21"
+      },
+      "src": "h1",
+      "statement_ids": [
+        5159
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "control",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1307,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1307:21"
+      },
+      "src": "_T_714",
+      "statement_ids": [
+        5159
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "data",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1320,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1320:21"
+      },
+      "src": "h1",
+      "statement_ids": [
+        5222
+      ]
+    },
+    {
+      "dst": "failed_load",
+      "kind": "control",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1320,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1320:21"
+      },
+      "src": "_T_727",
+      "statement_ids": [
+        5222
+      ]
+    },
+    {
+      "dst": "_T_870",
+      "kind": "data",
+      "source": {
+        "column": 58,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1376,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1376:58"
+      },
+      "src": "fired_load_agen[0]",
+      "statement_ids": [
+        5959
+      ]
+    },
+    {
+      "dst": "_T_870",
+      "kind": "data",
+      "source": {
+        "column": 58,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1376,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1376:58"
+      },
+      "src": "h0",
+      "statement_ids": [
+        5959
+      ]
+    },
+    {
+      "dst": "_T_870",
+      "kind": "control",
+      "source": {
+        "column": 58,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1376,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1376:58"
+      },
+      "src": "_T_867",
+      "statement_ids": [
+        5959
+      ]
+    },
+    {
+      "dst": "_T_871",
+      "kind": "data",
+      "source": {
+        "column": 55,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1376,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1376:55"
+      },
+      "src": "REG_10",
+      "statement_ids": [
+        5960
+      ]
+    },
+    {
+      "dst": "_T_871",
+      "kind": "data",
+      "source": {
+        "column": 55,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1376,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1376:55"
+      },
+      "src": "_T_870",
+      "statement_ids": [
+        5960
+      ]
+    },
+    {
+      "dst": "_T_871",
+      "kind": "control",
+      "source": {
+        "column": 55,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1376,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1376:55"
+      },
+      "src": "_T_867",
+      "statement_ids": [
+        5960
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "data",
+      "source": {
+        "column": 42,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1377,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1377:42"
+      },
+      "src": "h1",
+      "statement_ids": [
+        5961,
+        5962
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 42,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1377,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1377:42"
+      },
+      "src": "_T_867",
+      "statement_ids": [
+        5961,
+        5962
+      ]
+    },
+    {
+      "dst": "io.dmem.s1_kill[0]",
+      "kind": "control",
+      "source": {
+        "column": 42,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1377,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1377:42"
+      },
+      "src": "_T_871",
+      "statement_ids": [
+        5961,
+        5962
+      ]
+    },
+    {
+      "dst": "io_core_clr_unsafe_0_valid_REG",
+      "kind": "state",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1444,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1444:14"
+      },
+      "src": "do_st_search[0]",
+      "statement_ids": [
+        6093
+      ]
+    },
+    {
+      "dst": "_io_core_clr_unsafe_0_valid_T",
+      "kind": "data",
+      "source": {
+        "column": 8,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1445,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1445:8"
+      },
+      "src": "h0",
+      "statement_ids": [
+        6094
+      ]
+    },
+    {
+      "dst": "_io_core_clr_unsafe_0_valid_T",
+      "kind": "data",
+      "source": {
+        "column": 8,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1445,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1445:8"
+      },
+      "src": "io.dmem.nack[0].valid",
+      "statement_ids": [
+        6094
+      ]
+    },
+    {
+      "dst": "_io_core_clr_unsafe_0_valid_T_1",
+      "kind": "data",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1445,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1445:61"
+      },
+      "src": "fired_load_agen[0]",
+      "statement_ids": [
+        6095
+      ]
+    },
+    {
+      "dst": "_io_core_clr_unsafe_0_valid_T_1",
+      "kind": "data",
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1445,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1445:61"
+      },
+      "src": "h0",
+      "statement_ids": [
+        6095
+      ]
+    },
+    {
+      "dst": "_io_core_clr_unsafe_0_valid_T_2",
+      "kind": "data",
+      "source": {
+        "column": 58,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1445,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1445:58"
+      },
+      "src": "_io_core_clr_unsafe_0_valid_T_1",
+      "statement_ids": [
+        6096
+      ]
+    },
+    {
+      "dst": "_io_core_clr_unsafe_0_valid_T_2",
+      "kind": "data",
+      "source": {
+        "column": 58,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1445,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1445:58"
+      },
+      "src": "do_ld_search[0]",
+      "statement_ids": [
+        6096
+      ]
+    },
+    {
+      "dst": "_io_core_clr_unsafe_0_valid_T_3",
+      "kind": "data",
+      "source": {
+        "column": 84,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1445,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1445:84"
+      },
+      "src": "h0",
+      "statement_ids": [
+        6097
+      ]
+    },
+    {
+      "dst": "_io_core_clr_unsafe_0_valid_T_3",
+      "kind": "data",
+      "source": {
+        "column": 84,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1445,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1445:84"
+      },
+      "src": "io.dmem.s1_kill[0]",
+      "statement_ids": [
+        6097
+      ]
+    },
+    {
+      "dst": "_io_core_clr_unsafe_0_valid_T_4",
+      "kind": "data",
+      "source": {
+        "column": 81,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1445,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1445:81"
+      },
+      "src": "_io_core_clr_unsafe_0_valid_T_2",
+      "statement_ids": [
+        6098
+      ]
+    },
+    {
+      "dst": "_io_core_clr_unsafe_0_valid_T_4",
+      "kind": "data",
+      "source": {
+        "column": 81,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1445,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1445:81"
+      },
+      "src": "_io_core_clr_unsafe_0_valid_T_3",
+      "statement_ids": [
+        6098
+      ]
+    },
+    {
+      "dst": "_io_core_clr_unsafe_0_valid_T_5",
+      "kind": "data",
+      "source": {
+        "column": 104,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1445,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1445:104"
+      },
+      "src": "_io_core_clr_unsafe_0_valid_T_4",
+      "statement_ids": [
+        6101
+      ]
+    },
+    {
+      "dst": "_io_core_clr_unsafe_0_valid_T_5",
+      "kind": "data",
+      "source": {
+        "column": 104,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1445,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1445:104"
+      },
+      "src": "io_core_clr_unsafe_0_valid_REG_1",
+      "statement_ids": [
+        6101
+      ]
+    },
+    {
+      "dst": "io_core_clr_unsafe_0_valid_REG_2",
+      "kind": "state",
+      "source": {
+        "column": 41,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1445,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1445:41"
+      },
+      "src": "_io_core_clr_unsafe_0_valid_T_5",
+      "statement_ids": [
+        6103
+      ]
+    },
+    {
+      "dst": "_io_core_clr_unsafe_0_valid_T_6",
+      "kind": "data",
+      "source": {
+        "column": 31,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1445,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1445:31"
+      },
+      "src": "_io_core_clr_unsafe_0_valid_T",
+      "statement_ids": [
+        6104
+      ]
+    },
+    {
+      "dst": "_io_core_clr_unsafe_0_valid_T_6",
+      "kind": "data",
+      "source": {
+        "column": 31,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1445,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1445:31"
+      },
+      "src": "io_core_clr_unsafe_0_valid_REG_2",
+      "statement_ids": [
+        6104
+      ]
+    },
+    {
+      "dst": "_io_core_clr_unsafe_0_valid_T_7",
+      "kind": "data",
+      "source": {
+        "column": 32,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1444,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1444:32"
+      },
+      "src": "_io_core_clr_unsafe_0_valid_T_6",
+      "statement_ids": [
+        6105
+      ]
+    },
+    {
+      "dst": "_io_core_clr_unsafe_0_valid_T_7",
+      "kind": "data",
+      "source": {
+        "column": 32,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1444,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1444:32"
+      },
+      "src": "io_core_clr_unsafe_0_valid_REG",
+      "statement_ids": [
+        6105
+      ]
+    },
+    {
+      "dst": "io_core_clr_unsafe_0_valid_REG_3",
+      "kind": "state",
+      "source": {
+        "column": 18,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1446,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1446:18"
+      },
+      "src": "failed_load",
+      "statement_ids": [
+        6107
+      ]
+    },
+    {
+      "dst": "_io_core_clr_unsafe_0_valid_T_8",
+      "kind": "data",
+      "source": {
+        "column": 10,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1446,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1446:10"
+      },
+      "src": "h0",
+      "statement_ids": [
+        6108
+      ]
+    },
+    {
+      "dst": "_io_core_clr_unsafe_0_valid_T_8",
+      "kind": "data",
+      "source": {
+        "column": 10,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1446,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1446:10"
+      },
+      "src": "io_core_clr_unsafe_0_valid_REG_3",
+      "statement_ids": [
+        6108
+      ]
+    },
+    {
+      "dst": "_io_core_clr_unsafe_0_valid_T_9",
+      "kind": "data",
+      "source": {
+        "column": 7,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1446,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1446:7"
+      },
+      "src": "_io_core_clr_unsafe_0_valid_T_7",
+      "statement_ids": [
+        6109
+      ]
+    },
+    {
+      "dst": "_io_core_clr_unsafe_0_valid_T_9",
+      "kind": "data",
+      "source": {
+        "column": 7,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1446,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1446:7"
+      },
+      "src": "_io_core_clr_unsafe_0_valid_T_8",
+      "statement_ids": [
+        6109
+      ]
+    },
+    {
+      "dst": "io.core.clr_unsafe[0].valid",
+      "kind": "data",
+      "source": {
+        "column": 33,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1443,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1443:33"
+      },
+      "src": "_io_core_clr_unsafe_0_valid_T_9",
+      "statement_ids": [
+        6110
+      ]
+    },
+    {
+      "dst": "io.core.clr_unsafe[0].bits",
+      "kind": "data",
+      "source": {
+        "column": 33,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1447,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1447:33"
+      },
+      "src": "io_core_clr_unsafe_0_bits_REG",
+      "statement_ids": [
+        6113
+      ]
+    }
+  ],
+  "events": [
+    {
+      "channel": "io.core.clr_unsafe[0]",
+      "direction": "send",
+      "id": "LSU::io.core.clr_unsafe[0].valid",
+      "payload": [
+        "io.core.clr_unsafe[0].bits"
+      ],
+      "predicate": "io.core.clr_unsafe[0].valid",
+      "protocol": "valid",
+      "ready": null,
+      "registry_id": "LSU.io.core.clr_unsafe[0].valid",
+      "sources": [
+        {
+          "column": 14,
+          "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+          "line": 216,
+          "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+        }
+      ],
+      "valid": "io.core.clr_unsafe[0].valid"
+    }
+  ],
+  "frontier": [
+    {
+      "id": "REG_1",
+      "kind": "register",
+      "source": {
+        "column": 26,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:26"
+      },
+      "type": "UInt<1>"
+    },
+    {
+      "id": "REG_10",
+      "kind": "register",
+      "source": {
+        "column": 20,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1376,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1376:20"
+      },
+      "type": "UInt<1>"
+    },
+    {
+      "id": "REG_2",
+      "kind": "register",
+      "source": {
+        "column": 26,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:26"
+      },
+      "type": "UInt<1>"
+    },
+    {
+      "id": "REG_3",
+      "kind": "register",
+      "source": {
+        "column": 26,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:26"
+      },
+      "type": "UInt<1>"
+    },
+    {
+      "id": "REG_4",
+      "kind": "register",
+      "source": {
+        "column": 26,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:26"
+      },
+      "type": "UInt<1>"
+    },
+    {
+      "id": "REG_5",
+      "kind": "register",
+      "source": {
+        "column": 26,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:26"
+      },
+      "type": "UInt<1>"
+    },
+    {
+      "id": "REG_6",
+      "kind": "register",
+      "source": {
+        "column": 26,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:26"
+      },
+      "type": "UInt<1>"
+    },
+    {
+      "id": "REG_7",
+      "kind": "register",
+      "source": {
+        "column": 26,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:26"
+      },
+      "type": "UInt<1>"
+    },
+    {
+      "id": "REG_8",
+      "kind": "register",
+      "source": {
+        "column": 26,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:26"
+      },
+      "type": "UInt<1>"
+    },
+    {
+      "id": "REG_9",
+      "kind": "register",
+      "source": {
+        "column": 22,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1288,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1288:22"
+      },
+      "type": "UInt<1>"
+    },
+    {
+      "id": "_T_258",
+      "kind": "node",
+      "source": {
+        "column": 72,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1222,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1222:72"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_266",
+      "kind": "node",
+      "source": {
+        "column": 34,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1232,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1232:34"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_272",
+      "kind": "node",
+      "source": {
+        "column": 42,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1242,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1242:42"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_281",
+      "kind": "node",
+      "source": {
+        "column": 53,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1257,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1257:53"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_284",
+      "kind": "node",
+      "source": {
+        "column": 17,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1261,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1261:17"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_310",
+      "kind": "node",
+      "source": {
+        "column": 72,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1222,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1222:72"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_318",
+      "kind": "node",
+      "source": {
+        "column": 34,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1232,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1232:34"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_324",
+      "kind": "node",
+      "source": {
+        "column": 42,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1242,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1242:42"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_333",
+      "kind": "node",
+      "source": {
+        "column": 53,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1257,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1257:53"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_336",
+      "kind": "node",
+      "source": {
+        "column": 17,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1261,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1261:17"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_362",
+      "kind": "node",
+      "source": {
+        "column": 72,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1222,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1222:72"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_370",
+      "kind": "node",
+      "source": {
+        "column": 34,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1232,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1232:34"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_376",
+      "kind": "node",
+      "source": {
+        "column": 42,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1242,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1242:42"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_385",
+      "kind": "node",
+      "source": {
+        "column": 53,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1257,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1257:53"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_388",
+      "kind": "node",
+      "source": {
+        "column": 17,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1261,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1261:17"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_414",
+      "kind": "node",
+      "source": {
+        "column": 72,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1222,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1222:72"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_422",
+      "kind": "node",
+      "source": {
+        "column": 34,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1232,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1232:34"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_428",
+      "kind": "node",
+      "source": {
+        "column": 42,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1242,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1242:42"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_437",
+      "kind": "node",
+      "source": {
+        "column": 53,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1257,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1257:53"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_440",
+      "kind": "node",
+      "source": {
+        "column": 17,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1261,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1261:17"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_466",
+      "kind": "node",
+      "source": {
+        "column": 72,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1222,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1222:72"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_474",
+      "kind": "node",
+      "source": {
+        "column": 34,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1232,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1232:34"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_480",
+      "kind": "node",
+      "source": {
+        "column": 42,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1242,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1242:42"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_489",
+      "kind": "node",
+      "source": {
+        "column": 53,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1257,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1257:53"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_492",
+      "kind": "node",
+      "source": {
+        "column": 17,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1261,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1261:17"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_518",
+      "kind": "node",
+      "source": {
+        "column": 72,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1222,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1222:72"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_526",
+      "kind": "node",
+      "source": {
+        "column": 34,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1232,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1232:34"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_532",
+      "kind": "node",
+      "source": {
+        "column": 42,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1242,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1242:42"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_541",
+      "kind": "node",
+      "source": {
+        "column": 53,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1257,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1257:53"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_544",
+      "kind": "node",
+      "source": {
+        "column": 17,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1261,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1261:17"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_570",
+      "kind": "node",
+      "source": {
+        "column": 72,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1222,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1222:72"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_578",
+      "kind": "node",
+      "source": {
+        "column": 34,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1232,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1232:34"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_584",
+      "kind": "node",
+      "source": {
+        "column": 42,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1242,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1242:42"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_593",
+      "kind": "node",
+      "source": {
+        "column": 53,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1257,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1257:53"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_596",
+      "kind": "node",
+      "source": {
+        "column": 17,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1261,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1261:17"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_622",
+      "kind": "node",
+      "source": {
+        "column": 72,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1222,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1222:72"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_630",
+      "kind": "node",
+      "source": {
+        "column": 34,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1232,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1232:34"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_636",
+      "kind": "node",
+      "source": {
+        "column": 42,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1242,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1242:42"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_645",
+      "kind": "node",
+      "source": {
+        "column": 53,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1257,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1257:53"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_648",
+      "kind": "node",
+      "source": {
+        "column": 17,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1261,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1261:17"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_681",
+      "kind": "node",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1285,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1285:48"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_714",
+      "kind": "node",
+      "source": {
+        "column": 47,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1304,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1304:47"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_727",
+      "kind": "node",
+      "source": {
+        "column": 75,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1317,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1317:75"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_867",
+      "kind": "node",
+      "source": {
+        "column": 27,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1375,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1375:27"
+      },
+      "type": null
+    },
+    {
+      "id": "do_ld_search[0]",
+      "kind": "wire",
+      "source": {
+        "column": 49,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 326,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 326:49"
+      },
+      "type": null
+    },
+    {
+      "id": "do_st_search[0]",
+      "kind": "wire",
+      "source": {
+        "column": 49,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 326,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 326:49"
+      },
+      "type": null
+    },
+    {
+      "id": "failed_load",
+      "kind": "wire",
+      "source": {
+        "column": 29,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1181,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1181:29"
+      },
+      "type": "UInt<1>"
+    },
+    {
+      "id": "fired_load_agen[0]",
+      "kind": "wire",
+      "source": {
+        "column": 49,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 326,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 326:49"
+      },
+      "type": null
+    },
+    {
+      "id": "h0",
+      "kind": "unknown",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 306,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 306:38"
+      },
+      "type": null
+    },
+    {
+      "id": "h1",
+      "kind": "unknown",
+      "source": {
+        "column": 71,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 353,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 353:71"
+      },
+      "type": null
+    },
+    {
+      "id": "io.core.clr_unsafe[0].bits",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.core.clr_unsafe[0].valid",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.dmem.nack[0].valid",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.dmem.s1_kill[0]",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io_core_clr_unsafe_0_bits_REG",
+      "kind": "register",
+      "source": {
+        "column": 43,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1447,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1447:43"
+      },
+      "type": "UInt"
+    },
+    {
+      "id": "io_core_clr_unsafe_0_valid_REG",
+      "kind": "register",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1444,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1444:14"
+      },
+      "type": "UInt<1>"
+    },
+    {
+      "id": "io_core_clr_unsafe_0_valid_REG_1",
+      "kind": "register",
+      "source": {
+        "column": 114,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1445,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1445:114"
+      },
+      "type": "UInt<1>"
+    },
+    {
+      "id": "io_core_clr_unsafe_0_valid_REG_2",
+      "kind": "register",
+      "source": {
+        "column": 41,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1445,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1445:41"
+      },
+      "type": "UInt<1>"
+    },
+    {
+      "id": "io_core_clr_unsafe_0_valid_REG_3",
+      "kind": "register",
+      "source": {
+        "column": 18,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1446,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1446:18"
+      },
+      "type": "UInt<1>"
+    },
+    {
+      "id": "io_dmem_s1_kill_0_REG",
+      "kind": "register",
+      "source": {
+        "column": 34,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 888,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 888:34"
+      },
+      "type": "UInt<1>"
+    },
+    {
+      "id": "lcam_younger_load_mask[0][0]",
+      "kind": "wire",
+      "source": {
+        "column": 36,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1148,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1148:36"
+      },
+      "type": null
+    },
+    {
+      "id": "lcam_younger_load_mask[0][1]",
+      "kind": "wire",
+      "source": {
+        "column": 36,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1148,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1148:36"
+      },
+      "type": null
+    },
+    {
+      "id": "lcam_younger_load_mask[0][2]",
+      "kind": "wire",
+      "source": {
+        "column": 36,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1148,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1148:36"
+      },
+      "type": null
+    },
+    {
+      "id": "lcam_younger_load_mask[0][3]",
+      "kind": "wire",
+      "source": {
+        "column": 36,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1148,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1148:36"
+      },
+      "type": null
+    },
+    {
+      "id": "lcam_younger_load_mask[0][4]",
+      "kind": "wire",
+      "source": {
+        "column": 36,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1148,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1148:36"
+      },
+      "type": null
+    },
+    {
+      "id": "lcam_younger_load_mask[0][5]",
+      "kind": "wire",
+      "source": {
+        "column": 36,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1148,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1148:36"
+      },
+      "type": null
+    },
+    {
+      "id": "lcam_younger_load_mask[0][6]",
+      "kind": "wire",
+      "source": {
+        "column": 36,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1148,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1148:36"
+      },
+      "type": null
+    },
+    {
+      "id": "lcam_younger_load_mask[0][7]",
+      "kind": "wire",
+      "source": {
+        "column": 36,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1148,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1148:36"
+      },
+      "type": null
+    }
+  ],
+  "grounding": {
+    "allowed_physical_event_ids": [
+      "LSU::io.core.clr_unsafe[0].valid"
+    ],
+    "allowed_state_ids": [
+      "io_core_clr_unsafe_0_valid_REG",
+      "io_core_clr_unsafe_0_valid_REG_2",
+      "io_core_clr_unsafe_0_valid_REG_3"
+    ],
+    "allowed_statement_ids": [
+      2377,
+      3839,
+      3946,
+      3981,
+      3982,
+      3983,
+      3984,
+      4092,
+      4127,
+      4128,
+      4129,
+      4130,
+      4238,
+      4273,
+      4274,
+      4275,
+      4276,
+      4384,
+      4419,
+      4420,
+      4421,
+      4422,
+      4530,
+      4565,
+      4566,
+      4567,
+      4568,
+      4676,
+      4711,
+      4712,
+      4713,
+      4714,
+      4822,
+      4857,
+      4858,
+      4859,
+      4860,
+      4968,
+      5003,
+      5004,
+      5005,
+      5006,
+      5083,
+      5084,
+      5085,
+      5086,
+      5159,
+      5222,
+      5959,
+      5960,
+      5961,
+      5962,
+      6093,
+      6094,
+      6095,
+      6096,
+      6097,
+      6098,
+      6101,
+      6103,
+      6104,
+      6105,
+      6107,
+      6108,
+      6109,
+      6110,
+      6113
+    ],
+    "semantic_labels": []
+  },
+  "memory_state": [],
+  "parent_connection_signals": [],
+  "planner_version": "hierarchical-planner-v12",
+  "proof_context": {
+    "event_gate_statement_ids": [],
+    "event_gate_statements": [],
+    "llm_evidence": false,
+    "policy": "exact-local-event-gate-bridges-v0.1",
+    "state_support_statement_ids": [
+      6092,
+      6102,
+      6106
+    ],
+    "state_support_statements": [
+      {
+        "control_reads": [],
+        "drives": [
+          "io_core_clr_unsafe_0_valid_REG"
+        ],
+        "firrtl_line": 372464,
+        "id": 6092,
+        "kind": "reg",
+        "note": null,
+        "reads": [
+          "clock"
+        ],
+        "source": {
+          "column": 14,
+          "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+          "line": 1444,
+          "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1444:14"
+        },
+        "status": "supported",
+        "text": "reg io_core_clr_unsafe_0_valid_REG : UInt<1>, clock"
+      },
+      {
+        "control_reads": [],
+        "drives": [
+          "io_core_clr_unsafe_0_valid_REG_2"
+        ],
+        "firrtl_line": 372474,
+        "id": 6102,
+        "kind": "reg",
+        "note": null,
+        "reads": [
+          "clock"
+        ],
+        "source": {
+          "column": 41,
+          "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+          "line": 1445,
+          "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1445:41"
+        },
+        "status": "supported",
+        "text": "reg io_core_clr_unsafe_0_valid_REG_2 : UInt<1>, clock"
+      },
+      {
+        "control_reads": [],
+        "drives": [
+          "io_core_clr_unsafe_0_valid_REG_3"
+        ],
+        "firrtl_line": 372478,
+        "id": 6106,
+        "kind": "reg",
+        "note": null,
+        "reads": [
+          "clock"
+        ],
+        "source": {
+          "column": 18,
+          "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+          "line": 1446,
+          "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1446:18"
+        },
+        "status": "supported",
+        "text": "reg io_core_clr_unsafe_0_valid_REG_3 : UInt<1>, clock"
+      }
+    ]
+  },
+  "replacement_complexity": {
+    "event_state_coupling": 0.0,
+    "events": 1,
+    "logical": {
+      "dependency_edges": 77,
+      "signals": 51,
+      "source_loc": 16,
+      "statements": 22
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 217,
+      "signals": 108,
+      "source_loc": 16,
+      "statements": 67,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 3,
+    "state_regions": 3
+  },
+  "schema_version": "workunit-static-0.2",
+  "semantic_event_cones": [
+    {
+      "complete": true,
+      "event_id": "LSU::io.core.clr_unsafe[0].valid",
+      "historical_registers": [
+        "REG_1",
+        "REG_10",
+        "REG_11",
+        "REG_2",
+        "REG_3",
+        "REG_4",
+        "REG_5",
+        "REG_6",
+        "REG_7",
+        "REG_8",
+        "REG_9",
+        "can_fire_load_retry_REG",
+        "can_fire_load_wakeup_REG",
+        "dis_uops",
+        "fired_load_agen_REG",
+        "fired_load_agen_exec_REG",
+        "fired_load_retry_REG",
+        "fired_load_wakeup_REG",
+        "fired_release",
+        "fired_store_agen_REG",
+        "fired_store_retry_REG",
+        "hella_paddr",
+        "hella_req",
+        "hella_state",
+        "hella_xcpt",
+        "io_core_clr_unsafe_0_bits_REG",
+        "io_core_clr_unsafe_0_valid_REG",
+        "io_core_clr_unsafe_0_valid_REG_1",
+        "io_core_clr_unsafe_0_valid_REG_2",
+        "io_core_clr_unsafe_0_valid_REG_3",
+        "io_dmem_s1_kill_0_REG",
+        "lcam_addr_REG",
+        "lcam_addr_REG_1",
+        "lcam_ldq_idx_reg",
+        "lcam_ldq_idx_reg_1",
+        "lcam_stq_idx_reg",
+        "ldq_addr",
+        "ldq_addr_is_uncacheable",
+        "ldq_addr_is_virtual",
+        "ldq_enq_retry_idx",
+        "ldq_executed",
+        "ldq_forward_std_val",
+        "ldq_forward_stq_idx",
+        "ldq_head",
+        "ldq_ld_byte_mask",
+        "ldq_next_stq_idx",
+        "ldq_observed",
+        "ldq_order_fail",
+        "ldq_succeeded",
+        "ldq_tail",
+        "ldq_uop",
+        "ldq_valid",
+        "ldq_wakeup_idx",
+        "mem_incoming_uop",
+        "mem_ldq_incoming_e",
+        "mem_ldq_retry_e",
+        "mem_ldq_wakeup_e",
+        "mem_paddr",
+        "mem_tlb_miss",
+        "mem_tlb_uncacheable",
+        "mem_xcpt_valids",
+        "p1_block_load_mask",
+        "p2_block_load_mask",
+        "s1_executing_loads",
+        "store_blocked_counter",
+        "stq_addr",
+        "stq_addr_is_virtual",
+        "stq_almost_full",
+        "stq_commit_head",
+        "stq_committed",
+        "stq_enq_retry_idx",
+        "stq_head",
+        "stq_succeeded",
+        "stq_tail",
+        "stq_uop",
+        "stq_valid",
+        "w1",
+        "wakeupArbs_0_io_in_1_valid_REG",
+        "wb_ldst_forward_e_REG",
+        "wb_ldst_forward_ld_addr",
+        "wb_ldst_forward_ldq_idx",
+        "wb_ldst_forward_valid_0_REG",
+        "wb_ldst_forward_valid_0_REG_1"
+      ],
+      "historical_statement_ids": [
+        2377,
+        3839,
+        3946,
+        3981,
+        3982,
+        3983,
+        3984,
+        4092,
+        4127,
+        4128,
+        4129,
+        4130,
+        4238,
+        4273,
+        4274,
+        4275,
+        4276,
+        4384,
+        4419,
+        4420,
+        4421,
+        4422,
+        4530,
+        4565,
+        4566,
+        4567,
+        4568,
+        4676,
+        4711,
+        4712,
+        4713,
+        4714,
+        4822,
+        4857,
+        4858,
+        4859,
+        4860,
+        4968,
+        5003,
+        5004,
+        5005,
+        5006,
+        5083,
+        5084,
+        5085,
+        5086,
+        5159,
+        5222,
+        5959,
+        5960,
+        5961,
+        5962,
+        6093,
+        6094,
+        6095,
+        6096,
+        6097,
+        6098,
+        6101,
+        6103,
+        6104,
+        6105,
+        6107,
+        6108,
+        6109,
+        6110,
+        6113
+      ],
+      "immediate_frontier": [
+        "h0",
+        "io.dmem.nack[0].valid",
+        "io_core_clr_unsafe_0_valid_REG",
+        "io_core_clr_unsafe_0_valid_REG_2",
+        "io_core_clr_unsafe_0_valid_REG_3"
+      ],
+      "immediate_registers": [
+        "io_core_clr_unsafe_0_valid_REG",
+        "io_core_clr_unsafe_0_valid_REG_2",
+        "io_core_clr_unsafe_0_valid_REG_3"
+      ],
+      "immediate_statement_ids": [
+        6094,
+        6104,
+        6105,
+        6108,
+        6109,
+        6110
+      ]
+    }
+  ],
+  "source_evidence": {
+    "resolved": [],
+    "roots": [
+      "."
+    ],
+    "unresolved": [
+      {
+        "end_line": 888,
+        "error": "Could not resolve source locator 'generators/boom/src/main/scala/v4/lsu/lsu.scala' under roots: /t1/MCM-Agent",
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "start_line": 888
+      },
+      {
+        "end_line": 1181,
+        "error": "Could not resolve source locator 'generators/boom/src/main/scala/v4/lsu/lsu.scala' under roots: /t1/MCM-Agent",
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "start_line": 1181
+      },
+      {
+        "end_line": 1235,
+        "error": "Could not resolve source locator 'generators/boom/src/main/scala/v4/lsu/lsu.scala' under roots: /t1/MCM-Agent",
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "start_line": 1235
+      },
+      {
+        "end_line": 1264,
+        "error": "Could not resolve source locator 'generators/boom/src/main/scala/v4/lsu/lsu.scala' under roots: /t1/MCM-Agent",
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "start_line": 1263
+      },
+      {
+        "end_line": 1289,
+        "error": "Could not resolve source locator 'generators/boom/src/main/scala/v4/lsu/lsu.scala' under roots: /t1/MCM-Agent",
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "start_line": 1288
+      },
+      {
+        "end_line": 1307,
+        "error": "Could not resolve source locator 'generators/boom/src/main/scala/v4/lsu/lsu.scala' under roots: /t1/MCM-Agent",
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "start_line": 1307
+      },
+      {
+        "end_line": 1320,
+        "error": "Could not resolve source locator 'generators/boom/src/main/scala/v4/lsu/lsu.scala' under roots: /t1/MCM-Agent",
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "start_line": 1320
+      },
+      {
+        "end_line": 1377,
+        "error": "Could not resolve source locator 'generators/boom/src/main/scala/v4/lsu/lsu.scala' under roots: /t1/MCM-Agent",
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "start_line": 1376
+      },
+      {
+        "end_line": 1447,
+        "error": "Could not resolve source locator 'generators/boom/src/main/scala/v4/lsu/lsu.scala' under roots: /t1/MCM-Agent",
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "start_line": 1443
+      }
+    ]
+  },
+  "source_spans": [
+    {
+      "end_line": 888,
+      "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+      "start_line": 888
+    },
+    {
+      "end_line": 1181,
+      "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+      "start_line": 1181
+    },
+    {
+      "end_line": 1235,
+      "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+      "start_line": 1235
+    },
+    {
+      "end_line": 1264,
+      "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+      "start_line": 1263
+    },
+    {
+      "end_line": 1289,
+      "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+      "start_line": 1288
+    },
+    {
+      "end_line": 1307,
+      "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+      "start_line": 1307
+    },
+    {
+      "end_line": 1320,
+      "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+      "start_line": 1320
+    },
+    {
+      "end_line": 1377,
+      "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+      "start_line": 1376
+    },
+    {
+      "end_line": 1447,
+      "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+      "start_line": 1443
+    }
+  ],
+  "state": [
+    {
+      "id": "io_core_clr_unsafe_0_valid_REG",
+      "kind": "register",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1444,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1444:14"
+      },
+      "type": "UInt<1>"
+    },
+    {
+      "id": "io_core_clr_unsafe_0_valid_REG_2",
+      "kind": "register",
+      "source": {
+        "column": 41,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1445,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1445:41"
+      },
+      "type": "UInt<1>"
+    },
+    {
+      "id": "io_core_clr_unsafe_0_valid_REG_3",
+      "kind": "register",
+      "source": {
+        "column": 18,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1446,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1446:18"
+      },
+      "type": "UInt<1>"
+    }
+  ],
+  "statements": [
+    {
+      "control_reads": [],
+      "drives": [
+        "io.dmem.s1_kill[0]"
+      ],
+      "firrtl_line": 368749,
+      "id": 2377,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "io_dmem_s1_kill_0_REG"
+      ],
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 888,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 888:24"
+      },
+      "status": "supported",
+      "text": "connect io.dmem.s1_kill[0], io_dmem_s1_kill_0_REG"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "failed_load"
+      ],
+      "firrtl_line": 370211,
+      "id": 3839,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h0"
+      ],
+      "source": {
+        "column": 29,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1181,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1181:29"
+      },
+      "status": "supported",
+      "text": "connect failed_load, UInt<1>(0h0)"
+    },
+    {
+      "control_reads": [
+        "_T_258",
+        "_T_266"
+      ],
+      "drives": [
+        "failed_load"
+      ],
+      "firrtl_line": 370318,
+      "id": 3946,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h1"
+      ],
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "status": "supported",
+      "text": "connect failed_load, UInt<1>(0h1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_288"
+      ],
+      "firrtl_line": 370353,
+      "id": 3981,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "fired_load_agen[0]",
+        "h0"
+      ],
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "status": "supported",
+      "text": "node _T_288 = eq(fired_load_agen[0], UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_289"
+      ],
+      "firrtl_line": 370354,
+      "id": 3982,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "REG_1",
+        "_T_288"
+      ],
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "status": "supported",
+      "text": "node _T_289 = and(REG_1, _T_288)"
+    },
+    {
+      "control_reads": [
+        "_T_289"
+      ],
+      "drives": [],
+      "firrtl_line": 370355,
+      "id": 3983,
+      "kind": "when",
+      "note": null,
+      "reads": [
+        "_T_289"
+      ],
+      "source": {
+        "column": 85,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:85"
+      },
+      "status": "supported",
+      "text": "when _T_289 :"
+    },
+    {
+      "control_reads": [
+        "_T_272",
+        "_T_281",
+        "_T_284",
+        "_T_289",
+        "lcam_younger_load_mask[0][0]"
+      ],
+      "drives": [
+        "io.dmem.s1_kill[0]"
+      ],
+      "firrtl_line": 370356,
+      "id": 3984,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h1"
+      ],
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "status": "supported",
+      "text": "connect io.dmem.s1_kill[0], UInt<1>(0h1)"
+    },
+    {
+      "control_reads": [
+        "_T_310",
+        "_T_318"
+      ],
+      "drives": [
+        "failed_load"
+      ],
+      "firrtl_line": 370464,
+      "id": 4092,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h1"
+      ],
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "status": "supported",
+      "text": "connect failed_load, UInt<1>(0h1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_340"
+      ],
+      "firrtl_line": 370499,
+      "id": 4127,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "fired_load_agen[0]",
+        "h0"
+      ],
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "status": "supported",
+      "text": "node _T_340 = eq(fired_load_agen[0], UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_341"
+      ],
+      "firrtl_line": 370500,
+      "id": 4128,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "REG_2",
+        "_T_340"
+      ],
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "status": "supported",
+      "text": "node _T_341 = and(REG_2, _T_340)"
+    },
+    {
+      "control_reads": [
+        "_T_341"
+      ],
+      "drives": [],
+      "firrtl_line": 370501,
+      "id": 4129,
+      "kind": "when",
+      "note": null,
+      "reads": [
+        "_T_341"
+      ],
+      "source": {
+        "column": 85,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:85"
+      },
+      "status": "supported",
+      "text": "when _T_341 :"
+    },
+    {
+      "control_reads": [
+        "_T_324",
+        "_T_333",
+        "_T_336",
+        "_T_341",
+        "lcam_younger_load_mask[0][1]"
+      ],
+      "drives": [
+        "io.dmem.s1_kill[0]"
+      ],
+      "firrtl_line": 370502,
+      "id": 4130,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h1"
+      ],
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "status": "supported",
+      "text": "connect io.dmem.s1_kill[0], UInt<1>(0h1)"
+    },
+    {
+      "control_reads": [
+        "_T_362",
+        "_T_370"
+      ],
+      "drives": [
+        "failed_load"
+      ],
+      "firrtl_line": 370610,
+      "id": 4238,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h1"
+      ],
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "status": "supported",
+      "text": "connect failed_load, UInt<1>(0h1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_392"
+      ],
+      "firrtl_line": 370645,
+      "id": 4273,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "fired_load_agen[0]",
+        "h0"
+      ],
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "status": "supported",
+      "text": "node _T_392 = eq(fired_load_agen[0], UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_393"
+      ],
+      "firrtl_line": 370646,
+      "id": 4274,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "REG_3",
+        "_T_392"
+      ],
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "status": "supported",
+      "text": "node _T_393 = and(REG_3, _T_392)"
+    },
+    {
+      "control_reads": [
+        "_T_393"
+      ],
+      "drives": [],
+      "firrtl_line": 370647,
+      "id": 4275,
+      "kind": "when",
+      "note": null,
+      "reads": [
+        "_T_393"
+      ],
+      "source": {
+        "column": 85,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:85"
+      },
+      "status": "supported",
+      "text": "when _T_393 :"
+    },
+    {
+      "control_reads": [
+        "_T_376",
+        "_T_385",
+        "_T_388",
+        "_T_393",
+        "lcam_younger_load_mask[0][2]"
+      ],
+      "drives": [
+        "io.dmem.s1_kill[0]"
+      ],
+      "firrtl_line": 370648,
+      "id": 4276,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h1"
+      ],
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "status": "supported",
+      "text": "connect io.dmem.s1_kill[0], UInt<1>(0h1)"
+    },
+    {
+      "control_reads": [
+        "_T_414",
+        "_T_422"
+      ],
+      "drives": [
+        "failed_load"
+      ],
+      "firrtl_line": 370756,
+      "id": 4384,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h1"
+      ],
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "status": "supported",
+      "text": "connect failed_load, UInt<1>(0h1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_444"
+      ],
+      "firrtl_line": 370791,
+      "id": 4419,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "fired_load_agen[0]",
+        "h0"
+      ],
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "status": "supported",
+      "text": "node _T_444 = eq(fired_load_agen[0], UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_445"
+      ],
+      "firrtl_line": 370792,
+      "id": 4420,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "REG_4",
+        "_T_444"
+      ],
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "status": "supported",
+      "text": "node _T_445 = and(REG_4, _T_444)"
+    },
+    {
+      "control_reads": [
+        "_T_445"
+      ],
+      "drives": [],
+      "firrtl_line": 370793,
+      "id": 4421,
+      "kind": "when",
+      "note": null,
+      "reads": [
+        "_T_445"
+      ],
+      "source": {
+        "column": 85,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:85"
+      },
+      "status": "supported",
+      "text": "when _T_445 :"
+    },
+    {
+      "control_reads": [
+        "_T_428",
+        "_T_437",
+        "_T_440",
+        "_T_445",
+        "lcam_younger_load_mask[0][3]"
+      ],
+      "drives": [
+        "io.dmem.s1_kill[0]"
+      ],
+      "firrtl_line": 370794,
+      "id": 4422,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h1"
+      ],
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "status": "supported",
+      "text": "connect io.dmem.s1_kill[0], UInt<1>(0h1)"
+    },
+    {
+      "control_reads": [
+        "_T_466",
+        "_T_474"
+      ],
+      "drives": [
+        "failed_load"
+      ],
+      "firrtl_line": 370902,
+      "id": 4530,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h1"
+      ],
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "status": "supported",
+      "text": "connect failed_load, UInt<1>(0h1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_496"
+      ],
+      "firrtl_line": 370937,
+      "id": 4565,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "fired_load_agen[0]",
+        "h0"
+      ],
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "status": "supported",
+      "text": "node _T_496 = eq(fired_load_agen[0], UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_497"
+      ],
+      "firrtl_line": 370938,
+      "id": 4566,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "REG_5",
+        "_T_496"
+      ],
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "status": "supported",
+      "text": "node _T_497 = and(REG_5, _T_496)"
+    },
+    {
+      "control_reads": [
+        "_T_497"
+      ],
+      "drives": [],
+      "firrtl_line": 370939,
+      "id": 4567,
+      "kind": "when",
+      "note": null,
+      "reads": [
+        "_T_497"
+      ],
+      "source": {
+        "column": 85,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:85"
+      },
+      "status": "supported",
+      "text": "when _T_497 :"
+    },
+    {
+      "control_reads": [
+        "_T_480",
+        "_T_489",
+        "_T_492",
+        "_T_497",
+        "lcam_younger_load_mask[0][4]"
+      ],
+      "drives": [
+        "io.dmem.s1_kill[0]"
+      ],
+      "firrtl_line": 370940,
+      "id": 4568,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h1"
+      ],
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "status": "supported",
+      "text": "connect io.dmem.s1_kill[0], UInt<1>(0h1)"
+    },
+    {
+      "control_reads": [
+        "_T_518",
+        "_T_526"
+      ],
+      "drives": [
+        "failed_load"
+      ],
+      "firrtl_line": 371048,
+      "id": 4676,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h1"
+      ],
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "status": "supported",
+      "text": "connect failed_load, UInt<1>(0h1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_548"
+      ],
+      "firrtl_line": 371083,
+      "id": 4711,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "fired_load_agen[0]",
+        "h0"
+      ],
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "status": "supported",
+      "text": "node _T_548 = eq(fired_load_agen[0], UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_549"
+      ],
+      "firrtl_line": 371084,
+      "id": 4712,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "REG_6",
+        "_T_548"
+      ],
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "status": "supported",
+      "text": "node _T_549 = and(REG_6, _T_548)"
+    },
+    {
+      "control_reads": [
+        "_T_549"
+      ],
+      "drives": [],
+      "firrtl_line": 371085,
+      "id": 4713,
+      "kind": "when",
+      "note": null,
+      "reads": [
+        "_T_549"
+      ],
+      "source": {
+        "column": 85,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:85"
+      },
+      "status": "supported",
+      "text": "when _T_549 :"
+    },
+    {
+      "control_reads": [
+        "_T_532",
+        "_T_541",
+        "_T_544",
+        "_T_549",
+        "lcam_younger_load_mask[0][5]"
+      ],
+      "drives": [
+        "io.dmem.s1_kill[0]"
+      ],
+      "firrtl_line": 371086,
+      "id": 4714,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h1"
+      ],
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "status": "supported",
+      "text": "connect io.dmem.s1_kill[0], UInt<1>(0h1)"
+    },
+    {
+      "control_reads": [
+        "_T_570",
+        "_T_578"
+      ],
+      "drives": [
+        "failed_load"
+      ],
+      "firrtl_line": 371194,
+      "id": 4822,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h1"
+      ],
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "status": "supported",
+      "text": "connect failed_load, UInt<1>(0h1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_600"
+      ],
+      "firrtl_line": 371229,
+      "id": 4857,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "fired_load_agen[0]",
+        "h0"
+      ],
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "status": "supported",
+      "text": "node _T_600 = eq(fired_load_agen[0], UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_601"
+      ],
+      "firrtl_line": 371230,
+      "id": 4858,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "REG_7",
+        "_T_600"
+      ],
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "status": "supported",
+      "text": "node _T_601 = and(REG_7, _T_600)"
+    },
+    {
+      "control_reads": [
+        "_T_601"
+      ],
+      "drives": [],
+      "firrtl_line": 371231,
+      "id": 4859,
+      "kind": "when",
+      "note": null,
+      "reads": [
+        "_T_601"
+      ],
+      "source": {
+        "column": 85,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:85"
+      },
+      "status": "supported",
+      "text": "when _T_601 :"
+    },
+    {
+      "control_reads": [
+        "_T_584",
+        "_T_593",
+        "_T_596",
+        "_T_601",
+        "lcam_younger_load_mask[0][6]"
+      ],
+      "drives": [
+        "io.dmem.s1_kill[0]"
+      ],
+      "firrtl_line": 371232,
+      "id": 4860,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h1"
+      ],
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "status": "supported",
+      "text": "connect io.dmem.s1_kill[0], UInt<1>(0h1)"
+    },
+    {
+      "control_reads": [
+        "_T_622",
+        "_T_630"
+      ],
+      "drives": [
+        "failed_load"
+      ],
+      "firrtl_line": 371340,
+      "id": 4968,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h1"
+      ],
+      "source": {
+        "column": 23,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1235,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1235:23"
+      },
+      "status": "supported",
+      "text": "connect failed_load, UInt<1>(0h1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_652"
+      ],
+      "firrtl_line": 371375,
+      "id": 5003,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "fired_load_agen[0]",
+        "h0"
+      ],
+      "source": {
+        "column": 64,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:64"
+      },
+      "status": "supported",
+      "text": "node _T_652 = eq(fired_load_agen[0], UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_653"
+      ],
+      "firrtl_line": 371376,
+      "id": 5004,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "REG_8",
+        "_T_652"
+      ],
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:61"
+      },
+      "status": "supported",
+      "text": "node _T_653 = and(REG_8, _T_652)"
+    },
+    {
+      "control_reads": [
+        "_T_653"
+      ],
+      "drives": [],
+      "firrtl_line": 371377,
+      "id": 5005,
+      "kind": "when",
+      "note": null,
+      "reads": [
+        "_T_653"
+      ],
+      "source": {
+        "column": 85,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1263,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1263:85"
+      },
+      "status": "supported",
+      "text": "when _T_653 :"
+    },
+    {
+      "control_reads": [
+        "_T_636",
+        "_T_645",
+        "_T_648",
+        "_T_653",
+        "lcam_younger_load_mask[0][7]"
+      ],
+      "drives": [
+        "io.dmem.s1_kill[0]"
+      ],
+      "firrtl_line": 371378,
+      "id": 5006,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h1"
+      ],
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1264,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1264:48"
+      },
+      "status": "supported",
+      "text": "connect io.dmem.s1_kill[0], UInt<1>(0h1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_685"
+      ],
+      "firrtl_line": 371455,
+      "id": 5083,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "fired_load_agen[0]",
+        "h0"
+      ],
+      "source": {
+        "column": 60,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1288,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1288:60"
+      },
+      "status": "supported",
+      "text": "node _T_685 = eq(fired_load_agen[0], UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_686"
+      ],
+      "firrtl_line": 371456,
+      "id": 5084,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "REG_9",
+        "_T_685"
+      ],
+      "source": {
+        "column": 57,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1288,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1288:57"
+      },
+      "status": "supported",
+      "text": "node _T_686 = and(REG_9, _T_685)"
+    },
+    {
+      "control_reads": [
+        "_T_686"
+      ],
+      "drives": [],
+      "firrtl_line": 371457,
+      "id": 5085,
+      "kind": "when",
+      "note": null,
+      "reads": [
+        "_T_686"
+      ],
+      "source": {
+        "column": 81,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1288,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1288:81"
+      },
+      "status": "supported",
+      "text": "when _T_686 :"
+    },
+    {
+      "control_reads": [
+        "_T_681",
+        "_T_686"
+      ],
+      "drives": [
+        "io.dmem.s1_kill[0]"
+      ],
+      "firrtl_line": 371458,
+      "id": 5086,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h1"
+      ],
+      "source": {
+        "column": 30,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1289,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1289:30"
+      },
+      "status": "supported",
+      "text": "connect io.dmem.s1_kill[0], UInt<1>(0h1)"
+    },
+    {
+      "control_reads": [
+        "_T_714"
+      ],
+      "drives": [
+        "failed_load"
+      ],
+      "firrtl_line": 371531,
+      "id": 5159,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h1"
+      ],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1307,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1307:21"
+      },
+      "status": "supported",
+      "text": "connect failed_load, UInt<1>(0h1)"
+    },
+    {
+      "control_reads": [
+        "_T_727"
+      ],
+      "drives": [
+        "failed_load"
+      ],
+      "firrtl_line": 371594,
+      "id": 5222,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h1"
+      ],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1320,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1320:21"
+      },
+      "status": "supported",
+      "text": "connect failed_load, UInt<1>(0h1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_870"
+      ],
+      "firrtl_line": 372331,
+      "id": 5959,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "fired_load_agen[0]",
+        "h0"
+      ],
+      "source": {
+        "column": 58,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1376,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1376:58"
+      },
+      "status": "supported",
+      "text": "node _T_870 = eq(fired_load_agen[0], UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_871"
+      ],
+      "firrtl_line": 372332,
+      "id": 5960,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "REG_10",
+        "_T_870"
+      ],
+      "source": {
+        "column": 55,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1376,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1376:55"
+      },
+      "status": "supported",
+      "text": "node _T_871 = and(REG_10, _T_870)"
+    },
+    {
+      "control_reads": [
+        "_T_871"
+      ],
+      "drives": [],
+      "firrtl_line": 372333,
+      "id": 5961,
+      "kind": "when",
+      "note": null,
+      "reads": [
+        "_T_871"
+      ],
+      "source": {
+        "column": 79,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1376,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1376:79"
+      },
+      "status": "supported",
+      "text": "when _T_871 :"
+    },
+    {
+      "control_reads": [
+        "_T_867",
+        "_T_871"
+      ],
+      "drives": [
+        "io.dmem.s1_kill[0]"
+      ],
+      "firrtl_line": 372334,
+      "id": 5962,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h1"
+      ],
+      "source": {
+        "column": 42,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1377,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1377:42"
+      },
+      "status": "supported",
+      "text": "connect io.dmem.s1_kill[0], UInt<1>(0h1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io_core_clr_unsafe_0_valid_REG"
+      ],
+      "firrtl_line": 372465,
+      "id": 6093,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "do_st_search[0]"
+      ],
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1444,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1444:14"
+      },
+      "status": "supported",
+      "text": "connect io_core_clr_unsafe_0_valid_REG, do_st_search[0]"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_io_core_clr_unsafe_0_valid_T"
+      ],
+      "firrtl_line": 372466,
+      "id": 6094,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "io.dmem.nack[0].valid"
+      ],
+      "source": {
+        "column": 8,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1445,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1445:8"
+      },
+      "status": "supported",
+      "text": "node _io_core_clr_unsafe_0_valid_T = eq(io.dmem.nack[0].valid, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_io_core_clr_unsafe_0_valid_T_1"
+      ],
+      "firrtl_line": 372467,
+      "id": 6095,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "fired_load_agen[0]",
+        "h0"
+      ],
+      "source": {
+        "column": 61,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1445,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1445:61"
+      },
+      "status": "supported",
+      "text": "node _io_core_clr_unsafe_0_valid_T_1 = eq(fired_load_agen[0], UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_io_core_clr_unsafe_0_valid_T_2"
+      ],
+      "firrtl_line": 372468,
+      "id": 6096,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_io_core_clr_unsafe_0_valid_T_1",
+        "do_ld_search[0]"
+      ],
+      "source": {
+        "column": 58,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1445,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1445:58"
+      },
+      "status": "supported",
+      "text": "node _io_core_clr_unsafe_0_valid_T_2 = and(do_ld_search[0], _io_core_clr_unsafe_0_valid_T_1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_io_core_clr_unsafe_0_valid_T_3"
+      ],
+      "firrtl_line": 372469,
+      "id": 6097,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "io.dmem.s1_kill[0]"
+      ],
+      "source": {
+        "column": 84,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1445,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1445:84"
+      },
+      "status": "supported",
+      "text": "node _io_core_clr_unsafe_0_valid_T_3 = eq(io.dmem.s1_kill[0], UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_io_core_clr_unsafe_0_valid_T_4"
+      ],
+      "firrtl_line": 372470,
+      "id": 6098,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_io_core_clr_unsafe_0_valid_T_2",
+        "_io_core_clr_unsafe_0_valid_T_3"
+      ],
+      "source": {
+        "column": 81,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1445,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1445:81"
+      },
+      "status": "supported",
+      "text": "node _io_core_clr_unsafe_0_valid_T_4 = and(_io_core_clr_unsafe_0_valid_T_2, _io_core_clr_unsafe_0_valid_T_3)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_io_core_clr_unsafe_0_valid_T_5"
+      ],
+      "firrtl_line": 372473,
+      "id": 6101,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_io_core_clr_unsafe_0_valid_T_4",
+        "io_core_clr_unsafe_0_valid_REG_1"
+      ],
+      "source": {
+        "column": 104,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1445,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1445:104"
+      },
+      "status": "supported",
+      "text": "node _io_core_clr_unsafe_0_valid_T_5 = and(_io_core_clr_unsafe_0_valid_T_4, io_core_clr_unsafe_0_valid_REG_1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io_core_clr_unsafe_0_valid_REG_2"
+      ],
+      "firrtl_line": 372475,
+      "id": 6103,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_io_core_clr_unsafe_0_valid_T_5"
+      ],
+      "source": {
+        "column": 41,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1445,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1445:41"
+      },
+      "status": "supported",
+      "text": "connect io_core_clr_unsafe_0_valid_REG_2, _io_core_clr_unsafe_0_valid_T_5"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_io_core_clr_unsafe_0_valid_T_6"
+      ],
+      "firrtl_line": 372476,
+      "id": 6104,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_io_core_clr_unsafe_0_valid_T",
+        "io_core_clr_unsafe_0_valid_REG_2"
+      ],
+      "source": {
+        "column": 31,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1445,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1445:31"
+      },
+      "status": "supported",
+      "text": "node _io_core_clr_unsafe_0_valid_T_6 = and(_io_core_clr_unsafe_0_valid_T, io_core_clr_unsafe_0_valid_REG_2)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_io_core_clr_unsafe_0_valid_T_7"
+      ],
+      "firrtl_line": 372477,
+      "id": 6105,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_io_core_clr_unsafe_0_valid_T_6",
+        "io_core_clr_unsafe_0_valid_REG"
+      ],
+      "source": {
+        "column": 32,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1444,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1444:32"
+      },
+      "status": "supported",
+      "text": "node _io_core_clr_unsafe_0_valid_T_7 = or(io_core_clr_unsafe_0_valid_REG, _io_core_clr_unsafe_0_valid_T_6)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io_core_clr_unsafe_0_valid_REG_3"
+      ],
+      "firrtl_line": 372479,
+      "id": 6107,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "failed_load"
+      ],
+      "source": {
+        "column": 18,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1446,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1446:18"
+      },
+      "status": "supported",
+      "text": "connect io_core_clr_unsafe_0_valid_REG_3, failed_load"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_io_core_clr_unsafe_0_valid_T_8"
+      ],
+      "firrtl_line": 372480,
+      "id": 6108,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "io_core_clr_unsafe_0_valid_REG_3"
+      ],
+      "source": {
+        "column": 10,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1446,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1446:10"
+      },
+      "status": "supported",
+      "text": "node _io_core_clr_unsafe_0_valid_T_8 = eq(io_core_clr_unsafe_0_valid_REG_3, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_io_core_clr_unsafe_0_valid_T_9"
+      ],
+      "firrtl_line": 372481,
+      "id": 6109,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_io_core_clr_unsafe_0_valid_T_7",
+        "_io_core_clr_unsafe_0_valid_T_8"
+      ],
+      "source": {
+        "column": 7,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1446,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1446:7"
+      },
+      "status": "supported",
+      "text": "node _io_core_clr_unsafe_0_valid_T_9 = and(_io_core_clr_unsafe_0_valid_T_7, _io_core_clr_unsafe_0_valid_T_8)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.core.clr_unsafe[0].valid"
+      ],
+      "firrtl_line": 372482,
+      "id": 6110,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_io_core_clr_unsafe_0_valid_T_9"
+      ],
+      "source": {
+        "column": 33,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1443,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1443:33"
+      },
+      "status": "supported",
+      "text": "connect io.core.clr_unsafe[0].valid, _io_core_clr_unsafe_0_valid_T_9"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "io.core.clr_unsafe[0].bits"
+      ],
+      "firrtl_line": 372485,
+      "id": 6113,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "io_core_clr_unsafe_0_bits_REG"
+      ],
+      "source": {
+        "column": 33,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1447,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1447:33"
+      },
+      "status": "supported",
+      "text": "connect io.core.clr_unsafe[0].bits, io_core_clr_unsafe_0_bits_REG"
+    }
+  ],
+  "work_unit": {
+    "coverage_complete": true,
+    "decision": "manageable",
+    "depth": 1,
+    "exceeded_limits": [],
+    "id": "LSU::region-0-1",
+    "instance_path": "LSU",
+    "is_leaf": true,
+    "kind": "region",
+    "module": "LSU",
+    "replacement_exceeded_limits": []
+  }
+}

@@ -4,7 +4,7 @@ from dataclasses import dataclass
 import re
 from typing import Any
 
-from .axiom_ir import expr_to_symbolic
+from .axiom_ir import expr_signals, expr_to_symbolic
 from .composition import FROZEN_STATUS, _canonical_sha256
 from .formal_patterns import (
     _and,
@@ -30,7 +30,7 @@ from .semantic import (
 )
 
 
-COMPOSITION_PROVER_VERSION = "composition-prover-0.4"
+COMPOSITION_PROVER_VERSION = "composition-prover-0.6"
 
 
 @dataclass(frozen=True)
@@ -170,6 +170,9 @@ def _collect_frozen_theorems(
         direct_events = {
             str(item) for item in summary.get("boundary_events", []) if isinstance(item, str)
         } if direct else set()
+        direct_frontier = {
+            str(item) for item in summary.get("frontier_signals", []) if isinstance(item, str)
+        } if direct else set()
         for item in frozen.get("occurrences", []):
             if not isinstance(item, dict) or not isinstance(item.get("id"), str):
                 continue
@@ -179,6 +182,8 @@ def _collect_frozen_theorems(
                 "unit_id": unit_id,
                 "frozen_hash": actual_hash,
                 "direct_boundary_events": direct_events,
+                "direct_frontier_signals": direct_frontier,
+                "direct_child": direct,
             }
         for item in frozen.get("predicates", []):
             if not isinstance(item, dict) or not isinstance(item.get("id"), str):
@@ -187,6 +192,8 @@ def _collect_frozen_theorems(
                 "object": item,
                 "unit_id": unit_id,
                 "frozen_hash": actual_hash,
+                "direct_frontier_signals": direct_frontier,
+                "direct_child": direct,
             }
 
         trusted_ids = {str(item) for item in frozen.get("trusted_axiom_ids", [])}
@@ -461,12 +468,27 @@ def _child_boundary_signals(
         return None
     unit_id = str(imported["unit_id"])
     prefix = unit_id + "::"
-    if not physical[0].startswith(prefix) or not physical[0].endswith(".fire"):
-        return None
-    channel = physical[0][len(prefix):-len(".fire")]
-
     parent_path = str(handoff.get("work_unit", {}).get("instance_path", ""))
-    if unit_id == parent_path:
+    parent_region_prefix = parent_path + "::"
+    is_parent_owned_region_boundary = (
+        parent_path
+        and unit_id.startswith(parent_path + "::region-")
+        and physical[0].startswith(parent_region_prefix)
+    )
+    if not (physical[0].startswith(prefix) or is_parent_owned_region_boundary):
+        return None
+    event_prefix = parent_region_prefix if is_parent_owned_region_boundary else prefix
+    event_suffix = physical[0][len(event_prefix):]
+    if event_suffix.endswith(".fire"):
+        channel = event_suffix[:-len(".fire")]
+        port_suffixes = ["valid", "ready"]
+    elif event_suffix.endswith(".valid"):
+        channel = event_suffix[:-len(".valid")]
+        port_suffixes = ["valid"]
+    else:
+        return None
+
+    if is_parent_owned_region_boundary or unit_id == parent_path:
         relative = ""
     elif parent_path and unit_id.startswith(parent_path + "."):
         relative = unit_id[len(parent_path) + 1:]
@@ -492,7 +514,7 @@ def _child_boundary_signals(
         }
     else:
         clock_certificate = {"parent_clock": "clock", "child_clock": "clock", "statement_ids": []}
-    return [f"{base}.valid", f"{base}.ready"], {
+    return [f"{base}.{suffix}" for suffix in port_suffixes], {
         "physical_event_id": physical[0],
         "clock": clock_certificate,
     }
@@ -517,7 +539,12 @@ def _prove_occurrence_inclusion(
         return None
     signals, boundary_certificate = target
     refs = _bool_refs(model, candidate)
-    source = _occurrence_condition(model, candidate, before_id, refs)
+    source = _exact_boundary_or_derived_occurrence_condition(
+        model,
+        candidate,
+        before_id,
+        refs,
+    )
     if source is None:
         return None
 
@@ -587,6 +614,23 @@ def _parent_occurrence_condition(
         if occurrence.get("kind") == "boundary":
             physical = occurrence.get("physical_event_ids", [])
             event = model._event_info(physical[0]) if len(physical) == 1 else None
+            if (
+                not isinstance(event, dict)
+                and len(physical) == 1
+                and physical[0] in set(handoff.get("grounding", {}).get("allowed_physical_event_ids", []))
+            ):
+                parent_path = str(handoff.get("work_unit", {}).get("instance_path", ""))
+                prefix = parent_path + "::"
+                if parent_path and physical[0].startswith(prefix):
+                    suffix = physical[0][len(prefix):]
+                    if suffix.endswith(".fire"):
+                        channel = suffix[:-len(".fire")]
+                        event = {
+                            "valid": f"{channel}.valid",
+                            "ready": f"{channel}.ready",
+                        }
+                    elif suffix.endswith(".valid"):
+                        event = {"valid": suffix}
             if not isinstance(event, dict):
                 return None
             positive = [
@@ -647,9 +691,103 @@ def _parent_occurrence_condition(
     imported = imported_occurrences.get(occurrence_id)
     if imported is None:
         return None
+    imported_object = imported.get("object", {})
+    imported_physical = (
+        [str(item) for item in imported_object.get("physical_event_ids", [])]
+        if isinstance(imported_object, dict)
+        else []
+    )
+    if len(imported_physical) == 1:
+        local_alias = next(
+            (
+                item for item in candidate.get("occurrences", [])
+                if isinstance(item, dict)
+                and item.get("kind") == "boundary"
+                and [str(value) for value in item.get("physical_event_ids", [])]
+                == imported_physical
+            ),
+            None,
+        )
+        if isinstance(local_alias, dict):
+            local_id = str(local_alias.get("id", ""))
+            local_info = _parent_occurrence_condition(
+                local_id,
+                candidate=candidate,
+                handoff=handoff,
+                model=model,
+                imported_occurrences=imported_occurrences,
+            )
+            if local_info is not None:
+                condition, local_certificate = local_info
+                return condition, {
+                    "kind": "exact-shared-physical-event-alias",
+                    "occurrence": occurrence_id,
+                    "local_occurrence": local_id,
+                    "physical_event_id": imported_physical[0],
+                    "local_condition": local_certificate,
+                    "frozen_umcm_sha256": imported.get("frozen_hash"),
+                    "child_rtl_reopened": False,
+                }
     target = _child_boundary_signals(handoff, imported)
     if target is None:
-        return None
+        occurrence = imported.get("object", {})
+        grounding = occurrence.get("grounding", {}) if isinstance(occurrence, dict) else {}
+        if (
+            not imported.get("direct_child")
+            or not isinstance(occurrence, dict)
+            or occurrence.get("kind") != "derived"
+            or occurrence.get("index") is not None
+            or not isinstance(grounding, dict)
+            or grounding.get("state_register") is not None
+            or grounding.get("state_values")
+        ):
+            return None
+        positive = [str(item) for item in grounding.get("signals_true", [])]
+        negative = [str(item) for item in grounding.get("signals_false", [])]
+        frontier = {
+            str(item) for item in imported.get("direct_frontier_signals", set())
+        }
+        grounded_signals = set(positive) | set(negative)
+        if not grounded_signals or not grounded_signals <= frontier:
+            return None
+        condition = _const(True)
+        signal_proofs: list[dict[str, Any]] = []
+        for signal, negated in [
+            *[(signal, False) for signal in positive],
+            *[(signal, True) for signal in negative],
+        ]:
+            effective = _effective_signal_condition(model, candidate, signal)
+            if effective is None:
+                return None
+            value, certificate = effective
+            condition = _and(condition, _not(value) if negated else value)
+            signal_proofs.append(certificate)
+        for test in grounding.get("value_tests", []):
+            if not isinstance(test, dict) or not isinstance(test.get("expr"), dict):
+                return None
+            try:
+                symbolic = expr_to_symbolic(test["expr"])
+            except (KeyError, TypeError, ValueError):
+                return None
+            test_signals = {str(item) for item in expr_signals(test["expr"])}
+            if not test_signals <= frontier:
+                return None
+            value = test.get("value")
+            relation = test.get("relation")
+            if not isinstance(value, int) or relation not in {"eq", "neq"}:
+                return None
+            comparison = _bool_expr(model, refs, f"eq({symbolic}, UInt({value}))")
+            if comparison is None:
+                return None
+            condition = _and(condition, comparison if relation == "eq" else _not(comparison))
+        return condition, {
+            "kind": "exact-imported-derived-parent-frontier-condition",
+            "occurrence": occurrence_id,
+            "frozen_umcm_sha256": imported.get("frozen_hash"),
+            "frontier_signals": sorted(grounded_signals),
+            "signal_proofs": signal_proofs,
+            "child_rtl_reopened": False,
+        }
     signals, boundary = target
     condition = _const(True)
     signal_proofs: list[dict[str, Any]] = []
@@ -736,6 +874,149 @@ def _prove_parent_occurrence_equivalence(
         "atom_count": atoms,
         "left_condition": left_certificate,
         "right_condition": right_certificate,
+    }
+
+
+def _parent_predicate_condition(
+    predicate_id: str,
+    *,
+    candidate: dict[str, Any],
+    handoff: dict[str, Any],
+    model: HandoffControlModel,
+    imported_predicates: dict[str, dict[str, Any]],
+) -> tuple[tuple[Any, ...], dict[str, Any]] | None:
+    """Expose a local or direct-child predicate as an exact parent Boolean.
+
+    Frozen child predicates are usable only when their complete grounding is a
+    direct frontier signal. This does not inspect or reconstruct child state.
+    """
+
+    local = next(
+        (
+            item for item in candidate.get("predicates", [])
+            if isinstance(item, dict) and str(item.get("id")) == predicate_id
+        ),
+        None,
+    )
+    imported: dict[str, Any] | None = None
+    if local is not None:
+        predicate = local
+        source_kind = "parent-local-predicate"
+        source_signal = predicate.get("grounding", {}).get("source_signal")
+    else:
+        imported = imported_predicates.get(predicate_id)
+        if imported is None or not imported.get("direct_child"):
+            return None
+        predicate = imported.get("object")
+        if not isinstance(predicate, dict):
+            return None
+        source_kind = "frozen-direct-child-predicate"
+        source_signal = predicate.get("grounding", {}).get("source_signal")
+
+    grounding = predicate.get("grounding", {})
+    if (
+        not isinstance(grounding, dict)
+        or not isinstance(source_signal, str)
+        or not source_signal
+        or grounding.get("state_register") is not None
+        or grounding.get("state_values")
+    ):
+        return None
+
+    parent_signal = source_signal
+    if imported is not None:
+        frontier = {
+            str(item) for item in imported.get("direct_frontier_signals", set())
+        }
+        if parent_signal not in frontier:
+            unit_id = str(imported.get("unit_id", ""))
+            parent_path = str(handoff.get("work_unit", {}).get("instance_path", ""))
+            if not parent_path or not unit_id.startswith(parent_path + "."):
+                return None
+            relative = unit_id[len(parent_path) + 1:]
+            parent_signal = f"{relative}.{source_signal}"
+            if parent_signal not in frontier:
+                return None
+
+    effective = _effective_signal_condition(model, candidate, parent_signal)
+    if effective is None:
+        return None
+    condition, signal_certificate = effective
+    negated = grounding.get("negated") is True
+    if negated:
+        condition = _not(condition)
+    certificate: dict[str, Any] = {
+        "kind": source_kind,
+        "predicate": predicate_id,
+        "source_signal": source_signal,
+        "parent_signal": parent_signal,
+        "negated": negated,
+        "signal_condition": signal_certificate,
+    }
+    if imported is not None:
+        certificate.update({
+            "work_unit_id": imported.get("unit_id"),
+            "frozen_umcm_sha256": imported.get("frozen_hash"),
+            "child_rtl_reopened": False,
+        })
+    return condition, certificate
+
+
+def _prove_parent_predicate_equivalence(
+    left: str,
+    right: str,
+    *,
+    candidate: dict[str, Any],
+    handoff: dict[str, Any],
+    model: HandoffControlModel,
+    imported_predicates: dict[str, dict[str, Any]],
+) -> dict[str, Any] | None:
+    if left == right:
+        known_local = any(
+            isinstance(item, dict) and str(item.get("id")) == left
+            for item in candidate.get("predicates", [])
+        )
+        if not known_local and left not in imported_predicates:
+            return None
+        return {
+            "kind": "exact-semantic-object-identity",
+            "left": left,
+            "right": right,
+            "child_rtl_reopened": False,
+        }
+    left_info = _parent_predicate_condition(
+        left,
+        candidate=candidate,
+        handoff=handoff,
+        model=model,
+        imported_predicates=imported_predicates,
+    )
+    right_info = _parent_predicate_condition(
+        right,
+        candidate=candidate,
+        handoff=handoff,
+        model=model,
+        imported_predicates=imported_predicates,
+    )
+    if left_info is None or right_info is None:
+        return None
+    left_expr, left_certificate = left_info
+    right_expr, right_certificate = right_info
+    mismatch = _or(
+        _and(left_expr, _not(right_expr)),
+        _and(right_expr, _not(left_expr)),
+    )
+    unsat, atoms = _unsat(mismatch)
+    if unsat is not True:
+        return None
+    return {
+        "kind": "exact-parent-child-predicate-equivalence",
+        "left": left,
+        "right": right,
+        "atom_count": atoms,
+        "left_condition": left_certificate,
+        "right_condition": right_certificate,
+        "child_rtl_reopened": False,
     }
 
 
@@ -1274,7 +1555,7 @@ def prove_composition_obligations(
 
     if handoff.get("composition", {}).get("mode") != "parent_synthesis":
         return {}
-    facts, imported_occurrences, _ = _collect_frozen_theorems(handoff)
+    facts, imported_occurrences, imported_predicates = _collect_frozen_theorems(handoff)
     for result in results:
         if result.get("formal", {}).get("status") not in {FORMALLY_PROVED, SPEC_PROVED}:
             continue
@@ -1304,6 +1585,7 @@ def prove_composition_obligations(
     proved: dict[str, dict[str, Any]] = {}
     bridge_cache: dict[tuple[str, str], dict[str, Any] | None] = {}
     equivalence_cache: dict[tuple[str, str], dict[str, Any] | None] = {}
+    predicate_equivalence_cache: dict[tuple[str, str], dict[str, Any] | None] = {}
 
     def bridge(subset: str, superset: str) -> dict[str, Any] | None:
         key = (subset, superset)
@@ -1330,6 +1612,19 @@ def prove_composition_obligations(
                 imported_occurrences=imported_occurrences,
             )
         return equivalence_cache[key]
+
+    def predicate_equivalence(left: str, right: str) -> dict[str, Any] | None:
+        key = (left, right)
+        if key not in predicate_equivalence_cache:
+            predicate_equivalence_cache[key] = _prove_parent_predicate_equivalence(
+                left,
+                right,
+                candidate=candidate,
+                handoff=handoff,
+                model=model,
+                imported_predicates=imported_predicates,
+            )
+        return predicate_equivalence_cache[key]
 
     progress = True
     while progress:
@@ -1427,7 +1722,11 @@ def prove_composition_obligations(
                 for source in facts:
                     if source.kind != "forbid_when":
                         continue
-                    if source.formal.get("predicate") != target.get("predicate"):
+                    predicate_bridge = predicate_equivalence(
+                        str(target.get("predicate")),
+                        str(source.formal.get("predicate")),
+                    )
+                    if predicate_bridge is None:
                         continue
                     occurrence_bridge = bridge(str(target.get("occurrence")), str(source.formal.get("occurrence")))
                     if occurrence_bridge is None:
@@ -1436,10 +1735,11 @@ def prove_composition_obligations(
                         "status": FORMALLY_PROVED,
                         "backend": "composition-prover",
                         "proof_method": "trusted-child-lift",
-                        "proof": "trusted forbid theorem lifted across an exact parent-local occurrence bridge",
+                        "proof": "trusted forbid theorem lifted across exact parent-local predicate and occurrence bridges",
                         "certificate": {
                             "prover": COMPOSITION_PROVER_VERSION,
                             "source_theorem": source.certificate,
+                            "predicate_bridge": predicate_bridge,
                             "occurrence_bridge": occurrence_bridge,
                         },
                     }

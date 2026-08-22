@@ -1,0 +1,287 @@
+{
+  "compiler": "formal-axiom-compiler-0.11",
+  "obligations": [
+    {
+      "arguments": {
+        "on": "FPResponse",
+        "source": "fresp[0].bits.data",
+        "target": "io.core.fresp[0].bits.data"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        6581
+      ],
+      "formal": {
+        "on": "FPResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "fresp[0].bits.data",
+          "op": "signal"
+        },
+        "target": "io.core.fresp[0].bits.data",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "FPResponse"
+        ],
+        "predicates": [],
+        "signals": [
+          "fresp[0].bits.data",
+          "io.core.fresp[0].bits.data"
+        ]
+      },
+      "rendered_formula": "io.core.fresp[0].bits.data = fresp[0].bits.data on FPResponse"
+    },
+    {
+      "arguments": {
+        "on": "FPResponse",
+        "source": "fresp[0].bits.uop.rob_idx",
+        "target": "io.core.fresp[0].bits.uop.rob_idx"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        6581
+      ],
+      "formal": {
+        "on": "FPResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "fresp[0].bits.uop.rob_idx",
+          "op": "signal"
+        },
+        "target": "io.core.fresp[0].bits.uop.rob_idx",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "FPResponse"
+        ],
+        "predicates": [],
+        "signals": [
+          "fresp[0].bits.uop.rob_idx",
+          "io.core.fresp[0].bits.uop.rob_idx"
+        ]
+      },
+      "rendered_formula": "io.core.fresp[0].bits.uop.rob_idx = fresp[0].bits.uop.rob_idx on FPResponse"
+    },
+    {
+      "arguments": {
+        "on": "FPResponse",
+        "source": "fresp[0].bits.uop.ldq_idx",
+        "target": "io.core.fresp[0].bits.uop.ldq_idx"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        6581
+      ],
+      "formal": {
+        "on": "FPResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "fresp[0].bits.uop.ldq_idx",
+          "op": "signal"
+        },
+        "target": "io.core.fresp[0].bits.uop.ldq_idx",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "FPResponse"
+        ],
+        "predicates": [],
+        "signals": [
+          "fresp[0].bits.uop.ldq_idx",
+          "io.core.fresp[0].bits.uop.ldq_idx"
+        ]
+      },
+      "rendered_formula": "io.core.fresp[0].bits.uop.ldq_idx = fresp[0].bits.uop.ldq_idx on FPResponse"
+    },
+    {
+      "arguments": {
+        "on": "FPResponse",
+        "source": "fresp[0].bits.uop.stq_idx",
+        "target": "io.core.fresp[0].bits.uop.stq_idx"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        6581
+      ],
+      "formal": {
+        "on": "FPResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "fresp[0].bits.uop.stq_idx",
+          "op": "signal"
+        },
+        "target": "io.core.fresp[0].bits.uop.stq_idx",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "FPResponse"
+        ],
+        "predicates": [],
+        "signals": [
+          "fresp[0].bits.uop.stq_idx",
+          "io.core.fresp[0].bits.uop.stq_idx"
+        ]
+      },
+      "rendered_formula": "io.core.fresp[0].bits.uop.stq_idx = fresp[0].bits.uop.stq_idx on FPResponse"
+    },
+    {
+      "arguments": {
+        "on": "FPResponse",
+        "source": "fresp[0].bits.uop.mem_cmd",
+        "target": "io.core.fresp[0].bits.uop.mem_cmd"
+      },
+      "axiom_id": "A5",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        6581
+      ],
+      "formal": {
+        "on": "FPResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "fresp[0].bits.uop.mem_cmd",
+          "op": "signal"
+        },
+        "target": "io.core.fresp[0].bits.uop.mem_cmd",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "FPResponse"
+        ],
+        "predicates": [],
+        "signals": [
+          "fresp[0].bits.uop.mem_cmd",
+          "io.core.fresp[0].bits.uop.mem_cmd"
+        ]
+      },
+      "rendered_formula": "io.core.fresp[0].bits.uop.mem_cmd = fresp[0].bits.uop.mem_cmd on FPResponse"
+    },
+    {
+      "arguments": {
+        "on": "FPResponse",
+        "source": "fresp[0].bits.uop.mem_size",
+        "target": "io.core.fresp[0].bits.uop.mem_size"
+      },
+      "axiom_id": "A6",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        6581
+      ],
+      "formal": {
+        "on": "FPResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "fresp[0].bits.uop.mem_size",
+          "op": "signal"
+        },
+        "target": "io.core.fresp[0].bits.uop.mem_size",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "FPResponse"
+        ],
+        "predicates": [],
+        "signals": [
+          "fresp[0].bits.uop.mem_size",
+          "io.core.fresp[0].bits.uop.mem_size"
+        ]
+      },
+      "rendered_formula": "io.core.fresp[0].bits.uop.mem_size = fresp[0].bits.uop.mem_size on FPResponse"
+    },
+    {
+      "arguments": {
+        "on": "FPResponse",
+        "source": "fresp[0].bits.uop.mem_signed",
+        "target": "io.core.fresp[0].bits.uop.mem_signed"
+      },
+      "axiom_id": "A7",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        6581
+      ],
+      "formal": {
+        "on": "FPResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "fresp[0].bits.uop.mem_signed",
+          "op": "signal"
+        },
+        "target": "io.core.fresp[0].bits.uop.mem_signed",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "FPResponse"
+        ],
+        "predicates": [],
+        "signals": [
+          "fresp[0].bits.uop.mem_signed",
+          "io.core.fresp[0].bits.uop.mem_signed"
+        ]
+      },
+      "rendered_formula": "io.core.fresp[0].bits.uop.mem_signed = fresp[0].bits.uop.mem_signed on FPResponse"
+    },
+    {
+      "arguments": {
+        "on": "FPResponse",
+        "source": "fresp[0].bits.uop.br_mask",
+        "target": "io.core.fresp[0].bits.uop.br_mask"
+      },
+      "axiom_id": "A8",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        6581
+      ],
+      "formal": {
+        "on": "FPResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "fresp[0].bits.uop.br_mask",
+          "op": "signal"
+        },
+        "target": "io.core.fresp[0].bits.uop.br_mask",
+        "type": "signal_equality"
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "FPResponse"
+        ],
+        "predicates": [],
+        "signals": [
+          "fresp[0].bits.uop.br_mask",
+          "io.core.fresp[0].bits.uop.br_mask"
+        ]
+      },
+      "rendered_formula": "io.core.fresp[0].bits.uop.br_mask = fresp[0].bits.uop.br_mask on FPResponse"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "work_unit_id": "LSU::region-0-2"
+}

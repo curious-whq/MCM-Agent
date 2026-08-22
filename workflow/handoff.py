@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import asdict
 from pathlib import Path
+import re
 from typing import Any, Iterable
 
 from frontend.dependency import ModuleDependencyGraph
@@ -13,8 +14,98 @@ from frontend.slice import SourceSpan
 from frontend.workunit import HierarchicalWorkUnit, WorkUnitComplexity
 
 
-HANDOFF_SCHEMA_VERSION = "workunit-static-0.2"
-PLANNER_VERSION = "hierarchical-planner-v12"
+HANDOFF_SCHEMA_VERSION = "workunit-static-0.4"
+PLANNER_VERSION = "hierarchical-planner-v14"
+
+
+def _split_call_args(text: str) -> list[str] | None:
+    args: list[str] = []
+    depth = 0
+    start = 0
+    for index, char in enumerate(text):
+        if char == "(":
+            depth += 1
+        elif char == ")":
+            depth -= 1
+            if depth < 0:
+                return None
+        elif char == "," and depth == 0:
+            args.append(text[start:index].strip())
+            start = index + 1
+    if depth != 0:
+        return None
+    args.append(text[start:].strip())
+    return args
+
+
+def _expression_width(
+    graph: ModuleDependencyGraph,
+    expression: str,
+    definitions: dict[str, str],
+    memo: dict[str, int | None],
+    seen: set[str],
+) -> int | None:
+    text = expression.strip()
+    literal = re.fullmatch(r"(?:U|S)Int<(\d+)>\([^)]*\)", text)
+    if literal:
+        return int(literal.group(1))
+    if re.fullmatch(r"[A-Za-z_][A-Za-z0-9_$]*(?:\.[A-Za-z_][A-Za-z0-9_$]*|\[[^]]+\])*", text):
+        if text in memo:
+            return memo[text]
+        info = graph.signals.get(text)
+        if info is not None and info.type_text:
+            width = re.match(r"^(?:U|S)Int<(\d+)>", info.type_text.strip())
+            if width:
+                memo[text] = int(width.group(1))
+                return memo[text]
+        if text in seen or text not in definitions:
+            return None
+        memo[text] = _expression_width(
+            graph, definitions[text], definitions, memo, seen | {text}
+        )
+        return memo[text]
+    call = re.fullmatch(r"([A-Za-z_][A-Za-z0-9_$]*)\((.*)\)", text)
+    if not call:
+        return None
+    name = call.group(1)
+    args = _split_call_args(call.group(2))
+    if args is None:
+        return None
+    if name == "bits" and len(args) == 3:
+        try:
+            high, low = int(args[1]), int(args[2])
+        except ValueError:
+            return None
+        return high - low + 1 if high >= low >= 0 else None
+    if name in {"eq", "neq", "lt", "leq", "gt", "geq"} and len(args) == 2:
+        return 1
+    widths = [
+        _expression_width(graph, arg, definitions, memo, seen)
+        for arg in args
+    ]
+    if name in {"and", "or", "xor"} and len(widths) == 2 and None not in widths:
+        return max(int(widths[0]), int(widths[1]))
+    if name == "not" and len(widths) == 1:
+        return widths[0]
+    if name == "cat" and len(widths) == 2 and None not in widths:
+        return int(widths[0]) + int(widths[1])
+    if name in {"mux", "validif"}:
+        branches = widths[1:] if name == "mux" else widths[1:2]
+        if branches and None not in branches:
+            return max(int(width) for width in branches)
+    if name in {"asUInt", "asSInt"} and widths:
+        return widths[0]
+    return None
+
+
+def _inferred_signal_type(
+    graph: ModuleDependencyGraph,
+    signal: str,
+    definitions: dict[str, str],
+    memo: dict[str, int | None],
+) -> str | None:
+    width = _expression_width(graph, signal, definitions, memo, set())
+    return f"UInt<{width}>" if width is not None else None
 
 
 def _source_dict(source: SourceLoc | None) -> dict[str, Any] | None:
@@ -197,17 +288,39 @@ def build_work_unit_static_handoff(
             )
         statements.append(_statement_dict(statement))
 
+    local_state_roots = {str(root) for root in unit.local_state}
+
+    def local_state_target(signal: str) -> bool:
+        return any(
+            signal == root
+            or signal.startswith(root + ".")
+            or signal.startswith(root + "[")
+            for root in local_state_roots
+        )
+
+    state_writer_control_ids: set[int] = set()
     edges = []
     for edge in graph.edges:
         owned_statement_ids = sorted(set(edge.statement_ids) & statement_ids)
         if not owned_statement_ids:
             continue
+        statement_support_ids: set[int] = set()
+        if edge.kind.value == "control" and local_state_target(edge.dst):
+            statement_support_ids = {
+                statement_id
+                for statement_id in set(edge.statement_ids) - statement_ids
+                if statement_id in statement_by_id
+                and statement_by_id[statement_id].kind in {"when", "else"}
+            }
+            state_writer_control_ids.update(statement_support_ids)
         edges.append(
             {
                 "src": edge.src,
                 "dst": edge.dst,
                 "kind": edge.kind.value,
-                "statement_ids": owned_statement_ids,
+                "statement_ids": sorted(
+                    set(owned_statement_ids) | statement_support_ids
+                ),
                 "source": _source_dict(edge.source),
             }
         )
@@ -236,6 +349,16 @@ def build_work_unit_static_handoff(
             }
         )
 
+    node_definitions: dict[str, str] = {}
+    for statement in graph.statements:
+        match = re.match(
+            r"^node\s+([A-Za-z_][A-Za-z0-9_$]*)\s*=\s*(.+)$",
+            statement.text.strip(),
+        )
+        if match:
+            node_definitions[match.group(1)] = match.group(2).strip()
+    inferred_widths: dict[str, int | None] = {}
+
     frontier = []
     for signal in sorted(unit.frontier_signals):
         info = graph.signals.get(signal)
@@ -243,7 +366,13 @@ def build_work_unit_static_handoff(
             {
                 "id": signal,
                 "kind": info.kind.value if info is not None else "unknown",
-                "type": info.type_text if info is not None else None,
+                "type": (
+                    info.type_text
+                    if info is not None and info.type_text
+                    else _inferred_signal_type(
+                        graph, signal, node_definitions, inferred_widths
+                    )
+                ),
                 "source": _source_dict(info.source) if info is not None else None,
             }
         )
@@ -297,7 +426,6 @@ def build_work_unit_static_handoff(
         event_gate_bridges.append(_statement_dict(statement))
 
     state_support_ids: set[int] = set()
-    local_state_roots = {str(root) for root in unit.local_state}
     for statement in graph.statements:
         if statement.kind not in {"reg", "regreset"}:
             continue
@@ -313,6 +441,10 @@ def build_work_unit_static_handoff(
     state_support_statements = [
         _statement_dict(statement_by_id[statement_id])
         for statement_id in sorted(state_support_ids)
+    ]
+    state_writer_control_statements = [
+        _statement_dict(statement_by_id[statement_id])
+        for statement_id in sorted(state_writer_control_ids)
     ]
 
     children = [
@@ -361,11 +493,15 @@ def build_work_unit_static_handoff(
         "dependency_edges": edges,
         "semantic_event_cones": semantic_cones,
         "proof_context": {
-            "policy": "exact-local-event-gate-bridges-v0.1",
+            "policy": "exact-local-proof-context-v0.2",
             "event_gate_statement_ids": sorted(event_gate_bridge_ids),
             "event_gate_statements": event_gate_bridges,
             "state_support_statement_ids": sorted(state_support_ids),
             "state_support_statements": state_support_statements,
+            "state_writer_control_statement_ids": sorted(
+                state_writer_control_ids
+            ),
+            "state_writer_control_statements": state_writer_control_statements,
             "llm_evidence": False,
         },
         "source_spans": [asdict(span) for span in local_source_spans],

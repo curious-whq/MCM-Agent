@@ -1,0 +1,247 @@
+{
+  "all_axioms_formally_proved": true,
+  "all_axioms_structurally_supported": true,
+  "candidate_axiom_count": 3,
+  "control_model": {
+    "known_states": [],
+    "reset_state": null,
+    "state_register": "clr_valid_1",
+    "transitions": []
+  },
+  "counts": {
+    "FORMALLY_PROVED": 3,
+    "GROUNDED": 0,
+    "PARTIALLY_SUPPORTED": 0,
+    "REFUTED": 0,
+    "SPEC_PROVED": 0,
+    "STRUCTURALLY_SUPPORTED": 0
+  },
+  "empty_abstraction_certificate": null,
+  "formal_backend": {
+    "api_version": "formal-backend-api-0.21",
+    "available": true,
+    "name": "explicit-control",
+    "note": "Exhaustive formal proof for certified finite-control/order properties, exact symbolic local/identity facts, exact local Boolean exclusion/conservation, bounded indexed token provenance, and selected finite reference equivalence checks. It is not a general bit-level SMT backend.",
+    "proof_domain": "control + exact symbolic local + exact combinational exclusion/conservation + scalar/indexed token provenance + finite reference equivalence",
+    "supported_checkers": [
+      "forbid_when",
+      "history_order",
+      "history_chain",
+      "history_join",
+      "indexed_coverage",
+      "indexed_storage_flow",
+      "indexed_priority_select",
+      "occurrence_partition",
+      "transaction_exclusion",
+      "signal_alias",
+      "constant_bit",
+      "identity_projection",
+      "tilelink_on_probe_spec"
+    ],
+    "trusted_proof_levels": [
+      "FORMALLY_PROVED",
+      "SPEC_PROVED"
+    ]
+  },
+  "has_counterexample": false,
+  "property_compiler": "formal-axiom-compiler-0.11",
+  "public_interface_validation": null,
+  "results": [
+    {
+      "arguments": {
+        "occurrence": "ClearBusy",
+        "predicate": "NoRegisteredClear"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        3459,
+        3460
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 3,
+          "event_gate_bridge_statement_ids": [
+            3415,
+            3422
+          ],
+          "proof": "ClearBusy and NoRegisteredClear have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "ClearBusy and NoRegisteredClear have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ClearBusy"
+        ],
+        "predicates": [
+          "NoRegisteredClear"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "NoRegisteredClear => !ClearBusy",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "ClearBusy",
+        "predicate": "OutputControlBlocked"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        3455,
+        3456,
+        3457,
+        3458,
+        3459,
+        3460
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 3,
+          "event_gate_bridge_statement_ids": [
+            3415,
+            3422
+          ],
+          "proof": "ClearBusy and OutputControlBlocked have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "ClearBusy and OutputControlBlocked have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ClearBusy"
+        ],
+        "predicates": [
+          "OutputControlBlocked"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "OutputControlBlocked => !ClearBusy",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "ClearBusy",
+        "source": "clr_uop_1.rob_idx",
+        "target": "io.core.clr_bsy[0].bits"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        3461
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [],
+          "all_driver_statement_ids": [
+            3461
+          ],
+          "on": "ClearBusy",
+          "proof": "every last-connect driver of io.core.clr_bsy[0].bits reachable on ClearBusy equals clr_uop_1.rob_idx",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "resolved_target": "io.core.clr_bsy[0].bits",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "unconditional"
+              },
+              "atom_count": 3,
+              "rhs": "clr_uop_1.rob_idx",
+              "statement_id": 3461,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "clr_uop_1.rob_idx",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.core.clr_bsy[0].bits",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.core.clr_bsy[0].bits reachable on ClearBusy equals clr_uop_1.rob_idx",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ClearBusy"
+        ],
+        "predicates": [],
+        "signals": [
+          "clr_uop_1.rob_idx",
+          "io.core.clr_bsy[0].bits"
+        ]
+      },
+      "rendered_formula": "io.core.clr_bsy[0].bits = clr_uop_1.rob_idx on ClearBusy",
+      "structural": {
+        "alias_chain": [],
+        "all_driver_statement_ids": [
+          3461
+        ],
+        "on": "ClearBusy",
+        "proof": "every last-connect driver of io.core.clr_bsy[0].bits reachable on ClearBusy equals clr_uop_1.rob_idx",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "resolved_target": "io.core.clr_bsy[0].bits",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "unconditional"
+            },
+            "atom_count": 3,
+            "rhs": "clr_uop_1.rob_idx",
+            "statement_id": 3461,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "clr_uop_1.rob_idx",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.core.clr_bsy[0].bits",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    }
+  ],
+  "trusted_axiom_count": 3,
+  "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
+  "validator": "semantic-validator-0.21",
+  "work_unit_id": "LSU::region-0-0"
+}

@@ -16,6 +16,7 @@
     "SPEC_PROVED": 0,
     "STRUCTURALLY_SUPPORTED": 0
   },
+  "empty_abstraction_certificate": null,
   "formal_backend": {
     "api_version": "formal-backend-api-0.15",
     "available": true,

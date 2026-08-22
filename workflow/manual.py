@@ -8,9 +8,10 @@ from typing import Any
 
 from .schema import UMCM_SCHEMA_VERSION, parse_candidate_response
 from .axiom_ir import compile_formal_axiom, expr_index_vars, expr_signals, validate_formal_expr_shape
-from .composition import prompt_semantic_catalog
-from .tasks import PARENT_PROMPT_VERSION, PromptPackage
+from .composition import prompt_semantic_catalog, public_boundary_event_ids
+from .tasks import PromptPackage
 from .research_memory import initialize_experience, write_run_summary
+from .formal_patterns import declared_signal_type_from_handoff
 
 
 PENDING = "PENDING_MANUAL_LLM"
@@ -24,7 +25,26 @@ _SIMPLE_INDEX_RE = re.compile(
 )
 
 
-def _is_allowed_signal_reference(signal: str, allowed_signals: set[str]) -> bool:
+def _parent_prompt_minor(task: dict[str, Any]) -> int | None:
+    match = re.fullmatch(r"parent-synthesis-prompt-0\.(\d+)", str(task.get("prompt_version", "")))
+    return int(match.group(1)) if match else None
+
+
+def _uses_compact_parent_interface(task: dict[str, Any]) -> bool:
+    minor = _parent_prompt_minor(task)
+    return task.get("kind") == "parent_synthesis" and minor is not None and minor >= 3
+
+
+def _requires_explicit_public_interface(task: dict[str, Any]) -> bool:
+    minor = _parent_prompt_minor(task)
+    return task.get("kind") == "parent_synthesis" and minor is not None and minor >= 4
+
+
+def _is_allowed_signal_reference(
+    signal: str,
+    allowed_signals: set[str],
+    handoff: dict[str, Any] | None = None,
+) -> bool:
     """Accept exact signals and grounded dynamic selections of compacted arrays.
 
     The frontend deliberately compacts a read such as ``valids[deq_ptr]`` to
@@ -34,6 +54,8 @@ def _is_allowed_signal_reference(signal: str, allowed_signals: set[str]) -> bool
     """
 
     if signal in allowed_signals:
+        return True
+    if handoff is not None and declared_signal_type_from_handoff(handoff, signal) is not None:
         return True
     # FIRRTL aggregate connects/reads are often preserved in the handoff as an
     # aggregate root (for example ``connect dst.d, src.d``), while a µMCM
@@ -132,6 +154,177 @@ def _id_set(candidate: dict[str, Any], field: str) -> set[str]:
         for item in candidate.get(field, [])
         if isinstance(item, dict) and isinstance(item.get("id"), str)
     }
+
+
+def _validate_parent_public_interface(
+    candidate: dict[str, Any],
+    handoff: dict[str, Any],
+    parent_ext: dict[str, Any],
+    *,
+    errors: list[str],
+    warnings: list[str],
+) -> None:
+    interface = parent_ext.get("public_interface")
+    if not isinstance(interface, dict):
+        errors.append("extensions.parent_synthesis.public_interface must be an object")
+        return
+    allowed_fields = {
+        "policy",
+        "exported_axiom_ids",
+        "exported_occurrence_ids",
+        "exported_predicate_ids",
+        "exported_identity_ids",
+        "boundary_coverage",
+    }
+    extra_fields = sorted(set(interface) - allowed_fields)
+    if extra_fields:
+        errors.append(f"public_interface has unsupported fields: {extra_fields}")
+    if interface.get("policy") != "explicit-public-contract-v0.1":
+        errors.append("public_interface.policy must be 'explicit-public-contract-v0.1'")
+
+    declared_fields = {
+        "exported_axiom_ids": _id_set(candidate, "axioms"),
+        "exported_occurrence_ids": _id_set(candidate, "occurrences"),
+        "exported_predicate_ids": _id_set(candidate, "predicates"),
+        "exported_identity_ids": _id_set(candidate, "identity_keys"),
+    }
+    exports: dict[str, set[str]] = {}
+    for field, available in declared_fields.items():
+        values = interface.get(field)
+        if not isinstance(values, list) or not all(isinstance(item, str) for item in values):
+            errors.append(f"public_interface.{field} must be a string list")
+            values = []
+        elif len(values) != len(set(values)):
+            errors.append(f"public_interface.{field} must contain unique IDs")
+        exports[field] = {str(item) for item in values}
+        unknown = sorted(exports[field] - available)
+        if unknown:
+            errors.append(f"public_interface.{field} references unknown local IDs: {unknown}")
+        qualified = sorted(item for item in exports[field] if "::" in item)
+        if qualified:
+            errors.append(
+                f"public_interface.{field} must contain parent-local IDs, not imported IDs: {qualified}"
+            )
+
+    public_occurrences = exports["exported_occurrence_ids"]
+    public_predicates = exports["exported_predicate_ids"]
+    public_identities = exports["exported_identity_ids"]
+    public_axioms = exports["exported_axiom_ids"]
+    axioms_by_id = {
+        str(item["id"]): item
+        for item in candidate.get("axioms", [])
+        if isinstance(item, dict) and isinstance(item.get("id"), str)
+    }
+    compiled_public: dict[str, dict[str, Any]] = {}
+    for axiom_id in sorted(public_axioms):
+        axiom = axioms_by_id.get(axiom_id)
+        formal = axiom.get("formal") if isinstance(axiom, dict) else None
+        if not isinstance(formal, dict):
+            continue
+        try:
+            compiled = compile_formal_axiom(formal)
+        except ValueError:
+            continue
+        compiled_public[axiom_id] = compiled
+        refs = compiled["references"]
+        hidden = {
+            "occurrences": sorted(set(refs.get("occurrences", [])) - public_occurrences),
+            "predicates": sorted(set(refs.get("predicates", [])) - public_predicates),
+            "identities": sorted(set(refs.get("identities", [])) - public_identities),
+        }
+        hidden = {kind: values for kind, values in hidden.items() if values}
+        if hidden:
+            errors.append(
+                f"public axiom {axiom_id!r} is not interface-closed; references non-public objects: {hidden}"
+            )
+
+    coverage = interface.get("boundary_coverage")
+    if not isinstance(coverage, list):
+        errors.append("public_interface.boundary_coverage must be a list")
+        coverage = []
+    required_events = set(public_boundary_event_ids(handoff))
+    occurrences_by_id = {
+        str(item["id"]): item
+        for item in candidate.get("occurrences", [])
+        if isinstance(item, dict) and isinstance(item.get("id"), str)
+    }
+    seen_events: set[str] = set()
+    for index, entry in enumerate(coverage):
+        label = f"public_interface.boundary_coverage[{index}]"
+        if not isinstance(entry, dict):
+            errors.append(f"{label} must be an object")
+            continue
+        allowed_entry_fields = {
+            "physical_event_id", "status", "occurrence_ids", "axiom_ids", "note"
+        }
+        extra = sorted(set(entry) - allowed_entry_fields)
+        if extra:
+            errors.append(f"{label} has unsupported fields: {extra}")
+        event_id = entry.get("physical_event_id")
+        if not isinstance(event_id, str):
+            errors.append(f"{label}.physical_event_id must be a string")
+            continue
+        if event_id in seen_events:
+            errors.append(f"public boundary event {event_id!r} is classified more than once")
+        seen_events.add(event_id)
+        if event_id not in required_events:
+            errors.append(f"{label} references non-public boundary event {event_id!r}")
+        status = entry.get("status")
+        if status not in {"constrained", "event_only", "intentionally_omitted"}:
+            errors.append(
+                f"{label}.status must be constrained, event_only, or intentionally_omitted"
+            )
+        occurrence_ids = entry.get("occurrence_ids")
+        axiom_ids = entry.get("axiom_ids")
+        if not isinstance(occurrence_ids, list) or not all(
+            isinstance(item, str) for item in occurrence_ids
+        ):
+            errors.append(f"{label}.occurrence_ids must be a string list")
+            occurrence_ids = []
+        if not isinstance(axiom_ids, list) or not all(isinstance(item, str) for item in axiom_ids):
+            errors.append(f"{label}.axiom_ids must be a string list")
+            axiom_ids = []
+        if len(occurrence_ids) != len(set(occurrence_ids)):
+            errors.append(f"{label}.occurrence_ids must contain unique IDs")
+        if len(axiom_ids) != len(set(axiom_ids)):
+            errors.append(f"{label}.axiom_ids must contain unique IDs")
+        unknown_occurrences = sorted(set(occurrence_ids) - public_occurrences)
+        unknown_axioms = sorted(set(axiom_ids) - public_axioms)
+        if unknown_occurrences:
+            errors.append(f"{label} references non-public occurrences: {unknown_occurrences}")
+        if unknown_axioms:
+            errors.append(f"{label} references non-public axioms: {unknown_axioms}")
+        for occurrence_id in occurrence_ids:
+            occurrence = occurrences_by_id.get(occurrence_id)
+            if isinstance(occurrence, dict) and event_id not in occurrence.get("physical_event_ids", []):
+                errors.append(
+                    f"{label} occurrence {occurrence_id!r} is not grounded in {event_id!r}"
+                )
+        if status == "constrained":
+            if not occurrence_ids or not axiom_ids:
+                errors.append(f"{label} constrained coverage needs occurrence_ids and axiom_ids")
+            for axiom_id in axiom_ids:
+                refs = compiled_public.get(axiom_id, {}).get("references", {})
+                if occurrence_ids and not (set(occurrence_ids) & set(refs.get("occurrences", []))):
+                    errors.append(
+                        f"{label} axiom {axiom_id!r} does not constrain a listed occurrence"
+                    )
+        elif status == "event_only":
+            if not occurrence_ids or axiom_ids:
+                errors.append(f"{label} event_only coverage needs occurrences and no axioms")
+        elif status == "intentionally_omitted":
+            if occurrence_ids or axiom_ids:
+                errors.append(f"{label} intentionally_omitted coverage must not cite objects")
+        if status in {"event_only", "intentionally_omitted"} and not str(entry.get("note", "")).strip():
+            errors.append(f"{label} {status} coverage requires a non-empty note")
+
+    missing_events = sorted(required_events - seen_events)
+    if missing_events:
+        errors.append(f"public_interface.boundary_coverage misses public events: {missing_events}")
+    if required_events and not public_axioms:
+        warnings.append(
+            "public interface exports no axioms; all boundary behavior is event-only or omitted"
+        )
 
 
 def validate_candidate_grounding(
@@ -245,10 +438,7 @@ def validate_candidate_grounding(
     # Keep the validator's legal imported namespace identical to what the LLM
     # could actually see, while retaining the full catalog in static_handoff for
     # the composition prover and for backward compatibility with older tasks.
-    if (
-        task.get("kind") == "parent_synthesis"
-        and task.get("prompt_version") == PARENT_PROMPT_VERSION
-    ):
+    if _uses_compact_parent_interface(task):
         visible = prompt_semantic_catalog(handoff)
         imported_occurrence_ids = visible["occurrences"]
         imported_predicate_ids = visible["predicates"]
@@ -292,7 +482,7 @@ def validate_candidate_grounding(
                 errors.extend(shape_errors)
                 if not shape_errors:
                     for signal in sorted(expr_signals(expr)):
-                        if not _is_allowed_signal_reference(signal, allowed_signals):
+                        if not _is_allowed_signal_reference(signal, allowed_signals, handoff):
                             errors.append(f"occurrence {occurrence.get('id')!r} index references unknown signal {signal!r}")
                 domain = index.get("domain")
                 if isinstance(domain, dict):
@@ -345,7 +535,7 @@ def validate_candidate_grounding(
                     f"occurrence {occurrence_id!r} references unknown state register {state_register!r}"
                 )
             for signal in grounding.get("signals_true", []) + grounding.get("signals_false", []):
-                if not _is_allowed_signal_reference(signal, allowed_signals):
+                if not _is_allowed_signal_reference(signal, allowed_signals, handoff):
                     errors.append(
                         f"occurrence {occurrence_id!r} references unknown signal {signal!r}"
                     )
@@ -365,7 +555,7 @@ def validate_candidate_grounding(
                     errors.extend(shape_errors)
                     if not shape_errors:
                         for signal in sorted(expr_signals(expr)):
-                            if not _is_allowed_signal_reference(signal, allowed_signals):
+                            if not _is_allowed_signal_reference(signal, allowed_signals, handoff):
                                 errors.append(
                                     f"occurrence {occurrence_id!r} value test references unknown signal {signal!r}"
                                 )
@@ -389,7 +579,7 @@ def validate_candidate_grounding(
             continue
         source_signal = grounding.get("source_signal")
         state_register = grounding.get("state_register")
-        if source_signal is not None and not _is_allowed_signal_reference(source_signal, allowed_signals):
+        if source_signal is not None and not _is_allowed_signal_reference(source_signal, allowed_signals, handoff):
             errors.append(
                 f"predicate {predicate_id!r} references unknown source signal {source_signal!r}"
             )
@@ -446,6 +636,19 @@ def validate_candidate_grounding(
             if isinstance(extensions, dict)
             else {}
         )
+        if _requires_explicit_public_interface(task) or (
+            isinstance(parent_ext, dict) and "public_interface" in parent_ext
+        ):
+            if isinstance(parent_ext, dict):
+                _validate_parent_public_interface(
+                    candidate,
+                    handoff,
+                    parent_ext,
+                    errors=errors,
+                    warnings=warnings,
+                )
+            else:
+                errors.append("extensions.parent_synthesis must be an object")
         provenance = (
             parent_ext.get("axiom_provenance", {})
             if isinstance(parent_ext, dict)
@@ -536,7 +739,7 @@ def validate_candidate_grounding(
             if ref not in identity_ids:
                 errors.append(f"axiom {axiom_id!r} references undefined identity {ref!r}")
         for signal in refs.get("signals", []):
-            if not _is_allowed_signal_reference(signal, allowed_signals):
+            if not _is_allowed_signal_reference(signal, allowed_signals, handoff):
                 errors.append(f"axiom {axiom_id!r} references unknown signal {signal!r}")
 
         scope_index = formal.get("scope_index")
@@ -616,6 +819,25 @@ def validate_candidate_grounding(
                     f"axiom {axiom_id!r} indexed_storage_flow uses unbound index variables: "
                     f"{sorted(unknown)}"
                 )
+        if formal.get("type") == "indexed_priority_select":
+            index = formal.get("index", {})
+            index_name = index.get("name") if isinstance(index, dict) else None
+            expressions = [formal.get("candidate")]
+            priority = formal.get("priority", {})
+            if isinstance(priority, dict):
+                expressions.append(priority.get("pivot"))
+            variables = {
+                variable
+                for expression in expressions
+                if isinstance(expression, dict)
+                for variable in expr_index_vars(expression)
+            }
+            unknown = variables - ({str(index_name)} if index_name else set())
+            if unknown:
+                errors.append(
+                    f"axiom {axiom_id!r} indexed_priority_select uses unbound index variables: "
+                    f"{sorted(unknown)}"
+                )
 
 
     unit = handoff.get("work_unit", {})
@@ -646,12 +868,12 @@ def validate_candidate_grounding(
         )
 
     return {
-        "validator": "deterministic-grounding-0.7",
+        "validator": "deterministic-grounding-0.8",
         "valid": not errors,
         "errors": errors,
         "warnings": warnings,
         "semantic_proof_performed": False,
-        "next_validator": "formal-axiom-compiler-0.9/semantic-validator-0.16 + formal-backend-api-0.15",
+        "next_validator": "formal-axiom-compiler-0.13/semantic-validator-0.23 + formal-backend-api-0.23",
     }
 
 

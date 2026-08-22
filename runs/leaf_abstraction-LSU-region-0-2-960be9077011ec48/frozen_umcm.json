@@ -1,0 +1,240 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [
+        "C1_CoreVisibleFPResponse"
+      ],
+      "evidence_statement_ids": [
+        6581
+      ],
+      "formal": {
+        "on": "FPResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "fresp[0].bits.data",
+          "op": "signal"
+        },
+        "target": "io.core.fresp[0].bits.data",
+        "type": "signal_equality"
+      },
+      "id": "A1",
+      "rendered_formula": "io.core.fresp[0].bits.data = fresp[0].bits.data on FPResponse",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_CoreVisibleFPResponse"
+      ],
+      "evidence_statement_ids": [
+        6581
+      ],
+      "formal": {
+        "on": "FPResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "fresp[0].bits.uop.rob_idx",
+          "op": "signal"
+        },
+        "target": "io.core.fresp[0].bits.uop.rob_idx",
+        "type": "signal_equality"
+      },
+      "id": "A2",
+      "rendered_formula": "io.core.fresp[0].bits.uop.rob_idx = fresp[0].bits.uop.rob_idx on FPResponse",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_CoreVisibleFPResponse"
+      ],
+      "evidence_statement_ids": [
+        6581
+      ],
+      "formal": {
+        "on": "FPResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "fresp[0].bits.uop.ldq_idx",
+          "op": "signal"
+        },
+        "target": "io.core.fresp[0].bits.uop.ldq_idx",
+        "type": "signal_equality"
+      },
+      "id": "A3",
+      "rendered_formula": "io.core.fresp[0].bits.uop.ldq_idx = fresp[0].bits.uop.ldq_idx on FPResponse",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_CoreVisibleFPResponse"
+      ],
+      "evidence_statement_ids": [
+        6581
+      ],
+      "formal": {
+        "on": "FPResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "fresp[0].bits.uop.stq_idx",
+          "op": "signal"
+        },
+        "target": "io.core.fresp[0].bits.uop.stq_idx",
+        "type": "signal_equality"
+      },
+      "id": "A4",
+      "rendered_formula": "io.core.fresp[0].bits.uop.stq_idx = fresp[0].bits.uop.stq_idx on FPResponse",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_CoreVisibleFPResponse"
+      ],
+      "evidence_statement_ids": [
+        6581
+      ],
+      "formal": {
+        "on": "FPResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "fresp[0].bits.uop.mem_cmd",
+          "op": "signal"
+        },
+        "target": "io.core.fresp[0].bits.uop.mem_cmd",
+        "type": "signal_equality"
+      },
+      "id": "A5",
+      "rendered_formula": "io.core.fresp[0].bits.uop.mem_cmd = fresp[0].bits.uop.mem_cmd on FPResponse",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_CoreVisibleFPResponse"
+      ],
+      "evidence_statement_ids": [
+        6581
+      ],
+      "formal": {
+        "on": "FPResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "fresp[0].bits.uop.mem_size",
+          "op": "signal"
+        },
+        "target": "io.core.fresp[0].bits.uop.mem_size",
+        "type": "signal_equality"
+      },
+      "id": "A6",
+      "rendered_formula": "io.core.fresp[0].bits.uop.mem_size = fresp[0].bits.uop.mem_size on FPResponse",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_CoreVisibleFPResponse"
+      ],
+      "evidence_statement_ids": [
+        6581
+      ],
+      "formal": {
+        "on": "FPResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "fresp[0].bits.uop.mem_signed",
+          "op": "signal"
+        },
+        "target": "io.core.fresp[0].bits.uop.mem_signed",
+        "type": "signal_equality"
+      },
+      "id": "A7",
+      "rendered_formula": "io.core.fresp[0].bits.uop.mem_signed = fresp[0].bits.uop.mem_signed on FPResponse",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_CoreVisibleFPResponse"
+      ],
+      "evidence_statement_ids": [
+        6581
+      ],
+      "formal": {
+        "on": "FPResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "fresp[0].bits.uop.br_mask",
+          "op": "signal"
+        },
+        "target": "io.core.fresp[0].bits.uop.br_mask",
+        "type": "signal_equality"
+      },
+      "id": "A8",
+      "rendered_formula": "io.core.fresp[0].bits.uop.br_mask = fresp[0].bits.uop.br_mask on FPResponse",
+      "status": "candidate"
+    }
+  ],
+  "cases": [
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        6581
+      ],
+      "guard_predicates": [],
+      "id": "C1_CoreVisibleFPResponse",
+      "relations": [
+        "The core-visible FP response carries the final internal fresp payload selected elsewhere in the LSU."
+      ],
+      "trigger_occurrences": [
+        "FPResponse"
+      ]
+    }
+  ],
+  "freeze": {
+    "candidate_axiom_count": 8,
+    "empty_abstraction": false,
+    "exported_axiom_count": 8,
+    "policy": "all-declared-axioms-trusted-and-no-unresolved-v0.1",
+    "private_axiom_count": 0,
+    "reopen_policy": "This summary may be reopened if later parent/system counterexample validation shows the abstraction is too weak and a missing concrete constraint must be synthesized.",
+    "status": "FROZEN_FOR_COMPOSITION",
+    "trusted_axiom_count": 8
+  },
+  "identity_keys": [],
+  "note": "Only axioms with FORMALLY_PROVED or SPEC_PROVED validation level are included. Grounded/structurally-supported candidate axioms remain outside the trusted abstraction.",
+  "occurrences": [
+    {
+      "definition": "io.core.fresp[0].valid; one floating-point LSU response is made visible to the core",
+      "evidence_statement_ids": [
+        6581
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.core.fresp[0].valid"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "FPResponse",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "LSU::io.core.fresp[0].valid"
+      ]
+    }
+  ],
+  "predicates": [],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-LSU-region-0-2-960be9077011ec48",
+  "trust_policy": "formal-ast-plus-certified-provenance-v0.3",
+  "trusted_axiom_ids": [
+    "A1",
+    "A2",
+    "A3",
+    "A4",
+    "A5",
+    "A6",
+    "A7",
+    "A8"
+  ],
+  "work_unit_id": "LSU::region-0-2"
+}

@@ -1,0 +1,1365 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        47,
+        2480,
+        2481,
+        2482
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.mshrs::MemAcquire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "MemAcquire"
+      },
+      "id": "A1",
+      "rendered_formula": "MemAcquire <=> exactly_one_same_cycle({BoomNonBlockingDCache.mshrs::MemAcquire})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        47,
+        2523,
+        2524,
+        2525
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.mshrs::MemFinish"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "MemFinish"
+      },
+      "id": "A2",
+      "rendered_formula": "MemFinish <=> exactly_one_same_cycle({BoomNonBlockingDCache.mshrs::MemFinish})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2804,
+        2805,
+        2806
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.mshrs::RespHandshake"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "LongLatencyResp"
+      },
+      "id": "A3",
+      "rendered_formula": "LongLatencyResp <=> exactly_one_same_cycle({BoomNonBlockingDCache.mshrs::RespHandshake})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2541,
+        2542,
+        2543
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.lsu_release_arb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "LSURelease"
+      },
+      "id": "A4",
+      "rendered_formula": "LSURelease <=> exactly_one_same_cycle({BoomNonBlockingDCache.lsu_release_arb::OutputFire})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2544
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.wb::LSURelease"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomNonBlockingDCache.lsu_release_arb::Input0Fire"
+      },
+      "id": "A5",
+      "rendered_formula": "BoomNonBlockingDCache.lsu_release_arb::Input0Fire <=> exactly_one_same_cycle({BoomNonBlockingDCache.wb::LSURelease})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2545
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.prober::LSURelease"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomNonBlockingDCache.lsu_release_arb::Input1Fire"
+      },
+      "id": "A6",
+      "rendered_formula": "BoomNonBlockingDCache.lsu_release_arb::Input1Fire <=> exactly_one_same_cycle({BoomNonBlockingDCache.prober::LSURelease})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2531
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.wbArb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomNonBlockingDCache.wb::WritebackReq"
+      },
+      "id": "A7",
+      "rendered_formula": "BoomNonBlockingDCache.wb::WritebackReq <=> exactly_one_same_cycle({BoomNonBlockingDCache.wbArb::OutputFire})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2529
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.prober::WBReq"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomNonBlockingDCache.wbArb::Input0Fire"
+      },
+      "id": "A8",
+      "rendered_formula": "BoomNonBlockingDCache.wbArb::Input0Fire <=> exactly_one_same_cycle({BoomNonBlockingDCache.prober::WBReq})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2530
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.mshrs::WBReq"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomNonBlockingDCache.wbArb::Input1Fire"
+      },
+      "id": "A9",
+      "rendered_formula": "BoomNonBlockingDCache.wbArb::Input1Fire <=> exactly_one_same_cycle({BoomNonBlockingDCache.mshrs::WBReq})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        221,
+        222,
+        233
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.metaWriteArb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomNonBlockingDCache.meta_0::MetadataWrite"
+      },
+      "id": "A10",
+      "rendered_formula": "BoomNonBlockingDCache.meta_0::MetadataWrite <=> exactly_one_same_cycle({BoomNonBlockingDCache.metaWriteArb::OutputFire})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2522
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.mshrs::MetaWrite"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomNonBlockingDCache.metaWriteArb::Input0Fire"
+      },
+      "id": "A11",
+      "rendered_formula": "BoomNonBlockingDCache.metaWriteArb::Input0Fire <=> exactly_one_same_cycle({BoomNonBlockingDCache.mshrs::MetaWrite})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2499
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.prober::MetaWrite"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomNonBlockingDCache.metaWriteArb::Input1Fire"
+      },
+      "id": "A12",
+      "rendered_formula": "BoomNonBlockingDCache.metaWriteArb::Input1Fire <=> exactly_one_same_cycle({BoomNonBlockingDCache.prober::MetaWrite})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        228,
+        232
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.metaReadArb::OutputFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomNonBlockingDCache.meta_0::ReadRequest"
+      },
+      "id": "A13",
+      "rendered_formula": "BoomNonBlockingDCache.meta_0::ReadRequest <=> exactly_one_same_cycle({BoomNonBlockingDCache.metaReadArb::OutputFire})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        661,
+        665
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.mshrs::MetaRead"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomNonBlockingDCache.metaReadArb::Input3Fire"
+      },
+      "id": "A14",
+      "rendered_formula": "BoomNonBlockingDCache.metaReadArb::Input3Fire <=> exactly_one_same_cycle({BoomNonBlockingDCache.mshrs::MetaRead})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        1168,
+        1172
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.prober::MetaRead"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomNonBlockingDCache.metaReadArb::Input1Fire"
+      },
+      "id": "A15",
+      "rendered_formula": "BoomNonBlockingDCache.metaReadArb::Input1Fire <=> exactly_one_same_cycle({BoomNonBlockingDCache.prober::MetaRead})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2477
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.mshrs::RequestAccept"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomNonBlockingDCache::region-0-3::MSHRReqFire"
+      },
+      "id": "A16",
+      "rendered_formula": "BoomNonBlockingDCache::region-0-3::MSHRReqFire <=> exactly_one_same_cycle({BoomNonBlockingDCache.mshrs::RequestAccept})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        2521
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache.mshrs::Refill"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "BoomNonBlockingDCache.dataWriteArb::Input1Fire"
+      },
+      "id": "A17",
+      "rendered_formula": "BoomNonBlockingDCache.dataWriteArb::Input1Fire <=> exactly_one_same_cycle({BoomNonBlockingDCache.mshrs::Refill})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        47,
+        2483,
+        2484,
+        2485
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache::region-0-0::ProbeFire"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "ProbeFire"
+      },
+      "id": "A18",
+      "rendered_formula": "ProbeFire <=> exactly_one_same_cycle({BoomNonBlockingDCache::region-0-0::ProbeFire})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        3
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache::region-0-3::StoreAckValid"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "StoreAckValid"
+      },
+      "id": "A19",
+      "rendered_formula": "StoreAckValid <=> exactly_one_same_cycle({BoomNonBlockingDCache::region-0-3::StoreAckValid})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        3,
+        1767
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache::region-0-3::HitStoreAck"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "HitStoreAck"
+      },
+      "id": "A20",
+      "rendered_formula": "HitStoreAck <=> exactly_one_same_cycle({BoomNonBlockingDCache::region-0-3::HitStoreAck})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        3,
+        1767,
+        2477
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache::region-0-3::MissAllocatedStoreAck"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "MissAllocatedStoreAck"
+      },
+      "id": "A21",
+      "rendered_formula": "MissAllocatedStoreAck <=> exactly_one_same_cycle({BoomNonBlockingDCache::region-0-3::MissAllocatedStoreAck})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        3,
+        1296
+      ],
+      "formal": {
+        "parts": [
+          "BoomNonBlockingDCache::region-0-4::RequestAccept"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "RequestAccept"
+      },
+      "id": "A22",
+      "rendered_formula": "RequestAccept <=> exactly_one_same_cycle({BoomNonBlockingDCache::region-0-4::RequestAccept})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        1795,
+        1796,
+        2483,
+        2484,
+        2485
+      ],
+      "formal": {
+        "occurrence": "ProbeFire",
+        "predicate": "LRSCValid",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A23",
+      "rendered_formula": "LRSCValid => !ProbeFire",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        47,
+        2534,
+        2535,
+        2536,
+        2537
+      ],
+      "formal": {
+        "parts": [
+          "ReleaseAck",
+          "MemGrant"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "DBeat"
+      },
+      "id": "A28",
+      "rendered_formula": "DBeat <=> exactly_one_same_cycle({ReleaseAck, MemGrant})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        3,
+        1767,
+        2477
+      ],
+      "formal": {
+        "parts": [
+          "HitStoreAck",
+          "MissAllocatedStoreAck"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "StoreAckValid"
+      },
+      "id": "A29",
+      "rendered_formula": "StoreAckValid <=> exactly_one_same_cycle({HitStoreAck, MissAllocatedStoreAck})",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        1296,
+        2805
+      ],
+      "formal": {
+        "occurrence": "RequestAccept",
+        "predicate": "LongLatencyRespPending",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A30",
+      "rendered_formula": "LongLatencyRespPending => !RequestAccept",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        1465
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "io.lsu.s1_nack_advisory[0]",
+            "op": "signal"
+          }
+        },
+        "on": null,
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "id": "A31",
+      "rendered_formula": "bits(io.lsu.s1_nack_advisory[0], 0, 0) == 0",
+      "status": "candidate"
+    }
+  ],
+  "cases": [],
+  "identity_keys": [],
+  "note": "Only axioms with FORMALLY_PROVED or SPEC_PROVED validation level are included. Grounded/structurally-supported candidate axioms remain outside the trusted abstraction.",
+  "occurrences": [
+    {
+      "definition": "auto.out.a.valid && auto.out.a.ready; one accepted outgoing TileLink A-channel acquire/request",
+      "evidence_statement_ids": [
+        47,
+        2480,
+        2481,
+        2482
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "auto.out.a.valid",
+          "auto.out.a.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "MemAcquire",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::auto.out.a.fire"
+      ]
+    },
+    {
+      "definition": "auto.out.b.valid && auto.out.b.ready; one accepted incoming TileLink B probe",
+      "evidence_statement_ids": [
+        47,
+        2483,
+        2484,
+        2485
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "auto.out.b.valid",
+          "auto.out.b.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "ProbeFire",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::auto.out.b.fire"
+      ]
+    },
+    {
+      "definition": "auto.out.c.valid && auto.out.c.ready; one accepted outgoing TileLink C beat",
+      "evidence_statement_ids": [
+        47,
+        2687
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "auto.out.c.valid",
+          "auto.out.c.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "CBeat",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::auto.out.c.fire"
+      ]
+    },
+    {
+      "definition": "auto.out.d.valid && auto.out.d.ready; one accepted incoming TileLink D beat",
+      "evidence_statement_ids": [
+        47,
+        2534
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "auto.out.d.valid",
+          "auto.out.d.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "DBeat",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::auto.out.d.fire"
+      ]
+    },
+    {
+      "definition": "auto.out.e.valid && auto.out.e.ready; one accepted outgoing TileLink E-channel finish",
+      "evidence_statement_ids": [
+        47,
+        2523,
+        2524,
+        2525
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "auto.out.e.valid",
+          "auto.out.e.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "MemFinish",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::auto.out.e.fire"
+      ]
+    },
+    {
+      "definition": "io.lsu.ll_resp.valid && io.lsu.ll_resp.ready; one accepted long-latency LSU response",
+      "evidence_statement_ids": [
+        2804,
+        2805,
+        2806
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.lsu.ll_resp.valid",
+          "io.lsu.ll_resp.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "LongLatencyResp",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::io.lsu.ll_resp.fire"
+      ]
+    },
+    {
+      "definition": "io.lsu.nack[0].valid; an LSU request is reported as nacked",
+      "evidence_statement_ids": [
+        3
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.lsu.nack[0].valid"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "NackValid",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::io.lsu.nack[0].valid"
+      ]
+    },
+    {
+      "definition": "io.lsu.release.valid && io.lsu.release.ready; one LSU-visible release message is accepted",
+      "evidence_statement_ids": [
+        2541,
+        2542,
+        2543
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.lsu.release.valid",
+          "io.lsu.release.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "LSURelease",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::io.lsu.release.fire"
+      ]
+    },
+    {
+      "definition": "io.lsu.req.valid && io.lsu.req.ready; one LSU request is accepted by the DCache",
+      "evidence_statement_ids": [
+        3,
+        1296
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.lsu.req.valid",
+          "io.lsu.req.ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "RequestAccept",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::io.lsu.req.fire"
+      ]
+    },
+    {
+      "definition": "io.lsu.resp[0].valid; one direct LSU response is produced",
+      "evidence_statement_ids": [
+        3
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.lsu.resp[0].valid"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "RespValid",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::io.lsu.resp[0].valid"
+      ]
+    },
+    {
+      "definition": "io.lsu.store_ack[0].valid; one LSU store acknowledgement is produced",
+      "evidence_statement_ids": [
+        3
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.lsu.store_ack[0].valid"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "StoreAckValid",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "BoomNonBlockingDCache::io.lsu.store_ack[0].valid"
+      ]
+    },
+    {
+      "definition": "DBeat with auto.out.d.bits.source != 2; accepted D traffic routed toward the miss machinery",
+      "evidence_statement_ids": [
+        47,
+        2534,
+        2535
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "auto.out.d.valid",
+          "auto.out.d.ready"
+        ],
+        "state_register": null,
+        "state_values": [],
+        "value_tests": [
+          {
+            "expr": {
+              "name": "auto.out.d.bits.source",
+              "op": "signal"
+            },
+            "relation": "neq",
+            "value": 2
+          }
+        ]
+      },
+      "id": "MemGrant",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "DBeat with auto.out.d.bits.source == 2; accepted D traffic used as the writeback ReleaseAck path",
+      "evidence_statement_ids": [
+        47,
+        2534,
+        2535,
+        2536,
+        2537
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "auto.out.d.valid",
+          "auto.out.d.ready"
+        ],
+        "state_register": null,
+        "state_values": [],
+        "value_tests": [
+          {
+            "expr": {
+              "name": "auto.out.d.bits.source",
+              "op": "signal"
+            },
+            "relation": "eq",
+            "value": 2
+          }
+        ]
+      },
+      "id": "ReleaseAck",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "StoreAckValid && s2_hit[0]; store acknowledgement produced on the cache-hit path",
+      "evidence_statement_ids": [
+        3,
+        1767
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.lsu.store_ack[0].valid",
+          "s2_hit[0]"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "HitStoreAck",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "StoreAckValid && !s2_hit[0] && mshrs.io.req[0].valid && mshrs.io.req[0].ready; store miss acknowledged when admitted to the miss machinery",
+      "evidence_statement_ids": [
+        3,
+        1767,
+        2477
+      ],
+      "grounding": {
+        "signals_false": [
+          "s2_hit[0]"
+        ],
+        "signals_true": [
+          "io.lsu.store_ack[0].valid",
+          "mshrs.io.req[0].valid",
+          "mshrs.io.req[0].ready"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "MissAllocatedStoreAck",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    }
+  ],
+  "predicates": [
+    {
+      "definition": "the DCache LR/SC reservation-valid condition is asserted (lrsc_count > 3)",
+      "evidence_statement_ids": [
+        1795,
+        1796
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "lrsc_valid",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "LRSCValid"
+    },
+    {
+      "definition": "a long-latency MSHR response is currently valid at the LSU interface",
+      "evidence_statement_ids": [
+        2805
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "io.lsu.ll_resp.valid",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "LongLatencyRespPending"
+    },
+    {
+      "definition": "the DCache reports ordered: MSHRs are fence-ready and neither s1 nor s2 contains a valid local request",
+      "evidence_statement_ids": [
+        2919,
+        2920,
+        2921,
+        2922,
+        2923
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "io.lsu.ordered",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "Ordered"
+    }
+  ],
+  "provenance": {
+    "A1": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A10": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A11": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A12": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A13": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A14": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A15": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A16": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A17": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A18": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A19": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A2": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A20": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A21": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A22": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A23": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "lifted",
+      "proof_method": "trusted-child-lift",
+      "source_axioms": [
+        "BoomNonBlockingDCache::region-0-0::A1"
+      ]
+    },
+    "A28": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A29": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "emergent",
+      "proof_method": "trusted-occurrence-partition-substitution",
+      "source_axioms": [
+        "BoomNonBlockingDCache::region-0-3::A9"
+      ]
+    },
+    "A3": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A30": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "lifted",
+      "proof_method": "trusted-child-lift",
+      "source_axioms": [
+        "BoomNonBlockingDCache::region-0-4::A1"
+      ]
+    },
+    "A31": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "lifted",
+      "proof_method": "trusted-child-value-lift",
+      "source_axioms": [
+        "BoomNonBlockingDCache.data::A5"
+      ]
+    },
+    "A4": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A5": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A6": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A7": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A8": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    },
+    "A9": {
+      "derivation": "formal-certificate-v0.1",
+      "kind": "parent_local",
+      "proof_method": "exact-parent-child-occurrence-partition",
+      "source_axioms": []
+    }
+  },
+  "public_interface": {
+    "all_exported_axioms_trusted": true,
+    "boundary_coverage": [
+      {
+        "axiom_ids": [],
+        "note": "Export the memory-acquire handshake; its exact bridge to the MSHR hierarchy is private A1.",
+        "occurrence_ids": [
+          "MemAcquire"
+        ],
+        "physical_event_id": "BoomNonBlockingDCache::auto.out.a.fire",
+        "status": "event_only"
+      },
+      {
+        "axiom_ids": [
+          "A23"
+        ],
+        "note": "Incoming probes are publicly constrained by the LR/SC reservation exclusion.",
+        "occurrence_ids": [
+          "ProbeFire"
+        ],
+        "physical_event_id": "BoomNonBlockingDCache::auto.out.b.fire",
+        "status": "constrained"
+      },
+      {
+        "axiom_ids": [],
+        "note": "Export the accepted C-channel beat. Stateful source selection and continuation locking remain trusted in frozen child region-0-1 and are not reconstructed from hidden child RTL at this parent.",
+        "occurrence_ids": [
+          "CBeat"
+        ],
+        "physical_event_id": "BoomNonBlockingDCache::auto.out.c.fire",
+        "status": "event_only"
+      },
+      {
+        "axiom_ids": [
+          "A28"
+        ],
+        "note": "Expose the exact source-based D-channel split between ReleaseAck and miss-machinery grant traffic.",
+        "occurrence_ids": [
+          "DBeat"
+        ],
+        "physical_event_id": "BoomNonBlockingDCache::auto.out.d.fire",
+        "status": "constrained"
+      },
+      {
+        "axiom_ids": [],
+        "note": "Export the finish handshake; its exact MSHR bridge is private A2.",
+        "occurrence_ids": [
+          "MemFinish"
+        ],
+        "physical_event_id": "BoomNonBlockingDCache::auto.out.e.fire",
+        "status": "event_only"
+      },
+      {
+        "axiom_ids": [],
+        "note": "The parent RTL invalidates/DontCares this error output, so no grounded memory/coherence guarantee is available.",
+        "occurrence_ids": [],
+        "physical_event_id": "BoomNonBlockingDCache::io.errors.bus.valid",
+        "status": "intentionally_omitted"
+      },
+      {
+        "axiom_ids": [],
+        "note": "Export the accepted long-latency response; exact MSHR response wiring is private A3.",
+        "occurrence_ids": [
+          "LongLatencyResp"
+        ],
+        "physical_event_id": "BoomNonBlockingDCache::io.lsu.ll_resp.fire",
+        "status": "event_only"
+      },
+      {
+        "axiom_ids": [],
+        "note": "Export the LSU nack observation; detailed stage-2 nack conditions remain in the frozen child contract.",
+        "occurrence_ids": [
+          "NackValid"
+        ],
+        "physical_event_id": "BoomNonBlockingDCache::io.lsu.nack[0].valid",
+        "status": "event_only"
+      },
+      {
+        "axiom_ids": [],
+        "note": "Export the LSU-visible release; private A4-A6 preserve routing from writeback/probe sources.",
+        "occurrence_ids": [
+          "LSURelease"
+        ],
+        "physical_event_id": "BoomNonBlockingDCache::io.lsu.release.fire",
+        "status": "event_only"
+      },
+      {
+        "axiom_ids": [],
+        "note": "This is only per-lane request offer validity, not request acceptance; RequestAccept is the semantic admission event.",
+        "occurrence_ids": [],
+        "physical_event_id": "BoomNonBlockingDCache::io.lsu.req.bits[0].valid",
+        "status": "intentionally_omitted"
+      },
+      {
+        "axiom_ids": [
+          "A30"
+        ],
+        "note": "A pending long-latency response blocks acceptance of a new LSU request.",
+        "occurrence_ids": [
+          "RequestAccept"
+        ],
+        "physical_event_id": "BoomNonBlockingDCache::io.lsu.req.fire",
+        "status": "constrained"
+      },
+      {
+        "axiom_ids": [],
+        "note": "Export the direct LSU response observation; detailed hit/forwarding semantics remain in the frozen region contract.",
+        "occurrence_ids": [
+          "RespValid"
+        ],
+        "physical_event_id": "BoomNonBlockingDCache::io.lsu.resp[0].valid",
+        "status": "event_only"
+      },
+      {
+        "axiom_ids": [
+          "A29"
+        ],
+        "note": "Expose that a store ack is either a hit ack or a miss ack coincident with MSHR admission, not necessarily memory completion.",
+        "occurrence_ids": [
+          "StoreAckValid"
+        ],
+        "physical_event_id": "BoomNonBlockingDCache::io.lsu.store_ack[0].valid",
+        "status": "constrained"
+      }
+    ],
+    "exported_axiom_ids": [
+      "A23",
+      "A28",
+      "A29",
+      "A30",
+      "A31"
+    ],
+    "exported_identity_ids": [],
+    "exported_occurrence_ids": [
+      "BoomNonBlockingDCache.dataWriteArb::Input1Fire",
+      "BoomNonBlockingDCache.lsu_release_arb::Input0Fire",
+      "BoomNonBlockingDCache.lsu_release_arb::Input1Fire",
+      "BoomNonBlockingDCache.lsu_release_arb::OutputFire",
+      "BoomNonBlockingDCache.metaReadArb::Input1Fire",
+      "BoomNonBlockingDCache.metaReadArb::Input3Fire",
+      "BoomNonBlockingDCache.metaReadArb::OutputFire",
+      "BoomNonBlockingDCache.metaWriteArb::Input0Fire",
+      "BoomNonBlockingDCache.metaWriteArb::Input1Fire",
+      "BoomNonBlockingDCache.metaWriteArb::OutputFire",
+      "BoomNonBlockingDCache.meta_0::MetadataWrite",
+      "BoomNonBlockingDCache.meta_0::ReadRequest",
+      "BoomNonBlockingDCache.mshrs::MemAcquire",
+      "BoomNonBlockingDCache.mshrs::MemFinish",
+      "BoomNonBlockingDCache.mshrs::MetaRead",
+      "BoomNonBlockingDCache.mshrs::MetaWrite",
+      "BoomNonBlockingDCache.mshrs::Refill",
+      "BoomNonBlockingDCache.mshrs::RequestAccept",
+      "BoomNonBlockingDCache.mshrs::RespHandshake",
+      "BoomNonBlockingDCache.mshrs::WBReq",
+      "BoomNonBlockingDCache.prober::LSURelease",
+      "BoomNonBlockingDCache.prober::MetaRead",
+      "BoomNonBlockingDCache.prober::MetaWrite",
+      "BoomNonBlockingDCache.prober::WBReq",
+      "BoomNonBlockingDCache.wb::LSURelease",
+      "BoomNonBlockingDCache.wb::WritebackReq",
+      "BoomNonBlockingDCache.wbArb::Input0Fire",
+      "BoomNonBlockingDCache.wbArb::Input1Fire",
+      "BoomNonBlockingDCache.wbArb::OutputFire",
+      "BoomNonBlockingDCache::region-0-0::ProbeFire",
+      "BoomNonBlockingDCache::region-0-3::HitStoreAck",
+      "BoomNonBlockingDCache::region-0-3::MSHRReqFire",
+      "BoomNonBlockingDCache::region-0-3::MissAllocatedStoreAck",
+      "BoomNonBlockingDCache::region-0-3::StoreAckValid",
+      "BoomNonBlockingDCache::region-0-4::RequestAccept",
+      "CBeat",
+      "DBeat",
+      "HitStoreAck",
+      "LSURelease",
+      "LongLatencyResp",
+      "MemAcquire",
+      "MemFinish",
+      "MemGrant",
+      "MissAllocatedStoreAck",
+      "NackValid",
+      "ProbeFire",
+      "ReleaseAck",
+      "RequestAccept",
+      "RespValid",
+      "StoreAckValid"
+    ],
+    "exported_predicate_ids": [
+      "LRSCValid",
+      "LongLatencyRespPending",
+      "Ordered"
+    ],
+    "policy": "explicit-public-contract-v0.1",
+    "private_axiom_ids": [
+      "A1",
+      "A10",
+      "A11",
+      "A12",
+      "A13",
+      "A14",
+      "A15",
+      "A16",
+      "A17",
+      "A18",
+      "A19",
+      "A2",
+      "A20",
+      "A21",
+      "A22",
+      "A3",
+      "A4",
+      "A5",
+      "A6",
+      "A7",
+      "A8",
+      "A9"
+    ]
+  },
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "parent_synthesis-BoomNonBlockingDCache-2688416596b82ea2",
+  "trust_policy": "formal-ast-plus-certified-provenance-v0.3",
+  "trusted_axiom_ids": [
+    "A1",
+    "A10",
+    "A11",
+    "A12",
+    "A13",
+    "A14",
+    "A15",
+    "A16",
+    "A17",
+    "A18",
+    "A19",
+    "A2",
+    "A20",
+    "A21",
+    "A22",
+    "A23",
+    "A28",
+    "A29",
+    "A3",
+    "A30",
+    "A31",
+    "A4",
+    "A5",
+    "A6",
+    "A7",
+    "A8",
+    "A9"
+  ],
+  "work_unit_id": "BoomNonBlockingDCache"
+}

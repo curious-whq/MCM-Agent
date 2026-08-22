@@ -1,0 +1,693 @@
+{
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-LSU-state-0-8-75c1d44ef5da10a6",
+  "work_unit_id": "LSU::state-0-8",
+  "occurrences": [
+    {
+      "id": "StoreSearch",
+      "kind": "derived",
+      "physical_event_ids": [],
+      "definition": "do_st_search[0]; a store address-dependence search is performed after a fired store address-generation or retry path with no TLB miss",
+      "multiplicity": "repeatable",
+      "index": null,
+      "grounding": {
+        "state_register": null,
+        "state_values": [],
+        "signals_true": [
+          "do_st_search[0]"
+        ],
+        "signals_false": []
+      },
+      "evidence_statement_ids": [
+        3465,
+        3466,
+        3467,
+        3469
+      ]
+    },
+    {
+      "id": "LoadSearch",
+      "kind": "derived",
+      "physical_event_ids": [],
+      "definition": "do_ld_search[0]; a load performs the LSU load/store dependence search",
+      "multiplicity": "repeatable",
+      "index": null,
+      "grounding": {
+        "state_register": null,
+        "state_values": [],
+        "signals_true": [
+          "do_ld_search[0]"
+        ],
+        "signals_false": []
+      },
+      "evidence_statement_ids": [
+        3470,
+        3471,
+        3472,
+        3473,
+        3474,
+        3476
+      ]
+    },
+    {
+      "id": "LoadSearchPass",
+      "kind": "derived",
+      "physical_event_ids": [],
+      "definition": "do_ld_search[0] && can_forward[0] && !kill_forward[0]; the load/store dependence search is permitted to enter the subsequent forwarding/writeback path",
+      "multiplicity": "repeatable",
+      "index": null,
+      "grounding": {
+        "state_register": null,
+        "state_values": [],
+        "signals_true": [
+          "do_ld_search[0]",
+          "can_forward[0]"
+        ],
+        "signals_false": [
+          "kill_forward[0]"
+        ]
+      },
+      "evidence_statement_ids": [
+        3774,
+        3775,
+        3776,
+        3777,
+        3778,
+        3780,
+        3782,
+        3784,
+        5999,
+        6000,
+        6001,
+        6003
+      ]
+    },
+    {
+      "id": "LoadSearchNonForwardable",
+      "kind": "derived",
+      "physical_event_ids": [],
+      "definition": "do_ld_search[0] && !can_forward[0]; the load participates in dependence search but store-to-load forwarding is disallowed by the cacheability/source rule",
+      "multiplicity": "repeatable",
+      "index": null,
+      "grounding": {
+        "state_register": null,
+        "state_values": [],
+        "signals_true": [
+          "do_ld_search[0]"
+        ],
+        "signals_false": [
+          "can_forward[0]"
+        ]
+      },
+      "evidence_statement_ids": [
+        3470,
+        3471,
+        3472,
+        3473,
+        3474,
+        3476,
+        3774,
+        3775,
+        3776,
+        3777,
+        3778,
+        3780
+      ]
+    },
+    {
+      "id": "LoadSearchConflictBlocked",
+      "kind": "derived",
+      "physical_event_ids": [],
+      "definition": "do_ld_search[0] && can_forward[0] && kill_forward[0]; the load is otherwise forwardable but dependence/order checking suppresses the forwarding/writeback path",
+      "multiplicity": "repeatable",
+      "index": null,
+      "grounding": {
+        "state_register": null,
+        "state_values": [],
+        "signals_true": [
+          "do_ld_search[0]",
+          "can_forward[0]",
+          "kill_forward[0]"
+        ],
+        "signals_false": []
+      },
+      "evidence_statement_ids": [
+        3780,
+        3782,
+        3784,
+        3985,
+        4131,
+        4277,
+        4423,
+        4569,
+        4715,
+        4861,
+        5007,
+        5087,
+        5966,
+        5999,
+        6000,
+        6001,
+        6003
+      ]
+    }
+  ],
+  "predicates": [
+    {
+      "id": "ForwardingKilled",
+      "definition": "kill_forward[0] is asserted by LSU dependence/order checking",
+      "grounding": {
+        "source_signal": "kill_forward[0]",
+        "negated": false,
+        "state_register": null,
+        "state_values": []
+      },
+      "evidence_statement_ids": [
+        3782,
+        3784,
+        3985,
+        4131,
+        4277,
+        4423,
+        4569,
+        4715,
+        4861,
+        5007,
+        5087,
+        5966
+      ]
+    },
+    {
+      "id": "ForwardingDisallowed",
+      "definition": "!can_forward[0]; the selected load path is not eligible for store-to-load forwarding",
+      "grounding": {
+        "source_signal": "can_forward[0]",
+        "negated": true,
+        "state_register": null,
+        "state_values": []
+      },
+      "evidence_statement_ids": [
+        3774,
+        3775,
+        3776,
+        3777,
+        3778,
+        3780
+      ]
+    },
+    {
+      "id": "HasOlderAMOOrFence",
+      "definition": "has_older_amo; at least one STQ entry older than the searched load contains an AMO or fence",
+      "grounding": {
+        "source_signal": "has_older_amo",
+        "negated": false,
+        "state_register": null,
+        "state_values": []
+      },
+      "evidence_statement_ids": [
+        5918,
+        5919,
+        5920,
+        5921,
+        5922,
+        5923,
+        5924,
+        5925,
+        5927,
+        5928,
+        5929,
+        5930,
+        5931,
+        5932,
+        5933,
+        5934,
+        5935,
+        5936,
+        5937,
+        5938,
+        5939,
+        5940,
+        5941,
+        5942,
+        5943,
+        5944,
+        5945,
+        5946,
+        5947,
+        5948,
+        5949,
+        5950
+      ]
+    },
+    {
+      "id": "HasOlderMatchingStore",
+      "definition": "_T_865; at least one valid older non-AMO STQ entry overlaps the searched load in address and byte mask",
+      "grounding": {
+        "source_signal": "_T_865",
+        "negated": false,
+        "state_register": null,
+        "state_values": []
+      },
+      "evidence_statement_ids": [
+        5247,
+        5248,
+        5249,
+        5250,
+        5251,
+        5252,
+        5253,
+        5254,
+        5255,
+        5256,
+        5257,
+        5258,
+        5294,
+        5296,
+        5297,
+        5298,
+        5299,
+        5300,
+        5301,
+        5302,
+        5303,
+        5304,
+        5305,
+        5880,
+        5881,
+        5882,
+        5951
+      ]
+    },
+    {
+      "id": "NackOrderingConflict",
+      "definition": "_T_681; the current load search overlaps a nacked load at the same doubleword/byte range with the grounded circular-age relation that requires suppressing forwarding",
+      "grounding": {
+        "source_signal": "_T_681",
+        "negated": false,
+        "state_register": null,
+        "state_values": []
+      },
+      "evidence_statement_ids": [
+        5008,
+        5009,
+        5010,
+        5012,
+        5013,
+        5014,
+        5015,
+        5016,
+        5017,
+        5018,
+        5019,
+        5020,
+        5021,
+        5022,
+        5023,
+        5024,
+        5025,
+        5026,
+        5027,
+        5028,
+        5029,
+        5030,
+        5031,
+        5032,
+        5033,
+        5034,
+        5035,
+        5036,
+        5037,
+        5038,
+        5039,
+        5040,
+        5041,
+        5042,
+        5043,
+        5044,
+        5046,
+        5048,
+        5050,
+        5051,
+        5052,
+        5053,
+        5054,
+        5055,
+        5056,
+        5057,
+        5059,
+        5060,
+        5062,
+        5064,
+        5065,
+        5066,
+        5067,
+        5068,
+        5069,
+        5070,
+        5071,
+        5073,
+        5074,
+        5075,
+        5076,
+        5087
+      ]
+    }
+  ],
+  "identity_keys": [],
+  "cases": [
+    {
+      "id": "C1_StoreSearch",
+      "trigger_occurrences": [
+        "StoreSearch"
+      ],
+      "guard_predicates": [],
+      "emits": [],
+      "relations": [
+        "A fired store address-generation or store-retry operation performs a store search only after its TLB translation is not a miss."
+      ],
+      "evidence_statement_ids": [
+        3465,
+        3466,
+        3467,
+        3469
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "C2_LoadSearchPass",
+      "trigger_occurrences": [
+        "LoadSearchPass"
+      ],
+      "guard_predicates": [
+        {
+          "id": "ForwardingDisallowed",
+          "positive": false
+        },
+        {
+          "id": "ForwardingKilled",
+          "positive": false
+        }
+      ],
+      "emits": [],
+      "relations": [
+        "The load has completed the local dependence-search gate without an ordering/forwarding kill and is eligible to enter the subsequent forwarding/writeback path."
+      ],
+      "evidence_statement_ids": [
+        3774,
+        3775,
+        3776,
+        3777,
+        3778,
+        3780,
+        5999,
+        6000,
+        6001,
+        6003
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "C3_LoadSearchNonForwardable",
+      "trigger_occurrences": [
+        "LoadSearchNonForwardable"
+      ],
+      "guard_predicates": [
+        {
+          "id": "ForwardingDisallowed",
+          "positive": true
+        }
+      ],
+      "emits": [],
+      "relations": [
+        "The load is excluded from this store-to-load forwarding path because can_forward is false."
+      ],
+      "evidence_statement_ids": [
+        3774,
+        3775,
+        3776,
+        3777,
+        3778,
+        3780
+      ],
+      "confidence": "high"
+    },
+    {
+      "id": "C4_LoadSearchConflictBlocked",
+      "trigger_occurrences": [
+        "LoadSearchConflictBlocked"
+      ],
+      "guard_predicates": [
+        {
+          "id": "ForwardingKilled",
+          "positive": true
+        }
+      ],
+      "emits": [],
+      "relations": [
+        "The load is otherwise eligible for forwarding but an LSU dependence/order condition asserts kill_forward."
+      ],
+      "evidence_statement_ids": [
+        3985,
+        4131,
+        4277,
+        4423,
+        4569,
+        4715,
+        4861,
+        5007,
+        5087,
+        5966,
+        5999,
+        6000,
+        6001,
+        6003
+      ],
+      "confidence": "high"
+    }
+  ],
+  "axioms": [
+    {
+      "id": "A1",
+      "formal": {
+        "type": "occurrence_partition",
+        "whole": "LoadSearch",
+        "parts": [
+          "LoadSearchPass",
+          "LoadSearchNonForwardable",
+          "LoadSearchConflictBlocked"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null
+      },
+      "derived_from_case_ids": [
+        "C2_LoadSearchPass",
+        "C3_LoadSearchNonForwardable",
+        "C4_LoadSearchConflictBlocked"
+      ],
+      "evidence_statement_ids": [
+        3470,
+        3471,
+        3472,
+        3473,
+        3474,
+        3476,
+        3774,
+        3775,
+        3776,
+        3777,
+        3778,
+        3780,
+        3782,
+        3784,
+        5999,
+        6000,
+        6001,
+        6003
+      ],
+      "status": "candidate"
+    },
+    {
+      "id": "A2",
+      "formal": {
+        "type": "forbid_when",
+        "occurrence": "LoadSearchPass",
+        "predicate": "ForwardingKilled",
+        "scope_identity": null
+      },
+      "derived_from_case_ids": [
+        "C2_LoadSearchPass",
+        "C4_LoadSearchConflictBlocked"
+      ],
+      "evidence_statement_ids": [
+        5999,
+        6000,
+        6001,
+        6003
+      ],
+      "status": "candidate"
+    },
+    {
+      "id": "A3",
+      "formal": {
+        "type": "forbid_when",
+        "occurrence": "LoadSearchPass",
+        "predicate": "ForwardingDisallowed",
+        "scope_identity": null
+      },
+      "derived_from_case_ids": [
+        "C2_LoadSearchPass",
+        "C3_LoadSearchNonForwardable"
+      ],
+      "evidence_statement_ids": [
+        3774,
+        3775,
+        3776,
+        3777,
+        3778,
+        3780,
+        5999,
+        6000,
+        6001,
+        6003
+      ],
+      "status": "candidate"
+    },
+    {
+      "id": "A4",
+      "formal": {
+        "type": "forbid_when",
+        "occurrence": "LoadSearchPass",
+        "predicate": "HasOlderAMOOrFence",
+        "scope_identity": null
+      },
+      "derived_from_case_ids": [
+        "C2_LoadSearchPass",
+        "C4_LoadSearchConflictBlocked"
+      ],
+      "evidence_statement_ids": [
+        5918,
+        5919,
+        5920,
+        5921,
+        5922,
+        5923,
+        5924,
+        5925,
+        5927,
+        5928,
+        5929,
+        5930,
+        5931,
+        5932,
+        5933,
+        5934,
+        5935,
+        5936,
+        5937,
+        5938,
+        5939,
+        5940,
+        5941,
+        5942,
+        5943,
+        5944,
+        5945,
+        5946,
+        5947,
+        5948,
+        5949,
+        5950,
+        5965,
+        5966,
+        5999,
+        6000,
+        6001,
+        6003
+      ],
+      "status": "candidate"
+    },
+    {
+      "id": "A5",
+      "formal": {
+        "type": "forbid_when",
+        "occurrence": "LoadSearchPass",
+        "predicate": "NackOrderingConflict",
+        "scope_identity": null
+      },
+      "derived_from_case_ids": [
+        "C2_LoadSearchPass",
+        "C4_LoadSearchConflictBlocked"
+      ],
+      "evidence_statement_ids": [
+        5008,
+        5009,
+        5010,
+        5028,
+        5029,
+        5030,
+        5031,
+        5032,
+        5033,
+        5034,
+        5035,
+        5036,
+        5037,
+        5038,
+        5039,
+        5040,
+        5041,
+        5042,
+        5043,
+        5044,
+        5046,
+        5048,
+        5050,
+        5051,
+        5052,
+        5053,
+        5054,
+        5055,
+        5056,
+        5057,
+        5059,
+        5060,
+        5062,
+        5064,
+        5065,
+        5066,
+        5067,
+        5068,
+        5069,
+        5070,
+        5071,
+        5073,
+        5074,
+        5075,
+        5076,
+        5087,
+        5999,
+        6000,
+        6001,
+        6003
+      ],
+      "status": "candidate"
+    }
+  ],
+  "assumptions": [],
+  "unresolved": [],
+  "rationale": [
+    "This WorkUnit has no physical boundary events. All exported occurrences are therefore derived internal semantic milestones; no synthetic boundary event is invented.",
+    "LoadSearch and StoreSearch are retained because they are the points at which the LSU performs memory-dependence reasoning over outstanding loads/stores. Ordinary queue bookkeeping that does not change this decision is omitted.",
+    "A1 is an exact Boolean partition of every LoadSearch. For any load search, can_forward is either false, or it is true and kill_forward is either false or true. The three cases therefore cover the search exactly and are pairwise exclusive.",
+    "LoadSearchPass deliberately means only that the local dependence/forwarding gate passes. It does not claim that a matching store exists or that a particular store supplies the load value. The downstream wb_ldst_forward_valid register is generated from can_forward && !kill_forward && do_ld_search, so interpreting this condition as an actual store-to-load read-from event would be unsound.",
+    "ForwardingDisallowed captures the cacheability/source restriction encoded by can_forward. Incoming/retry loads use mem_tlb_uncacheable while wakeup loads use their retained addr_is_uncacheable field.",
+    "A4 preserves the strongest memory-ordering fact in this region. Each STQ entry is classified as AMO-or-fence, the circular age relation selects entries older than the current load, and any such older AMO/fence forces kill_forward. A younger load therefore cannot take the LoadSearchPass path across an older AMO/fence.",
+    "HasOlderMatchingStore is retained as a grounded predicate because the RTL explicitly combines valid STQ entries with address overlap, byte-mask overlap, and circular age. However no theorem claims which matching store supplies data.",
+    "The exact source-store selection among multiple matching older stores, including priority/youngest-match behavior and the associated ldq_forward_stq_idx/ldq_forward_std_val state, is deliberately omitted. Unconstraining that source is a safe over-approximation: it may create spurious value/read-from behaviors but cannot remove a concrete RTL behavior. This is a possible later CEGAR refinement rather than a current language gap.",
+    "A5 preserves another ordering-sensitive exclusion: a suitably overlapping DCache nack with the grounded LDQ circular-age relation asserts kill_forward and prevents the current search from taking the pass path.",
+    "The HellaCache state machine, speculative wakeup bookkeeping, exception-response arbitration, STQ capacity computation, branch-mask maintenance, and detailed LDQ/STQ cleanup are intentionally omitted. These details restrict scheduling or implementation state but are not necessary for the conservative dependence-order abstraction emitted here.",
+    "No cross-cycle ordered_before axiom is emitted from LoadSearch to wb_ldst_forward_valid. The latter is registered, and without an explicit transaction identity a global repeatable-event history claim would be weaker and potentially misleading. The combinational pre-register LoadSearchPass milestone preserves the grounded decision without inventing identity.",
+    "No liveness or eventual-forwarding property is claimed."
+  ],
+  "extensions": {}
+}

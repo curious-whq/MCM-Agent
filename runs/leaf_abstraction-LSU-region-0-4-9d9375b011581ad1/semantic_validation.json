@@ -1,0 +1,1815 @@
+{
+  "all_axioms_formally_proved": true,
+  "all_axioms_structurally_supported": true,
+  "candidate_axiom_count": 20,
+  "control_model": {
+    "known_states": [
+      0
+    ],
+    "reset_state": 0,
+    "state_register": "r_xcpt_valid",
+    "transitions": [
+      {
+        "dst": 0,
+        "guard_leaves": [],
+        "labels": [],
+        "src": 0,
+        "statement_id": null
+      }
+    ]
+  },
+  "counts": {
+    "FORMALLY_PROVED": 20,
+    "GROUNDED": 0,
+    "PARTIALLY_SUPPORTED": 0,
+    "REFUTED": 0,
+    "SPEC_PROVED": 0,
+    "STRUCTURALLY_SUPPORTED": 0
+  },
+  "empty_abstraction_certificate": null,
+  "formal_backend": {
+    "api_version": "formal-backend-api-0.17",
+    "available": true,
+    "name": "explicit-control",
+    "note": "Exhaustive formal proof for certified finite-control/order properties, exact symbolic local/identity facts, exact local Boolean exclusion/conservation, bounded indexed token provenance, and selected finite reference equivalence checks. It is not a general bit-level SMT backend.",
+    "proof_domain": "control + exact symbolic local + exact combinational exclusion/conservation + scalar/indexed token provenance + finite reference equivalence",
+    "supported_checkers": [
+      "forbid_when",
+      "history_order",
+      "history_chain",
+      "history_join",
+      "indexed_coverage",
+      "indexed_storage_flow",
+      "occurrence_partition",
+      "transaction_exclusion",
+      "signal_alias",
+      "constant_bit",
+      "identity_projection",
+      "tilelink_on_probe_spec"
+    ],
+    "trusted_proof_levels": [
+      "FORMALLY_PROVED",
+      "SPEC_PROVED"
+    ]
+  },
+  "has_counterexample": false,
+  "property_compiler": "formal-axiom-compiler-0.10",
+  "public_interface_validation": null,
+  "results": [
+    {
+      "arguments": {
+        "parts": [
+          "MemExceptionRegister",
+          "LoadExceptionRegister"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "whole": "ExceptionRegister"
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "conservation",
+      "checker": "occurrence_partition",
+      "evidence_statement_ids": [
+        6188,
+        6189,
+        6190,
+        6195
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "mutex_pairs": [
+            [
+              "MemExceptionRegister",
+              "LoadExceptionRegister"
+            ]
+          ],
+          "obligations": [
+            {
+              "atom_count": 5,
+              "kind": "whole_without_part",
+              "unsat": true
+            },
+            {
+              "atom_count": 5,
+              "kind": "part_without_whole",
+              "unsat": true
+            },
+            {
+              "atom_count": 5,
+              "kind": "parts_mutually_exclusive",
+              "parts": [
+                "MemExceptionRegister",
+                "LoadExceptionRegister"
+              ],
+              "unsat": true
+            }
+          ],
+          "parts": [
+            "MemExceptionRegister",
+            "LoadExceptionRegister"
+          ],
+          "proof": "ExceptionRegister is equivalent to the same-cycle disjunction of its parts, and every pair of parts has an unsatisfiable conjunction",
+          "proof_domain": "exact-same-cycle-occurrence-partition",
+          "reachable_lock_certificates": [],
+          "status": "STRUCTURALLY_SUPPORTED",
+          "whole": "ExceptionRegister"
+        },
+        "proof": "ExceptionRegister is equivalent to the same-cycle disjunction of its parts, and every pair of parts has an unsatisfiable conjunction",
+        "proof_method": "exact-same-cycle-occurrence-partition",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ExceptionRegister",
+          "LoadExceptionRegister",
+          "MemExceptionRegister"
+        ],
+        "predicates": [],
+        "signals": []
+      },
+      "rendered_formula": "ExceptionRegister <=> exactly_one_same_cycle({MemExceptionRegister, LoadExceptionRegister})",
+      "structural": {
+        "mutex_pairs": [
+          [
+            "MemExceptionRegister",
+            "LoadExceptionRegister"
+          ]
+        ],
+        "obligations": [
+          {
+            "atom_count": 5,
+            "kind": "whole_without_part",
+            "unsat": true
+          },
+          {
+            "atom_count": 5,
+            "kind": "part_without_whole",
+            "unsat": true
+          },
+          {
+            "atom_count": 5,
+            "kind": "parts_mutually_exclusive",
+            "parts": [
+              "MemExceptionRegister",
+              "LoadExceptionRegister"
+            ],
+            "unsat": true
+          }
+        ],
+        "parts": [
+          "MemExceptionRegister",
+          "LoadExceptionRegister"
+        ],
+        "proof": "ExceptionRegister is equivalent to the same-cycle disjunction of its parts, and every pair of parts has an unsatisfiable conjunction",
+        "proof_domain": "exact-same-cycle-occurrence-partition",
+        "reachable_lock_certificates": [],
+        "status": "STRUCTURALLY_SUPPORTED",
+        "whole": "ExceptionRegister"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "ExceptionRegister",
+        "predicate": "RegisterControlBlocked"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        6190,
+        6191,
+        6192,
+        6193,
+        6194,
+        6195
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 4,
+          "event_gate_bridge_statement_ids": [
+            6114,
+            6115
+          ],
+          "proof": "ExceptionRegister and RegisterControlBlocked have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "ExceptionRegister and RegisterControlBlocked have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "ExceptionRegister"
+        ],
+        "predicates": [
+          "RegisterControlBlocked"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "RegisterControlBlocked => !ExceptionRegister",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "MemExceptionRegister",
+        "predicate": "NoMemExceptionPending"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        6186,
+        6187,
+        6188,
+        6190,
+        6195
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 5,
+          "event_gate_bridge_statement_ids": [
+            6114,
+            6115
+          ],
+          "proof": "MemExceptionRegister and NoMemExceptionPending have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "MemExceptionRegister and NoMemExceptionPending have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "MemExceptionRegister"
+        ],
+        "predicates": [
+          "NoMemExceptionPending"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "NoMemExceptionPending => !MemExceptionRegister",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "LoadExceptionRegister",
+        "predicate": "NoLoadExceptionPending"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        6131,
+        6187,
+        6188,
+        6190,
+        6195
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 5,
+          "event_gate_bridge_statement_ids": [
+            6114,
+            6115
+          ],
+          "proof": "LoadExceptionRegister and NoLoadExceptionPending have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "LoadExceptionRegister and NoLoadExceptionPending have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "LoadExceptionRegister"
+        ],
+        "predicates": [
+          "NoLoadExceptionPending"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "NoLoadExceptionPending => !LoadExceptionRegister",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "MemExceptionRegister",
+        "source": "mem_xcpt_uop.rob_idx",
+        "target": "xcpt_uop.rob_idx"
+      },
+      "axiom_id": "A5",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        6188,
+        6189
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [],
+          "all_driver_statement_ids": [
+            6189
+          ],
+          "on": "MemExceptionRegister",
+          "proof": "every last-connect driver of xcpt_uop.rob_idx reachable on MemExceptionRegister equals mem_xcpt_uop.rob_idx",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "resolved_target": "xcpt_uop.rob_idx",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "exact-unconditional-ssa-node"
+              },
+              "atom_count": 5,
+              "rhs": "mux(use_mem_xcpt, mem_xcpt_uop.rob_idx, ld_xcpt_uop.rob_idx)",
+              "statement_id": 6189,
+              "value_proof": {
+                "branches": [
+                  {
+                    "branch": "high",
+                    "proof": {
+                      "kind": "symbolic-normal-form-equality"
+                    }
+                  },
+                  {
+                    "branch": "low",
+                    "proof": {
+                      "atom_count": 5,
+                      "kind": "unreachable-branch"
+                    }
+                  }
+                ],
+                "kind": "conditional-mux-equality",
+                "select": "use_mem_xcpt"
+              }
+            }
+          ],
+          "source": "mem_xcpt_uop.rob_idx",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "xcpt_uop.rob_idx",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of xcpt_uop.rob_idx reachable on MemExceptionRegister equals mem_xcpt_uop.rob_idx",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "MemExceptionRegister"
+        ],
+        "predicates": [],
+        "signals": [
+          "mem_xcpt_uop.rob_idx",
+          "xcpt_uop.rob_idx"
+        ]
+      },
+      "rendered_formula": "xcpt_uop.rob_idx = mem_xcpt_uop.rob_idx on MemExceptionRegister",
+      "structural": {
+        "alias_chain": [],
+        "all_driver_statement_ids": [
+          6189
+        ],
+        "on": "MemExceptionRegister",
+        "proof": "every last-connect driver of xcpt_uop.rob_idx reachable on MemExceptionRegister equals mem_xcpt_uop.rob_idx",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "resolved_target": "xcpt_uop.rob_idx",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "exact-unconditional-ssa-node"
+            },
+            "atom_count": 5,
+            "rhs": "mux(use_mem_xcpt, mem_xcpt_uop.rob_idx, ld_xcpt_uop.rob_idx)",
+            "statement_id": 6189,
+            "value_proof": {
+              "branches": [
+                {
+                  "branch": "high",
+                  "proof": {
+                    "kind": "symbolic-normal-form-equality"
+                  }
+                },
+                {
+                  "branch": "low",
+                  "proof": {
+                    "atom_count": 5,
+                    "kind": "unreachable-branch"
+                  }
+                }
+              ],
+              "kind": "conditional-mux-equality",
+              "select": "use_mem_xcpt"
+            }
+          }
+        ],
+        "source": "mem_xcpt_uop.rob_idx",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "xcpt_uop.rob_idx",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "LoadExceptionRegister",
+        "source": "ld_xcpt_uop.rob_idx",
+        "target": "xcpt_uop.rob_idx"
+      },
+      "axiom_id": "A6",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        6188,
+        6189
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [],
+          "all_driver_statement_ids": [
+            6189
+          ],
+          "on": "LoadExceptionRegister",
+          "proof": "every last-connect driver of xcpt_uop.rob_idx reachable on LoadExceptionRegister equals ld_xcpt_uop.rob_idx",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "resolved_target": "xcpt_uop.rob_idx",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "exact-unconditional-ssa-node"
+              },
+              "atom_count": 5,
+              "rhs": "mux(use_mem_xcpt, mem_xcpt_uop.rob_idx, ld_xcpt_uop.rob_idx)",
+              "statement_id": 6189,
+              "value_proof": {
+                "branches": [
+                  {
+                    "branch": "high",
+                    "proof": {
+                      "atom_count": 5,
+                      "kind": "unreachable-branch"
+                    }
+                  },
+                  {
+                    "branch": "low",
+                    "proof": {
+                      "kind": "symbolic-normal-form-equality"
+                    }
+                  }
+                ],
+                "kind": "conditional-mux-equality",
+                "select": "use_mem_xcpt"
+              }
+            }
+          ],
+          "source": "ld_xcpt_uop.rob_idx",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "xcpt_uop.rob_idx",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of xcpt_uop.rob_idx reachable on LoadExceptionRegister equals ld_xcpt_uop.rob_idx",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "LoadExceptionRegister"
+        ],
+        "predicates": [],
+        "signals": [
+          "ld_xcpt_uop.rob_idx",
+          "xcpt_uop.rob_idx"
+        ]
+      },
+      "rendered_formula": "xcpt_uop.rob_idx = ld_xcpt_uop.rob_idx on LoadExceptionRegister",
+      "structural": {
+        "alias_chain": [],
+        "all_driver_statement_ids": [
+          6189
+        ],
+        "on": "LoadExceptionRegister",
+        "proof": "every last-connect driver of xcpt_uop.rob_idx reachable on LoadExceptionRegister equals ld_xcpt_uop.rob_idx",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "resolved_target": "xcpt_uop.rob_idx",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "exact-unconditional-ssa-node"
+            },
+            "atom_count": 5,
+            "rhs": "mux(use_mem_xcpt, mem_xcpt_uop.rob_idx, ld_xcpt_uop.rob_idx)",
+            "statement_id": 6189,
+            "value_proof": {
+              "branches": [
+                {
+                  "branch": "high",
+                  "proof": {
+                    "atom_count": 5,
+                    "kind": "unreachable-branch"
+                  }
+                },
+                {
+                  "branch": "low",
+                  "proof": {
+                    "kind": "symbolic-normal-form-equality"
+                  }
+                }
+              ],
+              "kind": "conditional-mux-equality",
+              "select": "use_mem_xcpt"
+            }
+          }
+        ],
+        "source": "ld_xcpt_uop.rob_idx",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "xcpt_uop.rob_idx",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "MemExceptionRegister",
+        "source": "mem_xcpt_cause",
+        "target": "_r_xcpt_cause_T"
+      },
+      "axiom_id": "A7",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        2176,
+        6188,
+        6201
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [],
+          "all_driver_statement_ids": [
+            6201
+          ],
+          "on": "MemExceptionRegister",
+          "proof": "every last-connect driver of _r_xcpt_cause_T reachable on MemExceptionRegister equals mem_xcpt_cause",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "resolved_target": "_r_xcpt_cause_T",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "exact-unconditional-ssa-node"
+              },
+              "atom_count": 5,
+              "rhs": "mux(use_mem_xcpt, mem_xcpt_cause, UInt<5>(0h10))",
+              "statement_id": 6201,
+              "value_proof": {
+                "branches": [
+                  {
+                    "branch": "high",
+                    "proof": {
+                      "kind": "symbolic-normal-form-equality"
+                    }
+                  },
+                  {
+                    "branch": "low",
+                    "proof": {
+                      "atom_count": 5,
+                      "kind": "unreachable-branch"
+                    }
+                  }
+                ],
+                "kind": "conditional-mux-equality",
+                "select": "use_mem_xcpt"
+              }
+            }
+          ],
+          "source": "mem_xcpt_cause",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "_r_xcpt_cause_T",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of _r_xcpt_cause_T reachable on MemExceptionRegister equals mem_xcpt_cause",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "MemExceptionRegister"
+        ],
+        "predicates": [],
+        "signals": [
+          "_r_xcpt_cause_T",
+          "mem_xcpt_cause"
+        ]
+      },
+      "rendered_formula": "_r_xcpt_cause_T = mem_xcpt_cause on MemExceptionRegister",
+      "structural": {
+        "alias_chain": [],
+        "all_driver_statement_ids": [
+          6201
+        ],
+        "on": "MemExceptionRegister",
+        "proof": "every last-connect driver of _r_xcpt_cause_T reachable on MemExceptionRegister equals mem_xcpt_cause",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "resolved_target": "_r_xcpt_cause_T",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "exact-unconditional-ssa-node"
+            },
+            "atom_count": 5,
+            "rhs": "mux(use_mem_xcpt, mem_xcpt_cause, UInt<5>(0h10))",
+            "statement_id": 6201,
+            "value_proof": {
+              "branches": [
+                {
+                  "branch": "high",
+                  "proof": {
+                    "kind": "symbolic-normal-form-equality"
+                  }
+                },
+                {
+                  "branch": "low",
+                  "proof": {
+                    "atom_count": 5,
+                    "kind": "unreachable-branch"
+                  }
+                }
+              ],
+              "kind": "conditional-mux-equality",
+              "select": "use_mem_xcpt"
+            }
+          }
+        ],
+        "source": "mem_xcpt_cause",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "_r_xcpt_cause_T",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "bit": 4,
+        "expected": 1,
+        "on": "LoadExceptionRegister",
+        "signal": "_r_xcpt_cause_T"
+      },
+      "axiom_id": "A8",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        6188,
+        6201
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [],
+          "all_driver_statement_ids": [
+            6201
+          ],
+          "bit": 4,
+          "expected": 1,
+          "on": "LoadExceptionRegister",
+          "proof": "every last-connect driver of bit 4 of _r_xcpt_cause_T reachable on LoadExceptionRegister equals 1",
+          "proof_domain": "exact-conditional-constant-bit",
+          "reachable_lock_certificates": [],
+          "resolved_signal": "_r_xcpt_cause_T",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "exact-unconditional-ssa-node"
+              },
+              "atom_count": 6,
+              "rhs": "mux(use_mem_xcpt, mem_xcpt_cause, UInt<5>(0h10))",
+              "statement_id": 6201
+            }
+          ],
+          "signal": "_r_xcpt_cause_T",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "every last-connect driver of bit 4 of _r_xcpt_cause_T reachable on LoadExceptionRegister equals 1",
+        "proof_method": "exact-conditional-constant-bit",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "LoadExceptionRegister"
+        ],
+        "predicates": [],
+        "signals": [
+          "_r_xcpt_cause_T"
+        ]
+      },
+      "rendered_formula": "bits(_r_xcpt_cause_T, 4, 4) == 1 on LoadExceptionRegister",
+      "structural": {
+        "alias_chain": [],
+        "all_driver_statement_ids": [
+          6201
+        ],
+        "bit": 4,
+        "expected": 1,
+        "on": "LoadExceptionRegister",
+        "proof": "every last-connect driver of bit 4 of _r_xcpt_cause_T reachable on LoadExceptionRegister equals 1",
+        "proof_domain": "exact-conditional-constant-bit",
+        "reachable_lock_certificates": [],
+        "resolved_signal": "_r_xcpt_cause_T",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "exact-unconditional-ssa-node"
+            },
+            "atom_count": 6,
+            "rhs": "mux(use_mem_xcpt, mem_xcpt_cause, UInt<5>(0h10))",
+            "statement_id": 6201
+          }
+        ],
+        "signal": "_r_xcpt_cause_T",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "bit": 3,
+        "expected": 0,
+        "on": "LoadExceptionRegister",
+        "signal": "_r_xcpt_cause_T"
+      },
+      "axiom_id": "A8b",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        6188,
+        6201
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [],
+          "all_driver_statement_ids": [
+            6201
+          ],
+          "bit": 3,
+          "expected": 0,
+          "on": "LoadExceptionRegister",
+          "proof": "every last-connect driver of bit 3 of _r_xcpt_cause_T reachable on LoadExceptionRegister equals 0",
+          "proof_domain": "exact-conditional-constant-bit",
+          "reachable_lock_certificates": [],
+          "resolved_signal": "_r_xcpt_cause_T",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "exact-unconditional-ssa-node"
+              },
+              "atom_count": 6,
+              "rhs": "mux(use_mem_xcpt, mem_xcpt_cause, UInt<5>(0h10))",
+              "statement_id": 6201
+            }
+          ],
+          "signal": "_r_xcpt_cause_T",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "every last-connect driver of bit 3 of _r_xcpt_cause_T reachable on LoadExceptionRegister equals 0",
+        "proof_method": "exact-conditional-constant-bit",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "LoadExceptionRegister"
+        ],
+        "predicates": [],
+        "signals": [
+          "_r_xcpt_cause_T"
+        ]
+      },
+      "rendered_formula": "bits(_r_xcpt_cause_T, 3, 3) == 0 on LoadExceptionRegister",
+      "structural": {
+        "alias_chain": [],
+        "all_driver_statement_ids": [
+          6201
+        ],
+        "bit": 3,
+        "expected": 0,
+        "on": "LoadExceptionRegister",
+        "proof": "every last-connect driver of bit 3 of _r_xcpt_cause_T reachable on LoadExceptionRegister equals 0",
+        "proof_domain": "exact-conditional-constant-bit",
+        "reachable_lock_certificates": [],
+        "resolved_signal": "_r_xcpt_cause_T",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "exact-unconditional-ssa-node"
+            },
+            "atom_count": 6,
+            "rhs": "mux(use_mem_xcpt, mem_xcpt_cause, UInt<5>(0h10))",
+            "statement_id": 6201
+          }
+        ],
+        "signal": "_r_xcpt_cause_T",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "bit": 2,
+        "expected": 0,
+        "on": "LoadExceptionRegister",
+        "signal": "_r_xcpt_cause_T"
+      },
+      "axiom_id": "A8c",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        6188,
+        6201
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [],
+          "all_driver_statement_ids": [
+            6201
+          ],
+          "bit": 2,
+          "expected": 0,
+          "on": "LoadExceptionRegister",
+          "proof": "every last-connect driver of bit 2 of _r_xcpt_cause_T reachable on LoadExceptionRegister equals 0",
+          "proof_domain": "exact-conditional-constant-bit",
+          "reachable_lock_certificates": [],
+          "resolved_signal": "_r_xcpt_cause_T",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "exact-unconditional-ssa-node"
+              },
+              "atom_count": 6,
+              "rhs": "mux(use_mem_xcpt, mem_xcpt_cause, UInt<5>(0h10))",
+              "statement_id": 6201
+            }
+          ],
+          "signal": "_r_xcpt_cause_T",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "every last-connect driver of bit 2 of _r_xcpt_cause_T reachable on LoadExceptionRegister equals 0",
+        "proof_method": "exact-conditional-constant-bit",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "LoadExceptionRegister"
+        ],
+        "predicates": [],
+        "signals": [
+          "_r_xcpt_cause_T"
+        ]
+      },
+      "rendered_formula": "bits(_r_xcpt_cause_T, 2, 2) == 0 on LoadExceptionRegister",
+      "structural": {
+        "alias_chain": [],
+        "all_driver_statement_ids": [
+          6201
+        ],
+        "bit": 2,
+        "expected": 0,
+        "on": "LoadExceptionRegister",
+        "proof": "every last-connect driver of bit 2 of _r_xcpt_cause_T reachable on LoadExceptionRegister equals 0",
+        "proof_domain": "exact-conditional-constant-bit",
+        "reachable_lock_certificates": [],
+        "resolved_signal": "_r_xcpt_cause_T",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "exact-unconditional-ssa-node"
+            },
+            "atom_count": 6,
+            "rhs": "mux(use_mem_xcpt, mem_xcpt_cause, UInt<5>(0h10))",
+            "statement_id": 6201
+          }
+        ],
+        "signal": "_r_xcpt_cause_T",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "bit": 1,
+        "expected": 0,
+        "on": "LoadExceptionRegister",
+        "signal": "_r_xcpt_cause_T"
+      },
+      "axiom_id": "A8d",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        6188,
+        6201
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [],
+          "all_driver_statement_ids": [
+            6201
+          ],
+          "bit": 1,
+          "expected": 0,
+          "on": "LoadExceptionRegister",
+          "proof": "every last-connect driver of bit 1 of _r_xcpt_cause_T reachable on LoadExceptionRegister equals 0",
+          "proof_domain": "exact-conditional-constant-bit",
+          "reachable_lock_certificates": [],
+          "resolved_signal": "_r_xcpt_cause_T",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "exact-unconditional-ssa-node"
+              },
+              "atom_count": 6,
+              "rhs": "mux(use_mem_xcpt, mem_xcpt_cause, UInt<5>(0h10))",
+              "statement_id": 6201
+            }
+          ],
+          "signal": "_r_xcpt_cause_T",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "every last-connect driver of bit 1 of _r_xcpt_cause_T reachable on LoadExceptionRegister equals 0",
+        "proof_method": "exact-conditional-constant-bit",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "LoadExceptionRegister"
+        ],
+        "predicates": [],
+        "signals": [
+          "_r_xcpt_cause_T"
+        ]
+      },
+      "rendered_formula": "bits(_r_xcpt_cause_T, 1, 1) == 0 on LoadExceptionRegister",
+      "structural": {
+        "alias_chain": [],
+        "all_driver_statement_ids": [
+          6201
+        ],
+        "bit": 1,
+        "expected": 0,
+        "on": "LoadExceptionRegister",
+        "proof": "every last-connect driver of bit 1 of _r_xcpt_cause_T reachable on LoadExceptionRegister equals 0",
+        "proof_domain": "exact-conditional-constant-bit",
+        "reachable_lock_certificates": [],
+        "resolved_signal": "_r_xcpt_cause_T",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "exact-unconditional-ssa-node"
+            },
+            "atom_count": 6,
+            "rhs": "mux(use_mem_xcpt, mem_xcpt_cause, UInt<5>(0h10))",
+            "statement_id": 6201
+          }
+        ],
+        "signal": "_r_xcpt_cause_T",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "bit": 0,
+        "expected": 0,
+        "on": "LoadExceptionRegister",
+        "signal": "_r_xcpt_cause_T"
+      },
+      "axiom_id": "A8e",
+      "axiom_kind": "payload_constraint",
+      "checker": "constant_bit",
+      "evidence_statement_ids": [
+        6188,
+        6201
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [],
+          "all_driver_statement_ids": [
+            6201
+          ],
+          "bit": 0,
+          "expected": 0,
+          "on": "LoadExceptionRegister",
+          "proof": "every last-connect driver of bit 0 of _r_xcpt_cause_T reachable on LoadExceptionRegister equals 0",
+          "proof_domain": "exact-conditional-constant-bit",
+          "reachable_lock_certificates": [],
+          "resolved_signal": "_r_xcpt_cause_T",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "exact-unconditional-ssa-node"
+              },
+              "atom_count": 6,
+              "rhs": "mux(use_mem_xcpt, mem_xcpt_cause, UInt<5>(0h10))",
+              "statement_id": 6201
+            }
+          ],
+          "signal": "_r_xcpt_cause_T",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "every last-connect driver of bit 0 of _r_xcpt_cause_T reachable on LoadExceptionRegister equals 0",
+        "proof_method": "exact-conditional-constant-bit",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "LoadExceptionRegister"
+        ],
+        "predicates": [],
+        "signals": [
+          "_r_xcpt_cause_T"
+        ]
+      },
+      "rendered_formula": "bits(_r_xcpt_cause_T, 0, 0) == 0 on LoadExceptionRegister",
+      "structural": {
+        "alias_chain": [],
+        "all_driver_statement_ids": [
+          6201
+        ],
+        "bit": 0,
+        "expected": 0,
+        "on": "LoadExceptionRegister",
+        "proof": "every last-connect driver of bit 0 of _r_xcpt_cause_T reachable on LoadExceptionRegister equals 0",
+        "proof_domain": "exact-conditional-constant-bit",
+        "reachable_lock_certificates": [],
+        "resolved_signal": "_r_xcpt_cause_T",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "exact-unconditional-ssa-node"
+            },
+            "atom_count": 6,
+            "rhs": "mux(use_mem_xcpt, mem_xcpt_cause, UInt<5>(0h10))",
+            "statement_id": 6201
+          }
+        ],
+        "signal": "_r_xcpt_cause_T",
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "LoadExceptionVisible",
+        "predicate": "NoRegisteredException"
+      },
+      "axiom_id": "A9",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        6208,
+        6209
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 3,
+          "event_gate_bridge_statement_ids": [
+            6114,
+            6115
+          ],
+          "proof": "LoadExceptionVisible and NoRegisteredException have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "LoadExceptionVisible and NoRegisteredException have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "LoadExceptionVisible"
+        ],
+        "predicates": [
+          "NoRegisteredException"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "NoRegisteredException => !LoadExceptionVisible",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "LoadExceptionVisible",
+        "predicate": "OutputControlBlocked"
+      },
+      "axiom_id": "A10",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        6204,
+        6205,
+        6206,
+        6207,
+        6208,
+        6209
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 3,
+          "event_gate_bridge_statement_ids": [
+            6114,
+            6115
+          ],
+          "proof": "LoadExceptionVisible and OutputControlBlocked have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "LoadExceptionVisible and OutputControlBlocked have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "LoadExceptionVisible"
+        ],
+        "predicates": [
+          "OutputControlBlocked"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "OutputControlBlocked => !LoadExceptionVisible",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "LoadExceptionVisible",
+        "source": "r_xcpt.cause",
+        "target": "io.core.lxcpt.bits.cause"
+      },
+      "axiom_id": "A11",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        6210
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [],
+          "all_driver_statement_ids": [
+            6210
+          ],
+          "on": "LoadExceptionVisible",
+          "proof": "every last-connect driver of io.core.lxcpt.bits.cause reachable on LoadExceptionVisible equals r_xcpt.cause",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "resolved_target": "io.core.lxcpt.bits.cause",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "unconditional"
+              },
+              "atom_count": 3,
+              "rhs": "r_xcpt.cause",
+              "statement_id": 6210,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "r_xcpt.cause",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.core.lxcpt.bits.cause",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.core.lxcpt.bits.cause reachable on LoadExceptionVisible equals r_xcpt.cause",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "LoadExceptionVisible"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.core.lxcpt.bits.cause",
+          "r_xcpt.cause"
+        ]
+      },
+      "rendered_formula": "io.core.lxcpt.bits.cause = r_xcpt.cause on LoadExceptionVisible",
+      "structural": {
+        "alias_chain": [],
+        "all_driver_statement_ids": [
+          6210
+        ],
+        "on": "LoadExceptionVisible",
+        "proof": "every last-connect driver of io.core.lxcpt.bits.cause reachable on LoadExceptionVisible equals r_xcpt.cause",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "resolved_target": "io.core.lxcpt.bits.cause",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "unconditional"
+            },
+            "atom_count": 3,
+            "rhs": "r_xcpt.cause",
+            "statement_id": 6210,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "r_xcpt.cause",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.core.lxcpt.bits.cause",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "LoadExceptionVisible",
+        "source": "r_xcpt.badvaddr",
+        "target": "io.core.lxcpt.bits.badvaddr"
+      },
+      "axiom_id": "A12",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        6210
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [],
+          "all_driver_statement_ids": [
+            6210
+          ],
+          "on": "LoadExceptionVisible",
+          "proof": "every last-connect driver of io.core.lxcpt.bits.badvaddr reachable on LoadExceptionVisible equals r_xcpt.badvaddr",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "resolved_target": "io.core.lxcpt.bits.badvaddr",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "unconditional"
+              },
+              "atom_count": 3,
+              "rhs": "r_xcpt.badvaddr",
+              "statement_id": 6210,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "r_xcpt.badvaddr",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.core.lxcpt.bits.badvaddr",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.core.lxcpt.bits.badvaddr reachable on LoadExceptionVisible equals r_xcpt.badvaddr",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "LoadExceptionVisible"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.core.lxcpt.bits.badvaddr",
+          "r_xcpt.badvaddr"
+        ]
+      },
+      "rendered_formula": "io.core.lxcpt.bits.badvaddr = r_xcpt.badvaddr on LoadExceptionVisible",
+      "structural": {
+        "alias_chain": [],
+        "all_driver_statement_ids": [
+          6210
+        ],
+        "on": "LoadExceptionVisible",
+        "proof": "every last-connect driver of io.core.lxcpt.bits.badvaddr reachable on LoadExceptionVisible equals r_xcpt.badvaddr",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "resolved_target": "io.core.lxcpt.bits.badvaddr",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "unconditional"
+            },
+            "atom_count": 3,
+            "rhs": "r_xcpt.badvaddr",
+            "statement_id": 6210,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "r_xcpt.badvaddr",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.core.lxcpt.bits.badvaddr",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "LoadExceptionVisible",
+        "source": "r_xcpt.uop.rob_idx",
+        "target": "io.core.lxcpt.bits.uop.rob_idx"
+      },
+      "axiom_id": "A13",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        6210
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [],
+          "all_driver_statement_ids": [
+            6210
+          ],
+          "on": "LoadExceptionVisible",
+          "proof": "every last-connect driver of io.core.lxcpt.bits.uop.rob_idx reachable on LoadExceptionVisible equals r_xcpt.uop.rob_idx",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "resolved_target": "io.core.lxcpt.bits.uop.rob_idx",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "unconditional"
+              },
+              "atom_count": 3,
+              "rhs": "r_xcpt.uop.rob_idx",
+              "statement_id": 6210,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "r_xcpt.uop.rob_idx",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.core.lxcpt.bits.uop.rob_idx",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.core.lxcpt.bits.uop.rob_idx reachable on LoadExceptionVisible equals r_xcpt.uop.rob_idx",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "LoadExceptionVisible"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.core.lxcpt.bits.uop.rob_idx",
+          "r_xcpt.uop.rob_idx"
+        ]
+      },
+      "rendered_formula": "io.core.lxcpt.bits.uop.rob_idx = r_xcpt.uop.rob_idx on LoadExceptionVisible",
+      "structural": {
+        "alias_chain": [],
+        "all_driver_statement_ids": [
+          6210
+        ],
+        "on": "LoadExceptionVisible",
+        "proof": "every last-connect driver of io.core.lxcpt.bits.uop.rob_idx reachable on LoadExceptionVisible equals r_xcpt.uop.rob_idx",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "resolved_target": "io.core.lxcpt.bits.uop.rob_idx",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "unconditional"
+            },
+            "atom_count": 3,
+            "rhs": "r_xcpt.uop.rob_idx",
+            "statement_id": 6210,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "r_xcpt.uop.rob_idx",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.core.lxcpt.bits.uop.rob_idx",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "LoadExceptionVisible",
+        "source": "r_xcpt.uop.ldq_idx",
+        "target": "io.core.lxcpt.bits.uop.ldq_idx"
+      },
+      "axiom_id": "A14",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        6210
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [],
+          "all_driver_statement_ids": [
+            6210
+          ],
+          "on": "LoadExceptionVisible",
+          "proof": "every last-connect driver of io.core.lxcpt.bits.uop.ldq_idx reachable on LoadExceptionVisible equals r_xcpt.uop.ldq_idx",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "resolved_target": "io.core.lxcpt.bits.uop.ldq_idx",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "unconditional"
+              },
+              "atom_count": 3,
+              "rhs": "r_xcpt.uop.ldq_idx",
+              "statement_id": 6210,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "r_xcpt.uop.ldq_idx",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.core.lxcpt.bits.uop.ldq_idx",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.core.lxcpt.bits.uop.ldq_idx reachable on LoadExceptionVisible equals r_xcpt.uop.ldq_idx",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "LoadExceptionVisible"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.core.lxcpt.bits.uop.ldq_idx",
+          "r_xcpt.uop.ldq_idx"
+        ]
+      },
+      "rendered_formula": "io.core.lxcpt.bits.uop.ldq_idx = r_xcpt.uop.ldq_idx on LoadExceptionVisible",
+      "structural": {
+        "alias_chain": [],
+        "all_driver_statement_ids": [
+          6210
+        ],
+        "on": "LoadExceptionVisible",
+        "proof": "every last-connect driver of io.core.lxcpt.bits.uop.ldq_idx reachable on LoadExceptionVisible equals r_xcpt.uop.ldq_idx",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "resolved_target": "io.core.lxcpt.bits.uop.ldq_idx",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "unconditional"
+            },
+            "atom_count": 3,
+            "rhs": "r_xcpt.uop.ldq_idx",
+            "statement_id": 6210,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "r_xcpt.uop.ldq_idx",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.core.lxcpt.bits.uop.ldq_idx",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "LoadExceptionVisible",
+        "source": "r_xcpt.uop.stq_idx",
+        "target": "io.core.lxcpt.bits.uop.stq_idx"
+      },
+      "axiom_id": "A15",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        6210
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [],
+          "all_driver_statement_ids": [
+            6210
+          ],
+          "on": "LoadExceptionVisible",
+          "proof": "every last-connect driver of io.core.lxcpt.bits.uop.stq_idx reachable on LoadExceptionVisible equals r_xcpt.uop.stq_idx",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "resolved_target": "io.core.lxcpt.bits.uop.stq_idx",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "unconditional"
+              },
+              "atom_count": 3,
+              "rhs": "r_xcpt.uop.stq_idx",
+              "statement_id": 6210,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "r_xcpt.uop.stq_idx",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.core.lxcpt.bits.uop.stq_idx",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.core.lxcpt.bits.uop.stq_idx reachable on LoadExceptionVisible equals r_xcpt.uop.stq_idx",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "LoadExceptionVisible"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.core.lxcpt.bits.uop.stq_idx",
+          "r_xcpt.uop.stq_idx"
+        ]
+      },
+      "rendered_formula": "io.core.lxcpt.bits.uop.stq_idx = r_xcpt.uop.stq_idx on LoadExceptionVisible",
+      "structural": {
+        "alias_chain": [],
+        "all_driver_statement_ids": [
+          6210
+        ],
+        "on": "LoadExceptionVisible",
+        "proof": "every last-connect driver of io.core.lxcpt.bits.uop.stq_idx reachable on LoadExceptionVisible equals r_xcpt.uop.stq_idx",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "resolved_target": "io.core.lxcpt.bits.uop.stq_idx",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "unconditional"
+            },
+            "atom_count": 3,
+            "rhs": "r_xcpt.uop.stq_idx",
+            "statement_id": 6210,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "r_xcpt.uop.stq_idx",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.core.lxcpt.bits.uop.stq_idx",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "on": "LoadExceptionVisible",
+        "source": "r_xcpt.uop.mem_cmd",
+        "target": "io.core.lxcpt.bits.uop.mem_cmd"
+      },
+      "axiom_id": "A16",
+      "axiom_kind": "state_update",
+      "checker": "signal_alias",
+      "evidence_statement_ids": [
+        6210
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "alias_chain": [],
+          "all_driver_statement_ids": [
+            6210
+          ],
+          "on": "LoadExceptionVisible",
+          "proof": "every last-connect driver of io.core.lxcpt.bits.uop.mem_cmd reachable on LoadExceptionVisible equals r_xcpt.uop.mem_cmd",
+          "proof_domain": "exact-conditional-symbolic-driver-equality",
+          "reachable_lock_certificates": [],
+          "resolved_target": "io.core.lxcpt.bits.uop.mem_cmd",
+          "selected_drivers": [
+            {
+              "activation": {
+                "control_signals": [],
+                "kind": "unconditional"
+              },
+              "atom_count": 3,
+              "rhs": "r_xcpt.uop.mem_cmd",
+              "statement_id": 6210,
+              "value_proof": {
+                "kind": "symbolic-normal-form-equality"
+              }
+            }
+          ],
+          "source": "r_xcpt.uop.mem_cmd",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "target": "io.core.lxcpt.bits.uop.mem_cmd",
+          "unconditional_strengthening": false
+        },
+        "proof": "every last-connect driver of io.core.lxcpt.bits.uop.mem_cmd reachable on LoadExceptionVisible equals r_xcpt.uop.mem_cmd",
+        "proof_domain": "local-combinational-equality",
+        "proof_method": "exact-conditional-symbolic-driver-equality",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "LoadExceptionVisible"
+        ],
+        "predicates": [],
+        "signals": [
+          "io.core.lxcpt.bits.uop.mem_cmd",
+          "r_xcpt.uop.mem_cmd"
+        ]
+      },
+      "rendered_formula": "io.core.lxcpt.bits.uop.mem_cmd = r_xcpt.uop.mem_cmd on LoadExceptionVisible",
+      "structural": {
+        "alias_chain": [],
+        "all_driver_statement_ids": [
+          6210
+        ],
+        "on": "LoadExceptionVisible",
+        "proof": "every last-connect driver of io.core.lxcpt.bits.uop.mem_cmd reachable on LoadExceptionVisible equals r_xcpt.uop.mem_cmd",
+        "proof_domain": "exact-conditional-symbolic-driver-equality",
+        "reachable_lock_certificates": [],
+        "resolved_target": "io.core.lxcpt.bits.uop.mem_cmd",
+        "selected_drivers": [
+          {
+            "activation": {
+              "control_signals": [],
+              "kind": "unconditional"
+            },
+            "atom_count": 3,
+            "rhs": "r_xcpt.uop.mem_cmd",
+            "statement_id": 6210,
+            "value_proof": {
+              "kind": "symbolic-normal-form-equality"
+            }
+          }
+        ],
+        "source": "r_xcpt.uop.mem_cmd",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "target": "io.core.lxcpt.bits.uop.mem_cmd",
+        "unconditional_strengthening": false
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    }
+  ],
+  "trusted_axiom_count": 20,
+  "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
+  "validator": "semantic-validator-0.19",
+  "work_unit_id": "LSU::region-0-4"
+}

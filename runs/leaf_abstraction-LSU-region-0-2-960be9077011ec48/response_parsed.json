@@ -1,0 +1,226 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [
+        "C1_CoreVisibleFPResponse"
+      ],
+      "evidence_statement_ids": [
+        6581
+      ],
+      "formal": {
+        "on": "FPResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "fresp[0].bits.data",
+          "op": "signal"
+        },
+        "target": "io.core.fresp[0].bits.data",
+        "type": "signal_equality"
+      },
+      "id": "A1",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_CoreVisibleFPResponse"
+      ],
+      "evidence_statement_ids": [
+        6581
+      ],
+      "formal": {
+        "on": "FPResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "fresp[0].bits.uop.rob_idx",
+          "op": "signal"
+        },
+        "target": "io.core.fresp[0].bits.uop.rob_idx",
+        "type": "signal_equality"
+      },
+      "id": "A2",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_CoreVisibleFPResponse"
+      ],
+      "evidence_statement_ids": [
+        6581
+      ],
+      "formal": {
+        "on": "FPResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "fresp[0].bits.uop.ldq_idx",
+          "op": "signal"
+        },
+        "target": "io.core.fresp[0].bits.uop.ldq_idx",
+        "type": "signal_equality"
+      },
+      "id": "A3",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_CoreVisibleFPResponse"
+      ],
+      "evidence_statement_ids": [
+        6581
+      ],
+      "formal": {
+        "on": "FPResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "fresp[0].bits.uop.stq_idx",
+          "op": "signal"
+        },
+        "target": "io.core.fresp[0].bits.uop.stq_idx",
+        "type": "signal_equality"
+      },
+      "id": "A4",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_CoreVisibleFPResponse"
+      ],
+      "evidence_statement_ids": [
+        6581
+      ],
+      "formal": {
+        "on": "FPResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "fresp[0].bits.uop.mem_cmd",
+          "op": "signal"
+        },
+        "target": "io.core.fresp[0].bits.uop.mem_cmd",
+        "type": "signal_equality"
+      },
+      "id": "A5",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_CoreVisibleFPResponse"
+      ],
+      "evidence_statement_ids": [
+        6581
+      ],
+      "formal": {
+        "on": "FPResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "fresp[0].bits.uop.mem_size",
+          "op": "signal"
+        },
+        "target": "io.core.fresp[0].bits.uop.mem_size",
+        "type": "signal_equality"
+      },
+      "id": "A6",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_CoreVisibleFPResponse"
+      ],
+      "evidence_statement_ids": [
+        6581
+      ],
+      "formal": {
+        "on": "FPResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "fresp[0].bits.uop.mem_signed",
+          "op": "signal"
+        },
+        "target": "io.core.fresp[0].bits.uop.mem_signed",
+        "type": "signal_equality"
+      },
+      "id": "A7",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_CoreVisibleFPResponse"
+      ],
+      "evidence_statement_ids": [
+        6581
+      ],
+      "formal": {
+        "on": "FPResponse",
+        "scope_identity": null,
+        "source": {
+          "name": "fresp[0].bits.uop.br_mask",
+          "op": "signal"
+        },
+        "target": "io.core.fresp[0].bits.uop.br_mask",
+        "type": "signal_equality"
+      },
+      "id": "A8",
+      "status": "candidate"
+    }
+  ],
+  "cases": [
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        6581
+      ],
+      "guard_predicates": [],
+      "id": "C1_CoreVisibleFPResponse",
+      "relations": [
+        "The core-visible FP response carries the final internal fresp payload selected elsewhere in the LSU."
+      ],
+      "trigger_occurrences": [
+        "FPResponse"
+      ]
+    }
+  ],
+  "extensions": {},
+  "identity_keys": [],
+  "occurrences": [
+    {
+      "definition": "io.core.fresp[0].valid; one floating-point LSU response is made visible to the core",
+      "evidence_statement_ids": [
+        6581
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.core.fresp[0].valid"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "FPResponse",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "LSU::io.core.fresp[0].valid"
+      ]
+    }
+  ],
+  "predicates": [],
+  "rationale": [
+    "FPResponse is the only physical boundary occurrence in this WorkUnit. It represents a floating-point LSU response becoming visible to the core.",
+    "The parent-facing memory-relevant payload projections are preserved: returned data, ROB identity, LDQ/STQ indices, memory command, memory size, signedness, and branch mask.",
+    "A1-A8 are grounded by the exact bulk connection io.core.fresp[0] := fresp[0]. They do not invent any additional response-generation semantics.",
+    "The supplied ledger contains two distinct assignments to the internal fresp payload. The normal DCache-response path assigns fresp[0].bits.uop from uop and fresp[0].bits.data from resp.data.",
+    "A later forwarding path assigns fresp[0].bits.uop from wb_ldst_forward_e[0].uop and computes fresp[0].bits.data from forwarded load data using address, size, and signedness.",
+    "The control statements that determine when the normal-response assignment or forwarding assignment is active are not present in this WorkUnit ledger. In particular, no grounded statement here establishes an exact predicate partition for FPResponse by source.",
+    "Therefore no DCacheFPResponse/ForwardedFPResponse occurrence partition is emitted. Guessing such a partition from payload assignments alone would overstate the available RTL evidence.",
+    "The omission of source classification is a safe over-approximation: the abstraction may permit additional FP-response provenance or values, but it does not remove a concrete RTL behavior. A parent-level spurious counterexample may later trigger CEGAR reopening with the missing control slice.",
+    "The wb_ldst_forward_e_REG register captures a branch-mask-updated LDQ entry one cycle earlier, but the current ledger does not contain enough response-valid control to soundly connect that register to every FPResponse. No cross-cycle identity or ordered_before claim is therefore made.",
+    "The byte/halfword/word sign-extension network on the forwarding data path is not separately axiomatized because its applicability depends on the missing forwarding-path guard. Applying it to every FPResponse would be unsound.",
+    "Floating-point flags and predication fields are omitted because this \u00b5MCM abstraction is concerned with memory-ordering/value provenance rather than floating-point arithmetic status.",
+    "No liveness or eventual-response property is claimed."
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-LSU-region-0-2-960be9077011ec48",
+  "unresolved": [],
+  "work_unit_id": "LSU::region-0-2"
+}

@@ -1,0 +1,7 @@
+{
+  "candidate_axiom_count": 5,
+  "next_action": "The formally proved axioms may be frozen into the trusted leaf \u00b5MCM.",
+  "status": "FORMALLY_VALIDATED",
+  "task_id": "leaf_abstraction-LSU-state-0-8-75c1d44ef5da10a6",
+  "trusted_axiom_count": 5
+}

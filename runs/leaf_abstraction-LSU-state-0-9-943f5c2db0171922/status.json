@@ -1,0 +1,7 @@
+{
+  "candidate_axiom_count": 0,
+  "next_action": "Review unresolved/partial structural obligations and then run a real formal backend.",
+  "status": "VALIDATION_INCOMPLETE",
+  "task_id": "leaf_abstraction-LSU-state-0-9-943f5c2db0171922",
+  "trusted_axiom_count": 0
+}

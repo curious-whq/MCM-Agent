@@ -1,0 +1,1697 @@
+{
+  "$defs": {
+    "formal_axiom": {
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "occurrence": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "predicate": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "scope_identity": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "scope_index": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "minLength": 1,
+                      "type": "string"
+                    },
+                    "relation": {
+                      "const": "same"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "relation"
+                  ],
+                  "type": "object"
+                }
+              ]
+            },
+            "type": {
+              "const": "forbid_when"
+            }
+          },
+          "required": [
+            "type",
+            "occurrence",
+            "predicate",
+            "scope_identity"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "capture": {
+              "additionalProperties": false,
+              "properties": {
+                "carrier": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "on": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "source": {
+                  "minLength": 1,
+                  "type": "string"
+                }
+              },
+              "required": [
+                "on",
+                "source",
+                "carrier"
+              ],
+              "type": "object"
+            },
+            "identity": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "projections": {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "expr": {
+                    "$ref": "#/$defs/formal_expr"
+                  },
+                  "on": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "target": {
+                    "minLength": 1,
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "on",
+                  "target",
+                  "expr"
+                ],
+                "type": "object"
+              },
+              "minItems": 1,
+              "type": "array"
+            },
+            "type": {
+              "const": "identity_flow"
+            }
+          },
+          "required": [
+            "type",
+            "identity",
+            "capture",
+            "projections"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "left": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "rights": {
+              "items": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "minItems": 1,
+              "type": "array",
+              "uniqueItems": true
+            },
+            "scope_identity": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "scope_index": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "minLength": 1,
+                      "type": "string"
+                    },
+                    "relation": {
+                      "const": "same"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "relation"
+                  ],
+                  "type": "object"
+                }
+              ]
+            },
+            "type": {
+              "const": "exclusion"
+            }
+          },
+          "required": [
+            "type",
+            "left",
+            "rights",
+            "scope_identity"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "after": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "before": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "required_prior": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "scope_identity": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "scope_index": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "minLength": 1,
+                      "type": "string"
+                    },
+                    "relation": {
+                      "const": "same"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "relation"
+                  ],
+                  "type": "object"
+                }
+              ]
+            },
+            "type": {
+              "const": "ordered_before"
+            }
+          },
+          "required": [
+            "type",
+            "before",
+            "after",
+            "required_prior",
+            "scope_identity"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "scope_identity": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "scope_index": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "minLength": 1,
+                      "type": "string"
+                    },
+                    "relation": {
+                      "const": "same"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "relation"
+                  ],
+                  "type": "object"
+                }
+              ]
+            },
+            "sequence": {
+              "items": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "minItems": 2,
+              "type": "array"
+            },
+            "type": {
+              "const": "ordered_chain"
+            }
+          },
+          "required": [
+            "type",
+            "sequence",
+            "scope_identity"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "on": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "scope_identity": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "scope_index": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "minLength": 1,
+                      "type": "string"
+                    },
+                    "relation": {
+                      "const": "same"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "relation"
+                  ],
+                  "type": "object"
+                }
+              ]
+            },
+            "source": {
+              "$ref": "#/$defs/formal_expr"
+            },
+            "target": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "type": {
+              "const": "signal_equality"
+            }
+          },
+          "required": [
+            "type",
+            "on",
+            "target",
+            "source",
+            "scope_identity"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "expr": {
+              "$ref": "#/$defs/formal_expr"
+            },
+            "on": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "relation": {
+              "const": "eq"
+            },
+            "scope_identity": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "scope_index": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "minLength": 1,
+                      "type": "string"
+                    },
+                    "relation": {
+                      "const": "same"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "relation"
+                  ],
+                  "type": "object"
+                }
+              ]
+            },
+            "type": {
+              "const": "value_constraint"
+            },
+            "value": {
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "type",
+            "on",
+            "expr",
+            "relation",
+            "value",
+            "scope_identity"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "after": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "prerequisites": {
+              "items": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "minItems": 2,
+              "type": "array",
+              "uniqueItems": true
+            },
+            "scope_identity": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "scope_index": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "minLength": 1,
+                      "type": "string"
+                    },
+                    "relation": {
+                      "const": "same"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "relation"
+                  ],
+                  "type": "object"
+                }
+              ]
+            },
+            "type": {
+              "const": "join"
+            }
+          },
+          "required": [
+            "type",
+            "prerequisites",
+            "after",
+            "scope_identity"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "parts": {
+              "items": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "minItems": 1,
+              "type": "array",
+              "uniqueItems": true
+            },
+            "relation": {
+              "const": "same_cycle_exactly_one"
+            },
+            "scope_identity": {
+              "type": "null"
+            },
+            "type": {
+              "const": "occurrence_partition"
+            },
+            "whole": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "whole",
+            "parts",
+            "relation",
+            "scope_identity"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "cardinality": {
+              "const": "exactly_once"
+            },
+            "completion": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "domain": {
+              "additionalProperties": false,
+              "properties": {
+                "end_exclusive": {
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                "start": {
+                  "minimum": 0,
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "start",
+                "end_exclusive"
+              ],
+              "type": "object"
+            },
+            "index": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "occurrence": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "scope_identity": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "scope_index": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "minLength": 1,
+                      "type": "string"
+                    },
+                    "relation": {
+                      "const": "same"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "relation"
+                  ],
+                  "type": "object"
+                }
+              ]
+            },
+            "type": {
+              "const": "indexed_complete"
+            }
+          },
+          "required": [
+            "type",
+            "occurrence",
+            "completion",
+            "index",
+            "domain",
+            "cardinality",
+            "scope_identity"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "candidate": {
+              "$ref": "#/$defs/formal_expr"
+            },
+            "index": {
+              "additionalProperties": false,
+              "properties": {
+                "count": {
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                "name": {
+                  "minLength": 1,
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name",
+                "count"
+              ],
+              "type": "object"
+            },
+            "initialization": {
+              "additionalProperties": false,
+              "properties": {
+                "kind": {
+                  "const": "implicit_unconstrained"
+                }
+              },
+              "required": [
+                "kind"
+              ],
+              "type": "object"
+            },
+            "latency_cycles": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "priority": {
+              "oneOf": [
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "kind": {
+                      "enum": [
+                        "linear_min",
+                        "linear_max"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "kind"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "kind": {
+                      "enum": [
+                        "cyclic_predecessor",
+                        "cyclic_successor"
+                      ]
+                    },
+                    "pivot": {
+                      "$ref": "#/$defs/formal_expr"
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "pivot"
+                  ],
+                  "type": "object"
+                }
+              ]
+            },
+            "result": {
+              "additionalProperties": false,
+              "properties": {
+                "found": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "index": {
+                  "minLength": 1,
+                  "type": "string"
+                }
+              },
+              "required": [
+                "found",
+                "index"
+              ],
+              "type": "object"
+            },
+            "scope_identity": {
+              "type": "null"
+            },
+            "type": {
+              "const": "indexed_priority_select"
+            }
+          },
+          "required": [
+            "type",
+            "index",
+            "candidate",
+            "priority",
+            "result",
+            "latency_cycles",
+            "initialization",
+            "scope_identity"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "bindings": {
+              "additionalProperties": false,
+              "properties": {
+                "current_state": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "dirty": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "next_state": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "param": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "report": {
+                  "minLength": 1,
+                  "type": "string"
+                }
+              },
+              "required": [
+                "param",
+                "current_state",
+                "dirty",
+                "report",
+                "next_state"
+              ],
+              "type": "object"
+            },
+            "on": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "scope_identity": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "scope_index": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "minLength": 1,
+                      "type": "string"
+                    },
+                    "relation": {
+                      "const": "same"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "relation"
+                  ],
+                  "type": "object"
+                }
+              ]
+            },
+            "spec": {
+              "const": "tilelink.ClientMetadata.onProbe"
+            },
+            "type": {
+              "const": "spec_relation"
+            }
+          },
+          "required": [
+            "type",
+            "on",
+            "spec",
+            "bindings",
+            "scope_identity"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "initialization": {
+              "oneOf": [
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "active": {
+                      "$ref": "#/$defs/formal_expr"
+                    },
+                    "address": {
+                      "$ref": "#/$defs/formal_expr"
+                    },
+                    "kind": {
+                      "const": "explicit"
+                    },
+                    "lane_mask": {
+                      "$ref": "#/$defs/formal_expr"
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "active",
+                    "address",
+                    "lane_mask"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "kind": {
+                      "const": "implicit_unconstrained"
+                    }
+                  },
+                  "required": [
+                    "kind"
+                  ],
+                  "type": "object"
+                },
+                {
+                  "additionalProperties": false,
+                  "properties": {
+                    "active": {
+                      "$ref": "#/$defs/formal_expr"
+                    },
+                    "address": {
+                      "$ref": "#/$defs/formal_expr"
+                    },
+                    "lane_mask": {
+                      "$ref": "#/$defs/formal_expr"
+                    }
+                  },
+                  "required": [
+                    "active",
+                    "address",
+                    "lane_mask"
+                  ],
+                  "type": "object"
+                }
+              ]
+            },
+            "key": {
+              "additionalProperties": false,
+              "properties": {
+                "address_domain": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "end_exclusive": {
+                      "minimum": 1,
+                      "type": "integer"
+                    },
+                    "start": {
+                      "minimum": 0,
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "start",
+                    "end_exclusive"
+                  ],
+                  "type": "object"
+                },
+                "lane": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "count": {
+                      "minimum": 1,
+                      "type": "integer"
+                    },
+                    "name": {
+                      "minLength": 1,
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "count"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "address_domain",
+                "lane"
+              ],
+              "type": "object"
+            },
+            "read": {
+              "additionalProperties": false,
+              "properties": {
+                "address": {
+                  "$ref": "#/$defs/formal_expr"
+                },
+                "latency_cycles": {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "request": {
+                  "minLength": 1,
+                  "type": "string"
+                }
+              },
+              "required": [
+                "request",
+                "address",
+                "latency_cycles"
+              ],
+              "type": "object"
+            },
+            "read_write_collision": {
+              "enum": [
+                "exclusive",
+                "implicit_unconstrained"
+              ]
+            },
+            "relations": {
+              "additionalProperties": false,
+              "properties": {
+                "co": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "fr": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "rf": {
+                  "minLength": 1,
+                  "type": "string"
+                }
+              },
+              "required": [
+                "rf",
+                "co",
+                "fr"
+              ],
+              "type": "object"
+            },
+            "resolution": {
+              "const": "latest_prior_write_same_key"
+            },
+            "scope_identity": {
+              "type": "null"
+            },
+            "storage": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "type": {
+              "const": "indexed_storage_flow"
+            },
+            "value_fields": {
+              "items": {
+                "additionalProperties": false,
+                "properties": {
+                  "initial_value": {
+                    "$ref": "#/$defs/formal_expr"
+                  },
+                  "name": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "read_targets": {
+                    "items": {
+                      "$ref": "#/$defs/formal_expr"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                  },
+                  "storage_bits": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "hi": {
+                        "minimum": 0,
+                        "type": "integer"
+                      },
+                      "lo": {
+                        "minimum": 0,
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "hi",
+                      "lo"
+                    ],
+                    "type": "object"
+                  },
+                  "write_value": {
+                    "$ref": "#/$defs/formal_expr"
+                  }
+                },
+                "required": [
+                  "name",
+                  "storage_bits",
+                  "write_value",
+                  "read_targets"
+                ],
+                "type": "object"
+              },
+              "minItems": 1,
+              "type": "array"
+            },
+            "write": {
+              "additionalProperties": false,
+              "properties": {
+                "address": {
+                  "$ref": "#/$defs/formal_expr"
+                },
+                "lane_mask": {
+                  "$ref": "#/$defs/formal_expr"
+                },
+                "on": {
+                  "minLength": 1,
+                  "type": "string"
+                }
+              },
+              "required": [
+                "on",
+                "address",
+                "lane_mask"
+              ],
+              "type": "object"
+            }
+          },
+          "required": [
+            "type",
+            "storage",
+            "key",
+            "write",
+            "read",
+            "value_fields",
+            "initialization",
+            "resolution",
+            "relations",
+            "scope_identity"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "formal_expr": {
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "op": {
+              "const": "signal"
+            }
+          },
+          "required": [
+            "op",
+            "name"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "hi": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "lo": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "op": {
+              "const": "slice"
+            },
+            "value": {
+              "$ref": "#/$defs/formal_expr"
+            }
+          },
+          "required": [
+            "op",
+            "value",
+            "hi",
+            "lo"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "amount": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "op": {
+              "const": "shr"
+            },
+            "value": {
+              "$ref": "#/$defs/formal_expr"
+            }
+          },
+          "required": [
+            "op",
+            "value",
+            "amount"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "index": {
+              "oneOf": [
+                {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "$ref": "#/$defs/formal_expr"
+                }
+              ]
+            },
+            "op": {
+              "const": "bit"
+            },
+            "value": {
+              "$ref": "#/$defs/formal_expr"
+            }
+          },
+          "required": [
+            "op",
+            "value",
+            "index"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "op": {
+              "const": "const"
+            },
+            "value": {
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "op",
+            "value"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "op": {
+              "const": "index_var"
+            }
+          },
+          "required": [
+            "op",
+            "name"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "index": {
+              "$ref": "#/$defs/formal_expr"
+            },
+            "op": {
+              "const": "lookup"
+            },
+            "value": {
+              "$ref": "#/$defs/formal_expr"
+            }
+          },
+          "required": [
+            "op",
+            "value",
+            "index"
+          ],
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "assumptions": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "evidence_statement_ids": {
+            "items": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "statement": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "statement",
+          "evidence_statement_ids"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "axioms": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "derived_from_case_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "evidence_statement_ids": {
+            "items": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "formal": {
+            "$ref": "#/$defs/formal_axiom"
+          },
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "status": {
+            "const": "candidate"
+          }
+        },
+        "required": [
+          "id",
+          "formal",
+          "derived_from_case_ids",
+          "evidence_statement_ids",
+          "status"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "cases": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "confidence": {
+            "enum": [
+              "high",
+              "medium",
+              "low"
+            ]
+          },
+          "emits": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "evidence_statement_ids": {
+            "items": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "guard_predicates": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "positive": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "id",
+                "positive"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "relations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "trigger_occurrences": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "id",
+          "trigger_occurrences",
+          "guard_predicates",
+          "emits",
+          "relations",
+          "evidence_statement_ids",
+          "confidence"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "extensions": {
+      "type": "object"
+    },
+    "identity_keys": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "carrier_state": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "evidence_statement_ids": {
+            "items": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "fields": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "carrier_state",
+          "fields",
+          "description",
+          "evidence_statement_ids"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "occurrences": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "definition": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "evidence_statement_ids": {
+            "items": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "grounding": {
+            "additionalProperties": false,
+            "properties": {
+              "signals_false": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array",
+                "uniqueItems": true
+              },
+              "signals_true": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array",
+                "uniqueItems": true
+              },
+              "state_register": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "state_values": {
+                "items": {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "type": "array",
+                "uniqueItems": true
+              },
+              "value_tests": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "expr": {
+                      "$ref": "#/$defs/formal_expr"
+                    },
+                    "relation": {
+                      "enum": [
+                        "eq",
+                        "neq"
+                      ]
+                    },
+                    "value": {
+                      "minimum": 0,
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "expr",
+                    "relation",
+                    "value"
+                  ],
+                  "type": "object"
+                },
+                "type": "array"
+              }
+            },
+            "required": [
+              "state_register",
+              "state_values",
+              "signals_true",
+              "signals_false"
+            ],
+            "type": "object"
+          },
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "index": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "domain": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "end_exclusive": {
+                        "minimum": 1,
+                        "type": "integer"
+                      },
+                      "start": {
+                        "minimum": 0,
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "start",
+                      "end_exclusive"
+                    ],
+                    "type": "object"
+                  },
+                  "expr": {
+                    "$ref": "#/$defs/formal_expr"
+                  },
+                  "name": {
+                    "minLength": 1,
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "expr",
+                  "domain"
+                ],
+                "type": "object"
+              }
+            ]
+          },
+          "kind": {
+            "enum": [
+              "boundary",
+              "derived"
+            ]
+          },
+          "multiplicity": {
+            "enum": [
+              "exactly_once",
+              "at_most_once",
+              "repeatable",
+              "unspecified"
+            ]
+          },
+          "physical_event_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "physical_event_ids",
+          "definition",
+          "multiplicity",
+          "grounding",
+          "evidence_statement_ids"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "predicates": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "definition": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "evidence_statement_ids": {
+            "items": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "grounding": {
+            "additionalProperties": false,
+            "properties": {
+              "negated": {
+                "type": "boolean"
+              },
+              "source_signal": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "state_register": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "state_values": {
+                "items": {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                "type": "array",
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "source_signal",
+              "negated",
+              "state_register",
+              "state_values"
+            ],
+            "type": "object"
+          },
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "definition",
+          "grounding",
+          "evidence_statement_ids"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "rationale": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "umcm-formal-0.5"
+    },
+    "task_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "unresolved": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "evidence_statement_ids": {
+            "items": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "question": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "question",
+          "evidence_statement_ids"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "work_unit_id": {
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "task_id",
+    "work_unit_id",
+    "occurrences",
+    "predicates",
+    "identity_keys",
+    "cases",
+    "axioms",
+    "assumptions",
+    "unresolved",
+    "rationale",
+    "extensions"
+  ],
+  "title": "Formal \u00b5MCM candidate v0.5",
+  "type": "object"
+}

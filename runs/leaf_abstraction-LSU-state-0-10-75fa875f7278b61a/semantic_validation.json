@@ -1,0 +1,642 @@
+{
+  "all_axioms_formally_proved": true,
+  "all_axioms_structurally_supported": true,
+  "candidate_axiom_count": 5,
+  "control_model": {
+    "known_states": [],
+    "reset_state": null,
+    "state_register": "state",
+    "transitions": []
+  },
+  "counts": {
+    "FORMALLY_PROVED": 5,
+    "GROUNDED": 0,
+    "PARTIALLY_SUPPORTED": 0,
+    "REFUTED": 0,
+    "SPEC_PROVED": 0,
+    "STRUCTURALLY_SUPPORTED": 0
+  },
+  "empty_abstraction_certificate": null,
+  "formal_backend": {
+    "api_version": "formal-backend-api-0.22",
+    "available": true,
+    "name": "explicit-control",
+    "note": "Exhaustive formal proof for certified finite-control/order properties, exact symbolic local/identity facts, exact local Boolean exclusion/conservation, bounded indexed token provenance, and selected finite reference equivalence checks. It is not a general bit-level SMT backend.",
+    "proof_domain": "control + exact symbolic local + exact combinational exclusion/conservation + scalar/indexed token provenance + finite reference equivalence",
+    "supported_checkers": [
+      "forbid_when",
+      "history_order",
+      "history_chain",
+      "history_join",
+      "indexed_coverage",
+      "indexed_storage_flow",
+      "indexed_priority_select",
+      "occurrence_partition",
+      "transaction_exclusion",
+      "signal_alias",
+      "constant_bit",
+      "identity_projection",
+      "tilelink_on_probe_spec"
+    ],
+    "trusted_proof_levels": [
+      "FORMALLY_PROVED",
+      "SPEC_PROVED"
+    ]
+  },
+  "has_counterexample": false,
+  "property_compiler": "formal-axiom-compiler-0.12",
+  "public_interface_validation": null,
+  "results": [
+    {
+      "arguments": {
+        "candidate": {
+          "index": {
+            "name": "i",
+            "op": "index_var"
+          },
+          "op": "indexed_cases",
+          "values": [
+            {
+              "name": "_stq_clr_head_idx_T_1",
+              "op": "signal"
+            },
+            {
+              "name": "_stq_clr_head_idx_T_3",
+              "op": "signal"
+            },
+            {
+              "name": "_stq_clr_head_idx_T_5",
+              "op": "signal"
+            },
+            {
+              "name": "_stq_clr_head_idx_T_7",
+              "op": "signal"
+            },
+            {
+              "name": "_stq_clr_head_idx_T_9",
+              "op": "signal"
+            },
+            {
+              "name": "_stq_clr_head_idx_T_11",
+              "op": "signal"
+            },
+            {
+              "name": "_stq_clr_head_idx_T_13",
+              "op": "signal"
+            },
+            {
+              "name": "_stq_clr_head_idx_T_15",
+              "op": "signal"
+            }
+          ]
+        },
+        "index": {
+          "count": 8,
+          "name": "i"
+        },
+        "initialization": {
+          "kind": "implicit_unconstrained"
+        },
+        "latency_cycles": 1,
+        "priority": {
+          "kind": "cyclic_successor",
+          "pivot": {
+            "name": "stq_clr_head_idx_head_base",
+            "op": "signal"
+          },
+          "pivot_position": "first"
+        },
+        "result": {
+          "index": {
+            "hi": 2,
+            "lo": 0,
+            "op": "slice",
+            "value": {
+              "name": "stq_clr_head_idx",
+              "op": "signal"
+            }
+          }
+        }
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "selection",
+      "checker": "indexed_priority_select",
+      "evidence_statement_ids": [
+        3369,
+        3370,
+        3371,
+        3372,
+        3373,
+        3374,
+        3375,
+        3376,
+        3377,
+        3378,
+        3379,
+        3380,
+        3381,
+        3382,
+        3383,
+        3384,
+        3385,
+        3386,
+        3387,
+        3388,
+        3389,
+        3390,
+        3391,
+        3392,
+        3393,
+        3394,
+        3395,
+        3396,
+        3397,
+        3398,
+        3399,
+        3400,
+        3401,
+        3402,
+        3403,
+        3404,
+        3406
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "candidate_expression": {
+            "index": {
+              "name": "i",
+              "op": "index_var"
+            },
+            "op": "indexed_cases",
+            "values": [
+              {
+                "name": "_stq_clr_head_idx_T_1",
+                "op": "signal"
+              },
+              {
+                "name": "_stq_clr_head_idx_T_3",
+                "op": "signal"
+              },
+              {
+                "name": "_stq_clr_head_idx_T_5",
+                "op": "signal"
+              },
+              {
+                "name": "_stq_clr_head_idx_T_7",
+                "op": "signal"
+              },
+              {
+                "name": "_stq_clr_head_idx_T_9",
+                "op": "signal"
+              },
+              {
+                "name": "_stq_clr_head_idx_T_11",
+                "op": "signal"
+              },
+              {
+                "name": "_stq_clr_head_idx_T_13",
+                "op": "signal"
+              },
+              {
+                "name": "_stq_clr_head_idx_T_15",
+                "op": "signal"
+              }
+            ]
+          },
+          "candidate_sources": [
+            {
+              "kind": "scalar",
+              "signal": "_stq_clr_head_idx_T_1"
+            },
+            {
+              "kind": "scalar",
+              "signal": "_stq_clr_head_idx_T_11"
+            },
+            {
+              "kind": "scalar",
+              "signal": "_stq_clr_head_idx_T_13"
+            },
+            {
+              "kind": "scalar",
+              "signal": "_stq_clr_head_idx_T_15"
+            },
+            {
+              "kind": "scalar",
+              "signal": "_stq_clr_head_idx_T_3"
+            },
+            {
+              "kind": "scalar",
+              "signal": "_stq_clr_head_idx_T_5"
+            },
+            {
+              "kind": "scalar",
+              "signal": "_stq_clr_head_idx_T_7"
+            },
+            {
+              "kind": "scalar",
+              "signal": "_stq_clr_head_idx_T_9"
+            }
+          ],
+          "checked_rows": 2048,
+          "found_writer_statement_ids": [],
+          "index": {
+            "count": 8,
+            "name": "i"
+          },
+          "index_writer_statement_ids": [
+            3406
+          ],
+          "initialization": {
+            "kind": "implicit_unconstrained"
+          },
+          "latency_cycles": 1,
+          "priority": {
+            "kind": "cyclic_successor",
+            "pivot": {
+              "name": "stq_clr_head_idx_head_base",
+              "op": "signal"
+            },
+            "pivot_position": "first"
+          },
+          "proof": "exhaustive finite equivalence proves the 8-candidate cyclic_successor selector; the selected result is captured by unreset register(s) and exposed one cycle later",
+          "proof_domain": "exact-registered-indexed-priority-select",
+          "result": {
+            "found_alias_chain": [],
+            "found_signal": null,
+            "found_state": null,
+            "index_alias_chain": [],
+            "index_projection": {
+              "hi": 2,
+              "lo": 0
+            },
+            "index_signal": {
+              "hi": 2,
+              "lo": 0,
+              "op": "slice",
+              "value": {
+                "name": "stq_clr_head_idx",
+                "op": "signal"
+              }
+            },
+            "index_state": "stq_clr_head_idx"
+          },
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "exhaustive finite equivalence proves the 8-candidate cyclic_successor selector; the selected result is captured by unreset register(s) and exposed one cycle later",
+        "proof_method": "exact-registered-indexed-priority-select",
+        "reused_structural_certificate": true,
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [],
+        "predicates": [],
+        "signals": [
+          "_stq_clr_head_idx_T_1",
+          "_stq_clr_head_idx_T_11",
+          "_stq_clr_head_idx_T_13",
+          "_stq_clr_head_idx_T_15",
+          "_stq_clr_head_idx_T_3",
+          "_stq_clr_head_idx_T_5",
+          "_stq_clr_head_idx_T_7",
+          "_stq_clr_head_idx_T_9",
+          "stq_clr_head_idx",
+          "stq_clr_head_idx_head_base"
+        ]
+      },
+      "rendered_formula": "after 1 cycle(s), bits(stq_clr_head_idx, 2, 0) = select_cyclic_successor(stq_clr_head_idx_head_base), pivot=first(index_cases(i; _stq_clr_head_idx_T_1, _stq_clr_head_idx_T_3, _stq_clr_head_idx_T_5, _stq_clr_head_idx_T_7, _stq_clr_head_idx_T_9, _stq_clr_head_idx_T_11, _stq_clr_head_idx_T_13, _stq_clr_head_idx_T_15), i in [0, 8))",
+      "structural": {
+        "candidate_expression": {
+          "index": {
+            "name": "i",
+            "op": "index_var"
+          },
+          "op": "indexed_cases",
+          "values": [
+            {
+              "name": "_stq_clr_head_idx_T_1",
+              "op": "signal"
+            },
+            {
+              "name": "_stq_clr_head_idx_T_3",
+              "op": "signal"
+            },
+            {
+              "name": "_stq_clr_head_idx_T_5",
+              "op": "signal"
+            },
+            {
+              "name": "_stq_clr_head_idx_T_7",
+              "op": "signal"
+            },
+            {
+              "name": "_stq_clr_head_idx_T_9",
+              "op": "signal"
+            },
+            {
+              "name": "_stq_clr_head_idx_T_11",
+              "op": "signal"
+            },
+            {
+              "name": "_stq_clr_head_idx_T_13",
+              "op": "signal"
+            },
+            {
+              "name": "_stq_clr_head_idx_T_15",
+              "op": "signal"
+            }
+          ]
+        },
+        "candidate_sources": [
+          {
+            "kind": "scalar",
+            "signal": "_stq_clr_head_idx_T_1"
+          },
+          {
+            "kind": "scalar",
+            "signal": "_stq_clr_head_idx_T_11"
+          },
+          {
+            "kind": "scalar",
+            "signal": "_stq_clr_head_idx_T_13"
+          },
+          {
+            "kind": "scalar",
+            "signal": "_stq_clr_head_idx_T_15"
+          },
+          {
+            "kind": "scalar",
+            "signal": "_stq_clr_head_idx_T_3"
+          },
+          {
+            "kind": "scalar",
+            "signal": "_stq_clr_head_idx_T_5"
+          },
+          {
+            "kind": "scalar",
+            "signal": "_stq_clr_head_idx_T_7"
+          },
+          {
+            "kind": "scalar",
+            "signal": "_stq_clr_head_idx_T_9"
+          }
+        ],
+        "checked_rows": 2048,
+        "found_writer_statement_ids": [],
+        "index": {
+          "count": 8,
+          "name": "i"
+        },
+        "index_writer_statement_ids": [
+          3406
+        ],
+        "initialization": {
+          "kind": "implicit_unconstrained"
+        },
+        "latency_cycles": 1,
+        "priority": {
+          "kind": "cyclic_successor",
+          "pivot": {
+            "name": "stq_clr_head_idx_head_base",
+            "op": "signal"
+          },
+          "pivot_position": "first"
+        },
+        "proof": "exhaustive finite equivalence proves the 8-candidate cyclic_successor selector; the selected result is captured by unreset register(s) and exposed one cycle later",
+        "proof_domain": "exact-registered-indexed-priority-select",
+        "result": {
+          "found_alias_chain": [],
+          "found_signal": null,
+          "found_state": null,
+          "index_alias_chain": [],
+          "index_projection": {
+            "hi": 2,
+            "lo": 0
+          },
+          "index_signal": {
+            "hi": 2,
+            "lo": 0,
+            "op": "slice",
+            "value": {
+              "name": "stq_clr_head_idx",
+              "op": "signal"
+            }
+          },
+          "index_state": "stq_clr_head_idx"
+        },
+        "status": "STRUCTURALLY_SUPPORTED"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "StoreClear",
+        "predicate": "ClearGateClosed"
+      },
+      "axiom_id": "A2",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        3444,
+        3445,
+        3453,
+        3454
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 0,
+          "event_gate_bridge_statement_ids": [
+            26,
+            3405
+          ],
+          "proof": "StoreClear and ClearGateClosed have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "StoreClear and ClearGateClosed have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "StoreClear"
+        ],
+        "predicates": [
+          "ClearGateClosed"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "ClearGateClosed => !StoreClear",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "StoreClear",
+        "predicate": "SelectedIsAMO"
+      },
+      "axiom_id": "A3",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        3435,
+        3436,
+        3439,
+        3444,
+        3445,
+        3454
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 6,
+          "event_gate_bridge_statement_ids": [
+            26,
+            3405
+          ],
+          "proof": "StoreClear and SelectedIsAMO have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "StoreClear and SelectedIsAMO have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "StoreClear"
+        ],
+        "predicates": [
+          "SelectedIsAMO"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "SelectedIsAMO => !StoreClear",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "StoreClear",
+        "predicate": "SelectedAlreadyCleared"
+      },
+      "axiom_id": "A4",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        3437,
+        3438,
+        3439,
+        3444,
+        3445,
+        3454
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 6,
+          "event_gate_bridge_statement_ids": [
+            26,
+            3405
+          ],
+          "proof": "StoreClear and SelectedAlreadyCleared have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "StoreClear and SelectedAlreadyCleared have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "StoreClear"
+        ],
+        "predicates": [
+          "SelectedAlreadyCleared"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "SelectedAlreadyCleared => !StoreClear",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    },
+    {
+      "arguments": {
+        "occurrence": "StoreClear",
+        "predicate": "SelectedControlBlocked"
+      },
+      "axiom_id": "A5",
+      "axiom_kind": "conservation",
+      "checker": "forbid_when",
+      "evidence_statement_ids": [
+        3440,
+        3441,
+        3442,
+        3443,
+        3444,
+        3445,
+        3454
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "atom_count": 6,
+          "event_gate_bridge_statement_ids": [
+            26,
+            3405
+          ],
+          "proof": "StoreClear and SelectedControlBlocked have an unsatisfiable local Boolean conjunction",
+          "proof_domain": "exact-combinational-exclusion",
+          "status": "STRUCTURALLY_SUPPORTED"
+        },
+        "proof": "StoreClear and SelectedControlBlocked have an unsatisfiable local Boolean conjunction",
+        "proof_method": "exact-combinational-exclusion",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [
+          "StoreClear"
+        ],
+        "predicates": [
+          "SelectedControlBlocked"
+        ],
+        "signals": []
+      },
+      "rendered_formula": "SelectedControlBlocked => !StoreClear",
+      "structural": {
+        "reason": "predicate or occurrence control states could not be resolved",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    }
+  ],
+  "trusted_axiom_count": 5,
+  "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
+  "validator": "semantic-validator-0.22",
+  "work_unit_id": "LSU::state-0-10"
+}

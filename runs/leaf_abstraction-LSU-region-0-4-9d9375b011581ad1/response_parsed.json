@@ -1,0 +1,789 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [
+        "C1_MemExceptionSelected",
+        "C2_LoadExceptionSelected"
+      ],
+      "evidence_statement_ids": [
+        6188,
+        6189,
+        6190,
+        6195
+      ],
+      "formal": {
+        "parts": [
+          "MemExceptionRegister",
+          "LoadExceptionRegister"
+        ],
+        "relation": "same_cycle_exactly_one",
+        "scope_identity": null,
+        "type": "occurrence_partition",
+        "whole": "ExceptionRegister"
+      },
+      "id": "A1",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_MemExceptionSelected",
+        "C2_LoadExceptionSelected"
+      ],
+      "evidence_statement_ids": [
+        6190,
+        6191,
+        6192,
+        6193,
+        6194,
+        6195
+      ],
+      "formal": {
+        "occurrence": "ExceptionRegister",
+        "predicate": "RegisterControlBlocked",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A2",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_MemExceptionSelected"
+      ],
+      "evidence_statement_ids": [
+        6186,
+        6187,
+        6188,
+        6190,
+        6195
+      ],
+      "formal": {
+        "occurrence": "MemExceptionRegister",
+        "predicate": "NoMemExceptionPending",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A3",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_LoadExceptionSelected"
+      ],
+      "evidence_statement_ids": [
+        6131,
+        6187,
+        6188,
+        6190,
+        6195
+      ],
+      "formal": {
+        "occurrence": "LoadExceptionRegister",
+        "predicate": "NoLoadExceptionPending",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A4",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_MemExceptionSelected"
+      ],
+      "evidence_statement_ids": [
+        6188,
+        6189
+      ],
+      "formal": {
+        "on": "MemExceptionRegister",
+        "scope_identity": null,
+        "source": {
+          "name": "mem_xcpt_uop.rob_idx",
+          "op": "signal"
+        },
+        "target": "xcpt_uop.rob_idx",
+        "type": "signal_equality"
+      },
+      "id": "A5",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_LoadExceptionSelected"
+      ],
+      "evidence_statement_ids": [
+        6188,
+        6189
+      ],
+      "formal": {
+        "on": "LoadExceptionRegister",
+        "scope_identity": null,
+        "source": {
+          "name": "ld_xcpt_uop.rob_idx",
+          "op": "signal"
+        },
+        "target": "xcpt_uop.rob_idx",
+        "type": "signal_equality"
+      },
+      "id": "A6",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C1_MemExceptionSelected"
+      ],
+      "evidence_statement_ids": [
+        2176,
+        6188,
+        6201
+      ],
+      "formal": {
+        "on": "MemExceptionRegister",
+        "scope_identity": null,
+        "source": {
+          "name": "mem_xcpt_cause",
+          "op": "signal"
+        },
+        "target": "_r_xcpt_cause_T",
+        "type": "signal_equality"
+      },
+      "id": "A7",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_LoadExceptionSelected"
+      ],
+      "evidence_statement_ids": [
+        6188,
+        6201
+      ],
+      "formal": {
+        "expr": {
+          "index": 4,
+          "op": "bit",
+          "value": {
+            "name": "_r_xcpt_cause_T",
+            "op": "signal"
+          }
+        },
+        "on": "LoadExceptionRegister",
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 1
+      },
+      "id": "A8",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_LoadExceptionSelected"
+      ],
+      "evidence_statement_ids": [
+        6188,
+        6201
+      ],
+      "formal": {
+        "expr": {
+          "index": 3,
+          "op": "bit",
+          "value": {
+            "name": "_r_xcpt_cause_T",
+            "op": "signal"
+          }
+        },
+        "on": "LoadExceptionRegister",
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "id": "A8b",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_LoadExceptionSelected"
+      ],
+      "evidence_statement_ids": [
+        6188,
+        6201
+      ],
+      "formal": {
+        "expr": {
+          "index": 2,
+          "op": "bit",
+          "value": {
+            "name": "_r_xcpt_cause_T",
+            "op": "signal"
+          }
+        },
+        "on": "LoadExceptionRegister",
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "id": "A8c",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_LoadExceptionSelected"
+      ],
+      "evidence_statement_ids": [
+        6188,
+        6201
+      ],
+      "formal": {
+        "expr": {
+          "index": 1,
+          "op": "bit",
+          "value": {
+            "name": "_r_xcpt_cause_T",
+            "op": "signal"
+          }
+        },
+        "on": "LoadExceptionRegister",
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "id": "A8d",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C2_LoadExceptionSelected"
+      ],
+      "evidence_statement_ids": [
+        6188,
+        6201
+      ],
+      "formal": {
+        "expr": {
+          "index": 0,
+          "op": "bit",
+          "value": {
+            "name": "_r_xcpt_cause_T",
+            "op": "signal"
+          }
+        },
+        "on": "LoadExceptionRegister",
+        "relation": "eq",
+        "scope_identity": null,
+        "type": "value_constraint",
+        "value": 0
+      },
+      "id": "A8e",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_ExceptionVisible"
+      ],
+      "evidence_statement_ids": [
+        6208,
+        6209
+      ],
+      "formal": {
+        "occurrence": "LoadExceptionVisible",
+        "predicate": "NoRegisteredException",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A9",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_ExceptionVisible"
+      ],
+      "evidence_statement_ids": [
+        6204,
+        6205,
+        6206,
+        6207,
+        6208,
+        6209
+      ],
+      "formal": {
+        "occurrence": "LoadExceptionVisible",
+        "predicate": "OutputControlBlocked",
+        "scope_identity": null,
+        "type": "forbid_when"
+      },
+      "id": "A10",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_ExceptionVisible"
+      ],
+      "evidence_statement_ids": [
+        6210
+      ],
+      "formal": {
+        "on": "LoadExceptionVisible",
+        "scope_identity": null,
+        "source": {
+          "name": "r_xcpt.cause",
+          "op": "signal"
+        },
+        "target": "io.core.lxcpt.bits.cause",
+        "type": "signal_equality"
+      },
+      "id": "A11",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_ExceptionVisible"
+      ],
+      "evidence_statement_ids": [
+        6210
+      ],
+      "formal": {
+        "on": "LoadExceptionVisible",
+        "scope_identity": null,
+        "source": {
+          "name": "r_xcpt.badvaddr",
+          "op": "signal"
+        },
+        "target": "io.core.lxcpt.bits.badvaddr",
+        "type": "signal_equality"
+      },
+      "id": "A12",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_ExceptionVisible"
+      ],
+      "evidence_statement_ids": [
+        6210
+      ],
+      "formal": {
+        "on": "LoadExceptionVisible",
+        "scope_identity": null,
+        "source": {
+          "name": "r_xcpt.uop.rob_idx",
+          "op": "signal"
+        },
+        "target": "io.core.lxcpt.bits.uop.rob_idx",
+        "type": "signal_equality"
+      },
+      "id": "A13",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_ExceptionVisible"
+      ],
+      "evidence_statement_ids": [
+        6210
+      ],
+      "formal": {
+        "on": "LoadExceptionVisible",
+        "scope_identity": null,
+        "source": {
+          "name": "r_xcpt.uop.ldq_idx",
+          "op": "signal"
+        },
+        "target": "io.core.lxcpt.bits.uop.ldq_idx",
+        "type": "signal_equality"
+      },
+      "id": "A14",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_ExceptionVisible"
+      ],
+      "evidence_statement_ids": [
+        6210
+      ],
+      "formal": {
+        "on": "LoadExceptionVisible",
+        "scope_identity": null,
+        "source": {
+          "name": "r_xcpt.uop.stq_idx",
+          "op": "signal"
+        },
+        "target": "io.core.lxcpt.bits.uop.stq_idx",
+        "type": "signal_equality"
+      },
+      "id": "A15",
+      "status": "candidate"
+    },
+    {
+      "derived_from_case_ids": [
+        "C3_ExceptionVisible"
+      ],
+      "evidence_statement_ids": [
+        6210
+      ],
+      "formal": {
+        "on": "LoadExceptionVisible",
+        "scope_identity": null,
+        "source": {
+          "name": "r_xcpt.uop.mem_cmd",
+          "op": "signal"
+        },
+        "target": "io.core.lxcpt.bits.uop.mem_cmd",
+        "type": "signal_equality"
+      },
+      "id": "A16",
+      "status": "candidate"
+    }
+  ],
+  "cases": [
+    {
+      "confidence": "high",
+      "emits": [
+        "ExceptionRegister"
+      ],
+      "evidence_statement_ids": [
+        2176,
+        2177,
+        2178,
+        6181,
+        6182,
+        6183,
+        6184,
+        6185,
+        6186,
+        6187,
+        6188,
+        6189,
+        6190,
+        6191,
+        6192,
+        6193,
+        6194,
+        6195,
+        6201
+      ],
+      "guard_predicates": [
+        {
+          "id": "NoMemExceptionPending",
+          "positive": false
+        },
+        {
+          "id": "RegisterControlBlocked",
+          "positive": false
+        }
+      ],
+      "id": "C1_MemExceptionSelected",
+      "relations": [
+        "The selected exception uop comes from mem_xcpt_uop and its exception cause comes from mem_xcpt_cause."
+      ],
+      "trigger_occurrences": [
+        "MemExceptionRegister"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [
+        "ExceptionRegister"
+      ],
+      "evidence_statement_ids": [
+        6131,
+        6187,
+        6188,
+        6189,
+        6190,
+        6191,
+        6192,
+        6193,
+        6194,
+        6195,
+        6201
+      ],
+      "guard_predicates": [
+        {
+          "id": "NoLoadExceptionPending",
+          "positive": false
+        },
+        {
+          "id": "RegisterControlBlocked",
+          "positive": false
+        }
+      ],
+      "id": "C2_LoadExceptionSelected",
+      "relations": [
+        "The selected exception uop comes from ld_xcpt_uop and the registered cause-selection expression is the fixed value 16."
+      ],
+      "trigger_occurrences": [
+        "LoadExceptionRegister"
+      ]
+    },
+    {
+      "confidence": "high",
+      "emits": [],
+      "evidence_statement_ids": [
+        6204,
+        6205,
+        6206,
+        6207,
+        6208,
+        6209,
+        6210
+      ],
+      "guard_predicates": [
+        {
+          "id": "NoRegisteredException",
+          "positive": false
+        },
+        {
+          "id": "OutputControlBlocked",
+          "positive": false
+        }
+      ],
+      "id": "C3_ExceptionVisible",
+      "relations": [
+        "The core-visible exception is exactly the currently registered r_xcpt payload."
+      ],
+      "trigger_occurrences": [
+        "LoadExceptionVisible"
+      ]
+    }
+  ],
+  "extensions": {},
+  "identity_keys": [],
+  "occurrences": [
+    {
+      "definition": "_r_xcpt_valid_T_5; a surviving load-side or memory exception is selected and written into the r_xcpt pipeline register",
+      "evidence_statement_ids": [
+        6190,
+        6191,
+        6192,
+        6193,
+        6194,
+        6195,
+        6196
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "_r_xcpt_valid_T_5"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "ExceptionRegister",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "_r_xcpt_valid_T_5 && use_mem_xcpt; the exception selected for r_xcpt comes from the memory/TLB exception candidate",
+      "evidence_statement_ids": [
+        6181,
+        6182,
+        6183,
+        6184,
+        6185,
+        6186,
+        6187,
+        6188,
+        6189,
+        6190,
+        6191,
+        6192,
+        6193,
+        6194,
+        6195,
+        6196,
+        6201
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "_r_xcpt_valid_T_5",
+          "use_mem_xcpt"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "MemExceptionRegister",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "_r_xcpt_valid_T_5 && !use_mem_xcpt; the exception selected for r_xcpt comes from the load-side exception candidate",
+      "evidence_statement_ids": [
+        6131,
+        6181,
+        6182,
+        6183,
+        6184,
+        6185,
+        6186,
+        6187,
+        6188,
+        6189,
+        6190,
+        6191,
+        6192,
+        6193,
+        6194,
+        6195,
+        6196,
+        6201
+      ],
+      "grounding": {
+        "signals_false": [
+          "use_mem_xcpt"
+        ],
+        "signals_true": [
+          "_r_xcpt_valid_T_5"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "LoadExceptionRegister",
+      "index": null,
+      "kind": "derived",
+      "multiplicity": "repeatable",
+      "physical_event_ids": []
+    },
+    {
+      "definition": "io.core.lxcpt.valid; a registered LSU exception is exposed to the core",
+      "evidence_statement_ids": [
+        6204,
+        6205,
+        6206,
+        6207,
+        6208,
+        6209,
+        6210
+      ],
+      "grounding": {
+        "signals_false": [],
+        "signals_true": [
+          "io.core.lxcpt.valid"
+        ],
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "LoadExceptionVisible",
+      "index": null,
+      "kind": "boundary",
+      "multiplicity": "repeatable",
+      "physical_event_ids": [
+        "LSU::io.core.lxcpt.valid"
+      ]
+    }
+  ],
+  "predicates": [
+    {
+      "definition": "mem_xcpt_valid is false",
+      "evidence_statement_ids": [
+        6186,
+        6188,
+        6190
+      ],
+      "grounding": {
+        "negated": true,
+        "source_signal": "mem_xcpt_valid",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "NoMemExceptionPending"
+    },
+    {
+      "definition": "ld_xcpt_valid is false",
+      "evidence_statement_ids": [
+        6131,
+        6187,
+        6188,
+        6190
+      ],
+      "grounding": {
+        "negated": true,
+        "source_signal": "ld_xcpt_valid",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "NoLoadExceptionPending"
+    },
+    {
+      "definition": "the currently selected exception is killed by the matching branch misprediction or by io.core.exception before being registered",
+      "evidence_statement_ids": [
+        6191,
+        6192,
+        6193,
+        6194,
+        6195
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "_r_xcpt_valid_T_3",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "RegisterControlBlocked"
+    },
+    {
+      "definition": "r_xcpt_valid is false",
+      "evidence_statement_ids": [
+        6196,
+        6208,
+        6209
+      ],
+      "grounding": {
+        "negated": true,
+        "source_signal": "r_xcpt_valid",
+        "state_register": "r_xcpt_valid",
+        "state_values": [
+          0
+        ]
+      },
+      "id": "NoRegisteredException"
+    },
+    {
+      "definition": "the registered exception is suppressed at the core interface by a matching branch misprediction or io.core.exception",
+      "evidence_statement_ids": [
+        6204,
+        6205,
+        6206,
+        6207,
+        6208,
+        6209
+      ],
+      "grounding": {
+        "negated": false,
+        "source_signal": "_io_core_lxcpt_valid_T_2",
+        "state_register": null,
+        "state_values": []
+      },
+      "id": "OutputControlBlocked"
+    }
+  ],
+  "rationale": [
+    "This region implements exception arbitration and a one-stage registered exception interface. The physical boundary occurrence is io.core.lxcpt.valid; ExceptionRegister is retained as an internal semantic milestone because it determines which memory exception can later become architecturally visible.",
+    "A1 preserves the exact source split at the registration point. use_mem_xcpt chooses the memory exception path; its negation chooses the load-side exception path.",
+    "The memory-versus-load selection is not a simple fixed priority. The RTL compares mem_xcpt_uop.rob_idx and ld_xcpt_uop.rob_idx relative to io.core.rob_head_idx, and selects the memory candidate when it is the older valid candidate or when no load exception exists.",
+    "A2 preserves the first control-squash point: a branch misprediction matching the selected uop or io.core.exception prevents the candidate exception from being registered.",
+    "A3 and A4 preserve that each selected registration path requires a valid candidate of the corresponding source.",
+    "A5 and A6 preserve ROB identity at the combinational arbitration point without inventing a new cross-cycle identity object.",
+    "A7 and A8-A8e preserve the source-dependent cause rule. A selected memory exception uses mem_xcpt_cause; a selected load-side exception uses the fixed 5-bit cause value 16 (binary 10000). The load-side constant is expressed bitwise because the current value_constraint AST only supports equality on one bit of one signal.",
+    "A9 and A10 preserve the second output gate. A core-visible exception requires the registered-valid state and is again suppressed by a matching branch misprediction or io.core.exception.",
+    "A11-A16 preserve the memory-relevant and identity-relevant projections of the registered exception payload exposed to the core: cause, bad virtual address, ROB index, LDQ index, STQ index, and memory command. The many unrelated MicroOp fields are intentionally omitted.",
+    "No ordered_before relation is asserted from ExceptionRegister to LoadExceptionVisible. r_xcpt_valid is a concrete register, but the supplied WorkUnit contains no reset or initialization guarantee for that register; a global required-prior theorem could therefore incorrectly exclude an initially valid register state.",
+    "For the same reason, no identity_key is used to connect a current ExceptionRegister source directly to a later LoadExceptionVisible event. The boundary ROB/LDQ/STQ projections remain available for higher-level composition without inventing ungrounded generation history.",
+    "The exact internal construction of ld_xcpt_uop from the eight load-queue exception candidates is not fully present in this ledger. The candidate therefore preserves ld_xcpt_valid and the already-selected ld_xcpt_uop as grounded inputs to this region rather than guessing the per-entry winner.",
+    "No liveness or eventual-exception-delivery property is claimed."
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-LSU-region-0-4-9d9375b011581ad1",
+  "unresolved": [],
+  "work_unit_id": "LSU::region-0-4"
+}

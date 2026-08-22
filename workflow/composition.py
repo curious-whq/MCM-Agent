@@ -206,7 +206,37 @@ def instantiate_frozen_umcm(
     return instantiated
 
 
-PROMPT_INTERFACE_VERSION = "frozen-child-prompt-interface-v0.1"
+PROMPT_INTERFACE_VERSION = "frozen-child-prompt-interface-v0.2"
+
+
+def public_boundary_event_ids(handoff: dict[str, Any]) -> list[str]:
+    """Return physical events that belong to the parent's public RTL boundary.
+
+    Region WorkUnits may own slices of the parent module and therefore expose
+    physical events qualified by the parent ID.  Module-child events instead
+    carry a ``parent.child::`` prefix and remain internal composition edges.
+    """
+
+    parent_id = str(handoff.get("work_unit", {}).get("id", ""))
+    prefix = parent_id + "::"
+    events = {
+        str(event.get("id"))
+        for event in handoff.get("events", [])
+        if isinstance(event, dict)
+        and isinstance(event.get("id"), str)
+        and str(event["id"]).startswith(prefix)
+    }
+    composition = handoff.get("composition", {})
+    summaries = composition.get("child_summaries", []) if isinstance(composition, dict) else []
+    for summary in summaries:
+        if not isinstance(summary, dict):
+            continue
+        events.update(
+            str(event_id)
+            for event_id in summary.get("boundary_events", [])
+            if isinstance(event_id, str) and event_id.startswith(prefix)
+        )
+    return sorted(events)
 
 
 def _qualified_semantic_id(work_unit_id: str, local_id: str) -> str:
@@ -293,7 +323,37 @@ def build_prompt_interface(
     if frozen.get("freeze", {}).get("status") != FROZEN_STATUS:
         raise ValueError(f"child {child_id!r} is not frozen for composition")
 
-    trusted_ids = {str(item) for item in frozen.get("trusted_axiom_ids", [])}
+    all_trusted_ids = {str(item) for item in frozen.get("trusted_axiom_ids", [])}
+    public_interface = frozen.get("public_interface")
+    if isinstance(public_interface, dict):
+        trusted_ids = {
+            str(item) for item in public_interface.get("exported_axiom_ids", [])
+        }
+        unknown_public = trusted_ids - all_trusted_ids
+        if unknown_public:
+            raise ValueError(
+                f"frozen child public interface exports untrusted axioms: {sorted(unknown_public)}"
+            )
+        explicitly_exported = {
+            "occurrences": {
+                str(item) for item in public_interface.get("exported_occurrence_ids", [])
+            },
+            "predicates": {
+                str(item) for item in public_interface.get("exported_predicate_ids", [])
+            },
+            "identity_keys": {
+                str(item) for item in public_interface.get("exported_identity_ids", [])
+            },
+        }
+    else:
+        # Leaf summaries and frozen parents produced before public/private
+        # separation remain source-compatible: all trusted theorems are public.
+        trusted_ids = set(all_trusted_ids)
+        explicitly_exported = {
+            "occurrences": set(),
+            "predicates": set(),
+            "identity_keys": set(),
+        }
     local_objects = {
         field: {
             str(item["id"]): item
@@ -303,9 +363,9 @@ def build_prompt_interface(
         for field in ("occurrences", "predicates", "identity_keys")
     }
     referenced: dict[str, set[str]] = {
-        "occurrences": set(),
-        "predicates": set(),
-        "identity_keys": set(),
+        "occurrences": set(explicitly_exported["occurrences"]),
+        "predicates": set(explicitly_exported["predicates"]),
+        "identity_keys": set(explicitly_exported["identity_keys"]),
         "signals": set(),
         "axioms": set(),
     }
@@ -429,7 +489,9 @@ def build_prompt_interface(
     trust = {
         "status": frozen.get("freeze", {}).get("status"),
         "frozen_sha256": actual_hash,
-        "trusted_axiom_count": len(trusted_axioms),
+        "trusted_axiom_count": len(all_trusted_ids),
+        "exported_axiom_count": len(trusted_axioms),
+        "private_axiom_count": len(all_trusted_ids - trusted_ids),
         "instance_reuse": deepcopy(instance_reuse),
     }
     return {
@@ -446,6 +508,11 @@ def build_prompt_interface(
         "relevant_frontier_signals": sorted(relevant_frontier_signals),
         "trusted_axioms": trusted_axioms,
         "assumptions": deepcopy(frozen.get("assumptions", [])),
+        "boundary_coverage": deepcopy(
+            public_interface.get("boundary_coverage", [])
+            if isinstance(public_interface, dict)
+            else []
+        ),
         "opaque_imports": sorted(opaque_imports, key=lambda item: (item["kind"], item["id"])),
         "exported_ids": {
             field: sorted(set(values)) for field, values in exported_ids.items()

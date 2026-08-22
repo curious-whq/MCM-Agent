@@ -2,7 +2,7 @@
 
 ## 文件职责
 
-定义 formal backend API 与仓库内置的 fail-closed proof backend。当前 API 版本为 `formal-backend-api-0.13`。
+定义 formal backend API 与仓库内置的 fail-closed proof backend。当前 API 版本为 `formal-backend-api-0.23`。
 
 ## Backends
 

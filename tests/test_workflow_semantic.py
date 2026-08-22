@@ -227,10 +227,13 @@ class SemanticWorkflowTests(unittest.TestCase):
         candidate = self._candidate()
         compiled = compile_candidate_properties(candidate)
         a4 = next(item for item in compiled["obligations"] if item["axiom_id"] == "A4")
+        a8 = next(item for item in compiled["obligations"] if item["axiom_id"] == "A8")
         self.assertEqual(a4["checker"], "history_order")
         self.assertEqual(a4["arguments"], {"before": "LSURelease", "after": "ProbeAck"})
         self.assertIn("LSURelease <mu ProbeAck", a4["rendered_formula"])
         self.assertEqual(a4["formal"], next(x for x in candidate["axioms"] if x["id"] == "A4")["formal"])
+        self.assertEqual(a8["checker"], "constant_bit")
+        self.assertEqual(a8["arguments"]["on"], "ProbeAck")
 
     def test_probe_control_axioms_are_structurally_supported(self):
         result = run_semantic_validation(self._candidate(), self.handoff)
@@ -292,6 +295,28 @@ class SemanticWorkflowTests(unittest.TestCase):
         self.assertTrue(by_id["A2"]["trusted"])
         self.assertEqual(result["trusted_axiom_count"], 8)
         self.assertTrue(result["all_axioms_formally_proved"])
+
+    def test_progress_callback_reports_each_axiom_and_phase(self):
+        events = []
+        candidate = self._candidate()
+        result = run_semantic_validation(
+            candidate,
+            self.handoff,
+            formal_backend="explicit-control",
+            progress_callback=events.append,
+        )
+        self.assertEqual(events[0]["stage"], "validation_started")
+        self.assertEqual(events[0]["total"], len(candidate["axioms"]))
+        self.assertEqual(events[-1]["stage"], "validation_completed")
+        self.assertEqual(events[-1]["trusted_axiom_count"], result["trusted_axiom_count"])
+        started = [event for event in events if event["stage"] == "obligation_started"]
+        completed = [event for event in events if event["stage"] == "obligation_completed"]
+        self.assertEqual([event["axiom_id"] for event in started], [axiom["id"] for axiom in candidate["axioms"]])
+        self.assertEqual([event["axiom_id"] for event in completed], [axiom["id"] for axiom in candidate["axioms"]])
+        self.assertTrue(any(
+            event["stage"] == "phase_started" and event["phase"] == "formal"
+            for event in events
+        ))
 
     def test_tilelink_on_probe_reference_checker_matches_all_legal_rows(self):
         report = (
