@@ -1,0 +1,81 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        163,
+        164,
+        165,
+        283,
+        284,
+        285,
+        286,
+        313,
+        7873,
+        8108
+      ],
+      "formal": {
+        "default": {
+          "name": "stq_tail",
+          "op": "signal"
+        },
+        "priority": "first_match",
+        "register": "stq_tail",
+        "scope_identity": null,
+        "type": "register_transition",
+        "updates": [
+          {
+            "guard": {
+              "name": "_T_1151",
+              "op": "signal"
+            },
+            "next": {
+              "op": "const",
+              "value": 0
+            }
+          },
+          {
+            "guard": {
+              "name": "_T_1092",
+              "op": "signal"
+            },
+            "next": {
+              "name": "io.core.brupdate.b2.uop.stq_idx",
+              "op": "signal"
+            }
+          },
+          {
+            "guard": {
+              "name": "dis_st_val",
+              "op": "signal"
+            },
+            "next": {
+              "modulus": 16,
+              "op": "modular_increment",
+              "value": {
+                "name": "stq_tail",
+                "op": "signal"
+              }
+            }
+          }
+        ],
+        "width": 4
+      },
+      "id": "A1",
+      "status": "candidate"
+    }
+  ],
+  "cases": [],
+  "extensions": {},
+  "identity_keys": [],
+  "occurrences": [],
+  "predicates": [],
+  "rationale": [
+    "Complete one-cycle next-state semantics of the STQ allocation tail. Reset dominates branch-recovery redirect, which dominates ordinary store dispatch advancement; otherwise the pointer holds."
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-LSU-state-0-13-6709bdbe9122e581",
+  "unresolved": [],
+  "work_unit_id": "LSU::state-0-13"
+}

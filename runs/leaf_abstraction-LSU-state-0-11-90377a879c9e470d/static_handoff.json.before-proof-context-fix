@@ -1,0 +1,542 @@
+{
+  "children": [],
+  "complexity": {
+    "event_state_coupling": 0.0,
+    "events": 0,
+    "logical": {
+      "dependency_edges": 11,
+      "signals": 9,
+      "source_loc": 4,
+      "statements": 4
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 11,
+      "signals": 10,
+      "source_loc": 4,
+      "statements": 6,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 1,
+    "state_regions": 1
+  },
+  "dependency_edges": [
+    {
+      "dst": "_T_1108",
+      "kind": "data",
+      "source": {
+        "column": 13,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 227,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 227:13"
+      },
+      "src": "h1",
+      "statement_ids": [
+        7912
+      ]
+    },
+    {
+      "dst": "_T_1108",
+      "kind": "data",
+      "source": {
+        "column": 13,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 227,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 227:13"
+      },
+      "src": "stq_commit_head",
+      "statement_ids": [
+        7912
+      ]
+    },
+    {
+      "dst": "_T_1109",
+      "kind": "data",
+      "source": {
+        "column": 13,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 227,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 227:13"
+      },
+      "src": "_T_1108",
+      "statement_ids": [
+        7913
+      ]
+    },
+    {
+      "dst": "_T_1110",
+      "kind": "data",
+      "source": {
+        "column": 18,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 227,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 227:18"
+      },
+      "src": "_T_1109",
+      "statement_ids": [
+        7914
+      ]
+    },
+    {
+      "dst": "_T_1111",
+      "kind": "data",
+      "source": {
+        "column": 31,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1779,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1779:31"
+      },
+      "src": "_T_1110",
+      "statement_ids": [
+        7915
+      ]
+    },
+    {
+      "dst": "_T_1111",
+      "kind": "data",
+      "source": {
+        "column": 31,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1779,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1779:31"
+      },
+      "src": "stq_commit_head",
+      "statement_ids": [
+        7915
+      ]
+    },
+    {
+      "dst": "_T_1111",
+      "kind": "control",
+      "source": {
+        "column": 31,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1779,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1779:31"
+      },
+      "src": "commit_store",
+      "statement_ids": [
+        7915
+      ]
+    },
+    {
+      "dst": "stq_commit_head",
+      "kind": "state",
+      "source": {
+        "column": 19,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1787,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1787:19"
+      },
+      "src": "_T_1111",
+      "statement_ids": [
+        7920
+      ]
+    },
+    {
+      "dst": "stq_commit_head",
+      "kind": "state",
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1937,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1937:24"
+      },
+      "src": "h0",
+      "statement_ids": [
+        8109
+      ]
+    },
+    {
+      "dst": "stq_commit_head",
+      "kind": "control",
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1937,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1937:24"
+      },
+      "src": "_T_1150",
+      "statement_ids": [
+        8109
+      ]
+    },
+    {
+      "dst": "stq_commit_head",
+      "kind": "control",
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1937,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1937:24"
+      },
+      "src": "_T_1151",
+      "statement_ids": [
+        8109
+      ]
+    }
+  ],
+  "events": [],
+  "frontier": [
+    {
+      "id": "_T_1150",
+      "kind": "node",
+      "source": {
+        "column": 22,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1928,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1928:22"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_1151",
+      "kind": "node",
+      "source": {
+        "column": 17,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1933,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1933:17"
+      },
+      "type": null
+    },
+    {
+      "id": "commit_store",
+      "kind": "node",
+      "source": {
+        "column": 49,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1749,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1749:49"
+      },
+      "type": null
+    },
+    {
+      "id": "h0",
+      "kind": "unknown",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 306,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 306:38"
+      },
+      "type": null
+    },
+    {
+      "id": "h1",
+      "kind": "unknown",
+      "source": {
+        "column": 71,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 353,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 353:71"
+      },
+      "type": null
+    },
+    {
+      "id": "stq_commit_head",
+      "kind": "register",
+      "source": {
+        "column": 29,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 287,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 287:29"
+      },
+      "type": "UInt<4>"
+    }
+  ],
+  "grounding": {
+    "allowed_physical_event_ids": [],
+    "allowed_state_ids": [
+      "stq_commit_head"
+    ],
+    "allowed_statement_ids": [
+      7912,
+      7913,
+      7914,
+      7915,
+      7920,
+      8109
+    ],
+    "semantic_labels": []
+  },
+  "memory_state": [],
+  "parent_connection_signals": [],
+  "planner_version": "hierarchical-planner-v10",
+  "proof_context": {
+    "register_transition_oracles": {
+      "stq_commit_head": {
+        "default": {
+          "name": "stq_commit_head",
+          "op": "signal"
+        },
+        "priority": "first_match",
+        "register": "stq_commit_head",
+        "scope_identity": null,
+        "type": "register_transition",
+        "updates": [
+          {
+            "guard": {
+              "name": "_T_1151",
+              "op": "signal"
+            },
+            "next": {
+              "op": "const",
+              "value": 0
+            }
+          },
+          {
+            "guard": {
+              "name": "commit_store",
+              "op": "signal"
+            },
+            "next": {
+              "modulus": 16,
+              "op": "modular_increment",
+              "value": {
+                "name": "stq_commit_head",
+                "op": "signal"
+              }
+            }
+          }
+        ],
+        "width": 4,
+        "writer_statement_ids": [
+          7920,
+          8109
+        ]
+      }
+    }
+  },
+  "replacement_complexity": {
+    "event_state_coupling": 0.0,
+    "events": 0,
+    "logical": {
+      "dependency_edges": 11,
+      "signals": 9,
+      "source_loc": 4,
+      "statements": 4
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 11,
+      "signals": 10,
+      "source_loc": 4,
+      "statements": 6,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 1,
+    "state_regions": 1
+  },
+  "schema_version": "workunit-static-0.1",
+  "semantic_event_cones": [],
+  "source_evidence": {
+    "resolved": [],
+    "roots": [],
+    "unresolved": [
+      {
+        "end_line": 1779,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "start_line": 1779
+      },
+      {
+        "end_line": 1787,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "start_line": 1787
+      },
+      {
+        "end_line": 1937,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "start_line": 1937
+      },
+      {
+        "end_line": 227,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "start_line": 227
+      }
+    ]
+  },
+  "source_spans": [
+    {
+      "end_line": 1779,
+      "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+      "start_line": 1779
+    },
+    {
+      "end_line": 1787,
+      "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+      "start_line": 1787
+    },
+    {
+      "end_line": 1937,
+      "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+      "start_line": 1937
+    },
+    {
+      "end_line": 227,
+      "file": "generators/boom/src/main/scala/v4/util/util.scala",
+      "start_line": 227
+    }
+  ],
+  "state": [
+    {
+      "id": "stq_commit_head",
+      "kind": "register",
+      "source": {
+        "column": 29,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 287,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 287:29"
+      },
+      "type": "UInt<4>"
+    }
+  ],
+  "statements": [
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_1108"
+      ],
+      "firrtl_line": 374284,
+      "id": 7912,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h1",
+        "stq_commit_head"
+      ],
+      "source": {
+        "column": 13,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 227,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 227:13"
+      },
+      "status": "supported",
+      "text": "node _T_1108 = add(stq_commit_head, UInt<1>(0h1))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_1109"
+      ],
+      "firrtl_line": 374285,
+      "id": 7913,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_T_1108"
+      ],
+      "source": {
+        "column": 13,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 227,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 227:13"
+      },
+      "status": "supported",
+      "text": "node _T_1109 = tail(_T_1108, 1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_1110"
+      ],
+      "firrtl_line": 374286,
+      "id": 7914,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_T_1109"
+      ],
+      "source": {
+        "column": 18,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 227,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 227:18"
+      },
+      "status": "supported",
+      "text": "node _T_1110 = bits(_T_1109, 3, 0)"
+    },
+    {
+      "control_reads": [
+        "commit_store"
+      ],
+      "drives": [
+        "_T_1111"
+      ],
+      "firrtl_line": 374287,
+      "id": 7915,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_T_1110",
+        "commit_store",
+        "stq_commit_head"
+      ],
+      "source": {
+        "column": 31,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1779,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1779:31"
+      },
+      "status": "supported",
+      "text": "node _T_1111 = mux(commit_store, _T_1110, stq_commit_head)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "stq_commit_head"
+      ],
+      "firrtl_line": 374292,
+      "id": 7920,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_T_1111"
+      ],
+      "source": {
+        "column": 19,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1787,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1787:19"
+      },
+      "status": "supported",
+      "text": "connect stq_commit_head, _T_1111"
+    },
+    {
+      "control_reads": [
+        "_T_1150",
+        "_T_1151"
+      ],
+      "drives": [
+        "stq_commit_head"
+      ],
+      "firrtl_line": 374481,
+      "id": 8109,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h0"
+      ],
+      "source": {
+        "column": 24,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1937,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1937:24"
+      },
+      "status": "supported",
+      "text": "connect stq_commit_head, UInt<1>(0h0)"
+    }
+  ],
+  "work_unit": {
+    "coverage_complete": true,
+    "decision": "manageable",
+    "depth": 1,
+    "exceeded_limits": [],
+    "id": "LSU::state-0-11",
+    "instance_path": "LSU",
+    "is_leaf": true,
+    "kind": "region",
+    "module": "LSU",
+    "replacement_exceeded_limits": []
+  }
+}

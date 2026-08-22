@@ -1,0 +1,103 @@
+{
+  "compiler": "formal-axiom-compiler-0.13",
+  "obligations": [
+    {
+      "arguments": {
+        "default": {
+          "name": "stq_commit_head",
+          "op": "signal"
+        },
+        "priority": "first_match",
+        "register": "stq_commit_head",
+        "updates": [
+          {
+            "guard": {
+              "name": "_T_1151",
+              "op": "signal"
+            },
+            "next": {
+              "op": "const",
+              "value": 0
+            }
+          },
+          {
+            "guard": {
+              "name": "commit_store",
+              "op": "signal"
+            },
+            "next": {
+              "modulus": 16,
+              "op": "modular_increment",
+              "value": {
+                "name": "stq_commit_head",
+                "op": "signal"
+              }
+            }
+          }
+        ],
+        "width": 4
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "state_transition",
+      "checker": "register_transition",
+      "evidence_statement_ids": [
+        7912,
+        7913,
+        7914,
+        7915,
+        7920,
+        8109
+      ],
+      "formal": {
+        "default": {
+          "name": "stq_commit_head",
+          "op": "signal"
+        },
+        "priority": "first_match",
+        "register": "stq_commit_head",
+        "scope_identity": null,
+        "type": "register_transition",
+        "updates": [
+          {
+            "guard": {
+              "name": "_T_1151",
+              "op": "signal"
+            },
+            "next": {
+              "op": "const",
+              "value": 0
+            }
+          },
+          {
+            "guard": {
+              "name": "commit_store",
+              "op": "signal"
+            },
+            "next": {
+              "modulus": 16,
+              "op": "modular_increment",
+              "value": {
+                "name": "stq_commit_head",
+                "op": "signal"
+              }
+            }
+          }
+        ],
+        "width": 4
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [],
+        "predicates": [],
+        "signals": [
+          "_T_1151",
+          "commit_store",
+          "stq_commit_head"
+        ]
+      },
+      "rendered_formula": "next(stq_commit_head) = first_match(if _T_1151: 0; if commit_store: inc_mod_16(stq_commit_head); default: stq_commit_head)"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "work_unit_id": "LSU::state-0-11"
+}

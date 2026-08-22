@@ -1,0 +1,14 @@
+{
+  "assumptions": [],
+  "axioms": [],
+  "cases": [],
+  "identity_keys": [],
+  "note": "Only axioms with FORMALLY_PROVED or SPEC_PROVED validation level are included. Grounded/structurally-supported candidate axioms remain outside the trusted abstraction.",
+  "occurrences": [],
+  "predicates": [],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-LSU-state-0-11-90377a879c9e470d",
+  "trust_policy": "formal-ast-plus-certified-provenance-v0.3",
+  "trusted_axiom_ids": [],
+  "work_unit_id": "LSU::state-0-11"
+}

@@ -1,0 +1,142 @@
+{
+  "all_axioms_formally_proved": false,
+  "all_axioms_structurally_supported": false,
+  "candidate_axiom_count": 1,
+  "control_model": {
+    "known_states": [],
+    "reset_state": null,
+    "state_register": "state",
+    "transitions": []
+  },
+  "counts": {
+    "FORMALLY_PROVED": 0,
+    "GROUNDED": 1,
+    "PARTIALLY_SUPPORTED": 0,
+    "REFUTED": 0,
+    "SPEC_PROVED": 0,
+    "STRUCTURALLY_SUPPORTED": 0
+  },
+  "empty_abstraction_certificate": null,
+  "formal_backend": {
+    "api_version": "formal-backend-api-0.23",
+    "available": true,
+    "name": "explicit-control",
+    "note": "Exhaustive formal proof for certified finite-control/order properties, exact symbolic local/identity facts, exact local Boolean exclusion/conservation, bounded indexed token provenance, and selected finite reference equivalence checks. It is not a general bit-level SMT backend.",
+    "proof_domain": "control + exact symbolic local + exact combinational exclusion/conservation + scalar/indexed token provenance + finite reference equivalence",
+    "supported_checkers": [
+      "forbid_when",
+      "history_order",
+      "history_chain",
+      "history_join",
+      "indexed_coverage",
+      "indexed_storage_flow",
+      "indexed_priority_select",
+      "register_transition",
+      "occurrence_partition",
+      "transaction_exclusion",
+      "signal_alias",
+      "constant_bit",
+      "identity_projection",
+      "tilelink_on_probe_spec"
+    ],
+    "trusted_proof_levels": [
+      "FORMALLY_PROVED",
+      "SPEC_PROVED"
+    ]
+  },
+  "has_counterexample": false,
+  "property_compiler": "formal-axiom-compiler-0.13",
+  "public_interface_validation": null,
+  "results": [
+    {
+      "arguments": {
+        "default": {
+          "name": "stq_commit_head",
+          "op": "signal"
+        },
+        "priority": "first_match",
+        "register": "stq_commit_head",
+        "updates": [
+          {
+            "guard": {
+              "name": "_T_1151",
+              "op": "signal"
+            },
+            "next": {
+              "op": "const",
+              "value": 0
+            }
+          },
+          {
+            "guard": {
+              "name": "commit_store",
+              "op": "signal"
+            },
+            "next": {
+              "modulus": 16,
+              "op": "modular_increment",
+              "value": {
+                "name": "stq_commit_head",
+                "op": "signal"
+              }
+            }
+          }
+        ],
+        "width": 4
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "state_transition",
+      "checker": "register_transition",
+      "evidence_statement_ids": [
+        7912,
+        7913,
+        7914,
+        7915,
+        7920,
+        8109
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "inputs": {
+            "_T_1151": 0,
+            "commit_store": 0,
+            "stq_commit_head": 0
+          },
+          "reason": "could not evaluate the complete register writer/control cone",
+          "status": "STRUCTURAL_UNKNOWN"
+        },
+        "reason": "could not evaluate the complete register writer/control cone",
+        "required_backend_capability": "exact-guarded-register-transition",
+        "status": "FORMAL_UNKNOWN"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [],
+        "predicates": [],
+        "signals": [
+          "_T_1151",
+          "commit_store",
+          "stq_commit_head"
+        ]
+      },
+      "rendered_formula": "next(stq_commit_head) = first_match(if _T_1151: 0; if commit_store: inc_mod_16(stq_commit_head); default: stq_commit_head)",
+      "structural": {
+        "inputs": {
+          "_T_1151": 0,
+          "commit_store": 0,
+          "stq_commit_head": 0
+        },
+        "reason": "could not evaluate the complete register writer/control cone",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": false,
+      "validation_level": "GROUNDED"
+    }
+  ],
+  "trusted_axiom_count": 0,
+  "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
+  "validator": "semantic-validator-0.23",
+  "work_unit_id": "LSU::state-0-11"
+}

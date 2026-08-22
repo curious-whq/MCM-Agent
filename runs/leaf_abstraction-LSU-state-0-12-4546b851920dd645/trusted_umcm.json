@@ -1,0 +1,207 @@
+{
+  "assumptions": [],
+  "axioms": [
+    {
+      "derived_from_case_ids": [],
+      "evidence_statement_ids": [
+        1186,
+        1188,
+        1190,
+        1192,
+        1194,
+        1196,
+        1197,
+        1209,
+        1335,
+        1336,
+        1337,
+        1338,
+        1339,
+        1340,
+        1341,
+        1342,
+        1343,
+        1344,
+        1345,
+        1346,
+        1347,
+        1348,
+        1349,
+        1350,
+        1351,
+        1352,
+        2437,
+        2438,
+        2440,
+        6872,
+        6880,
+        6881,
+        6882,
+        6883,
+        6884,
+        6885,
+        6886,
+        6887,
+        6888,
+        6889,
+        6890,
+        6892,
+        6894,
+        6896,
+        6897,
+        6898,
+        6899,
+        6900,
+        6901,
+        6902,
+        6903,
+        6905,
+        6906,
+        6908,
+        6910,
+        6911,
+        6912,
+        6913,
+        6914,
+        6915,
+        6916,
+        6917,
+        6919,
+        6920,
+        6921,
+        6923,
+        7943,
+        7944,
+        7945,
+        8110
+      ],
+      "formal": {
+        "default": {
+          "name": "stq_execute_head",
+          "op": "signal"
+        },
+        "priority": "first_match",
+        "register": "stq_execute_head",
+        "scope_identity": null,
+        "type": "register_transition",
+        "updates": [
+          {
+            "guard": {
+              "name": "_T_1151",
+              "op": "signal"
+            },
+            "next": {
+              "op": "const",
+              "value": 0
+            }
+          },
+          {
+            "guard": {
+              "args": [
+                {
+                  "name": "io.dmem.nack[0].valid",
+                  "op": "signal"
+                },
+                {
+                  "op": "not",
+                  "value": {
+                    "name": "io.dmem.nack[0].bits.is_hella",
+                    "op": "signal"
+                  }
+                },
+                {
+                  "op": "not",
+                  "value": {
+                    "name": "io.dmem.nack[0].bits.uop.uses_ldq",
+                    "op": "signal"
+                  }
+                },
+                {
+                  "name": "_T_921",
+                  "op": "signal"
+                }
+              ],
+              "op": "and"
+            },
+            "next": {
+              "name": "io.dmem.nack[0].bits.uop.stq_idx",
+              "op": "signal"
+            }
+          },
+          {
+            "guard": {
+              "args": [
+                {
+                  "op": "not",
+                  "value": {
+                    "name": "will_fire_load_agen_exec[0]",
+                    "op": "signal"
+                  }
+                },
+                {
+                  "op": "not",
+                  "value": {
+                    "name": "will_fire_load_retry[0]",
+                    "op": "signal"
+                  }
+                },
+                {
+                  "name": "_T_145",
+                  "op": "signal"
+                },
+                {
+                  "name": "_T_146",
+                  "op": "signal"
+                }
+              ],
+              "op": "and"
+            },
+            "next": {
+              "name": "stq_execute_queue.io.deq.bits.uop.stq_idx",
+              "op": "signal"
+            }
+          },
+          {
+            "guard": {
+              "args": [
+                {
+                  "name": "stq_execute_queue.io.enq.valid",
+                  "op": "signal"
+                },
+                {
+                  "name": "stq_execute_queue.io.enq.ready",
+                  "op": "signal"
+                }
+              ],
+              "op": "and"
+            },
+            "next": {
+              "modulus": 16,
+              "op": "modular_increment",
+              "value": {
+                "name": "stq_execute_head",
+                "op": "signal"
+              }
+            }
+          }
+        ],
+        "width": 4
+      },
+      "id": "A1",
+      "rendered_formula": "stq_execute_head' = priority guarded next-state (4 updates, first_match)",
+      "status": "candidate"
+    }
+  ],
+  "cases": [],
+  "identity_keys": [],
+  "note": "Only axioms with FORMALLY_PROVED or SPEC_PROVED validation level are included. Grounded/structurally-supported candidate axioms remain outside the trusted abstraction.",
+  "occurrences": [],
+  "predicates": [],
+  "schema_version": "umcm-formal-0.5",
+  "task_id": "leaf_abstraction-LSU-state-0-12-4546b851920dd645",
+  "trust_policy": "formal-ast-only-v0.2",
+  "trusted_axiom_ids": [
+    "A1"
+  ],
+  "work_unit_id": "LSU::state-0-12"
+}

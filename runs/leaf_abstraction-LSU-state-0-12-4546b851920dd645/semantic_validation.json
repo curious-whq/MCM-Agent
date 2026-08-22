@@ -1,0 +1,300 @@
+{
+  "all_axioms_formally_proved": true,
+  "all_axioms_structurally_supported": true,
+  "candidate_axiom_count": 1,
+  "control_model": {
+    "known_states": [],
+    "reset_state": null,
+    "state_register": "state",
+    "transitions": []
+  },
+  "counts": {
+    "FORMALLY_PROVED": 1,
+    "GROUNDED": 0,
+    "PARTIALLY_SUPPORTED": 0,
+    "REFUTED": 0,
+    "SPEC_PROVED": 0,
+    "STRUCTURALLY_SUPPORTED": 0
+  },
+  "formal_backend": {
+    "api_version": "formal-backend-api-0.6",
+    "available": true,
+    "name": "explicit-control",
+    "note": "Exhaustive formal proof for certified finite-control/order properties, exact symbolic local/identity facts, and selected finite reference equivalence checks. It is not a general bit-level SMT backend.",
+    "proof_domain": "control + exact symbolic local + finite reference equivalence",
+    "supported_checkers": [
+      "forbid_when",
+      "history_order",
+      "history_chain",
+      "history_join",
+      "indexed_coverage",
+      "transaction_exclusion",
+      "signal_alias",
+      "constant_bit",
+      "identity_projection",
+      "tilelink_on_probe_spec"
+    ],
+    "trusted_proof_levels": [
+      "FORMALLY_PROVED",
+      "SPEC_PROVED"
+    ]
+  },
+  "has_counterexample": false,
+  "property_compiler": "formal-axiom-compiler-0.6",
+  "results": [
+    {
+      "arguments": {
+        "default": {
+          "name": "stq_execute_head",
+          "op": "signal"
+        },
+        "priority": "first_match",
+        "register": "stq_execute_head",
+        "updates": [
+          {
+            "guard": {
+              "name": "_T_1151",
+              "op": "signal"
+            },
+            "next": {
+              "op": "const",
+              "value": 0
+            }
+          },
+          {
+            "guard": {
+              "args": [
+                {
+                  "name": "io.dmem.nack[0].valid",
+                  "op": "signal"
+                },
+                {
+                  "op": "not",
+                  "value": {
+                    "name": "io.dmem.nack[0].bits.is_hella",
+                    "op": "signal"
+                  }
+                },
+                {
+                  "op": "not",
+                  "value": {
+                    "name": "io.dmem.nack[0].bits.uop.uses_ldq",
+                    "op": "signal"
+                  }
+                },
+                {
+                  "name": "_T_921",
+                  "op": "signal"
+                }
+              ],
+              "op": "and"
+            },
+            "next": {
+              "name": "io.dmem.nack[0].bits.uop.stq_idx",
+              "op": "signal"
+            }
+          },
+          {
+            "guard": {
+              "args": [
+                {
+                  "op": "not",
+                  "value": {
+                    "name": "will_fire_load_agen_exec[0]",
+                    "op": "signal"
+                  }
+                },
+                {
+                  "op": "not",
+                  "value": {
+                    "name": "will_fire_load_retry[0]",
+                    "op": "signal"
+                  }
+                },
+                {
+                  "name": "_T_145",
+                  "op": "signal"
+                },
+                {
+                  "name": "_T_146",
+                  "op": "signal"
+                }
+              ],
+              "op": "and"
+            },
+            "next": {
+              "name": "stq_execute_queue.io.deq.bits.uop.stq_idx",
+              "op": "signal"
+            }
+          },
+          {
+            "guard": {
+              "args": [
+                {
+                  "name": "stq_execute_queue.io.enq.valid",
+                  "op": "signal"
+                },
+                {
+                  "name": "stq_execute_queue.io.enq.ready",
+                  "op": "signal"
+                }
+              ],
+              "op": "and"
+            },
+            "next": {
+              "modulus": 16,
+              "op": "modular_increment",
+              "value": {
+                "name": "stq_execute_head",
+                "op": "signal"
+              }
+            }
+          }
+        ],
+        "width": 4
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "state_transition",
+      "checker": "register_transition",
+      "evidence_statement_ids": [
+        1186,
+        1188,
+        1190,
+        1192,
+        1194,
+        1196,
+        1197,
+        1209,
+        1335,
+        1336,
+        1337,
+        1338,
+        1339,
+        1340,
+        1341,
+        1342,
+        1343,
+        1344,
+        1345,
+        1346,
+        1347,
+        1348,
+        1349,
+        1350,
+        1351,
+        1352,
+        2437,
+        2438,
+        2440,
+        6872,
+        6880,
+        6881,
+        6882,
+        6883,
+        6884,
+        6885,
+        6886,
+        6887,
+        6888,
+        6889,
+        6890,
+        6892,
+        6894,
+        6896,
+        6897,
+        6898,
+        6899,
+        6900,
+        6901,
+        6902,
+        6903,
+        6905,
+        6906,
+        6908,
+        6910,
+        6911,
+        6912,
+        6913,
+        6914,
+        6915,
+        6916,
+        6917,
+        6919,
+        6920,
+        6921,
+        6923,
+        7943,
+        7944,
+        7945,
+        8110
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "base_input_widths": {
+            "_T_1151": 1,
+            "_T_145": 1,
+            "_T_146": 1,
+            "_T_921": 1,
+            "io.dmem.nack[0].bits.is_hella": 1,
+            "io.dmem.nack[0].bits.uop.uses_ldq": 1,
+            "io.dmem.nack[0].valid": 1,
+            "stq_execute_head": 4,
+            "stq_execute_queue.io.enq.ready": 1,
+            "stq_execute_queue.io.enq.valid": 1,
+            "will_fire_load_agen_exec[0]": 1,
+            "will_fire_load_retry[0]": 1
+          },
+          "checked_rows": 62528,
+          "data_inputs": [
+            "io.dmem.nack[0].bits.uop.stq_idx",
+            "stq_execute_queue.io.deq.bits.uop.stq_idx"
+          ],
+          "register": "stq_execute_head",
+          "width": 4,
+          "writer_statement_ids": [
+            1352,
+            2440,
+            6923,
+            8110
+          ]
+        },
+        "proof_method": "exact-guard-partitioned-register-transition",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [],
+        "predicates": [],
+        "signals": [
+          "_T_1151",
+          "_T_145",
+          "_T_146",
+          "_T_921",
+          "io.dmem.nack[0].bits.is_hella",
+          "io.dmem.nack[0].bits.uop.stq_idx",
+          "io.dmem.nack[0].bits.uop.uses_ldq",
+          "io.dmem.nack[0].valid",
+          "stq_execute_head",
+          "stq_execute_queue.io.deq.bits.uop.stq_idx",
+          "stq_execute_queue.io.enq.ready",
+          "stq_execute_queue.io.enq.valid",
+          "will_fire_load_agen_exec[0]",
+          "will_fire_load_retry[0]"
+        ]
+      },
+      "rendered_formula": "stq_execute_head' = priority guarded next-state (4 updates, first_match)",
+      "structural": {
+        "reason": "unsupported checker 'register_transition'",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    }
+  ],
+  "trusted_axiom_count": 1,
+  "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
+  "validator": "semantic-validator-0.7",
+  "work_unit_id": "LSU::state-0-12"
+}

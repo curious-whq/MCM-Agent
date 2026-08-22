@@ -1,0 +1,129 @@
+{
+  "compiler": "formal-axiom-compiler-0.6",
+  "obligations": [
+    {
+      "arguments": {
+        "default": {
+          "name": "stq_tail",
+          "op": "signal"
+        },
+        "priority": "first_match",
+        "register": "stq_tail",
+        "updates": [
+          {
+            "guard": {
+              "name": "_T_1151",
+              "op": "signal"
+            },
+            "next": {
+              "op": "const",
+              "value": 0
+            }
+          },
+          {
+            "guard": {
+              "name": "_T_1092",
+              "op": "signal"
+            },
+            "next": {
+              "name": "io.core.brupdate.b2.uop.stq_idx",
+              "op": "signal"
+            }
+          },
+          {
+            "guard": {
+              "name": "dis_st_val",
+              "op": "signal"
+            },
+            "next": {
+              "modulus": 16,
+              "op": "modular_increment",
+              "value": {
+                "name": "stq_tail",
+                "op": "signal"
+              }
+            }
+          }
+        ],
+        "width": 4
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "state_transition",
+      "checker": "register_transition",
+      "evidence_statement_ids": [
+        163,
+        164,
+        165,
+        283,
+        284,
+        285,
+        286,
+        313,
+        7873,
+        8108
+      ],
+      "formal": {
+        "default": {
+          "name": "stq_tail",
+          "op": "signal"
+        },
+        "priority": "first_match",
+        "register": "stq_tail",
+        "scope_identity": null,
+        "type": "register_transition",
+        "updates": [
+          {
+            "guard": {
+              "name": "_T_1151",
+              "op": "signal"
+            },
+            "next": {
+              "op": "const",
+              "value": 0
+            }
+          },
+          {
+            "guard": {
+              "name": "_T_1092",
+              "op": "signal"
+            },
+            "next": {
+              "name": "io.core.brupdate.b2.uop.stq_idx",
+              "op": "signal"
+            }
+          },
+          {
+            "guard": {
+              "name": "dis_st_val",
+              "op": "signal"
+            },
+            "next": {
+              "modulus": 16,
+              "op": "modular_increment",
+              "value": {
+                "name": "stq_tail",
+                "op": "signal"
+              }
+            }
+          }
+        ],
+        "width": 4
+      },
+      "references": {
+        "identities": [],
+        "occurrences": [],
+        "predicates": [],
+        "signals": [
+          "_T_1092",
+          "_T_1151",
+          "dis_st_val",
+          "io.core.brupdate.b2.uop.stq_idx",
+          "stq_tail"
+        ]
+      },
+      "rendered_formula": "stq_tail' = priority guarded next-state (3 updates, first_match)"
+    }
+  ],
+  "schema_version": "umcm-formal-0.5",
+  "work_unit_id": "LSU::state-0-13"
+}

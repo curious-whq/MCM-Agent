@@ -127,69 +127,106 @@ def prove_register_transition(
                 "reason": f"transition value {signal!r} is not a frontier/state value",
             }
 
-    inputs = [(register, width)]
-    inputs.extend((signal, 1) for signal in sorted(external_guards))
-    inputs.extend((signal, width) for signal in sorted(external_values))
-    total_bits = sum(input_width for _, input_width in inputs)
-    if total_bits > 20:
+    # Enumerate state + Boolean control first.  Data-valued redirect inputs are
+    # enumerated only in rows where the declared first-match branch actually
+    # reads them.  This is still exhaustive: if the RTL selects a different
+    # writer that needs an undeclared data input, next_state() fails closed
+    # instead of silently proving the candidate.
+    base_inputs = [(register, width)]
+    base_inputs.extend((signal, 1) for signal in sorted(external_guards))
+    base_bits = sum(input_width for _, input_width in base_inputs)
+    if base_bits > 20:
         return {
             "status": STRUCTURAL_UNKNOWN,
-            "reason": "register transition exceeds the current 2^20 exact enumeration limit",
+            "reason": (
+                "register transition guard/state partition exceeds the current "
+                "2^20 exact enumeration limit"
+            ),
         }
 
     checked = 0
+    max_checked_rows = 1 << 20
     writer_ids: set[int] = set()
     state_mask = (1 << width) - 1
-    for valuation in range(1 << total_bits):
-        env: dict[str, tuple[int, int]] = {}
+    for valuation in range(1 << base_bits):
+        base_env: dict[str, tuple[int, int]] = {}
         offset = 0
-        for signal, input_width in inputs:
+        for signal, input_width in base_inputs:
             value = (valuation >> offset) & ((1 << input_width) - 1)
             offset += input_width
-            env[signal] = (value, input_width)
+            base_env[signal] = (value, input_width)
 
-        expected: int | None = None
+        selected_expr: dict[str, Any] | None = None
         selected_update: int | None = None
         for update_index, update in enumerate(updates):
-            guard = _eval_expr(update["guard"], env, 1)
+            guard = _eval_expr(update["guard"], base_env, 1)
             if guard is None:
                 return {
                     "status": STRUCTURAL_UNKNOWN,
                     "reason": "could not evaluate a declared transition guard",
                 }
             if guard:
-                expected = _eval_expr(update["next"], env, width)
+                selected_expr = update["next"]
                 selected_update = update_index
                 break
-        if expected is None:
-            expected = _eval_expr(default, env, width)
-        if expected is None:
+        if selected_expr is None:
+            selected_expr = default
+
+        selected_data = sorted(_signals(selected_expr) & external_values)
+        selected_data_bits = width * len(selected_data)
+        if selected_data_bits > 20:
             return {
                 "status": STRUCTURAL_UNKNOWN,
-                "reason": "could not evaluate a declared transition next expression",
+                "reason": (
+                    "one selected transition branch exceeds the current "
+                    "2^20 exact data enumeration limit"
+                ),
             }
 
-        actual = evaluator.next_state(register, env)
-        if actual is None:
-            return {
-                "status": STRUCTURAL_UNKNOWN,
-                "reason": "could not evaluate the complete register writer/control cone",
-                "inputs": {signal: env[signal][0] for signal, _ in inputs},
-            }
-        writer_ids.update(actual[1])
-        actual_value = actual[0] & state_mask
-        if actual_value != expected:
-            return {
-                "status": COUNTEREXAMPLE,
-                "reason": "RTL next state differs from the declared guarded register transition",
-                "counterexample": {
-                    "inputs": {signal: env[signal][0] for signal, _ in inputs},
-                    "selected_update": selected_update,
-                    "actual_next": actual_value,
-                    "expected_next": expected,
-                },
-            }
-        checked += 1
+        for data_valuation in range(1 << selected_data_bits):
+            env = dict(base_env)
+            data_offset = 0
+            for signal in selected_data:
+                value = (data_valuation >> data_offset) & state_mask
+                data_offset += width
+                env[signal] = (value, width)
+
+            expected = _eval_expr(selected_expr, env, width)
+            if expected is None:
+                return {
+                    "status": STRUCTURAL_UNKNOWN,
+                    "reason": "could not evaluate a declared transition next expression",
+                }
+
+            actual = evaluator.next_state(register, env)
+            if actual is None:
+                return {
+                    "status": STRUCTURAL_UNKNOWN,
+                    "reason": "could not evaluate the complete register writer/control cone",
+                    "inputs": {signal: value[0] for signal, value in env.items()},
+                }
+            writer_ids.update(actual[1])
+            actual_value = actual[0] & state_mask
+            if actual_value != expected:
+                return {
+                    "status": COUNTEREXAMPLE,
+                    "reason": "RTL next state differs from the declared guarded register transition",
+                    "counterexample": {
+                        "inputs": {signal: value[0] for signal, value in env.items()},
+                        "selected_update": selected_update,
+                        "actual_next": actual_value,
+                        "expected_next": expected,
+                    },
+                }
+            checked += 1
+            if checked > max_checked_rows:
+                return {
+                    "status": STRUCTURAL_UNKNOWN,
+                    "reason": (
+                        "guard-partitioned register transition exceeds the current "
+                        "2^20 exact checked-row limit"
+                    ),
+                }
 
     return {
         "status": STRUCTURALLY_SUPPORTED,
@@ -197,7 +234,7 @@ def prove_register_transition(
             f"exhaustive finite equivalence proves the complete {width}-bit "
             f"next-state writer priority for {register}"
         ),
-        "proof_domain": "exact-guarded-register-transition",
+        "proof_domain": "exact-guard-partitioned-register-transition",
         "register": register,
         "width": width,
         "priority": priority,
@@ -205,5 +242,8 @@ def prove_register_transition(
         "default": default,
         "checked_rows": checked,
         "writer_statement_ids": sorted(writer_ids),
-        "input_widths": {signal: input_width for signal, input_width in inputs},
+        "base_input_widths": {
+            signal: input_width for signal, input_width in base_inputs
+        },
+        "data_inputs": sorted(external_values),
     }

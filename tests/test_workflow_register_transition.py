@@ -143,9 +143,12 @@ class RegisterTransitionTests(unittest.TestCase):
         self.assertEqual(axiom["validation_level"], FORMALLY_PROVED, axiom)
         self.assertEqual(
             axiom["formal"]["proof_method"],
-            "exact-guarded-register-transition",
+            "exact-guard-partitioned-register-transition",
         )
-        self.assertEqual(axiom["formal"]["certificate"]["checked_rows"], 2048)
+        # Full Cartesian enumeration was 2^11=2048 rows.  Partitioned exact
+        # enumeration checks the 4-bit redirect value only when its branch is
+        # selected, reducing this to 608 without changing semantics.
+        self.assertEqual(axiom["formal"]["certificate"]["checked_rows"], 608)
 
     def test_wrong_writer_priority_is_refuted(self):
         candidate = _candidate(self.task, self.handoff)

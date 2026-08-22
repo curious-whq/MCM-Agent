@@ -1,0 +1,833 @@
+{
+  "children": [],
+  "complexity": {
+    "event_state_coupling": 0.0,
+    "events": 0,
+    "logical": {
+      "dependency_edges": 19,
+      "signals": 15,
+      "source_loc": 6,
+      "statements": 6
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 19,
+      "signals": 17,
+      "source_loc": 6,
+      "statements": 10,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 1,
+    "state_regions": 1
+  },
+  "dependency_edges": [
+    {
+      "dst": "_dis_st_val_T",
+      "kind": "data",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 376,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 376:48"
+      },
+      "src": "io.core.dis_uops[0].bits.uses_stq",
+      "statement_ids": [
+        163
+      ]
+    },
+    {
+      "dst": "_dis_st_val_T",
+      "kind": "data",
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 376,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 376:48"
+      },
+      "src": "io.core.dis_uops[0].valid",
+      "statement_ids": [
+        163
+      ]
+    },
+    {
+      "dst": "_dis_st_val_T_1",
+      "kind": "data",
+      "source": {
+        "column": 88,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 376,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 376:88"
+      },
+      "src": "h0",
+      "statement_ids": [
+        164
+      ]
+    },
+    {
+      "dst": "_dis_st_val_T_1",
+      "kind": "data",
+      "source": {
+        "column": 88,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 376,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 376:88"
+      },
+      "src": "io.core.dis_uops[0].bits.exception",
+      "statement_ids": [
+        164
+      ]
+    },
+    {
+      "dst": "dis_st_val",
+      "kind": "data",
+      "source": {
+        "column": 85,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 376,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 376:85"
+      },
+      "src": "_dis_st_val_T",
+      "statement_ids": [
+        165
+      ]
+    },
+    {
+      "dst": "dis_st_val",
+      "kind": "data",
+      "source": {
+        "column": 85,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 376,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 376:85"
+      },
+      "src": "_dis_st_val_T_1",
+      "statement_ids": [
+        165
+      ]
+    },
+    {
+      "dst": "_T_52",
+      "kind": "data",
+      "source": {
+        "column": 13,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 227,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 227:13"
+      },
+      "src": "h1",
+      "statement_ids": [
+        283
+      ]
+    },
+    {
+      "dst": "_T_52",
+      "kind": "data",
+      "source": {
+        "column": 13,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 227,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 227:13"
+      },
+      "src": "stq_tail",
+      "statement_ids": [
+        283
+      ]
+    },
+    {
+      "dst": "_T_53",
+      "kind": "data",
+      "source": {
+        "column": 13,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 227,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 227:13"
+      },
+      "src": "_T_52",
+      "statement_ids": [
+        284
+      ]
+    },
+    {
+      "dst": "_T_54",
+      "kind": "data",
+      "source": {
+        "column": 18,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 227,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 227:18"
+      },
+      "src": "_T_53",
+      "statement_ids": [
+        285
+      ]
+    },
+    {
+      "dst": "_T_55",
+      "kind": "data",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 423,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 423:21"
+      },
+      "src": "_T_54",
+      "statement_ids": [
+        286
+      ]
+    },
+    {
+      "dst": "_T_55",
+      "kind": "data",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 423,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 423:21"
+      },
+      "src": "stq_tail",
+      "statement_ids": [
+        286
+      ]
+    },
+    {
+      "dst": "_T_55",
+      "kind": "control",
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 423,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 423:21"
+      },
+      "src": "dis_st_val",
+      "statement_ids": [
+        286
+      ]
+    },
+    {
+      "dst": "stq_tail",
+      "kind": "state",
+      "source": {
+        "column": 12,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 436,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 436:12"
+      },
+      "src": "_T_55",
+      "statement_ids": [
+        313
+      ]
+    },
+    {
+      "dst": "stq_tail",
+      "kind": "state",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1735,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1735:14"
+      },
+      "src": "io.core.brupdate.b2.uop.stq_idx",
+      "statement_ids": [
+        7873
+      ]
+    },
+    {
+      "dst": "stq_tail",
+      "kind": "control",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1735,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1735:14"
+      },
+      "src": "_T_1092",
+      "statement_ids": [
+        7873
+      ]
+    },
+    {
+      "dst": "stq_tail",
+      "kind": "state",
+      "source": {
+        "column": 16,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1936,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1936:16"
+      },
+      "src": "h0",
+      "statement_ids": [
+        8108
+      ]
+    },
+    {
+      "dst": "stq_tail",
+      "kind": "control",
+      "source": {
+        "column": 16,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1936,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1936:16"
+      },
+      "src": "_T_1150",
+      "statement_ids": [
+        8108
+      ]
+    },
+    {
+      "dst": "stq_tail",
+      "kind": "control",
+      "source": {
+        "column": 16,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1936,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1936:16"
+      },
+      "src": "_T_1151",
+      "statement_ids": [
+        8108
+      ]
+    }
+  ],
+  "events": [],
+  "frontier": [
+    {
+      "id": "_T_1092",
+      "kind": "node",
+      "source": {
+        "column": 40,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1733,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1733:40"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_1150",
+      "kind": "node",
+      "source": {
+        "column": 22,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1928,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1928:22"
+      },
+      "type": null
+    },
+    {
+      "id": "_T_1151",
+      "kind": "node",
+      "source": {
+        "column": 17,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1933,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1933:17"
+      },
+      "type": null
+    },
+    {
+      "id": "dis_st_val",
+      "kind": "node",
+      "source": {
+        "column": 85,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 376,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 376:85"
+      },
+      "type": null
+    },
+    {
+      "id": "h0",
+      "kind": "unknown",
+      "source": {
+        "column": 38,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 306,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 306:38"
+      },
+      "type": null
+    },
+    {
+      "id": "h1",
+      "kind": "unknown",
+      "source": {
+        "column": 71,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 353,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 353:71"
+      },
+      "type": null
+    },
+    {
+      "id": "io.core.brupdate.b2.uop.stq_idx",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.core.dis_uops[0].bits.exception",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.core.dis_uops[0].bits.uses_stq",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "io.core.dis_uops[0].valid",
+      "kind": "port",
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 216,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 216:14"
+      },
+      "type": null
+    },
+    {
+      "id": "stq_tail",
+      "kind": "register",
+      "source": {
+        "column": 29,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 286,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 286:29"
+      },
+      "type": "UInt<4>"
+    }
+  ],
+  "grounding": {
+    "allowed_physical_event_ids": [],
+    "allowed_state_ids": [
+      "stq_tail"
+    ],
+    "allowed_statement_ids": [
+      163,
+      164,
+      165,
+      283,
+      284,
+      285,
+      286,
+      313,
+      7873,
+      8108
+    ],
+    "semantic_labels": []
+  },
+  "memory_state": [],
+  "parent_connection_signals": [],
+  "planner_version": "hierarchical-planner-v10",
+  "proof_context": {
+    "register_transition_oracles": {
+      "stq_tail": {
+        "default": {
+          "name": "stq_tail",
+          "op": "signal"
+        },
+        "priority": "first_match",
+        "register": "stq_tail",
+        "scope_identity": null,
+        "type": "register_transition",
+        "updates": [
+          {
+            "guard": {
+              "name": "_T_1151",
+              "op": "signal"
+            },
+            "next": {
+              "op": "const",
+              "value": 0
+            }
+          },
+          {
+            "guard": {
+              "name": "_T_1092",
+              "op": "signal"
+            },
+            "next": {
+              "name": "io.core.brupdate.b2.uop.stq_idx",
+              "op": "signal"
+            }
+          },
+          {
+            "guard": {
+              "name": "dis_st_val",
+              "op": "signal"
+            },
+            "next": {
+              "modulus": 16,
+              "op": "modular_increment",
+              "value": {
+                "name": "stq_tail",
+                "op": "signal"
+              }
+            }
+          }
+        ],
+        "width": 4,
+        "writer_statement_ids": [
+          313,
+          7873,
+          8108
+        ]
+      }
+    }
+  },
+  "replacement_complexity": {
+    "event_state_coupling": 0.0,
+    "events": 0,
+    "logical": {
+      "dependency_edges": 19,
+      "signals": 15,
+      "source_loc": 6,
+      "statements": 6
+    },
+    "memories": 0,
+    "raw": {
+      "dependency_edges": 19,
+      "signals": 17,
+      "source_loc": 6,
+      "statements": 10,
+      "unmapped_firrtl_loc": 0
+    },
+    "registers": 1,
+    "state_regions": 1
+  },
+  "schema_version": "workunit-static-0.1",
+  "semantic_event_cones": [],
+  "source_evidence": {
+    "resolved": [],
+    "roots": [],
+    "unresolved": [
+      {
+        "end_line": 376,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "start_line": 376
+      },
+      {
+        "end_line": 423,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "start_line": 423
+      },
+      {
+        "end_line": 436,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "start_line": 436
+      },
+      {
+        "end_line": 1735,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "start_line": 1735
+      },
+      {
+        "end_line": 1936,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "start_line": 1936
+      },
+      {
+        "end_line": 227,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "start_line": 227
+      }
+    ]
+  },
+  "source_spans": [
+    {
+      "end_line": 376,
+      "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+      "start_line": 376
+    },
+    {
+      "end_line": 423,
+      "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+      "start_line": 423
+    },
+    {
+      "end_line": 436,
+      "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+      "start_line": 436
+    },
+    {
+      "end_line": 1735,
+      "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+      "start_line": 1735
+    },
+    {
+      "end_line": 1936,
+      "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+      "start_line": 1936
+    },
+    {
+      "end_line": 227,
+      "file": "generators/boom/src/main/scala/v4/util/util.scala",
+      "start_line": 227
+    }
+  ],
+  "state": [
+    {
+      "id": "stq_tail",
+      "kind": "register",
+      "source": {
+        "column": 29,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 286,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 286:29"
+      },
+      "type": "UInt<4>"
+    }
+  ],
+  "statements": [
+    {
+      "control_reads": [],
+      "drives": [
+        "_dis_st_val_T"
+      ],
+      "firrtl_line": 366535,
+      "id": 163,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "io.core.dis_uops[0].bits.uses_stq",
+        "io.core.dis_uops[0].valid"
+      ],
+      "source": {
+        "column": 48,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 376,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 376:48"
+      },
+      "status": "supported",
+      "text": "node _dis_st_val_T = and(io.core.dis_uops[0].valid, io.core.dis_uops[0].bits.uses_stq)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_dis_st_val_T_1"
+      ],
+      "firrtl_line": 366536,
+      "id": 164,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h0",
+        "io.core.dis_uops[0].bits.exception"
+      ],
+      "source": {
+        "column": 88,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 376,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 376:88"
+      },
+      "status": "supported",
+      "text": "node _dis_st_val_T_1 = eq(io.core.dis_uops[0].bits.exception, UInt<1>(0h0))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "dis_st_val"
+      ],
+      "firrtl_line": 366537,
+      "id": 165,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_dis_st_val_T",
+        "_dis_st_val_T_1"
+      ],
+      "source": {
+        "column": 85,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 376,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 376:85"
+      },
+      "status": "supported",
+      "text": "node dis_st_val = and(_dis_st_val_T, _dis_st_val_T_1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_52"
+      ],
+      "firrtl_line": 366655,
+      "id": 283,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "h1",
+        "stq_tail"
+      ],
+      "source": {
+        "column": 13,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 227,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 227:13"
+      },
+      "status": "supported",
+      "text": "node _T_52 = add(stq_tail, UInt<1>(0h1))"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_53"
+      ],
+      "firrtl_line": 366656,
+      "id": 284,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_T_52"
+      ],
+      "source": {
+        "column": 13,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 227,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 227:13"
+      },
+      "status": "supported",
+      "text": "node _T_53 = tail(_T_52, 1)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "_T_54"
+      ],
+      "firrtl_line": 366657,
+      "id": 285,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_T_53"
+      ],
+      "source": {
+        "column": 18,
+        "file": "generators/boom/src/main/scala/v4/util/util.scala",
+        "line": 227,
+        "raw": "generators/boom/src/main/scala/v4/util/util.scala 227:18"
+      },
+      "status": "supported",
+      "text": "node _T_54 = bits(_T_53, 3, 0)"
+    },
+    {
+      "control_reads": [
+        "dis_st_val"
+      ],
+      "drives": [
+        "_T_55"
+      ],
+      "firrtl_line": 366658,
+      "id": 286,
+      "kind": "node",
+      "note": null,
+      "reads": [
+        "_T_54",
+        "dis_st_val",
+        "stq_tail"
+      ],
+      "source": {
+        "column": 21,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 423,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 423:21"
+      },
+      "status": "supported",
+      "text": "node _T_55 = mux(dis_st_val, _T_54, stq_tail)"
+    },
+    {
+      "control_reads": [],
+      "drives": [
+        "stq_tail"
+      ],
+      "firrtl_line": 366685,
+      "id": 313,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "_T_55"
+      ],
+      "source": {
+        "column": 12,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 436,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 436:12"
+      },
+      "status": "supported",
+      "text": "connect stq_tail, _T_55"
+    },
+    {
+      "control_reads": [
+        "_T_1092"
+      ],
+      "drives": [
+        "stq_tail"
+      ],
+      "firrtl_line": 374245,
+      "id": 7873,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "io.core.brupdate.b2.uop.stq_idx"
+      ],
+      "source": {
+        "column": 14,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1735,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1735:14"
+      },
+      "status": "supported",
+      "text": "connect stq_tail, io.core.brupdate.b2.uop.stq_idx"
+    },
+    {
+      "control_reads": [
+        "_T_1150",
+        "_T_1151"
+      ],
+      "drives": [
+        "stq_tail"
+      ],
+      "firrtl_line": 374480,
+      "id": 8108,
+      "kind": "connect",
+      "note": null,
+      "reads": [
+        "h0"
+      ],
+      "source": {
+        "column": 16,
+        "file": "generators/boom/src/main/scala/v4/lsu/lsu.scala",
+        "line": 1936,
+        "raw": "generators/boom/src/main/scala/v4/lsu/lsu.scala 1936:16"
+      },
+      "status": "supported",
+      "text": "connect stq_tail, UInt<1>(0h0)"
+    }
+  ],
+  "work_unit": {
+    "coverage_complete": true,
+    "decision": "manageable",
+    "depth": 1,
+    "exceeded_limits": [],
+    "id": "LSU::state-0-13",
+    "instance_path": "LSU",
+    "is_leaf": true,
+    "kind": "region",
+    "module": "LSU",
+    "replacement_exceeded_limits": []
+  }
+}

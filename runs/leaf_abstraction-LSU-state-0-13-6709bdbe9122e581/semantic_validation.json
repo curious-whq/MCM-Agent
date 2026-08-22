@@ -1,0 +1,156 @@
+{
+  "all_axioms_formally_proved": true,
+  "all_axioms_structurally_supported": true,
+  "candidate_axiom_count": 1,
+  "control_model": {
+    "known_states": [],
+    "reset_state": null,
+    "state_register": "state",
+    "transitions": []
+  },
+  "counts": {
+    "FORMALLY_PROVED": 1,
+    "GROUNDED": 0,
+    "PARTIALLY_SUPPORTED": 0,
+    "REFUTED": 0,
+    "SPEC_PROVED": 0,
+    "STRUCTURALLY_SUPPORTED": 0
+  },
+  "formal_backend": {
+    "api_version": "formal-backend-api-0.6",
+    "available": true,
+    "name": "explicit-control",
+    "note": "Exhaustive formal proof for certified finite-control/order properties, exact symbolic local/identity facts, and selected finite reference equivalence checks. It is not a general bit-level SMT backend.",
+    "proof_domain": "control + exact symbolic local + finite reference equivalence",
+    "supported_checkers": [
+      "forbid_when",
+      "history_order",
+      "history_chain",
+      "history_join",
+      "indexed_coverage",
+      "transaction_exclusion",
+      "signal_alias",
+      "constant_bit",
+      "identity_projection",
+      "tilelink_on_probe_spec"
+    ],
+    "trusted_proof_levels": [
+      "FORMALLY_PROVED",
+      "SPEC_PROVED"
+    ]
+  },
+  "has_counterexample": false,
+  "property_compiler": "formal-axiom-compiler-0.6",
+  "results": [
+    {
+      "arguments": {
+        "default": {
+          "name": "stq_tail",
+          "op": "signal"
+        },
+        "priority": "first_match",
+        "register": "stq_tail",
+        "updates": [
+          {
+            "guard": {
+              "name": "_T_1151",
+              "op": "signal"
+            },
+            "next": {
+              "op": "const",
+              "value": 0
+            }
+          },
+          {
+            "guard": {
+              "name": "_T_1092",
+              "op": "signal"
+            },
+            "next": {
+              "name": "io.core.brupdate.b2.uop.stq_idx",
+              "op": "signal"
+            }
+          },
+          {
+            "guard": {
+              "name": "dis_st_val",
+              "op": "signal"
+            },
+            "next": {
+              "modulus": 16,
+              "op": "modular_increment",
+              "value": {
+                "name": "stq_tail",
+                "op": "signal"
+              }
+            }
+          }
+        ],
+        "width": 4
+      },
+      "axiom_id": "A1",
+      "axiom_kind": "state_transition",
+      "checker": "register_transition",
+      "evidence_statement_ids": [
+        163,
+        164,
+        165,
+        283,
+        284,
+        285,
+        286,
+        313,
+        7873,
+        8108
+      ],
+      "formal": {
+        "backend": "explicit-control",
+        "certificate": {
+          "base_input_widths": {
+            "_T_1092": 1,
+            "_T_1151": 1,
+            "dis_st_val": 1,
+            "stq_tail": 4
+          },
+          "checked_rows": 608,
+          "data_inputs": [
+            "io.core.brupdate.b2.uop.stq_idx"
+          ],
+          "register": "stq_tail",
+          "width": 4,
+          "writer_statement_ids": [
+            313,
+            7873,
+            8108
+          ]
+        },
+        "proof_method": "exact-guard-partitioned-register-transition",
+        "status": "FORMALLY_PROVED"
+      },
+      "grounding_status": "GROUNDED",
+      "references": {
+        "identities": [],
+        "occurrences": [],
+        "predicates": [],
+        "signals": [
+          "_T_1092",
+          "_T_1151",
+          "dis_st_val",
+          "io.core.brupdate.b2.uop.stq_idx",
+          "stq_tail"
+        ]
+      },
+      "rendered_formula": "stq_tail' = priority guarded next-state (3 updates, first_match)",
+      "structural": {
+        "reason": "unsupported checker 'register_transition'",
+        "status": "STRUCTURAL_UNKNOWN"
+      },
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
+    }
+  ],
+  "trusted_axiom_count": 1,
+  "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
+  "validator": "semantic-validator-0.7",
+  "work_unit_id": "LSU::state-0-13"
+}
