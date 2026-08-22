@@ -1,6 +1,6 @@
 {
-  "all_axioms_formally_proved": false,
-  "all_axioms_structurally_supported": false,
+  "all_axioms_formally_proved": true,
+  "all_axioms_structurally_supported": true,
   "candidate_axiom_count": 1,
   "control_model": {
     "known_states": [],
@@ -9,8 +9,8 @@
     "transitions": []
   },
   "counts": {
-    "FORMALLY_PROVED": 0,
-    "GROUNDED": 1,
+    "FORMALLY_PROVED": 1,
+    "GROUNDED": 0,
     "PARTIALLY_SUPPORTED": 0,
     "REFUTED": 0,
     "SPEC_PROVED": 0,
@@ -59,8 +59,17 @@
         "updates": [
           {
             "guard": {
-              "name": "_T_1151",
-              "op": "signal"
+              "args": [
+                {
+                  "name": "_T_1150",
+                  "op": "signal"
+                },
+                {
+                  "name": "_T_1151",
+                  "op": "signal"
+                }
+              ],
+              "op": "and"
             },
             "next": {
               "op": "const",
@@ -98,17 +107,67 @@
       "formal": {
         "backend": "explicit-control",
         "certificate": {
-          "inputs": {
-            "_T_1151": 0,
-            "commit_store": 0,
-            "stq_commit_head": 0
+          "base_input_widths": {
+            "_T_1150": 1,
+            "_T_1151": 1,
+            "commit_store": 1,
+            "stq_commit_head": 4
           },
-          "reason": "could not evaluate the complete register writer/control cone",
-          "status": "STRUCTURAL_UNKNOWN"
+          "checked_rows": 128,
+          "data_inputs": [],
+          "default": {
+            "name": "stq_commit_head",
+            "op": "signal"
+          },
+          "priority": "first_match",
+          "proof": "exhaustive finite equivalence proves the complete 4-bit next-state writer priority for stq_commit_head",
+          "proof_domain": "exact-guard-partitioned-register-transition",
+          "register": "stq_commit_head",
+          "status": "STRUCTURALLY_SUPPORTED",
+          "updates": [
+            {
+              "guard": {
+                "args": [
+                  {
+                    "name": "_T_1150",
+                    "op": "signal"
+                  },
+                  {
+                    "name": "_T_1151",
+                    "op": "signal"
+                  }
+                ],
+                "op": "and"
+              },
+              "next": {
+                "op": "const",
+                "value": 0
+              }
+            },
+            {
+              "guard": {
+                "name": "commit_store",
+                "op": "signal"
+              },
+              "next": {
+                "modulus": 16,
+                "op": "modular_increment",
+                "value": {
+                  "name": "stq_commit_head",
+                  "op": "signal"
+                }
+              }
+            }
+          ],
+          "width": 4,
+          "writer_statement_ids": [
+            7920,
+            8109
+          ]
         },
-        "reason": "could not evaluate the complete register writer/control cone",
-        "required_backend_capability": "exact-guarded-register-transition",
-        "status": "FORMAL_UNKNOWN"
+        "proof": "exhaustive finite equivalence proves the complete 4-bit next-state writer priority for stq_commit_head",
+        "proof_method": "exact-guard-partitioned-register-transition",
+        "status": "FORMALLY_PROVED"
       },
       "grounding_status": "GROUNDED",
       "references": {
@@ -116,26 +175,77 @@
         "occurrences": [],
         "predicates": [],
         "signals": [
+          "_T_1150",
           "_T_1151",
           "commit_store",
           "stq_commit_head"
         ]
       },
-      "rendered_formula": "next(stq_commit_head) = first_match(if _T_1151: 0; if commit_store: inc_mod_16(stq_commit_head); default: stq_commit_head)",
+      "rendered_formula": "next(stq_commit_head) = first_match(if (_T_1150 && _T_1151): 0; if commit_store: inc_mod_16(stq_commit_head); default: stq_commit_head)",
       "structural": {
-        "inputs": {
-          "_T_1151": 0,
-          "commit_store": 0,
-          "stq_commit_head": 0
+        "base_input_widths": {
+          "_T_1150": 1,
+          "_T_1151": 1,
+          "commit_store": 1,
+          "stq_commit_head": 4
         },
-        "reason": "could not evaluate the complete register writer/control cone",
-        "status": "STRUCTURAL_UNKNOWN"
+        "checked_rows": 128,
+        "data_inputs": [],
+        "default": {
+          "name": "stq_commit_head",
+          "op": "signal"
+        },
+        "priority": "first_match",
+        "proof": "exhaustive finite equivalence proves the complete 4-bit next-state writer priority for stq_commit_head",
+        "proof_domain": "exact-guard-partitioned-register-transition",
+        "register": "stq_commit_head",
+        "status": "STRUCTURALLY_SUPPORTED",
+        "updates": [
+          {
+            "guard": {
+              "args": [
+                {
+                  "name": "_T_1150",
+                  "op": "signal"
+                },
+                {
+                  "name": "_T_1151",
+                  "op": "signal"
+                }
+              ],
+              "op": "and"
+            },
+            "next": {
+              "op": "const",
+              "value": 0
+            }
+          },
+          {
+            "guard": {
+              "name": "commit_store",
+              "op": "signal"
+            },
+            "next": {
+              "modulus": 16,
+              "op": "modular_increment",
+              "value": {
+                "name": "stq_commit_head",
+                "op": "signal"
+              }
+            }
+          }
+        ],
+        "width": 4,
+        "writer_statement_ids": [
+          7920,
+          8109
+        ]
       },
-      "trusted": false,
-      "validation_level": "GROUNDED"
+      "trusted": true,
+      "validation_level": "FORMALLY_PROVED"
     }
   ],
-  "trusted_axiom_count": 0,
+  "trusted_axiom_count": 1,
   "validation_policy": "Grounding and deterministic finite-control/dataflow checks provide evidence only. They do not make an axiom trusted. Only FORMALLY_PROVED or SPEC_PROVED axioms may constrain parent composition. Missing axioms are handled later by counterexample-guided refinement.",
   "validator": "semantic-validator-0.23",
   "work_unit_id": "LSU::state-0-11"

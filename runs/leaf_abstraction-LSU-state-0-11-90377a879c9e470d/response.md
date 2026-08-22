@@ -21,8 +21,17 @@ Current Formal AST is sufficient.
         "updates": [
           {
             "guard": {
-              "op": "signal",
-              "name": "_T_1151"
+              "op": "and",
+              "args": [
+                {
+                  "op": "signal",
+                  "name": "_T_1150"
+                },
+                {
+                  "op": "signal",
+                  "name": "_T_1151"
+                }
+              ]
             },
             "next": {
               "op": "const",

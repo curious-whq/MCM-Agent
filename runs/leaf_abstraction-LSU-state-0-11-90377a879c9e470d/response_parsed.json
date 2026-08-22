@@ -23,8 +23,17 @@
         "updates": [
           {
             "guard": {
-              "name": "_T_1151",
-              "op": "signal"
+              "args": [
+                {
+                  "name": "_T_1150",
+                  "op": "signal"
+                },
+                {
+                  "name": "_T_1151",
+                  "op": "signal"
+                }
+              ],
+              "op": "and"
             },
             "next": {
               "op": "const",

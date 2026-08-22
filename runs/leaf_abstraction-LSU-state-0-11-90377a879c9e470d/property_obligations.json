@@ -12,8 +12,17 @@
         "updates": [
           {
             "guard": {
-              "name": "_T_1151",
-              "op": "signal"
+              "args": [
+                {
+                  "name": "_T_1150",
+                  "op": "signal"
+                },
+                {
+                  "name": "_T_1151",
+                  "op": "signal"
+                }
+              ],
+              "op": "and"
             },
             "next": {
               "op": "const",
@@ -60,8 +69,17 @@
         "updates": [
           {
             "guard": {
-              "name": "_T_1151",
-              "op": "signal"
+              "args": [
+                {
+                  "name": "_T_1150",
+                  "op": "signal"
+                },
+                {
+                  "name": "_T_1151",
+                  "op": "signal"
+                }
+              ],
+              "op": "and"
             },
             "next": {
               "op": "const",
@@ -90,12 +108,13 @@
         "occurrences": [],
         "predicates": [],
         "signals": [
+          "_T_1150",
           "_T_1151",
           "commit_store",
           "stq_commit_head"
         ]
       },
-      "rendered_formula": "next(stq_commit_head) = first_match(if _T_1151: 0; if commit_store: inc_mod_16(stq_commit_head); default: stq_commit_head)"
+      "rendered_formula": "next(stq_commit_head) = first_match(if (_T_1150 && _T_1151): 0; if commit_store: inc_mod_16(stq_commit_head); default: stq_commit_head)"
     }
   ],
   "schema_version": "umcm-formal-0.5",

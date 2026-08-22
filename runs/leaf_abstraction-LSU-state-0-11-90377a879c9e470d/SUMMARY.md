@@ -7,7 +7,7 @@
 - workflow: `manual-first-workflow-0.9`
 - prompt: `leaf-abstraction-prompt-0.14`
 - schema: `umcm-formal-0.5`
-- workflow status: `VALIDATION_INCOMPLETE`
+- workflow status: `FORMALLY_VALIDATED`
 
 ## Grounding
 
@@ -26,22 +26,22 @@
 
 ## Validation
 
-- GROUNDED: 1
+- GROUNDED: 0
 - PARTIALLY_SUPPORTED: 0
 - STRUCTURALLY_SUPPORTED: 0
-- FORMALLY_PROVED: 0
+- FORMALLY_PROVED: 1
 - SPEC_PROVED: 0
 - REFUTED: 0
-- trusted axioms: 0
+- trusted axioms: 1
 - formal backend: `explicit-control`
 
 ## Axioms
 
-- `A1` [GROUNDED] next(stq_commit_head) = first_match(if _T_1151: 0; if commit_store: inc_mod_16(stq_commit_head); default: stq_commit_head)
+- `A1` [FORMALLY_PROVED] next(stq_commit_head) = first_match(if (_T_1150 && _T_1151): 0; if commit_store: inc_mod_16(stq_commit_head); default: stq_commit_head)
 
 ## Next action
 
-Review unresolved/partial structural obligations and then run a real formal backend.
+The formally proved axioms may be frozen into the trusted leaf µMCM.
 
 ## Durable experiment notes
 
